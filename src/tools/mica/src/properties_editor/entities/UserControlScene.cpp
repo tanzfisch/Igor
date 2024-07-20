@@ -2,31 +2,23 @@
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "UserControlEntity.h"
+#include "UserControlScene.h"
 
 #include "../../MicaDefines.h"
 
-UserControlEntity::UserControlEntity(iEntitySceneID sceneID, iEntityID entityID, const iWidgetPtr parent)
-    : iUserControl(iWidgetType::iUserControl, parent), _sceneID(sceneID), _entityID(entityID)
+UserControlScene::UserControlScene(iEntitySceneID sceneID, const iWidgetPtr parent)
+    : iUserControl(iWidgetType::iUserControl, parent), _sceneID(sceneID)
 {
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID()) != nullptr, "invalid scene id");
-    con_assert(iEntitySystemModule::getInstance().getScene(getSceneID())->getEntity(entityID) != nullptr, "invalid entity id");
 }
 
-void UserControlEntity::init()
+void UserControlScene::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetGroupBox *mainGroupBox = new iWidgetGroupBox(this);
     mainGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    if (_entityID.isValid())
-    {
-        mainGroupBox->setText("Entity");
-    }
-    else
-    {
-        mainGroupBox->setText("Scene");
-    }
+    mainGroupBox->setText("Scene");
     mainGroupBox->setHeaderOnly();
 
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, mainGroupBox);
@@ -39,47 +31,33 @@ void UserControlEntity::init()
     iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
     labelName->setText("Name");
     labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = new iWidgetLineTextEdit(nameLayout);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textName->setEnabled(false);    
+    _textName->setEnabled(false);
 }
 
-void UserControlEntity::update()
+void UserControlScene::update()
 {
     _ignoreUpdate = true;
 
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
-    iEntityPtr entity = scene->getEntity(getEntityID());
-
-    if (entity != nullptr)
-    {
-        _textName->setText(entity->getName());
-    }
-    else
-    {
-        _textName->setText(scene->getName());
-    }
+    _textName->setText(scene->getName());
 
     _ignoreUpdate = false;
 }
 
-void UserControlEntity::updateEntity()
+void UserControlScene::updateScene()
 {
-    if(_ignoreUpdate)
+    if (_ignoreUpdate)
     {
         return;
-    }    
+    }
 }
 
-iEntitySceneID UserControlEntity::getSceneID() const
+iEntitySceneID UserControlScene::getSceneID() const
 {
     return _sceneID;
-}
-
-iEntityID UserControlEntity::getEntityID() const
-{
-    return _entityID;
 }

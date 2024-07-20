@@ -137,12 +137,13 @@ namespace igor
         auto iter = _scenes.find(sceneID);
         if (iter == _scenes.end())
         {
-            con_warn("scene with id " << sceneID << " not found");
             _mutex.unlock();
+            con_warn("scene with id " << sceneID << " not found");
             return;
         }
 
         iEntityScenePtr scene = iter->second;
+        _scenes.erase(iter);
 
         auto activeIter = std::find(_activeScenes.begin(), _activeScenes.end(), scene);
         if (activeIter != _activeScenes.end())
@@ -155,9 +156,9 @@ namespace igor
             _inactiveScenes.erase(inactiveIter);
         }
 
-        delete scene;
-        _scenes.erase(iter);
         _mutex.unlock();
+
+        delete scene;
     }
 
     void iEntitySystemModule::setSimulationRate(float64 simulationRate)
@@ -172,6 +173,8 @@ namespace igor
 
     void iEntitySystemModule::onUpdate()
     {
+        con_endl("iEntitySystemModule::onUpdate() " << _scenes.size());
+
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
 
@@ -210,11 +213,13 @@ namespace igor
 
     void iEntitySystemModule::onPreRender(iEntityScenePtr scene)
     {
+        con_endl("iEntitySystemModule::onPreRender()");
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::PreRender);
     }
 
     void iEntitySystemModule::onRender(iEntityScenePtr scene)
     {
+        con_endl("iEntitySystemModule::onPreRender()");
         scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Render);
     }
 
@@ -272,6 +277,8 @@ namespace igor
 
     void iEntitySystemModule::clear()
     {
+        con_endl("iEntitySystemModule::clear()");
+
         _mutex.lock();
         std::vector<iEntitySceneID> ids;
 
@@ -279,6 +286,7 @@ namespace igor
         {
             ids.push_back(pair.first);
         }
+        _mutex.unlock();
 
         for (const auto &id : ids)
         {
@@ -286,7 +294,6 @@ namespace igor
         }
 
         con_assert(_scenes.empty() && _activeScenes.empty() && _inactiveScenes.empty(), "clean up failed");
-        _mutex.unlock();
     }
 
     void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr entity)

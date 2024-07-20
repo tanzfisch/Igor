@@ -19,12 +19,25 @@ namespace igor
 
     iEntity::iEntity(iEntityPtr entity)
     {
+        const auto components = entity->getComponents();
         setName(entity->getName());
 
-        for(const auto &pair : entity->_components)
+        for (const auto &pair : components)
         {
-            // TODO copy components
+            const auto &typeIndex = pair.first;
+            const iEntityComponentPtr component = pair.second->getCopy();
+            addComponent(typeIndex, component);
         }
+    }
+
+    std::unordered_map<std::type_index, iEntityComponentPtr> iEntity::getComponents()
+    {
+        std::unordered_map<std::type_index, iEntityComponentPtr> result;
+        _mutex.lock();
+        result = _components;
+        _mutex.unlock();
+
+        return result;
     }
 
     void iEntity::setName(const iaString &name)
@@ -34,13 +47,21 @@ namespace igor
 
     void iEntity::addComponent(const std::type_index typeID, iEntityComponentPtr component)
     {
+        _mutex.lock();
         auto iter = _components.find(typeID);
-        con_assert(iter == _components.end(), "component already exists");
+        if (iter != _components.end())
+        {
+            con_err("component already exists");
+            _mutex.unlock();
+            return;
+        }
 
         _components[typeID] = component;
         component->_entity = this;
 
         _addedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
         componentToAdd(typeID);
     }
 
@@ -78,7 +99,10 @@ namespace igor
             return;
         }
 
+        _mutex.lock();
         auto addedComponents = _addedComponents;
+        _mutex.unlock();
+
         std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
 
         for (const auto &pair : addedComponents)
@@ -108,7 +132,9 @@ namespace igor
             }
         }
 
+        _mutex.lock();
         _addedComponents = toKeep;
+        _mutex.unlock();
 
         _componentMask = calcComponentMask();
 
@@ -119,21 +145,26 @@ namespace igor
     {
         _scene->onComponentToRemove(this, typeID);
 
+        _mutex.lock();
         auto iter = _components.find(typeID);
         if (iter == _components.end())
         {
+            _mutex.unlock();
             con_err("trying to remove component that does not exist");
             return;
         }
 
-        if (iter->second->_state == iEntityComponentState::Active)
+        auto component = iter->second;
+        _components.erase(iter);
+        _mutex.unlock();
+
+        if (component->_state == iEntityComponentState::Active)
         {
-            iter->second->onDeactivate(this);
-            iter->second->onUnLoad(this);
+            component->onDeactivate(this);
+            component->onUnLoad(this);
         }
 
-        delete iter->second;
-        _components.erase(iter);
+        delete component;
 
         _componentMask = calcComponentMask();
 
@@ -147,13 +178,13 @@ namespace igor
 
     void iEntity::clearComponents()
     {
+        _mutex.lock();
         const auto components = _components;
+        _mutex.unlock();
         for (const auto &pair : components)
         {
             destroyComponent(pair.first);
         }
-
-        _components.clear();
 
         onEntityChanged();
     }
@@ -382,7 +413,7 @@ namespace igor
         iEntityComponentMask result = 0;
         auto &esm = iEntitySystemModule::getInstance();
 
-        // adding types so the order does not matter
+        _mutex.lock();
         for (const auto &pair : _components)
         {
             if (pair.second->_state == iEntityComponentState::Active)
@@ -390,6 +421,7 @@ namespace igor
                 result |= esm.getComponentMask(pair.first);
             }
         }
+        _mutex.unlock();
 
         return result;
     }

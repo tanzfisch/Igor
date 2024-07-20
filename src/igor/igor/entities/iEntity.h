@@ -228,7 +228,11 @@ namespace igor
 
         /*! type hash of entity
          */
-        iEntityComponentMask _componentMask = 0;
+        std::atomic<iEntityComponentMask> _componentMask;
+
+        /*! mutex to protect the entity
+        */
+        iaMutex _mutex;
 
         /*! ctor with name
 
@@ -288,6 +292,12 @@ namespace igor
         /*! sets dirty hierarchy down the hierarchy
          */
         void setDirtyHierarchyDown();
+
+        /*! \returns copy of components
+
+        for internal use
+        */
+        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();
     };
 
 #include <igor/entities/iEntity.inl>

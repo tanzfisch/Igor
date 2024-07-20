@@ -43,7 +43,7 @@ void PropertiesEditor::setSelection(iNodeID nodeID)
     _userControlProperties = new UserControlProperties(nodeID, _scroll);
 }
 
-void PropertiesEditor::setSelection(const iResourceID &resourceID)
+void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
 {
     deinitProperties();
 
@@ -52,10 +52,22 @@ void PropertiesEditor::setSelection(const iResourceID &resourceID)
         return;
     }
 
-    _userControlProperties = new UserControlProperties(resourceID, _scroll);
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
 }
 
-void PropertiesEditor::setSelection(const iEntitySceneID &sceneID, const iEntityID &entityID)
+void PropertiesEditor::setSelectionScene(const iEntitySceneID &sceneID)
+{
+    deinitProperties();
+
+    if (!sceneID.isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Scene, {sceneID}, _scroll);
+}
+
+void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID)
 {
     deinitProperties();
 
@@ -65,5 +77,5 @@ void PropertiesEditor::setSelection(const iEntitySceneID &sceneID, const iEntity
         return;
     }
 
-    _userControlProperties = new UserControlProperties(sceneID, entityID, _scroll);
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityID}, _scroll);
 }

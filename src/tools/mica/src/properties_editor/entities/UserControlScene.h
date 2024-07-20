@@ -26,37 +26,32 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_ENTITY_H
-#define USERCONTROL_ENTITY_H
+#ifndef USERCONTROL_SCENE_H
+#define USERCONTROL_SCENE_H
 
 #include <igor/igor.h>
 using namespace iaux;
 using namespace igor;
 
-class UserControlEntity : public iUserControl
+/*! user control scene
+*/
+class UserControlScene : public iUserControl
 {
 public:
     /*! init user control
 
-    When there is not entityID given the user control represents the scene it self
-
     \param sceneID scene id
-    \param entityID entity id of entity within given scene
     \param parent the optional parent widget
     */
-    UserControlEntity(iEntitySceneID sceneID, iEntityID entityID, const iWidgetPtr parent = nullptr);
+    UserControlScene(iEntitySceneID sceneID, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlEntity() = default;
+    virtual ~UserControlScene() = default;
 
     /*! \returns scene id
      */
     iEntitySceneID getSceneID() const;
-
-    /*! \returns entity id
-     */
-    iEntityID getEntityID() const;
 
     /*! init ui
      */
@@ -66,18 +61,14 @@ public:
      */
     virtual void update();
 
-    /*! update entity
+    /*! update scene
      */
-    virtual void updateEntity();
+    virtual void updateScene();
 
 private:
     /*! the scene id
      */
-    iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
-
-    /*! the entity id
-     */
-    iEntityID _entityID = iEntityID::getInvalid();
+    iEntitySceneID _sceneID;
 
     /*! flag to prevent endless update loop
      */

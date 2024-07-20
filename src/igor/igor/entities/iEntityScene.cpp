@@ -21,10 +21,13 @@ namespace igor
 
     iEntityScene::~iEntityScene()
     {
-        _mutex.lock();
+        _deleteQueueMutex.lock();
         _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
+
         delete _root;
 
+        _systemsMutex.lock();
         for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
             for (auto system : _systems[i])
@@ -32,7 +35,7 @@ namespace igor
                 delete system;
             }
         }
-        _mutex.lock();
+        _systemsMutex.unlock();
     }
 
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
@@ -96,9 +99,9 @@ namespace igor
 
     void iEntityScene::flushQueues()
     {
-        _mutex.lock();
+        _deleteQueueMutex.lock();
         const auto deleteQueue = std::move(_deleteQueue);
-        _mutex.unlock();
+        _deleteQueueMutex.unlock();
 
         for (auto entity : deleteQueue)
         {
@@ -109,19 +112,16 @@ namespace igor
                 _mutex.unlock();
                 continue;
             }
-            _mutex.unlock();
-
-            iEntitySystemModule::getInstance().getDestroyEntityEvent()(iter->second);
-            delete iter->second;
-
-            _mutex.lock();
             _entities.erase(iter);
             _mutex.unlock();
+
+            iEntitySystemModule::getInstance().getDestroyEntityEvent()(entity);
+            delete entity;
         }
 
-        _mutex.lock();
+        _processQueueMutex.lock();
         const auto processQueue = std::move(_processQueue);
-        _mutex.unlock();
+        _processQueueMutex.unlock();
 
         for (auto entity : processQueue)
         {
@@ -193,9 +193,9 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityPtr entity)
     {
         con_assert(entity != nullptr, "zero pointer");
-        _mutex.lock();
+        _deleteQueueMutex.lock();
         _deleteQueue.push_back(entity);
-        _mutex.unlock();
+        _deleteQueueMutex.unlock();
     }
 
     const iEntitySceneID &iEntityScene::getID() const
@@ -205,17 +205,17 @@ namespace igor
 
     void iEntityScene::onComponentToAdd(iEntityPtr entity, const std::type_index &typeID)
     {
-        _mutex.lock();
+        _processQueueMutex.lock();
         _processQueue.push_back(entity);
-        _mutex.unlock();
+        _processQueueMutex.unlock();
     }
 
     void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        _mutex.lock();
+        _systemsMutex.lock();
         auto systemPhases = _systems;
-        _mutex.unlock();
+        _systemsMutex.unlock();
         for (auto systems : systemPhases)
         {
             for (auto system : systems)
@@ -228,9 +228,9 @@ namespace igor
     void iEntityScene::onComponentRemoved(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        _mutex.lock();
+        _systemsMutex.lock();
         auto systemPhases = _systems;
-        _mutex.unlock();
+        _systemsMutex.unlock();
         for (auto systems : systemPhases)
         {
             for (auto system : systems)
@@ -243,9 +243,9 @@ namespace igor
     void iEntityScene::onComponentToRemove(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        _mutex.lock();
+        _systemsMutex.lock();
         auto systemPhases = _systems;
-        _mutex.unlock();
+        _systemsMutex.unlock();
         for (auto systems : systemPhases)
         {
             for (auto system : systems)
@@ -258,9 +258,9 @@ namespace igor
     void iEntityScene::onEntityChanged(iEntityPtr entity)
     {
         // TODO this seems such a waste
-        _mutex.lock();
+        _systemsMutex.lock();
         auto systemPhases = _systems;
-        _mutex.unlock();
+        _systemsMutex.unlock();
         for (auto systems : systemPhases)
         {
             for (auto system : systems)
@@ -272,45 +272,49 @@ namespace igor
 
     void iEntityScene::addSystem(iEntitySystemPtr system)
     {
-        _mutex.lock();
+        _systemsMutex.lock();
         auto &systems = _systems[(int)system->getStage()];
         con_assert(std::find(systems.begin(), systems.end(), system) == systems.end(), "system already added");
         systems.push_back(system);
         system->_scene = this;
-        _mutex.unlock();
-
-        for (const auto &pair : _entities)
-        {
-            system->onEntityChanged(pair.second);
-        }
 
         iCameraSystem *cameraSystem = dynamic_cast<iCameraSystem *>(system);
         if (cameraSystem != nullptr)
         {
             _cameraSystem = cameraSystem;
+        }        
+        _systemsMutex.unlock();
+
+        _mutex.lock();
+        auto entities = _entities;
+        _mutex.unlock();
+
+        for (const auto &pair : entities)
+        {
+            system->onEntityChanged(pair.second);
         }
     }
 
     void iEntityScene::removeSystem(iEntitySystemPtr system)
     {
-        _mutex.lock();
+        _systemsMutex.lock();
         auto &systems = _systems[(int)system->getStage()];
         auto iter = std::find(systems.begin(), systems.end(), system);
         if (iter == systems.end())
         {
-            _mutex.unlock();
+            _systemsMutex.unlock();
             return;
         }
 
         systems.erase(iter);
-        _mutex.unlock();
-        
+
         system->_scene = nullptr;
 
         if (system == _cameraSystem)
         {
             _cameraSystem = nullptr;
-        }
+        }        
+        _systemsMutex.unlock();
     }
 
     std::vector<iEntityPtr> iEntityScene::getCameras() const

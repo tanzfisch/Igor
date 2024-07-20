@@ -18,6 +18,7 @@
 #include "resources/UserControlTexture.h"
 
 #include "entities/UserControlEntity.h"
+#include "entities/UserControlScene.h"
 
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -26,17 +27,23 @@ UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr pa
     initNodeUI(nodeID);
 }
 
-UserControlProperties::UserControlProperties(const iResourceID &resourceID, const iWidgetPtr parent)
-    : iUserControl(iWidgetType::iUserControl, parent)
+UserControlProperties::UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent)
 {
     initUI();
-    initResourceUI(resourceID);
-}
 
-UserControlProperties::UserControlProperties(const iEntitySceneID &sceneID, const iEntityID &entityID, const iWidgetPtr parent)
-{
-    initUI();
-    initEntityUI(sceneID, entityID);
+    switch(propertyType)
+    {
+        case PropertyType::Resource:
+        initResourceUI(id.front());
+        break;
+        case PropertyType::Scene:
+        initSceneUI(id.front());
+        break;
+        case PropertyType::Entity:
+        con_assert(id.size() == 2, "invalid ids");
+        initEntityUI(id[0], id[1]);
+        break;
+    }
 }
 
 void UserControlProperties::initUI()
@@ -103,11 +110,28 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
     userControl->update();
 }
 
+void UserControlProperties::initSceneUI(const iEntitySceneID &sceneID)
+{
+    if(iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
+    {
+        return;
+    }
+
+    UserControlScene *userControl = new UserControlScene(sceneID, _layout);
+    userControl->init();
+    userControl->update();
+}
+
 void UserControlProperties::initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID)
 {
+    if(iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
+    {
+        return;
+    }
+
     UserControlEntity *userControl = new UserControlEntity(sceneID, entityID, _layout);
     userControl->init();
-    userControl->update();    
+    userControl->update();
 }
 
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)

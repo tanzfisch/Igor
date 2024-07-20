@@ -129,6 +129,10 @@ private:
     void onFileSaveDialogClosed(iDialogPtr dialog);
     void onLoadMaterialFileDialogClosed(iDialogPtr dialog);
 
+    /*! called when outliner selection changed
+    */
+    void onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID);
+
     /*! init ui
 	*/
     void onInit() override;

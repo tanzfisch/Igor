@@ -40,12 +40,12 @@ void UILayer::onInit()
     _outliner = new Outliner();
     _outliner->setEnabled();
     _outliner->setVisible();
-    _outliner->getEntitySelectionChangedEvent().add(EntitySelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _outliner->getEntitySelectionChangedEvent().add(EntitySelectionChangedDelegate(this, &UILayer::onOutlinerSelectionChanged));
 
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
-    _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelectionResource));
 
     _viewport = new Viewport(_workspace);
     _viewport->setEnabled();
@@ -76,6 +76,18 @@ void UILayer::onInit()
     splitter1->setRatio(0.7f);
     splitter1->addWidget(_viewport);
     splitter1->addWidget(_assetBrowser);
+}
+
+void UILayer::onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    if (!entityID.isValid())
+    {
+        _propertiesDialog->setSelectionScene(sceneID);
+    }
+    else
+    {
+        _propertiesDialog->setSelectionEntity(sceneID, entityID);
+    }
 }
 
 void UILayer::onDeinit()
@@ -145,6 +157,8 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().unload();
+
+    _viewport->clear();
 
     iProject::getInstance().load(_fileDialog.getFullPath());
     _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());

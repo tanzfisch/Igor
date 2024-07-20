@@ -37,6 +37,15 @@ using namespace igor;
 class UserControlProperties : public iUserControl
 {
 public:
+    /*! property type definition
+     */
+    enum class PropertyType
+    {
+        Resource,
+        Scene, // aka prefab
+        Entity
+    };
+
     /*! init ui for nodes
 
     \param nodeID the node to represent
@@ -44,20 +53,13 @@ public:
     */
     UserControlProperties(iNodeID nodeID, const iWidgetPtr parent = nullptr);
 
-    /*! init ui for resource
+    /*! init ui with id
 
-    \param resourceID the resource to represent
+    \param propertyType type of property
+    \param id the id chain of what we are looking at
     \param parent the parent widget (optional)
     */
-    UserControlProperties(const iResourceID &resourceID, const iWidgetPtr parent = nullptr);
-
-    /*! init ui for entities
-
-    \param sceneID the given scene
-    \param entityID the entity within given scene (optional)
-    \param parent the parent widget (optional)
-    */
-    UserControlProperties(const iEntitySceneID &sceneID, const iEntityID &entityID = iEntityID::getInvalid(), const iWidgetPtr parent = nullptr);
+    UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
@@ -81,6 +83,12 @@ private:
     \param resourceID id of resource to display
     */
     void initResourceUI(const iResourceID &resourceID);
+
+    /*! initializes entity UI
+
+    \param sceneID the scene id
+    */
+    void initSceneUI(const iEntitySceneID &sceneID);
 
     /*! initializes entity UI
 

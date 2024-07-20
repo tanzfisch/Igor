@@ -183,9 +183,17 @@ namespace igor
 		 */
 		std::vector<iEntityPtr> _deleteQueue;
 
+		/*! delete queue mutex
+		*/
+		iaMutex _deleteQueueMutex;
+
 		/*! entity process queue
 		*/
 		std::vector<iEntityPtr> _processQueue;
+
+		/*! process queue mutex
+		*/
+		iaMutex _processQueueMutex;
 
 		/*! keep one specialized root entity for tree traversal
 		 */
@@ -194,6 +202,10 @@ namespace igor
 		/*! list of systems
 		 */
 		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
+
+		/*! systems mutex
+		*/
+		iaMutex _systemsMutex;
 
 		/*! quadtree
 		 */
