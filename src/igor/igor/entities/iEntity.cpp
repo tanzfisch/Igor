@@ -78,19 +78,21 @@ namespace igor
         _scene->onComponentToAdd(this, typeID);
     }
 
-    void iEntity::processComponents()
+    bool iEntity::processComponents()
     {
         if (!isActive() ||
             _addedComponents.empty())
         {
-            return;
+            return true;
         }
 
         _mutex.lock();
-        auto addedComponents = _addedComponents;
+        auto addedComponents = std::move(_addedComponents);
         _mutex.unlock();
 
         std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
+
+        bool changed = false;
 
         for (const auto &pair : addedComponents)
         {
@@ -102,6 +104,7 @@ namespace igor
                 pair.second->onActivate(this);
                 pair.second->_state = iEntityComponentState::Active;
 
+                changed = true;
                 _scene->onComponentAdded(this, pair.first);
             }
             else
@@ -120,12 +123,17 @@ namespace igor
         }
 
         _mutex.lock();
-        _addedComponents = toKeep;
+        _addedComponents.insert(_addedComponents.end(), toKeep.begin(), toKeep.end());
+        bool processAgain = !_addedComponents.empty();
         _mutex.unlock();
 
-        _componentMask = calcComponentMask();
+        if (changed)
+        {
+            _componentMask = calcComponentMask();
+            onEntityChanged();
+        }
 
-        onEntityChanged();
+        return !processAgain;
     }
 
     void iEntity::destroyComponent(const std::type_index &typeID)

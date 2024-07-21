@@ -47,7 +47,7 @@ namespace igor
         \param prefab the prefab to copy from
         \param entity the given target entity
          */
-        iEntityCopyTraverser(const iPrefabPtr &prefab, const iEntityPtr &entity);
+        iEntityCopyTraverser(const iPrefabPtr &prefab, const iEntityPtr &targetEntity);
 
         /*! does nothing
          */

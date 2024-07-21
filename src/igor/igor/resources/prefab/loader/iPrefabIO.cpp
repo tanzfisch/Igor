@@ -228,10 +228,12 @@ namespace igor
         catch (const std::exception &e)
         {
             con_err("Caught an exception: " << e.what());
+            return false;
         }
         catch (...)
         {
             con_err("Caught an unknown exception.");
+            return false;
         }
 
         return true;

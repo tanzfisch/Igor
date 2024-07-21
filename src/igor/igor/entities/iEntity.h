@@ -258,8 +258,10 @@ namespace igor
         iEntityComponentMask calcComponentMask();
 
         /*! flushes queues
+
+        \returns true if all was processed. false if this needs to be called again
          */
-        void processComponents();
+        bool processComponents();
 
         /*! destroy component by type id
 

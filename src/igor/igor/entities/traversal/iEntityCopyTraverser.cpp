@@ -9,8 +9,8 @@
 namespace igor
 {
 
-    iEntityCopyTraverser::iEntityCopyTraverser(const iPrefabPtr &prefab, const iEntityPtr &entity)
-        : _prefab(prefab), _targetEntity(entity)
+    iEntityCopyTraverser::iEntityCopyTraverser(const iPrefabPtr &prefab, const iEntityPtr &targetEntity)
+        : _prefab(prefab), _targetEntity(targetEntity)
     {
         setIgnoreInactive(false);
     }

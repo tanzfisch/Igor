@@ -396,9 +396,9 @@ namespace igor
             _resources[result->getID()] = result;
         }
 
+        result->setValid(true);
         result->setProcessed(true);
         _resourceProcessedEvent(result->getID());
-        result->setValid(true);
 
         return result;
     }

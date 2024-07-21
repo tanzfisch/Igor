@@ -128,10 +128,19 @@ namespace igor
         const auto processQueue = std::move(_processQueue);
         _processQueueMutex.unlock();
 
+        std::vector<iEntityPtr> processAgain;
+
         for (auto entity : processQueue)
         {
-            entity->processComponents();
+            if(!entity->processComponents())
+            {
+                processAgain.push_back(entity);
+            }
         }
+
+        _processQueueMutex.lock();
+        _processQueue.insert(_processQueue.end(), processAgain.begin(), processAgain.end());
+        _processQueueMutex.unlock();        
     }
 
     void iEntityScene::setName(const iaString &name)

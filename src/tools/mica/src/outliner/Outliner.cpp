@@ -168,7 +168,8 @@ void Outliner::populateTree()
 
         // check if it is loaded
         iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-        if (prefab == nullptr)
+        if (prefab == nullptr || 
+            !prefab->isValid())
         {
             continue;
         }
@@ -189,12 +190,10 @@ void Outliner::populateTree()
 
 void Outliner::onEntityCreated(iEntityPtr entity)
 {
-    con_endl("onEntityCreated");
 }
 
 void Outliner::onEntityDestroyed(iEntityPtr entity)
 {
-    con_endl("onEntityDestroyed");
 }
 
 void Outliner::onDragMove(iDrag &drag, const iaVector2f &mousePos)
