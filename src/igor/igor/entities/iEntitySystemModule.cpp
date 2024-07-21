@@ -176,21 +176,12 @@ namespace igor
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
 
-        int32 maxUpdateCount = 10;
-
-        uint64 entityCount = 0;
-        std::vector<iEntityScenePtr> scenes;
-
         _mutex.lock();
-        for (auto pair : _scenes)
-        {
-            scenes.push_back(pair.second);
-            entityCount += pair.second->_entities.size();
-        }
+        std::vector<iEntityScenePtr> scenes = _activeScenes;
         _mutex.unlock();
 
-        iProfiler::setValue("entity count", entityCount);
-
+        int32 maxUpdateCount = 10;
+        
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
         {
@@ -207,6 +198,13 @@ namespace igor
             _simulationFrameTime = currentTime;
             con_trace("Loosing frames");
         }
+
+        uint64 entityCount = 0;
+        for (auto scene : scenes)
+        {
+            entityCount += scene->_entities.size();
+        }
+        iProfiler::setValue("entity count", entityCount);
     }
 
     void iEntitySystemModule::onPreRender(iEntityScenePtr scene)

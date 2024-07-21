@@ -121,7 +121,7 @@ void Outliner::onResourceLoaded(iResourceID resourceID)
     const iaString resourceType = iResourceManager::getInstance().getType(resourceID);
     if (resourceType == IGOR_RESOURCE_PREFAB)
     {
-        const auto &scenes = iProject::getInstance().getScenes();
+        const auto &scenes = iProject::getInstance().getSubScenes();
         if (std::find(scenes.begin(), scenes.end(), resourceID) != scenes.end())
         {
             refresh();
@@ -157,7 +157,7 @@ void Outliner::populateTree()
     }
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
-    auto scenes = project.getScenes();
+    auto scenes = project.getSubScenes();
 
     for (const auto &resourceID : scenes)
     {

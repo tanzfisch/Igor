@@ -7,9 +7,7 @@
 int main()
 {
 	// call this before you call anything else of Igor
-	igor::startup();
-
-	iProject::getInstance().load("project");
+	igor::startup();	
 
 	// create window and open it
 	iWindowPtr window = igor::iApplication::getInstance().getWindow();
@@ -17,6 +15,8 @@ int main()
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
+
+	iProject::getInstance().load("project");
 	
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Ascent(window));

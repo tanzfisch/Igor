@@ -147,6 +147,7 @@ namespace igor
     iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity)
     {
         iEntityPtr entity = new iEntity(srcEntity->getName());
+        entity->_id = srcEntity->getID();
 
         _mutex.lock();
         con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");

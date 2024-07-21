@@ -9,14 +9,14 @@ int main(void)
 	// call this before you call anything else of Igor
 	igor::startup();
 
-	iProject::getInstance().load("project");
-
 	// create window and open it
 	iWindowPtr window = igor::iApplication::getInstance().getWindow();
 	window->setTitle("Igor - 2D Renderer Example");
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
+
+	iProject::getInstance().load("project");
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example2D(window));

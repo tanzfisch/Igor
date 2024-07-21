@@ -20,7 +20,6 @@ namespace igor
         _targetScene = _targetEntity->getScene();
         _currentEntity = _targetEntity;
 
-
         if(getScene()->hasOctree() && !_targetScene->hasOctree())
         {
             auto &octree = getScene()->getOctree();
