@@ -38,8 +38,18 @@ namespace igor
         }
     }
 
+    iEntityScenePtr iEntityTraverser::getScene() const
+    {
+        return _scene;
+    }
+
     void iEntityTraverser::traverse(iEntityScenePtr scene)
     {
+        if(scene == nullptr)
+        {
+            return;
+        }
+
         _scene = scene;
 
         preTraverse();

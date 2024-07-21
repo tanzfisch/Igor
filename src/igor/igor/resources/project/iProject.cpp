@@ -112,8 +112,8 @@ namespace igor
 
         _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
 
-        iEntityScenePtr projectScene = iEntitySystemModule::getInstance().createScene(_projectName);
-        iEntitySystemModule::getInstance().activateScene(projectScene);
+        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName);
+        iEntitySystemModule::getInstance().activateScene(_projectScene);
 
         if (data.contains("scenes"))
         {
@@ -131,7 +131,7 @@ namespace igor
                 if (loaded)
                 {
                     iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
-                    iEntityPtr entityPrefab = projectScene->createEntity(name);
+                    iEntityPtr entityPrefab = _projectScene->createEntity(name);
                     entityPrefab->addComponent(new iPrefabComponent(prefab));
                     entityPrefab->setActive(active);
                 }
@@ -141,6 +141,11 @@ namespace igor
         con_debug("loaded project file \"" << filename << "\"");
 
         return true;
+    }
+
+    iEntityScenePtr iProject::getScene() const
+    {
+        return _projectScene;
     }
 
     bool iProject::write(const iaString &filename)
@@ -178,7 +183,7 @@ namespace igor
         return true;
     }
 
-    const std::vector<iResourceID> &iProject::getScenes() const
+    const std::vector<iResourceID> &iProject::getSubScenes() const
     {
         return _scenes;
     }

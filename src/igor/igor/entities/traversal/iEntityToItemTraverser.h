@@ -42,7 +42,7 @@ namespace igor
     {
 
     public:
-        /*! does nothing
+        /*! ctor
          */
         iEntityToItemTraverser(iItemPtr item);
 

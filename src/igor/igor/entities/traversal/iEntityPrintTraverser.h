@@ -26,88 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ENTITY_TRAVERSER_H
-#define IGOR_ENTITY_TRAVERSER_H
+#ifndef IGOR_ENTITY_PRINT_TRAVERSER_H
+#define IGOR_ENTITY_PRINT_TRAVERSER_H
 
-#include <igor/iDefines.h>
-#include <igor/entities/iEntityScene.h>
+#include <igor/entities/traversal/iEntityTraverser.h>
 
 namespace igor
 {
 
-    /*! base class for traversing an entity tree
+    /*! entity to item traverser
      */
-    class IGOR_API iEntityTraverser
+    class IGOR_API iEntityPrintTraverser : public iEntityTraverser
     {
 
     public:
         /*! does nothing
          */
-        iEntityTraverser() = default;
+        iEntityPrintTraverser();
 
         /*! does nothing
          */
-        virtual ~iEntityTraverser() = default;
+        ~iEntityPrintTraverser() = default;
 
-        /*! setter if inactive children shall be traversed too
-
-        \param ignoreInactive if true inactive children will be skipped
+    private:      
+        /*! keeps track of indentation
         */
-        void setIgnoreInactive(bool ignoreInactive);
+        uint32 _indentation = 0;
 
-        /*! \returns true if it is ignoring inactive children
-         */
-        bool isIgnoringInactive() const;
-
-        /*! traverses tree of given entity scene
-
-        \param scene scene to traverse
-        */
-        void traverse(iEntityScenePtr scene);
-
-    protected:
         /*! is called before traversal
 
         has to be implemented by deriving class
         */
-        virtual void preTraverse() = 0;
+        void preTraverse() override;
 
         /*! is called before every entity visited
 
         has to be implemented by deriving class
         */
-        virtual bool preOrderVisit(iEntityPtr entity) = 0;
+        bool preOrderVisit(iEntityPtr entity) override;
 
         /*! is called after every entity visited
 
         has to be implemented by deriving class
         */
-        virtual void postOrderVisit(iEntityPtr entity) = 0;
+        void postOrderVisit(iEntityPtr entity) override;
 
         /*! is called after the whole traversal
 
         has to be implemented by deriving class
         */
-        virtual void postTraverse() = 0;
-
-        /*! \returns the scene that is being traversed
-        */
-        iEntityScenePtr getScene() const;
-
-    private:
-        /*! entity scene
-         */
-        iEntityScenePtr _scene = nullptr;
-
-        /*! flag if inactive children shall be traversed too
-         */
-        bool _ignoreInactive = true;
-
-        /*! internal recursive traverse methods
-         */
-        void traverseInternal(iEntityPtr entity, bool useInactive);
+        void postTraverse() override;
     };
 
 }; // namespace igor
 
-#endif // IGOR_ENTITY_TRAVERSER_H
+#endif // IGOR_ENTITY_PRINT_TRAVERSER_H

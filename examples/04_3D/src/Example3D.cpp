@@ -80,6 +80,9 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
     {
     case iKeyCode::Space:
     {
+        iEntityPrintTraverser print;
+        auto scene = iProject::getInstance().getScene();
+        print.traverse(scene);
     }
         return true;
     }

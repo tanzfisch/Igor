@@ -60,6 +60,14 @@ namespace igor
          */
         iaMatrixd _currentMatrix;
 
+        /*! if true scene has quadtree
+        */
+        bool _hasQuadtree = false;
+
+        /*! if true scene has octree
+        */
+        bool _hasOctree = false;
+
         /*! is called before traversal
 
         has to be implemented by deriving class

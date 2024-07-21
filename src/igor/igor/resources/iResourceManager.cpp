@@ -431,14 +431,16 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_trace("cache hit " << result->getType() << " " << result->getInfo());
-
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);
             if (iter != _loadingQueue.end())
             {
                 _loadingQueue.erase(iter);
                 loadNow = true;
+            }
+            else
+            {
+                con_trace("cache hit " << result->getType() << " " << result->getInfo());
             }
         }
         else

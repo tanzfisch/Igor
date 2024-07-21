@@ -19,6 +19,19 @@ namespace igor
     {
         _targetScene = _targetEntity->getScene();
         _currentEntity = _targetEntity;
+
+
+        if(getScene()->hasOctree() && !_targetScene->hasOctree())
+        {
+            auto &octree = getScene()->getOctree();
+            _targetScene->initializeOctree(octree.getVolume(), octree.getSplitThreshold(), octree.getMaxDepth());
+        }
+
+        if(getScene()->hasQuadtree() && !_targetScene->hasQuadtree())
+        {
+            auto &quadtree = getScene()->getQuadtree();
+            _targetScene->initializeQuadtree(quadtree.getArea(), quadtree.getSplitThreshold(), quadtree.getMaxDepth());
+        }        
     }
 
     bool iEntityCopyTraverser::preOrderVisit(iEntityPtr entity)

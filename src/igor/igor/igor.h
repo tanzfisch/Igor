@@ -127,6 +127,7 @@
 #include <igor/entities/components/iPrefabComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
+#include <igor/entities/traversal/iEntityPrintTraverser.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

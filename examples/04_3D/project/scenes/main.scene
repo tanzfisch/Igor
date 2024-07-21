@@ -151,7 +151,7 @@
             }
         ],
         "id": "0xe41e13fa710b9ff4",
-        "name": "",
+        "name": "main",
         "octree": {
             "maxDepth": 16,
             "splitThreshold": 8,

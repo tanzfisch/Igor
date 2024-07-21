@@ -129,7 +129,11 @@ namespace igor
 
         /*! \returns list of scene references
          */
-        const std::vector<iResourceID> &getScenes() const;
+        const std::vector<iResourceID> &getSubScenes() const;
+
+        /*! \returns the project scene
+        */
+        iEntityScenePtr getScene() const;
 
         /*! \returns project scene added event
          */
@@ -155,6 +159,10 @@ namespace igor
         /*! project name
          */
         iaString _projectName;
+
+        /*! the root project scene all other scenes get added to as prefabs
+        */
+        iEntityScenePtr _projectScene = nullptr;
 
         /*! if true project configuration has changes
          */

@@ -18,6 +18,8 @@ namespace igor
 
     void iEntityTransformTraverser::preTraverse()
     {
+        _hasQuadtree = getScene()->hasQuadtree();
+        _hasOctree = getScene()->hasOctree();
         _currentMatrix.identity();
     }
 
@@ -39,11 +41,11 @@ namespace igor
             const iaCircled circle(position._x + collision->_offset._x,
                                    position._y + collision->_offset._y,
                                    collision->_radius);
-            _scene->getQuadtree().update(body->_object, circle);
+            getScene()->getQuadtree().update(body->_object, circle);
         }
         else
         {
-            _scene->getQuadtree().update(body->_object, position);
+            getScene()->getQuadtree().update(body->_object, position);
         }
     }
 
@@ -61,11 +63,11 @@ namespace igor
         if (collision != nullptr)
         {
             const iaSphered sphere(_currentMatrix._pos + collision->getOffset(), collision->getRadius());
-            _scene->getOctree().update(body->_object, sphere);
+            getScene()->getOctree().update(body->_object, sphere);
         }
         else
         {
-            _scene->getOctree().update(body->_object, _currentMatrix._pos);
+            getScene()->getOctree().update(body->_object, _currentMatrix._pos);
         }
     }
 
@@ -78,28 +80,26 @@ namespace igor
             _matrixStack.push_back(_currentMatrix);
         }
 
-        if (entity->isHierarchyDirty())
+        if (!entity->isHierarchyDirty())
         {
-            if (transformComponent != nullptr)
-            {
-                if (transformComponent->updateWorldMatrix(_currentMatrix))
-                {
-                    if (_scene->hasQuadtree())
-                    {
-                        updateQuadtree(entity);
-                    }
-
-                    if (_scene->hasOctree())
-                    {
-                        updateOctree(entity);
-                    }
-                }
-            }
-            entity->setDirtyHierarchy(false);
-            return true;
+            return false;
         }
 
-        return false;
+        if (transformComponent != nullptr &&
+            transformComponent->updateWorldMatrix(_currentMatrix))
+        {
+            if (_hasQuadtree)
+            {
+                updateQuadtree(entity);
+            }
+
+            if (_hasOctree)
+            {
+                updateOctree(entity);
+            }
+        }
+        entity->setDirtyHierarchy(false);
+        return true;
     }
 
     void iEntityTransformTraverser::postOrderVisit(iEntityPtr entity)
