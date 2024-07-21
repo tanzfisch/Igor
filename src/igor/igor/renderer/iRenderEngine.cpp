@@ -21,10 +21,7 @@ namespace igor
     {
         con_assert(camera != nullptr, "zero pointer");
         con_assert(camera->getScene() == _scene, "incompatible scene");
-
-        auto cameraComponent = camera->getComponent<iCameraComponent>();
-        auto transform = camera->getComponent<iTransformComponent>();
-        con_assert(cameraComponent != nullptr && transform != nullptr, "missing components");
+        con_assert(camera->getComponent<iCameraComponent>() != nullptr && camera->getComponent<iTransformComponent>() != nullptr, "missing components");
 
         _cameraID = camera->getID();
     }

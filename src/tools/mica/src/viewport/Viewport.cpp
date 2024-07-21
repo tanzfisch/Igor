@@ -52,6 +52,8 @@ Viewport::Viewport(WorkspacePtr workspace)
     _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));*/
 
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
+
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 }
@@ -64,6 +66,11 @@ Viewport::~Viewport()
     _viewportOverlay->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
 }
 
+void Viewport::onProjectLoaded()
+{
+    _viewportScene->getView().setEntityScene(iProject::getInstance().getScene());
+}
+
 void Viewport::onProjectUnloaded()
 {
     _viewportScene->getView().setEntityScene(nullptr);
@@ -71,19 +78,7 @@ void Viewport::onProjectUnloaded()
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)
 {
-    iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-    if(prefab == nullptr)
-    {
-        return;
-    }
-
-    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
-    if(scene == nullptr)
-    {
-        return;
-    }
-
-    _viewportScene->getView().setEntityScene(scene);
+    // TODO remove?
 }
 
 void Viewport::setOverlayMode(OverlayMode overlayMode)

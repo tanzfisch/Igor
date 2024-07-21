@@ -156,10 +156,6 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    iProject::getInstance().unload();
-
-    _viewport->clear();
-
     iProject::getInstance().load(_fileDialog.getFullPath());
     _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
 }

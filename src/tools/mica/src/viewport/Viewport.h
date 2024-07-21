@@ -213,6 +213,10 @@ private:
     */
     void onResourceLoaded(const iResourceID resourceID);
 
+    /*! called when project was loaded
+    */
+    void onProjectLoaded();
+
     /*! called when project was unloaded
     */
     void onProjectUnloaded();

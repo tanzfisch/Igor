@@ -353,6 +353,7 @@ namespace igor
             return;
         }
         
+        // TODO this is BS _entityScene->setRenderEngine calls _renderEngine->setScene(this);
         _entityScene->setRenderEngine(&_renderEngine);
     }
 

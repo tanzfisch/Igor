@@ -78,9 +78,9 @@
                     {
                         "clearColor": {
                             "a": 1.0,
-                            "b": 0.5,
-                            "g": 0.5,
-                            "r": 0.5
+                            "b": 0.4,
+                            "g": 0.4,
+                            "r": 0.4
                         },
                         "clearColorActive": true,
                         "clearDepth": 1.0,
