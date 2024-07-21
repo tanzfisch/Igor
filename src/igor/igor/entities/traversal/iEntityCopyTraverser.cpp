@@ -53,6 +53,8 @@ namespace igor
     void iEntityCopyTraverser::postTraverse()
     {
         con_assert(_entityStack.size() == 0, "item stack should be empty");
+
+        _targetEntity->setDirtyHierarchy(true);
     }
 
 } // namespace igor

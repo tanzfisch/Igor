@@ -290,11 +290,9 @@ namespace igor
 
     void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr entity)
     {
-        _createdEntityEvent.block();
         iEntityCopyTraverser traverser(prefab, entity);
-        iEntityScenePtr scene = getScene(prefab->getSceneID());
-        traverser.traverse(scene);
-        _createdEntityEvent.unblock();
+        iEntityScenePtr prefabScene = getScene(prefab->getSceneID());
+        traverser.traverse(prefabScene);
     }
 
 } // namespace igor
