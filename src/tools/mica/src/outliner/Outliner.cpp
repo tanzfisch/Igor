@@ -72,7 +72,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
     iItemPtr item = _itemData->getItem(itemPath);
 
-    iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+    iEntitySceneID sceneID = iProject::getInstance().getScene()->getID();
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(sceneID);
     std::vector<iEntityID> entities;
 
@@ -84,7 +84,15 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         entity = scene->getEntity(entityID);
     }
 
-    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(iProject::getInstance().getScene()->getID(), entities);
+    bool subScene = false;
+    if(item->hasValue(IGOR_ITEM_DATA_UUID))
+    {
+        auto prefabID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
+        const auto &subScenes = iProject::getInstance().getSubScenes();
+        subScene = std::find(subScenes.begin(), subScenes.end(), prefabID) != subScenes.end();
+    }
+
+    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(sceneID, entities);
 
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
@@ -100,9 +108,10 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
             _contextMenu.addAction("mica:set_entity_active", actionContext);
         }
     }
-    else
-    {
 
+    if(subScene)
+    {
+        
     }
 
     _contextMenu.open();
@@ -144,9 +153,9 @@ void Outliner::populateTree(iItemPtr item, iEntityScenePtr scene)
 
 void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool active)
 {
-    for (const auto &activeChild : children)
+    for (const auto &child : children)
     {
-        auto prefabComponent = activeChild->getComponent<iPrefabComponent>();
+        auto prefabComponent = child->getComponent<iPrefabComponent>();
         if (prefabComponent == nullptr ||
             prefabComponent->getPrefab() == nullptr ||
             !prefabComponent->getPrefab()->isValid())
@@ -161,6 +170,7 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
         item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, prefab->getID());
         item->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, active);
         item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
+        item->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, child->getID());
 
         iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
         if (scene == nullptr)
