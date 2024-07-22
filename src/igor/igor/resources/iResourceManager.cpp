@@ -396,8 +396,8 @@ namespace igor
             _resources[result->getID()] = result;
         }
 
-        result->setValid(true);
         result->setProcessed(true);
+        result->setValid(true);
         _resourceProcessedEvent(result->getID());
 
         return result;
@@ -456,15 +456,17 @@ namespace igor
 
         if (loadNow)
         {
-            result->setValid(factory->loadResource(result));
+            bool valid = factory->loadResource(result);
 
-            if (result->isValid() &&
+            if (valid &&
                 result->getSource().isEmpty())
             {
                 result->setSource(iResourceManager::getInstance().getFilename(result->getID()));
             }
 
             result->setProcessed(true);
+            result->setValid(valid);
+            
             _resourceProcessedEvent(result->getID());
         }
 
@@ -542,8 +544,16 @@ namespace igor
             // should never fail
             iFactoryPtr factory = getFactory(resource->getParameters());
 
-            resource->setValid(factory->loadResource(resource));
+            bool valid = factory->loadResource(resource);
+
+            if (valid &&
+                resource->getSource().isEmpty())
+            {
+                resource->setSource(iResourceManager::getInstance().getFilename(resource->getID()));
+            }
+
             resource->setProcessed(true);
+            resource->setValid(valid);
             _resourceProcessedEvent(resource->getID());
         }
 

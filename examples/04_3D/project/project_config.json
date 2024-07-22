@@ -2,16 +2,12 @@
     "projectName": "Example 3D",
     "scenes": [
         {
-            "id": "0x25a68c9b0130d191",
-            "name": "main",
-            "loaded": true,
-            "active": true
+            "active": true,
+            "id": "0x25a68c9b0130d191"
         },
         {
-            "id": "0xf5a28394053adbda",
-            "name": "side",
-            "loaded": true,
-            "active": true
-        }        
+            "active": true,
+            "id": "0xf5a28394053adbda"
+        }
     ]
 }

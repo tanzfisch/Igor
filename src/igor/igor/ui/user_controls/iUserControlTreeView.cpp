@@ -75,6 +75,12 @@ namespace igor
             button->setHorizontalTextAlignment(iHorizontalAlignment::Center);
         }
 
+        if (item->hasValue(IGOR_ITEM_DATA_ENABLED))
+        {
+            const bool enabled = item->getValue<bool>(IGOR_ITEM_DATA_ENABLED);
+            // TODO display enabled/disabled
+        }
+
         buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
         buttonLayout->addWidget(button);
 

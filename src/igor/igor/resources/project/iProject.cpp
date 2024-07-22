@@ -122,19 +122,14 @@ namespace igor
             for (const auto &sceneJson : scenesJson)
             {
                 auto prefabID = sceneJson["id"].get<iResourceID>();
-                bool loaded = sceneJson["loaded"].get<bool>();
                 bool active = sceneJson["active"].get<bool>();
-                auto name = sceneJson["name"].get<iaString>();
 
                 addScene(prefabID);
 
-                if (loaded)
-                {
-                    iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
-                    iEntityPtr entityPrefab = _projectScene->createEntity(name);
-                    entityPrefab->addComponent(new iPrefabComponent(prefab));
-                    entityPrefab->setActive(active);
-                }
+                iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
+                iEntityPtr entityPrefab = _projectScene->createEntity();
+                entityPrefab->addComponent(new iPrefabComponent(prefab));
+                entityPrefab->setActive(active);
             }
         }
 
@@ -163,13 +158,39 @@ namespace igor
         }
 
         json scenesJson = json::array();
-        for (auto sceneID : _scenes)
+
+        if (_projectScene != nullptr)
         {
-            iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(sceneID);
-            json sceneJson = {
-                {"id", sceneID},
-                {"loaded", scene != nullptr}};
-            scenesJson.push_back(sceneJson);
+            iEntityPtr root = _projectScene->getRootEntity();
+            for (auto activeChild : root->getChildren())
+            {
+                auto prefabComponent = activeChild->getComponent<iPrefabComponent>();
+                if (prefabComponent == nullptr ||
+                    prefabComponent->getPrefab() == nullptr)
+                {
+                    continue;
+                }
+                
+                json sceneJson = {
+                    {"id", prefabComponent->getPrefab()->getID()},
+                    {"active", true}};
+                scenesJson.push_back(sceneJson);
+            }
+
+            for (auto inactiveChild : root->getInactiveChildren())
+            {
+                auto prefabComponent = inactiveChild->getComponent<iPrefabComponent>();
+                if (prefabComponent == nullptr ||
+                    prefabComponent->getPrefab() == nullptr)
+                {
+                    continue;
+                }
+                
+                json sceneJson = {
+                    {"id", prefabComponent->getPrefab()->getID()},
+                    {"active", false}};
+                scenesJson.push_back(sceneJson);
+            }
         }
 
         json projectJson = {

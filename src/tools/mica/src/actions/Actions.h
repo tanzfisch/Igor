@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ACTIONS__
-#define __ACTIONS__
+#ifndef ACTIONS_H
+#define ACTIONS_H
 
 #include "MicaActionContext.h"
 
@@ -269,8 +269,54 @@ private:
     void bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root);
 };
 
+/*! set entity active action
+*/
+class ActionSetEntityActive : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionSetEntityActive();
+    
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
+/*! set entity inactive action
+*/
+class ActionSetEntityInactive : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionSetEntityInactive();
+    
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
 /*! registers mica actions to action manager
 */
 void registerMicaActions();
 
-#endif // __ACTIONS__
+#endif // ACTIONS_H

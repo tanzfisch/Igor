@@ -144,8 +144,12 @@
 
 #include <igor/ui/iDrag.h>
 #include <igor/ui/iWidgetManager.h>
+
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
+
+#include <igor/ui/actions/context/iEntityActionContext.h>
+
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogColorGradient.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -154,7 +158,9 @@
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
+
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
+
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/widgets/iWidgetColor.h>

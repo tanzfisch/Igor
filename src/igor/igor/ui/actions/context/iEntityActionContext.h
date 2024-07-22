@@ -26,35 +26,55 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTIONCONTEXT__
-#define __IGOR_ACTIONCONTEXT__
+#ifndef IGOR_ENTITY_ACTION_CONTEXT_H
+#define IGOR_ENTITY_ACTION_CONTEXT_H
 
-#include <igor/iDefines.h>
-
-#include <memory>
+#include <igor/ui/actions/context/iActionContext.h>
+#include <igor/entities/iEntityScene.h>
 
 namespace igor
 {
 
-    /*! action constext base class
-	*/
-    class IGOR_API iActionContext
+    /*! entities action context
+     */
+    class IGOR_API iEntityActionContext : public iActionContext
     {
 
     public:
-        /*! does nothing
-		*/
-        iActionContext() = default;
+        /*! init context
 
-        /*! does nothing
-		*/
-        virtual ~iActionContext() = default;
+        \param entitySceneID the scene those entities are in
+        \param entityIDs list of entity IDs to run the action on
+        */
+        iEntityActionContext(const iEntitySceneID &entitySceneID, const std::vector<iEntityID> &entityIDs)
+        : _entitySceneID(entitySceneID), _entityIDs(entityIDs)
+        {
+        }
+
+        /*! returns the scene id
+         */
+        iEntitySceneID getSceneID() const
+        {
+            return _entitySceneID;
+        }
+
+        /*! returns the scene id
+         */
+        const std::vector<iEntityID> &getEntities() const
+        {
+            return _entityIDs;
+        }
+
+    private:
+        /*! entity scene id
+         */
+        iEntitySceneID _entitySceneID;
+
+        /*! IDs of entities
+         */
+        std::vector<iEntityID> _entityIDs;
     };
 
-    /*! action context pointer definition (shared)
-    */
-    typedef std::shared_ptr<iActionContext> iActionContextPtr;
+}
 
-} // namespace igor
-
-#endif // __IGOR_ACTIONCONTEXT__
+#endif // IGOR_ENTITY_ACTION_CONTEXT_H

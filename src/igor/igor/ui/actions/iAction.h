@@ -26,10 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTION__
-#define __IGOR_ACTION__
+#ifndef IGOR_ACTION_H
+#define IGOR_ACTION_H
 
-#include <igor/ui/actions/iActionContext.h>
+#include <igor/ui/actions/context/iActionContext.h>
 #include <igor/resources/texture/iTexture.h>
 
 namespace igor
@@ -118,4 +118,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ACTION__
+#endif // IGOR_ACTION_H

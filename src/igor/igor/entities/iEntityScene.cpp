@@ -199,6 +199,11 @@ namespace igor
         return entity;
     }
 
+    iEntityPtr iEntityScene::getRootEntity() const
+    {
+        return _root;
+    }
+
     iEntityPtr iEntityScene::getEntity(iEntityID entityID)
     {
         iEntityPtr result = nullptr;

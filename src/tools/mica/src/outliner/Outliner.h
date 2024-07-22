@@ -162,6 +162,13 @@ private:
     /*! called when widget was queued for refresh in last frame
      */
     void onRefresh() override;
+
+    /*! populate outliner with sub scenes
+
+    \param children list of entities that represent sub scenes or prefabs
+    \param active if true this subscene will be displayed as active
+    */
+    void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
 };
 
 #endif // MICA_OUTLINER_H

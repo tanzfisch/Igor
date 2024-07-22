@@ -69,13 +69,14 @@ namespace igor
         virtual ~iResource() = default;
 
         /*! \returns true if there is valid data present
+
+        valid also implies that it was processed
          */
         bool isValid() const;
 
         /*! \returns true if the resource was processed
 
-        processed does not mean that it was loaded correctly
-        it can also mean that we are done trying to loading it
+        processed does not imply valid data
         */
         bool isProcessed() const;
 

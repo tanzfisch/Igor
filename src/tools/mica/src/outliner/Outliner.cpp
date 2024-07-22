@@ -61,14 +61,9 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
             _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
         }
     }
-    else if (item->hasValue(IGOR_ITEM_DATA_UUID))
+    else
     {
-        iResourceID resourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
-        iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-        if (scene != nullptr)
-        {
-            con_endl("unloaded scene");
-        }
+        con_err("unexpected item");
     }
 }
 
@@ -77,35 +72,37 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
     iItemPtr item = _itemData->getItem(itemPath);
 
+    iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(sceneID);
+    std::vector<iEntityID> entities;
+
+    iEntityPtr entity = nullptr;
+    if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+    {
+        iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
+        entities.push_back(entityID);
+        entity = scene->getEntity(entityID);
+    }
+
+    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(iProject::getInstance().getScene()->getID(), entities);
+
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
-    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID))
+    if (entity)
     {
-        iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        if (entity->isActive())
         {
-            iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
-            _entitySelectionChangedEvent(sceneID, entityID);
+            _contextMenu.addAction("mica:set_entity_inactive", actionContext);
         }
         else
         {
-            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
+            _contextMenu.addAction("mica:set_entity_active", actionContext);
         }
     }
-    else if (item->hasValue(IGOR_ITEM_DATA_UUID))
+    else
     {
-        iResourceID resourceID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
-        iPrefabPtr scene = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
 
-        if (scene != nullptr)
-        {
-            _contextMenu.addCallback(iClickDelegate(this, &Outliner::onUnloadScene), "Unload Scene", "Unloads the scene", "");
-        }
-        else
-        {
-            _contextMenu.addCallback(iClickDelegate(this, &Outliner::onLoadScene), "Load Scene", "Loads the scene", "");
-        }
     }
 
     _contextMenu.open();
@@ -145,34 +142,25 @@ void Outliner::populateTree(iItemPtr item, iEntityScenePtr scene)
     traverser.traverse(scene);
 }
 
-void Outliner::populateTree()
+void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool active)
 {
-    _treeView->clear();
-
-    auto &project = iProject::getInstance();
-
-    if (!project.isLoaded())
+    for (const auto &activeChild : children)
     {
-        return;
-    }
-
-    _itemData = std::unique_ptr<iItemData>(new iItemData());
-    auto scenes = project.getSubScenes();
-
-    for (const auto &resourceID : scenes)
-    {
-        iaFile file(iResourceManager::getInstance().getFilename(resourceID));
-        iItemPtr item = _itemData->addItem(file.getStem());
-        item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
-        item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, resourceID);
-
-        // check if it is loaded
-        iPrefabPtr prefab = iResourceManager::getInstance().getResource<iPrefab>(resourceID);
-        if (prefab == nullptr || 
-            !prefab->isValid())
+        auto prefabComponent = activeChild->getComponent<iPrefabComponent>();
+        if (prefabComponent == nullptr ||
+            prefabComponent->getPrefab() == nullptr ||
+            !prefabComponent->getPrefab()->isValid())
         {
             continue;
         }
+
+        auto prefab = prefabComponent->getPrefab();
+        iaFile file(prefab->getSource());
+        iItemPtr item = _itemData->addItem(file.getStem());
+        item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+        item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, prefab->getID());
+        item->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, active);
+        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
 
         iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
         if (scene == nullptr)
@@ -180,10 +168,26 @@ void Outliner::populateTree()
             continue;
         }
 
-        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
-
         populateTree(item, scene);
     }
+}
+
+void Outliner::populateTree()
+{
+    _treeView->clear();
+    _itemData = nullptr;
+
+    auto &project = iProject::getInstance();
+    if (!project.isLoaded())
+    {
+        return;
+    }
+
+    _itemData = std::unique_ptr<iItemData>(new iItemData());
+
+    auto projectScene = project.getScene();
+    populateSubScenes(projectScene->getRootEntity()->getChildren(), true);
+    populateSubScenes(projectScene->getRootEntity()->getInactiveChildren(), false);
 
     _treeView->setItems(_itemData.get());
 }

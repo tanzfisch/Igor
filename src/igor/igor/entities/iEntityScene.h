@@ -102,6 +102,10 @@ namespace igor
 		*/
 		iEntityPtr getEntity(iEntityID entityID);
 
+		/*! \returns the root entity
+		*/
+		iEntityPtr getRootEntity() const;
+
 		/*! \returns all entities with camera component
 
 		only if iCameraSystem was added to this scene
