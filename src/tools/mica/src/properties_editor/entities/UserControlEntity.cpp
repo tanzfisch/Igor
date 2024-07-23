@@ -19,14 +19,7 @@ void UserControlEntity::init()
 
     iWidgetGroupBox *mainGroupBox = new iWidgetGroupBox(this);
     mainGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    if (_entityID.isValid())
-    {
-        mainGroupBox->setText("Entity");
-    }
-    else
-    {
-        mainGroupBox->setText("Scene");
-    }
+    mainGroupBox->setText("Entity");
     mainGroupBox->setHeaderOnly();
 
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, mainGroupBox);

@@ -65,6 +65,12 @@ namespace igor
         */
         void traverse(iEntityScenePtr scene);
 
+        /*! traverses tree under given entity
+
+        \param entity the start point to traverse the scene
+        */
+        void traverse(iEntityPtr entity);
+
     protected:
         /*! is called before traversal
 

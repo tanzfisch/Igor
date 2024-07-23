@@ -28,18 +28,19 @@ UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr pa
 }
 
 UserControlProperties::UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent)
+    : iUserControl(iWidgetType::iUserControl, parent)
 {
     initUI();
 
-    switch(propertyType)
+    switch (propertyType)
     {
-        case PropertyType::Resource:
+    case PropertyType::Resource:
         initResourceUI(id.front());
         break;
-        case PropertyType::Scene:
+    case PropertyType::Scene:
         initSceneUI(id.front());
         break;
-        case PropertyType::Entity:
+    case PropertyType::Entity:
         con_assert(id.size() == 2, "invalid ids");
         initEntityUI(id[0], id[1]);
         break;
@@ -112,7 +113,7 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
 
 void UserControlProperties::initSceneUI(const iEntitySceneID &sceneID)
 {
-    if(iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
+    if (iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
     {
         return;
     }
@@ -124,7 +125,7 @@ void UserControlProperties::initSceneUI(const iEntitySceneID &sceneID)
 
 void UserControlProperties::initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID)
 {
-    if(iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
+    if (iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
     {
         return;
     }
@@ -147,7 +148,7 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
     {
         userControl = new UserControlMaterial(resourceID, _layout);
     }
-    else if (resourceType == "texture")
+    else if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
         userControl = new UserControlTexture(resourceID, _layout);
     }

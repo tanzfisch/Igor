@@ -51,14 +51,14 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID))
     {
         iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        if (item->hasValue(IGOR_ITEM_DATA_UUID))
+        {
+            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
+        }
+        else if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
         {
             iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
             _entitySelectionChangedEvent(sceneID, entityID);
-        }
-        else
-        {
-            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
         }
     }
     else
@@ -145,10 +145,19 @@ void Outliner::onUnloadScene(const iWidgetPtr source)
     // TODO unload resource
 }
 
-void Outliner::populateTree(iItemPtr item, iEntityScenePtr scene)
+void Outliner::populateTree(iItemPtr item, iEntityPtr entity)
 {
     iEntityToItemTraverser traverser(item);
-    traverser.traverse(scene);
+
+    for(auto child : entity->getChildren())
+    {
+        traverser.traverse(child);
+    }
+
+    for(auto child : entity->getInactiveChildren())
+    {
+        traverser.traverse(child);
+    }
 }
 
 void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool active)
@@ -172,13 +181,7 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
         item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
         item->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, child->getID());
 
-        iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
-        if (scene == nullptr)
-        {
-            continue;
-        }
-
-        populateTree(item, scene);
+        populateTree(item, child);
     }
 }
 

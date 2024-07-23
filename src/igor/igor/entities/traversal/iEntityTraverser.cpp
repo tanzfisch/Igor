@@ -43,6 +43,20 @@ namespace igor
         return _scene;
     }
 
+    void iEntityTraverser::traverse(iEntityPtr entity)
+    {
+        if(entity == nullptr)
+        {
+            return;
+        }
+
+        _scene = entity->getScene();
+
+        preTraverse();
+        traverseInternal(entity, !_ignoreInactive);
+        postTraverse();
+    }
+
     void iEntityTraverser::traverse(iEntityScenePtr scene)
     {
         if(scene == nullptr)

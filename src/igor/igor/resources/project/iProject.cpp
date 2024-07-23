@@ -128,6 +128,7 @@ namespace igor
 
                 iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
                 iEntityPtr entityPrefab = _projectScene->createEntity();
+                entityPrefab->setName("prefab");
                 entityPrefab->addComponent(new iPrefabComponent(prefab));
                 entityPrefab->setActive(active);
             }

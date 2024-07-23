@@ -99,7 +99,7 @@ private:
 
     /*! populate the entity tree
     */
-    void populateTree(iItemPtr item, iEntityScenePtr scene);
+    void populateTree(iItemPtr item, iEntityPtr entity);
 
     /*! drag move handle
 
