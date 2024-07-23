@@ -179,7 +179,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled(), _checkable && _checked);
+        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);        
     }
 
     void iWidgetButton::setCheckable(bool checkable)

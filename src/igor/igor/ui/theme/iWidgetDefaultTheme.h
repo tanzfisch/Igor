@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETDEFAULTTHEME__
-#define __IGOR_WIDGETDEFAULTTHEME__
+#ifndef IGOR_WIDGET_DEFAULT_THEME_H
+#define IGOR_WIDGET_DEFAULT_THEME_H
 
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTexture.h>
@@ -49,6 +49,7 @@ namespace igor
     public:
         void drawWidgetPicture(iWidgetPicturePtr widget) override;
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
+        void drawWidgetButton(iWidgetButtonPtr widget) override;
         void drawSelection(const iaRectanglef &rect) override;
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
 
@@ -146,10 +147,7 @@ namespace igor
         */
         void drawRectangleInt(const iaRectanglef &rect);
 
-        
-
-        void drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool enabled);
-        void drawButtonFrame(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled);
+        void drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool enabled, const std::vector<iaColor4f> &colors);
         void drawButtonText(const iaRectanglef &rect, const iaString &text);
         void drawCheckBoxFrame(const iaRectanglef &rect, iWidgetState state, bool enabled);
         void drawCheckBox(const iaRectanglef &rect, iWidgetState state, bool enabled, bool checked);
@@ -158,4 +156,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // IGOR_WIDGET_DEFAULT_THEME_H
