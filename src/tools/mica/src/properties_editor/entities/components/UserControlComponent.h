@@ -26,81 +26,63 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_ENTITY_H
-#define USERCONTROL_ENTITY_H
+#ifndef USERCONTROL_COMPONENT_H
+#define USERCONTROL_COMPONENT_H
+
+#include "../../../MicaDefines.h"
 
 #include <igor/igor.h>
 using namespace iaux;
 using namespace igor;
 
-class UserControlEntity : public iUserControl
+class UserControlComponent : public iUserControl
 {
 public:
     /*! init user control
 
-    When there is not entityID given the user control represents the scene it self
-
-    \param sceneID scene id
-    \param entityID entity id of entity within given scene
+    \param scene the given scene
+    \param entity the given entity
+    \param typeName name of component
     \param parent the optional parent widget
     */
-    UserControlEntity(iEntitySceneID sceneID, iEntityID entityID, const iWidgetPtr parent = nullptr);
+    UserControlComponent(const iEntitySceneID &scene, const iEntityID &entity, const iaString &typeName, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    ~UserControlEntity() = default;
-
-    /*! \returns scene id
-     */
-    iEntitySceneID getSceneID() const;
-
-    /*! \returns entity id
-     */
-    iEntityID getEntityID() const;
+    virtual ~UserControlComponent() = default;
 
     /*! init ui
      */
-    void init();
+    virtual void init();
 
     /*! update ui with node data
      */
-    void update();
+    virtual void update();
 
     /*! update entity
      */
-    void updateEntity();
+    virtual void updateComponent();
 
-private:
-    /*! the scene id
+protected:
+    /*! scene id
      */
-    iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
+    iEntitySceneID _sceneID;
 
-    /*! the entity id
+    /*! entity id
      */
-    iEntityID _entityID = iEntityID::getInvalid();
+    iEntityID _entityID;
+
+    /*! name of component type
+    */
+    iaString _typeName;
 
     /*! flag to prevent endless update loop
      */
-    bool _ignoreUpdate = false;    
+    bool _ignoreUpdate = false;
 
-    /*! components layout
-     */
-    iWidgetBoxLayoutPtr _componentsLayout = nullptr;
-
-    /*! text field name
-     */
-    iWidgetLineTextEditPtr _textName = nullptr;
-
-    /*! text field id
-     */
-    iWidgetLineTextEditPtr _textID = nullptr;    
-
-    /*! check box active
+    /*! main layout
     */
-    iWidgetCheckBoxPtr _checkBoxActive = nullptr;
-
-    void onNameChanged(iWidgetPtr source);
-    void onActiveChanged(iWidgetPtr source);
+    iWidgetBoxLayoutPtr _layout = nullptr;
 };
 
-#endif // USERCONTROL_ENTITY_H
+#endif // USERCONTROL_COMPONENT_H

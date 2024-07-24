@@ -250,7 +250,8 @@ namespace igor
         }
 
         json componentsJson = json::array();
-        for (const auto &pair : entity->_components)
+        auto components = entity->getComponents();
+        for (const auto &pair : components)
         {
             iTransformComponent *transform = dynamic_cast<iTransformComponent *>(pair.second);
             if (transform != nullptr)

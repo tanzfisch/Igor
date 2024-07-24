@@ -56,9 +56,6 @@ namespace igor
     class IGOR_API iEntity
     {
         friend class iEntityScene;
-        friend class iEntitySystem;
-        friend class iEntityView;
-        friend class iPrefabIO;
 
     public:
         /*! \returns entity id
@@ -151,6 +148,15 @@ namespace igor
          */
         template <typename T>
         T *getComponent() const;
+
+        /*! \returns component for given type
+        \param typeID the given type
+        */
+        iEntityComponentPtr getComponent(const std::type_index &typeID) const;
+
+        /*! \returns copy of components
+        */
+        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();        
 
         /*! destroys given component by type
          */
@@ -249,7 +255,7 @@ namespace igor
         \param typeID the given type id
         \param component the component to add
         */
-        void addComponent(const std::type_index typeID, iEntityComponentPtr component);
+        void addComponent(const std::type_index &typeID, iEntityComponentPtr component);
 
         /*! calculate type hash from component types
 
@@ -286,12 +292,6 @@ namespace igor
         /*! sets dirty hierarchy down the hierarchy
          */
         void setDirtyHierarchyDown();
-
-        /*! \returns copy of components
-
-        for internal use
-        */
-        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();
     };
 
 #include <igor/entities/iEntity.inl>

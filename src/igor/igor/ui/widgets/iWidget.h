@@ -166,6 +166,7 @@ namespace igor
         iUserControlMaterialChooser,
         iUserControlShaderMaterialChooser,
         iUserControlTreeView,
+        iUserControlVector,
 
         iDialog,
         iDialogColorChooser,

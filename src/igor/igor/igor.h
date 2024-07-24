@@ -187,6 +187,7 @@
 #include <igor/ui/user_controls/iUserControlTextureChooser.h>
 #include <igor/ui/user_controls/iUserControlMaterialChooser.h>
 #include <igor/ui/user_controls/iUserControlShaderMaterialChooser.h>
+#include <igor/ui/user_controls/iUserControlVector.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>

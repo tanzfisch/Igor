@@ -27,12 +27,23 @@ namespace igor
         return result;
     }
 
+    iEntityComponentPtr iEntity::getComponent(const std::type_index &typeID) const
+    {
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            return nullptr;
+        }
+
+        return iter->second;
+    }
+
     void iEntity::setName(const iaString &name)
     {
         _name = name;
     }
 
-    void iEntity::addComponent(const std::type_index typeID, iEntityComponentPtr component)
+    void iEntity::addComponent(const std::type_index &typeID, iEntityComponentPtr component)
     {
         _mutex.lock();
         auto iter = _components.find(typeID);
