@@ -41,10 +41,15 @@ namespace igor
         itemPath.split('/', tokens);
         int indentation = tokens.size();
 
-        const iaString displayName = item->getName();
         iaString path = itemPath;
         path += "/";
-        path += displayName;
+        path += item->getID();
+
+        iaString displayName = item->getID();
+        if (item->hasValue(IGOR_ITEM_DATA_NAME))
+        {
+            displayName = item->getValue<iaString>(IGOR_ITEM_DATA_NAME);
+        }
 
         iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
 
@@ -133,7 +138,7 @@ namespace igor
         return _selectedItemPath;
     }
 
-    iContextMenuTreeViewEvent& iUserControlTreeView::getContextMenuTreeViewEvent()
+    iContextMenuTreeViewEvent &iUserControlTreeView::getContextMenuTreeViewEvent()
     {
         return _contextMenuTreeViewEvent;
     }

@@ -22,7 +22,8 @@ namespace igor
     {
         _itemStack.push_back(_currentItem);
 
-        auto item = _currentItem->addItem(entity->getName());
+        auto item = _currentItem->addItem(entity->getID().toString());
+        item->setValue<iaString>(IGOR_ITEM_DATA_NAME, entity->getName());
         item->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, entity->getID());
         item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, entity->getScene()->getID());
 

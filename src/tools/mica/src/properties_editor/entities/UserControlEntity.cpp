@@ -37,24 +37,55 @@ void UserControlEntity::init()
     _textName = new iWidgetLineTextEdit(nameLayout);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textName->setEnabled(false);    
+    _textName->setEnabled(true);
+    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onNameChanged));
+
+    iWidgetBoxLayoutPtr idLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    idLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    idLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelID = new iWidgetLabel(idLayout);
+    labelID->setText("ID");
+    labelID->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelID->setHorizontalAlignment(iHorizontalAlignment::Left);    
+
+    _textID = new iWidgetLineTextEdit(idLayout);
+    _textID->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textID->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _textID->setEnabled(false);    
+
+    iWidgetBoxLayoutPtr activeLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    activeLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    activeLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelActive = new iWidgetLabel(activeLayout);
+    labelActive->setText("Active");
+    labelActive->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);    
+
+    _checkBoxActive = new iWidgetCheckBox(activeLayout);
+    _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    _checkBoxActive->setEnabled(true);
+    _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 }
 
 void UserControlEntity::update()
 {
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    iEntityPtr entity = scene->getEntity(getEntityID());
+    if(entity == nullptr)
+    {
+        return;
+    }
+
     _ignoreUpdate = true;
 
-    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
-    iEntityPtr entity = scene->getEntity(getEntityID());
-
-    if (entity != nullptr)
-    {
-        _textName->setText(entity->getName());
-    }
-    else
-    {
-        _textName->setText(scene->getName());
-    }
+    _textName->setText(entity->getName());
+    _textID->setText(entity->getID().toString());
+    _checkBoxActive->setChecked(entity->isActive());
 
     _ignoreUpdate = false;
 }
@@ -65,6 +96,21 @@ void UserControlEntity::updateEntity()
     {
         return;
     }    
+
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    iEntityPtr entity = scene->getEntity(getEntityID());
+    if(entity == nullptr)
+    {
+        return;
+    }    
+
+    entity->setName(_textName->getText());
+    entity->setActive(_checkBoxActive->isChecked());
 }
 
 iEntitySceneID UserControlEntity::getSceneID() const
@@ -75,4 +121,14 @@ iEntitySceneID UserControlEntity::getSceneID() const
 iEntityID UserControlEntity::getEntityID() const
 {
     return _entityID;
+}
+
+void UserControlEntity::onActiveChanged(iWidgetPtr source)
+{
+    updateEntity();
+}
+
+void UserControlEntity::onNameChanged(iWidgetPtr source)
+{
+    updateEntity();
 }

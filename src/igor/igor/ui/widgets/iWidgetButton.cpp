@@ -20,11 +20,6 @@ namespace igor
         _reactOnMouseWheel = false;
     }
 
-    iWidgetButton::~iWidgetButton()
-    {
-        _texture = nullptr;
-    }
-
     void iWidgetButton::setAction(const iaString &actionName, const iActionContextPtr context)
     {
         setAction(iActionManager::getInstance().getAction(actionName), context);
@@ -105,12 +100,22 @@ namespace igor
         _iconTexture = texture;
     }
 
-    void iWidgetButton::setTexture(const iaString &textureAlias)
+    iTexturePtr iWidgetButton::getIcon() const
     {
-        setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        return _iconTexture;
     }
 
-    void iWidgetButton::setTexture(iTexturePtr texture)
+    iTexturePtr iWidgetButton::getBackgroundTexture() const
+    {
+        return _texture;
+    }
+
+    void iWidgetButton::setBackgroundTexture(const iaString &textureAlias)
+    {
+        setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+    }
+
+    void iWidgetButton::setBackgroundTexture(iTexturePtr texture)
     {
         _texture = texture;
     }
@@ -133,7 +138,7 @@ namespace igor
                 const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
                 const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
-                if(_iconTexture != nullptr)
+                if (_iconTexture != nullptr)
                 {
                     minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
                 }
@@ -141,7 +146,7 @@ namespace igor
                 {
                     minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize);
                 }
-                
+
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
 
@@ -179,7 +184,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);        
+        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);
     }
 
     void iWidgetButton::setCheckable(bool checkable)

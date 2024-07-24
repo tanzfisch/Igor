@@ -7,19 +7,14 @@
 namespace igor
 {
 
-    void iItem::setName(const iaString &name)
-    {
-        setValue<iaString>(IGOR_ITEM_DATA_NAME, name);
-    }
-
     bool iItem::hasValue(const iaString &key) const
     {
         return _data.hasType(key);
     }
 
-    const iaString iItem::getName() const
+    const iaString iItem::getID() const
     {
-        return getValue<iaString>(IGOR_ITEM_DATA_NAME);
+        return getValue<iaString>(IGOR_ITEM_DATA_ID);
     }
 
     bool iItem::hasData() const
@@ -27,10 +22,10 @@ namespace igor
         return _data.hasData();
     }
 
-    iItemPtr iItem::addItem(const iaString &name)
+    iItemPtr iItem::addItem(const iaString &id)
     {
         _items.emplace_back(std::make_unique<iItem>());
-        _items.back().get()->setName(name);
+        _items.back().get()->setValue<iaString>(IGOR_ITEM_DATA_ID, id);
         _items.back().get()->_parent = this;
         return _items.back().get();
     }

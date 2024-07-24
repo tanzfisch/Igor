@@ -43,9 +43,9 @@ namespace igor
         /*! adds item to this container
 
         \returns newly added item
-        \param name unique name of item
+        \param id unique id of item (unique amongst siblings)
         */
-        iItemPtr addItem(const iaString &name);
+        iItemPtr addItem(const iaString &id);
 
         /*! removes given item from this container
 

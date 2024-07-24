@@ -48,18 +48,12 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
     iItemPtr item = _itemData->getItem(itemPath);
 
-    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID))
+    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) && 
+    item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
     {
         iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        if (item->hasValue(IGOR_ITEM_DATA_UUID))
-        {
-            _entitySelectionChangedEvent(sceneID, iEntityID::getInvalid());
-        }
-        else if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
-        {
-            iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
-            _entitySelectionChangedEvent(sceneID, entityID);
-        }
+        iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
+        _entitySelectionChangedEvent(sceneID, entityID);
     }
     else
     {
@@ -164,23 +158,24 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
 {
     for (const auto &child : children)
     {
-        auto prefabComponent = child->getComponent<iPrefabComponent>();
-        if (prefabComponent == nullptr ||
-            prefabComponent->getPrefab() == nullptr ||
-            !prefabComponent->getPrefab()->isValid())
-        {
-            continue;
-        }
+        auto scene = child->getScene();
+        iItemPtr item = _itemData->addItem(child->getID().toString());
 
-        auto prefab = prefabComponent->getPrefab();
-        iaFile file(prefab->getSource());
-        iItemPtr item = _itemData->addItem(file.getStem());
-        item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
-        item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, prefab->getID());
+        item->setValue<iaString>(IGOR_ITEM_DATA_NAME, child->getName());
         item->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, active);
-        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, prefab->getSceneID());
+        item->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, scene->getID());
         item->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, child->getID());
 
+        auto prefabComponent = child->getComponent<iPrefabComponent>();
+        if (prefabComponent != nullptr &&
+            prefabComponent->getPrefab() != nullptr &&
+            prefabComponent->getPrefab()->isValid())
+        {
+            auto prefab = prefabComponent->getPrefab();    
+            item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, prefab->getID());
+            item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
+        }
+        
         populateTree(item, child);
     }
 }
@@ -207,10 +202,12 @@ void Outliner::populateTree()
 
 void Outliner::onEntityCreated(iEntityPtr entity)
 {
+    refresh();
 }
 
 void Outliner::onEntityDestroyed(iEntityPtr entity)
 {
+    refresh();
 }
 
 void Outliner::onDragMove(iDrag &drag, const iaVector2f &mousePos)

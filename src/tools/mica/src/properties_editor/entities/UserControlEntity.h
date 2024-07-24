@@ -87,9 +87,20 @@ private:
      */
     iWidgetBoxLayoutPtr _layout = nullptr;
 
-    /*! text field type
+    /*! text field name
      */
-    iWidgetLineTextEdit *_textName = nullptr;
+    iWidgetLineTextEditPtr _textName = nullptr;
+
+    /*! text field id
+     */
+    iWidgetLineTextEditPtr _textID = nullptr;    
+
+    /*! check box active
+    */
+    iWidgetCheckBoxPtr _checkBoxActive = nullptr;
+
+    void onNameChanged(iWidgetPtr source);
+    void onActiveChanged(iWidgetPtr source);
 };
 
 #endif // USERCONTROL_ENTITY_H

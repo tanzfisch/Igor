@@ -18,7 +18,6 @@
 #include "resources/UserControlTexture.h"
 
 #include "entities/UserControlEntity.h"
-#include "entities/UserControlScene.h"
 
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -30,16 +29,15 @@ UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr pa
 UserControlProperties::UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
 {
+    con_assert(!id.empty(), "no ids");
+
     initUI();
 
     switch (propertyType)
     {
     case PropertyType::Resource:
         initResourceUI(id.front());
-        break;
-    case PropertyType::Scene:
-        initSceneUI(id.front());
-        break;
+        break;        
     case PropertyType::Entity:
         con_assert(id.size() == 2, "invalid ids");
         initEntityUI(id[0], id[1]);
@@ -107,18 +105,6 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
         return;
     }
 
-    userControl->init();
-    userControl->update();
-}
-
-void UserControlProperties::initSceneUI(const iEntitySceneID &sceneID)
-{
-    if (iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
-    {
-        return;
-    }
-
-    UserControlScene *userControl = new UserControlScene(sceneID, _layout);
     userControl->init();
     userControl->update();
 }

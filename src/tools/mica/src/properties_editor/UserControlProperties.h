@@ -42,7 +42,6 @@ public:
     enum class PropertyType
     {
         Resource,
-        Scene, // aka prefab
         Entity
     };
 
@@ -83,12 +82,6 @@ private:
     \param resourceID id of resource to display
     */
     void initResourceUI(const iResourceID &resourceID);
-
-    /*! initializes entity UI
-
-    \param sceneID the scene id
-    */
-    void initSceneUI(const iEntitySceneID &sceneID);
 
     /*! initializes entity UI
 

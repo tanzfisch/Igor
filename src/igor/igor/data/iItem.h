@@ -71,24 +71,20 @@ namespace igor
          */
         bool hasValue(const iaString &key) const;
 
-        /*! sets name of item
+        /*! \returns id of item
 
-        \param name the name to set on the item
-        */
-        void setName(const iaString &name);
-
-        /*! \returns name of item
+        it's a unique id amongst siblings
          */
-        const iaString getName() const;
+        const iaString getID() const;
 
         /*! adds item to this item
 
         this item retains ownership
 
         \returns newly added item
-        \param name name of the item (must be unique between siblings)
+        \param id if of the item (must be unique between siblings)
         */
-        iItemPtr addItem(const iaString &name);
+        iItemPtr addItem(const iaString &id);
 
         /*! removes given item from this item
 

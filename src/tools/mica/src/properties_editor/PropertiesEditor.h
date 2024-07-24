@@ -62,12 +62,6 @@ public:
     /*! sets selection for entity scene and entity
 
     \param sceneID the scene id
-    */
-    void setSelectionScene(const iEntitySceneID &sceneID);
-
-    /*! sets selection for entity scene and entity
-
-    \param sceneID the scene id
     \param entityID the entity id in the same scene
     */
     void setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID);

@@ -63,6 +63,7 @@ const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
+const iaString IGOR_ITEM_DATA_ID = "id";
 const iaString IGOR_ITEM_DATA_NAME = "name";
 const iaString IGOR_ITEM_DATA_ICON = "icon";
 const iaString IGOR_ITEM_DATA_UUID = "uuid";

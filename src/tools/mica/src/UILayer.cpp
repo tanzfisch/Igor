@@ -80,14 +80,7 @@ void UILayer::onInit()
 
 void UILayer::onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID)
 {
-    if (!entityID.isValid())
-    {
-        _propertiesDialog->setSelectionScene(sceneID);
-    }
-    else
-    {
-        _propertiesDialog->setSelectionEntity(sceneID, entityID);
-    }
+    _propertiesDialog->setSelectionEntity(sceneID, entityID);
 }
 
 void UILayer::onDeinit()

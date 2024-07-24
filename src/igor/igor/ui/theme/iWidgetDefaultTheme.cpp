@@ -166,10 +166,11 @@ namespace igor
         const auto state = widget->getState();
         const auto enabled = widget->isEnabled();
         const auto &background = widget->getBackground();
+        const auto &foreground = widget->getForeground();
         const bool checked = widget->isCheckable() && widget->isChecked();
         const int32 offset = state == iWidgetState::Pressed ? 1 : 0;
-        iTexturePtr texture = nullptr; // TODO
-        iTexturePtr icon = nullptr;    // TODO
+        iTexturePtr texture = widget->getBackgroundTexture();
+        iTexturePtr icon = widget->getIcon();
         const auto &text = widget->getText();
         const auto halign = widget->getHorizontalTextAlignment();
         const auto valign = widget->getVerticalTextAlignment();
@@ -187,7 +188,32 @@ namespace igor
             }
 
             const iaRectanglef picRect(rect._x + offset, rect._y + offset, rect._width, rect._height);
-            drawPicture(picRect, texture, state, enabled);
+            const iaColor4f &color = enabled ? background : COLOR_AMBIENT;
+            iRenderer::getInstance().drawTexturedRectangle(picRect, texture, color, texture->hasTransparency());
+        }        
+
+        if (icon != nullptr)
+        {
+            float32 maxIconSize = std::min(rect._width, rect._height);
+            iaRectanglef picRect;
+
+            switch (halign)
+            {
+            case iHorizontalAlignment::Left:
+                picRect.set(rect.getRight() - offset - rect._height, rect._y + offset, rect._height, rect._height);
+                break;
+
+            case iHorizontalAlignment::Center:
+                picRect.set(rect._x + offset + rect._width * 0.5 - maxIconSize * 0.5, rect._y + offset, rect._height, rect._height);
+                break;
+
+            case iHorizontalAlignment::Right:
+                picRect.set(rect._x + offset, rect._y + offset, rect._height, rect._height);
+                break;
+            };
+
+            const iaColor4f &color = enabled ? foreground : COLOR_AMBIENT;
+            iRenderer::getInstance().drawTexturedRectangle(picRect, icon, color, icon->hasTransparency());
         }
 
         if (!text.isEmpty())
@@ -229,44 +255,12 @@ namespace igor
             drawButtonText(textRect, text);
         }
 
-        if (icon != nullptr)
-        {
-            float32 maxIconSize = std::min(rect._width, rect._height);
-
-            switch (halign)
-            {
-            case iHorizontalAlignment::Left:
-            {
-                iaRectanglef picRect(rect.getRight() - offset - rect._height, rect._y + offset, rect._height, rect._height);
-                drawPicture(picRect, icon, state, enabled);
-            }
-            break;
-
-            case iHorizontalAlignment::Center:
-                if (text.isEmpty())
-                {
-                    iaRectanglef picRect(rect._x + offset + rect._width * 0.5 - maxIconSize * 0.5, rect._y + offset, rect._height, rect._height);
-                    drawPicture(picRect, icon, state, enabled);
-                }
-                break;
-
-            case iHorizontalAlignment::Right:
-            {
-                iaRectanglef picRect(rect._x + offset, rect._y + offset, rect._height, rect._height);
-                drawPicture(picRect, icon, state, enabled);
-            }
-            break;
-            };
-        }
-
+        // comes last since it is semi transparent
         if (checked)
         {
             iRenderer::getInstance().drawFilledRectangle(rect, COLOR_CHECKED_FILL);
             iRenderer::getInstance().drawRectangle(rect, COLOR_CHECKED_BORDER);
         }
-
-        // iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment,
-        // _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled(), _checkable && _checked);
 
         DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }

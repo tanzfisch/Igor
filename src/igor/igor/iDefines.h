@@ -111,6 +111,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameter textu
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameter texture unit 2
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameter texture unit 3
 
+extern const iaString IGOR_ITEM_DATA_ID; //! item data type ID
 extern const iaString IGOR_ITEM_DATA_NAME; //! item data type name
 extern const iaString IGOR_ITEM_DATA_ICON; //! item data type icon
 extern const iaString IGOR_ITEM_DATA_UUID; //! item data type UUID

@@ -55,18 +55,6 @@ void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
     _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
 }
 
-void PropertiesEditor::setSelectionScene(const iEntitySceneID &sceneID)
-{
-    deinitProperties();
-
-    if (!sceneID.isValid())
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Scene, {sceneID}, _scroll);
-}
-
 void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID)
 {
     deinitProperties();
