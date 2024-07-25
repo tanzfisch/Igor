@@ -127,6 +127,18 @@ private:
     */
     void onEntityDestroyed(iEntityPtr entity);
 
+    /*! called when given entity's name changed
+    
+    \param entity the given entity
+    */
+    void onEntityNameChanged(iEntityPtr entity);
+
+    /*! called when hierarchy of given scene changed
+
+    \param scene the given scene
+    */
+    void onHierarchyChanged(iEntityScenePtr scene);
+
     /*! called when scene was added
 
     \param sceneID the resource id of the scene

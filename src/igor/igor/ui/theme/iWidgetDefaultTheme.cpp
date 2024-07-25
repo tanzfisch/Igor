@@ -190,7 +190,7 @@ namespace igor
             const iaRectanglef picRect(rect._x + offset, rect._y + offset, rect._width, rect._height);
             const iaColor4f &color = enabled ? background : COLOR_AMBIENT;
             iRenderer::getInstance().drawTexturedRectangle(picRect, texture, color, texture->hasTransparency());
-        }        
+        }
 
         if (icon != nullptr)
         {
@@ -786,20 +786,18 @@ namespace igor
         {
             const iaColor4f &color = enabled ? COLOR_BLACK : COLOR_DIFFUSE_DARK;
 
-            iRenderer::getInstance().drawLine(rect._x + 2, rect._y + 4, rect._x + rect._width / 2, rect._y + rect._height - 3, color);
-            iRenderer::getInstance().drawLine(rect._x + 3, rect._y + 4, rect._x + rect._width / 2 + 1, rect._y + rect._height - 3, color);
+            iRenderer::getInstance().drawLine(rect._x + 4, rect._y + 8, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
+            iRenderer::getInstance().drawLine(rect._x + 5, rect._y + 8, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
 
-            iRenderer::getInstance().drawLine(rect._x + rect._width - 3, rect._y + 2, rect._x + rect._width / 2, rect._y + rect._height - 3, color);
-            iRenderer::getInstance().drawLine(rect._x + rect._width - 2, rect._y + 2, rect._x + rect._width / 2 + 1, rect._y + rect._height - 3, color);
+            iRenderer::getInstance().drawLine(rect._x + rect._width - 5, rect._y + 4, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
+            iRenderer::getInstance().drawLine(rect._x + rect._width - 4, rect._y + 4, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
         }
     }
 
     void iWidgetDefaultTheme::drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool enabled)
     {
         drawCheckBoxFrame(rect, state, enabled);
-        drawCheckBox(iaRectanglef(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
-                                  rect._y + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f), static_cast<int32>(_fontSize), static_cast<int32>(_fontSize)),
-                     state, enabled, checked);
+        drawCheckBox(iaRectanglef(rect._x, rect._y, rect._height, rect._height), state, enabled, checked);
         drawText(iaRectanglef(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f) + static_cast<int32>(_fontSize) * 2,
                               rect._y + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f), 0, 0),
                  text, 0);

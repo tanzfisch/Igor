@@ -14,7 +14,7 @@ void PropertiesEditor::initGUI()
     setTitle("Properties Editor");
 
     setDockable(true);
-    setMinWidth(380);
+    setMinWidth(450);
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 

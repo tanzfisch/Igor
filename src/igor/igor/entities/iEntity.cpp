@@ -40,7 +40,14 @@ namespace igor
 
     void iEntity::setName(const iaString &name)
     {
+        if(_name == name)
+        {
+            return;
+        }
+
         _name = name;
+
+        iEntitySystemModule::getInstance().getEntityNameChangedEvent()(this);
     }
 
     void iEntity::addComponent(const std::type_index &typeID, iEntityComponentPtr component)
@@ -254,28 +261,30 @@ namespace igor
 
     void iEntity::setParent(iEntityPtr parent)
     {
-        con_assert_sticky(parent != nullptr, "null pointer");
-        con_assert_sticky(parent->getScene() == getScene(), "incompatible scene");
+        if (parent == nullptr)
+        {
+            con_err("invalid pointer");
+            return;
+        }
+
+        if (parent->getScene() != getScene())
+        {
+            con_err("incompatible scene");
+            return;
+        }
 
         removeParent();
 
         _parent = parent;
         _parent->_children.push_back(this);
+
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
     }
 
     void iEntity::setParent(const iEntityID &parentID)
     {
-        removeParent();
-
         iEntityPtr parent = _scene->getEntity(parentID);
-        if (parent == nullptr)
-        {
-            con_err("can't find parent with id:" << parentID);
-            return;
-        }
-
-        _parent = parent;
-        _parent->_children.push_back(this);
+        setParent(parent);
     }
 
     void iEntity::removeParent()
@@ -293,6 +302,7 @@ namespace igor
         }
 
         _parent = _scene->_root;
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
     }
 
     iEntityPtr iEntity::getParent() const

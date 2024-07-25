@@ -269,6 +269,16 @@ namespace igor
         return _destroyEntityEvent;
     }
 
+    iHierarchyChangedEvent &iEntitySystemModule::getHierarchyChangedEvent()
+    {
+        return _hierarchyChangedEvent;
+    }
+
+    iEntityNameChangedEvent &iEntitySystemModule::getEntityNameChangedEvent()
+    {
+        return _entityNameChangedEvent;
+    }
+
     void iEntitySystemModule::clear()
     {
         _mutex.lock();

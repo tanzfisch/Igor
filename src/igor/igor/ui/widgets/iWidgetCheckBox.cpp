@@ -18,7 +18,7 @@ namespace igor
 		: iWidget(iWidgetType::iWidgetCheckBox, iWidgetKind::Widget, parent)
 	{
 		_configuredMinHeight = 20;
-		_configuredMinWidth = 60;
+		_configuredMinWidth = 20;
 		_reactOnMouseWheel = false;
 
 		if (_generatingRadioButtonGroup)

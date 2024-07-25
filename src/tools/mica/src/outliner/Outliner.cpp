@@ -10,6 +10,8 @@ Outliner::Outliner()
 
     iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
+    iEntitySystemModule::getInstance().getHierarchyChangedEvent().add(iHierarchyChangedDelegate(this, &Outliner::onHierarchyChanged));
+    iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
     iProject::getInstance().getProjectSceneAddedEvent().add(iProjectSceneAddedDelegate(this, &Outliner::onSceneAdded));
     iProject::getInstance().getProjectSceneRemovedEvent().add(iProjectSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
     iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
@@ -200,16 +202,6 @@ void Outliner::populateTree()
     _treeView->setItems(_itemData.get());
 }
 
-void Outliner::onEntityCreated(iEntityPtr entity)
-{
-    refresh();
-}
-
-void Outliner::onEntityDestroyed(iEntityPtr entity)
-{
-    refresh();
-}
-
 void Outliner::onDragMove(iDrag &drag, const iaVector2f &mousePos)
 {
     const iMimeData &mimeData = drag.getMimeData();
@@ -266,6 +258,26 @@ void Outliner::onProjectLoaded()
 }
 
 void Outliner::onProjectUnloaded()
+{
+    refresh();
+}
+
+void Outliner::onEntityNameChanged(iEntityPtr entity)
+{
+    refresh();
+}
+
+void Outliner::onEntityCreated(iEntityPtr entity)
+{
+    refresh();
+}
+
+void Outliner::onEntityDestroyed(iEntityPtr entity)
+{
+    refresh();
+}
+
+void Outliner::onHierarchyChanged(iEntityScenePtr scene)
 {
     refresh();
 }

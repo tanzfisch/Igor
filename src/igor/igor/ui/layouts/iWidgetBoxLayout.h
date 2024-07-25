@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_BOX_LAYOUT__
-#define __IGOR_WIDGET_BOX_LAYOUT__
+#ifndef IGOR_WIDGET_BOX_LAYOUT_H
+#define IGOR_WIDGET_BOX_LAYOUT_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -95,6 +95,10 @@ namespace igor
          */
         iWidgetBoxLayoutType _layoutType;
 
+        /*! spacing in pixels
+        */
+        int32 _spacing = 1; // TODO
+ 
         /*! the stretch index
         */
         int32 _stretchIndex = -1;
@@ -116,4 +120,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_BOX_LAYOUT__
+#endif // IGOR_WIDGET_BOX_LAYOUT_H

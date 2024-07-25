@@ -23,7 +23,7 @@ void UserControlComponentTransform::init()
     positionLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     positionLayout->setStretchIndex(1);
     iWidgetLabelPtr labelPosition = new iWidgetLabel(positionLayout);
-    labelPosition->setText("Pos");
+    labelPosition->setText("Position");
     labelPosition->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelPosition->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -36,7 +36,7 @@ void UserControlComponentTransform::init()
     orientationLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     orientationLayout->setStretchIndex(1);
     iWidgetLabelPtr labelOrientation = new iWidgetLabel(orientationLayout);
-    labelOrientation->setText("Ori");
+    labelOrientation->setText("Rotation");
     labelOrientation->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelOrientation->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -49,7 +49,7 @@ void UserControlComponentTransform::init()
     scaleLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     scaleLayout->setStretchIndex(1);
     iWidgetLabelPtr labelScale = new iWidgetLabel(scaleLayout);
-    labelScale->setText("Ori");
+    labelScale->setText("Scale");
     labelScale->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelScale->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -118,5 +118,18 @@ void UserControlComponentTransform::updateComponent()
         return;
     }
 
-    // TODO
+    iTransformComponent* transform = entity->getComponent<iTransformComponent>();
+    if(transform == nullptr)
+    {
+        return;
+    }
+
+    iaVector3d position(_position->getValue(0), _position->getValue(1), _position->getValue(2));
+    iaVector3d orientation(_orientation->getValue(0), _orientation->getValue(1), _orientation->getValue(2));
+    iaVector3d scale(_scale->getValue(0), _scale->getValue(1), _scale->getValue(2));
+
+    transform->setPosition(position);
+    transform->setOrientation(orientation);
+    transform->setScale(scale);
 }
+

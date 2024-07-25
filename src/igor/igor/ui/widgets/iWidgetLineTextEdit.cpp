@@ -50,8 +50,7 @@ namespace igor
 
 		// skip all we don't care about
 		if (character < 32 ||
-			character > 32 + 128 - 1 ||
-			character == 13)
+			character > 126)
 		{
 			return true;
 		}
@@ -133,7 +132,7 @@ namespace igor
 		if (_triggerChangeAtOnce)
 		{
 			handleChanges();
-		}
+		}		
 
 		// always consume the event when widget has keyboard fo
 		return true;

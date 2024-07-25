@@ -31,8 +31,7 @@ namespace igor
             iWidgetLineTextEditPtr textField = new iWidgetLineTextEdit(layout);
             textField->setHorizontalTextAlignment(iHorizontalAlignment::Right);
             textField->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-            textField->setEnabled(true);
-            textField->setMinWidth(95);
+            textField->setMinWidth(80);
             textField->registerOnChangeEvent(iChangeDelegate(this, &iUserControlVector::onValueChanged));
             _textValues.push_back(textField);
         }

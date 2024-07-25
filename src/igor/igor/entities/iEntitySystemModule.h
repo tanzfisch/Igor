@@ -46,6 +46,14 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iDestroyEntity, iEntityPtr);
 
+    /*! event called when hierarchy of given scene has changed
+     */
+    IGOR_EVENT_DEFINITION(iHierarchyChanged, iEntityScenePtr);
+
+    /*! event called when entity name changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityNameChanged, iEntityPtr);
+
     /*! entity system module
      */
     class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
@@ -152,8 +160,16 @@ namespace igor
          */
         iDestroyEntityEvent &getDestroyEntityEvent();
 
+        /*! \returns hierarchy changed event
+         */
+        iHierarchyChangedEvent &getHierarchyChangedEvent();
+
+        /*! \returns entity name changed event
+         */
+        iEntityNameChangedEvent &getEntityNameChangedEvent();
+
         /*! clear everything
-        */
+         */
         void clear();
 
     private:
@@ -170,7 +186,7 @@ namespace igor
         std::vector<iEntityScenePtr> _inactiveScenes;
 
         /*! mutex protecting all data
-        */
+         */
         iaMutex _mutex;
 
         /*! simulation rate in Hz
@@ -188,6 +204,14 @@ namespace igor
         /*! event triggered before entity get's destroyed
          */
         iDestroyEntityEvent _destroyEntityEvent;
+
+        /*! the hierarchy changed event
+         */
+        iHierarchyChangedEvent _hierarchyChangedEvent;
+
+        /*! entity name changed event
+         */
+        iEntityNameChangedEvent _entityNameChangedEvent;
 
         /*! the registered component types
 

@@ -14,7 +14,7 @@ namespace igor
 
     iEntityComponentPtr iCameraComponent::getCopy()
     {
-        iCameraComponent* component = new iCameraComponent();
+        iCameraComponent *component = new iCameraComponent();
         component->_viewport = _viewport;
         component->_projection = _projection;
         component->_fieldOfView = _fieldOfView;

@@ -5,6 +5,7 @@
 #include "UserControlEntity.h"
 
 #include "components/UserControlComponentTransform.h"
+#include "components/UserControlComponentCamera.h"
 
 #include "../../MicaDefines.h"
 
@@ -67,8 +68,7 @@ void UserControlEntity::init()
     labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);    
 
     _checkBoxActive = new iWidgetCheckBox(activeLayout);
-    _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _checkBoxActive->setEnabled(true);
+    _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
     _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 
     iWidgetGroupBoxPtr componentsGroupBox = new iWidgetGroupBox(mainLayout);
@@ -107,6 +107,14 @@ void UserControlEntity::update()
     if(transform != nullptr)
     {
         UserControlComponentTransform* userControl = new UserControlComponentTransform(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto camera = entity->getComponent<iCameraComponent>();
+    if(camera != nullptr)
+    {
+        UserControlComponentCamera* userControl = new UserControlComponentCamera(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
     }

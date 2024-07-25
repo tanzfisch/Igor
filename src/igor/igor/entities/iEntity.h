@@ -36,7 +36,6 @@
 
 namespace igor
 {
-
     /*! entity component mask definition
      */
     typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
@@ -155,8 +154,8 @@ namespace igor
         iEntityComponentPtr getComponent(const std::type_index &typeID) const;
 
         /*! \returns copy of components
-        */
-        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();        
+         */
+        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();
 
         /*! destroys given component by type
          */
@@ -237,7 +236,7 @@ namespace igor
         std::atomic<iEntityComponentMask> _componentMask;
 
         /*! mutex to protect the entity
-        */
+         */
         iaMutex _mutex;
 
         /*! ctor with name
