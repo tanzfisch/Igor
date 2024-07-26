@@ -26,66 +26,52 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_THUMBNAIL_CACHE_H
-#define IGOR_THUMBNAIL_CACHE_H
+// https://wiki.lspace.org/Igor ;-)
+#ifndef IGOR_ANY_H
+#define IGOR_ANY_H
 
-#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/iDefines.h>
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <deque>
+#include <any>
+#include <unordered_map>
+#include <functional>
+#include <typeindex>
 
 namespace igor
 {
 
-    /*! the thumbnail cache (singleton)    
-     */
-    class IGOR_API iThumbnailCache
+    class IGOR_API iAny
     {
-
-        friend class iTaskGenerateThumbnails;
-
     public:
-        /*! \returns singleton instance of thumbnail cache
+        /*! \returns instance of singleton
          */
-        static iThumbnailCache &getInstance();
+        static iAny &getInstance();
 
-        /*! \returns thumbnail for given filename
+        /*! compare two any
 
-        \param filename full path of existing filename
+        \param a first any
+        \param b second any
+        \returns true if types and values match
         */
-        iTexturePtr getThumbnail(const iaString &filename);
+        bool compare(const std::any &a, const std::any &b) const;
 
-        /*! \returns thumbnail for given resource id
-
-        \param resourceID the resource id
+        /*! add types for comparison
         */
-        iTexturePtr getThumbnail(const iResourceID &resourceID);
+        template <typename T>
+        void add();
 
     private:
-        /*! path to thumbnail cache
+        /*! registered types
          */
-        iaString _thumbnailCachePath;
+        std::unordered_map<std::type_index, std::function<bool(const std::any &, const std::any &)>> _comparators;
 
-        /*! queue to process thumbnails
+        /*! init
          */
-        std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
-
-        /*! mutex for processing queue
-         */
-        iaMutex _queueMutex;
-
-        /*! generates thumbnails
-         */
-        void generateThumbnails();
-
-        /*! init cache
-         */
-        iThumbnailCache();
+        iAny();
     };
+
+#include <igor/utils/iAny.inl>
 
 }
 
-#endif // IGOR_THUMBNAIL_CACHE_H
+#endif // IGOR_UTILS_H

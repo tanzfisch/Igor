@@ -482,7 +482,7 @@ void UserControlParticleSystem::init()
     labelMaterial->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _materialChooser = new iUserControlMaterialChooser();
+    _materialChooser = new iUserControlMaterial();
     _materialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();

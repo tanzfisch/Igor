@@ -7,8 +7,8 @@
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -35,12 +35,13 @@ namespace igor
 
         iaVector2d position(_currentMatrix._pos._x, _currentMatrix._pos._y);
 
-        iCircleCollision2DComponent *collision = entity->getComponent<iCircleCollision2DComponent>();
-        if (collision != nullptr)
+        iCircleComponent *component = entity->getComponent<iCircleComponent>();
+        if (component != nullptr)
         {
-            const iaCircled circle(position._x + collision->_offset._x,
-                                   position._y + collision->_offset._y,
-                                   collision->_radius);
+            const auto &offset = component->getOffset();
+            const iaCircled circle(position._x + offset._x,
+                                   position._y + offset._y,
+                                   component->getRadius());
             getScene()->getQuadtree().update(body->_object, circle);
         }
         else
@@ -59,7 +60,7 @@ namespace igor
             return;
         }
 
-        iSphereCollision3DComponent *collision = entity->getComponent<iSphereCollision3DComponent>();
+        iSphereComponent *collision = entity->getComponent<iSphereComponent>();
         if (collision != nullptr)
         {
             const iaSphered sphere(_currentMatrix._pos + collision->getOffset(), collision->getRadius());

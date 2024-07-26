@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_FILE_CHOOSER_H
-#define IGOR_USERCONTROL_FILE_CHOOSER_H
+#ifndef IGOR_USERCONTROL_FILE_H
+#define IGOR_USERCONTROL_FILE_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -42,7 +42,7 @@ namespace igor
 
     /*! User control file chooser
      */
-    class IGOR_API iUserControlFileChooser : public iUserControl
+    class IGOR_API iUserControlFile : public iUserControl
     {
 
     public:
@@ -50,11 +50,11 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlFileChooser(const iWidgetPtr parent = nullptr);
+        iUserControlFile(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlFileChooser();
+        ~iUserControlFile();
 
         /*! sets the filename
 
@@ -148,6 +148,10 @@ namespace igor
         void deinitGUI();
     };
 
+    /*! user control file pointer definition
+     */
+    typedef iUserControlFile *iUserControlFilePtr;
+
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_FILE_CHOOSER_H
+#endif // IGOR_USERCONTROL_FILE_H

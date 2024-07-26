@@ -60,9 +60,9 @@ public:
 private:
     iWidgetGridLayout *_grid = nullptr;
 
-    iUserControlColorChooser *_ambientColorChooser = nullptr;
-    iUserControlColorChooser *_specularColorChooser = nullptr;
-    iUserControlColorChooser *_diffuseColorChooser = nullptr;
+    iUserControlColor *_ambientColorChooser = nullptr;
+    iUserControlColor *_specularColorChooser = nullptr;
+    iUserControlColor *_diffuseColorChooser = nullptr;
 
     iaColor3f _ambient;
     iaColor3f _diffuse;

@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/user_controls/iUserControlShaderMaterialChooser.h>
+#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/resources/iResourceManager.h>
@@ -16,19 +16,19 @@ using namespace iaux;
 namespace igor
 {
 
-    iUserControlShaderMaterialChooser::iUserControlShaderMaterialChooser(const iWidgetPtr parent)
-        : iUserControl(iWidgetType::iUserControlShaderMaterialChooser, parent)
+    iUserControlShaderMaterial::iUserControlShaderMaterial(const iWidgetPtr parent)
+        : iUserControl(iWidgetType::iUserControlShaderMaterial, parent)
     {
         setAcceptDrop(true);
 
         initGUI();
     }
 
-    iUserControlShaderMaterialChooser::~iUserControlShaderMaterialChooser()
+    iUserControlShaderMaterial::~iUserControlShaderMaterial()
     {
     }
 
-    void iUserControlShaderMaterialChooser::initGUI()
+    void iUserControlShaderMaterial::initGUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);       
         _picture = new iWidgetPicture(layout);
@@ -46,7 +46,7 @@ namespace igor
         _labelAlias->setVerticalAlignment(iVerticalAlignment::Top);
     }
 
-    void iUserControlShaderMaterialChooser::setID(iResourceID materialID)
+    void iUserControlShaderMaterial::setID(iResourceID materialID)
     {
         _materialID = materialID;
 
@@ -68,12 +68,12 @@ namespace igor
         _change(this);
     }
 
-    iResourceID iUserControlShaderMaterialChooser::getID() const
+    iResourceID iUserControlShaderMaterial::getID() const
     {
         return _materialID;
     }
 
-    void iUserControlShaderMaterialChooser::onDragMove(iDrag &drag, const iaVector2f &mousePos)
+    void iUserControlShaderMaterial::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
         if (!mimeData.hasResourceID())
@@ -94,7 +94,7 @@ namespace igor
         drag.accept();
     }
 
-    void iUserControlShaderMaterialChooser::onDrop(const iDrag &drag, const iaVector2f &mousePos)
+    void iUserControlShaderMaterial::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
         if (!mimeData.hasResourceID())

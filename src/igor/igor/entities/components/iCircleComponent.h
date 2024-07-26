@@ -26,66 +26,61 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_THUMBNAIL_CACHE_H
-#define IGOR_THUMBNAIL_CACHE_H
+#ifndef IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#define IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
 
-#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/entities/iEntity.h>
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <deque>
+#include <igor/data/iOctree.h>
 
 namespace igor
 {
-
-    /*! the thumbnail cache (singleton)    
+    /*! 2D circle collision component
      */
-    class IGOR_API iThumbnailCache
+    class iCircleComponent : public iEntityComponent
     {
-
-        friend class iTaskGenerateThumbnails;
-
     public:
-        /*! \returns singleton instance of thumbnail cache
+        /*! default ctor
          */
-        static iThumbnailCache &getInstance();
+        iCircleComponent();
 
-        /*! \returns thumbnail for given filename
+        /*! ctor
+         */
+        iCircleComponent(float64 radius, const iaVector2d &offset = iaVector2d());
 
-        \param filename full path of existing filename
+        /*! \returns the circles radius
+         */
+        float64 getRadius() const;
+
+        /*! sets radius
+
+        \param radius the radius to set
         */
-        iTexturePtr getThumbnail(const iaString &filename);
+        void setRadius(float64 radius);
 
-        /*! \returns thumbnail for given resource id
+        /*! \returns the offset position
+         */
+        const iaVector2d &getOffset() const;
 
-        \param resourceID the resource id
+        /*! sets offset
+
+        \param offset the offset to set
         */
-        iTexturePtr getThumbnail(const iResourceID &resourceID);
+        void setOffset(const iaVector2d &offset);
 
     private:
-        /*! path to thumbnail cache
+        /*! the circles radius
          */
-        iaString _thumbnailCachePath;
+        float64 _radius;
 
-        /*! queue to process thumbnails
+        /*! the offset position
          */
-        std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
+        iaVector2d _offset;
 
-        /*! mutex for processing queue
+        /*! \returns a copy of this component
          */
-        iaMutex _queueMutex;
-
-        /*! generates thumbnails
-         */
-        void generateThumbnails();
-
-        /*! init cache
-         */
-        iThumbnailCache();
+        iEntityComponentPtr getCopy() override;
     };
-
 }
 
-#endif // IGOR_THUMBNAIL_CACHE_H
+#endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H

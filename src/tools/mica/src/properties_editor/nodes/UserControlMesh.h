@@ -60,7 +60,7 @@ public:
 private:
     /*! material chooser
      */
-    iUserControlMaterialChooserPtr _materialChooser;
+    iUserControlMaterialPtr _materialChooser;
 
     /*! vertex count text field
      */

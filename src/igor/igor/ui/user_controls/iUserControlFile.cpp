@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlFile.h>
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/layouts/iWidgetGridLayout.h>
@@ -18,54 +18,54 @@
 namespace igor
 {
 
-    iUserControlFileChooser::iUserControlFileChooser(const iWidgetPtr parent)
-        : iUserControl(iWidgetType::iUserControlFileChooser, parent)
+    iUserControlFile::iUserControlFile(const iWidgetPtr parent)
+        : iUserControl(iWidgetType::iUserControlFile, parent)
     {
         initGUI();
     }
 
-    iUserControlFileChooser::~iUserControlFileChooser()
+    iUserControlFile::~iUserControlFile()
     {
         deinitGUI();
     }
 
-    void iUserControlFileChooser::setOptimizePath(bool optimizePath)
+    void iUserControlFile::setOptimizePath(bool optimizePath)
     {
         _optimizePath = optimizePath;
     }
 
-    bool iUserControlFileChooser::getOptimizePath() const
+    bool iUserControlFile::getOptimizePath() const
     {
         return _optimizePath;
     }
 
-    void iUserControlFileChooser::setPreselectedPath(const iaString &path)
+    void iUserControlFile::setPreselectedPath(const iaString &path)
     {
         _preselectedPath = path;
     }
 
-    const iaString &iUserControlFileChooser::getPreselectedPath() const
+    const iaString &iUserControlFile::getPreselectedPath() const
     {
         return _preselectedPath;
     }
 
     IGOR_DISABLE_WARNING(4100)
-    void iUserControlFileChooser::onTextChanged(const iWidgetPtr source)
+    void iUserControlFile::onTextChanged(const iWidgetPtr source)
     {
         _fileNameChanged(_fileNameTextEdit);
     }
 
-    void iUserControlFileChooser::onFileSelectButtonPressed(const iWidgetPtr source)
+    void iUserControlFile::onFileSelectButtonPressed(const iWidgetPtr source)
     {
         if (_fileDialog == nullptr)
         {
             _fileDialog = new iDialogFileSelect();
         }
 
-        _fileDialog->open(iDialogCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), iFileDialogPurpose::Load, _preselectedPath);
+        _fileDialog->open(iDialogCloseDelegate(this, &iUserControlFile::onFileLoadDialogClosed), iFileDialogPurpose::Load, _preselectedPath);
     }
 
-    void iUserControlFileChooser::onFileLoadDialogClosed(iDialogPtr dialog)
+    void iUserControlFile::onFileLoadDialogClosed(iDialogPtr dialog)
     {
         iDialogFileSelect *fileDialog = static_cast<iDialogFileSelect *>(dialog);
 
@@ -86,7 +86,7 @@ namespace igor
     }
     IGOR_ENABLE_WARNING(4100)
 
-    void iUserControlFileChooser::initGUI()
+    void iUserControlFile::initGUI()
     {
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendColumns(1);
@@ -98,19 +98,19 @@ namespace igor
         _fileNameTextEdit->setMaxTextLength(256);
         _fileNameTextEdit->setMinWidth(180); // todo why does strech not work here?
         _fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
+        _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFile::onTextChanged));
 
         iWidgetButtonPtr fileSelectButton = new iWidgetButton();
         fileSelectButton->setText("...");
         fileSelectButton->setTooltip("Browse for file.");
         fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
-        fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
+        fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFile::onFileSelectButtonPressed));
 
         grid->addWidget(_fileNameTextEdit, 0, 0);
         grid->addWidget(fileSelectButton, 1, 0);
     }
 
-    void iUserControlFileChooser::deinitGUI()
+    void iUserControlFile::deinitGUI()
     {
         _fileNameTextEdit = nullptr;
 
@@ -122,23 +122,23 @@ namespace igor
         }
     }
 
-    void iUserControlFileChooser::setFileName(const iaString &filename)
+    void iUserControlFile::setFileName(const iaString &filename)
     {
         _fileNameTextEdit->setText(filename);
         _fileNameChanged(_fileNameTextEdit);
     }
 
-    const iaString &iUserControlFileChooser::getFileName() const
+    const iaString &iUserControlFile::getFileName() const
     {
         return _fileNameTextEdit->getText();
     }
 
-    void iUserControlFileChooser::registerOnChangedDelegate(iChangeDelegate changeDelegate)
+    void iUserControlFile::registerOnChangedDelegate(iChangeDelegate changeDelegate)
     {
         _fileNameChanged.add(changeDelegate);
     }
 
-    void iUserControlFileChooser::unregisterOnChangedDelegate(iChangeDelegate changeDelegate)
+    void iUserControlFile::unregisterOnChangedDelegate(iChangeDelegate changeDelegate)
     {
         _fileNameChanged.remove(changeDelegate);
     }

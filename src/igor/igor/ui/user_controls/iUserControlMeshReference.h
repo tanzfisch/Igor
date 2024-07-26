@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_SHADER_CHOOSER_H
-#define IGOR_USERCONTROL_SHADER_CHOOSER_H
+#ifndef IGOR_USERCONTROL_MESH_REFERENCE_H
+#define IGOR_USERCONTROL_MESH_REFERENCE_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -38,9 +38,9 @@
 namespace igor
 {
 
-    /*! User control shader material chooser
+    /*! User control texture chooser
      */
-    class IGOR_API iUserControlShaderMaterialChooser : public iUserControl
+    class IGOR_API iUserControlMeshReference : public iUserControl
     {
 
     public:
@@ -48,38 +48,43 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlShaderMaterialChooser(const iWidgetPtr parent = nullptr);
+        iUserControlMeshReference(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlShaderMaterialChooser();
+        ~iUserControlMeshReference();
 
-        /*! sets the material id
+        /*! sets the model id
 
-        \param materialID the given material id
+        \param modelID the given model id
+        \param meshPath the mesh path to use
         */
-        void setID(iResourceID materialID);
+        void setReference(const iResourceID &modelID, const iaString &meshPath);
 
-        /*! \returns material id
-         */
-        iResourceID getID() const;
+        /*! \returns texture id
+         */        
+        iResourceID getModelID() const;
+
+        /*! \returns mesh path
+        */
+        const iaString &getMeshPath() const;
 
     private:
-        /*! material ID
+        /*! model id
          */
-        iResourceID _materialID;
+        iResourceID _modelID;
 
-        /*! label material id
+        /*! reference path within model
+        */
+        iWidgetLabelPtr _meshPath;
+
+        /*! label model id
          */
         iWidgetLabelPtr _labelID;
 
-        /*! material alias
+        /*! label alias
          */
         iWidgetLabelPtr _labelAlias;
-
-        /*! displays the selected material
-         */
-        iWidgetPicturePtr _picture;
 
         /*! initialize gui elements
          */
@@ -100,10 +105,10 @@ namespace igor
         void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
-    /*! user control shader material chooser pointer definition
+    /*! user control texture chooser pointer definition
      */
-    typedef iUserControlShaderMaterialChooser *iUserControlShaderMaterialChooserPtr;
+    typedef iUserControlMeshReference *iUserControlMeshReferencePtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_SHADER_CHOOSER_H
+#endif // IGOR_USERCONTROL_MESH_REFERENCE_H

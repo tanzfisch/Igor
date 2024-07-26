@@ -312,7 +312,7 @@ iEntityID GameLayer::createPlayer()
     wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_wagiu_a5"));
     entity->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
     entity->addComponent(new iPartyComponent(FRIEND));
-    entity->addComponent(new iCircleCollision2DComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
+    entity->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
     entity->addComponent(new iQuadtreeComponent());
 
     iAnimationControllerPtr animationController(new iAnimationController());
@@ -606,7 +606,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     const auto &transform = entity->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)));
     entity->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
     entity->addComponent(new iPartyComponent(party));
-    entity->addComponent(new iCircleCollision2DComponent(COIN_SIZE * 0.5));
+    entity->addComponent(new iCircleComponent(COIN_SIZE * 0.5));
     entity->addComponent(new iQuadtreeComponent());
 
     entity->addComponent(new PickupComponent(true));
@@ -667,7 +667,7 @@ void GameLayer::createShop()
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
     shop->addComponent(new iPartyComponent(FRIEND));
-    shop->addComponent(new iCircleCollision2DComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
+    shop->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
     shop->addComponent(new ModifierComponent({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f}));
     shop->addComponent(new WeaponComponent(_weapons["Minigun"]));
@@ -755,7 +755,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture));
     unit->addComponent(new iSpriteRenderComponent(sprite, iaVector2d(enemyClass._size, enemyClass._size)));
     unit->addComponent(new iPartyComponent(party));
-    unit->addComponent(new iCircleCollision2DComponent(enemyClass._size * 0.5));
+    unit->addComponent(new iCircleComponent(enemyClass._size * 0.5));
     unit->addComponent(new iQuadtreeComponent());
 
     iAnimationControllerPtr animationController(new iAnimationController());
@@ -1211,7 +1211,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         iSpritePtr sprite = iResourceManager::getInstance().createResource<iSprite>();
         sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(weapon->_config._texture));
         bullet->addComponent(new iSpriteRenderComponent(sprite));
-        bullet->addComponent(new iCircleCollision2DComponent(weapon->_config._size * 0.5));
+        bullet->addComponent(new iCircleComponent(weapon->_config._size * 0.5));
         bullet->addComponent(new iQuadtreeComponent());
         bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->_config._damageFactor));
         bullet->addComponent(new HealthComponent(100.0f, true));

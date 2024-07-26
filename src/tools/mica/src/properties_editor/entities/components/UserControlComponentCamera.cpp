@@ -118,7 +118,7 @@ void UserControlComponentCamera::init()
     clearColorLayout->setStretchIndex(1);
     new iWidgetSpacer(MICA_REGULARBUTTON_SIZE, 0, false, clearColorLayout);
 
-    _clearColor = new iUserControlColorChooser(clearColorLayout);
+    _clearColor = new iUserControlColor(clearColorLayout);
     _clearColor->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _clearColor->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 

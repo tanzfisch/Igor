@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_COLOR_CHOOSER_H
-#define IGOR_USERCONTROL_COLOR_CHOOSER_H
+#ifndef IGOR_USERCONTROL_COLOR_H
+#define IGOR_USERCONTROL_COLOR_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -66,7 +66,7 @@ namespace igor
     \bug color chooser disappears when unfolded and folded again
     \todo use drawGradient instead of textures for the color component sliders than we could manipulate them dynamically
     */
-    class IGOR_API iUserControlColorChooser : public iUserControl
+    class IGOR_API iUserControlColor : public iUserControl
     {
 
     public:
@@ -74,11 +74,11 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlColorChooser(const iWidgetPtr parent = nullptr);
+        iUserControlColor(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        virtual ~iUserControlColorChooser();
+        virtual ~iUserControlColor();
 
         /*! blocks all outgoing events
          */
@@ -514,8 +514,8 @@ namespace igor
 
     /*! user control color chooser pointer definition
      */
-    typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+    typedef iUserControlColor *iUserControlColorPtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_COLOR_CHOOSER_H
+#endif // IGOR_USERCONTROL_COLOR_H

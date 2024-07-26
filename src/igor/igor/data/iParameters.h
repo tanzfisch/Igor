@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PARAMETERS__
-#define __IGOR_PARAMETERS__
+#ifndef IGOR_PARAMETERS_H
+#define IGOR_PARAMETERS_H
 
 #include <igor/iDefines.h>
 
@@ -115,4 +115,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_PARAMETERS__
+#endif // IGOR_PARAMETERS_H

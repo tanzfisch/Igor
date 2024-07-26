@@ -9,12 +9,12 @@
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iLightComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 
@@ -86,14 +86,14 @@ namespace igor
 
     static void readSphere(iEntityPtr entity, const json &componentJson)
     {
-        iSphereCollision3DComponent *component = new iSphereCollision3DComponent();
+        iSphereComponent *component = new iSphereComponent();
         entity->addComponent(component);
 
         component->setRadius(componentJson["radius"].get<float64>());
         component->setOffset(componentJson["offset"].get<iaVector3d>());
     }
 
-    static void writeSphere(json &componentJson, iSphereCollision3DComponent *component)
+    static void writeSphere(json &componentJson, iSphereComponent *component)
     {
         componentJson["radius"] = component->getRadius();
         componentJson["offset"] = component->getOffset();
@@ -273,7 +273,7 @@ namespace igor
                 continue;
             }
 
-            iSphereCollision3DComponent *sphereCollision = dynamic_cast<iSphereCollision3DComponent *>(pair.second);
+            iSphereComponent *sphereCollision = dynamic_cast<iSphereComponent *>(pair.second);
             if (sphereCollision != nullptr)
             {
                 json componentJson;

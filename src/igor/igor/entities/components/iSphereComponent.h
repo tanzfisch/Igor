@@ -35,16 +35,16 @@ namespace igor
 {
     /*! 3D sphere collision component
      */
-    class iSphereCollision3DComponent : public iEntityComponent
+    class iSphereComponent : public iEntityComponent
     {
     public:
         /*! default ctor
         */
-        iSphereCollision3DComponent() = default;
+        iSphereComponent() = default;
 
         /*! ctor
          */
-        iSphereCollision3DComponent(float64 radius, const iaVector3d &offset = iaVector3d())
+        iSphereComponent(float64 radius, const iaVector3d &offset = iaVector3d())
             : _radius(radius), _offset(offset)
         {
         }

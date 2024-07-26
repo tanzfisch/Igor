@@ -12,7 +12,7 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -53,7 +53,7 @@ namespace igor
         grid->setCellSpacing(4);
         grid->setBorder(4);
 
-        _userControlColorChooser = new iUserControlColorChooser();
+        _userControlColorChooser = new iUserControlColor();
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);

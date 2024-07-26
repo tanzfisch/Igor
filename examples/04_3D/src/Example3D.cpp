@@ -39,7 +39,7 @@ void Example3D::onInit()
 
     iEntityPtr cat = _entityScene->createEntity("cat");
     cat->addComponent(new iTransformComponent(iaVector3d(0, -0.3, -0.25)));
-    cat->addComponent(new iSphereCollision3DComponent(1));
+    cat->addComponent(new iSphereComponent(1));
     cat->addComponent(new iOctreeComponent());
 
     iModelPtr modelCat = iResourceManager::getInstance().requestResource<iModel>("example_model_cat");

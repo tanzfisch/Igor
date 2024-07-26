@@ -21,8 +21,8 @@
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iPrefabComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
@@ -41,8 +41,8 @@ namespace igor
         registerComponentType<iLightComponent>();
         registerComponentType<iQuadtreeComponent>();
         registerComponentType<iOctreeComponent>();
-        registerComponentType<iCircleCollision2DComponent>();
-        registerComponentType<iSphereCollision3DComponent>();
+        registerComponentType<iCircleComponent>();
+        registerComponentType<iSphereComponent>();
         registerComponentType<iVelocityComponent>();
         registerComponentType<iBehaviourComponent>();
         registerComponentType<iGlobalBoundaryComponent>();

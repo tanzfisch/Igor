@@ -26,50 +26,47 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
-#define IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#ifndef USERCONTROL_COMPONENT_MESH_REFERENCE_H
+#define USERCONTROL_COMPONENT_MESH_REFERENCE_H
 
-#include <igor/entities/iEntity.h>
+#include "UserControlComponent.h"
 
-#include <igor/data/iOctree.h>
-
-namespace igor
+class UserControlComponentMeshReference : public UserControlComponent
 {
-    /*! 2D circle collision component
+public:
+    /*! init user control
+
+    \param scene the given scene
+    \param entity the given entity
+    \param parent the optional parent widget
+    */
+    UserControlComponentMeshReference(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+
+    /*! does nothing
      */
-    class iCircleCollision2DComponent : public iEntityComponent
-    {
-    public:
-        /*! default ctor
-        */
-        iCircleCollision2DComponent();
+    virtual ~UserControlComponentMeshReference() = default;
 
-        /*! ctor
-        */
-        iCircleCollision2DComponent(float64 radius, const iaVector2d &offset = iaVector2d());
-        
-        /*! \returns the circles radius
-         */
-        float64 getRadius() const;
+    /*! init ui
+     */
+    void init() override;
 
-        /*! \returns the offset position
-         */
-        const iaVector2d& getOffset() const;
+    /*! update ui with node data
+     */
+    void update() override;
 
-        /*! the circles radius
-         */
-        float64 _radius;
+    /*! update entity
+     */
+    void updateComponent() override;
 
-        /*! the offset position
-         */
-        iaVector2d _offset;
+private:
 
-    private:
+    /*! mesh reference
+    */
+    iUserControlMeshReferencePtr _meshReference;
 
-        /*! \returns a copy of this component
-        */
-        iEntityComponentPtr getCopy() override;    
-    };
-}
+    /*! called after values changed
+    */
+    void onValueChanged(iWidgetPtr source);
+};
 
-#endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H
+#endif // USERCONTROL_COMPONENT_MESH_REFERENCE_H

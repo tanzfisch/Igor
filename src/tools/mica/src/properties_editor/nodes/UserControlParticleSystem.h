@@ -82,7 +82,7 @@ private:
 
     /*! material chooser
      */
-    iUserControlMaterialChooserPtr _materialChooser;
+    iUserControlMaterialPtr _materialChooser;
 
     /*! check box to switch on/off the particle system loop
      */

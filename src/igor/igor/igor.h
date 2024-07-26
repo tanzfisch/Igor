@@ -115,12 +115,12 @@
 
 #include <igor/entities/components/iComponents.h> // more cponents
 #include <igor/entities/components/iCameraComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iLightComponent.h>
@@ -181,13 +181,14 @@
 #include <igor/ui/widgets/iWidgetSplitter.h>
 #include <igor/ui/widgets/iWidgetViewport.h>
 
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
+#include <igor/ui/user_controls/iUserControlFile.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
-#include <igor/ui/user_controls/iUserControlTextureChooser.h>
-#include <igor/ui/user_controls/iUserControlMaterialChooser.h>
-#include <igor/ui/user_controls/iUserControlShaderMaterialChooser.h>
+#include <igor/ui/user_controls/iUserControlTexture.h>
+#include <igor/ui/user_controls/iUserControlMaterial.h>
+#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
 #include <igor/ui/user_controls/iUserControlVector.h>
+#include <igor/ui/user_controls/iUserControlMeshReference.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>

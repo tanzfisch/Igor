@@ -38,7 +38,7 @@ namespace igor
 {
 
     class iWidgetColorGradient;
-    class iUserControlColorChooser;
+    class iUserControlColor;
     class iWidgetNumberChooser;
 
     /*! the color chooser dialog
@@ -102,7 +102,7 @@ namespace igor
 
         /*! color chooser
 		*/
-        iUserControlColorChooser *_colorChooser = nullptr;
+        iUserControlColor *_colorChooser = nullptr;
 
         /*! position number chooser
 		*/

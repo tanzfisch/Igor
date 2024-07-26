@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/data/iIntersection.h>
+#include <igor/utils/iAny.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -145,6 +146,21 @@ namespace igor
 
         delete _selectBox;
         _selectBox = nullptr;
+    }
+
+    void iWidgetSelectBox::setSelection(const std::any &userData)
+    {
+        uint32 index = 0;
+        for(const auto &pair :_entries)   
+        {
+            if(iAny::getInstance().compare(userData, pair.second))
+            {
+                setSelection(index);
+                return;
+            }
+
+            index++;
+        }
     }
 
     void iWidgetSelectBox::setSelection(uint32 key)

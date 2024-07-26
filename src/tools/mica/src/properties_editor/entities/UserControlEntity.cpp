@@ -6,6 +6,11 @@
 
 #include "components/UserControlComponentTransform.h"
 #include "components/UserControlComponentCamera.h"
+#include "components/UserControlComponentCircle.h"
+#include "components/UserControlComponentSphere.h"
+#include "components/UserControlComponentLight.h"
+#include "components/UserControlComponentMeshReference.h"
+#include "components/UserControlComponentMeshRender.h"
 
 #include "../../MicaDefines.h"
 
@@ -38,7 +43,7 @@ void UserControlEntity::init()
     iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
     labelName->setText("Name");
     labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = new iWidgetLineTextEdit(nameLayout);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
@@ -52,12 +57,12 @@ void UserControlEntity::init()
     iWidgetLabelPtr labelID = new iWidgetLabel(idLayout);
     labelID->setText("ID");
     labelID->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelID->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textID = new iWidgetLineTextEdit(idLayout);
     _textID->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textID->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textID->setEnabled(false);    
+    _textID->setEnabled(false);
 
     iWidgetBoxLayoutPtr activeLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, entityLayout);
     activeLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -65,7 +70,7 @@ void UserControlEntity::init()
     iWidgetLabelPtr labelActive = new iWidgetLabel(activeLayout);
     labelActive->setText("Active");
     labelActive->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);    
+    labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = new iWidgetCheckBox(activeLayout);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -84,13 +89,13 @@ void UserControlEntity::init()
 void UserControlEntity::update()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
-    if(scene == nullptr)
+    if (scene == nullptr)
     {
         return;
     }
 
     iEntityPtr entity = scene->getEntity(getEntityID());
-    if(entity == nullptr)
+    if (entity == nullptr)
     {
         return;
     }
@@ -104,17 +109,57 @@ void UserControlEntity::update()
     _checkBoxActive->setChecked(entity->isActive());
 
     auto transform = entity->getComponent<iTransformComponent>();
-    if(transform != nullptr)
+    if (transform != nullptr)
     {
-        UserControlComponentTransform* userControl = new UserControlComponentTransform(_sceneID, _entityID, _componentsLayout);
+        UserControlComponentTransform *userControl = new UserControlComponentTransform(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
     }
 
     auto camera = entity->getComponent<iCameraComponent>();
-    if(camera != nullptr)
+    if (camera != nullptr)
     {
-        UserControlComponentCamera* userControl = new UserControlComponentCamera(_sceneID, _entityID, _componentsLayout);
+        UserControlComponentCamera *userControl = new UserControlComponentCamera(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto circle = entity->getComponent<iCircleComponent>();
+    if (circle != nullptr)
+    {
+        UserControlComponentCircle *userControl = new UserControlComponentCircle(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto sphere = entity->getComponent<iSphereComponent>();
+    if (sphere != nullptr)
+    {
+        UserControlComponentSphere *userControl = new UserControlComponentSphere(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto light = entity->getComponent<iLightComponent>();
+    if (light != nullptr)
+    {
+        UserControlComponentLight *userControl = new UserControlComponentLight(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }    
+
+    auto meshReference = entity->getComponent<iMeshReferenceComponent>();
+    if (meshReference != nullptr)
+    {
+        UserControlComponentMeshReference *userControl = new UserControlComponentMeshReference(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto meshRender = entity->getComponent<iMeshRenderComponent>();
+    if (meshRender != nullptr)
+    {
+        UserControlComponentMeshRender *userControl = new UserControlComponentMeshRender(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
     }
@@ -124,25 +169,27 @@ void UserControlEntity::update()
 
 void UserControlEntity::updateEntity()
 {
-    if(_ignoreUpdate)
+    if (_ignoreUpdate)
     {
         return;
-    }    
+    }
 
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
-    if(scene == nullptr)
+    if (scene == nullptr)
     {
         return;
     }
 
     iEntityPtr entity = scene->getEntity(getEntityID());
-    if(entity == nullptr)
+    if (entity == nullptr)
     {
         return;
-    }    
+    }
 
     entity->setName(_textName->getText());
     entity->setActive(_checkBoxActive->isChecked());
+
+    // components get updated in UserControlComponent*
 }
 
 iEntitySceneID UserControlEntity::getSceneID() const

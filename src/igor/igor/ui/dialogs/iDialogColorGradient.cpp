@@ -12,7 +12,7 @@
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -129,7 +129,7 @@ namespace igor
 		controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		groupBox->addWidget(controlGrid);
 
-		_colorChooser = new iUserControlColorChooser();
+		_colorChooser = new iUserControlColor();
 		_colorChooser->setExpand();
 		_colorChooser->setHeadlineVisible(false);
 		_colorChooser->setHorizontalAlignment(iHorizontalAlignment::Stretch);

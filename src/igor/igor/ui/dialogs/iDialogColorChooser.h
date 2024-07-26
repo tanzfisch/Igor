@@ -38,8 +38,8 @@ using namespace iaux;
 namespace igor
 {
 
-    class iUserControlColorChooser;
-    typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+    class iUserControlColor;
+    typedef iUserControlColor *iUserControlColorPtr;
 
     /*! the color chooser dialog
 	*/
@@ -78,7 +78,7 @@ namespace igor
 
         /*! actual color chooser
 		*/
-        iUserControlColorChooserPtr _userControlColorChooser = nullptr;
+        iUserControlColorPtr _userControlColorChooser = nullptr;
 
         /*! all widgets
 		*/

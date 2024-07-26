@@ -1043,11 +1043,11 @@ namespace igor
             "iWidgetDockingLayout",
 
             "iUserControl",
-            "iUserControlColorChooser",
-            "iUserControlFileChooser",
-            "iUserControlTextureChooser",
-            "iUserControlMaterialChooser",
-            "iUserControlShaderMaterialChooser",
+            "iUserControlColor",
+            "iUserControlFile",
+            "iUserControlTexture",
+            "iUserControlMaterial",
+            "iUserControlShaderMaterial",
             "iUserControlTreeView",
 
             "iDialog",

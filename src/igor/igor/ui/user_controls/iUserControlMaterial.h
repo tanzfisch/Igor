@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_TEXTURE_CHOOSER_H
-#define IGOR_USERCONTROL_TEXTURE_CHOOSER_H
+#ifndef IGOR_USERCONTROL_MATERIAL_H
+#define IGOR_USERCONTROL_MATERIAL_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -38,9 +38,9 @@
 namespace igor
 {
 
-    /*! User control texture chooser
+    /*! User control material chooser
      */
-    class IGOR_API iUserControlTextureChooser : public iUserControl
+    class IGOR_API iUserControlMaterial : public iUserControl
     {
 
     public:
@@ -48,36 +48,36 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlTextureChooser(const iWidgetPtr parent = nullptr);
+        iUserControlMaterial(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlTextureChooser();
+        ~iUserControlMaterial();
 
-        /*! sets the texture id
+        /*! sets the material id
 
-        \param textureID the given texture id
+        \param materialID the given material id
         */
-        void setID(iResourceID textureID);
+        void setID(iResourceID materialID);
 
-        /*! \returns texture id
+        /*! \returns material id
          */
         iResourceID getID() const;
 
     private:
-        /*! texture id
+        /*! material ID
          */
-        iResourceID _textureID;
+        iResourceID _materialID;
 
-        /*! label texture id
+        /*! label material id
          */
         iWidgetLabelPtr _labelID;
 
-        /*! texture alias
+        /*! material alias
          */
         iWidgetLabelPtr _labelAlias;
 
-        /*! displays the selected texture
+        /*! displays the selected material
          */
         iWidgetPicturePtr _picture;
 
@@ -100,10 +100,10 @@ namespace igor
         void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
-    /*! user control texture chooser pointer definition
+    /*! user control material chooser pointer definition
      */
-    typedef iUserControlTextureChooser *iUserControlTextureChooserPtr;
+    typedef iUserControlMaterial *iUserControlMaterialPtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_TEXTURE_CHOOSER_H
+#endif // IGOR_USERCONTROL_MATERIAL_H

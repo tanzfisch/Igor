@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2024 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/layouts/iWidgetGridLayout.h>
@@ -20,18 +20,18 @@ using namespace iaux;
 namespace igor
 {
 
-    iUserControlColorChooser::iUserControlColorChooser(const iWidgetPtr parent)
-        : iUserControl(iWidgetType::iUserControlColorChooser, parent)
+    iUserControlColor::iUserControlColor(const iWidgetPtr parent)
+        : iUserControl(iWidgetType::iUserControlColor, parent)
     {
         initGUI();
     }
 
-    iUserControlColorChooser::~iUserControlColorChooser()
+    iUserControlColor::~iUserControlColor()
     {
         deinitGUI();
     }
 
-    void iUserControlColorChooser::blockEvents()
+    void iUserControlColor::blockEvents()
     {
         iWidget::blockEvents();
 
@@ -39,7 +39,7 @@ namespace igor
         _colorChanged.block(true);
     }
 
-    void iUserControlColorChooser::unblockEvents()
+    void iUserControlColor::unblockEvents()
     {
         iWidget::unblockEvents();
 
@@ -47,7 +47,7 @@ namespace igor
         _colorChanged.block(false);
     }
 
-    void iUserControlColorChooser::setMode(iColorChooserMode mode)
+    void iUserControlColor::setMode(iColorChooserMode mode)
     {
         if (_mode != mode)
         {
@@ -56,12 +56,12 @@ namespace igor
         }
     }
 
-    iColorChooserMode iUserControlColorChooser::getMode()
+    iColorChooserMode iUserControlColor::getMode()
     {
         return _mode;
     }
 
-    void iUserControlColorChooser::updateMode()
+    void iUserControlColor::updateMode()
     {
         if (_mode == iColorChooserMode::RGBA)
         {
@@ -101,17 +101,17 @@ namespace igor
         }
     }
 
-    void iUserControlColorChooser::setExpand(bool expand)
+    void iUserControlColor::setExpand(bool expand)
     {
         setExpanded(expand);
     }
 
-    bool iUserControlColorChooser::getExpand() const
+    bool iUserControlColor::getExpand() const
     {
         return _expanded;
     }
 
-    void iUserControlColorChooser::setHeadlineVisible(bool headlineVisible)
+    void iUserControlColor::setHeadlineVisible(bool headlineVisible)
     {
         _showHeadline = headlineVisible;
 
@@ -137,12 +137,12 @@ namespace igor
         }
     }
 
-    bool iUserControlColorChooser::isHeadlineVisible() const
+    bool iUserControlColor::isHeadlineVisible() const
     {
         return _showHeadline;
     }
 
-    void iUserControlColorChooser::initGUI()
+    void iUserControlColor::initGUI()
     {
         _grid = new iWidgetGridLayout(this);
         _grid->appendRows(1);
@@ -165,21 +165,21 @@ namespace igor
         _expandButton->setText("");
         _expandButton->setMinWidth(12);
         _expandButton->setMinHeight(12);
-        _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
+        _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColor::onExpandButtonPressed));
         _expandButton->setVisible(_showHeadline);
         _expandButton->setEnabled(_showHeadline);
 
-        _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedH));
-        _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedS));
-        _valueChooserV = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedV));
-        _valueChooserR = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedR));
-        _valueChooserG = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedG));
-        _valueChooserB = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedB));
-        _valueChooserA = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedA));
-        _valueChooserRExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedRExpanded));
-        _valueChooserGExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedGExpanded));
-        _valueChooserBExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedBExpanded));
-        _valueChooserAExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedAExpanded));
+        _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedH));
+        _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedS));
+        _valueChooserV = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedV));
+        _valueChooserR = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedR));
+        _valueChooserG = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedG));
+        _valueChooserB = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedB));
+        _valueChooserA = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedA));
+        _valueChooserRExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedRExpanded));
+        _valueChooserGExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedGExpanded));
+        _valueChooserBExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedBExpanded));
+        _valueChooserAExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColor::onValueChangedAExpanded));
 
         _labelH = createLabel("H");
         _labelS = createLabel("S");
@@ -207,7 +207,7 @@ namespace igor
         setExpanded(_expanded);
     }
 
-    void iUserControlColorChooser::setExpanded(bool expanded)
+    void iUserControlColor::setExpanded(bool expanded)
     {
         _expanded = expanded;
 
@@ -230,33 +230,33 @@ namespace igor
     }
 
     IGOR_DISABLE_WARNING(4100)
-    void iUserControlColorChooser::onExpandButtonPressed(const iWidgetPtr source)
+    void iUserControlColor::onExpandButtonPressed(const iWidgetPtr source)
     {
         setExpanded(!_expanded);
     }
 
-    void iUserControlColorChooser::onValueChangedH(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedH(const iWidgetPtr source)
     {
         _sliderH->setValue(_valueChooserH->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedS(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedS(const iWidgetPtr source)
     {
         _sliderS->setValue(_valueChooserS->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedV(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedV(const iWidgetPtr source)
     {
         _sliderV->setValue(_valueChooserV->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedR(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedR(const iWidgetPtr source)
     {
         _sliderR->setValue(_valueChooserR->getValue());
         _valueChooserRExpanded->setValue(_valueChooserR->getValue());
@@ -264,7 +264,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedG(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedG(const iWidgetPtr source)
     {
         _sliderG->setValue(_valueChooserG->getValue());
         _valueChooserGExpanded->setValue(_valueChooserG->getValue());
@@ -272,7 +272,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedB(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedB(const iWidgetPtr source)
     {
         _sliderB->setValue(_valueChooserB->getValue());
         _valueChooserBExpanded->setValue(_valueChooserB->getValue());
@@ -280,7 +280,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedA(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedA(const iWidgetPtr source)
     {
         _sliderA->setValue(_valueChooserA->getValue());
         _valueChooserAExpanded->setValue(_valueChooserA->getValue());
@@ -288,7 +288,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedRExpanded(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedRExpanded(const iWidgetPtr source)
     {
         _sliderR->setValue(_valueChooserRExpanded->getValue());
         _valueChooserR->setValue(_valueChooserRExpanded->getValue());
@@ -296,7 +296,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedGExpanded(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedGExpanded(const iWidgetPtr source)
     {
         _sliderG->setValue(_valueChooserGExpanded->getValue());
         _valueChooserG->setValue(_valueChooserGExpanded->getValue());
@@ -304,7 +304,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedBExpanded(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedBExpanded(const iWidgetPtr source)
     {
         _sliderB->setValue(_valueChooserBExpanded->getValue());
         _valueChooserB->setValue(_valueChooserBExpanded->getValue());
@@ -312,7 +312,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onValueChangedAExpanded(const iWidgetPtr source)
+    void iUserControlColor::onValueChangedAExpanded(const iWidgetPtr source)
     {
         _sliderA->setValue(_valueChooserAExpanded->getValue());
         _valueChooserA->setValue(_valueChooserAExpanded->getValue());
@@ -320,28 +320,28 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedH(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedH(const iWidgetPtr source)
     {
         _valueChooserH->setValue(_sliderH->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedS(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedS(const iWidgetPtr source)
     {
         _valueChooserS->setValue(_sliderS->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedV(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedV(const iWidgetPtr source)
     {
         _valueChooserV->setValue(_sliderV->getValue());
         updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedR(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedR(const iWidgetPtr source)
     {
         _valueChooserR->setValue(_sliderR->getValue());
         _valueChooserRExpanded->setValue(_sliderR->getValue());
@@ -349,7 +349,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedG(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedG(const iWidgetPtr source)
     {
         _valueChooserG->setValue(_sliderG->getValue());
         _valueChooserGExpanded->setValue(_sliderR->getValue());
@@ -357,7 +357,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedB(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedB(const iWidgetPtr source)
     {
         _valueChooserB->setValue(_sliderB->getValue());
         _valueChooserBExpanded->setValue(_sliderR->getValue());
@@ -365,7 +365,7 @@ namespace igor
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onSliderChangedA(const iWidgetPtr source)
+    void iUserControlColor::onSliderChangedA(const iWidgetPtr source)
     {
         _valueChooserA->setValue(_sliderA->getValue());
         _valueChooserAExpanded->setValue(_sliderR->getValue());
@@ -374,7 +374,7 @@ namespace igor
     }
     IGOR_ENABLE_WARNING(4100);
 
-    void iUserControlColorChooser::updateWidgets()
+    void iUserControlColor::updateWidgets()
     {
         _valueChooserH->setValue(_colorHSV._r * 255.0f);
         _valueChooserS->setValue(_colorHSV._g * 255.0f);
@@ -405,7 +405,7 @@ namespace igor
         _change(this);
     }
 
-    void iUserControlColorChooser::updateColorHSV()
+    void iUserControlColor::updateColorHSV()
     {
         _colorRGBA._r = _valueChooserR->getValue() / 255.0f;
         _colorRGBA._g = _valueChooserG->getValue() / 255.0f;
@@ -423,7 +423,7 @@ namespace igor
         }
     }
 
-    void iUserControlColorChooser::updateColorRGB()
+    void iUserControlColor::updateColorRGB()
     {
         _colorHSV._r = _valueChooserH->getValue() / 255.0f;
         _colorHSV._g = _valueChooserS->getValue() / 255.0f;
@@ -442,20 +442,20 @@ namespace igor
         }
     }
 
-    void iUserControlColorChooser::updateColorViews()
+    void iUserControlColor::updateColorViews()
     {
         _colorViewCollapsed->setColor(_colorRGBA);
         _colorViewExpanded->setColor(_colorRGBA);
     }
 
-    iWidgetLabel *iUserControlColorChooser::createLabel(const iaString &text)
+    iWidgetLabel *iUserControlColor::createLabel(const iaString &text)
     {
         iWidgetLabel *result = new iWidgetLabel();
         result->setText(text);
         return result;
     }
 
-    iWidgetNumberChooser *iUserControlColorChooser::createNumberChooser(iChangeDelegate changeDelegate)
+    iWidgetNumberChooser *iUserControlColor::createNumberChooser(iChangeDelegate changeDelegate)
     {
         iWidgetNumberChooser *result = new iWidgetNumberChooser();
         result->setMinMaxNumber(0, 255);
@@ -467,7 +467,7 @@ namespace igor
         return result;
     }
 
-    iWidgetSlider *iUserControlColorChooser::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
+    iWidgetSlider *iUserControlColor::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
     {
         iWidgetSlider *result = new iWidgetSlider();
         result->setMinWidth(260);
@@ -481,7 +481,7 @@ namespace igor
         return result;
     }
 
-    void iUserControlColorChooser::initExpanded()
+    void iUserControlColor::initExpanded()
     {
         _expandedGrid = new iWidgetGridLayout();
         _expandedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -497,13 +497,13 @@ namespace igor
         _expandedSliderGrid->setCellSpacing(4);
         _expandedSliderGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-        _sliderH = createSlider("igor_texture_gradient_h", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedH));
-        _sliderS = createSlider("igor_texture_gradient_s", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedS));
-        _sliderV = createSlider("igor_texture_gradient_v", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedV));
-        _sliderR = createSlider("igor_texture_gradient_r", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedR));
-        _sliderG = createSlider("igor_texture_gradient_g", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedG));
-        _sliderB = createSlider("igor_texture_gradient_b", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedB));
-        _sliderA = createSlider("igor_texture_gradient_a", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
+        _sliderH = createSlider("igor_texture_gradient_h", iChangeDelegate(this, &iUserControlColor::onSliderChangedH));
+        _sliderS = createSlider("igor_texture_gradient_s", iChangeDelegate(this, &iUserControlColor::onSliderChangedS));
+        _sliderV = createSlider("igor_texture_gradient_v", iChangeDelegate(this, &iUserControlColor::onSliderChangedV));
+        _sliderR = createSlider("igor_texture_gradient_r", iChangeDelegate(this, &iUserControlColor::onSliderChangedR));
+        _sliderG = createSlider("igor_texture_gradient_g", iChangeDelegate(this, &iUserControlColor::onSliderChangedG));
+        _sliderB = createSlider("igor_texture_gradient_b", iChangeDelegate(this, &iUserControlColor::onSliderChangedB));
+        _sliderA = createSlider("igor_texture_gradient_a", iChangeDelegate(this, &iUserControlColor::onSliderChangedA));
         _sliderA->setBackgroundTexture("igor_texture_checker");
 
         _colorViewExpanded = new iWidgetColor();
@@ -539,7 +539,7 @@ namespace igor
         _expandedGrid->addWidget(_colorViewExpanded, 0, 1);
     }
 
-    void iUserControlColorChooser::initCollapsed()
+    void iUserControlColor::initCollapsed()
     {
         _collapsedGrid = new iWidgetGridLayout();
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -563,7 +563,7 @@ namespace igor
         _collapsedGrid->addWidget(_colorViewCollapsed, 8, 0);
     }
 
-    void iUserControlColorChooser::deinitGUI()
+    void iUserControlColor::deinitGUI()
     {
         // not elegant but robust
 #define KILL_ROGUE(widget)              \
@@ -613,17 +613,17 @@ namespace igor
         KILL_ROGUE(_expandedGrid);
     }
 
-    void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
+    void iUserControlColor::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
     {
         _colorChanged.add(colorChangedDelegate);
     }
 
-    void iUserControlColorChooser::unregisterOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
+    void iUserControlColor::unregisterOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
     {
         _colorChanged.remove(colorChangedDelegate);
     }
 
-    void iUserControlColorChooser::setText(const iaString &text)
+    void iUserControlColor::setText(const iaString &text)
     {
         _text = text;
 
@@ -633,24 +633,24 @@ namespace igor
         }
     }
 
-    const iaString &iUserControlColorChooser::getText() const
+    const iaString &iUserControlColor::getText() const
     {
         return _text;
     }
 
-    const iaColor4f &iUserControlColorChooser::getColor() const
+    const iaColor4f &iUserControlColor::getColor() const
     {
         return _colorRGBA;
     }
 
-    void iUserControlColorChooser::setColor(const iaColor4f &color)
+    void iUserControlColor::setColor(const iaColor4f &color)
     {
         _colorRGBA = color;
         iaConvert::convertRGBtoHSV(_colorRGBA, _colorHSV);
         updateWidgets();
     }
 
-    void iUserControlColorChooser::setColor(const iaColor3f &color)
+    void iUserControlColor::setColor(const iaColor3f &color)
     {
         setColor(iaColor4f(color._r, color._g, color._b, 1.0));
     }

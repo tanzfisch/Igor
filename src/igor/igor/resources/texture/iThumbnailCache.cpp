@@ -40,6 +40,19 @@ namespace igor
         iTaskManager::getInstance().addTask(new iTaskGenerateThumbnails(window));
     }
 
+    iTexturePtr iThumbnailCache::getThumbnail(const iResourceID &resourceID)
+    {
+        const iaString filename = iResourceManager::getInstance().getFilename(resourceID);
+        if(filename.isEmpty())
+        {
+            con_err("can't find filename for " << resourceID);
+            return nullptr;
+        }
+
+        iaFile file(iResourceManager::getInstance().resolvePath(filename));
+        return getThumbnail(file.getFullFileName());
+    }
+
     iTexturePtr iThumbnailCache::getThumbnail(const iaString &filename)
     {
         iaFile file(filename);

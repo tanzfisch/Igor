@@ -69,7 +69,7 @@ void UserControlMesh::init()
     iWidgetLabel *labelMaterial = new iWidgetLabel(materialLayout);
     labelMaterial->setText("Material");
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _materialChooser = new iUserControlMaterialChooser(materialLayout);
+    _materialChooser = new iUserControlMaterial(materialLayout);
     _materialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     iWidgetGroupBoxPtr detailsGroup = new iWidgetGroupBox(layout);

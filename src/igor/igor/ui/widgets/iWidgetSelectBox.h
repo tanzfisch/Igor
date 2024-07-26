@@ -61,7 +61,7 @@ namespace igor
         /*! adds entry to select box
 
 		\param entryText the entry text
-		\param userData optional user data
+		\param userData optional user data (use same type of user data for every entry)
 		*/
         void addItem(const iaString &entryText, const std::any &userData = std::any());
 
@@ -72,8 +72,18 @@ namespace igor
         void clear();
 
         /*! sets selection by index
+
+        \param index the index to set
 		*/
         void setSelection(uint32 index);
+
+        /*! sets selection by user data
+
+        works on ly same type of user data for every entry was used
+
+        \param userData the user data to set
+        */
+        void setSelection(const std::any &userData);
 
         /*! \returns amount of select box entries
 		*/

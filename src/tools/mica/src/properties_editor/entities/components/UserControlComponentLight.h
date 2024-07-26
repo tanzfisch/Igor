@@ -26,66 +26,59 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_THUMBNAIL_CACHE_H
-#define IGOR_THUMBNAIL_CACHE_H
+#ifndef USERCONTROL_COMPONENT_LIGHT_H
+#define USERCONTROL_COMPONENT_LIGHT_H
 
-#include <igor/threading/tasks/iTaskGenerateThumbnails.h>
-#include <igor/resources/texture/iTexture.h>
+#include "UserControlComponent.h"
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <deque>
-
-namespace igor
+class UserControlComponentLight : public UserControlComponent
 {
+public:
+    /*! init user control
 
-    /*! the thumbnail cache (singleton)    
+    \param scene the given scene
+    \param entity the given entity
+    \param parent the optional parent widget
+    */
+    UserControlComponentLight(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+
+    /*! does nothing
      */
-    class IGOR_API iThumbnailCache
-    {
+    virtual ~UserControlComponentLight() = default;
 
-        friend class iTaskGenerateThumbnails;
+    /*! init ui
+     */
+    void init() override;
 
-    public:
-        /*! \returns singleton instance of thumbnail cache
-         */
-        static iThumbnailCache &getInstance();
+    /*! update ui with node data
+     */
+    void update() override;
 
-        /*! \returns thumbnail for given filename
+    /*! update entity
+     */
+    void updateComponent() override;
 
-        \param filename full path of existing filename
-        */
-        iTexturePtr getThumbnail(const iaString &filename);
+private:
 
-        /*! \returns thumbnail for given resource id
+    /*! ambient color selector
+    */
+    iUserControlColorPtr _ambient;
 
-        \param resourceID the resource id
-        */
-        iTexturePtr getThumbnail(const iResourceID &resourceID);
+    /*! diffuse color selector
+    */
+    iUserControlColorPtr _diffuse;
 
-    private:
-        /*! path to thumbnail cache
-         */
-        iaString _thumbnailCachePath;
+    /*! specular color selector
+    */
+    iUserControlColorPtr _specular;
 
-        /*! queue to process thumbnails
-         */
-        std::deque<std::pair<iaString, iaString>> _thumbnailProcessQueue;
+    /*! light type select box
+    */
+    iWidgetSelectBoxPtr _lightType;
 
-        /*! mutex for processing queue
-         */
-        iaMutex _queueMutex;
+    /*! called after values changed
+    */
+    void onValueChanged(iWidgetPtr source);
+};
 
-        /*! generates thumbnails
-         */
-        void generateThumbnails();
-
-        /*! init cache
-         */
-        iThumbnailCache();
-    };
-
-}
-
-#endif // IGOR_THUMBNAIL_CACHE_H
+#endif // USERCONTROL_COMPONENT_LIGHT_H

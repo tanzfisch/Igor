@@ -60,19 +60,19 @@ public:
 private:
     /*! diffuse color chooser
      */
-    iUserControlColorChooser *_diffuseColorChooser = nullptr;
+    iUserControlColor *_diffuseColorChooser = nullptr;
 
     /*! ambient color chooser
      */
-    iUserControlColorChooser *_ambientColorChooser = nullptr;
+    iUserControlColor *_ambientColorChooser = nullptr;
 
     /*! specular color chooser
      */
-    iUserControlColorChooser *_specularColorChooser = nullptr;
+    iUserControlColor *_specularColorChooser = nullptr;
 
     /*! emissive color chooser
      */
-    iUserControlColorChooser *_emissiveColorChooser = nullptr;
+    iUserControlColor *_emissiveColorChooser = nullptr;
 
     /*! shininess number chooser
      */
@@ -80,11 +80,11 @@ private:
 
     /*! texture choosers
      */
-    iUserControlTextureChooserPtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
+    iUserControlTexturePtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
 
     /*! shader material chooser
     */
-    iUserControlShaderMaterialChooserPtr _shaderMaterialChooser = nullptr;
+    iUserControlShaderMaterialPtr _shaderMaterialChooser = nullptr;
 
     /*! shininess slider
      */

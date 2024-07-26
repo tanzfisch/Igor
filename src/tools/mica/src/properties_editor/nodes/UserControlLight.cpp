@@ -67,17 +67,17 @@ void UserControlLight::init()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _ambientColorChooser = new iUserControlColorChooser();
+    _ambientColorChooser = new iUserControlColor();
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onAmbientChange));
 
-    _diffuseColorChooser = new iUserControlColorChooser();
+    _diffuseColorChooser = new iUserControlColor();
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onDiffuseChange));
 
-    _specularColorChooser = new iUserControlColorChooser();
+    _specularColorChooser = new iUserControlColor();
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onSpecularChange));

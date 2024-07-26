@@ -93,7 +93,7 @@ private:
 
     /*! clear color selector
     */
-    iUserControlColorChooserPtr _clearColor;
+    iUserControlColorPtr _clearColor;
 
     /*! active clear depth checkbox
     */
