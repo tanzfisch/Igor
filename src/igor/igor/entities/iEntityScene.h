@@ -248,12 +248,12 @@ namespace igor
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
-		/*! called when a component is to be added
+		/*! called when a component is to be processed (usually when being added)
 
 		\param entity pointer of entity
 		\param typeID type of component to be added
 		*/
-		void onComponentToAdd(iEntityPtr entity, const std::type_index &typeID);
+		void onComponentToProcess(iEntityPtr entity, const std::type_index &typeID);
 
 		/*! callback to handle added component
 

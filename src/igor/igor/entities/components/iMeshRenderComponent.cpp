@@ -29,6 +29,12 @@ namespace igor
         return component;
     }          
 
+    void iMeshRenderComponent::onUnLoad(iEntityPtr entity)
+    {
+        _mesh = nullptr;
+        _material = nullptr;
+    }
+
     bool iMeshRenderComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
     {
         asyncLoad = false; // stop trying
@@ -42,7 +48,7 @@ namespace igor
         if(reference == nullptr ||
             reference->getModel() == nullptr)
         {
-            con_err("no valid mesh reference found");
+            con_err("no model reference");
             return false;
         }
 

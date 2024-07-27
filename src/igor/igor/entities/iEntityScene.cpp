@@ -232,7 +232,7 @@ namespace igor
         return _id;
     }
 
-    void iEntityScene::onComponentToAdd(iEntityPtr entity, const std::type_index &typeID)
+    void iEntityScene::onComponentToProcess(iEntityPtr entity, const std::type_index &typeID)
     {
         _processQueueMutex.lock();
         _processQueue.push_back(entity);

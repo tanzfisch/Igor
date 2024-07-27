@@ -88,10 +88,18 @@ namespace igor
         */
         bool onLoad(iEntityPtr entity, bool &asyncLoad) override;
 
+        /*! callback for unload component
+         */
+        void onUnLoad(iEntityPtr entity) override;
+
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! mesh render component pointer definition
+    */
+    typedef iMeshRenderComponent* iMeshRenderComponentPtr;
 }
 
 #endif // IGOR_MESH_RENDER_COMPONENT_H

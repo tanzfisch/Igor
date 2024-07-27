@@ -7,7 +7,7 @@
 #include <igor/entities/components/iMeshRenderComponent.h>
 
 UserControlComponentMeshRender::UserControlComponentMeshRender(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
-    : UserControlComponent(scene, entity, "Mesh Render", parent)
+    : UserControlComponent(scene, entity, "Mesh Renderer", parent)
 {
 }
 

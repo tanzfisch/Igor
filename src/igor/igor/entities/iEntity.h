@@ -162,6 +162,11 @@ namespace igor
         template <typename T>
         void destroyComponent();
 
+        /*! destroys given component by type
+         */
+        template <typename T>
+        void reloadComponent();        
+
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added
@@ -229,7 +234,7 @@ namespace igor
 
         /*! added components end up in a queue first
          */
-        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _addedComponents;
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _componentsToProcess;
 
         /*! type hash of entity
          */
@@ -274,11 +279,17 @@ namespace igor
         */
         void destroyComponent(const std::type_index &typeID);
 
+        /*! reload component by type id
+
+        \param typeID the components type id
+        */
+        void reloadComponent(const std::type_index &typeID);        
+
         /*! called for component that is about to be added
 
         \param typeID the components type id
         */
-        void componentToAdd(const std::type_index &typeID);
+        void componentToProcess(const std::type_index &typeID);
 
         /*! notifies scene that components have changed
          */

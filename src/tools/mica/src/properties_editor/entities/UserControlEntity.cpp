@@ -11,6 +11,7 @@
 #include "components/UserControlComponentLight.h"
 #include "components/UserControlComponentMeshReference.h"
 #include "components/UserControlComponentMeshRender.h"
+#include "components/UserControlComponentOctree.h"
 
 #include "../../MicaDefines.h"
 
@@ -160,6 +161,14 @@ void UserControlEntity::update()
     if (meshRender != nullptr)
     {
         UserControlComponentMeshRender *userControl = new UserControlComponentMeshRender(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }
+
+    auto octree = entity->getComponent<iOctreeComponent>();
+    if (octree != nullptr)
+    {
+        UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
     }

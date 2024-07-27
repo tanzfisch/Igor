@@ -36,7 +36,10 @@ namespace igor
         con_assert(meshRenderComponent != nullptr && transformComponent != nullptr, "missing components");
 
         auto mesh = meshRenderComponent->getMesh();
-        con_assert(mesh != nullptr, "no mesh");
+        if(mesh == nullptr)
+        {
+            return;
+        }
 
         iMaterialPtr material = meshRenderComponent->getMaterial();
         iShaderPtr shader = material->getShader();

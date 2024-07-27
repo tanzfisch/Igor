@@ -49,18 +49,25 @@ namespace igor
 
     void iUserControlMeshReference::setReference(const iResourceID &modelID, const iaString &meshPath)
     {
-        _modelID = modelID;
-
-        if (!_modelID.isValid())
+        if (!modelID.isValid() ||
+            meshPath.isEmpty())
         {
-            _labelID->setText("");
-            _labelAlias->setText("");
+            con_err("tried to set invalid mesh reference");
             return;
         }
 
+        _modelID = modelID;
+
         _labelID->setText(_modelID.toString());
-        _labelAlias->setText(iResourceManager::getInstance().getAlias(_modelID));
-        _labelAlias->setVisible(!_labelAlias->getText().isEmpty());
+        iaString alias = iResourceManager::getInstance().getAlias(_modelID);
+        if (alias.isEmpty())
+        {
+            _labelAlias->setText("---");
+        }
+        else
+        {
+            _labelAlias->setText(alias);
+        }
         _meshPath->setText(meshPath);
 
         _change(this);
@@ -79,19 +86,16 @@ namespace igor
     void iUserControlMeshReference::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
-        if (!mimeData.hasResourceID() ||
-            !mimeData.hasText())
+        if (!mimeData.hasResourceID())
         {
             drag.reject();
             return;
         }
 
         iResourceID id = mimeData.getResourceID();
-        iaString meshPath = mimeData.getText();
 
         const iaString resourceType = iResourceManager::getInstance().getType(id);
-        if (resourceType != IGOR_RESOURCE_MODEL ||
-            meshPath.isEmpty())
+        if (resourceType != IGOR_RESOURCE_MODEL)
         {
             drag.reject();
             return;
@@ -103,19 +107,27 @@ namespace igor
     void iUserControlMeshReference::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
-        if (!mimeData.hasResourceID() ||
-            !mimeData.hasText())
+        if (!mimeData.hasResourceID())
         {
             return;
         }
 
-        iResourceID id = mimeData.getResourceID();
-        iaString meshPath = mimeData.getText();
+        const iResourceID id = mimeData.getResourceID();
+        iaString meshPath;
+        if (mimeData.hasText())
+        {
+            meshPath = mimeData.getText();
+        }
 
         const iaString resourceType = iResourceManager::getInstance().getType(id);
         if (resourceType != IGOR_RESOURCE_MODEL)
         {
             return;
+        }
+        
+        if(meshPath.isEmpty())
+        {
+            // TODO open dialog and let the user decide what mesh to use
         }
 
         setReference(id, meshPath);

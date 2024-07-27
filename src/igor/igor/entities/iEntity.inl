@@ -19,13 +19,20 @@ T *iEntity::getComponent() const
         return nullptr;
     }
 
-    return static_cast<T*>(iter->second);
+    return static_cast<T *>(iter->second);
 }
 
 template <typename T>
 void iEntity::destroyComponent()
 {
-    const std::type_index typeID = typeid(T);    
+    const std::type_index typeID = typeid(T);
     destroyComponent(typeID);
     onEntityChanged();
+}
+
+template <typename T>
+void iEntity::reloadComponent()
+{
+    const std::type_index typeID = typeid(T);
+    reloadComponent(typeID);
 }

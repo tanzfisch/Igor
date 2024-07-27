@@ -88,6 +88,10 @@ namespace igor
         iEntityComponentPtr getCopy() override;        
 
     };
+
+    /*! mesh reference pointer definition
+    */
+    typedef iMeshReferenceComponent* iMeshReferenceComponentPtr;
 }
 
 #endif // IGOR_MESH_REFERENCE_COMPONENT_H

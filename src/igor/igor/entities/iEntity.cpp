@@ -64,10 +64,10 @@ namespace igor
         _components[typeID] = component;
         component->_entity = this;
 
-        _addedComponents.emplace_back(typeID, component);
+        _componentsToProcess.emplace_back(typeID, component);
         _mutex.unlock();
 
-        componentToAdd(typeID);
+        componentToProcess(typeID);
     }
 
     iEntity::~iEntity()
@@ -91,28 +91,28 @@ namespace igor
         clearComponents();
     }
 
-    void iEntity::componentToAdd(const std::type_index &typeID)
+    void iEntity::componentToProcess(const std::type_index &typeID)
     {
-        _scene->onComponentToAdd(this, typeID);
+        _scene->onComponentToProcess(this, typeID);
     }
 
     bool iEntity::processComponents()
     {
-        if (!isActive() ||
-            _addedComponents.empty())
+        _mutex.lock();
+        if (_componentsToProcess.empty())
         {
+            _mutex.unlock();
             return true;
         }
-
-        _mutex.lock();
-        auto addedComponents = std::move(_addedComponents);
+        
+        auto componentsToProcess = std::move(_componentsToProcess);
         _mutex.unlock();
 
         std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
 
         bool changed = false;
 
-        for (const auto &pair : addedComponents)
+        for (const auto &pair : componentsToProcess)
         {
             bool asyncLoad = false;
             bool success = pair.second->onLoad(this, asyncLoad);
@@ -141,8 +141,8 @@ namespace igor
         }
 
         _mutex.lock();
-        _addedComponents.insert(_addedComponents.end(), toKeep.begin(), toKeep.end());
-        bool processAgain = !_addedComponents.empty();
+        _componentsToProcess.insert(_componentsToProcess.end(), toKeep.begin(), toKeep.end());
+        bool processAgain = !_componentsToProcess.empty();
         _mutex.unlock();
 
         if (changed)
@@ -174,7 +174,9 @@ namespace igor
         if (component->_state == iEntityComponentState::Active)
         {
             component->onDeactivate(this);
+            component->_state = iEntityComponentState::Inactive;
             component->onUnLoad(this);
+            component->_state = iEntityComponentState::Unloaded;
         }
 
         delete component;
@@ -182,6 +184,35 @@ namespace igor
         _componentMask = calcComponentMask();
 
         _scene->onComponentRemoved(this, typeID);
+    }
+
+    void iEntity::reloadComponent(const std::type_index &typeID)
+    {
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            _mutex.unlock();
+            con_err("trying to reload component that does not exist");
+            return;
+        }
+
+        auto component = iter->second;
+        _mutex.unlock();
+
+        if (component->_state == iEntityComponentState::Active)
+        {
+            component->onDeactivate(this);
+            component->_state = iEntityComponentState::Inactive;
+            component->onUnLoad(this);
+            component->_state = iEntityComponentState::Unloaded;
+
+            _mutex.lock();
+            _componentsToProcess.emplace_back(typeID, component);
+            _mutex.unlock();   
+
+            componentToProcess(typeID);         
+        }
     }
 
     void iEntity::onEntityChanged()

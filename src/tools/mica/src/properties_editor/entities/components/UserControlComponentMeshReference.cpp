@@ -5,6 +5,7 @@
 #include "UserControlComponentMeshReference.h"
 
 #include <igor/entities/components/iMeshReferenceComponent.h>
+#include <igor/entities/components/iMeshRenderComponent.h>
 
 UserControlComponentMeshReference::UserControlComponentMeshReference(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
     : UserControlComponent(scene, entity, "Mesh Reference", parent)
@@ -89,13 +90,19 @@ void UserControlComponentMeshReference::updateComponent()
         return;
     }
 
-    iMeshReferenceComponent *component = entity->getComponent<iMeshReferenceComponent>();
+    iMeshReferenceComponentPtr component = entity->getComponent<iMeshReferenceComponent>();
     if (component == nullptr)
     {
         return;
     }
 
-    iModelPtr model = iResourceManager::getInstance().getResource<iModel>(_meshReference->getModelID());
+    iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(_meshReference->getModelID());
     component->setModel(model);
     component->setMeshPath(_meshReference->getMeshPath());
+
+    iMeshRenderComponentPtr meshRenderComponent = entity->getComponent<iMeshRenderComponent>();
+    if (meshRenderComponent != nullptr)
+    {
+        entity->reloadComponent<iMeshRenderComponent>();
+    }
 }
