@@ -12,8 +12,8 @@ namespace igor
         
     }
 
-    iMeshReferenceComponent::iMeshReferenceComponent(iModelPtr model, const iaString &meshPath)
-        : _model(model), _meshPath(meshPath)
+    iMeshReferenceComponent::iMeshReferenceComponent(iModelPtr model, const std::vector<iaString> &meshPaths)
+        : _model(model), _meshPaths(meshPaths)
     {
     }
 
@@ -21,7 +21,7 @@ namespace igor
     {
         iMeshReferenceComponent *component = new iMeshReferenceComponent();
         component->_model = _model;
-        component->_meshPath = _meshPath;
+        component->_meshPaths = _meshPaths;
         return component;
     }        
 
@@ -35,13 +35,13 @@ namespace igor
         _model = model;
     }
 
-    void iMeshReferenceComponent::setMeshPath(const iaString &meshPath)
+    void iMeshReferenceComponent::setMeshPaths(const std::vector<iaString> &meshPaths)
     {
-        _meshPath = meshPath;
+        _meshPaths = meshPaths;
     }
 
-    const iaString &iMeshReferenceComponent::getMeshPath() const
+    const std::vector<iaString> &iMeshReferenceComponent::getMeshPaths() const
     {
-        return _meshPath;
+        return _meshPaths;
     }
 }

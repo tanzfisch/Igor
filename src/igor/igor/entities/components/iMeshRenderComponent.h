@@ -32,46 +32,21 @@
 #include <igor/entities/iEntity.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+
+#include <iaux/math/iaMatrix.h>
+using namespace iaux;
 
 namespace igor
 {
-    /*! mesh render component
-     */
-    class iMeshRenderComponent : public iEntityComponent
+    struct iMeshReference
     {
-        friend class iPrefabIO;
+        iMeshReference(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
+        : _mesh(mesh), _material(material), _offset(offset)
+        {
 
-    public:
+        }
 
-        /*! default ctor
-        */
-        iMeshRenderComponent();
-
-        /*! ctor
-         */
-        iMeshRenderComponent(iMeshPtr mesh, iMaterialPtr material = nullptr);
-
-        /*! \returns mesh for render
-         */
-        iMeshPtr getMesh() const;
-
-        /*! sets mesh
-
-        \param mesh the mesh to set
-        */
-        void setMesh(iMeshPtr mesh);
-
-        /*! \returns material
-         */
-        iMaterialPtr getMaterial() const;
-
-        /*! sets material
-
-        \param material the material to set
-        */
-        void setMaterial(iMaterialPtr material);
-
-    private:
         /*! the mesh to render
          */
         iMeshPtr _mesh;
@@ -79,6 +54,31 @@ namespace igor
         /*! the material to render with
          */
         iMaterialPtr _material;
+
+        /*! offset matrix
+         */
+        iaMatrixd _offset;
+    };
+
+    /*! mesh render component
+     */
+    class iMeshRenderComponent : public iEntityComponent
+    {
+        friend class iPrefabIO;
+
+    public:
+        /*! default ctor
+         */
+        iMeshRenderComponent();
+
+        /*! \returns all mesh references
+        */
+        const std::vector<iMeshReference> &getMeshReferences() const;
+
+    private:
+        /*! list of mesh references
+         */
+        std::vector<iMeshReference> _meshReferences;
 
         /*! callback for loading component
 
@@ -95,11 +95,19 @@ namespace igor
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
+
+        /*! finds and adds all meshes to component 
+
+        (recursive)
+
+        \param node the current node to traverse
+        */
+        void findAndAddMeshs(iNodePtr node);
     };
 
     /*! mesh render component pointer definition
-    */
-    typedef iMeshRenderComponent* iMeshRenderComponentPtr;
+     */
+    typedef iMeshRenderComponent *iMeshRenderComponentPtr;
 }
 
 #endif // IGOR_MESH_RENDER_COMPONENT_H

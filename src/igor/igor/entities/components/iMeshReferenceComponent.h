@@ -41,17 +41,16 @@ namespace igor
         friend class iPrefabIO;
 
     public:
-
         /*! default ctor
-        */
+         */
         iMeshReferenceComponent();
 
         /*! ctor
 
         \param model the model to refer to
-        \param meshPath the path to the mesh inside the model to refer to (ie "foo:bar:myMesh")
+        \param meshPaths the paths to the meshes inside the model to refer to (ie "foo:bar:myMesh")
          */
-        iMeshReferenceComponent(iModelPtr model, const iaString &meshPath = "");
+        iMeshReferenceComponent(iModelPtr model, const std::vector<iaString> &meshPaths = std::vector<iaString>());
 
         /*! \returns model
          */
@@ -63,35 +62,33 @@ namespace igor
         */
         void setModel(iModelPtr model);
 
-        /*! sets path to mesh in model
+        /*! sets paths to meshes in model
 
-        \param meshPath the given mesh path
+        \param meshPaths the given mesh paths
         */
-        void setMeshPath(const iaString &meshPath);   
+        void setMeshPaths(const std::vector<iaString> &meshPaths);
 
         /*! \returns mesh path
-        */
-        const iaString &getMeshPath() const;
+         */
+        const std::vector<iaString> &getMeshPaths() const;
 
     private:
-
         /*! reference to model
-        */
+         */
         iModelPtr _model;
 
-        /*! the mesh path
+        /*! the mesh paths to all meshes we want to reference. when empty we take all meshes
          */
-        iaString _meshPath;
+        std::vector<iaString> _meshPaths;
 
         /*! \returns a copy of this component
-        */
-        iEntityComponentPtr getCopy() override;        
-
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
     /*! mesh reference pointer definition
-    */
-    typedef iMeshReferenceComponent* iMeshReferenceComponentPtr;
+     */
+    typedef iMeshReferenceComponent *iMeshReferenceComponentPtr;
 }
 
 #endif // IGOR_MESH_REFERENCE_COMPONENT_H

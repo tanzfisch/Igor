@@ -47,10 +47,9 @@ namespace igor
         _meshPath->setVerticalAlignment(iVerticalAlignment::Top);
     }
 
-    void iUserControlMeshReference::setReference(const iResourceID &modelID, const iaString &meshPath)
+    void iUserControlMeshReference::setReference(const iResourceID &modelID, const std::vector<iaString> &meshPaths)
     {
-        if (!modelID.isValid() ||
-            meshPath.isEmpty())
+        if (!modelID.isValid())
         {
             con_err("tried to set invalid mesh reference");
             return;
@@ -68,7 +67,28 @@ namespace igor
         {
             _labelAlias->setText(alias);
         }
-        _meshPath->setText(meshPath);
+        _meshPaths = meshPaths;
+
+        if(_meshPaths.empty())
+        {
+            _meshPath->setText("all meshs are referenced");
+        }
+        else
+        {
+            iaString text;
+
+            for(const auto &path : _meshPaths)
+            {
+                if(!text.isEmpty())
+                {
+                    text += "\n";
+                }
+
+                text += path;
+            }
+
+            _meshPath->setText(text);
+        }
 
         _change(this);
     }
@@ -78,9 +98,9 @@ namespace igor
         return _modelID;
     }
 
-    const iaString &iUserControlMeshReference::getMeshPath() const
+    const std::vector<iaString> &iUserControlMeshReference::getMeshPaths() const
     {
-        return _meshPath->getText();
+        return _meshPaths;
     }
 
     void iUserControlMeshReference::onDragMove(iDrag &drag, const iaVector2f &mousePos)
@@ -113,24 +133,13 @@ namespace igor
         }
 
         const iResourceID id = mimeData.getResourceID();
-        iaString meshPath;
-        if (mimeData.hasText())
-        {
-            meshPath = mimeData.getText();
-        }
-
         const iaString resourceType = iResourceManager::getInstance().getType(id);
         if (resourceType != IGOR_RESOURCE_MODEL)
         {
             return;
         }
         
-        if(meshPath.isEmpty())
-        {
-            // TODO open dialog and let the user decide what mesh to use
-        }
-
-        setReference(id, meshPath);
+        setReference(id, {});
     }
 
 } // namespace igor

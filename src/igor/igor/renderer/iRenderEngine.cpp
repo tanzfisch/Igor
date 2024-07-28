@@ -35,47 +35,50 @@ namespace igor
         auto meshRenderComponent = meshEntity->getComponent<iMeshRenderComponent>();
         con_assert(meshRenderComponent != nullptr && transformComponent != nullptr, "missing components");
 
-        auto mesh = meshRenderComponent->getMesh();
-        if(mesh == nullptr)
-        {
-            return;
-        }
+        const auto &meshReferences = meshRenderComponent->getMeshReferences();
 
-        iMaterialPtr material = meshRenderComponent->getMaterial();
-        iShaderPtr shader = material->getShader();
-        if (!shader->isValid() ||
-            shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off) // only instanced is supported for now
+        for (const auto &reference : meshReferences)
         {
-            return;
-        }
+            auto material = reference._material;
 
-        iaMatrixd src = transformComponent->getWorldMatrix();
-        iaMatrixf dst;
-        for (int i = 0; i < 16; ++i)
-        {
-            dst[i] = src[i];
-        }
-
-        auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
-                                 [&shader](const iMaterialGroup &materialGroup)
-                                 { return materialGroup._shader == shader; });
-
-        if (iter == _materialGroups.end())
-        {
-            std::unordered_map<iMeshPtr, iInstaningPackage> instancing;
-            instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
-            instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
-            instancing[mesh]._material = material;
-            _materialGroups.push_back({shader, instancing});
-        }
-        else
-        {
-            if (iter->_instancing[mesh]._buffer == nullptr)
+            iShaderPtr shader = material->getShader();
+            if (!shader->isValid() ||
+                shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off) // only instanced is supported for now
             {
-                iter->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
-                iter->_instancing[mesh]._material = material;
+                continue;
             }
-            iter->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+
+            iaMatrixd src = transformComponent->getWorldMatrix();
+            src *= reference._offset;
+            iaMatrixf dst;
+            for (int i = 0; i < 16; ++i)
+            {
+                dst[i] = src[i];
+            }
+
+            auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
+                                     [&shader](const iMaterialGroup &materialGroup)
+                                     { return materialGroup._shader == shader; });
+
+            auto mesh = reference._mesh;
+
+            if (iter == _materialGroups.end())
+            {
+                std::unordered_map<iMeshPtr, iInstaningPackage> instancing;
+                instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
+                instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+                instancing[mesh]._material = material;
+                _materialGroups.push_back({shader, instancing});
+            }
+            else
+            {
+                if (iter->_instancing[mesh]._buffer == nullptr)
+                {
+                    iter->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
+                    iter->_instancing[mesh]._material = material;
+                }
+                iter->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+            }
         }
     }
 

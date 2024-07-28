@@ -60,10 +60,9 @@ public:
 
 private:
 
-    iWidgetLabelPtr _labelIndexCount;
+    iWidgetLabelPtr _labelMeshCount;
     iWidgetLabelPtr _labelVertexCount;
     iWidgetLabelPtr _labelTrianglesCount;
-    iWidgetLabelPtr _labelTexUnitCount;
 
     /*! called after values changed
      */

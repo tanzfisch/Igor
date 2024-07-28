@@ -61,11 +61,11 @@ void UserControlComponentMeshReference::update()
 
     if (component->getModel() != nullptr)
     {
-        _meshReference->setReference(component->getModel()->getID(), component->getMeshPath());
+        _meshReference->setReference(component->getModel()->getID(), component->getMeshPaths());
     }
     else
     {
-        _meshReference->setReference(iResourceID::getInvalid(), "");
+        _meshReference->setReference(iResourceID::getInvalid(), {});
     }
 
     _ignoreUpdate = false;
@@ -98,7 +98,7 @@ void UserControlComponentMeshReference::updateComponent()
 
     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(_meshReference->getModelID());
     component->setModel(model);
-    component->setMeshPath(_meshReference->getMeshPath());
+    component->setMeshPaths(_meshReference->getMeshPaths());
 
     iMeshRenderComponentPtr meshRenderComponent = entity->getComponent<iMeshRenderComponent>();
     if (meshRenderComponent != nullptr)

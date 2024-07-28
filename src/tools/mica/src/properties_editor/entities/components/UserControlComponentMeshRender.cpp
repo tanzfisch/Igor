@@ -17,6 +17,17 @@ void UserControlComponentMeshRender::init()
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
+    iWidgetBoxLayoutPtr meshCountLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    meshCountLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    meshCountLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelMesh = new iWidgetLabel(meshCountLayout);
+    labelMesh->setText("Meshes");
+    labelMesh->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelMesh->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _labelMeshCount = new iWidgetLabel(meshCountLayout);
+    _labelMeshCount->setHorizontalAlignment(iHorizontalAlignment::Left);    
+
     iWidgetBoxLayoutPtr trianglesCountLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     trianglesCountLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     trianglesCountLayout->setStretchIndex(1);
@@ -38,28 +49,6 @@ void UserControlComponentMeshRender::init()
 
     _labelVertexCount = new iWidgetLabel(vertexCountLayout);
     _labelVertexCount->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetBoxLayoutPtr indexCountLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    indexCountLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    indexCountLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelIndices = new iWidgetLabel(indexCountLayout);
-    labelIndices->setText("Indices");
-    labelIndices->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelIndices->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    _labelIndexCount = new iWidgetLabel(indexCountLayout);
-    _labelIndexCount->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetBoxLayoutPtr texUnitCountLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    texUnitCountLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    texUnitCountLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelTexUnits = new iWidgetLabel(texUnitCountLayout);
-    labelTexUnits->setText("TexUnits");
-    labelTexUnits->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelTexUnits->setHorizontalAlignment(iHorizontalAlignment::Left);    
-
-    _labelTexUnitCount = new iWidgetLabel(texUnitCountLayout);
-    _labelTexUnitCount->setHorizontalAlignment(iHorizontalAlignment::Left);
 }
 
 void UserControlComponentMeshRender::onValueChanged(iWidgetPtr source)
@@ -89,14 +78,20 @@ void UserControlComponentMeshRender::update()
 
     _ignoreUpdate = true;
 
-    const auto mesh = component->getMesh();
-    if (mesh != nullptr)
+    const auto meshReferences = component->getMeshReferences();
+    const uint32 meshCount = meshReferences.size();
+    uint32 vertexCount = 0;
+    uint32 trianglesCount = 0;
+
+    for (const auto &ref : meshReferences)
     {
-        _labelIndexCount->setText(iaString::toString(mesh->getIndexCount()));
-        _labelVertexCount->setText(iaString::toString(mesh->getVertexCount()));
-        _labelTrianglesCount->setText(iaString::toString(mesh->getTrianglesCount()));
-        _labelTexUnitCount->setText(iaString::toString(mesh->getTextureUnitCount()));
-    }
+        vertexCount += ref._mesh->getVertexCount();
+        trianglesCount += ref._mesh->getTrianglesCount();
+    
+    _labelMeshCount->setText(iaString::toString(meshCount));}
+    _labelVertexCount->setText(iaString::toString(vertexCount));
+    _labelTrianglesCount->setText(iaString::toString(trianglesCount));
+
     _ignoreUpdate = false;
 }
 

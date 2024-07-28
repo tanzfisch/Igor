@@ -57,22 +57,26 @@ namespace igor
         /*! sets the model id
 
         \param modelID the given model id
-        \param meshPath the mesh path to use
+        \param meshPaths the mesh paths to use
         */
-        void setReference(const iResourceID &modelID, const iaString &meshPath);
+        void setReference(const iResourceID &modelID, const std::vector<iaString> &meshPaths);
 
         /*! \returns texture id
          */        
         iResourceID getModelID() const;
 
-        /*! \returns mesh path
+        /*! \returns all mesh paths
         */
-        const iaString &getMeshPath() const;
+        const std::vector<iaString> &getMeshPaths() const;
 
     private:
         /*! model id
          */
         iResourceID _modelID;
+
+        /*! all mesh paths
+        */
+        std::vector<iaString> _meshPaths;
 
         /*! reference path within model
         */

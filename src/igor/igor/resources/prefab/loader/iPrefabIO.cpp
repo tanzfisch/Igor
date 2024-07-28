@@ -115,18 +115,39 @@ namespace igor
         entity->addComponent(component);
 
         component->setModel(iResourceManager::getInstance().requestResource<iModel>(componentJson["model"].get<iaUUID>()));
-        component->setMeshPath(componentJson["meshPath"].get<iaString>());
+
+        std::vector<iaString> paths;
+        if (componentJson.contains("meshPaths"))
+        {
+            json meshPaths = componentJson["meshPaths"];
+            for (const auto &meshPath : meshPaths)
+            {
+                paths.emplace_back(meshPath.get<iaString>());
+            }
+        }
+
+        component->setMeshPaths(paths);
     }
 
     static void writeMeshReference(json &componentJson, iMeshReferenceComponent *component)
     {
         componentJson["model"] = component->getModel()->getID();
-        componentJson["meshPath"] = component->getMeshPath();
+
+        json pathsJson = json::array();
+        for (const auto &path : component->getMeshPaths())
+        {
+            pathsJson.push_back(path);
+        }
+
+        if (!pathsJson.empty())
+        {
+            componentJson["meshPaths"] = pathsJson;
+        }
     }
 
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
-        if(!entityJson.contains("parent"))
+        if (!entityJson.contains("parent"))
         {
             return;
         }
@@ -196,7 +217,7 @@ namespace igor
             const iaString sceneName = entityScene["name"].get<iaString>();
             const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
             auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
-            
+
             prefab->_sceneID = scene->getID();
 
             if (entityScene.contains("quadtree"))
