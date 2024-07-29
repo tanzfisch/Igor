@@ -17,12 +17,6 @@ namespace igor
 
     static const iaString s_defaultTemplate = "igor/projects/default";
 
-    iProject &iProject::getInstance()
-    {
-        static iProject instance;
-        return instance;
-    }
-
     void iProject::load(const iaString &projectFolder)
     {
         con_assert_sticky(iaDirectory::isDirectory(projectFolder), "can't find folder \"" << projectFolder << "\"");

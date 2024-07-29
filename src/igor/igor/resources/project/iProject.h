@@ -30,6 +30,7 @@
 #define IGOR_PROJECT_H
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/resources/module/iModule.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
@@ -63,13 +64,11 @@ namespace igor
 
     /*! project definition
      */
-    class IGOR_API iProject
+    class IGOR_API iProject : public iModule<iProject>
     {
-    public:
-        /*! \returns singleton instance of thumbnail cache
-         */
-        static iProject &getInstance();
+        friend class iModule<iProject>;
 
+    public:
         /*! opens project from project folder
 
         closes active project if any
@@ -132,7 +131,7 @@ namespace igor
         const std::vector<iResourceID> &getSubScenes() const;
 
         /*! \returns the project scene
-        */
+         */
         iEntityScenePtr getScene() const;
 
         /*! \returns project scene added event
@@ -161,7 +160,7 @@ namespace igor
         iaString _projectName;
 
         /*! the root project scene all other scenes get added to as prefabs
-        */
+         */
         iEntityScenePtr _projectScene = nullptr;
 
         /*! if true project configuration has changes

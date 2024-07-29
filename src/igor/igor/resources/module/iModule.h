@@ -62,7 +62,7 @@ namespace igor
 
         only call this if you know what you are doing
          */
-        static void create()
+        static void createInstance()
         {
             con_assert_sticky(iModule<T>::_instance == nullptr, "module already initialized");
             iModule<T>::_instance = new T();
@@ -72,7 +72,7 @@ namespace igor
 
         only call this if you know what you are doing
          */
-        static void destroy()
+        static void destroyInstance()
         {
             con_assert_sticky(iModule<T>::_instance != nullptr, "module already destroyed");
             delete iModule<T>::_instance;

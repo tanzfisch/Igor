@@ -173,92 +173,98 @@ namespace igor
 
     void createModules()
     {
-        iResourceManager::create();
-        iApplication::create();
-        iAudio::create();
-        iActionManager::create();
-        iMouse::create();
-        iKeyboard::create();
-        iPhysics::create();
-        iRenderer::create();
-        iWidgetManager::create();
-        iSceneFactory::create();
-        iNodeManager::create();
-        iTaskManager::create();
-        iEntitySystemModule::create();
+        iResourceManager::createInstance();
+        iApplication::createInstance();
+        iAudio::createInstance();
+        iActionManager::createInstance();
+        iMouse::createInstance();
+        iKeyboard::createInstance();
+        iPhysics::createInstance();
+        iRenderer::createInstance();
+        iWidgetManager::createInstance();
+        iSceneFactory::createInstance();
+        iNodeManager::createInstance();
+        iTaskManager::createInstance();
+        iEntitySystemModule::createInstance();
+        iProject::createInstance();
     }
 
     void destroyModules()
     {
+        if(iProject::isInstantiated())
+        {
+            iProject::destroyInstance();
+        }
+
         // don't change the order if you don't know what you are doing
         if (iTaskManager::isInstantiated())
         {
-            iTaskManager::destroy();
+            iTaskManager::destroyInstance();
         }
 
         if (iResourceManager::isInstantiated())
         {
-            iResourceManager::destroy();
+            iResourceManager::destroyInstance();
         }
 
         if (iEntitySystemModule::isInstantiated())
         {
-            iEntitySystemModule::destroy();
+            iEntitySystemModule::destroyInstance();
         }
         
         if (iWidgetManager::isInstantiated())
         {
-            iWidgetManager::destroy();
+            iWidgetManager::destroyInstance();
         }
 
         if (iSceneFactory::isInstantiated())
         {
-            iSceneFactory::destroy();
+            iSceneFactory::destroyInstance();
         }
 
         if (iNodeManager::isInstantiated())
         {
-            iNodeManager::destroy();
+            iNodeManager::destroyInstance();
         }
 
         if (iRenderer::isInstantiated())
         {
-            iRenderer::destroy();
+            iRenderer::destroyInstance();
         }
 
         if (iPhysics::isInstantiated())
         {
-            iPhysics::destroy();
+            iPhysics::destroyInstance();
         }
 
         if (iKeyboard::isInstantiated())
         {
-            iKeyboard::destroy();
+            iKeyboard::destroyInstance();
         }
 
         if (iMouse::isInstantiated())
         {
-            iMouse::destroy();
+            iMouse::destroyInstance();
         }
 
         if (iTimer::isInstantiated())
         {
-            iTimer::destroy();
+            iTimer::destroyInstance();
         }
 
         if (iApplication::isInstantiated())
         {
-            iApplication::destroy();
+            iApplication::destroyInstance();
         }
 
         if (iActionManager::isInstantiated())
         {
-            iActionManager::destroy();
+            iActionManager::destroyInstance();
         }
 
         if (iAudio::isInstantiated())
         {
-            iAudio::destroy();
+            iAudio::destroyInstance();
         }
     }
 
@@ -266,7 +272,7 @@ namespace igor
     {
         // first things first
         iaux::startup();
-        iTimer::create();
+        iTimer::createInstance();
         printInfo();
 
         con_info("current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
@@ -296,7 +302,7 @@ namespace igor
             }
         }
 
-        iConfig::create();
+        iConfig::createInstance();
 
         if (configurationFilepath.isEmpty())
         {
