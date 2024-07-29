@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROL_RESOURCEICON__
-#define __USERCONTROL_RESOURCEICON__
+#ifndef USERCONTROL_RESOURCE_ICON_H
+#define USERCONTROL_RESOURCE_ICON_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -115,4 +115,4 @@ private:
     void onDrag() override;     
 };
 
-#endif // __USERCONTROL_RESOURCEICON__
+#endif // USERCONTROL_RESOURCE_ICON_H

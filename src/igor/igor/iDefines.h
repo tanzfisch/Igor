@@ -65,6 +65,12 @@ extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supporte
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
 extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS; //! supported file extensions for prefabs and scenes
 
+/*! \returns true if given extension fits supported model extensions
+    \param ext extension to test
+*/
+#define IGOR_SUPPORTED_MODEL_EXTENSION(ext) (std::find(IGOR_SUPPORTED_MODEL_EXTENSIONS.begin(), IGOR_SUPPORTED_MODEL_EXTENSIONS.end(), file.getExtension()) != IGOR_SUPPORTED_MODEL_EXTENSIONS.end())
+
+
 // resources
 extern const iaString IGOR_RESOURCE_SHADER; //! shader resource name
 extern const iaString IGOR_RESOURCE_MATERIAL; //! material resource name

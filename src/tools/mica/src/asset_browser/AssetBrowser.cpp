@@ -128,30 +128,86 @@ void AssetBrowser::updateContentModeButton()
     _showFilesButton->setChecked(_contentMode == ContentMode::Files);
 }
 
-void AssetBrowser::updateGridView(const iaString &relativePath)
+void AssetBrowser::updateGridView(const iaString &path)
 {
     _gridView->clear();
 
     const iaDirectory projectDir(_projectFolder);
-    _currentPath = projectDir.getFullParentDirectoryName() + IGOR_PATHSEPARATOR + relativePath;
+    _currentPath = projectDir.getFullDirectoryName() + IGOR_PATHSEPARATOR + path;
 
-    const iaDirectory dir(_currentPath);
-    auto files = dir.getFiles();
-
-    for (const auto &file : files)
+    if (iaDirectory::isDirectory(_currentPath))
     {
-        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
-        if (_contentMode == ContentMode::Assets)
+        iResourceManager::getInstance().getResourceProcessedEvent().remove(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded));
+
+        const iaDirectory dir(_currentPath);
+        auto files = dir.getFiles();
+        for (const auto &file : files)
         {
-            const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
-            if (id == iResourceID(IGOR_INVALID_ID))
+            const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+            if (_contentMode == ContentMode::Assets)
             {
-                continue;
+                const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
+                if (id == iResourceID(IGOR_INVALID_ID))
+                {
+                    continue;
+                }
             }
+
+            UserControlResourceIcon *icon = new UserControlResourceIcon(_gridView);
+            icon->setFilename(relativePath);
+        }
+    }
+    else
+    {
+        const iaFile file(_currentPath);
+        if (!IGOR_SUPPORTED_MODEL_EXTENSION(file.getExtension()))
+        {
+            return;
         }
 
-        UserControlResourceIcon *icon = new UserControlResourceIcon(_gridView);
-        icon->setFilename(relativePath);
+        iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded), false, true);
+
+        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+        _currentFocussedResource = iResourceManager::getInstance().getResourceID(relativePath);
+        iResourceManager::getInstance().requestResource<iModel>(_currentFocussedResource);
+    }
+}
+
+static void findMeshPaths(iNodePtr node, const iaString &meshPath, std::vector<iaString> &paths)
+{
+    const iaString path = meshPath + iaString("/") + node->getName();
+
+    if (node->getType() == iNodeType::iNodeMesh)
+    {
+        paths.push_back(path);
+    }
+
+    const auto &children = node->getChildren();
+    for (const auto child : children)
+    {
+        findMeshPaths(child, path, paths);
+    }
+}
+
+void AssetBrowser::onResourceLoaded(iResourceID resourceID)
+{
+    if (_currentFocussedResource != resourceID)
+    {
+        return;
+    }
+
+    const auto type = iResourceManager::getInstance().getType(_currentFocussedResource);
+    if (type == IGOR_RESOURCE_MODEL)
+    {
+        iModelPtr model = iResourceManager::getInstance().getResource<iModel>(_currentFocussedResource);
+
+        std::vector<iaString> paths;
+        findMeshPaths(model->getNode(), "", paths);
+
+        for (int i = 0; i < 5; ++i)
+        {
+            iWidgetButtonPtr foo = new iWidgetButton(_gridView);
+        }
     }
 }
 
@@ -166,13 +222,18 @@ void AssetBrowser::refreshGridView()
 
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
-    updateGridView(std::any_cast<iaString>(source->getUserData()));
+    const iaString itemPath = std::any_cast<iaString>(source->getUserData());
+    const iItemPtr item = _itemData->getItem(itemPath);
+    const iaString path = item->getValue<iaString>("relativePath");
+
+    updateGridView(path);
 }
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 {
     const iaDirectory projectDir(_projectFolder);
-    std::vector<iaDirectory> dirs = dir.getDirectories();
+    auto dirs = dir.getDirectories();
+    auto files = dir.getFiles();
 
     for (const auto &subDir : dirs)
     {
@@ -182,6 +243,25 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
         child->setValue<iaString>("relativePath", relativePath);
 
         update(subDir, child);
+    }
+
+    for (const auto &file : files)
+    {
+        if (!IGOR_SUPPORTED_MODEL_EXTENSION(file.getExtension()))
+        {
+            continue;
+        }
+
+        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+        const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
+        if (id == iResourceID(IGOR_INVALID_ID))
+        {
+            continue;
+        }
+
+        iItemPtr child = item->addItem(file.getStem());
+        child->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_file_model");
+        child->setValue<iaString>("relativePath", relativePath);
     }
 }
 

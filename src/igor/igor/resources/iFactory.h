@@ -57,6 +57,8 @@ namespace igor
         /*! \returns the factory type
 
         this type is used to register with the resource manager
+
+        it's a string so we can register custom factory types
         */
         const iaString &getType() const
         {

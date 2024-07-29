@@ -112,6 +112,10 @@ private:
      */
     iaString _currentPath;
 
+    /*! some resources will be displayed in the file tree. these when selected will be represented by this variable
+    */
+    iResourceID _currentFocussedResource;
+
     /*! init UI
      */
     void initUI();
@@ -147,9 +151,9 @@ private:
 
     /*! updates grid view for given relative path
 
-    \param relativePath the given path
+    \param path the given path
     */
-    void updateGridView(const iaString &relativePath);
+    void updateGridView(const iaString &path);
 
     /*! light weight refresh
      */
@@ -178,6 +182,12 @@ private:
     \param source the source widget of this event
     */
     void onCreateShader(iWidgetPtr source);
+
+    /*! called when resource was loaded
+
+    \param resourceID the id of the resource that was loaded
+    */
+    void onResourceLoaded(iResourceID resourceID);
 };
 
 #endif // ASSET_BROWSER_H

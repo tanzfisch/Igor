@@ -86,8 +86,8 @@ namespace iaux
             return false;
         }
 
-        std::filesystem::directory_entry entry(path.getData());
-        if (entry.is_directory())
+        std::filesystem::file_status entry = std::filesystem::status(path.getData());
+        if (std::filesystem::is_directory(entry))
         {
             return true;
         }
