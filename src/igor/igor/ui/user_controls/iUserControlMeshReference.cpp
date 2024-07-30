@@ -69,7 +69,7 @@ namespace igor
         }
         _meshPaths = meshPaths;
 
-        if(_meshPaths.empty())
+        if (_meshPaths.empty())
         {
             _meshPath->setText("all meshs are referenced");
         }
@@ -77,9 +77,9 @@ namespace igor
         {
             iaString text;
 
-            for(const auto &path : _meshPaths)
+            for (const auto &path : _meshPaths)
             {
-                if(!text.isEmpty())
+                if (!text.isEmpty())
                 {
                     text += "\n";
                 }
@@ -87,7 +87,14 @@ namespace igor
                 text += path;
             }
 
-            _meshPath->setText(text);
+            if (!text.isEmpty())
+            {
+                _meshPath->setText(text);
+            }
+            else
+            {
+                _meshPath->setText("all meshs are referenced");
+            }
         }
 
         _change(this);
@@ -138,8 +145,16 @@ namespace igor
         {
             return;
         }
-        
-        setReference(id, {});
+
+        if (mimeData.hasText() &&
+            !mimeData.getText().isEmpty())
+        {
+            setReference(id, {mimeData.getText()});
+        }
+        else
+        {
+            setReference(id, {});
+        }
     }
 
 } // namespace igor

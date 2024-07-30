@@ -78,7 +78,6 @@ namespace igor
         {
             for (const auto &meshPath : meshPaths)
             {
-
                 std::vector<iaString> tokens;
                 meshPath.split('/', tokens);
 

@@ -128,8 +128,27 @@ void AssetBrowser::updateContentModeButton()
     _showFilesButton->setChecked(_contentMode == ContentMode::Files);
 }
 
-void AssetBrowser::updateGridView(const iaString &path)
+static void findMeshPaths(iNodePtr node, const iaString &meshPath, std::vector<iaString> &paths)
 {
+    const iaString path = meshPath + iaString("/") + node->getName();
+
+    if (node->getType() == iNodeType::iNodeMesh)
+    {
+        paths.push_back(path);
+    }
+
+    const auto &children = node->getChildren();
+    for (const auto child : children)
+    {
+        findMeshPaths(child, path, paths);
+    }
+}
+
+void AssetBrowser::updateGridView()
+{
+    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
+    const iaString path = item->getValue<iaString>("relativePath");
+
     _gridView->clear();
 
     const iaDirectory projectDir(_projectFolder);
@@ -153,8 +172,7 @@ void AssetBrowser::updateGridView(const iaString &path)
                 }
             }
 
-            UserControlResourceIcon *icon = new UserControlResourceIcon(_gridView);
-            icon->setFilename(relativePath);
+            UserControlResourceIcon *icon = new UserControlResourceIcon(relativePath, "", _gridView);
         }
     }
     else
@@ -169,23 +187,17 @@ void AssetBrowser::updateGridView(const iaString &path)
 
         const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
         _currentFocussedResource = iResourceManager::getInstance().getResourceID(relativePath);
-        iResourceManager::getInstance().requestResource<iModel>(_currentFocussedResource);
-    }
-}
+        iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(_currentFocussedResource);
+        if (model->isValid())
+        {
+            std::vector<iaString> meshPaths;
+            findMeshPaths(model->getNode(), "", meshPaths);
 
-static void findMeshPaths(iNodePtr node, const iaString &meshPath, std::vector<iaString> &paths)
-{
-    const iaString path = meshPath + iaString("/") + node->getName();
-
-    if (node->getType() == iNodeType::iNodeMesh)
-    {
-        paths.push_back(path);
-    }
-
-    const auto &children = node->getChildren();
-    for (const auto child : children)
-    {
-        findMeshPaths(child, path, paths);
+            for (const auto &path : meshPaths)
+            {
+                UserControlResourceIcon *icon = new UserControlResourceIcon(relativePath, path, _gridView);
+            }
+        }
     }
 }
 
@@ -196,19 +208,7 @@ void AssetBrowser::onResourceLoaded(iResourceID resourceID)
         return;
     }
 
-    const auto type = iResourceManager::getInstance().getType(_currentFocussedResource);
-    if (type == IGOR_RESOURCE_MODEL)
-    {
-        iModelPtr model = iResourceManager::getInstance().getResource<iModel>(_currentFocussedResource);
-
-        std::vector<iaString> paths;
-        findMeshPaths(model->getNode(), "", paths);
-
-        for (int i = 0; i < 5; ++i)
-        {
-            iWidgetButtonPtr foo = new iWidgetButton(_gridView);
-        }
-    }
+    updateGridView();
 }
 
 void AssetBrowser::refreshGridView()
@@ -222,11 +222,7 @@ void AssetBrowser::refreshGridView()
 
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
-    const iaString itemPath = std::any_cast<iaString>(source->getUserData());
-    const iItemPtr item = _itemData->getItem(itemPath);
-    const iaString path = item->getValue<iaString>("relativePath");
-
-    updateGridView(path);
+    updateGridView();
 }
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
@@ -285,7 +281,7 @@ void AssetBrowser::update(const iaTime &time)
         _itemData = std::unique_ptr<iItemData>(itemData);
 
         _treeView->setItems(_itemData.get());
-        updateGridView(_treeView->getSelectedItemPath());
+        updateGridView();
     }
     else
     {
