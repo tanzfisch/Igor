@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_COMPONENT_MESH_RENDER_H
-#define USERCONTROL_COMPONENT_MESH_RENDER_H
+#ifndef USERCONTROL_COMPONENT_PREFAB_H
+#define USERCONTROL_COMPONENT_PREFAB_H
 
 #include "UserControlComponent.h"
 
-class UserControlComponentMeshRender : public UserControlComponent
+class UserControlComponentPrefab : public UserControlComponent
 {
 public:
     /*! init user control
@@ -40,11 +40,11 @@ public:
     \param entity the given entity
     \param parent the optional parent widget
     */
-    UserControlComponentMeshRender(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+    UserControlComponentPrefab(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlComponentMeshRender() = default;
+    virtual ~UserControlComponentPrefab() = default;
 
     /*! init ui
      */
@@ -56,24 +56,24 @@ public:
 
     /*! update entity
      */
-    void updateComponent() override;
+    void updateComponent() override;        
 
 private:
-    /*! label mesh count
+    /*! prefab id
      */
-    iWidgetLabelPtr _labelMeshCount;
+    iResourceID _prefabID;
 
-    /*! label vertex count
-     */
-    iWidgetLabelPtr _labelVertexCount;
+    /*! label id
+    */
+    iWidgetLabelPtr _labelID;
 
-    /*! label triangles count
-     */
-    iWidgetLabelPtr _labelTrianglesCount;
+    /*! source id
+    */
+    iWidgetLabelPtr _labelSource;
 
-    /*! called after values changed
-     */
-    void onValueChanged(iWidgetPtr source);
+    /*! label alias
+    */
+    iWidgetLabelPtr _labelAlias;
 };
 
-#endif // USERCONTROL_COMPONENT_MESH_RENDER_H
+#endif // USERCONTROL_COMPONENT_PREFAB_H

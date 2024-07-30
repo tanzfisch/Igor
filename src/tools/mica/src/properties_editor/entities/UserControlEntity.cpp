@@ -12,6 +12,8 @@
 #include "components/UserControlComponentMeshReference.h"
 #include "components/UserControlComponentMeshRender.h"
 #include "components/UserControlComponentOctree.h"
+#include "components/UserControlComponentQuadtree.h"
+#include "components/UserControlComponentPrefab.h"
 
 #include "../../MicaDefines.h"
 
@@ -172,6 +174,22 @@ void UserControlEntity::update()
         userControl->init();
         userControl->update();
     }
+
+    auto prefab = entity->getComponent<iPrefabComponent>();
+    if (prefab != nullptr)
+    {
+        UserControlComponentPrefab *userControl = new UserControlComponentPrefab(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }    
+
+    auto quadtree = entity->getComponent<iQuadtreeComponent>();
+    if (quadtree != nullptr)
+    {
+        UserControlComponentQuadtree *userControl = new UserControlComponentQuadtree(_sceneID, _entityID, _componentsLayout);
+        userControl->init();
+        userControl->update();
+    }   
 
     _ignoreUpdate = false;
 }

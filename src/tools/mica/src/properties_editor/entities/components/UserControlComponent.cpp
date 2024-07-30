@@ -27,43 +27,10 @@ void UserControlComponent::init()
 
 void UserControlComponent::update()
 {
-    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
-    if(scene == nullptr)
-    {
-        return;
-    }
-
-    iEntityPtr entity = scene->getEntity(_entityID);
-    if(entity == nullptr)
-    {
-        return;
-    }
-
-    _ignoreUpdate = true;
-
-    // TODO
-
-    _ignoreUpdate = false;
+    // nothing to do
 }
 
 void UserControlComponent::updateComponent()
 {
-    if(_ignoreUpdate)
-    {
-        return;
-    }    
-
-    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
-    if(scene == nullptr)
-    {
-        return;
-    }
-
-    iEntityPtr entity = scene->getEntity(_entityID);
-    if(entity == nullptr)
-    {
-        return;
-    }    
-
-    // TODO
+    // nothing to do
 }

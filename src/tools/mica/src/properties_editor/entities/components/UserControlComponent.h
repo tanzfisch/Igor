@@ -73,7 +73,7 @@ protected:
     iEntityID _entityID;
 
     /*! name of component type
-    */
+     */
     iaString _typeName;
 
     /*! flag to prevent endless update loop
@@ -81,7 +81,7 @@ protected:
     bool _ignoreUpdate = false;
 
     /*! main layout
-    */
+     */
     iWidgetBoxLayoutPtr _layout = nullptr;
 };
 

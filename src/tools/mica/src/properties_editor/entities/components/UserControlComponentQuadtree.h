@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_COMPONENT_MESH_RENDER_H
-#define USERCONTROL_COMPONENT_MESH_RENDER_H
+#ifndef USERCONTROL_COMPONENT_QUADTREE_H
+#define USERCONTROL_COMPONENT_QUADTREE_H
 
 #include "UserControlComponent.h"
 
-class UserControlComponentMeshRender : public UserControlComponent
+class UserControlComponentQuadtree : public UserControlComponent
 {
 public:
     /*! init user control
@@ -40,40 +40,15 @@ public:
     \param entity the given entity
     \param parent the optional parent widget
     */
-    UserControlComponentMeshRender(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+    UserControlComponentQuadtree(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlComponentMeshRender() = default;
+    virtual ~UserControlComponentQuadtree() = default;
 
     /*! init ui
      */
     void init() override;
-
-    /*! update ui with node data
-     */
-    void update() override;
-
-    /*! update entity
-     */
-    void updateComponent() override;
-
-private:
-    /*! label mesh count
-     */
-    iWidgetLabelPtr _labelMeshCount;
-
-    /*! label vertex count
-     */
-    iWidgetLabelPtr _labelVertexCount;
-
-    /*! label triangles count
-     */
-    iWidgetLabelPtr _labelTrianglesCount;
-
-    /*! called after values changed
-     */
-    void onValueChanged(iWidgetPtr source);
 };
 
-#endif // USERCONTROL_COMPONENT_MESH_RENDER_H
+#endif // USERCONTROL_COMPONENT_QUADTREE_H
