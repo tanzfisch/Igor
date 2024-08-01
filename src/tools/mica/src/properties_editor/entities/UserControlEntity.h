@@ -99,7 +99,26 @@ private:
     */
     iWidgetCheckBoxPtr _checkBoxActive = nullptr;
 
+    /*! add button
+    */
+    iWidgetButtonPtr _addComponent = nullptr;
+
+    /*! called on add component button clicked
+
+    \param source the source widget of the event
+    */
+    void onAddComponentClicked(iWidgetPtr source);
+
+    /*! called when name was changed
+
+    \param source the source widget of the event
+    */
     void onNameChanged(iWidgetPtr source);
+
+    /*! called when active checkbox was clicked
+
+    \param source the source widget of the event
+    */
     void onActiveChanged(iWidgetPtr source);
 };
 

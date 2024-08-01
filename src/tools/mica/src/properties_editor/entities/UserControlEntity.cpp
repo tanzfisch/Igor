@@ -79,6 +79,12 @@ void UserControlEntity::init()
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
     _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 
+    _addComponent = new iWidgetButton(entityLayout);
+    _addComponent->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _addComponent->setText("Add Component");
+    _addComponent->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    _addComponent->registerOnClickEvent(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));
+
     iWidgetGroupBoxPtr componentsGroupBox = new iWidgetGroupBox(mainLayout);
     componentsGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     componentsGroupBox->setText("Components");
@@ -87,6 +93,11 @@ void UserControlEntity::init()
     _componentsLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, componentsGroupBox);
     _componentsLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _componentsLayout->setVerticalAlignment(iVerticalAlignment::Top);
+}
+
+void UserControlEntity::onAddComponentClicked(iWidgetPtr source)
+{
+    
 }
 
 void UserControlEntity::update()
