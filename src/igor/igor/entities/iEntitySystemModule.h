@@ -122,9 +122,11 @@ namespace igor
         float64 getSimulationRate();
 
         /*! registers a component type
+
+        \param componentTypeName component type name (must be unique)
          */
         template <typename T>
-        void registerComponentType();
+        void registerComponentType(const iaString &componentTypeName);
 
         /*! \returns mask for given component type
 
@@ -172,6 +174,8 @@ namespace igor
          */
         void clear();
 
+        void getRegisteredComponentTypes();
+
     private:
         /*! entity scenes
          */
@@ -217,7 +221,7 @@ namespace igor
 
         IGOR_MAX_ENTITY_COMPONENT_TYPES is the maximum that can be registered
         */
-        std::unordered_map<std::type_index, iEntityComponentMask> _registeredComponentTypes;
+        std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> _registeredComponentTypes;
 
         /*! register known types
          */

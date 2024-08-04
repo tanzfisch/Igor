@@ -30,9 +30,15 @@ namespace igor
 	void DialogComponentTypeSelection::initGUI()
 	{
 		iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
-    	mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+		mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-		
+		const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
+
+		_selectBoxComponentType = new iWidgetSelectBox(mainLayout);
+		for(const auto &componentType : componentTypes)
+		{
+			_selectBoxComponentType->addItem(componentType.second.second, componentType.first);
+		}
 	}
 
 } // namespace igor

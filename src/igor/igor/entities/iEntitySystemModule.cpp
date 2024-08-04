@@ -36,24 +36,24 @@ namespace igor
 
     iEntitySystemModule::iEntitySystemModule()
     {
-        registerComponentType<iSpriteRenderComponent>();
-        registerComponentType<iTransformComponent>();
-        registerComponentType<iLightComponent>();
-        registerComponentType<iQuadtreeComponent>();
-        registerComponentType<iOctreeComponent>();
-        registerComponentType<iCircleComponent>();
-        registerComponentType<iSphereComponent>();
-        registerComponentType<iVelocityComponent>();
-        registerComponentType<iBehaviourComponent>();
-        registerComponentType<iGlobalBoundaryComponent>();
-        registerComponentType<iMotionInteractionResolverComponent>();
-        registerComponentType<iCameraComponent>();
-        registerComponentType<iRenderDebugComponent>();
-        registerComponentType<iPartyComponent>();
-        registerComponentType<iAnimationComponent>();
-        registerComponentType<iMeshRenderComponent>();
-        registerComponentType<iMeshReferenceComponent>();
-        registerComponentType<iPrefabComponent>();
+        registerComponentType<iSpriteRenderComponent>("Sprite Render");
+        registerComponentType<iTransformComponent>("Transform");
+        registerComponentType<iLightComponent>("Light");
+        registerComponentType<iQuadtreeComponent>("Quadtree");
+        registerComponentType<iOctreeComponent>("Octree");
+        registerComponentType<iCircleComponent>("Circle");
+        registerComponentType<iSphereComponent>("Sphere");
+        registerComponentType<iVelocityComponent>("Velocity");
+        registerComponentType<iBehaviourComponent>("Behaviour");
+        registerComponentType<iGlobalBoundaryComponent>("Global Boundary");
+        registerComponentType<iMotionInteractionResolverComponent>("Motion Interaction Resolver");
+        registerComponentType<iCameraComponent>("Camera");
+        registerComponentType<iRenderDebugComponent>("Render Debug");
+        registerComponentType<iPartyComponent>("Party");
+        registerComponentType<iAnimationComponent>("Animation");
+        registerComponentType<iMeshRenderComponent>("Mesh Render");
+        registerComponentType<iMeshReferenceComponent>("Mesh Reference");
+        registerComponentType<iPrefabComponent>("Prefab");
 
         _simulationFrameTime = iTimer::getInstance().getTime();
     }
@@ -101,7 +101,7 @@ namespace igor
         auto iter = _registeredComponentTypes.find(typeID);
         if (iter != _registeredComponentTypes.end())
         {
-            result = iter->second;
+            result = iter->second.first;
         }
         else
         {
@@ -124,7 +124,7 @@ namespace igor
         }
         else
         {
-            con_err("scene with id " << sceneID << " not found");            
+            con_err("scene with id " << sceneID << " not found");
         }
         _mutex.unlock();
 
@@ -181,7 +181,7 @@ namespace igor
         _mutex.unlock();
 
         int32 maxUpdateCount = 10;
-        
+
         while ((_simulationFrameTime + timeDelta < currentTime) &&
                maxUpdateCount > 0)
         {
@@ -303,6 +303,11 @@ namespace igor
         iEntityCopyTraverser traverser(prefab, entity);
         iEntityScenePtr prefabScene = getScene(prefab->getSceneID());
         traverser.traverse(prefabScene);
+    }
+
+    const std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> &iEntitySystemModule::getRegisteredComponentTypes() const
+    {
+        return _registeredComponentTypes;
     }
 
 } // namespace igor

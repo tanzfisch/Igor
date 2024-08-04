@@ -56,6 +56,11 @@ namespace igor
         void open(iDialogCloseDelegate dialogCloseDelegate);
 
     private:
+
+        /*! component type select box
+        */
+        iWidgetSelectBoxPtr _selectBoxComponentType = nullptr;
+
         /*! init ui
          */
         void initGUI();
