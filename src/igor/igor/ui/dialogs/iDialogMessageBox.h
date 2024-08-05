@@ -65,18 +65,11 @@ namespace igor
 
         /*! initializes gui and opens the message box dialog
 
-		\param dialogCloseDelegate the close delegate
 		\param message the message to display
 		\param buttons the button configuration to use
+        \param dialogCloseDelegate the close delegate
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
-
-        /*! initializes gui and opens the message box dialog
-
-		\param message the message to display
-		\param buttons the button configuration to use
-		*/
-        void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+        void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok, iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate());
 
     private:
         /*! handles ok button clicked event

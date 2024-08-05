@@ -174,7 +174,9 @@ namespace igor
          */
         void clear();
 
-        void getRegisteredComponentTypes();
+        /*! \returns registered component types
+        */
+        const std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> &getRegisteredComponentTypes() const;
 
     private:
         /*! entity scenes

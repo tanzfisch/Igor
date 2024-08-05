@@ -125,24 +125,6 @@ namespace igor
         */
         void draw();
 
-        /*! set this widget exclusively modal
-         */
-        void setModal(iDialogPtr dialog);
-
-        /*! \returns current modal widget
-         */
-        iDialogPtr getModal() const;
-
-        /*! \returns true: if widget is modal
-
-        \param dialog the dialog to check if it is modal
-        */
-        bool isModal(iDialogPtr dialog);
-
-        /*! reset modal flag
-         */
-        void resetModal();
-
         /*! updates recursively all widgets before rendering
          */
         void onUpdate();
@@ -168,9 +150,9 @@ namespace igor
         void deleteWidget(iWidgetPtr widget);           
 
     private:
-        /*! modal marker
+        /*! modal stack (using vector so we can search in it)
          */
-        iDialogPtr _modal = nullptr;
+        std::vector<iDialogPtr> _modalStack;
 
         /*! pointer to current theme
          */
@@ -377,7 +359,23 @@ namespace igor
         */
         void applyCursor();
 
-        void startTooltip(const iaString &tooltip, const iaVector2f &position, iWidgetID sourceID);
+        /*! set this widget exclusively modal
+         */
+        void setModal(iDialogPtr dialog);
+
+        /*! reset modal flag
+         */
+        void resetModal(iDialogPtr dialog);
+
+        /*! \returns current modal widget
+         */
+        iDialogPtr getModal() const;
+
+        /*! \returns true: if widget is modal
+
+        \param dialog the dialog to check if it is modal
+        */
+        bool isModal(iDialogPtr dialog);
 
         /*! init
          */

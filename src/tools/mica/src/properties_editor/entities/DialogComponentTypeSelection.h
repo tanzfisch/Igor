@@ -30,46 +30,58 @@
 #define IGOR_DIALOG_SELECT_COMPONENT_TYPE_H
 
 #include <igor/igor.h>
+using namespace igor;
 
-namespace igor
+/*!  component type selection
+ */
+class IGOR_API DialogComponentTypeSelection : public iDialog
 {
-    /*!  component type selection
+
+public:
+    /*! init members
+
+    \param parent the parent of this widget
+    */
+    DialogComponentTypeSelection(const iWidgetPtr parent = nullptr);
+
+    /*! de initializes gui
      */
-    class IGOR_API DialogComponentTypeSelection : public iDialog
-    {
+    ~DialogComponentTypeSelection() = default;
 
-    public:
-        /*! init members
+    /*! initializes gui and opens the message box dialog
 
-        \param parent the parent of this widget
-        */
-        DialogComponentTypeSelection(const iWidgetPtr parent = nullptr);
+    \param dialogCloseDelegate the close delegate
+    */
+    void open(iDialogCloseDelegate dialogCloseDelegate);
 
-        /*! de initializes gui
-         */
-        ~DialogComponentTypeSelection() = default;
-
-        /*! initializes gui and opens the message box dialog
-
-        \param dialogCloseDelegate the close delegate
-        */
-        void open(iDialogCloseDelegate dialogCloseDelegate);
-
-    private:
-
-        /*! component type select box
-        */
-        iWidgetSelectBoxPtr _selectBoxComponentType = nullptr;
-
-        /*! init ui
-         */
-        void initGUI();
-    };
-
-    /*! pointer definition for message box
+private:
+    /*! component type select box
      */
-    typedef DialogComponentTypeSelection *DialogComponentTypeSelectionPtr;
+    iWidgetSelectBoxPtr _selectBoxComponentType = nullptr;
 
-} // namespace igor
+    /*! cancel button
+     */
+    iWidgetButtonPtr _cancelButton = nullptr;
+
+    /*! ok button
+     */
+    iWidgetButtonPtr _okButton = nullptr;
+
+    /*! init ui
+     */
+    void initGUI();
+
+    /*! called when cancel was clicked
+     */
+    void onCancel(iWidgetPtr source);
+
+    /*! called when ok was clicked
+     */
+    void onOK(iWidgetPtr source);
+};
+
+/*! pointer definition for message box
+ */
+typedef DialogComponentTypeSelection *DialogComponentTypeSelectionPtr;
 
 #endif // IGOR_DIALOG_SELECT_COMPONENT_TYPE_H

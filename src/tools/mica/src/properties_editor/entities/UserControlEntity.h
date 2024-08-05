@@ -29,9 +29,7 @@
 #ifndef USERCONTROL_ENTITY_H
 #define USERCONTROL_ENTITY_H
 
-#include <igor/igor.h>
-using namespace iaux;
-using namespace igor;
+#include "DialogComponentTypeSelection.h"
 
 class UserControlEntity : public iUserControl
 {
@@ -103,6 +101,10 @@ private:
     */
     iWidgetButtonPtr _addComponent = nullptr;
 
+    /*! component type selection dialog
+    */
+    std::unique_ptr<DialogComponentTypeSelection> _componentSelectionDialog;
+
     /*! called on add component button clicked
 
     \param source the source widget of the event
@@ -120,6 +122,10 @@ private:
     \param source the source widget of the event
     */
     void onActiveChanged(iWidgetPtr source);
+
+    /*! called when component type selection dialog closed
+    */
+    void onDialogClosed(iDialogPtr source);
 };
 
 #endif // USERCONTROL_ENTITY_H

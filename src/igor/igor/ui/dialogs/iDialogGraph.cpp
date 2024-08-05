@@ -42,7 +42,7 @@ namespace igor
 
     void iDialogGraph::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>> &graphs)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         con_assert(!graphs.empty() && !graphs[0].empty(), "invalid data");
 
@@ -66,7 +66,6 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
         setMinWidth(450);

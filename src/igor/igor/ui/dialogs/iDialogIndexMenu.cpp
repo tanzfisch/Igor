@@ -30,7 +30,7 @@ namespace igor
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures)
 	{
-		iDialog::open(dialogCloseDelegate);
+		iDialog::open(dialogCloseDelegate, true);
 
 		if (pictures.empty())
 		{
@@ -44,7 +44,6 @@ namespace igor
 
 	void iDialogIndexMenu::initGUI(std::vector<iaString> &texts)
 	{
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinHeight(0);
@@ -75,7 +74,6 @@ namespace igor
 	{
 		con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinHeight(0);

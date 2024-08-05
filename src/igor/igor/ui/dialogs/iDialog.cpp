@@ -58,7 +58,7 @@ namespace igor
     {
         if (iWidgetManager::getInstance().isModal(this))
         {
-            iWidgetManager::getInstance().resetModal();
+            iWidgetManager::getInstance().resetModal(this);
         }
     }
 
@@ -82,12 +82,17 @@ namespace igor
         return _returnState;
     }
 
-    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
+    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
     {
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
         setVisible();
         putInFront();
+
+        if(modal)
+        {
+            iWidgetManager::getInstance().setModal(this);
+        }
 
         _isOpen = true;
     }
@@ -96,7 +101,10 @@ namespace igor
     {
         setEnabled(false);
         setVisible(false);
-        iWidgetManager::getInstance().resetModal();
+        if(iWidgetManager::getInstance().isModal(this))
+        {
+            iWidgetManager::getInstance().resetModal(this);
+        }
         iWidgetManager::getInstance().closeDialog(this);
 
         _isOpen = false;

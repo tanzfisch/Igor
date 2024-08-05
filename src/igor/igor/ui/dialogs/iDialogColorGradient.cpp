@@ -26,11 +26,10 @@ namespace igor
 		initUI();
 	}
 
-	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate)
+	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
 	{
-		iDialog::open(dialogCloseDelegate);
+		iDialog::open(dialogCloseDelegate, modal);
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 	}

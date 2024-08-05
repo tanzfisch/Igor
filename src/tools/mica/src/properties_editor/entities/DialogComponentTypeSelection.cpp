@@ -4,41 +4,56 @@
 
 #include "DialogComponentTypeSelection.h"
 
-namespace igor
+DialogComponentTypeSelection::DialogComponentTypeSelection(const iWidgetPtr parent)
+	: iDialog(iWidgetType::iDialog, parent)
 {
-	DialogComponentTypeSelection::DialogComponentTypeSelection(const iWidgetPtr parent)
-		: iDialog(iWidgetType::iDialog, parent)
+}
+
+void DialogComponentTypeSelection::open(iDialogCloseDelegate dialogCloseDelegate)
+{
+	setTitle("Select Component Type");
+	setVerticalAlignment(iVerticalAlignment::Center);
+	setHorizontalAlignment(iHorizontalAlignment::Center);
+	setResizeable(false);
+
+	setMinWidth(20);
+	setMinHeight(20);
+
+	initGUI();
+
+	iDialog::open(dialogCloseDelegate, true);
+}
+
+void DialogComponentTypeSelection::initGUI()
+{
+	iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+	mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+
+	const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
+
+	_selectBoxComponentType = new iWidgetSelectBox(mainLayout);
+	for (const auto &componentType : componentTypes)
 	{
+		_selectBoxComponentType->addItem(componentType.second.second, componentType.first);
 	}
 
-	void DialogComponentTypeSelection::open(iDialogCloseDelegate dialogCloseDelegate)
-	{
-		setTitle("Select Component Type");
-		setVerticalAlignment(iVerticalAlignment::Center);
-		setHorizontalAlignment(iHorizontalAlignment::Center);
-        setResizeable(false);
+	iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, mainLayout);
+	buttonLayout->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-        iWidgetManager::getInstance().setModal(this);
-        setMinWidth(20);
-        setMinHeight(20);
+	_cancelButton = new iWidgetButton(buttonLayout);
+	_cancelButton->setText("Cancel");
+	_cancelButton->registerOnClickEvent(iClickDelegate(this, &DialogComponentTypeSelection::onCancel));
 
-		initGUI();
+	_okButton = new iWidgetButton(buttonLayout);
+	_okButton->setText("Ok");
+	_okButton->registerOnClickEvent(iClickDelegate(this, &DialogComponentTypeSelection::onOK));
+}
 
-		iDialog::open(dialogCloseDelegate);
-	}
+void DialogComponentTypeSelection::onCancel(iWidgetPtr source)
+{
+	close();
+}
 
-	void DialogComponentTypeSelection::initGUI()
-	{
-		iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
-		mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-
-		const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
-
-		_selectBoxComponentType = new iWidgetSelectBox(mainLayout);
-		for(const auto &componentType : componentTypes)
-		{
-			_selectBoxComponentType->addItem(componentType.second.second, componentType.first);
-		}
-	}
-
-} // namespace igor
+void DialogComponentTypeSelection::onOK(iWidgetPtr source)
+{
+}

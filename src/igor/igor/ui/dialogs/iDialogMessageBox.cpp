@@ -21,13 +21,14 @@ namespace igor
 	{
 	}
 
-	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
+	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons, iDialogCloseDelegate dialogCloseDelegate)
 	{
-        setHorizontalAlignment(iHorizontalAlignment::Center);
-        setVerticalAlignment(iVerticalAlignment::Center);
+		iDialog::open(dialogCloseDelegate, true);
+
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+		setVerticalAlignment(iVerticalAlignment::Center);
 		setResizeable(false);
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinWidth(20);
@@ -88,13 +89,6 @@ namespace igor
 			yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));
 			buttonGrid->addWidget(yesButton, i--, 0);
 		}
-	}
-
-	void iDialogMessageBox::open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
-	{
-		iDialog::open(dialogCloseDelegate);
-
-		open(message, buttons);
 	}
 
 	IGOR_DISABLE_WARNING(4100)

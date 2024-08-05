@@ -27,7 +27,7 @@ namespace igor
 
     void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         _oldColor = color;
         initGUI(color, useAlpha);
@@ -40,7 +40,6 @@ namespace igor
 		setHorizontalAlignment(iHorizontalAlignment::Center);
         setResizeable(false);
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
         setMinWidth(20);

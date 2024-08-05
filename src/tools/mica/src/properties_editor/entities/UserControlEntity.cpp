@@ -22,6 +22,8 @@ UserControlEntity::UserControlEntity(iEntitySceneID sceneID, iEntityID entityID,
 {
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID()) != nullptr, "invalid scene id");
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID())->getEntity(entityID) != nullptr, "invalid entity id");
+
+    _componentSelectionDialog = std::make_unique<DialogComponentTypeSelection>();
 }
 
 void UserControlEntity::init()
@@ -92,12 +94,17 @@ void UserControlEntity::init()
 
     _componentsLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, componentsGroupBox);
     _componentsLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _componentsLayout->setVerticalAlignment(iVerticalAlignment::Top);
+    _componentsLayout->setVerticalAlignment(iVerticalAlignment::Top);    
+}
+
+void UserControlEntity::onDialogClosed(iDialogPtr source)
+{
+    // _componentSelectionDialog->
 }
 
 void UserControlEntity::onAddComponentClicked(iWidgetPtr source)
 {
-    
+    _componentSelectionDialog->open(iDialogCloseDelegate(this, &UserControlEntity::onDialogClosed));
 }
 
 void UserControlEntity::update()

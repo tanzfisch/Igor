@@ -21,7 +21,7 @@ namespace igor
 
 	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
-		iDialog::open(dialogCloseDelegate);
+		iDialog::open(dialogCloseDelegate, true);
 
 		initGUI(title, message, radioButtonTexts, preSelection);
 	}
@@ -48,7 +48,6 @@ namespace igor
 		setHorizontalAlignment(iHorizontalAlignment::Center);		
 		setResizeable(false);
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinWidth(20);

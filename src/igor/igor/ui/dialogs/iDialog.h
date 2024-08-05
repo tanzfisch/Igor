@@ -177,8 +177,9 @@ namespace igor
         /*! shows the dialog on screen
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
+        \param modal open this dialog as modal
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate());
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate(), bool modal = false);
 
         /*! closes the dialog
          */

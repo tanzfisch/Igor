@@ -98,8 +98,9 @@ namespace igor
         /*! shows the dialog on screen
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
+        \param modal if true open this dialog as modal
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate()) override;
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate(), bool modal = false) override;
 
         /*! clears the widget back to default
         */

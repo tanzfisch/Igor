@@ -31,7 +31,7 @@ namespace igor
 
     void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
         initGUI();
@@ -68,7 +68,6 @@ namespace igor
 
         updateFileDir();
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
 

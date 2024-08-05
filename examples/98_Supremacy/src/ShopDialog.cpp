@@ -28,8 +28,7 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const
 	_option3 = (*iter++);
 
 	updateGUI(coins);
-	iDialog::open(dialogCloseDelegate);
-	iWidgetManager::getInstance().setModal(this);
+	iDialog::open(dialogCloseDelegate, true);
 }
 
 void ShopDialog::updateGUI(int coins)

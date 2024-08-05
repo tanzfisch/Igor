@@ -55,13 +55,12 @@ namespace igor
 		*/
         ~iDialogColorGradient() = default;
 
-        /*! show/open the decision box
+        /*! open the color gradient dialog
 
 		\param dialogCloseDelegate closing delegate
-		\param gradient to start with
-		\param useAlpha if true use alpha channel too
+        \param modal if true dialog opens modal
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true) override;
 
         /*! sets color gradient
 

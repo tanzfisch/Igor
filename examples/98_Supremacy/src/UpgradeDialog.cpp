@@ -26,8 +26,7 @@ void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::ve
 	_option3 = (*iter++);
 
 	updateGUI();
-	iDialog::open(dialogCloseDelegate);
-	iWidgetManager::getInstance().setModal(this);
+	iDialog::open(dialogCloseDelegate, true);
 }
 
 void UpgradeDialog::updateGUI()
