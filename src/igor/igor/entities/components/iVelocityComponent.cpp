@@ -7,9 +7,34 @@
 namespace igor
 {
 
+    iVelocityComponent::iVelocityComponent(const iaVector3d &velocity, const iaVector3d &angularVelocity)
+        : _velocity(velocity), _angularVelocity(angularVelocity)
+    {
+    }
+
     iEntityComponent *iVelocityComponent::createInstance()
     {
         return new iVelocityComponent();
+    }
+
+    const iaVector3d &iVelocityComponent::getVelocity() const
+    {
+        return _velocity;
+    }
+
+    void iVelocityComponent::setVelocity(const iaVector3d &velocity)
+    {
+        _velocity = velocity;
+    }
+
+    const iaVector3d &iVelocityComponent::getAngularVelocity() const
+    {
+        return _angularVelocity;
+    }
+
+    void iVelocityComponent::setAngularVelocity(const iaVector3d &angularVelocity)
+    {
+        _angularVelocity = angularVelocity;
     }
 
 }

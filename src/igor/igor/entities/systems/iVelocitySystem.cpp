@@ -33,7 +33,8 @@ namespace igor
 
 			for (auto entity : _interactionResolverView->getEntities())
 			{
-				auto velocity = entity->getComponent<iVelocityComponent>();
+				auto velocityComp = entity->getComponent<iVelocityComponent>();
+				auto velocity = velocityComp->getVelocity();
 				auto quadComp = entity->getComponent<iQuadtreeComponent>();
 				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
 
@@ -46,7 +47,7 @@ namespace igor
 					iQuadtreed::Objects objects;
 					quadtree.query(circle, objects);
 
-					float64 speed = velocity->_velocity.length();
+					float64 speed = velocity.length();
 					iaVector2d diversion;
 
 					for (const auto &object : objects)
@@ -72,8 +73,10 @@ namespace igor
 					diversion.normalize();
 					diversion *= speed;
 
-					velocity->_velocity._x += diversion._x;
-					velocity->_velocity._y += diversion._y;
+					velocity._x += diversion._x;
+					velocity._y += diversion._y;
+
+					velocityComp->setVelocity(velocity);
 				}
 				break;
 
@@ -86,11 +89,11 @@ namespace igor
 
 		for (auto entity : _noBoundsView->getEntities())
 		{
-			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto velocityComp = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 
-			transform->translate(velocity->_velocity);
-			transform->rotate(velocity->_angularVelocity);
+			transform->translate(velocityComp->getVelocity());
+			transform->rotate(velocityComp->getAngularVelocity());
 		}
 
 		iaVector3d min;
@@ -100,19 +103,19 @@ namespace igor
 
 		for (auto entity : _boundsView->getEntities())
 		{
-			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto velocityComp = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 			auto bounds = entity->getComponent<iGlobalBoundaryComponent>();
 
 			auto position = transform->getPosition();
 
-			transform->rotate(velocity->_angularVelocity);
+			transform->rotate(velocityComp->getAngularVelocity());
 
 			switch (bounds->_type)
 			{
 			case iGlobalBoundaryType::Repeat:
 
-				position += velocity->_velocity;
+				position += velocityComp->getVelocity();
 
 				if (position._x > max._x)
 				{
@@ -144,7 +147,7 @@ namespace igor
 
 			case iGlobalBoundaryType::None:
 			default:
-				position += velocity->_velocity;
+				position += velocityComp->getVelocity();
 				break;
 			}
 

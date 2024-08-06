@@ -41,16 +41,37 @@ namespace igor
     {
     public:
         /*! ctor
+
+        \param velocity the velocity to set
+        \param angularVelocity the angular velocity to set
          */
-        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d())
-            : _velocity(velocity), _angularVelocity(angularVelocity)
-        {
-        }
+        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d());
 
         /*! creates instance of this component type
          */
         static iEntityComponent *createInstance();
 
+        /*! \returns velocity
+         */
+        const iaVector3d &getVelocity() const;
+
+        /*! sets velocity
+
+        \param velocity the velocity to set
+        */
+        void setVelocity(const iaVector3d &velocity);
+
+        /*! \returns angular velocity
+         */
+        const iaVector3d &getAngularVelocity() const;
+
+        /*! sets angular velocity
+
+        \param angularVelocity the angular velocity to set
+        */
+        void setAngularVelocity(const iaVector3d &angularVelocity);
+
+    private:
         /*! vector to describe the velocity
          */
         iaVector3d _velocity;
@@ -59,7 +80,6 @@ namespace igor
          */
         iaVector3d _angularVelocity;
 
-    private:
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override
