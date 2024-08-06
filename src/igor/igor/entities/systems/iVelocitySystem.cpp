@@ -7,6 +7,7 @@
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
 
 namespace igor
 {

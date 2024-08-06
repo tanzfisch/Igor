@@ -24,6 +24,7 @@
 #include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iPrefabComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
@@ -36,24 +37,24 @@ namespace igor
 
     iEntitySystemModule::iEntitySystemModule()
     {
-        registerComponentType<iSpriteRenderComponent>("Sprite Render");
-        registerComponentType<iTransformComponent>("Transform");
-        registerComponentType<iLightComponent>("Light");
-        registerComponentType<iQuadtreeComponent>("Quadtree");
-        registerComponentType<iOctreeComponent>("Octree");
-        registerComponentType<iCircleComponent>("Circle");
-        registerComponentType<iSphereComponent>("Sphere");
-        registerComponentType<iVelocityComponent>("Velocity");
-        registerComponentType<iBehaviourComponent>("Behaviour");
-        registerComponentType<iGlobalBoundaryComponent>("Global Boundary");
-        registerComponentType<iMotionInteractionResolverComponent>("Motion Interaction Resolver");
-        registerComponentType<iCameraComponent>("Camera");
-        registerComponentType<iRenderDebugComponent>("Render Debug");
-        registerComponentType<iPartyComponent>("Party");
-        registerComponentType<iAnimationComponent>("Animation");
-        registerComponentType<iMeshRenderComponent>("Mesh Render");
-        registerComponentType<iMeshReferenceComponent>("Mesh Reference");
-        registerComponentType<iPrefabComponent>("Prefab");
+        registerComponentType<iSpriteRenderComponent>(iSpriteRenderComponent::createInstance, "Sprite Render");
+        registerComponentType<iTransformComponent>(iTransformComponent::createInstance, "Transform");
+        registerComponentType<iLightComponent>(iLightComponent::createInstance, "Light");
+        registerComponentType<iQuadtreeComponent>(iQuadtreeComponent::createInstance, "Quadtree");
+        registerComponentType<iOctreeComponent>(iOctreeComponent::createInstance, "Octree");
+        registerComponentType<iCircleComponent>(iCircleComponent::createInstance, "Circle");
+        registerComponentType<iSphereComponent>(iSphereComponent::createInstance, "Sphere");
+        registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, "Velocity");
+        registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, "Behaviour");
+        registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, "Global Boundary");
+        registerComponentType<iMotionInteractionResolverComponent>(iMotionInteractionResolverComponent::createInstance, "Motion Interaction Resolver");
+        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, "Camera");
+        registerComponentType<iRenderDebugComponent>(iRenderDebugComponent::createInstance, "Render Debug");
+        registerComponentType<iPartyComponent>(iPartyComponent::createInstance, "Party");
+        registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, "Animation");
+        registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, "Mesh Render");
+        registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, "Mesh Reference");
+        registerComponentType<iPrefabComponent>(iPrefabComponent::createInstance, "Prefab");
 
         _simulationFrameTime = iTimer::getInstance().getTime();
     }
@@ -101,7 +102,7 @@ namespace igor
         auto iter = _registeredComponentTypes.find(typeID);
         if (iter != _registeredComponentTypes.end())
         {
-            result = iter->second.first;
+            result = iter->second._mask;
         }
         else
         {
@@ -305,7 +306,7 @@ namespace igor
         traverser.traverse(prefabScene);
     }
 
-    const std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> &iEntitySystemModule::getRegisteredComponentTypes() const
+    const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &iEntitySystemModule::getRegisteredComponentTypes() const
     {
         return _registeredComponentTypes;
     }

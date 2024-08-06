@@ -5,7 +5,7 @@
 #include "DialogComponentTypeSelection.h"
 
 DialogComponentTypeSelection::DialogComponentTypeSelection(const iWidgetPtr parent)
-	: iDialog(iWidgetType::iDialog, parent)
+	: iDialog(iWidgetType::iDialog, parent), _selectedTypeIndex(typeid(void))
 {
 }
 
@@ -34,8 +34,9 @@ void DialogComponentTypeSelection::initGUI()
 	_selectBoxComponentType = new iWidgetSelectBox(mainLayout);
 	for (const auto &componentType : componentTypes)
 	{
-		_selectBoxComponentType->addItem(componentType.second.second, componentType.first);
+		_selectBoxComponentType->addItem(componentType.second._typeName, componentType.first);
 	}
+	_selectBoxComponentType->registerOnChangeEvent(iChangeDelegate(this, &DialogComponentTypeSelection::onTypeChanged));
 
 	iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, mainLayout);
 	buttonLayout->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -49,11 +50,30 @@ void DialogComponentTypeSelection::initGUI()
 	_okButton->registerOnClickEvent(iClickDelegate(this, &DialogComponentTypeSelection::onOK));
 }
 
+bool DialogComponentTypeSelection::hasSelectedTypeIndex() const
+{
+	return _selectedTypeIndex != typeid(void);
+}
+
+std::type_index DialogComponentTypeSelection::getSelectedTypeIndex() const
+{
+	con_assert(hasSelectedTypeIndex(), "no type index was selected");
+	return _selectedTypeIndex;
+}
+
+void DialogComponentTypeSelection::onTypeChanged(iWidgetPtr source)
+{
+	_selectedTypeIndex = std::any_cast<std::type_index>(_selectBoxComponentType->getSelectedUserData());
+}
+
 void DialogComponentTypeSelection::onCancel(iWidgetPtr source)
 {
+	setReturnState(iDialogReturnState::Cancel);
 	close();
 }
 
 void DialogComponentTypeSelection::onOK(iWidgetPtr source)
 {
+	setReturnState(iDialogReturnState::Ok);
+	close();
 }

@@ -42,6 +42,10 @@ namespace igor
         */
         iLightComponent();
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
         /*! returns ambient material color
         */
         iaColor3f &getAmbient();

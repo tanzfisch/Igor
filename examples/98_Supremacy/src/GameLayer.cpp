@@ -13,22 +13,22 @@ GameLayer::GameLayer(iWindowPtr window)
 
 void GameLayer::onInit()
 {
-    iEntitySystemModule::getInstance().registerComponentType<RangeComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<AngularVelocityComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<HealthComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<PickupComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<HealComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<DamageComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<ExperienceComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<CoinsComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<ExperienceGainComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<CoinGainComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<TargetComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<MovementControlComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<ViewportComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>();
-    iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>();
+    iEntitySystemModule::getInstance().registerComponentType<RangeComponent>("SupremacyComponentRange");
+    iEntitySystemModule::getInstance().registerComponentType<AngularVelocityComponent>("SupremacyComponentAngularVelocity");
+    iEntitySystemModule::getInstance().registerComponentType<HealthComponent>("SupremacyComponentHealth");
+    iEntitySystemModule::getInstance().registerComponentType<PickupComponent>("SupremacyComponentPickup");
+    iEntitySystemModule::getInstance().registerComponentType<HealComponent>("SupremacyComponentHeal");
+    iEntitySystemModule::getInstance().registerComponentType<DamageComponent>("SupremacyComponentDamage");
+    iEntitySystemModule::getInstance().registerComponentType<ExperienceComponent>("SupremacyComponentExperience");
+    iEntitySystemModule::getInstance().registerComponentType<CoinsComponent>("SupremacyComponentCoins");
+    iEntitySystemModule::getInstance().registerComponentType<ExperienceGainComponent>("SupremacyComponentExperienceGain");
+    iEntitySystemModule::getInstance().registerComponentType<CoinGainComponent>("SupremacyComponentCoinGain");
+    iEntitySystemModule::getInstance().registerComponentType<TargetComponent>("SupremacyComponentTarget");
+    iEntitySystemModule::getInstance().registerComponentType<MovementControlComponent>("SupremacyComponentMovementControl");
+    iEntitySystemModule::getInstance().registerComponentType<ViewportComponent>("SupremacyComponentViewport");
+    iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>("SupremacyComponentWeapon");
+    iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>("SupremacyComponentModifier");
+    iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>("SupremacyComponentBuilding");
 
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));

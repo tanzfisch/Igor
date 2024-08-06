@@ -10,6 +10,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iLightComponent::createInstance()
+    {
+        return new iLightComponent();
+    }
+
     iEntityComponentPtr iLightComponent::getCopy()
     {
         iLightComponent *component = new iLightComponent();

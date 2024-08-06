@@ -11,6 +11,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iCircleComponent::createInstance()
+    {
+        return new iCircleComponent();
+    }    
+
     iCircleComponent::iCircleComponent(float64 radius, const iaVector2d &offset)
         : _radius(radius), _offset(offset)
     {

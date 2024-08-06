@@ -12,6 +12,11 @@ namespace igor
         
     }
 
+    iEntityComponent *iMeshReferenceComponent::createInstance()
+    {
+        return new iMeshReferenceComponent();
+    }
+
     iMeshReferenceComponent::iMeshReferenceComponent(iModelPtr model, const std::vector<iaString> &meshPaths)
         : _model(model), _meshPaths(meshPaths)
     {

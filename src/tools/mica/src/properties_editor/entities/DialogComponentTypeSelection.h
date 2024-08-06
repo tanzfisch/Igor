@@ -54,6 +54,14 @@ public:
     */
     void open(iDialogCloseDelegate dialogCloseDelegate);
 
+    /*! \returns selected type index
+     */
+    std::type_index getSelectedTypeIndex() const;
+
+    /*! \returns true if type was selected
+     */
+    bool hasSelectedTypeIndex() const;
+
 private:
     /*! component type select box
      */
@@ -67,6 +75,10 @@ private:
      */
     iWidgetButtonPtr _okButton = nullptr;
 
+    /*! selected type index
+     */
+    std::type_index _selectedTypeIndex;
+
     /*! init ui
      */
     void initGUI();
@@ -78,6 +90,10 @@ private:
     /*! called when ok was clicked
      */
     void onOK(iWidgetPtr source);
+
+    /*! called when selection of type has changed
+     */
+    void onTypeChanged(iWidgetPtr source);
 };
 
 /*! pointer definition for message box

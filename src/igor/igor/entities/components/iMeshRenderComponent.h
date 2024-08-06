@@ -44,8 +44,7 @@ namespace igor
         iMeshReference(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
         : _mesh(mesh), _material(material), _offset(offset)
         {
-
-        }
+        }        
 
         /*! the mesh to render
          */
@@ -70,6 +69,10 @@ namespace igor
         /*! default ctor
          */
         iMeshRenderComponent();
+
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
 
         /*! \returns all mesh references
         */

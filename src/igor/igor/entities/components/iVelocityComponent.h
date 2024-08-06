@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,62 +27,50 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_PREFAB_COMPONENT_H
-#define IGOR_PREFAB_COMPONENT_H
+#ifndef IGOR_VELOCITY_COMPONENT_H
+#define IGOR_VELOCITY_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/resources/prefab/iPrefab.h>
-
 namespace igor
 {
-    /*! octree component
+
+    /*! velocity component
      */
-    class iPrefabComponent : public iEntityComponent
+    class iVelocityComponent : public iEntityComponent
     {
     public:
-        /*! default ctor
-        */
-        iPrefabComponent() = default;
-
         /*! ctor
-
-        \param prefab the prefab reference
-        */
-        iPrefabComponent(iPrefabPtr prefab);
+         */
+        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d())
+            : _velocity(velocity), _angularVelocity(angularVelocity)
+        {
+        }
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();        
-
-        /*! set prefab
-
-        only valid before onLoad
-        */
-        void setPrefab(iPrefabPtr prefab);
-
-        /*! \returns prefab
          */
-        iPrefabPtr getPrefab() const;
+        static iEntityComponent *createInstance();
+
+        /*! vector to describe the velocity
+         */
+        iaVector3d _velocity;
+
+        /*! vector to describe angular velocity of all three axis
+         */
+        iaVector3d _angularVelocity;
 
     private:
-        /*! referenced prefab data
-         */
-        iPrefabPtr _prefab;
-
-        /*! callback for loading component
-
-        \param entity the entity this component relates to
-        \param[out] asyncLoad if true try again if unsuccessful
-        \returns true when loading was successful
-        */
-        bool onLoad(iEntityPtr entity, bool &asyncLoad) override;
-
         /*! \returns a copy of this component
          */
-        iEntityComponentPtr getCopy() override;
+        iEntityComponentPtr getCopy() override
+        {
+            iVelocityComponent *component = new iVelocityComponent();
+            component->_velocity = _velocity;
+            component->_angularVelocity = _angularVelocity;
+            return component;
+        }
     };
 
 }
 
-#endif // #define IGOR_PREFAB_COMPONENT_H
+#endif // IGOR_VELOCITY_COMPONENT_H

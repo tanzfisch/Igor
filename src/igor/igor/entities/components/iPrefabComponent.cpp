@@ -13,6 +13,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iPrefabComponent::createInstance()
+    {
+        return new iPrefabComponent();
+    }   
+
     iEntityComponentPtr iPrefabComponent::getCopy()
     {
         iPrefabComponent *component = new iPrefabComponent();

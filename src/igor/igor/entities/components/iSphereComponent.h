@@ -49,6 +49,10 @@ namespace igor
         {
         }
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();        
+
         /*! \returns the sphere's radius
          */
         float64 getRadius() const;

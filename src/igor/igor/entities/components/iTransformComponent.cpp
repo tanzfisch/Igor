@@ -11,6 +11,11 @@ namespace igor
     {
     }
     
+    iEntityComponent *iTransformComponent::createInstance()
+    {
+        return new iTransformComponent();
+    }     
+
     iEntityComponentPtr iTransformComponent::getCopy()
     {
         iTransformComponent *component = new iTransformComponent();

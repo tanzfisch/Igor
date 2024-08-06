@@ -35,9 +35,14 @@
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
 
+#include <functional>
+#include <bitset>
+
 namespace igor
 {
 
+    /*! entity component state
+    */
     enum class iEntityComponentState
     {
         Unloaded,   //! initial state unloaded
@@ -45,6 +50,46 @@ namespace igor
         LoadFailed, //! load failed, stays inactive
         Active,     //! active
         Inactive,   //! inactive
+    };
+
+    /*! pointer definition of entity component
+     */
+    class iEntityComponent;
+    typedef iEntityComponent *iEntityComponentPtr;    
+
+    /*! entity component mask definition
+     */
+    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;    
+
+    /*! entity component factory function component
+     */
+    using iEntityComponentFactory = std::function<iEntityComponentPtr()>;
+
+    /*! entity component type info
+     */
+    struct iEntityComponentTypeInfo
+    {
+        /*! factory function to create components
+        */
+        iEntityComponentFactory _factory;
+
+        /*! bit mask to identify component type
+        */
+        iEntityComponentMask _mask;
+
+        /*! human readable type name
+        */
+        iaString _typeName;
+
+        iEntityComponentTypeInfo()
+        {
+
+        }
+
+        iEntityComponentTypeInfo(iEntityComponentFactory factory, const iEntityComponentMask &mask, const iaString &typeName)
+        : _factory(factory), _typeName(typeName), _mask(mask)
+        {
+        }
     };
 
     /*! entity component id
@@ -58,12 +103,7 @@ namespace igor
     /*! entity pointer definition
      */
     class iEntity;
-    typedef iEntity *iEntityPtr;    
-
-    /*! pointer definition of entity component
-     */
-    class iEntityComponent;
-    typedef iEntityComponent *iEntityComponentPtr;    
+    typedef iEntity *iEntityPtr;
 
     /*! entity component base class
      */
@@ -75,7 +115,7 @@ namespace igor
 
     public:
         /*! ctor
-        */
+         */
         iEntityComponent();
 
         /*! does nothing
@@ -87,7 +127,7 @@ namespace igor
         const iEntityComponentID &getID() const;
 
         /*! \returns state of this component
-        */
+         */
         iEntityComponentState getState() const;
 
     protected:
@@ -112,8 +152,8 @@ namespace igor
         virtual void onUnLoad(iEntityPtr entity);
 
         /*! \returns a copy of this component
-        */
-        virtual iEntityComponentPtr getCopy() = 0;        
+         */
+        virtual iEntityComponentPtr getCopy() = 0;
 
     private:
         /*! entity component id
@@ -125,7 +165,7 @@ namespace igor
         iEntityComponentState _state = iEntityComponentState::Unloaded;
 
         /*! reference to entity
-        */
+         */
         iEntityPtr _entity = nullptr;
     };
 
@@ -135,7 +175,7 @@ namespace igor
 
     /*! json to iEntityComponent
      */
-    void from_json(const json &j, iEntityComponent &component);    
+    void from_json(const json &j, iEntityComponent &component);
 
 }
 

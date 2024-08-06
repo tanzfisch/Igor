@@ -55,37 +55,6 @@ namespace igor
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
 
-    /*! velocity component
-     */
-    class iVelocityComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-         */
-        iVelocityComponent(const iaVector3d &velocity = iaVector3d(), const iaVector3d &angularVelocity = iaVector3d())
-            : _velocity(velocity), _angularVelocity(angularVelocity)
-        {
-        }
-
-        /*! vector to describe the velocity
-         */
-        iaVector3d _velocity;
-
-        /*! vector to describe angular velocity of all three axis
-         */
-        iaVector3d _angularVelocity;
-
-    private:
-        /*! \returns a copy of this component
-        */
-        iEntityComponentPtr getCopy() override
-        {
-            iVelocityComponent* component = new iVelocityComponent();
-            component->_velocity = _velocity;
-            component->_angularVelocity = _angularVelocity;
-            return component;            
-        }
-    };
 
     /*! behaviour function definition
      */
@@ -107,7 +76,7 @@ namespace igor
 
         /*! optional name of behaviour
          */
-        iaString _name;       
+        iaString _name;
     };
 
     /*! behaviour component
@@ -116,9 +85,16 @@ namespace igor
     {
     public:
         /*! ctor
-        */
+         */
         iBehaviourComponent()
         {
+        }
+
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iBehaviourComponent();
         }
 
         /*! behaviors
@@ -127,13 +103,13 @@ namespace igor
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iBehaviourComponent* component = new iBehaviourComponent();
+            iBehaviourComponent *component = new iBehaviourComponent();
             // TODO
-            return component;            
-        }        
+            return component;
+        }
     };
 
     /*! global boundary contraint type
@@ -164,19 +140,26 @@ namespace igor
         {
         }
 
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iGlobalBoundaryComponent();
+        }
+
         /*! global boundary type
          */
         iGlobalBoundaryType _type = iGlobalBoundaryType::None;
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iGlobalBoundaryComponent* component = new iGlobalBoundaryComponent();
+            iGlobalBoundaryComponent *component = new iGlobalBoundaryComponent();
             component->_type = _type;
-            return component; 
-        }        
+            return component;
+        }
     };
 
     /*! motion interaction type
@@ -206,19 +189,26 @@ namespace igor
         {
         }
 
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iMotionInteractionResolverComponent();
+        }
+
         /*! motion reation type
          */
         iMotionInteractionType _type = iMotionInteractionType::None;
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iMotionInteractionResolverComponent* component = new iMotionInteractionResolverComponent();
+            iMotionInteractionResolverComponent *component = new iMotionInteractionResolverComponent();
             component->_type = _type;
-            return component; 
-        }        
+            return component;
+        }
     };
 
     /*! render debug component
@@ -227,9 +217,16 @@ namespace igor
     {
     public:
         /*! ctor
-        */
+         */
         iRenderDebugComponent()
         {
+        }
+
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iRenderDebugComponent();
         }
 
         /*! render everything in wireframe mode
@@ -247,15 +244,15 @@ namespace igor
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iRenderDebugComponent* component = new iRenderDebugComponent();
+            iRenderDebugComponent *component = new iRenderDebugComponent();
             component->_renderWireframe = _renderWireframe;
             component->_renderSpacePartitioning = _renderSpacePartitioning;
             component->_renderBounds = _renderBounds;
-            return component; 
-        }        
+            return component;
+        }
     };
 
     /*! I love parties <3
@@ -272,19 +269,26 @@ namespace igor
         {
         }
 
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iPartyComponent();
+        }
+
         /*! party id
          */
         uint32 _partyID = 0;
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iPartyComponent* component = new iPartyComponent();
+            iPartyComponent *component = new iPartyComponent();
             component->_partyID = _partyID;
-            return component; 
-        }        
+            return component;
+        }
     };
 
     /*! animation component
@@ -301,19 +305,26 @@ namespace igor
         {
         }
 
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance()
+        {
+            return new iAnimationComponent();
+        }
+
         /*! animation controller
          */
         iAnimationControllerPtr _animationController;
 
     private:
         /*! \returns a copy of this component
-        */
+         */
         iEntityComponentPtr getCopy() override
         {
-            iAnimationComponent* component = new iAnimationComponent();
+            iAnimationComponent *component = new iAnimationComponent();
             component->_animationController = _animationController;
-            return component; 
-        }        
+            return component;
+        }
     };
 
     // iTextComponent

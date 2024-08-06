@@ -50,6 +50,10 @@ namespace igor
         */
         iCameraComponent();
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
         /*! sets the view port within a window.
 
         values have to be from 0.0 to 1.0 and represent a resolution independent unit.

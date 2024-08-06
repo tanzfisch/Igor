@@ -16,6 +16,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iMeshRenderComponent::createInstance()
+    {
+        return new iMeshRenderComponent();
+    }
+
     iEntityComponentPtr iMeshRenderComponent::getCopy()
     {
         iMeshRenderComponent *component = new iMeshRenderComponent();

@@ -14,6 +14,11 @@ namespace igor
         return component;
     }
 
+    iEntityComponent *iSphereComponent::createInstance()
+    {
+        return new iSphereComponent();
+    }      
+
     float64 iSphereComponent::getRadius() const
     {
         return _radius;

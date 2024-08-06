@@ -36,10 +36,6 @@
 
 namespace igor
 {
-    /*! entity component mask definition
-     */
-    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
-
     /*! pointer to entity
      */
     class iEntity;
@@ -142,6 +138,13 @@ namespace igor
         */
         template <typename T>
         T *addComponent(T *component);
+
+        /*! adds component with given type id
+
+        \param typeID the given type id
+        \param component the component to add
+        */
+        void addComponent(const std::type_index &typeID, iEntityComponentPtr component);
 
         /*! \returns component for given type
          */
@@ -253,13 +256,6 @@ namespace igor
         /*! remove components
          */
         ~iEntity();
-
-        /*! adds component with given type id
-
-        \param typeID the given type id
-        \param component the component to add
-        */
-        void addComponent(const std::type_index &typeID, iEntityComponentPtr component);
 
         /*! calculate type hash from component types
 

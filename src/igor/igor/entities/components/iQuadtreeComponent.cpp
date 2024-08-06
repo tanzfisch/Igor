@@ -13,6 +13,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iQuadtreeComponent::createInstance()
+    {
+        return new iQuadtreeComponent();
+    }  
+
     iEntityComponentPtr iQuadtreeComponent::getCopy()
     {
         iQuadtreeComponent *component = new iQuadtreeComponent();

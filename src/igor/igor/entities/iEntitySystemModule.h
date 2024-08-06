@@ -126,7 +126,7 @@ namespace igor
         \param componentTypeName component type name (must be unique)
          */
         template <typename T>
-        void registerComponentType(const iaString &componentTypeName);
+        void registerComponentType(iEntityComponentFactory factoryFunction, const iaString &componentTypeName);
 
         /*! \returns mask for given component type
 
@@ -175,8 +175,8 @@ namespace igor
         void clear();
 
         /*! \returns registered component types
-        */
-        const std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> &getRegisteredComponentTypes() const;
+         */
+        const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &getRegisteredComponentTypes() const;
 
     private:
         /*! entity scenes
@@ -223,7 +223,7 @@ namespace igor
 
         IGOR_MAX_ENTITY_COMPONENT_TYPES is the maximum that can be registered
         */
-        std::unordered_map<std::type_index, std::pair<iEntityComponentMask, iaString>> _registeredComponentTypes;
+        std::unordered_map<std::type_index, iEntityComponentTypeInfo> _registeredComponentTypes;
 
         /*! register known types
          */

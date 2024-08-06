@@ -11,6 +11,11 @@ namespace igor
     {
     }
 
+    iEntityComponent *iSpriteRenderComponent::createInstance()
+    {
+        return new iSpriteRenderComponent();
+    }      
+
     iEntityComponentPtr iSpriteRenderComponent::getCopy()
     {
         iSpriteRenderComponent *component = new iSpriteRenderComponent();
@@ -21,5 +26,6 @@ namespace igor
         component->_renderMode = _renderMode;
         component->_frameIndex = _frameIndex;
         return component;
-    }    
+    }
+
 }

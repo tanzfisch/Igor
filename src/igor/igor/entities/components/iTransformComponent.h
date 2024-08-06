@@ -50,6 +50,10 @@ namespace igor
          */
         iTransformComponent(const iaVector3d &position, const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
         /*! \returns world matrix
          */
         const iaMatrixd &getWorldMatrix() const;

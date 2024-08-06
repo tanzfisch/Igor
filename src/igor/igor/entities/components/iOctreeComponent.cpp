@@ -13,6 +13,11 @@ namespace igor
         
     }
 
+    iEntityComponent *iOctreeComponent::createInstance()
+    {
+        return new iOctreeComponent();
+    }    
+
     iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object)
         : _object(object)
     {

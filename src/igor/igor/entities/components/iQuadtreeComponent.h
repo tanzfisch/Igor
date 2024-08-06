@@ -48,6 +48,10 @@ namespace igor
          */
         iQuadtreeComponent(iQuadtreed::ObjectPtr object);
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();        
+
         /*! quadtree object
          */
         iQuadtreed::ObjectPtr _object = nullptr;

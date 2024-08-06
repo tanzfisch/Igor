@@ -48,6 +48,10 @@ namespace igor
          */
         iOctreeComponent(iOctreed::ObjectPtr object);
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();        
+
         /*! octree object
          */
         iOctreed::ObjectPtr _object = nullptr;

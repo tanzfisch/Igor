@@ -3,13 +3,13 @@
 // see copyright notice in corresponding header file
 
 template <typename T>
-void iEntitySystemModule::registerComponentType(const iaString &componentTypeName)
+void iEntitySystemModule::registerComponentType(iEntityComponentFactory factoryFunction, const iaString &componentTypeName)
 {
     con_assert_sticky(_registeredComponentTypes.size() < IGOR_MAX_ENTITY_COMPONENT_TYPES, "only " << IGOR_MAX_ENTITY_COMPONENT_TYPES << " types supported");
 
     for (const auto &componentType : _registeredComponentTypes)
     {
-        if (componentType.second.second == componentTypeName)
+        if (componentType.second._typeName == componentTypeName)
         {
             con_crit("component type name collision \"" << componentTypeName << "\"");
             return;
@@ -24,5 +24,6 @@ void iEntitySystemModule::registerComponentType(const iaString &componentTypeNam
     iEntityComponentMask id = 0b1;
     id <<= _registeredComponentTypes.size();
 
-    _registeredComponentTypes[typeID] = {id, componentTypeName};
+    iEntityComponentTypeInfo typeInfo(factoryFunction, id, componentTypeName);
+    _registeredComponentTypes[typeID] = typeInfo;
 }

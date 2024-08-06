@@ -44,6 +44,10 @@ namespace igor
         */
         iSpriteRenderComponent() = default;
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
         /*! sprite render mode
          */
         enum class iRenderMode

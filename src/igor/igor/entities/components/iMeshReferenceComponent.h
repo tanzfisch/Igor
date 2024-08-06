@@ -52,6 +52,10 @@ namespace igor
          */
         iMeshReferenceComponent(iModelPtr model, const std::vector<iaString> &meshPaths = std::vector<iaString>());
 
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
         /*! \returns model
          */
         iModelPtr getModel() const;

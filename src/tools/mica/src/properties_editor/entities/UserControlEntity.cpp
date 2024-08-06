@@ -99,7 +99,34 @@ void UserControlEntity::init()
 
 void UserControlEntity::onDialogClosed(iDialogPtr source)
 {
-    // _componentSelectionDialog->
+    if(_componentSelectionDialog->getReturnState() != iDialogReturnState::Ok)
+    {
+        return;
+    }
+
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if (scene == nullptr)
+    {
+        return;
+    }
+
+    iEntityPtr entity = scene->getEntity(getEntityID());
+    if (entity == nullptr)
+    {
+        return;
+    }
+
+    const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
+
+    auto iter = componentTypes.find(_componentSelectionDialog->getSelectedTypeIndex());
+    if(iter == componentTypes.end())
+    {
+        return;
+    }
+
+    entity->addComponent(iter->first, iter->second._factory());
+
+    update();
 }
 
 void UserControlEntity::onAddComponentClicked(iWidgetPtr source)
