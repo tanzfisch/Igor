@@ -48,6 +48,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new RangeComponent();
+    }
+
     /*! max range
      */
     float64 _rangeLeft = 0.0;
@@ -82,6 +89,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new AngularVelocityComponent();
+    }
+
     /*! angular velocity in rad per frame
      */
     float32 _velocity;
@@ -109,6 +123,13 @@ public:
     HealthComponent(float64 health, bool destroyOnImpact = false)
         : _health(health), _destroyOnImpact(destroyOnImpact)
     {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new HealthComponent();
     }
 
     float32 _health = 0;
@@ -140,6 +161,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new PickupComponent();
+    }
+
     bool _canBePickedUp;
 
 private:
@@ -150,7 +178,7 @@ private:
         PickupComponent *component = new PickupComponent();
         component->_canBePickedUp = _canBePickedUp;
         return component;
-    }    
+    }
 };
 
 class HealComponent : public iEntityComponent
@@ -167,6 +195,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new HealComponent();
+    }
+
     float32 _heal;
 
 private:
@@ -177,7 +212,7 @@ private:
         HealComponent *component = new HealComponent();
         component->_heal = _heal;
         return component;
-    }        
+    }
 };
 
 class DamageComponent : public iEntityComponent
@@ -194,6 +229,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new DamageComponent();
+    }    
+
     float32 _damage;
 
 private:
@@ -204,7 +246,7 @@ private:
         DamageComponent *component = new DamageComponent();
         component->_damage = _damage;
         return component;
-    }            
+    }
 };
 
 class ExperienceComponent : public iEntityComponent
@@ -221,6 +263,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ExperienceComponent();
+    }    
+
     float32 _experience;
     float32 _level;
 
@@ -233,7 +282,7 @@ private:
         component->_experience = _experience;
         component->_level = _level;
         return component;
-    }             
+    }
 };
 
 class CoinsComponent : public iEntityComponent
@@ -250,6 +299,14 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new CoinsComponent();
+    }    
+
+
     float32 _coins = 0.0;
 
 private:
@@ -260,7 +317,7 @@ private:
         CoinsComponent *component = new CoinsComponent();
         component->_coins = _coins;
         return component;
-    }      
+    }
 };
 
 class ExperienceGainComponent : public iEntityComponent
@@ -277,6 +334,14 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ExperienceGainComponent();
+    }    
+
+
     float32 _experience;
 
 private:
@@ -287,7 +352,7 @@ private:
         ExperienceGainComponent *component = new ExperienceGainComponent();
         component->_experience = _experience;
         return component;
-    }          
+    }
 };
 
 class CoinGainComponent : public iEntityComponent
@@ -304,6 +369,14 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new CoinGainComponent();
+    }    
+
+
     float32 _coins;
 
 private:
@@ -314,7 +387,7 @@ private:
         CoinGainComponent *component = new CoinGainComponent();
         component->_coins = _coins;
         return component;
-    }            
+    }
 };
 
 class TargetComponent : public iEntityComponent
@@ -331,10 +404,17 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new TargetComponent();
+    }    
+
     iEntityID _targetID;
     bool _inRange = false;
     bool _followTarget = true;
-    
+
 private:
     /*! \returns a copy of this component
      */
@@ -345,7 +425,7 @@ private:
         component->_inRange = _inRange;
         component->_followTarget = _followTarget;
         return component;
-    }       
+    }
 };
 
 class MovementControlComponent : public iEntityComponent
@@ -354,6 +434,13 @@ public:
     /*! default ctor
      */
     MovementControlComponent() = default;
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new MovementControlComponent();
+    }    
 
     bool _up = false;
     bool _down = false;
@@ -371,7 +458,7 @@ private:
         component->_left = _left;
         component->_right = _right;
         return component;
-    }           
+    }
 };
 
 class ViewportComponent : public iEntityComponent
@@ -380,6 +467,13 @@ public:
     /*! default ctor
      */
     ViewportComponent() = default;
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ViewportComponent();
+    }    
 
     iaRectanglef _viewport;
     iaVector2f _targetOffset;
@@ -395,7 +489,7 @@ private:
         component->_targetOffset = _targetOffset;
         component->_targetID = _targetID;
         return component;
-    }       
+    }
 };
 
 /*! weapon types
@@ -459,6 +553,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new WeaponComponent();
+    }        
+
     WeaponConfiguration _config;
 
     /*! keeps track of cool down
@@ -474,7 +575,7 @@ private:
         component->_config = _config;
         component->_time = _time;
         return component;
-    }       
+    }
 };
 
 enum class ObjectType
@@ -510,6 +611,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ModifierComponent();
+    }     
+
     ModifierConfiguration _config;
 
 private:
@@ -520,7 +628,7 @@ private:
         ModifierComponent *component = new ModifierComponent();
         component->_config = _config;
         return component;
-    }       
+    }
 };
 
 enum class BuildingType
@@ -545,6 +653,13 @@ public:
     {
     }
 
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new BuildingComponent();
+    }    
+
     BuildingType _type;
 
 private:
@@ -555,7 +670,7 @@ private:
         BuildingComponent *component = new BuildingComponent();
         component->_type = _type;
         return component;
-    }        
+    }
 };
 
 #endif // SUPREMACY_COMPONENTS_H

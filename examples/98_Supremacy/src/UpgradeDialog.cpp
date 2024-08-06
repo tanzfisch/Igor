@@ -43,9 +43,9 @@ void UpgradeDialog::updateGUI()
 	_labelDescription2->setText(config2._description);
 	_labelDescription3->setText(config3._description);
 
-	_button1->setTexture(config1._icon);
-	_button2->setTexture(config2._icon);
-	_button3->setTexture(config3._icon);
+	_button1->setBackgroundTexture(config1._icon);
+	_button2->setBackgroundTexture(config2._icon);
+	_button3->setBackgroundTexture(config3._icon);
 }
 
 void UpgradeDialog::initGUI()

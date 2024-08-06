@@ -13,22 +13,22 @@ GameLayer::GameLayer(iWindowPtr window)
 
 void GameLayer::onInit()
 {
-    iEntitySystemModule::getInstance().registerComponentType<RangeComponent>("SupremacyComponentRange");
-    iEntitySystemModule::getInstance().registerComponentType<AngularVelocityComponent>("SupremacyComponentAngularVelocity");
-    iEntitySystemModule::getInstance().registerComponentType<HealthComponent>("SupremacyComponentHealth");
-    iEntitySystemModule::getInstance().registerComponentType<PickupComponent>("SupremacyComponentPickup");
-    iEntitySystemModule::getInstance().registerComponentType<HealComponent>("SupremacyComponentHeal");
-    iEntitySystemModule::getInstance().registerComponentType<DamageComponent>("SupremacyComponentDamage");
-    iEntitySystemModule::getInstance().registerComponentType<ExperienceComponent>("SupremacyComponentExperience");
-    iEntitySystemModule::getInstance().registerComponentType<CoinsComponent>("SupremacyComponentCoins");
-    iEntitySystemModule::getInstance().registerComponentType<ExperienceGainComponent>("SupremacyComponentExperienceGain");
-    iEntitySystemModule::getInstance().registerComponentType<CoinGainComponent>("SupremacyComponentCoinGain");
-    iEntitySystemModule::getInstance().registerComponentType<TargetComponent>("SupremacyComponentTarget");
-    iEntitySystemModule::getInstance().registerComponentType<MovementControlComponent>("SupremacyComponentMovementControl");
-    iEntitySystemModule::getInstance().registerComponentType<ViewportComponent>("SupremacyComponentViewport");
-    iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>("SupremacyComponentWeapon");
-    iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>("SupremacyComponentModifier");
-    iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>("SupremacyComponentBuilding");
+    iEntitySystemModule::getInstance().registerComponentType<RangeComponent>(RangeComponent::createInstance, "SupremacyComponentRange");
+    iEntitySystemModule::getInstance().registerComponentType<AngularVelocityComponent>(AngularVelocityComponent::createInstance, "SupremacyComponentAngularVelocity");
+    iEntitySystemModule::getInstance().registerComponentType<HealthComponent>(HealthComponent::createInstance, "SupremacyComponentHealth");
+    iEntitySystemModule::getInstance().registerComponentType<PickupComponent>(PickupComponent::createInstance, "SupremacyComponentPickup");
+    iEntitySystemModule::getInstance().registerComponentType<HealComponent>(HealComponent::createInstance, "SupremacyComponentHeal");
+    iEntitySystemModule::getInstance().registerComponentType<DamageComponent>(DamageComponent::createInstance, "SupremacyComponentDamage");
+    iEntitySystemModule::getInstance().registerComponentType<ExperienceComponent>(ExperienceComponent::createInstance, "SupremacyComponentExperience");
+    iEntitySystemModule::getInstance().registerComponentType<CoinsComponent>(CoinsComponent::createInstance, "SupremacyComponentCoins");
+    iEntitySystemModule::getInstance().registerComponentType<ExperienceGainComponent>(ExperienceGainComponent::createInstance, "SupremacyComponentExperienceGain");
+    iEntitySystemModule::getInstance().registerComponentType<CoinGainComponent>(CoinGainComponent::createInstance, "SupremacyComponentCoinGain");
+    iEntitySystemModule::getInstance().registerComponentType<TargetComponent>(TargetComponent::createInstance, "SupremacyComponentTarget");
+    iEntitySystemModule::getInstance().registerComponentType<MovementControlComponent>(MovementControlComponent::createInstance, "SupremacyComponentMovementControl");
+    iEntitySystemModule::getInstance().registerComponentType<ViewportComponent>(ViewportComponent::createInstance, "SupremacyComponentViewport");
+    iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>(WeaponComponent::createInstance, "SupremacyComponentWeapon");
+    iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>(ModifierComponent::createInstance, "SupremacyComponentModifier");
+    iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
 
     _entityScene = iEntitySystemModule::getInstance().createScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
@@ -346,30 +346,32 @@ void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
     auto velocityComponent = entity->getComponent<iVelocityComponent>();
     auto modifier = entity->getComponent<ModifierComponent>();
 
-    velocityComponent->_velocity.set(0, 0, 0);
+    iaVector3d velocity;
 
     if (iKeyboard::getInstance().getKey(iKeyCode::W))
     {
-        velocityComponent->_velocity._y -= 1.0;
+        velocity._y -= 1.0;
     }
 
     if (iKeyboard::getInstance().getKey(iKeyCode::A))
     {
-        velocityComponent->_velocity._x -= 1.0;
+        velocity._x -= 1.0;
     }
 
     if (iKeyboard::getInstance().getKey(iKeyCode::S))
     {
-        velocityComponent->_velocity._y += 1.0;
+        velocity._y += 1.0;
     }
 
     if (iKeyboard::getInstance().getKey(iKeyCode::D))
     {
-        velocityComponent->_velocity._x += 1.0;
+        velocity._x += 1.0;
     }
 
-    velocityComponent->_velocity.normalize();
-    velocityComponent->_velocity *= modifier->_config._walkSpeedFactor;
+    velocity.normalize();
+    velocity *= modifier->_config._walkSpeedFactor;
+
+    velocityComponent->setVelocity(velocity);
 }
 
 void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
@@ -493,7 +495,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
     }
 
     // check if unit needs to stand still
-    if (weapon->_config._standStillToFire && velocity->_velocity.length() > 0.0)
+    if (weapon->_config._standStillToFire && velocity->getVelocity().length() > 0.0)
     {
         return;
     }
@@ -730,7 +732,7 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
     {
         if (target->_inRange)
         {
-            velocity->_velocity = getRandomDir() * speed;
+            velocity->setVelocity(getRandomDir() * speed);
             target->_inRange = false;
         }
     }
@@ -739,7 +741,7 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
         iaVector2d newVel = targetPos - position + offset;
         newVel.normalize();
         newVel *= speed;
-        velocity->_velocity.set(newVel._x, newVel._y, 0.0);
+        velocity->setVelocity(iaVector3d(newVel._x, newVel._y, 0.0));
         target->_inRange = true;
     }
 }
@@ -1078,10 +1080,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
 
 void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData)
 {
-    auto velocity = entity->getComponent<iVelocityComponent>();
+    auto velocityComp = entity->getComponent<iVelocityComponent>();
+    const auto &velocity = velocityComp->getVelocity();
     auto transform = entity->getComponent<iTransformComponent>();
 
-    iaVector2d vel2D(velocity->_velocity._x, velocity->_velocity._y);
+    iaVector2d vel2D(velocity._x, velocity._y);
     transform->rotate(iaVector3d(0.0, 0.0, vel2D.angle() + (M_PI * 0.5)));
 }
 
