@@ -7,7 +7,7 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
 // (c) Copyright 2012-2024 by Martin Loga
 //
@@ -188,10 +188,6 @@ namespace iaux
         /*! exits application or calls debug break
          */
         void exit();
-
-        /*! prints a birthday cake in the log
-         */
-        void printCake();
 
         /*! reset error and warning counter
          */

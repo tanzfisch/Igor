@@ -25,6 +25,7 @@ Changelog                           {#changelog}
 - iaEvent now allows to add a delegate that only get's triggered once
 - introduced iaEventPool to handle events that only get called in main thread
 - fixed del key issue in iWidgetLineTextEdit
+- modal dialogs are allowed to be nested using a modal stack. The top one is the current modal one
 
 0.44.0
 ------

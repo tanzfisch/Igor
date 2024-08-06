@@ -45,4 +45,14 @@ namespace iaux
         return _year;
     }
 
+    bool iaDate::operator==(const iaDate &other) const
+    {
+        return _year == other._year && _month == other._month && _day == other._day;
+    }
+
+    bool iaDate::operator!=(const iaDate &other) const
+    {
+        return _year != other._year || _month != other._month || _day != other._day;
+    }
+
 } // namespace iaux

@@ -109,6 +109,22 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 namespace igor
 {
 
+    /*! prints a birthday cake in the log
+
+    \param name the name of the birthday child
+     */
+    void printCake(const iaString &name)
+    {
+        iaConsole::getInstance() << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Yellow << "    , , ,    " << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}    BIRTHDAY" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   " << name << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Gray << "\\___________/" << endlTab << endl;
+    }
+
     void printInfo()
     {
 #ifdef IGOR_DEBUG
@@ -139,7 +155,7 @@ namespace igor
         iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
         iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
-        iaConsole::getInstance() << T << "      (c) Copyright 2012-2024 by Martin Loga" << G << "   \\_/__/   " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2024 by Martin A. Loga" << G << " \\/___/   " << endl;
 
         iaConsole::getInstance() << endl
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
@@ -148,6 +164,8 @@ namespace igor
         iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML, nlohmann json and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
+                                 << endl;
+        iaConsole::getInstance() << T << "      special thanks to my wife Gabrielle Loga" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
@@ -164,10 +182,21 @@ namespace igor
         // Igor's last reincarnation was 29 September 2012.
         // Before that this game engine was called EasyGL (ca 2003) and OpenDC (ca 2005).
         iaDate date = iaDate::getToday();
-        if (date.getMonth() == 8 &&
-            date.getDay() == 29)
+        if (date.getMonth() == 8 && date.getDay() == 29)
         {
-            iaConsole::getInstance().printCake();
+            printCake("IGOR");
+        }
+        if (date.getMonth() == 7 && date.getDay() == 9)
+        {
+            printCake("Gabrielle");
+        }
+        if (date.getMonth() == 12 && date.getDay() == 25)
+        {
+            printCake("Jesus");
+        }
+        if (date.getMonth() == 3 && date.getDay() == 29)
+        {
+            printCake("Martin");
         }
     }
 
@@ -191,7 +220,7 @@ namespace igor
 
     void destroyModules()
     {
-        if(iProject::isInstantiated())
+        if (iProject::isInstantiated())
         {
             iProject::destroyInstance();
         }
@@ -211,7 +240,7 @@ namespace igor
         {
             iEntitySystemModule::destroyInstance();
         }
-        
+
         if (iWidgetManager::isInstantiated())
         {
             iWidgetManager::destroyInstance();
