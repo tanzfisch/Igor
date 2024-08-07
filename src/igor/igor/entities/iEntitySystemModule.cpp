@@ -86,9 +86,9 @@ namespace igor
         scene->addSystem(new iTransformSystem());
 
         scene->addSystem(new iCameraSystem());
-        scene->addSystem(new iMeshRenderSystem());
-
         scene->addSystem(new iLightSystem());
+        scene->addSystem(new iMeshRenderSystem());
+        
         scene->addSystem(new iSpriteRenderSystem());
 
         return scene;

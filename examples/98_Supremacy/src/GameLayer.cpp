@@ -30,7 +30,7 @@ void GameLayer::onInit()
     iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>(ModifierComponent::createInstance, "SupremacyComponentModifier");
     iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
 
-    _entityScene = iEntitySystemModule::getInstance().createScene();
+    _entityScene = iProject::getInstance().getScene();
     _entityScene->initializeQuadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT));
 
     iaRandom::setSeed(iaTime::getNow().getMicroseconds());

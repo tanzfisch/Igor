@@ -52,10 +52,7 @@ namespace igor
 
     void iEntity::addComponent(const std::type_index &typeID, iEntityComponentPtr component)
     {
-        if(component == nullptr)
-        {
-            // TODO component = new ...
-        }
+        con_assert(component != nullptr, "zero pointer");
 
         _mutex.lock();
         auto iter = _components.find(typeID);
