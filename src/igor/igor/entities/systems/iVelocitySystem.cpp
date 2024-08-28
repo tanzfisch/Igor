@@ -8,6 +8,7 @@
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
+#include <igor/entities/components/iGlobalBoundaryComponent.h>
 
 namespace igor
 {
@@ -111,7 +112,7 @@ namespace igor
 
 			transform->rotate(velocityComp->getAngularVelocity());
 
-			switch (bounds->_type)
+			switch (bounds->getType())
 			{
 			case iGlobalBoundaryType::Repeat:
 

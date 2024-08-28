@@ -38,7 +38,6 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
-#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 #include <array>
@@ -54,113 +53,6 @@ namespace igor
     typedef iEntity *iEntityPtr;
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
-
-
-    /*! behaviour function definition
-     */
-    typedef iaDelegate<void, iEntityPtr, std::any &> iBehaviourDelegate;
-
-    /*! behaviour data
-     */
-    struct iBehaviourData
-    {
-        /*! delegate to be executed with given entity and user data
-         */
-        iBehaviourDelegate _delegate;
-
-        /*! user data
-
-        \todo this is not ideal maybe fix in #300
-        */
-        std::any _userData;
-
-        /*! optional name of behaviour
-         */
-        iaString _name;
-    };
-
-    /*! behaviour component
-     */
-    class iBehaviourComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-         */
-        iBehaviourComponent()
-        {
-        }
-
-        /*! creates instance of this component type
-         */
-        static iEntityComponent *createInstance()
-        {
-            return new iBehaviourComponent();
-        }
-
-        /*! behaviors
-         */
-        std::vector<iBehaviourData> _behaviors;
-
-    private:
-        /*! \returns a copy of this component
-         */
-        iEntityComponentPtr getCopy() override
-        {
-            iBehaviourComponent *component = new iBehaviourComponent();
-            // TODO
-            return component;
-        }
-    };
-
-    /*! global boundary contraint type
-     */
-    enum class iGlobalBoundaryType
-    {
-        /*! no constraint
-         */
-        None,
-        /*! if the entity leaves the bounds it reappears at the other end of the boundaries
-         */
-        Repeat
-    };
-
-    /*! keeps entities within some global boundaries
-
-    check the scene interface for configuring the global boundaries
-    */
-    class iGlobalBoundaryComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iGlobalBoundaryComponent(iGlobalBoundaryType type = iGlobalBoundaryType::None, const iaString &name = "global boundary")
-            : _type(type)
-        {
-        }
-
-        /*! creates instance of this component type
-         */
-        static iEntityComponent *createInstance()
-        {
-            return new iGlobalBoundaryComponent();
-        }
-
-        /*! global boundary type
-         */
-        iGlobalBoundaryType _type = iGlobalBoundaryType::None;
-
-    private:
-        /*! \returns a copy of this component
-         */
-        iEntityComponentPtr getCopy() override
-        {
-            iGlobalBoundaryComponent *component = new iGlobalBoundaryComponent();
-            component->_type = _type;
-            return component;
-        }
-    };
 
     /*! motion interaction type
      */

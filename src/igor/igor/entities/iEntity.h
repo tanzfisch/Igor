@@ -30,6 +30,7 @@
 #define IGOR_ENTITY_H
 
 #include <igor/entities/components/iComponents.h>
+#include <igor/entities/components/iBehaviourComponent.h>
 
 #include <unordered_map>
 #include <typeindex>
