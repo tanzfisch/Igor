@@ -584,10 +584,6 @@ iEntityID GameLayer::createCamera()
     cameraComponent->setClearColorActive(false);
     cameraComponent->setClearDepthActive(false);
 
-    // DEBUG
-    /*auto debug = entity->addComponent<iRenderDebugComponent>({});
-    debug->_renderSpacePartitioning = true;*/
-
     return entity->getID();
 }
 
@@ -693,31 +689,27 @@ void GameLayer::createShop()
 
 void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
 {
+    auto velocityComp = entity->getComponent<iVelocityComponent>();
+    iaVector3d velocity(0.0, 0.0, 0.0);
     auto target = entity->getComponent<TargetComponent>();
 
-    const float64 speed = 0.5; // TODO
-
-    // skip if entity is not following targets
-    if (!target->_followTarget)
-    {
-        return;
-    }
-
-    // skip if there is no valid target
+    // stop if entity is not following targets or if there is no valid target
     iEntityPtr targetEntity = _entityScene->getEntity(target->_targetID);
-    if (targetEntity == nullptr)
+    if (!target->_followTarget ||
+        targetEntity == nullptr)
     {
+        velocityComp->setVelocity(velocity);
         return;
     }
 
-    // skip if target has no position
+    // stop if target has no position
     auto targetTransformComponent = targetEntity->getComponent<iTransformComponent>();
     if (targetTransformComponent == nullptr)
     {
+        velocityComp->setVelocity(velocity);
         return;
     }
 
-    auto velocity = entity->getComponent<iVelocityComponent>();
     auto transformComponent = entity->getComponent<iTransformComponent>();
 
     const auto &dstPos = targetTransformComponent->getPosition();
@@ -726,13 +718,15 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
     const iaVector2d targetPos(dstPos._x, dstPos._y);
     const iaVector2d position(entityPos._x, entityPos._y);
     iaVector2d offset;
-    iaCircled circle(position, 1000.0);
+    iaCircled targetCircle(position, 1000.0);
 
-    if (!intersectDoughnut(targetPos, circle, offset))
+    const float64 speed = 0.5; // TODO
+
+    if (!intersectDoughnut(targetPos, targetCircle, offset))
     {
         if (target->_inRange)
         {
-            velocity->setVelocity(getRandomDir() * speed);
+            velocityComp->setVelocity(getRandomDir() * speed);
             target->_inRange = false;
         }
     }
@@ -741,8 +735,39 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
         iaVector2d newVel = targetPos - position + offset;
         newVel.normalize();
         newVel *= speed;
-        velocity->setVelocity(iaVector3d(newVel._x, newVel._y, 0.0));
+        velocityComp->setVelocity(iaVector3d(newVel._x, newVel._y, 0.0));
         target->_inRange = true;
+    }
+
+    auto quadComp = entity->getComponent<iQuadtreeComponent>();
+    iaCircled circle = quadComp->_object->_circle;
+    circle._radius *= 1.1;
+    iQuadtreed::Objects objects;
+    _entityScene->getQuadtree().query(circle, objects);
+
+    iaVector2d diversion(0.0, 0.0);
+    for (const auto &object : objects)
+    {
+        iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
+
+        // skip self
+        if (otherEntityID == entity->getID())
+        {
+            continue;
+        }
+
+        // calc diversion
+        diversion += circle._center - object->_circle._center;
+    }
+
+    if (diversion.length2() > 0)
+    {
+        diversion.normalize();
+        diversion *= speed;
+        auto velocity = velocityComp->getVelocity();
+        velocity._x += diversion._x;
+        velocity._y += diversion._y;
+        velocityComp->setVelocity(velocity);
     }
 }
 

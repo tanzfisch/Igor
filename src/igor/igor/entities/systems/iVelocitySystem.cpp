@@ -14,7 +14,6 @@ namespace igor
 {
 	iVelocitySystem::iVelocitySystem()
 	{
-		_interactionResolverView = createView<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
 		_noBoundsView = createView<iVelocityComponent, iTransformComponent>();
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
@@ -26,68 +25,6 @@ namespace igor
 
 	void iVelocitySystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		iEntityScenePtr scene = context._scene;
-
-		if (scene->hasQuadtree())
-		{
-			auto &quadtree = scene->getQuadtree();
-
-			for (auto entity : _interactionResolverView->getEntities())
-			{
-				auto velocityComp = entity->getComponent<iVelocityComponent>();
-				auto velocity = velocityComp->getVelocity();
-				auto quadComp = entity->getComponent<iQuadtreeComponent>();
-				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
-
-				switch (motionResolver->_type)
-				{
-				case iMotionInteractionType::Divert:
-				{
-					iaCircled circle = quadComp->_object->_circle;
-					circle._radius *= 1.1;
-					iQuadtreed::Objects objects;
-					quadtree.query(circle, objects);
-
-					float64 speed = velocity.length();
-					iaVector2d diversion;
-
-					for (const auto &object : objects)
-					{
-						iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
-
-						// skip self
-						if (otherEntityID == entity->getID())
-						{
-							continue;
-						}
-
-						/*auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
-						if (hasMotionInteraction == nullptr)
-						{
-							continue;
-						}*/
-
-						// calc diversion
-						diversion += circle._center - object->_circle._center;
-					}
-
-					diversion.normalize();
-					diversion *= speed;
-
-					velocity._x += diversion._x;
-					velocity._y += diversion._y;
-
-					velocityComp->setVelocity(velocity);
-				}
-				break;
-
-				case iMotionInteractionType::None:
-				default:
-					break;
-				}
-			}
-		}
-
 		for (auto entity : _noBoundsView->getEntities())
 		{
 			auto velocityComp = entity->getComponent<iVelocityComponent>();

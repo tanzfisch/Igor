@@ -68,10 +68,6 @@ namespace igor
 		 */
 		iAABoxd _bounds;
 
-		/*! a view on some entities with interaction resolvers
-		 */
-		iEntityViewPtr _interactionResolverView;
-
 		/*! a view on some entities with no bounds
 		 */
 		iEntityViewPtr _noBoundsView;
