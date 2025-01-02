@@ -660,7 +660,7 @@ void GameLayer::createShop()
 {
     iEntityPtr shop = _entityScene->createEntity("shop");
     _shop = shop->getID();
-    shop->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
+    shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
@@ -1303,7 +1303,7 @@ float32 GameLayer::calcLevel(uint32 experience)
     uint32 lowerBounds = 0;
     uint32 upperBounds = _expLvl.front();
 
-    float32 level = 1.0;
+    float32 level = 0.0;
 
     if (experience >= _expLvl.front())
     {

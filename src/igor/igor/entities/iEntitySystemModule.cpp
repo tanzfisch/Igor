@@ -79,10 +79,9 @@ namespace igor
         }
 
         scene->addSystem(new iAnimationSystem());
-        scene->addSystem(new iBehaviourSystem());
         scene->addSystem(new iVelocitySystem());
-
-        scene->addSystem(new iTransformSystem());
+        scene->addSystem(new iTransformSystem());        
+        scene->addSystem(new iBehaviourSystem());
 
         scene->addSystem(new iCameraSystem());
         scene->addSystem(new iLightSystem());

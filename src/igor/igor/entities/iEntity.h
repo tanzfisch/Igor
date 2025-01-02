@@ -47,7 +47,10 @@ namespace igor
     class iEntityScene;
     typedef iEntityScene *iEntityScenePtr;
 
-    /*! entity
+    /*! entity definition
+
+    Igor uses the terms entity, component and system but it is not a classic entity component system or ECS.
+    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.    
      */
     class IGOR_API iEntity
     {
@@ -238,7 +241,7 @@ namespace igor
 
         /*! added components end up in a queue first
          */
-        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _componentsToProcess;
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _unloadedComponents;
 
         /*! type hash of entity
          */

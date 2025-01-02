@@ -42,24 +42,44 @@ namespace igor
 {
 
     /*! entity component state
-    */
+     */
     enum class iEntityComponentState
     {
-        Unloaded,   //! initial state unloaded
-        Loaded,     //! loaded but inactive
-        LoadFailed, //! load failed, stays inactive
-        Active,     //! active
-        Inactive,   //! inactive
+        Unloaded,         //! initial state unloaded
+        UnloadedInactive, //! unloaded but inactive
+        LoadFailed,       //! load failed, stays inactive
+        Inactive,         //! inactive
+        Active,           //! active
     };
+
+    /*
+    +---------------+                                                           +----------------+  
+    |               v                                                           v                |
+    |   ------------------------------------------    ----------------------------------------   |
+    |   |                Unloaded                |    |           UnloadedInactive           |   |
+    |   ------------------------------------------    ----------------------------------------   |
+    |               |                         |          |                      |                |
+    |               |                         v          v                      |                |
+    |               |                 --------------------------                |                |
+    |               |                 |       LoadFailed       |                |                |
+    |               |                 --------------------------                |                |
+    |               |                                                           |                |
+    |               v                                                           v                |
+    |   --------------------------                                  --------------------------   |
+    +-- |         Active         | -------------------------------> |        Inactive        | --+
+        |                        | <------------------------------- |                        |
+        --------------------------                                  --------------------------
+
+    */
 
     /*! pointer definition of entity component
      */
     class iEntityComponent;
-    typedef iEntityComponent *iEntityComponentPtr;    
+    typedef iEntityComponent *iEntityComponentPtr;
 
     /*! entity component mask definition
      */
-    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;    
+    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
 
     /*! entity component factory function component
      */
@@ -70,24 +90,23 @@ namespace igor
     struct iEntityComponentTypeInfo
     {
         /*! factory function to create components
-        */
+         */
         iEntityComponentFactory _factory;
 
         /*! bit mask to identify component type
-        */
+         */
         iEntityComponentMask _mask;
 
         /*! human readable type name
-        */
+         */
         iaString _typeName;
 
         iEntityComponentTypeInfo()
         {
-
         }
 
         iEntityComponentTypeInfo(iEntityComponentFactory factory, const iEntityComponentMask &mask, const iaString &typeName)
-        : _factory(factory), _typeName(typeName), _mask(mask)
+            : _factory(factory), _typeName(typeName), _mask(mask)
         {
         }
     };

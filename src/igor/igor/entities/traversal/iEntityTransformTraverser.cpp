@@ -33,6 +33,11 @@ namespace igor
             return;
         }
 
+        if(entity->getName() == "shop")
+        {
+            con_endl(entity->getName());
+        }
+
         iaVector2d position(_currentMatrix._pos._x, _currentMatrix._pos._y);
 
         iCircleComponent *component = entity->getComponent<iCircleComponent>();

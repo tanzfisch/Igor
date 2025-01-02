@@ -270,8 +270,8 @@ public:
         return new ExperienceComponent();
     }    
 
-    float32 _experience;
-    float32 _level;
+    float32 _experience = 0;
+    float32 _level = 0;
 
 private:
     /*! \returns a copy of this component

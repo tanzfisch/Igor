@@ -40,7 +40,7 @@ namespace igor
 
     void iEntity::setName(const iaString &name)
     {
-        if(_name == name)
+        if (_name == name)
         {
             return;
         }
@@ -66,7 +66,7 @@ namespace igor
         _components[typeID] = component;
         component->_entity = this;
 
-        _componentsToProcess.emplace_back(typeID, component);
+        _unloadedComponents.emplace_back(typeID, component);
         _mutex.unlock();
 
         componentToProcess(typeID);
@@ -101,14 +101,13 @@ namespace igor
     bool iEntity::processComponents()
     {
         _mutex.lock();
-        if (_componentsToProcess.empty())
+        auto componentsToProcess = std::move(_unloadedComponents);
+        _mutex.unlock();
+
+        if (componentsToProcess.empty())
         {
-            _mutex.unlock();
             return true;
         }
-        
-        auto componentsToProcess = std::move(_componentsToProcess);
-        _mutex.unlock();
 
         std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
 
@@ -116,13 +115,23 @@ namespace igor
 
         for (const auto &pair : componentsToProcess)
         {
+            con_assert(pair.second->_state == iEntityComponentState::Unloaded || pair.second->_state == iEntityComponentState::UnloadedInactive, "invalid state");
+
             bool asyncLoad = false;
+            bool active = pair.second->_state == iEntityComponentState::Unloaded;
+
             bool success = pair.second->onLoad(this, asyncLoad);
             if (success)
             {
-                pair.second->_state = iEntityComponentState::Loaded;
-                pair.second->onActivate(this);
-                pair.second->_state = iEntityComponentState::Active;
+                if (active)
+                {
+                    pair.second->onActivate(this);
+                    pair.second->_state = iEntityComponentState::Active;
+                }
+                else
+                {
+                    pair.second->_state = iEntityComponentState::Inactive;
+                }
 
                 changed = true;
                 _scene->onComponentAdded(this, pair.first);
@@ -142,9 +151,10 @@ namespace igor
             }
         }
 
+        bool processAgain = !toKeep.empty();
+
         _mutex.lock();
-        _componentsToProcess.insert(_componentsToProcess.end(), toKeep.begin(), toKeep.end());
-        bool processAgain = !_componentsToProcess.empty();
+        _unloadedComponents.insert(_unloadedComponents.end(), toKeep.begin(), toKeep.end());
         _mutex.unlock();
 
         if (changed)
@@ -176,7 +186,11 @@ namespace igor
         if (component->_state == iEntityComponentState::Active)
         {
             component->onDeactivate(this);
-            component->_state = iEntityComponentState::Inactive;
+            component->_state == iEntityComponentState::Inactive;
+        }
+
+        if (component->_state == iEntityComponentState::Inactive)
+        {
             component->onUnLoad(this);
             component->_state = iEntityComponentState::Unloaded;
         }
@@ -202,19 +216,23 @@ namespace igor
         auto component = iter->second;
         _mutex.unlock();
 
-        if (component->_state == iEntityComponentState::Active)
+        con_assert(component->_state == iEntityComponentState::Active || component->_state == iEntityComponentState::Inactive, "invalid state");
+
+        const bool active = component->_state == iEntityComponentState::Active;
+
+        if (active)
         {
             component->onDeactivate(this);
-            component->_state = iEntityComponentState::Inactive;
-            component->onUnLoad(this);
-            component->_state = iEntityComponentState::Unloaded;
-
-            _mutex.lock();
-            _componentsToProcess.emplace_back(typeID, component);
-            _mutex.unlock();   
-
-            componentToProcess(typeID);         
         }
+
+        component->onUnLoad(this);
+        component->_state = active ? iEntityComponentState::Unloaded : iEntityComponentState::UnloadedInactive;
+
+        _mutex.lock();
+        _unloadedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
+        componentToProcess(typeID);
     }
 
     void iEntity::onEntityChanged()
@@ -401,11 +419,14 @@ namespace igor
             // activate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Loaded ||
-                    pair.second->_state == iEntityComponentState::Inactive)
+                if (pair.second->_state == iEntityComponentState::Inactive)
                 {
                     pair.second->onActivate(this);
                     pair.second->_state = iEntityComponentState::Active;
+                }
+                else if (pair.second->_state == iEntityComponentState::UnloadedInactive)
+                {
+                    pair.second->_state = iEntityComponentState::Unloaded;
                 }
             }
 
@@ -425,6 +446,10 @@ namespace igor
                 {
                     pair.second->onDeactivate(this);
                     pair.second->_state = iEntityComponentState::Inactive;
+                }
+                else if (pair.second->_state == iEntityComponentState::Unloaded)
+                {
+                    pair.second->_state = iEntityComponentState::UnloadedInactive;
                 }
             }
 
