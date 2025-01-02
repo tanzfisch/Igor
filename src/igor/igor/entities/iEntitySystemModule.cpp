@@ -79,14 +79,18 @@ namespace igor
         }
 
         scene->addSystem(new iAnimationSystem());
+
         scene->addSystem(new iVelocitySystem());
-        scene->addSystem(new iTransformSystem());        
+        scene->addSystem(new iTransformSystem());
+
+        // running behaviour after transforms and update of oc/quad trees so behaviour system can rely on it
+        // this will lead to position changes by the behaviour systems show up one frame late
         scene->addSystem(new iBehaviourSystem());
 
         scene->addSystem(new iCameraSystem());
         scene->addSystem(new iLightSystem());
         scene->addSystem(new iMeshRenderSystem());
-        
+
         scene->addSystem(new iSpriteRenderSystem());
 
         return scene;

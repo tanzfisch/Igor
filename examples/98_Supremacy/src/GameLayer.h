@@ -353,7 +353,7 @@ private:
 
     /*! lift the shop
      */
-    void liftShop();
+    void onLiftShop();
 
     /*! create a coin
 

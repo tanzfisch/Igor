@@ -618,8 +618,8 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity->addComponent(new iAnimationComponent(animationController));
 }
 
-void GameLayer::liftShop()
-{
+void GameLayer::onLiftShop()
+{    
     iEntityPtr shop = _entityScene->getEntity(_shop);
     if (shop == nullptr)
     {
@@ -1450,7 +1450,7 @@ void GameLayer::openShop()
 
 void GameLayer::onCloseShopDialog(iDialogPtr dialog)
 {
-    liftShop();
+    onLiftShop();
     iApplication::getInstance().pause(false);
 
     // start timer to next shop landing
