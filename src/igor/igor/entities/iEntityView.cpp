@@ -27,7 +27,7 @@ namespace igor
 
 	void iEntityView::onEntityChanged(iEntityPtr entity)
 	{
-		const bool compatible = checkCompatibility(entity);		
+		const bool compatible = checkCompatibility(entity);
 
 		// need to remove?
 		if (!compatible)

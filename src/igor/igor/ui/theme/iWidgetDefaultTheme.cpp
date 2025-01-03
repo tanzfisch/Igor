@@ -161,7 +161,6 @@ namespace igor
 
     void iWidgetDefaultTheme::drawWidgetButton(iWidgetButtonPtr widget)
     {
-        // widget->getBackground();
         const auto rect = widget->getActualRect();
         const auto state = widget->getState();
         const auto enabled = widget->isEnabled();

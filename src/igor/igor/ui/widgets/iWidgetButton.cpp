@@ -18,6 +18,8 @@ namespace igor
         _configuredMinHeight = 10;
         _configuredMinWidth = 20;
         _reactOnMouseWheel = false;
+
+        setBackground(iaColor4f::white);
     }
 
     void iWidgetButton::setAction(const iaString &actionName, const iActionContextPtr context)

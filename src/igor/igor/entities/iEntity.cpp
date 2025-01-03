@@ -100,6 +100,11 @@ namespace igor
 
     bool iEntity::processComponents()
     {
+        if (getName() == "shop")
+        {
+            int x = 0;
+        }
+
         _mutex.lock();
         auto componentsToProcess = std::move(_unloadedComponents);
         _mutex.unlock();
@@ -109,7 +114,7 @@ namespace igor
             return true;
         }
 
-        std::vector<std::pair<std::type_index, iEntityComponentPtr>> toKeep;
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> remainUnloaded;
 
         bool changed = false;
 
@@ -130,6 +135,8 @@ namespace igor
                 }
                 else
                 {
+                    pair.second->onActivate(this);
+                    pair.second->onDeactivate(this);
                     pair.second->_state = iEntityComponentState::Inactive;
                 }
 
@@ -146,16 +153,19 @@ namespace igor
                 else
                 {
                     // keep in queue
-                    toKeep.push_back(pair);
+                    remainUnloaded.push_back(pair);
                 }
             }
         }
 
-        bool processAgain = !toKeep.empty();
+        const bool processAgain = !remainUnloaded.empty();
 
-        _mutex.lock();
-        _unloadedComponents.insert(_unloadedComponents.end(), toKeep.begin(), toKeep.end());
-        _mutex.unlock();
+        if (processAgain)
+        {
+            _mutex.lock();
+            _unloadedComponents.insert(_unloadedComponents.end(), remainUnloaded.begin(), remainUnloaded.end());
+            _mutex.unlock();
+        }
 
         if (changed)
         {

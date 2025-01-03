@@ -36,6 +36,10 @@ namespace igor
 
 		for (auto entity : entities)
 		{
+			if(entity->getName() == "shop")
+			{
+				con_endl("shop");
+			}
 			auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
 			auto transformComponent = entity->getComponent<iTransformComponent>();
 

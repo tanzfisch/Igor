@@ -637,9 +637,7 @@ void GameLayer::onLandShop(const iaTime &time)
         player == nullptr)
     {
         return;
-    }
-
-    shop->setActive(true);
+    }    
 
     auto playerTransformComponent = player->getComponent<iTransformComponent>();
     auto shopTransformComponent = shop->getComponent<iTransformComponent>();
@@ -654,11 +652,15 @@ void GameLayer::onLandShop(const iaTime &time)
     pos._y = std::fmod(pos._y, PLAYFIELD_HEIGHT);
 
     shopTransformComponent->setPosition(iaVector3d(pos._x, pos._y, 0.0));
+
+    shop->setActive(true);
 }
 
 void GameLayer::createShop()
 {
     iEntityPtr shop = _entityScene->createEntity("shop");
+    shop->setActive(false); // TODO need to figure out why we can't deactivate after adding iSpriteRenderComponent
+
     _shop = shop->getID();
     shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
@@ -683,8 +685,6 @@ void GameLayer::createShop()
     shadow->addComponent(new iTransformComponent(iaVector3d(0.0, 0.25, 0.0)));
     shadow->addComponent(new iSpriteRenderComponent(_shadow, iaVector2d(0.8, 0.8), iaColor4f::black, -1));
     shadow->setParent(shop->getID());
-
-    shop->setActive(false);
 }
 
 void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
