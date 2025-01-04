@@ -76,10 +76,6 @@ namespace igor
         \param entity the entity to write
         */
         static void writeEntity(json &entityJson, iEntityPtr entity);
-
-        /*! read mesh render from json
-        */
-        static void readMeshRender(iEntityPtr entity, const json &componentJson);
     };
 
 } // namespace igor

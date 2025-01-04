@@ -104,7 +104,7 @@ namespace igor
         entity->addComponent(new iOctreeComponent());
     }
 
-    void iPrefabIO::readMeshRender(iEntityPtr entity, const json &componentJson)
+    static void readMeshRender(iEntityPtr entity, const json &componentJson)
     {
         entity->addComponent(new iMeshRenderComponent());
     }
@@ -129,7 +129,7 @@ namespace igor
         component->setMeshPaths(paths);
     }
 
-    static void writeMeshReference(json &componentJson, iMeshReferenceComponent *component)
+    static void writeMeshReference(json &componentJson, iMeshReferenceComponentPtr component)
     {
         componentJson["model"] = component->getModel()->getID();
 
