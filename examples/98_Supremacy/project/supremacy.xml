@@ -58,15 +58,15 @@
                 <Weapon projectileTexture="example_texture_supremacy_projectile_through_knife" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="3" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
                 -->
                 <ShopItem name="Knife" description="Throwing knifes that stick." icon="example_texture_supremacy_shop_item_knifes" price="100">
-                        <Weapon projectileTexture="example_texture_supremacy_projectile_through_knife" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="3" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="example_texture_supremacy_projectile_through_knife" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.0" projectileDamage="10" projectileSpeed="5" projectileRange="110" attackIntervall="500" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
 
                 <ShopItem name="Boomerang" description="coming back to you" icon="example_texture_supremacy_shop_item_boomerang" price="150">
-                        <Weapon projectileTexture="example_texture_supremacy_projectile_boomerang" projectileSize="20" projectileCount="1" accuracy="1.0" angularVelocity="0.25" projectileDamage="30" projectileSpeed="5" projectileRange="120" attackIntervall="800" needToStandStill="true" returnToSender="true" />
+                        <Weapon projectileTexture="example_texture_supremacy_projectile_boomerang" projectileSize="30" projectileCount="1" accuracy="1.0" angularVelocity="0.25" projectileDamage="30" projectileSpeed="3" projectileRange="120" attackIntervall="800" needToStandStill="true" returnToSender="true" />
                 </ShopItem>
 
                 <ShopItem name="Ninja Star" description="pointy and coming back to you" icon="example_texture_supremacy_shop_item_ninja_star" price="300">
-                        <Weapon projectileTexture="example_texture_supremacy_projectile_ninja_star" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.4" projectileDamage="40" projectileSpeed="10" projectileRange="180" attackIntervall="500" needToStandStill="true" returnToSender="true" />
+                        <Weapon projectileTexture="example_texture_supremacy_projectile_ninja_star" projectileSize="20" projectileCount="1" accuracy="0.0" angularVelocity="0.5" projectileDamage="40" projectileSpeed="4" projectileRange="180" attackIntervall="500" needToStandStill="true" returnToSender="true" />
                 </ShopItem>
 
                 <ShopItem name="Pistol" description="pew pew pew" icon="example_texture_supremacy_shop_item_pistol" price="300">
@@ -114,7 +114,7 @@
                 </ShopItem>
 
                 <ShopItem name="Rocket Launcher" description="Shoosh BOOOOOM" icon="example_texture_supremacy_shop_item_rocketlauncher" price="100000">
-                        <Weapon projectileTexture="example_texture_supremacy_projectile_rocket" projectileSize="30" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="7" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
+                        <Weapon projectileTexture="example_texture_supremacy_projectile_rocket" projectileSize="25" projectileCount="1" accuracy="0.0" angularVelocity="0" projectileDamage="2000" projectileSpeed="7" projectileRange="200" attackIntervall="2000" needToStandStill="true" returnToSender="false" />
                 </ShopItem>
         </ShopItems>
 

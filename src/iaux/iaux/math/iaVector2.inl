@@ -156,6 +156,12 @@ IGOR_INLINE T iaVector2<T>::length2() const
 }
 
 template <class T>
+IGOR_INLINE bool iaVector2<T>::zero() const
+{
+    return _x == 0.0 && _y == 0.0;
+}
+
+template <class T>
 IGOR_INLINE T iaVector2<T>::distance(const iaVector2<T> &vec) const
 {
     T dx = _x - vec._x;

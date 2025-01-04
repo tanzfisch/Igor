@@ -10,11 +10,11 @@ namespace igor
         : _position(position), _orientation(orientation), _scale(scale)
     {
     }
-    
+
     iEntityComponent *iTransformComponent::createInstance()
     {
         return new iTransformComponent();
-    }     
+    }
 
     iEntityComponentPtr iTransformComponent::getCopy()
     {
@@ -23,7 +23,7 @@ namespace igor
         component->_orientation = _orientation;
         component->_scale = _scale;
         return component;
-    }  
+    }
 
     bool iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
     {
@@ -42,14 +42,16 @@ namespace igor
 
     void iTransformComponent::setPosition(const iaVector3d &position)
     {
-        _position = position;
-        _entity->setDirtyHierarchy(true);
+        if (_position != position)
+        {
+            _position = position;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     void iTransformComponent::translate(const iaVector3d &translate)
     {
-        _position += translate;
-        _entity->setDirtyHierarchy(true);
+        setPosition(_position + translate);
     }
 
     const iaVector3d &iTransformComponent::getPosition() const
@@ -59,14 +61,16 @@ namespace igor
 
     void iTransformComponent::setOrientation(const iaVector3d &orientation)
     {
-        _orientation = orientation;
-        _entity->setDirtyHierarchy(true);
+        if (_orientation != orientation)
+        {
+            _orientation = orientation;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     void iTransformComponent::rotate(const iaVector3d &rotate)
     {
-        _orientation += rotate;
-        _entity->setDirtyHierarchy(true);
+        setOrientation(_orientation + rotate);
     }
 
     const iaVector3d &iTransformComponent::getOrientation() const
@@ -76,8 +80,11 @@ namespace igor
 
     void iTransformComponent::setScale(const iaVector3d &scale)
     {
-        _scale = scale;
-        _entity->setDirtyHierarchy(true);
+        if (_scale != scale)
+        {
+            _scale = scale;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     const iaVector3d &iTransformComponent::getScale() const

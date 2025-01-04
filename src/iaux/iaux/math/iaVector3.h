@@ -183,6 +183,10 @@ namespace iaux
         */
         T length2() const;
 
+        /*! \returns true if vector has zero length
+        */
+        bool zero() const;
+
         /*! \returns distance between two vectors
 
         \param v second vector

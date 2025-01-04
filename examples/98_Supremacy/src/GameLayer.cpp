@@ -1106,6 +1106,11 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
 void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData)
 {
     auto velocityComp = entity->getComponent<iVelocityComponent>();
+    if(velocityComp->getAngularVelocity().zero())
+    {
+        return;
+    }
+
     const auto &velocity = velocityComp->getVelocity();
     auto transform = entity->getComponent<iTransformComponent>();
 
@@ -1214,7 +1219,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     for (int i = 0; i < weapon->_config._projectileCount; ++i)
     {
         auto bullet = _entityScene->createEntity(weapon->_config._texture);
-        float32 angle = dir.angle() * IGOR_RAD2GRAD;
+        float32 angle = dir.angle() + (90 * IGOR_GRAD2RAD);
         iaVector2d firePosition(from + dir * weapon->_config._size * 0.5);
         iaVector3d bulletSpawnPosition(firePosition._x, firePosition._y, 0.0);
         bullet->addComponent(new iTransformComponent({bulletSpawnPosition, iaVector3d(0.0, 0.0, angle), iaVector3d(weapon->_config._size, weapon->_config._size, 1.0)}));

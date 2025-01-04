@@ -216,6 +216,12 @@ IGOR_INLINE T iaVector3<T>::length2() const
 }
 
 template <class T>
+IGOR_INLINE bool iaVector3<T>::zero() const
+{
+    return _x == 0.0 && _y == 0.0 && _z == 0.0;
+}
+
+template <class T>
 IGOR_INLINE T iaVector3<T>::distance(const iaVector3<T> &V) const
 {
     return static_cast<T>(sqrt((_x - V._x) * (_x - V._x) + (_y - V._y) * (_y - V._y) + (_z - V._z) * (_z - V._z)));

@@ -177,6 +177,10 @@ namespace iaux
          */
         T length2() const;
 
+        /*! \returns true if vector has zero length
+        */
+        bool zero() const;
+
         /*! \returns distance between positions
 
         \param vec the second position to calculate the distance to
