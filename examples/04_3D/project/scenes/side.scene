@@ -6,8 +6,7 @@
                 "components": [
                     {
                         "componentType": "meshReference",
-                        "meshPaths": ["cat"],
-                        "model": "0x42000caa82a2e5e0"
+                        "model": "0x0d930cfa6f049a1c"
                     },
                     {
                         "componentType": "octree"
@@ -37,21 +36,21 @@
                             "z": -0.25
                         },
                         "scale": {
-                            "x": 1.0,
-                            "y": 1.0,
-                            "z": 1.0
+                            "x": 0.1,
+                            "y": 0.1,
+                            "z": 0.1
                         }
                     }
                 ],
                 "id": "0x65d167c87238139a",
-                "name": "cat_right"
+                "name": "teapot_right"
             },
             {
                 "active": true,
                 "components": [
                     {
                         "componentType": "meshReference",
-                        "model": "0x42000caa82a2e5e0"
+                        "model": "0x98861236315ccdf1"
                     },
                     {
                         "componentType": "octree"
@@ -77,7 +76,7 @@
                         },
                         "position": {
                             "x": -1.0,
-                            "y": -0.3,
+                            "y": 0.2,
                             "z": -0.25
                         },
                         "scale": {
@@ -88,7 +87,7 @@
                     }
                 ],
                 "id": "0x05d66bc172d8139a",
-                "name": "cat_left"
+                "name": "crate_left"
             }
         ],
         "id": "0xe41417fa7d3c0e1a",
