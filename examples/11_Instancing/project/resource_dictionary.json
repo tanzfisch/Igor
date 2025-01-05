@@ -29,6 +29,10 @@
         "source": "models/cube_green/cube_green.ompf"
     },
     {
+        "id": "0xb3515770e9332ac2",
+        "source": "scenes/main.scene"
+    },
+    {
         "id": "0xd6f262b16fb8cba8",
         "source": "models/teapot/teapot.mat"
     },
