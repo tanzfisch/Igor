@@ -51,9 +51,9 @@ void Example3D::onInit()
     _entityScene = iProject::getInstance().getScene();
     getView().setEntityScene(_entityScene);
 
-    _cameraPitch = 0x1cab7c99336dbea8a;
-    _cameraHeading = 0x494714df579bf91e;
-    _camera = 0x55192542cbb0c27d;
+    _cameraPitch = iEntityID(0x1cab7c99336dbea8);
+    _cameraHeading = iEntityID(0x494714df579bf91e);
+    _camera = iEntityID(0x55192542cbb0c27d);
 #endif
 }
 
