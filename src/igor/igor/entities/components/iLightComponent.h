@@ -132,6 +132,10 @@ namespace igor
         */
         iEntityComponentPtr getCopy() override;        
     };
+
+    /*! light component pointer definition
+    */
+    typedef iLightComponent* iLightComponentPtr;
 }
 
 #endif // IGOR_LIGHT_COMPONENT_H

@@ -145,6 +145,25 @@ namespace igor
         }
     }
 
+    static void readLight(iEntityPtr entity, const json &componentJson)
+    {
+        iLightComponentPtr component = new iLightComponent();
+        entity->addComponent(component);
+
+        component->setAmbient(componentJson["ambient"].get<iaColor3f>());
+        component->setDiffuse(componentJson["diffuse"].get<iaColor3f>());
+        component->setSpecular(componentJson["specular"].get<iaColor3f>());
+        component->setType(static_cast<iLightType>(componentJson["type"].get<int>()));
+    }
+
+    static void writeLight(json &componentJson, iLightComponentPtr component)
+    {
+        componentJson["ambient"] = component->getAmbient();
+        componentJson["diffuse"] = component->getDiffuse();
+        componentJson["specular"] = component->getSpecular();
+        componentJson["type"] = (int)component->getType();
+    }
+
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
         if (!entityJson.contains("parent"))
@@ -168,6 +187,7 @@ namespace igor
             {"sphere", readSphere},
             {"octree", readOctree},
             {"meshRender", readMeshRender},
+            {"light", readLight},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -334,7 +354,18 @@ namespace igor
                 continue;
             }
 
-            con_err("unknown component type");
+            iLightComponent *light = dynamic_cast<iLightComponent *>(pair.second);
+            if (light != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "light";
+                writeLight(componentJson, light);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iEntityComponent* component = static_cast<iEntityComponent*>(pair.second);
+            con_err("unknown component type for id: " << component->getID());
         }
 
         if (!componentsJson.empty())
