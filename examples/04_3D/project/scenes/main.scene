@@ -8,7 +8,6 @@
 						"componentType": "meshReference",
                         "meshPaths": ["cat"],
     					"model": "0x42000caa82a2e5e0"
-						
 					},
                     {
                         "componentType": "octree"

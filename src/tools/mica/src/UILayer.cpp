@@ -139,7 +139,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onLoadProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaDirectory::getCurrentDirectory(), {"project"});
 }
 
 void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)

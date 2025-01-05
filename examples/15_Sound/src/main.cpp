@@ -16,7 +16,7 @@ int main()
 	window->setCentered();
 	window->open();
 
-	iProject::getInstance().load("project");
+	iProject::getInstance().load("project/example_sound.project");
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new ExampleSound(window));

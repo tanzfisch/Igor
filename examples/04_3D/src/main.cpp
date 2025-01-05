@@ -16,7 +16,7 @@ int main()
 	window->setCentered();
 	window->open();
 
-	iProject::getInstance().load("project");
+	iProject::getInstance().load("project/example_3d.project");
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example3D(window));

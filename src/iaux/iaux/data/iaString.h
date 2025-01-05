@@ -542,16 +542,18 @@ namespace iaux
         /*! trims white spaces on the left hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimLeft(const iaString &text);
+        static iaString trimLeft(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on the right hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimRight(const iaString &text);
+        static iaString trimRight(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on both ends of the string
 

@@ -9,6 +9,7 @@
 #include <igor/entities/components/iPrefabComponent.h>
 
 #include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaFile.h>
 
 #include <filesystem>
 
@@ -16,32 +17,43 @@ namespace igor
 {
 
     static const iaString s_defaultTemplate = "igor/projects/default";
+    static const iaString s_defaultProjectFilename = "project_config.project";
+    static const iaString s_resourceDictionary = "resource_dictionary.json";
 
-    void iProject::load(const iaString &projectFolder)
+    void iProject::load(const iaString &path)
     {
-        con_assert_sticky(iaDirectory::isDirectory(projectFolder), "can't find folder \"" << projectFolder << "\"");
-
         if (isLoaded())
         {
             unload();
         }
 
-        _projectFolder = projectFolder;
+        if(iaDirectory::isDirectory(path))
+        {
+            _projectFolder = path;
+            _projectFile = s_defaultProjectFilename;
+        }
+        else
+        {
+            iaFile projectFile(path);
+            _projectFolder = projectFile.getPath();
+            _projectFile = projectFile.getFileName();
+        }
+        
         load();
 
         _projectLoadedEvent();
     }
 
-    void iProject::create(const iaString &projectFolder)
+    void iProject::create(const iaString &path)
     {
-        if (!iaDirectory::exists(projectFolder))
+        if (!iaDirectory::exists(path))
         {
-            iaDirectory::makeDirectory(projectFolder);
+            iaDirectory::makeDirectory(path);
         }
 
-        if (!iaDirectory::isEmpty(projectFolder))
+        if (!iaDirectory::isEmpty(path))
         {
-            con_err("can't create project in folder that is not empty \"" << projectFolder << "\"");
+            con_err("can't create project in folder that is not empty \"" << path << "\"");
             return;
         }
 
@@ -49,18 +61,18 @@ namespace igor
         iaDirectory srcDir(templatePath);
 
         std::filesystem::path srcPath(srcDir.getFullDirectoryName().getData());
-        std::filesystem::path dstPath(projectFolder.getData());
+        std::filesystem::path dstPath(path.getData());
         std::filesystem::copy(srcPath, dstPath, std::filesystem::copy_options::recursive);
 
-        con_info("created project in \"" << projectFolder << "\"");
+        con_info("created project in \"" << path << "\"");
 
         load();
     }
 
     void iProject::load()
     {
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
-        const iaString filenameDictionary = "resource_dictionary.json";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
+        const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
@@ -89,8 +101,8 @@ namespace igor
 
     void iProject::save()
     {
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + "project_config.json";
-        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + "resource_dictionary.json";
+        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
+        const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + s_resourceDictionary;
 
         write(filenameConfig);
         iResourceManager::getInstance().saveResourceDictionary(filenameDictionary);

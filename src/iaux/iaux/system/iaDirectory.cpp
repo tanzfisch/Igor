@@ -108,7 +108,7 @@ namespace iaux
         }
 
         std::filesystem::path fspath(path.getData());
-        if(std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
+        if (std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
         {
             return true;
         }
@@ -211,12 +211,14 @@ namespace iaux
 
     iaString iaDirectory::getDirectoryName() const
     {
-        return _directoryName.getSubString(_directoryName.findLastOf(IGOR_PATHSEPARATOR) + 1);
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
     iaString iaDirectory::getFullParentDirectoryName() const
     {
-        return _directoryName.getSubString(0, _directoryName.findLastOf(IGOR_PATHSEPARATOR));
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     bool iaDirectory::isRoot()

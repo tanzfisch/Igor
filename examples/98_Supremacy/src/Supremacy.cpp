@@ -18,7 +18,7 @@ Supremacy::Supremacy()
     window->setCentered();
     window->open();
 
-    iProject::getInstance().load("project");
+    iProject::getInstance().load("project/supremacy.project");
 
     // create example and add it as layer to the application
     igor::iApplication::getInstance().addLayer(new GameLayer(window));

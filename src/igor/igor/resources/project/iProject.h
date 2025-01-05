@@ -69,14 +69,14 @@ namespace igor
         friend class iModule<iProject>;
 
     public:
-        /*! opens project from project folder
+        /*! opens project
 
         closes active project if any
 
-        \param projectFolder the given project folder
+        \param path the given project file or folder
         \returns project
         */
-        void load(const iaString &projectFolder);
+        void load(const iaString &path);
 
         /*! unloads project
          */
@@ -84,9 +84,9 @@ namespace igor
 
         /*! creates new project in given project folder and loads it
 
-        \param projectFolder given project folder
+        \param path given project folder
         */
-        void create(const iaString &projectFolder);
+        void create(const iaString &path);
 
         /*! saves existing project
 
@@ -154,6 +154,10 @@ namespace igor
         /*! project folder
          */
         iaString _projectFolder;
+
+        /*! project file
+        */
+        iaString _projectFile;
 
         /*! project name
          */

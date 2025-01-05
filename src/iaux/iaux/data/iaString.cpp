@@ -1333,25 +1333,25 @@ namespace iaux
         return (integer + (part * decimals)) * sign;
     }
 
-    iaString iaString::trimLeft(const iaString &text)
+    iaString iaString::trimLeft(const iaString &text, const iaString &chars)
     {
         if (text.isEmpty())
         {
             return text;
         }
 
-        int64 start = text.findFirstNotOf(L" \n\r\t\f\v");
+        int64 start = text.findFirstNotOf(chars.getData());
         return text.getSubString(start);
     }
 
-    iaString iaString::trimRight(const iaString &text)
+    iaString iaString::trimRight(const iaString &text, const iaString &chars)
     {
         if (text.isEmpty())
         {
             return text;
         }
 
-        int64 stop = text.findLastNotOf(L" \n\r\t\f\v");
+        int64 stop = text.findLastNotOf(chars.getData());
         return (stop == iaString::INVALID_POSITION) ? "" : text.getSubString(0, stop + 1);
     }
 

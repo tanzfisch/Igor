@@ -29,8 +29,10 @@ namespace igor
         setAcceptESCToClose(true);
     }
 
-    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)
+    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path, const std::vector<iaString> &extensions)
     {
+        setExtensionsFilter(extensions);
+
         iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
@@ -187,18 +189,12 @@ namespace igor
 
     iaString iDialogFileSelect::getFullPath()
     {
-        iaString temp;
-
         if (_filename.isEmpty())
         {
-            temp = iaDirectory::fixPath(_directory);
-        }
-        else
-        {
-            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
+            return iaDirectory::fixPath(_directory);
         }
 
-        return temp;
+        return iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
     }
 
     void iDialogFileSelect::updateFileDir()
@@ -222,6 +218,27 @@ namespace igor
         {
             _filenameEdit->setText(_filename);
         }
+    }
+
+    bool iDialogFileSelect::filterExtension(const iaString &filename)
+    {
+        if(_extensions.empty())
+        {
+            return true;
+        }
+
+        const iaFile file(filename);
+        const iaString fileExt = file.getExtension();
+
+        for(const auto &extension : _extensions)
+        {
+            if(fileExt == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void iDialogFileSelect::updateFileGrid()
@@ -249,6 +266,11 @@ namespace igor
 
         for (auto iter : files)
         {
+            if(!filterExtension(iter.getFileName()))
+            {
+                continue;
+            }
+
             addToFileGrid(index / 10, index % 10, iter.getFullFileName(), iter.getFileName(), false);
             index++;
         }
@@ -379,5 +401,15 @@ namespace igor
         }
 
         iDialog::close();
+    }
+
+    void iDialogFileSelect::setExtensionsFilter(const std::vector<iaString> &extensions)
+    {
+        _extensions = extensions;
+    }
+
+    const std::vector<iaString> &iDialogFileSelect::getExtensionsFilter() const
+    {
+        return _extensions;
     }
 } // namespace igor
