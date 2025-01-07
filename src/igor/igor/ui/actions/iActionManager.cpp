@@ -33,7 +33,8 @@ namespace igor
         registerAction(new iActionApplicationStop());
 
         registerAction(new iActionSetEntityActive());
-        registerAction(new iActionSetEntityInactive());        
+        registerAction(new iActionSetEntityInactive());
+        registerAction(new iActionDeleteEntity());
     }
 
     void iActionManager::registerAction(iActionPtr action)

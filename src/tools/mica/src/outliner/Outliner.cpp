@@ -103,6 +103,8 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         {
             _contextMenu.addAction("igor:set_entity_active", actionContext);
         }
+
+        _contextMenu.addAction("igor:delete_entity", actionContext);
     }
 
     if(subScene)

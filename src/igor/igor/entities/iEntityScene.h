@@ -122,6 +122,12 @@ namespace igor
 		*/
 		void destroyEntity(iEntityPtr entity);
 
+		/*! destroys given entity by id
+
+		\param entityID the given entity id
+		*/
+		void destroyEntity(iEntityID entityID);
+
 		/*! \returns entity scene id
 		 */
 		const iEntitySceneID &getID() const;

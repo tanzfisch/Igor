@@ -9,7 +9,6 @@ namespace igor
     iActionSetEntityActive::iActionSetEntityActive()
         : iAction("igor:set_entity_active")
     {
-        //        setIcon("igor_icon_delete");
         setDescription("Activate entity");
     }
 
@@ -50,7 +49,6 @@ namespace igor
     iActionSetEntityInactive::iActionSetEntityInactive()
         : iAction("igor:set_entity_inactive")
     {
-        //        setIcon("igor_icon_delete");
         setDescription("Deactivate entity");
     }
 
@@ -67,6 +65,46 @@ namespace igor
     }
 
     bool iActionSetEntityInactive::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().empty())
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    iActionDeleteEntity::iActionDeleteEntity()
+        : iAction("igor:delete_entity")
+    {
+        setIcon("igor_icon_delete");
+        setDescription("Delete entity");
+    }
+
+    void iActionDeleteEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        for (auto entityID : actionContext->getEntities())
+        {
+            scene->destroyEntity(entityID);
+        }
+    }
+
+    bool iActionDeleteEntity::isCompatible(const iActionContext &context)
     {
         const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
         if (actionContext == nullptr)

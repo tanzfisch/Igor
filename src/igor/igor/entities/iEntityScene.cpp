@@ -227,6 +227,13 @@ namespace igor
         _deleteQueueMutex.unlock();
     }
 
+    void iEntityScene::destroyEntity(iEntityID entityID)
+    {
+        auto entity = getEntity(entityID);
+        con_assert(entity != nullptr, "entity not found");
+        destroyEntity(entity);
+    }
+
     const iEntitySceneID &iEntityScene::getID() const
     {
         return _id;

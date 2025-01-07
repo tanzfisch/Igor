@@ -79,6 +79,29 @@ namespace igor
         bool isCompatible(const iActionContext &context) override;
     };
 
+    /*! delete entity action
+    */
+    class iActionDeleteEntity : public iAction
+    {
+
+    public:
+        /*! init members
+        */
+        iActionDeleteEntity();
+        
+        /*! executed when action gets triggered
+
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
+
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };    
+
 } // namespace igor
 
 #endif // IGOR_ENTITY_ACTIONS_H
