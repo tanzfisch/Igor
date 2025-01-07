@@ -26,23 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ACTIONS_H
-#define IGOR_ACTIONS_H
+#ifndef IGOR_ENTITY_ACTIONS_H
+#define IGOR_ENTITY_ACTIONS_H
 
 #include <igor/ui/actions/iAction.h>
 
 namespace igor
 {
-
-    /*! application stop action
+    /*! set entity active action
      */
-    class IGOR_API iActionApplicationStop : public iAction
+    class iActionSetEntityActive : public iAction
     {
 
     public:
         /*! init members
          */
-        iActionApplicationStop();
+        iActionSetEntityActive();
+
+        /*! executed when action gets triggered
+
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
+
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
+
+    /*! set entity inactive action
+     */
+    class iActionSetEntityInactive : public iAction
+    {
+
+    public:
+        /*! init members
+         */
+        iActionSetEntityInactive();
 
         /*! executed when action gets triggered
 
@@ -59,4 +81,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // IGOR_ACTIONS_H
+#endif // IGOR_ENTITY_ACTIONS_H

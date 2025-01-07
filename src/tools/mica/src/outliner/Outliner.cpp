@@ -97,11 +97,11 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     {
         if (entity->isActive())
         {
-            _contextMenu.addAction("mica:set_entity_inactive", actionContext);
+            _contextMenu.addAction("igor:set_entity_inactive", actionContext);
         }
         else
         {
-            _contextMenu.addAction("mica:set_entity_active", actionContext);
+            _contextMenu.addAction("igor:set_entity_active", actionContext);
         }
     }
 

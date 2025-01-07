@@ -3,88 +3,6 @@
 #include <vector>
 #include <any>
 
-ActionSetEntityActive::ActionSetEntityActive()
-    : iAction("mica:set_entity_active")
-{
-    //        setIcon("igor_icon_delete");
-    setDescription("Activate entity");
-}
-
-void ActionSetEntityActive::execute(const iActionContext &context)
-{
-    const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
-
-    auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
-    for(auto entityID : actionContext->getEntities())
-    {
-        auto entity = scene->getEntity(entityID);
-        entity->setActive(true);
-    }
-}
-
-bool ActionSetEntityActive::isCompatible(const iActionContext &context)
-{
-    const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
-    if (actionContext == nullptr)
-    {
-        return false;
-    }
-
-    if (actionContext->getEntities().empty())
-    {
-        return false;
-    }
-
-    auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
-    if(scene == nullptr)
-    {
-        return false;
-    }
-
-    return true;
-}
-
-ActionSetEntityInactive::ActionSetEntityInactive()
-    : iAction("mica:set_entity_inactive")
-{
-    //        setIcon("igor_icon_delete");
-    setDescription("Deactivate entity");
-}
-
-void ActionSetEntityInactive::execute(const iActionContext &context)
-{
-    const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
-
-    auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
-    for(auto entityID : actionContext->getEntities())
-    {
-        auto entity = scene->getEntity(entityID);
-        entity->setActive(false);
-    }    
-}
-
-bool ActionSetEntityInactive::isCompatible(const iActionContext &context)
-{
-    const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
-    if (actionContext == nullptr)
-    {
-        return false;
-    }
-
-    if (actionContext->getEntities().empty())
-    {
-        return false;
-    }
-
-    auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
-    if(scene == nullptr)
-    {
-        return false;
-    }    
-
-    return true;    
-}
-
 ActionDeleteNode::ActionDeleteNode()
     : iAction("mica:deleteNodes")
 {
@@ -456,9 +374,6 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
 
 void registerMicaActions()
 {
-    iActionManager::getInstance().registerAction(new ActionSetEntityActive());
-    iActionManager::getInstance().registerAction(new ActionSetEntityInactive());
-
     // deprecated
     iActionManager::getInstance().registerAction(new ActionDeleteNode());
     iActionManager::getInstance().registerAction(new ActionAddTransform());

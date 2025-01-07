@@ -5,6 +5,7 @@
 #include <igor/ui/actions/iActionManager.h>
 
 #include <igor/ui/actions/iActions.h>
+#include <igor/ui/actions/iEntityActions.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -30,6 +31,9 @@ namespace igor
     void iActionManager::registerDefaultActions()
     {
         registerAction(new iActionApplicationStop());
+
+        registerAction(new iActionSetEntityActive());
+        registerAction(new iActionSetEntityInactive());        
     }
 
     void iActionManager::registerAction(iActionPtr action)
