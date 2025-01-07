@@ -17,6 +17,27 @@ namespace igor
     {
     }
 
+    iEntity::~iEntity()
+    {
+        removeParent();
+
+        const auto children = _children;
+        for (auto child : children)
+        {
+            child->removeParent();
+            _scene->destroyEntity(child);
+        }
+
+        const auto inactiveChildren = _inactiveChildren;
+        for (auto child : inactiveChildren)
+        {
+            child->removeParent();
+            _scene->destroyEntity(child);
+        }
+
+        clearComponents();
+    }
+
     std::unordered_map<std::type_index, iEntityComponentPtr> iEntity::getComponents()
     {
         std::unordered_map<std::type_index, iEntityComponentPtr> result;
@@ -70,27 +91,6 @@ namespace igor
         _mutex.unlock();
 
         componentToProcess(typeID);
-    }
-
-    iEntity::~iEntity()
-    {
-        removeParent();
-
-        const auto children = _children;
-        for (auto child : children)
-        {
-            child->removeParent();
-            _scene->destroyEntity(child);
-        }
-
-        const auto inactiveChildren = _inactiveChildren;
-        for (auto child : inactiveChildren)
-        {
-            child->removeParent();
-            _scene->destroyEntity(child);
-        }
-
-        clearComponents();
     }
 
     void iEntity::componentToProcess(const std::type_index &typeID)
