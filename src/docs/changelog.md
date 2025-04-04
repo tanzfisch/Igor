@@ -26,6 +26,8 @@ Changelog                           {#changelog}
 - introduced iaEventPool to handle events that only get called in main thread
 - fixed del key issue in iWidgetLineTextEdit
 - modal dialogs are allowed to be nested using a modal stack. The top one is the current modal one
+- added iClipboard copy pasting text and entity IDs
+- #412 bring entity system to use in Mica
 
 0.44.0
 ------
