@@ -3,39 +3,6 @@
 #include <vector>
 #include <any>
 
-ActionDeleteNode::ActionDeleteNode()
-    : iAction("mica:deleteNodes")
-{
-    setIcon("igor_icon_delete");
-    setDescription("delete");
-}
-
-void ActionDeleteNode::execute(const iActionContext &context)
-{
-    const MicaActionContext *actionContext = static_cast<const MicaActionContext *>(&context);
-
-    for (auto nodeID : actionContext->getWorkspace()->getSelection())
-    {
-        iNodeManager::getInstance().destroyNodeAsync(nodeID);
-    }
-}
-
-bool ActionDeleteNode::isCompatible(const iActionContext &context)
-{
-    const MicaActionContext *actionContext = dynamic_cast<const MicaActionContext *>(&context);
-    if (actionContext == nullptr)
-    {
-        return false;
-    }
-
-    if (actionContext->getWorkspace()->getSelection().empty())
-    {
-        return false;
-    }
-
-    return true;
-}
-
 ActionCopyNode::ActionCopyNode()
     : iAction("mica:copyNodes")
 {
@@ -370,19 +337,4 @@ void ActionBakeMeshToWorld::bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root)
     newMeshNode->setMaterial(meshNode->getMaterial());
 
     root->insertNode(newMeshNode);
-}
-
-void registerMicaActions()
-{
-    // deprecated
-    iActionManager::getInstance().registerAction(new ActionDeleteNode());
-    iActionManager::getInstance().registerAction(new ActionAddTransform());
-    iActionManager::getInstance().registerAction(new ActionAddGroup());
-    iActionManager::getInstance().registerAction(new ActionAddSwitch());
-    iActionManager::getInstance().registerAction(new ActionAddEmitter());
-    iActionManager::getInstance().registerAction(new ActionAddParticleSystem());
-    iActionManager::getInstance().registerAction(new ActionBakeMeshToWorld());
-    iActionManager::getInstance().registerAction(new ActionCopyNode());
-    iActionManager::getInstance().registerAction(new ActionPasteNode());
-    iActionManager::getInstance().registerAction(new ActionCutNode());
 }

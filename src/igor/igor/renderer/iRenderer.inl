@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 // see copyright notice in corresponding header file
 
 const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};

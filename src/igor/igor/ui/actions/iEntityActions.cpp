@@ -2,12 +2,13 @@
 
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/ui/actions/context/iEntityActionContext.h>
+#include <igor/system/iClipboard.h>
 
 namespace igor
 {
 
     iActionSetEntityActive::iActionSetEntityActive()
-        : iAction("igor:set_entity_active")
+        : iAction("igor:set_entities_active")
     {
         setDescription("Activate entity");
     }
@@ -47,7 +48,7 @@ namespace igor
     }
 
     iActionSetEntityInactive::iActionSetEntityInactive()
-        : iAction("igor:set_entity_inactive")
+        : iAction("igor:set_entities_inactive")
     {
         setDescription("Deactivate entity");
     }
@@ -87,7 +88,7 @@ namespace igor
     }
 
     iActionDeleteEntity::iActionDeleteEntity()
-        : iAction("igor:delete_entity")
+        : iAction("igor:delete_entities")
     {
         setIcon("igor_icon_delete");
         setDescription("Delete entity");
@@ -113,6 +114,134 @@ namespace igor
         }
 
         if (actionContext->getEntities().empty())
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    iActionCopyEntity::iActionCopyEntity()
+        : iAction("igor:copy_entities")
+    {
+        setIcon("igor_icon_copy");
+        setDescription("Copy entities");
+    }
+
+    void iActionCopyEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+        std::vector<iaUUID> IDs = { 0 }; // means this is copy and not cut
+        IDs.push_back(actionContext->getSceneID());
+        IDs.insert(IDs.end(), actionContext->getEntities().begin(), actionContext->getEntities().end());
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    bool iActionCopyEntity::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().empty())
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    iActionCutEntity::iActionCutEntity()
+        : iAction("igor:cut_entities")
+    {
+        setIcon("igor_icon_cut");
+        setDescription("Cut entities");
+    }
+
+    void iActionCutEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+        std::vector<iaUUID> IDs = { 1 }; // means this is cut and not copy
+        IDs.push_back(actionContext->getSceneID());
+        IDs.insert(IDs.end(), actionContext->getEntities().begin(), actionContext->getEntities().end());
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    bool iActionCutEntity::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().empty())
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }    
+
+    iActionPasteEntity::iActionPasteEntity()
+        : iAction("igor:paste_entities")
+    {
+        setIcon("igor_icon_paste");
+        setDescription("Paste entities");
+    }
+
+    void iActionPasteEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+
+        std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
+        con_assert(IDs.size() >= 3, "invalid data");
+
+        bool makeCopy = !IDs[0].isValid(); // else cut
+        auto dstScene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
+        for (int i = 2; i < IDs.size(); ++i)
+        {
+            if(makeCopy)
+            {
+                // TODO iEntitySystemModule::getInstance().copy from srcScene:entity to dstScene:entity
+            }
+            else
+            {
+                // TODO iEntitySystemModule::getInstance().move from srcScene:entity to dstScene:entity
+            }
+        }
+    }
+
+    bool iActionPasteEntity::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().size() != 1)
         {
             return false;
         }

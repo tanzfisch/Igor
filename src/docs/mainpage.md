@@ -1,7 +1,7 @@
 Igor Game Engine                                    {#mainpage}
 ================
 
-(c) Copyright 2012-2024 by Martin Loga
+(c) Copyright 2012-2025 by Martin Loga
     
 contact: igorgameengine@protonmail.com
 

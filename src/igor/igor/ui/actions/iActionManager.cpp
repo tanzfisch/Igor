@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/actions/iActionManager.h>
@@ -35,6 +35,10 @@ namespace igor
         registerAction(new iActionSetEntityActive());
         registerAction(new iActionSetEntityInactive());
         registerAction(new iActionDeleteEntity());
+
+        registerAction(new iActionCutEntity());
+        registerAction(new iActionCopyEntity());
+        registerAction(new iActionPasteEntity());
     }
 
     void iActionManager::registerAction(iActionPtr action)

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "Outliner.h"
@@ -97,14 +97,18 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     {
         if (entity->isActive())
         {
-            _contextMenu.addAction("igor:set_entity_inactive", actionContext);
+            _contextMenu.addAction("igor:set_entities_inactive", actionContext);
         }
         else
         {
-            _contextMenu.addAction("igor:set_entity_active", actionContext);
+            _contextMenu.addAction("igor:set_entities_active", actionContext);
         }
 
-        _contextMenu.addAction("igor:delete_entity", actionContext);
+        _contextMenu.addAction("igor:delete_entities", actionContext);
+
+        _contextMenu.addAction("igor:cut_entities", actionContext);
+        _contextMenu.addAction("igor:copy_entities", actionContext);
+        _contextMenu.addAction("igor:paste_entities", actionContext);
     }
 
     if(subScene)

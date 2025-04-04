@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -187,15 +187,6 @@ namespace igor
          */
         iEntityPtr _entity = nullptr;
     };
-
-    /*! iEntityComponent to json
-     */
-    void to_json(json &j, const iEntityComponent &component);
-
-    /*! json to iEntityComponent
-     */
-    void from_json(const json &j, iEntityComponent &component);
-
 }
 
 #endif //  IGOR_ENTITY_COMPONENT_H

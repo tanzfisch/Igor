@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DEFINES_LINUX__
-#define __IGOR_DEFINES_LINUX__
+#ifndef IGOR_DEFINES_LINUX_H
+#define IGOR_DEFINES_LINUX_H
 
 #ifdef IGOR_LINUX
 
@@ -72,7 +72,7 @@ namespace igor
     {
         /*! the window the events will come from
         */
-        iWindowPtr _window;
+        iWindow* _window;
 
         /*! display instance
         */
@@ -87,4 +87,4 @@ namespace igor
 
 #endif // IGOR_LINUX
 
-#endif // __IGOR_DEFINES_LINUX__
+#endif // IGOR_DEFINES_LINUX_H

@@ -4,3 +4,6 @@
 [submodule "vendor/newton-dynamics"]
 	path = vendor/newton-dynamics
 	url = https://github.com/tanzfisch/newton-dynamics.git
+[submodule "vendor/clip"]
+	path = vendor/clip
+	url = https://github.com/dacap/clip.git

@@ -61,6 +61,7 @@ find_package(Threads REQUIRED)
 
 # X11
 if(LINUX)
+message(STATUS "X11")
   find_package(X11 REQUIRED)
   if(X11_xf86vmode_FOUND)
     set(X11_EXT_DEFINITIONS "-DXF86VMODE_FOUND")
@@ -71,14 +72,15 @@ if(LINUX)
 endif() # LINUX
 
 # OpenGL
+message(STATUS "OpenGL")
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 # OpenAL Soft
+message(STATUS "OpenAL Soft")
 if(LINUX)
   find_package(ALSA REQUIRED)
 endif()
-
 add_subdirectory(vendor/openal-soft)
 set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
@@ -88,6 +90,8 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 
+# Newton Dynamic
+message(STATUS "Newton Dynamic")
 set(NEWTON_DOUBLE_PRECISION ON CACHE BOOL "Newton: generate double precision" FORCE)
 set(NEWTON_BUILD_CORE_ONLY ON CACHE BOOL "Newton: build core only" FORCE)
 set(NEWTON_BUILD_SANDBOX_DEMOS OFF CACHE BOOL "Newton: build sandbox demos" FORCE)
@@ -99,12 +103,20 @@ set_property(TARGET dgNewtonAvx PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgNewtonReferenceGPU PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgPhysics PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 
+# Glad
 add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER}/Glad)
 
 # tiny XML
 add_subdirectory(vendor/TinyXML)
 set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER}/TinyXML)
+
+# clip
+message(STATUS "clip")
+add_subdirectory(vendor/clip)
+set_target_properties(clip PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_property(TARGET clip PROPERTY FOLDER ${VENDOR_FOLDER}/clip)
+set(CLIP_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/clip")
 
 # nlohmann json
 message(STATUS "nlohmann json")

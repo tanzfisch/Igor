@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERCONTEXTTHREAD__
-#define __IGOR_RENDERCONTEXTTHREAD__
+#ifndef IGOR_RENDERCONTEXTTHREAD_H
+#define IGOR_RENDERCONTEXTTHREAD_H
 
 #include <igor/threading/iThread.h>
 #include <igor/system/iWindow.h>
@@ -58,11 +58,11 @@ namespace igor
     protected:
         /*! init render context
         */
-        void init();
+        void init() override;
 
         /*! deletes render context
         */
-        void deinit();
+        void deinit() override;
 
     private:
         /*! pointer to window to get the device context from
@@ -80,4 +80,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_RENDERCONTEXTTHREAD_H

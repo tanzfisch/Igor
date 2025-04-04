@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_THREAD__
-#define __IGOR_THREAD__
+#ifndef IGOR_THREAD_H
+#define IGOR_THREAD_H
 
 #include <iaux/system/iaThread.h>
 using namespace iaux;
@@ -63,11 +63,11 @@ namespace igor
     protected:
         /*! init function will be called as first by the thread
          */
-        void init() override;
+        virtual void init() override;
 
         /*! deinit function is called last by the thread. right before join
          */
-        void deinit() override;
+        virtual void deinit() override;
 
     private:
         /*! the world id
@@ -78,4 +78,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_THREAD_H

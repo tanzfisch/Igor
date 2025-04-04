@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DRAG__
-#define __IGOR_DRAG__
+#ifndef IGOR_DRAG_H
+#define IGOR_DRAG_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/data/iMimeData.h>
@@ -124,4 +124,4 @@ namespace igor
     typedef iDrag *iDragPtr;
 }
 
-#endif // __IGOR_DRAG__
+#endif // IGOR_DRAG_H

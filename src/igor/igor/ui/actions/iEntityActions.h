@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -101,6 +101,76 @@ namespace igor
         */
         bool isCompatible(const iActionContext &context) override;
     };    
+
+    /*! copy entity to clipboard action
+    */
+   class iActionCopyEntity : public iAction
+   {
+
+   public:
+       /*! init members
+       */
+      iActionCopyEntity();
+       
+       /*! executed when action gets triggered
+
+       \param context the context the action was called with
+       */
+       void execute(const iActionContext &context) override;
+
+       /*! \returns true if this action will execute with given context
+
+       \param context the context the action was called with
+       */
+       bool isCompatible(const iActionContext &context) override;
+   };    
+
+    /*! cut entity (to clipboard) action
+    */
+   class iActionCutEntity : public iAction
+   {
+
+   public:
+       /*! init members
+       */
+      iActionCutEntity();
+       
+       /*! executed when action gets triggered
+
+       \param context the context the action was called with
+       */
+       void execute(const iActionContext &context) override;
+
+       /*! \returns true if this action will execute with given context
+
+       \param context the context the action was called with
+       */
+       bool isCompatible(const iActionContext &context) override;
+   };    
+
+    /*! paste entity from clipboard action
+    */
+   class iActionPasteEntity : public iAction
+   {
+
+   public:
+       /*! init members
+       */
+      iActionPasteEntity();
+       
+       /*! executed when action gets triggered
+
+       \param context the context the action was called with
+       */
+       void execute(const iActionContext &context) override;
+
+       /*! \returns true if this action will execute with given context
+
+       \param context the context the action was called with
+       */
+       bool isCompatible(const iActionContext &context) override;
+   };   
+
 
 } // namespace igor
 
