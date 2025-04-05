@@ -168,12 +168,10 @@ namespace igor
 
         iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
 
-        const auto components = srcEntity->getComponents();
-        for (const auto &pair : components)
+        const auto componentTypes = srcEntity->getComponentTypes();
+        for (const auto &typeIndex : componentTypes)
         {
-            const auto &typeIndex = pair.first;
-            const iEntityComponentPtr component = pair.second->getCopy();
-            entity->addComponent(typeIndex, component);
+            entity->addComponent(typeIndex, srcEntity->getComponent(typeIndex));
         }
 
         return entity;

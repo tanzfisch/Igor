@@ -31,8 +31,6 @@
 
 #include <igor/entities/traversal/iEntityTraverser.h>
 
-#include <igor/resources/prefab/iPrefab.h>
-
 namespace igor
 {
 
@@ -44,20 +42,15 @@ namespace igor
     public:
         /*! copy hierarchy of entities to given target entity
 
-        \param prefab the prefab to copy from
         \param entity the given target entity
          */
-        iEntityCopyTraverser(const iPrefabPtr &prefab, const iEntityPtr &targetEntity);
+        iEntityCopyTraverser(const iEntityPtr &targetEntity);
 
         /*! does nothing
          */
         ~iEntityCopyTraverser() = default;
 
     private:
-        /*! the source prefab
-        */
-        iPrefabPtr _prefab;
-
         /*! the target entity id
         */
         iEntityPtr _targetEntity;

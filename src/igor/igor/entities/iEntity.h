@@ -160,9 +160,9 @@ namespace igor
         */
         iEntityComponentPtr getComponent(const std::type_index &typeID) const;
 
-        /*! \returns copy of components
+        /*! \returns component types
          */
-        std::unordered_map<std::type_index, iEntityComponentPtr> getComponents();
+        const std::vector<std::type_index> getComponentTypes();
 
         /*! destroys given component by type
          */

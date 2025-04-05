@@ -38,11 +38,14 @@ namespace igor
         clearComponents();
     }
 
-    std::unordered_map<std::type_index, iEntityComponentPtr> iEntity::getComponents()
+    const std::vector<std::type_index> iEntity::getComponentTypes()
     {
-        std::unordered_map<std::type_index, iEntityComponentPtr> result;
+        std::vector<std::type_index> result;
         _mutex.lock();
-        result = _components;
+        for(const auto &pair : _components)
+        {
+            result.push_back(pair.first);
+        }
         _mutex.unlock();
 
         return result;

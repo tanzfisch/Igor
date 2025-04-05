@@ -303,7 +303,7 @@ namespace igor
 
     void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr entity)
     {
-        iEntityCopyTraverser traverser(prefab, entity);
+        iEntityCopyTraverser traverser(entity);
         iEntityScenePtr prefabScene = getScene(prefab->getSceneID());
         traverser.traverse(prefabScene);
     }

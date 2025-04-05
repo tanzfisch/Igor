@@ -291,10 +291,12 @@ namespace igor
         }
 
         json componentsJson = json::array();
-        auto components = entity->getComponents();
-        for (const auto &pair : components)
+        const auto componentTypes = entity->getComponentTypes();
+        for (const auto &typeIndex : componentTypes)
         {
-            iTransformComponent *transform = dynamic_cast<iTransformComponent *>(pair.second);
+            const auto component = entity->getComponent(typeIndex);
+
+            iTransformComponent *transform = dynamic_cast<iTransformComponent *>(component);
             if (transform != nullptr)
             {
                 json componentJson;
@@ -304,7 +306,7 @@ namespace igor
                 continue;
             }
 
-            iCameraComponent *camera = dynamic_cast<iCameraComponent *>(pair.second);
+            iCameraComponent *camera = dynamic_cast<iCameraComponent *>(component);
             if (camera != nullptr)
             {
                 json componentJson;
@@ -314,7 +316,7 @@ namespace igor
                 continue;
             }
 
-            iSphereComponent *sphereCollision = dynamic_cast<iSphereComponent *>(pair.second);
+            iSphereComponent *sphereCollision = dynamic_cast<iSphereComponent *>(component);
             if (sphereCollision != nullptr)
             {
                 json componentJson;
@@ -324,7 +326,7 @@ namespace igor
                 continue;
             }
 
-            iOctreeComponent *octree = dynamic_cast<iOctreeComponent *>(pair.second);
+            iOctreeComponent *octree = dynamic_cast<iOctreeComponent *>(component);
             if (octree != nullptr)
             {
                 json componentJson;
@@ -334,7 +336,7 @@ namespace igor
                 continue;
             }
 
-            iMeshRenderComponent *meshRender = dynamic_cast<iMeshRenderComponent *>(pair.second);
+            iMeshRenderComponent *meshRender = dynamic_cast<iMeshRenderComponent *>(component);
             if (meshRender != nullptr)
             {
                 json componentJson;
@@ -344,7 +346,7 @@ namespace igor
                 continue;
             }
 
-            iMeshReferenceComponent *meshReference = dynamic_cast<iMeshReferenceComponent *>(pair.second);
+            iMeshReferenceComponent *meshReference = dynamic_cast<iMeshReferenceComponent *>(component);
             if (meshReference != nullptr)
             {
                 json componentJson;
@@ -354,7 +356,7 @@ namespace igor
                 continue;
             }
 
-            iLightComponent *light = dynamic_cast<iLightComponent *>(pair.second);
+            iLightComponent *light = dynamic_cast<iLightComponent *>(component);
             if (light != nullptr)
             {
                 json componentJson;
@@ -364,7 +366,6 @@ namespace igor
                 continue;
             }
 
-            iEntityComponent* component = static_cast<iEntityComponent*>(pair.second);
             con_err("unknown component type for id: " << component->getID());
         }
 
