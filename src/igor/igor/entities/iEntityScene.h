@@ -93,9 +93,10 @@ namespace igor
 		/*! create entity from existing one
 
 		\param srcEntity the source entity to create a copy from
+		\param copyID if true also copy the ID of the original entity else generate a new id
 		\returns newly created entity
 		*/
-		iEntityPtr createEntity(iEntityPtr srcEntity);
+		iEntityPtr createEntity(iEntityPtr srcEntity, bool copyID = false);
 
 		/*! \returns entity for given entity ID. zero if not found
 		\param entityID the given entity ID

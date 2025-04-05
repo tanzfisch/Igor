@@ -9,8 +9,8 @@
 namespace igor
 {
 
-    iEntityCopyTraverser::iEntityCopyTraverser(const iEntityPtr &targetEntity)
-        : _targetEntity(targetEntity)
+    iEntityCopyTraverser::iEntityCopyTraverser(const iEntityPtr &targetEntity, bool copyIDs)
+        : _targetEntity(targetEntity), _copyIDs(copyIDs)
     {
         setIgnoreInactive(false);
     }
@@ -37,7 +37,7 @@ namespace igor
     {
         _entityStack.push_back(_currentEntity);
 
-        iEntityPtr copy = _targetScene->createEntity(entity);
+        iEntityPtr copy = _targetScene->createEntity(entity, _copyIDs);
         copy->setParent(_currentEntity);
 
         _currentEntity = copy;

@@ -153,13 +153,19 @@ namespace igor
         return _name;
     }
 
-    iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity)
+    iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity, bool copyID)
     {
         iEntityPtr entity = new iEntity(srcEntity->getName());
-        entity->_id = srcEntity->getID();
+        if(copyID)
+        {
+            entity->_id = srcEntity->getID();
+        }
 
         _mutex.lock();
-        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+        if(_entities.find(entity->getID()) != _entities.end())
+        {
+            con_err("Entity ID collision " << entity->getID());
+        }
 
         _entities[entity->getID()] = entity;
         entity->_scene = this;
@@ -171,7 +177,7 @@ namespace igor
         const auto componentTypes = srcEntity->getComponentTypes();
         for (const auto &typeIndex : componentTypes)
         {
-            entity->addComponent(typeIndex, srcEntity->getComponent(typeIndex));
+            entity->addComponent(typeIndex, srcEntity->getComponent(typeIndex)->getCopy());
         }
 
         return entity;

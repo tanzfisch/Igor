@@ -133,7 +133,7 @@ namespace igor
          */
         iEntityComponentMask getComponentMask() const;
 
-        /*! add component (or overrides if already existing)
+        /*! add component
 
         entity takes ownership of component
 
@@ -144,6 +144,8 @@ namespace igor
         T *addComponent(T *component);
 
         /*! adds component with given type id
+
+        entity takes ownership of component
 
         \param typeID the given type id
         \param component the component to add

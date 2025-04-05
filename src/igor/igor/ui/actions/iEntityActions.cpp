@@ -219,12 +219,14 @@ namespace igor
 
         bool makeCopy = !IDs[0].isValid(); // else cut
         auto dstScene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        auto dstEntity = dstScene->getEntity(actionContext->getEntities()[0]);
         auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
         for (int i = 2; i < IDs.size(); ++i)
         {
             if(makeCopy)
             {
-                // TODO iEntitySystemModule::getInstance().copy from srcScene:entity to dstScene:entity
+                auto entity = srcScene->getEntity(IDs[i]);
+                iEntitySystemModule::getInstance().insert(entity, dstEntity);
             }
             else
             {

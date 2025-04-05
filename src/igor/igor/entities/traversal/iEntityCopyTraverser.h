@@ -43,8 +43,9 @@ namespace igor
         /*! copy hierarchy of entities to given target entity
 
         \param entity the given target entity
+        \param copyIDs if true entity IDs will be copied
          */
-        iEntityCopyTraverser(const iEntityPtr &targetEntity);
+        iEntityCopyTraverser(const iEntityPtr &targetEntity, bool copyIDs);
 
         /*! does nothing
          */
@@ -62,6 +63,10 @@ namespace igor
         /*! entity stack for quick access
         */
         std::vector<iEntityPtr> _entityStack;
+
+        /*! if true entity IDs will be copied
+        */
+        bool _copyIDs;
 
         /*! the current target entity
         */

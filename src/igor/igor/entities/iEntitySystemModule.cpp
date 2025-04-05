@@ -301,11 +301,17 @@ namespace igor
         con_assert(_scenes.empty() && _activeScenes.empty() && _inactiveScenes.empty(), "clean up failed");
     }
 
-    void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr entity)
+    void iEntitySystemModule::insert(iPrefabPtr prefab, iEntityPtr dstEntity)
     {
-        iEntityCopyTraverser traverser(entity);
+        iEntityCopyTraverser traverser(dstEntity, true);
         iEntityScenePtr prefabScene = getScene(prefab->getSceneID());
         traverser.traverse(prefabScene);
+    }
+
+    void iEntitySystemModule::insert(iEntityPtr srcEntity, iEntityPtr dstEntity)
+    {
+        iEntityCopyTraverser traverser(dstEntity, false);
+        traverser.traverse(srcEntity);
     }
 
     const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &iEntitySystemModule::getRegisteredComponentTypes() const

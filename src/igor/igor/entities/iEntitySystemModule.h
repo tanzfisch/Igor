@@ -80,12 +80,23 @@ namespace igor
         */
         iEntityScenePtr getScene(const iEntitySceneID &sceneID);
 
-        /*! insert prefab at given entity
+        /*! insert copy of prefab at given entity
+
+        This copies entities recursively
 
         \param prefab the source scene or prefab to insert
         \param entity the entity inside the destination scene
         */
-        void insert(iPrefabPtr prefab, iEntityPtr entity);
+        void insert(iPrefabPtr prefab, iEntityPtr dstEntity);
+
+        /*! insert copy of entity at given entity 
+
+        This copies entities recursively
+
+        \param srcEntity the entity to copy
+        \param dstEntity the entity to copy to
+        */
+        void insert(iEntityPtr srcEntity, iEntityPtr dstEntity);
 
         /*! destroys scene with given id
 
