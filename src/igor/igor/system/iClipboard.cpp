@@ -56,10 +56,7 @@ namespace igor
 
         clip::lock l;
         l.clear();
-        if(!l.set_data(s_entityIDFormat, (const char*)data.getData(), data.getSize()))
-        {
-            con_err("failed to set data on clipboard");
-        }
+        l.set_data(s_entityIDFormat, (const char*)data.getData(), data.getSize());
     }
 
     const std::vector<iEntityID> iClipboard::pasteEntityIDs() const
