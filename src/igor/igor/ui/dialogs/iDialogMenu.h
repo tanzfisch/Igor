@@ -65,16 +65,20 @@ namespace igor
         actions are not owned by the menu
 
         \param action the action to be added
+        \param context the action cintext
+        \param enabled if true widget will be enabled
         */
-        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr, bool enabled = true);
 
         /*! same as add actions just by action name
 
         requires that the action we are searching for was already registered to the action manager
 
         \param actionName name of the action to be added
+        \param context the action cintext
+        \param enabled if true widget will be enabled
         */
-        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr, bool enabled = true);
 
         /*! \returns true if dialog has actions on it
         */
@@ -86,8 +90,9 @@ namespace igor
         \param title the title or brief description
         \param description the full description (used as tooltip)
         \param iconAlias an alias or id for texture resource
+        \param enabled if true widget will be enabled
         */
-        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true);
 
         /*! adds a menu to the menu
 

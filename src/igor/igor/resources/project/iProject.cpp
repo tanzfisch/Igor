@@ -129,12 +129,13 @@ namespace igor
             {
                 auto prefabID = sceneJson["id"].get<iResourceID>();
                 bool active = sceneJson["active"].get<bool>();
+                auto name = sceneJson["name"].get<iaString>();
 
                 addScene(prefabID);
 
                 iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
                 iEntityPtr entityPrefab = _projectScene->createEntity();
-                entityPrefab->setName("prefab");
+                entityPrefab->setName(name);
                 entityPrefab->addComponent(new iPrefabComponent(prefab));
                 entityPrefab->setActive(active);
             }
@@ -145,7 +146,7 @@ namespace igor
         return true;
     }
 
-    iEntityScenePtr iProject::getScene() const
+    iEntityScenePtr iProject::getProjectScene() const
     {
         return _projectScene;
     }
@@ -211,7 +212,7 @@ namespace igor
         return true;
     }
 
-    const std::vector<iResourceID> &iProject::getSubScenes() const
+    const std::vector<iResourceID> &iProject::getScenes() const
     {
         return _scenes;
     }

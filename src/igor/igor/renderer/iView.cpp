@@ -269,6 +269,11 @@ namespace igor
 
         pickColorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
+        if(colorIDs.empty())
+        {
+            return 0;
+        }
+
         return colorIDs.front();
     }
 

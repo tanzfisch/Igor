@@ -65,34 +65,53 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
-    if(!source->getUserData().has_value())
+    if (!source->getUserData().has_value())
     {
         return;
     }
 
-    iaString itemPath = std::any_cast<iaString>(source->getUserData());
-    iItemPtr item = _itemData->getItem(itemPath);
-
-    iEntitySceneID sceneID = iProject::getInstance().getScene()->getID();
+    iEntitySceneID sceneID = iProject::getInstance().getProjectScene()->getID();
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(sceneID);
     std::vector<iEntityID> entities;
-
     bool isRoot = false;
-    iEntityPtr entity = nullptr;
-    if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
-    {
-        iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
-        entities.push_back(entityID);
-        entity = scene->getEntity(entityID);
-        isRoot = scene->getRootEntity() == entity;
-    }
+    bool isScene = false;
 
-    bool subScene = false;
-    if (item->hasValue(IGOR_ITEM_DATA_UUID))
+    std::vector<iaString> selectedItemPaths = {_treeView->getSelectedItemPath()};
+    const iaString itemPath = std::any_cast<iaString>(source->getUserData());
+    selectedItemPaths.erase(std::remove(selectedItemPaths.begin(), selectedItemPaths.end(), itemPath), selectedItemPaths.end());
+    selectedItemPaths.insert(selectedItemPaths.begin(), itemPath);
+
+    for (const auto &selectedItemPath : selectedItemPaths)
     {
-        auto prefabID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
-        const auto &subScenes = iProject::getInstance().getSubScenes();
-        subScene = std::find(subScenes.begin(), subScenes.end(), prefabID) != subScenes.end();
+        iItemPtr item = _itemData->getItem(itemPath);
+
+        if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        {
+            iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
+            isRoot = scene->getRootEntity()->getID() == entityID;
+            
+            if(isRoot)
+            {
+                entities.clear();
+                entities.push_back(entityID);
+                break;
+            }
+
+            entities.push_back(entityID);
+        }
+        
+        if (item->hasValue(IGOR_ITEM_DATA_UUID))
+        {
+            auto prefabID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
+            const auto &subScenes = iProject::getInstance().getScenes();
+            isScene = std::find(subScenes.begin(), subScenes.end(), prefabID) != subScenes.end();
+
+            if(isScene)
+            {
+                entities.clear();
+                break;
+            }
+        }
     }
 
     iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(sceneID, entities);
@@ -100,38 +119,35 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
-    if (entity)
+    if (!entities.empty())
     {
-        if (!isRoot)
+        if (isRoot)
         {
-            if (entity->isActive())
-            {
-                _contextMenu.addAction("igor:set_entities_inactive", actionContext);
-            }
-            else
-            {
-                _contextMenu.addAction("igor:set_entities_active", actionContext);
-            }
+            // TODO new scene etc
         }
-
-        if (!isRoot)
+        else
         {
+            _contextMenu.addAction("igor:set_entities_inactive", actionContext);
+            _contextMenu.addAction("igor:set_entities_active", actionContext);
+            _contextMenu.addSeparator();
+
             _contextMenu.addAction("igor:delete_entities", actionContext);
             _contextMenu.addAction("igor:cut_entities", actionContext);
             _contextMenu.addAction("igor:copy_entities", actionContext);
-        }
 
-        if (iClipboard::getInstance().has(iClipboardDataFormat::EntityID))
-        {
-            _contextMenu.addAction("igor:paste_entities", actionContext);
+            if (iClipboard::getInstance().has(iClipboardDataFormat::EntityID))
+            {
+                _contextMenu.addAction("igor:paste_entities", actionContext);
+            }
         }
     }
 
-    if (subScene)
+    if (isScene)
     {
+        // TODO unload scene? activate/deactivate? remove/delete
     }
 
-    if(_contextMenu.hasActions())
+    if (_contextMenu.hasActions())
     {
         _contextMenu.open();
     }
@@ -147,7 +163,7 @@ void Outliner::onResourceLoaded(iResourceID resourceID)
     const iaString resourceType = iResourceManager::getInstance().getType(resourceID);
     if (resourceType == IGOR_RESOURCE_PREFAB)
     {
-        const auto &scenes = iProject::getInstance().getSubScenes();
+        const auto &scenes = iProject::getInstance().getScenes();
         if (std::find(scenes.begin(), scenes.end(), resourceID) != scenes.end())
         {
             refresh();
@@ -219,7 +235,7 @@ void Outliner::populateTree()
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
-    auto projectScene = project.getScene();
+    auto projectScene = project.getProjectScene();
     auto rootItem = _itemData->getItem("");
     rootItem->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, projectScene->getID());
     rootItem->setValue<iaString>(IGOR_ITEM_DATA_NAME, iaString("root"));

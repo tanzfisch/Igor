@@ -81,7 +81,7 @@ namespace igor
         return _hasActions;
     }
 
-    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
+    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context, bool enabled)
     {
         if (!iActionManager::getInstance().isRegistered(action))
         {
@@ -99,15 +99,15 @@ namespace igor
         button->setMinHeight(25);
         button->setAction(action, context);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->setEnabled(enabled);
 
         _vboxLayout->addWidget(button);
 
         _hasActions = true;
     }
 
-    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled)
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -118,13 +118,14 @@ namespace igor
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->registerOnClickEvent(delegate);
+        button->setEnabled(enabled);
 
         _vboxLayout->addWidget(button);
     }
 
-    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)
+    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context, bool enabled)
     {
-        addAction(iActionManager::getInstance().getAction(actionName), context);
+        addAction(iActionManager::getInstance().getAction(actionName), context, enabled);
     }
 
 } // namespace igor

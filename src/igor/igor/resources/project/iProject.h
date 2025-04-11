@@ -128,11 +128,11 @@ namespace igor
 
         /*! \returns list of scene references
          */
-        const std::vector<iResourceID> &getSubScenes() const;
+        const std::vector<iResourceID> &getScenes() const;
 
         /*! \returns the project scene
          */
-        iEntityScenePtr getScene() const;
+        iEntityScenePtr getProjectScene() const;
 
         /*! \returns project scene added event
          */

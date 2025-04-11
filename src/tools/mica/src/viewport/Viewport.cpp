@@ -68,7 +68,7 @@ Viewport::~Viewport()
 
 void Viewport::onProjectLoaded()
 {
-    _viewportScene->getView().setEntityScene(iProject::getInstance().getScene());
+    _viewportScene->getView().setEntityScene(iProject::getInstance().getProjectScene());
 }
 
 void Viewport::onProjectUnloaded()
