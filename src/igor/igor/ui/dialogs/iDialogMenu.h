@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGMENU__
-#define __IGOR_DIALOGMENU__
+#ifndef IGOR_DIALOGMENU_H
+#define IGOR_DIALOGMENU_H
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
@@ -76,6 +76,10 @@ namespace igor
         */
         void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
+        /*! \returns true if dialog has actions on it
+        */
+        bool hasActions() const;
+
         /*! add callback entry to menu
 
         \param delegate the delegate that will be called on click
@@ -111,6 +115,10 @@ namespace igor
         */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
+        /*! true if dialog has actions in it
+        */
+        bool _hasActions = false;
+
         /*! handle mouse off click event
 
 		\param source the source of that event
@@ -132,4 +140,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGMENU__
+#endif // IGOR_DIALOGMENU_H

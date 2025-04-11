@@ -50,8 +50,6 @@ namespace igor
 
 	void iCameraSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		con_assert(_cameraView->getEntities().size() < 2, "more then one camera active. this will lead to undefined behaviour");
-
 		auto camera = getActiveCamera();
 		if (camera == nullptr)
 		{

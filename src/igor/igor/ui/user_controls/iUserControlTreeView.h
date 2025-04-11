@@ -34,6 +34,7 @@
 #include <igor/data/iItemData.h>
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetButton.h>
+#include <igor/ui/widgets/iWidgetScroll.h>
 
 namespace igor
 {
@@ -90,6 +91,10 @@ namespace igor
         /*! box layout
          */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
+
+        /*! scroll widget
+        */
+        iWidgetScrollPtr _scroll = nullptr;
 
         /*! click event
          */

@@ -5,7 +5,6 @@
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
 namespace igor
@@ -24,10 +23,12 @@ namespace igor
 
     void iUserControlTreeView::initUI()
     {
-        iWidgetScrollPtr scroll = new iWidgetScroll(this);
+        _scroll = new iWidgetScroll(this);
 
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
-        scroll->addWidget(_vboxLayout);
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);        
+        _scroll->addWidget(_vboxLayout);
+
+        _scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));        
     }
 
     iClickTreeViewEvent &iUserControlTreeView::getClickEvent()
@@ -36,7 +37,7 @@ namespace igor
     }
 
     void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath)
-    {
+    {        
         std::vector<iaString> tokens;
         itemPath.split('/', tokens);
         int indentation = tokens.size();
@@ -125,7 +126,9 @@ namespace igor
     {
         con_assert(itemData != nullptr, "zero pointer");
         _vboxLayout->clear();
-        _allInteractiveWidgets.clear();
+        _allInteractiveWidgets.clear();        
+
+        _scroll->setUserData(iaString(""));
 
         for (const auto item : itemData->getItems())
         {

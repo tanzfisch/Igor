@@ -47,7 +47,9 @@ namespace igor
     void iDialogMenu::clear()
     {
         iWidget::clear();
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);        
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        
+        _hasActions = false;
     }       
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
@@ -74,6 +76,11 @@ namespace igor
         _vboxLayout->addWidget(menu);
     }
 
+    bool iDialogMenu::hasActions() const
+    {
+        return _hasActions;
+    }
+
     void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
         if (!iActionManager::getInstance().isRegistered(action))
@@ -96,6 +103,8 @@ namespace igor
         button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
 
         _vboxLayout->addWidget(button);
+
+        _hasActions = true;
     }
 
     void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)

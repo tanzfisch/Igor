@@ -50,8 +50,8 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
     iItemPtr item = _itemData->getItem(itemPath);
 
-    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) && 
-    item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
+        item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
     {
         iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
         iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
@@ -65,6 +65,11 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
+    if(!source->getUserData().has_value())
+    {
+        return;
+    }
+
     iaString itemPath = std::any_cast<iaString>(source->getUserData());
     iItemPtr item = _itemData->getItem(itemPath);
 
@@ -72,16 +77,18 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(sceneID);
     std::vector<iEntityID> entities;
 
+    bool isRoot = false;
     iEntityPtr entity = nullptr;
     if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
     {
         iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
         entities.push_back(entityID);
         entity = scene->getEntity(entityID);
+        isRoot = scene->getRootEntity() == entity;
     }
 
     bool subScene = false;
-    if(item->hasValue(IGOR_ITEM_DATA_UUID))
+    if (item->hasValue(IGOR_ITEM_DATA_UUID))
     {
         auto prefabID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
         const auto &subScenes = iProject::getInstance().getSubScenes();
@@ -95,28 +102,39 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 
     if (entity)
     {
-        if (entity->isActive())
+        if (!isRoot)
         {
-            _contextMenu.addAction("igor:set_entities_inactive", actionContext);
-        }
-        else
-        {
-            _contextMenu.addAction("igor:set_entities_active", actionContext);
+            if (entity->isActive())
+            {
+                _contextMenu.addAction("igor:set_entities_inactive", actionContext);
+            }
+            else
+            {
+                _contextMenu.addAction("igor:set_entities_active", actionContext);
+            }
         }
 
-        _contextMenu.addAction("igor:delete_entities", actionContext);
+        if (!isRoot)
+        {
+            _contextMenu.addAction("igor:delete_entities", actionContext);
+            _contextMenu.addAction("igor:cut_entities", actionContext);
+            _contextMenu.addAction("igor:copy_entities", actionContext);
+        }
 
-        _contextMenu.addAction("igor:cut_entities", actionContext);
-        _contextMenu.addAction("igor:copy_entities", actionContext);
-        _contextMenu.addAction("igor:paste_entities", actionContext);
+        if (iClipboard::getInstance().has(iClipboardDataFormat::EntityID))
+        {
+            _contextMenu.addAction("igor:paste_entities", actionContext);
+        }
     }
 
-    if(subScene)
+    if (subScene)
     {
-        
     }
 
-    _contextMenu.open();
+    if(_contextMenu.hasActions())
+    {
+        _contextMenu.open();
+    }
 }
 
 void Outliner::onLoadScene(const iWidgetPtr source)
@@ -151,12 +169,12 @@ void Outliner::populateTree(iItemPtr item, iEntityPtr entity)
 {
     iEntityToItemTraverser traverser(item);
 
-    for(auto child : entity->getChildren())
+    for (auto child : entity->getChildren())
     {
         traverser.traverse(child);
     }
 
-    for(auto child : entity->getInactiveChildren())
+    for (auto child : entity->getInactiveChildren())
     {
         traverser.traverse(child);
     }
@@ -179,11 +197,11 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
             prefabComponent->getPrefab() != nullptr &&
             prefabComponent->getPrefab()->isValid())
         {
-            auto prefab = prefabComponent->getPrefab();    
+            auto prefab = prefabComponent->getPrefab();
             item->setValue<iResourceID>(IGOR_ITEM_DATA_UUID, prefab->getID());
             item->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_scene");
         }
-        
+
         populateTree(item, child);
     }
 }
@@ -202,6 +220,12 @@ void Outliner::populateTree()
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     auto projectScene = project.getScene();
+    auto rootItem = _itemData->getItem("");
+    rootItem->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, projectScene->getID());
+    rootItem->setValue<iaString>(IGOR_ITEM_DATA_NAME, iaString("root"));
+    rootItem->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, false);
+    rootItem->setValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID, projectScene->getRootEntity()->getID());
+
     populateSubScenes(projectScene->getRootEntity()->getChildren(), true);
     populateSubScenes(projectScene->getRootEntity()->getInactiveChildren(), false);
 

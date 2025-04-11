@@ -220,6 +220,12 @@ namespace igor
         }
         _mutex.unlock();
 
+        if(result == nullptr && 
+            _root->getID() == entityID)
+        {
+            result = _root;
+        }
+
         return result;
     }
 
