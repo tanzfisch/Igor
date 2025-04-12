@@ -57,7 +57,7 @@ namespace iaux
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode);
 
     /*! \brief File handle
-    */
+     */
     class IAUX_API iaFile
     {
     public:
@@ -121,6 +121,11 @@ namespace iaux
         */
         static bool remove(const iaString &filename);
 
+        /*! \returns valid unique filename for given filename
+        \param filename the given filename
+        */
+        static iaString generateUniqueFilename(const iaString &filename);
+
         /*! \returns only the parent path
          */
         iaString getPath() const;
@@ -169,7 +174,7 @@ namespace iaux
         bool write(int32 size, const char *source, int64 offset = -1);
 
         /*! \returns last modified time of file
-        */
+         */
         iaTime getLastModifiedTime() const;
 
         /*! \returns last modified time of file

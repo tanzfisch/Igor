@@ -52,8 +52,8 @@ void AssetBrowser::initUI()
     splitter->addWidget(_treeView);
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
-    _gridView = new iWidgetFixedGridLayout();
-    _gridView->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
+    scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
+    _gridView = new iWidgetFixedGridLayout();    
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
@@ -72,25 +72,21 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
+    if(_currentPath.isEmpty())
+    {
+        return;
+    }
+
+    iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(_currentPath);
+
     iWidgetMenuPtr createMenu = new iWidgetMenu("Create");
     _contextMenu.addMenu(createMenu);
 
-    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateMaterial), "Material", "Creates a default material", "");
-    createMenu->addCallback(iClickDelegate(this, &AssetBrowser::onCreateShader), "Shader", "Creates a default shader", "");
+    createMenu->addAction("igor:create_scene", actionContext);
+    createMenu->addAction("igor:create_material", actionContext);
+    createMenu->addAction("igor:create_shader", actionContext);
 
     _contextMenu.open();
-}
-
-void AssetBrowser::onCreateMaterial(iWidgetPtr source)
-{
-    iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
-    iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_material.mat");
-}
-
-void AssetBrowser::onCreateShader(iWidgetPtr source)
-{
-    iShaderPtr resource = iResourceManager::getInstance().createResource<iShader>();
-    iResourceManager::getInstance().saveResource(resource, _currentPath + IGOR_PATHSEPARATOR + "new_shader.shader");
 }
 
 void AssetBrowser::onSelectionChanged(const iWidgetPtr source)

@@ -234,6 +234,12 @@
         "source": "icons/material.png"
     },
     {
+        "alias": "igor_icon_shader",
+        "id": "0x66906a4733e61a2b",
+        "internal": true,
+        "source": "icons/shader.png"
+    },
+    {
         "alias": "igor_widget_theme_pattern",
         "id": "0x57339e8d03b3da6e",
         "internal": true,
@@ -580,6 +586,12 @@
         "id": "0xfb28e609992b9186",
         "internal": true,
         "source": "icons/file_material.png"
+    },
+    {
+        "alias": "igor_icon_file_shader",
+        "id": "0xf82a760d9f259116",
+        "internal": true,
+        "source": "icons/file_shader.png"
     },
     {
         "alias": "igor_icon_plus",

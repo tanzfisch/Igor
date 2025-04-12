@@ -26,35 +26,42 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ACTION_CONTEXT_H
-#define IGOR_ACTION_CONTEXT_H
+#ifndef IGOR_FILESYSTEM_ACTION_CONTEXT_H
+#define IGOR_FILESYSTEM_ACTION_CONTEXT_H
 
-#include <igor/iDefines.h>
-
-#include <memory>
+#include <igor/ui/actions/context/iActionContext.h>
+#include <iaux/data/iaString.h>
 
 namespace igor
 {
 
-    /*! action context base class
-	*/
-    class IGOR_API iActionContext
+    /*! filesystem action context
+     */
+    class IGOR_API iFilesystemActionContext : public iActionContext
     {
 
     public:
-        /*! does nothing
-		*/
-        iActionContext() = default;
+        /*! init context
 
-        /*! does nothing
-		*/
-        virtual ~iActionContext() = default;
+        \param entitySceneID the scene those entities are in
+        \param entityIDs list of entity IDs to run the action on
+        */
+        iFilesystemActionContext(const iaString &path)
+            : _path(path)
+        {
+        }
+
+        const iaString &getPath() const
+        {
+            return _path;
+        }
+
+    private:
+        /*! context path
+         */
+        iaString _path;
     };
 
-    /*! action context pointer definition (shared)
-    */
-    typedef std::shared_ptr<iActionContext> iActionContextPtr;
+}
 
-} // namespace igor
-
-#endif // IGOR_ACTION_CONTEXT_H
+#endif // IGOR_FILESYSTEM_ACTION_CONTEXT_H

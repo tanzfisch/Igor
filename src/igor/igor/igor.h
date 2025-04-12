@@ -153,6 +153,7 @@
 #include <igor/ui/actions/iActionManager.h>
 
 #include <igor/ui/actions/context/iEntityActionContext.h>
+#include <igor/ui/actions/context/iFilesystemActionContext.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogColorGradient.h>

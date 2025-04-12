@@ -125,6 +125,23 @@ namespace iaux
         return iaFile::exists(getFullFileName());
     }
 
+    iaString iaFile::generateUniqueFilename(const iaString &filename)
+    {
+        const iaFile file(filename);
+        const iaString extension = file.getExtension();
+        const iaString stem = file.getStem();
+
+        auto result = filename;
+
+        int index = 1;
+        while (exists(result)) {
+            result = stem + iaString::toString(index) + '.' + extension;
+            ++index;
+        }
+
+        return result;
+    }
+
     bool iaFile::exists(const iaString &filename)
     {
         if (filename.isEmpty())

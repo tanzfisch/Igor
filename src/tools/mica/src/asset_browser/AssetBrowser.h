@@ -169,18 +169,6 @@ private:
     */
     void OnContextMenu(iWidgetPtr source);
 
-    /*! handle creation of new material
-
-    \param source the source widget of this event
-    */
-    void onCreateMaterial(iWidgetPtr source);
-
-    /*! handle creation of new shader
-
-    \param source the source widget of this event
-    */
-    void onCreateShader(iWidgetPtr source);
-
     /*! called when resource was loaded
 
     \param resourceID the id of the resource that was loaded

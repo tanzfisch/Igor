@@ -661,7 +661,6 @@ namespace igor
             }
         }
 
-        con_warn("could not find file or directory for \"" << filepath << "\"");
         return filepath;
     }
 
