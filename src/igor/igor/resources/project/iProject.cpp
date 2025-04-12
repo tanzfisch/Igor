@@ -16,7 +16,7 @@
 namespace igor
 {
 
-    static const iaString s_defaultTemplate = "igor/projects/default";
+    static const iaString s_defaultTemplate = "projects/default";
     static const iaString s_defaultProjectFilename = "project_config.project";
     static const iaString s_resourceDictionary = "resource_dictionary.json";
 
@@ -40,8 +40,6 @@ namespace igor
         }
         
         load();
-
-        _projectLoadedEvent();
     }
 
     void iProject::create(const iaString &path)
@@ -57,16 +55,19 @@ namespace igor
             return;
         }
 
+        _projectFolder = path;
+        _projectFile = s_defaultProjectFilename;
+
         iaString templatePath = iResourceManager::getInstance().resolvePath(s_defaultTemplate);
         iaDirectory srcDir(templatePath);
 
-        std::filesystem::path srcPath(srcDir.getFullDirectoryName().getData());
+        std::filesystem::path srcPath(srcDir.getAbsoluteDirectoryName().getData());
         std::filesystem::path dstPath(path.getData());
         std::filesystem::copy(srcPath, dstPath, std::filesystem::copy_options::recursive);
 
         con_info("created project in \"" << path << "\"");
 
-        load();
+        load();        
     }
 
     void iProject::load()
@@ -82,6 +83,8 @@ namespace igor
 
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
+
+        _projectLoadedEvent();
     }
 
     void iProject::unload()
@@ -127,9 +130,9 @@ namespace igor
 
             for (const auto &sceneJson : scenesJson)
             {
-                auto prefabID = sceneJson["id"].get<iResourceID>();
-                bool active = sceneJson["active"].get<bool>();
-                auto name = sceneJson["name"].get<iaString>();
+                auto prefabID = iJson::getValue<iResourceID>(sceneJson, "id", iResourceID::getInvalid());
+                bool active = iJson::getValue<bool>(sceneJson, "active", false);
+                auto name = iJson::getValue<iaString>(sceneJson, "name", "");
 
                 addScene(prefabID);
 
@@ -151,6 +154,41 @@ namespace igor
         return _projectScene;
     }
 
+    static void writeScenes(const std::vector<iEntityPtr>& entities, json &scenesJson)
+    {
+        for (auto entity : entities)
+        {
+            auto prefabComponent = entity->getComponent<iPrefabComponent>();
+            if (prefabComponent == nullptr)
+            {
+                continue;
+            }
+
+            auto prefab = prefabComponent->getPrefab();
+            if(prefab == nullptr)
+            {
+                continue;
+            }
+
+            if(iResourceManager::getInstance().getFilename(prefab->getID()).isEmpty())
+            {
+                const auto name = entity->getName().toSnakeCase();
+                const auto scenePath = iProject::getInstance().getScenesPath() + IGOR_PATHSEPARATOR + name + ".scene";
+                iResourceManager::getInstance().addToDictionary(scenePath, "", prefab->getID());
+            }
+
+            iResourceManager::getInstance().saveResource(prefabComponent->getPrefab()->getID());
+            
+            json sceneJson = 
+            {
+                {"id", prefabComponent->getPrefab()->getID()},
+                {"active", entity->isActive()},
+                {"name", entity->getName()}
+            };
+            scenesJson.push_back(sceneJson);
+        }
+    }
+
     bool iProject::write(const iaString &filename)
     {
         char temp[2048];
@@ -166,44 +204,18 @@ namespace igor
         }
 
         json scenesJson = json::array();
-
         if (_projectScene != nullptr)
         {
             iEntityPtr root = _projectScene->getRootEntity();
-            for (auto activeChild : root->getChildren())
-            {
-                auto prefabComponent = activeChild->getComponent<iPrefabComponent>();
-                if (prefabComponent == nullptr ||
-                    prefabComponent->getPrefab() == nullptr)
-                {
-                    continue;
-                }
-                
-                json sceneJson = {
-                    {"id", prefabComponent->getPrefab()->getID()},
-                    {"active", true}};
-                scenesJson.push_back(sceneJson);
-            }
-
-            for (auto inactiveChild : root->getInactiveChildren())
-            {
-                auto prefabComponent = inactiveChild->getComponent<iPrefabComponent>();
-                if (prefabComponent == nullptr ||
-                    prefabComponent->getPrefab() == nullptr)
-                {
-                    continue;
-                }
-                
-                json sceneJson = {
-                    {"id", prefabComponent->getPrefab()->getID()},
-                    {"active", false}};
-                scenesJson.push_back(sceneJson);
-            }
+            writeScenes(root->getChildren(), scenesJson);
+            writeScenes(root->getInactiveChildren(), scenesJson);
         }
 
-        json projectJson = {
+        json projectJson = 
+        {
             {"projectName", _projectName},
-            {"scenes", scenesJson}};
+            {"scenes", scenesJson}
+        };
 
         stream << projectJson.dump(4);
 
@@ -217,9 +229,14 @@ namespace igor
         return _scenes;
     }
 
-    const iaString &iProject::getProjectFolder() const
+    const iaString &iProject::getProjectPath() const
     {
         return _projectFolder;
+    }
+
+    const iaString iProject::getScenesPath() const
+    {
+        return _projectFolder + IGOR_PATHSEPARATOR + "scenes";
     }
 
     const iaString &iProject::getName() const

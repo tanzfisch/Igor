@@ -152,20 +152,43 @@ namespace iaux
         setData(data.getData());
     }
 
-    void iaString::toLower()
+    iaString iaString::toLower() const
     {
-        for (int64 i = 0; i < getLength(); i++)
+        iaString result(getData());
+        for (int64 i = 0; i < result.getLength(); i++)
         {
-            (*this)[i] = static_cast<wchar_t>(tolower((*this)[i]));
+            result[i] = static_cast<wchar_t>(std::towlower(result[i]));
         }
+        return result;
     }
 
-    void iaString::toUpper()
+    iaString iaString::toUpper() const
     {
-        for (int64 i = 0; i < getLength(); i++)
+        iaString result(getData());
+        for (int64 i = 0; i < result.getLength(); i++)
         {
-            (*this)[i] = static_cast<wchar_t>(toupper((*this)[i]));
+            result[i] = static_cast<wchar_t>(std::towupper(result[i]));
         }
+        return result;
+    }
+
+    iaString iaString::toSnakeCase() const
+    {
+        iaString result(getData());
+        result = trim(result);
+
+        for (int64 i = 0; i < result.getLength(); i++)
+        {
+            if (std::isspace(result[i]))
+            {
+                result[i] = '_';
+            }
+            else
+            {
+                result[i] = static_cast<wchar_t>(std::towlower(result[i]));
+            }
+        }
+        return result;
     }
 
     const wchar_t *iaString::getData() const

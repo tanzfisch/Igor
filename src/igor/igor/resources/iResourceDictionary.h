@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RESOURCE_DICTIONARY__
-#define __IGOR_RESOURCE_DICTIONARY__
+#ifndef IGOR_RESOURCE_DICTIONARY_H
+#define IGOR_RESOURCE_DICTIONARY_H
 
 #include <igor/resources/iResource.h>
 
@@ -42,6 +42,8 @@ namespace igor
      */
     class iResourceDictionary
     {
+        friend class iResourceManager;
+
     public:
         /*! does nothing
          */
@@ -132,4 +134,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_RESOURCE_DICTIONARY__
+#endif // IGOR_RESOURCE_DICTIONARY_H

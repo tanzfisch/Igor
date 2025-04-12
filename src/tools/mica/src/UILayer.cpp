@@ -132,7 +132,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().create(_fileDialog.getFullPath());
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
 }
 
 void UILayer::onLoadProject()
@@ -148,7 +148,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().load(_fileDialog.getFullPath());
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
 }
 
 void UILayer::onSaveProject()

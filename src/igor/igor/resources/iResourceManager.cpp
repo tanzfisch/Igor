@@ -619,7 +619,7 @@ namespace igor
         const iaDirectory checkDir(filepath);
         if (checkDir.exists())
         {
-            return checkDir.getFullDirectoryName();
+            return checkDir.getAbsoluteDirectoryName();
         }
 
         iaFile checkFile(filepath);
@@ -657,7 +657,7 @@ namespace igor
             const iaDirectory dir(path);
             if (dir.exists())
             {
-                return dir.getFullDirectoryName();
+                return dir.getAbsoluteDirectoryName();
             }
         }
 
@@ -673,10 +673,10 @@ namespace igor
             iaDirectory dir(path);
 
             std::vector<iaString> matches;
-            iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
+            iaString::searchRegex(filename, dir.getAbsoluteDirectoryName(), matches);
             if (!matches.empty())
             {
-                result = iaDirectory::getRelativePath(dir.getFullDirectoryName(), filename);
+                result = iaDirectory::getRelativePath(dir.getAbsoluteDirectoryName(), filename);
                 break;
             }
         }
@@ -810,14 +810,19 @@ namespace igor
         return param;
     }
 
-    void iResourceManager::removeResource(const iResourceID &resourceID)
+    void iResourceManager::removeFromDictionary(const iResourceID &resourceID)
     {
         _resourceDictionary.removeResource(resourceID);
     }
 
-    void iResourceManager::addResource(const iaString &filename, const iaString &alias)
+    void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)
     {
-        _resourceDictionary.addResource(filename, alias);
+        if(!uuid.isValid())
+        {
+            _resourceDictionary.addResource(filename, alias);
+        }
+
+        _resourceDictionary.addResource(uuid, filename, alias, false);
     }
 
     iResourceProcessedEvent &iResourceManager::getResourceProcessedEvent()

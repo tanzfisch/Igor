@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SCENEFACTORY__
-#define __IGOR_SCENEFACTORY__
+#ifndef IGOR_SCENEFACTORY_H
+#define IGOR_SCENEFACTORY_H
 
 #include <igor/scene/iScene.h>
 #include <igor/resources/module/iModule.h>
@@ -70,4 +70,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_SCENEFACTORY__
+#endif // IGOR_SCENEFACTORY_H

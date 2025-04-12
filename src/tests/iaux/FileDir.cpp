@@ -8,7 +8,7 @@ using namespace iaux;
 IAUX_TEST(FileDirTests, Initial)
 {
     iaDirectory dir("");
-    IAUX_EXPECT_EQUAL(dir.getFullDirectoryName().isEmpty(), true);
+    IAUX_EXPECT_EQUAL(dir.getAbsoluteDirectoryName().isEmpty(), true);
 }
 
 #ifdef IGOR_LINUX

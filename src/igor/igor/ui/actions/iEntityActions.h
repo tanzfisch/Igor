@@ -80,15 +80,15 @@ namespace igor
     };
 
     /*! delete entity action
-    */
+     */
     class iActionDeleteEntity : public iAction
     {
 
     public:
         /*! init members
-        */
+         */
         iActionDeleteEntity();
-        
+
         /*! executed when action gets triggered
 
         \param context the context the action was called with
@@ -100,77 +100,122 @@ namespace igor
         \param context the context the action was called with
         */
         bool isCompatible(const iActionContext &context) override;
-    };    
+    };
 
     /*! copy entity to clipboard action
-    */
-   class iActionCopyEntity : public iAction
-   {
+     */
+    class iActionCopyEntity : public iAction
+    {
 
-   public:
-       /*! init members
-       */
-      iActionCopyEntity();
-       
-       /*! executed when action gets triggered
+    public:
+        /*! init members
+         */
+        iActionCopyEntity();
 
-       \param context the context the action was called with
-       */
-       void execute(const iActionContext &context) override;
+        /*! executed when action gets triggered
 
-       /*! \returns true if this action will execute with given context
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
 
-       \param context the context the action was called with
-       */
-       bool isCompatible(const iActionContext &context) override;
-   };    
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
 
     /*! cut entity (to clipboard) action
-    */
-   class iActionCutEntity : public iAction
-   {
+     */
+    class iActionCutEntity : public iAction
+    {
 
-   public:
-       /*! init members
-       */
-      iActionCutEntity();
-       
-       /*! executed when action gets triggered
+    public:
+        /*! init members
+         */
+        iActionCutEntity();
 
-       \param context the context the action was called with
-       */
-       void execute(const iActionContext &context) override;
+        /*! executed when action gets triggered
 
-       /*! \returns true if this action will execute with given context
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
 
-       \param context the context the action was called with
-       */
-       bool isCompatible(const iActionContext &context) override;
-   };    
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
 
     /*! paste entity from clipboard action
-    */
-   class iActionPasteEntity : public iAction
-   {
+     */
+    class iActionPasteEntity : public iAction
+    {
 
-   public:
-       /*! init members
-       */
-      iActionPasteEntity();
-       
-       /*! executed when action gets triggered
+    public:
+        /*! init members
+         */
+        iActionPasteEntity();
 
-       \param context the context the action was called with
-       */
-       void execute(const iActionContext &context) override;
+        /*! executed when action gets triggered
 
-       /*! \returns true if this action will execute with given context
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
 
-       \param context the context the action was called with
-       */
-       bool isCompatible(const iActionContext &context) override;
-   };   
+        /*! \returns true if this action will execute with given context
 
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
+
+    /*! creates a new prefab and adds it to the given entity
+     */
+    class iActionCreatePrefab : public iAction
+    {
+
+    public:
+        /*! init members
+         */
+        iActionCreatePrefab();
+
+        /*! executed when action gets triggered
+
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
+
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
+
+    /*! creates a new entity under a given entity
+     */
+    class iActionCreateEntity : public iAction
+    {
+
+    public:
+        /*! init members
+         */
+        iActionCreateEntity();
+
+        /*! executed when action gets triggered
+
+        \param context the context the action was called with
+        */
+        void execute(const iActionContext &context) override;
+
+        /*! \returns true if this action will execute with given context
+
+        \param context the context the action was called with
+        */
+        bool isCompatible(const iActionContext &context) override;
+    };
 
 } // namespace igor
 

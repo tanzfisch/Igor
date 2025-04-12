@@ -54,14 +54,14 @@ iResourceID UserControlResourceIcon::getResourceID() const
 
 void UserControlResourceIcon::onAddDictionary(iWidgetPtr source)
 {
-    iResourceManager::getInstance().addResource(_filename);
+    iResourceManager::getInstance().addToDictionary(_filename);
     updateDictionaryState();
 }
 
 void UserControlResourceIcon::onRemoveDictionary(iWidgetPtr source)
 {
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
-    iResourceManager::getInstance().removeResource(id);
+    iResourceManager::getInstance().removeFromDictionary(id);
     updateDictionaryState();
 }
 

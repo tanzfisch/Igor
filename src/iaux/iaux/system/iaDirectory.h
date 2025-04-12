@@ -68,7 +68,7 @@ namespace iaux
 
         e.g. if the path is c:\foo\bar then this returns c:\foo\bar
         */
-        iaString getFullDirectoryName() const;
+        iaString getAbsoluteDirectoryName() const;
 
         /*! \returns the name of the directory
 
@@ -80,7 +80,7 @@ namespace iaux
 
         e.g. if the path is c:\foo\bar then this returns c:\foo
         */
-        iaString getFullParentDirectoryName() const;
+        iaString getAbsoluteParentDirectoryName() const;
 
         /*! \returns relative path from path to path
 

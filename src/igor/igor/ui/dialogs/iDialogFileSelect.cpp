@@ -254,13 +254,13 @@ namespace igor
 
         if (!directory.isRoot())
         {
-            addToFileGrid(0, 0, directory.getFullParentDirectoryName(), "..", true);
+            addToFileGrid(0, 0, directory.getAbsoluteParentDirectoryName(), "..", true);
             index++;
         }
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / 10, index % 10, iter.getFullDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / 10, index % 10, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
             index++;
         }
 

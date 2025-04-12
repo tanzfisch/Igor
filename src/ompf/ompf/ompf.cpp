@@ -281,7 +281,7 @@ namespace OMPF
     void OMPF::loadFile(iaString filename)
     {
         iaDirectory dir(filename);
-        _filepath = dir.getFullDirectoryName();
+        _filepath = dir.getAbsoluteDirectoryName();
 
         reset();
 
@@ -340,7 +340,7 @@ namespace OMPF
     void OMPF::saveFile(iaString filename)
     {
         iaDirectory dir(filename);
-        _filepath = dir.getFullParentDirectoryName();
+        _filepath = dir.getAbsoluteParentDirectoryName();
 
         con_assert(_root != nullptr, "can never be zero");
 

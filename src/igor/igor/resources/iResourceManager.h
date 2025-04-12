@@ -316,13 +316,13 @@ namespace igor
         \param filename path to resource (must be relative to search paths)
         \param alias optional alias
         */
-        void addResource(const iaString &filename, const iaString &alias = "");
+        void addToDictionary(const iaString &filename, const iaString &alias = "", const iaUUID &uuid = iaUUID::getInvalid());
 
         /*! removes given resource from dictionary
 
         \param resourceID the given resource id
         */
-        void removeResource(const iResourceID &resourceID);
+        void removeFromDictionary(const iResourceID &resourceID);
 
         /*! \returns resource type for given filename
         

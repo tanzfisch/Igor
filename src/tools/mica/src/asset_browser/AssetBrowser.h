@@ -57,7 +57,7 @@ public:
 
     /*! \returns current project
      */
-    const iaString &getProjectFolder() const;
+    const iaString &getProjectPath() const;
 
     /*! \returns resource selection changed event
      */

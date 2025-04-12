@@ -39,6 +39,9 @@ namespace igor
         registerAction(new iActionCutEntity());
         registerAction(new iActionCopyEntity());
         registerAction(new iActionPasteEntity());
+
+        registerAction(new iActionCreatePrefab());
+        registerAction(new iActionCreateEntity());
     }
 
     void iActionManager::registerAction(iActionPtr action)

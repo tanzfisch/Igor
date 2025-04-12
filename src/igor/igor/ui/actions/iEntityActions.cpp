@@ -1,6 +1,9 @@
 #include <igor/ui/actions/iEntityActions.h>
 
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/components/iPrefabComponent.h>
+#include <igor/resources/project/iProject.h>
+
 #include <igor/ui/actions/context/iEntityActionContext.h>
 #include <igor/system/iClipboard.h>
 
@@ -256,5 +259,89 @@ namespace igor
 
         return true;
     }
+
+    iActionCreatePrefab::iActionCreatePrefab()
+        : iAction("igor:create_new_prefab")
+    {
+        // TODO setIcon("igor_icon_create_prefab");
+        setDescription("Create empty prefab");
+    }
+
+    bool iActionCreatePrefab::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().size() != 1)
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }    
+
+    void iActionCreatePrefab::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+
+        auto projectScene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        auto dstEntity = projectScene->getEntity(actionContext->getEntities()[0]);
+
+        iPrefabPtr prefab = iResourceManager::getInstance().createResource<iPrefab>();       
+        iEntityPtr entityPrefab = projectScene->createEntity("prefab");
+        entityPrefab->addComponent(new iPrefabComponent(prefab));
+        entityPrefab->setActive(true);        
+    }
+
+    iActionCreateEntity::iActionCreateEntity()
+        : iAction("igor:create_new_entity")
+    {
+        // TODO setIcon("igor_icon_create_entity");
+        setDescription("Create new entity");
+    }
+
+    bool iActionCreateEntity::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().size() != 1)
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }    
+
+    void iActionCreateEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+
+        auto projectScene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        auto dstEntity = projectScene->getEntity(actionContext->getEntities()[0]);
+        
+        iEntityPtr entity = projectScene->createEntity("entity");
+        entity->setActive(true);
+        entity->setParent(dstEntity);
+    }    
+
 
 } // namespace igor

@@ -69,9 +69,9 @@ namespace iaux
         {
             std::sort(result.begin(), result.end(), [](iaDirectory const a, iaDirectory const b)
                       { 
-                        iaString sa = a.getFullDirectoryName();
+                        iaString sa = a.getAbsoluteDirectoryName();
                         sa.toLower();
-                        iaString sb = b.getFullDirectoryName();
+                        iaString sb = b.getAbsoluteDirectoryName();
                         sb.toLower();
                         return sa < sb; });
         }
@@ -204,9 +204,9 @@ namespace iaux
         return result;
     }
 
-    iaString iaDirectory::getFullDirectoryName() const
+    iaString iaDirectory::getAbsoluteDirectoryName() const
     {
-        return _directoryName;
+        return fixPath(_directoryName);
     }
 
     iaString iaDirectory::getDirectoryName() const
@@ -215,7 +215,7 @@ namespace iaux
         return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
-    iaString iaDirectory::getFullParentDirectoryName() const
+    iaString iaDirectory::getAbsoluteParentDirectoryName() const
     {
         iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
         return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
@@ -333,12 +333,12 @@ namespace iaux
             iaDirectory dirFrom(from);
             if (iaDirectory::isDirectory(from))
             {
-                tempFrom = dirFrom.getFullDirectoryName();
+                tempFrom = dirFrom.getAbsoluteDirectoryName();
             }
             else
             {
                 // assuming the subfolder is actually a filename
-                tempFrom = dirFrom.getFullParentDirectoryName();
+                tempFrom = dirFrom.getAbsoluteParentDirectoryName();
             }
         }
 

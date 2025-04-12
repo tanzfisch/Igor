@@ -146,13 +146,17 @@ static void findMeshPaths(iNodePtr node, const iaString &meshPath, std::vector<i
 
 void AssetBrowser::updateGridView()
 {
-    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
-    const iaString path = item->getValue<iaString>("relativePath");
-
     _gridView->clear();
 
+    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
+    if(!item->hasValue("relativePath"))
+    {
+        return;
+    }
+    const iaString path = item->getValue<iaString>("relativePath");
+
     const iaDirectory projectDir(_projectFolder);
-    _currentPath = projectDir.getFullDirectoryName() + IGOR_PATHSEPARATOR + path;
+    _currentPath = projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path;
 
     if (iaDirectory::isDirectory(_currentPath))
     {
@@ -162,7 +166,7 @@ void AssetBrowser::updateGridView()
         auto files = dir.getFiles();
         for (const auto &file : files)
         {
-            const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+            const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
             if (_contentMode == ContentMode::Assets)
             {
                 const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
@@ -185,7 +189,7 @@ void AssetBrowser::updateGridView()
 
         iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded), false, true);
 
-        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
         _currentFocussedResource = iResourceManager::getInstance().getResourceID(relativePath);
         iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(_currentFocussedResource);
         if (model->isValid())
@@ -235,7 +239,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
     {
         iItemPtr child = item->addItem(subDir.getDirectoryName());
         child->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
-        iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), subDir.getFullDirectoryName());
+        iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), subDir.getAbsoluteDirectoryName());
         child->setValue<iaString>("relativePath", relativePath);
 
         update(subDir, child);
@@ -248,7 +252,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
             continue;
         }
 
-        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getFullDirectoryName(), file.getFullFileName());
+        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
         const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
         if (id == iResourceID(IGOR_INVALID_ID))
         {
@@ -296,7 +300,7 @@ void AssetBrowser::setProjectFolder(const iaString &projectFolder)
     _updateHandle.triggerNow();
 }
 
-const iaString &AssetBrowser::getProjectFolder() const
+const iaString &AssetBrowser::getProjectPath() const
 {
     return _projectFolder;
 }

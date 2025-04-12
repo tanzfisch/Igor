@@ -123,10 +123,13 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     {
         if (isRoot)
         {
-            // TODO new scene etc
+            _contextMenu.addAction("igor:create_new_prefab", actionContext);
         }
         else
         {
+            _contextMenu.addAction("igor:create_new_entity", actionContext);
+            _contextMenu.addSeparator();
+
             _contextMenu.addAction("igor:set_entities_inactive", actionContext);
             _contextMenu.addAction("igor:set_entities_active", actionContext);
             _contextMenu.addSeparator();

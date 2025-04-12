@@ -113,13 +113,17 @@ namespace iaux
          */
         int64 getHashValue() const;
 
-        /*! change string to lower case letters
+        /*! \returns a lower case version of given string 
          */
-        void toLower();
+        iaString toLower() const;
 
-        /*! change string to upper case letters
+        /*! \returns a upper case version of given string 
          */
-        void toUpper();
+        iaString toUpper() const;
+
+        /*! \returns a snake case version of given string 
+        */
+        iaString toSnakeCase() const;
 
         /*! + operator concatanates two strings
 
