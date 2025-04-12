@@ -40,7 +40,6 @@ namespace igor
         registerAction(new iActionCopyEntity());
         registerAction(new iActionPasteEntity());
 
-        registerAction(new iActionCreatePrefab());
         registerAction(new iActionCreateEntity());
     }
 

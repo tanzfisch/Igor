@@ -170,13 +170,6 @@ namespace igor
                 continue;
             }
 
-            if(iResourceManager::getInstance().getFilename(prefab->getID()).isEmpty())
-            {
-                const auto name = entity->getName().toSnakeCase();
-                const auto scenePath = iProject::getInstance().getScenesPath() + IGOR_PATHSEPARATOR + name + ".scene";
-                iResourceManager::getInstance().addToDictionary(scenePath, "", prefab->getID());
-            }
-
             iResourceManager::getInstance().saveResource(prefabComponent->getPrefab()->getID());
             
             json sceneJson = 

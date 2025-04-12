@@ -123,7 +123,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     {
         if (isRoot)
         {
-            _contextMenu.addAction("igor:create_new_prefab", actionContext);
+            // TODO
         }
         else
         {
