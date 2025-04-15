@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -27,66 +26,48 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_CLIPBOARD_H
-#define IGOR_CLIPBOARD_H
+#ifndef IGOR_TASK_WATCH_FILESYSTEM_H
+#define IGOR_TASK_WATCH_FILESYSTEM_H
 
-#include <igor/resources/module/iModule.h>
-
-#include <igor/entities/iEntityComponent.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/threading/tasks/iTask.h>
 
 namespace igor
 {
 
-    enum class iClipboardDataFormat
+    /*! task to watch changes in filesystem
+     */
+    class iTaskWatchFilesystem : public iTask
     {
-        Text,
-        EntityID
-    };
-
-    class IGOR_API iClipboard : public iModule<iClipboard>
-    {
-        friend class iModule<iClipboard>;
 
     public:
-        /*! copy text to clipboard
+        /*! initializes member variables
 
-        \param text the text to copy
+        \param path the path to watch recursively
         */
-        void copyText(const iaString &text);
-
-        /*! \returns pasted text from clipboard
-         */
-        const iaString pasteText() const;
-
-        /*! copy entity ids to clipboard
-
-        \param entityIDs the entity IDs to copy
-        */
-       void copyEntityIDs(const std::vector<iEntityID> &entityIDs);
-
-       /*! \returns pasted entity ids from clipboard
-        */
-       const std::vector<iEntityID> pasteEntityIDs() const;        
-
-        /*! \returns true if clipboard contains data of given format
-
-        \param format the given data format
-        */
-        bool has(iClipboardDataFormat format) const;
-
-    private:
-        /*! init formats
-         */
-        iClipboard();
+        iTaskWatchFilesystem(const iaString &path);
 
         /*! does nothing
          */
-        virtual ~iClipboard() = default;
+        virtual ~iTaskWatchFilesystem() = default;
+
+        /*! aborts the task
+         */
+        void abort() override;
+
+    protected:
+        /*! runs the task
+         */
+        void run() override;
+
+        /*! path to watch
+        */
+        iaString _path;
+
+        /*! if true this task keeps running
+        */
+        bool _running;
     };
 
-} // namespace igor
+}; // namespace igor
 
-#endif // IGOR_CLIPBOARD_H
+#endif // IGOR_TASK_WATCH_FILESYSTEM_H

@@ -202,6 +202,7 @@ namespace igor
 
     void createModules()
     {
+        iFilesystem::createInstance();
         iResourceManager::createInstance();
         iApplication::createInstance();
         iAudio::createInstance();
@@ -240,7 +241,7 @@ namespace igor
         if (iResourceManager::isInstantiated())
         {
             iResourceManager::destroyInstance();
-        }
+        }        
 
         if (iEntitySystemModule::isInstantiated())
         {
@@ -300,6 +301,11 @@ namespace igor
         if (iAudio::isInstantiated())
         {
             iAudio::destroyInstance();
+        }
+        
+        if (iFilesystem::isInstantiated())
+        {
+            iFilesystem::destroyInstance();
         }
     }
 

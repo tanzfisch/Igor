@@ -262,24 +262,39 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-    event.dispatch<iEventNodeAddedToScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeAddedToScene));
-    event.dispatch<iEventNodeRemovedFromScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeRemovedFromScene));
-    event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onSceneSelectionChanged));
+
+    event.dispatch<iEventFileCreated>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileCreated));
+    event.dispatch<iEventFileDeleted>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileDeleted));
+    event.dispatch<iEventFileMovedFrom>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedFrom));
+    event.dispatch<iEventFileMovedTo>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedTo));
+    event.dispatch<iEventFileChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileChanged));
 }
 
-bool UILayer::onNodeAddedToScene(iEventNodeAddedToScene &event)
+bool UILayer::onFileCreated(iEventFileCreated &event)
 {
     _refresh = true;
     return false;
 }
 
-bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
+bool UILayer::onFileDeleted(iEventFileDeleted &event)
 {
     _refresh = true;
     return false;
 }
 
-bool UILayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+bool UILayer::onFileMovedFrom(iEventFileMovedFrom &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onFileMovedTo(iEventFileMovedTo &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onFileChanged(iEventFileChanged &event)
 {
     _refresh = true;
     return false;

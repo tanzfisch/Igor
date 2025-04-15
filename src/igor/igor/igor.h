@@ -101,6 +101,7 @@
 #include <igor/system/iApplication.h>
 #include <igor/system/iClipboard.h>
 #include <igor/system/iKeyboard.h>
+#include <igor/system/iFilesystem.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iTimer.h>
 #include <igor/system/iTimerHandle.h>
@@ -110,6 +111,7 @@
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
+#include <igor/events/iEventFilesystem.h>
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
@@ -143,6 +145,7 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/threading/tasks/iTaskGenerateThumbnails.h>
+#include <igor/threading/tasks/iTaskWatchFilesystem.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 

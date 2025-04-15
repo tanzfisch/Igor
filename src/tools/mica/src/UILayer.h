@@ -155,23 +155,11 @@ private:
     */
     bool onKeyDown(iEventKeyDown &event);
 
-    /*! triggered when node was added to scene
-
-    \param event the event to handle
-    */
-    bool onNodeAddedToScene(iEventNodeAddedToScene &event);
-
-    /*! triggered when node was removed from scene
-
-    \param event the event to handle
-    */
-    bool onNodeRemovedFromScene(iEventNodeRemovedFromScene &event);
-
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
+    bool onFileCreated(iEventFileCreated &event);
+    bool onFileDeleted(iEventFileDeleted &event);
+    bool onFileMovedFrom(iEventFileMovedFrom &event);
+    bool onFileMovedTo(iEventFileMovedTo &event);
+    bool onFileChanged(iEventFileChanged &event);   
 };
 
 #endif // MICA_UILAYER_H

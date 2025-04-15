@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTMOUSE__
-#define __IGOR_EVENTMOUSE__
+#ifndef IGOR_EVENT_MOUSE_H
+#define IGOR_EVENT_MOUSE_H
 
 #include <igor/events/iEvent.h>
 
@@ -231,4 +231,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTMOUSE__
+#endif // IGOR_EVENT_MOUSE_H

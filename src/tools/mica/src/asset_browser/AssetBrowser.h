@@ -47,7 +47,7 @@ public:
 
     /*! does nothing
      */
-    ~AssetBrowser() = default;
+    ~AssetBrowser();
 
     /*! sets project
 
@@ -84,10 +84,6 @@ private:
      */
     iaString _projectFolder;
 
-    /*! update handle for filesystem updates
-     */
-    iTimerHandle _updateHandle;
-
     /*! resource selection changed event
      */
     ResourceSelectionChangedEvent _resourceSelectionChanged;
@@ -120,11 +116,15 @@ private:
      */
     void initUI();
 
-    /*! polls filesystem changes in an intervall
+    /*! refresh grid view in an interval
 
     \param time the current time
     */
-    void update(const iaTime &time);
+    void onRefreshGridView();
+
+    /*! called when filesystem has changed
+    */
+    void onUpdateFilesystem();
 
     /*! recursive update of folder structure data
 
@@ -151,11 +151,7 @@ private:
 
     /*! updates grid view for given selected relative path
     */
-    void updateGridView();
-
-    /*! light weight refresh
-     */
-    void refreshGridView();
+    void onUpdateGridView();
 
     /*! triggered by selection changed event
 
@@ -174,6 +170,13 @@ private:
     \param resourceID the id of the resource that was loaded
     */
     void onResourceLoaded(iResourceID resourceID);
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
 };
 
 #endif // ASSET_BROWSER_H

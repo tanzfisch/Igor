@@ -27,66 +27,52 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_CLIPBOARD_H
-#define IGOR_CLIPBOARD_H
+#ifndef IGOR_FILESYSTEM_H
+#define IGOR_FILESYSTEM_H
 
 #include <igor/resources/module/iModule.h>
+#include <igor/threading/tasks/iTask.h>
 
-#include <igor/entities/iEntityComponent.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <deque>
 
 namespace igor
 {
 
-    enum class iClipboardDataFormat
-    {
-        Text,
-        EntityID
-    };
+    typedef int iWatchHandle;
 
-    class IGOR_API iClipboard : public iModule<iClipboard>
+    class IGOR_API iFilesystem : public iModule<iFilesystem>
     {
-        friend class iModule<iClipboard>;
+        friend class iModule<iFilesystem>;
 
     public:
-        /*! copy text to clipboard
 
-        \param text the text to copy
+        /*! listen to changes at given path
+
+        \param path given path
         */
-        void copyText(const iaString &text);
+        void listenToChanges(const iaString& path);
 
-        /*! \returns pasted text from clipboard
-         */
-        const iaString pasteText() const;
+        /*! stop listening to changes at given path
 
-        /*! copy entity ids to clipboard
-
-        \param entityIDs the entity IDs to copy
+        \param path given path
         */
-       void copyEntityIDs(const std::vector<iEntityID> &entityIDs);
-
-       /*! \returns pasted entity ids from clipboard
-        */
-       const std::vector<iEntityID> pasteEntityIDs() const;        
-
-        /*! \returns true if clipboard contains data of given format
-
-        \param format the given data format
-        */
-        bool has(iClipboardDataFormat format) const;
+       void stopListenToChanges(const iaString& path);
 
     private:
+
         /*! init formats
          */
-        iClipboard();
+        iFilesystem();
 
         /*! does nothing
          */
-        virtual ~iClipboard() = default;
+        virtual ~iFilesystem() = default;
+
+        /*! list of watches
+        */
+        std::map<iaString, iTaskID> _watchers;
     };
 
 } // namespace igor
 
-#endif // IGOR_CLIPBOARD_H
+#endif // IGOR_FILESYSTEM_H

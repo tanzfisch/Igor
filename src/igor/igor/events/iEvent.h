@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENT__
-#define __IGOR_EVENT__
+#ifndef IGOR_EVENT_H
+#define IGOR_EVENT_H
 
 #include <igor/iDefines.h>
 
@@ -64,6 +64,12 @@ namespace igor
         iEventEntityCreated,
         iEventEntityDestroyed,
 
+        iEventFileCreated,
+        iEventFileDeleted,
+        iEventFileMovedFrom,
+        iEventFileMovedTo,
+        iEventFileChanged,
+
         // has to be last
         iEventTypeCount
     };
@@ -77,6 +83,7 @@ namespace igor
         Mouse = 4,
         Window = 8,
         Scene = 16,
+        Filesystem = 32
     };
 
     /*! define event kind mask
@@ -194,4 +201,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_EVENT__
+#endif // IGOR_EVENT_H

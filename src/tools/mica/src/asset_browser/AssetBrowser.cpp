@@ -13,6 +13,11 @@ AssetBrowser::AssetBrowser()
     initUI();
 }
 
+AssetBrowser::~AssetBrowser()
+{
+    iFilesystem::getInstance().stopListenToChanges(_currentPath);
+}
+
 void AssetBrowser::initUI()
 {
     setTitle("Asset Browser");
@@ -51,20 +56,17 @@ void AssetBrowser::initUI()
     _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
     splitter->addWidget(_treeView);
 
-    iWidgetScrollPtr scroll = new iWidgetScroll();
-    scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
-    _gridView = new iWidgetFixedGridLayout();    
+    _gridView = new iWidgetFixedGridLayout();
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
     _gridView->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
+    
 
+    iWidgetScrollPtr scroll = new iWidgetScroll();
+    scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
     scroll->addWidget(_gridView);
     splitter->addWidget(scroll);
-
-    _updateHandle.getEventTimerTick().add(iTimerTickDelegate(this, &AssetBrowser::update));
-    _updateHandle.setInterval(iaTime::fromMilliseconds(5000));
-    _updateHandle.start();
 }
 
 void AssetBrowser::OnContextMenu(iWidgetPtr source)
@@ -72,7 +74,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
-    if(_currentPath.isEmpty())
+    if (_currentPath.isEmpty())
     {
         return;
     }
@@ -116,7 +118,7 @@ void AssetBrowser::onClickShowAssetsButton(iWidgetPtr source)
     }
 
     updateContentModeButton();
-    _updateHandle.triggerNow();
+    onUpdateFilesystem();
 }
 
 void AssetBrowser::updateContentModeButton()
@@ -140,19 +142,26 @@ static void findMeshPaths(iNodePtr node, const iaString &meshPath, std::vector<i
     }
 }
 
-void AssetBrowser::updateGridView()
+void AssetBrowser::onUpdateGridView()
 {
     _gridView->clear();
 
     const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
-    if(!item->hasValue("relativePath"))
+    if (!item->hasValue("relativePath"))
     {
         return;
     }
     const iaString path = item->getValue<iaString>("relativePath");
 
     const iaDirectory projectDir(_projectFolder);
-    _currentPath = projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path;
+    const auto newPath = iaDirectory::fixPath(projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path);
+    if (_currentPath != newPath)
+    {
+        iFilesystem::getInstance().stopListenToChanges(_currentPath);
+        iFilesystem::getInstance().listenToChanges(newPath);
+
+        _currentPath = newPath;
+    }
 
     if (iaDirectory::isDirectory(_currentPath))
     {
@@ -163,13 +172,10 @@ void AssetBrowser::updateGridView()
         for (const auto &file : files)
         {
             const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
-            if (_contentMode == ContentMode::Assets)
+            if (_contentMode == ContentMode::Assets &&
+                iResourceManager::getInstance().getResourceID(relativePath) == iResourceID(IGOR_INVALID_ID))
             {
-                const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
-                if (id == iResourceID(IGOR_INVALID_ID))
-                {
-                    continue;
-                }
+                continue;
             }
 
             UserControlResourceIcon *icon = new UserControlResourceIcon(relativePath, "", _gridView);
@@ -208,10 +214,10 @@ void AssetBrowser::onResourceLoaded(iResourceID resourceID)
         return;
     }
 
-    updateGridView();
+    onUpdateGridView();
 }
 
-void AssetBrowser::refreshGridView()
+void AssetBrowser::onRefreshGridView()
 {
     for (auto child : _gridView->getChildren())
     {
@@ -222,7 +228,7 @@ void AssetBrowser::refreshGridView()
 
 void AssetBrowser::onClickTreeView(const iWidgetPtr source)
 {
-    updateGridView();
+    onUpdateGridView();
 }
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
@@ -243,14 +249,9 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 
     for (const auto &file : files)
     {
-        if (!IGOR_SUPPORTED_MODEL_EXTENSION(file.getExtension()))
-        {
-            continue;
-        }
-
         const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
-        const iResourceID id = iResourceManager::getInstance().getResourceID(relativePath);
-        if (id == iResourceID(IGOR_INVALID_ID))
+        if (_contentMode == ContentMode::Assets &&
+            iResourceManager::getInstance().getResourceID(relativePath) == iResourceID(IGOR_INVALID_ID))
         {
             continue;
         }
@@ -261,7 +262,24 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
     }
 }
 
-void AssetBrowser::update(const iaTime &time)
+bool AssetBrowser::onEvent(iEvent &event)
+{
+    if (iWidget::onEvent(event))
+    {
+        return true;
+    }
+
+    if (!event.isOfKind(iEventKind::Filesystem))
+    {
+        return false;
+    }
+
+    onUpdateFilesystem();
+
+    return true;
+}
+
+void AssetBrowser::onUpdateFilesystem()
 {
     if (_projectFolder.isEmpty())
     {
@@ -281,19 +299,14 @@ void AssetBrowser::update(const iaTime &time)
         _itemData = std::unique_ptr<iItemData>(itemData);
 
         _treeView->setItems(_itemData.get());
-        updateGridView();
-    }
-    else
-    {
-        delete itemData; // weird how I did this TODO this needs some explanation
-        refreshGridView();
+        onUpdateGridView();
     }
 }
 
 void AssetBrowser::setProjectFolder(const iaString &projectFolder)
 {
     _projectFolder = projectFolder;
-    _updateHandle.triggerNow();
+    onUpdateFilesystem();
 }
 
 const iaString &AssetBrowser::getProjectPath() const
