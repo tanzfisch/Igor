@@ -286,21 +286,15 @@ void AssetBrowser::onUpdateFilesystem()
         return;
     }
 
-    iItemData *itemData = new iItemData();
+    _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     const iaDirectory projectDir(_projectFolder);
-    iItemPtr projectRoot = itemData->addItem(projectDir.getDirectoryName());
+    iItemPtr projectRoot = _itemData->addItem(projectDir.getDirectoryName());
     projectRoot->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
     projectRoot->setValue<iaString>("relativePath", "");
     update(projectDir, projectRoot);
-
-    if (*itemData != *_itemData)
-    {
-        _itemData = std::unique_ptr<iItemData>(itemData);
-
-        _treeView->setItems(_itemData.get());
-        onUpdateGridView();
-    }
+    _treeView->setItems(_itemData.get());
+    onUpdateGridView();
 }
 
 void AssetBrowser::setProjectFolder(const iaString &projectFolder)

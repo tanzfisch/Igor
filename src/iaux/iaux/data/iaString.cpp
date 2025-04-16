@@ -109,6 +109,12 @@ namespace iaux
 
     int64 iaString::getHashValue() const
     {
+        if (_data == nullptr)
+        {
+            con_err("invalid data");
+            return 0;
+        }
+
         std::hash<std::wstring> hashFunc;
         return static_cast<int64>(hashFunc(_data));
     }
@@ -496,6 +502,8 @@ namespace iaux
 
     void iaString::clear()
     {
+        CHECK_CONSISTENCY();
+
         if (_data != nullptr)
         {
             delete[] _data;
@@ -609,23 +617,33 @@ namespace iaux
 
     void iaString::operator+=(const iaString &text)
     {
+        if (text.isEmpty())
+        {
+            return;
+        }
+
         CHECK_CONSISTENCY();
 
-        if (!text.isEmpty())
+        if (isEmpty())
         {
-            wchar_t *temp = new wchar_t[_charCount + text.getLength() + 1];
-            if (_charCount > 0)
-            {
-                wmemcpy(temp, _data, _charCount);
-            }
-            wmemcpy(temp + _charCount, text.getData(), text.getLength());
-            _charCount += text.getLength();
-            temp[_charCount] = 0;
-            delete[] _data;
-            _data = temp;
+            setData(text.getData());
 
             CHECK_CONSISTENCY();
+            return;
         }
+
+        wchar_t *temp = new wchar_t[_charCount + text.getLength() + 1];
+        if (_charCount > 0)
+        {
+            wmemcpy(temp, _data, _charCount);
+        }
+        wmemcpy(temp + _charCount, text.getData(), text.getLength());
+        _charCount += text.getLength();
+        temp[_charCount] = 0;
+        delete[] _data;
+        _data = temp;
+
+        CHECK_CONSISTENCY();
     }
 
     iaString iaString::operator+(const wchar_t &character) const
@@ -640,6 +658,14 @@ namespace iaux
     void iaString::operator+=(const wchar_t &character)
     {
         CHECK_CONSISTENCY();
+
+        if (isEmpty())
+        {
+            *this = character;
+
+            CHECK_CONSISTENCY();
+            return;
+        }        
 
         wchar_t *temp = new wchar_t[_charCount + 2];
         if (_charCount > 0)
@@ -656,6 +682,8 @@ namespace iaux
 
     iaString iaString::operator=(const iaString &text)
     {
+        CHECK_CONSISTENCY();
+
         // skip if this is the same exact data
         if (getData() != text.getData())
         {
@@ -1033,7 +1061,7 @@ namespace iaux
     {
         CHECK_CONSISTENCY();
 
-        if (len == 0 || _data == nullptr)
+        if (isEmpty())
         {
             return iaString();
         }

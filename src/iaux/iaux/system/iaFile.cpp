@@ -130,12 +130,13 @@ namespace iaux
         const iaFile file(filename);
         const iaString extension = file.getExtension();
         const iaString stem = file.getStem();
+        const iaString path = file.getPath();
 
         auto result = filename;
 
         int index = 1;
         while (exists(result)) {
-            result = stem + iaString::toString(index) + '.' + extension;
+            result = path + stem + iaString::toString(index) + '.' + extension;
             ++index;
         }
 

@@ -816,12 +816,8 @@ namespace igor
 
     void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)
     {
-        if(!uuid.isValid())
-        {
-            _resourceDictionary.addResource(filename, alias);
-        }
-
-        _resourceDictionary.addResource(uuid, filename, alias, false);
+        iaUUID id = uuid.isValid() ? uuid : iaUUID();
+        _resourceDictionary.addResource(id, filename, alias, false);
     }
 
     iResourceProcessedEvent &iResourceManager::getResourceProcessedEvent()

@@ -7,6 +7,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/shader/iShader.h>
+#include <igor/resources/project/iProject.h>
 
 namespace igor
 {
@@ -37,6 +38,8 @@ namespace igor
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_scene.scene";
         path = iaFile::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
+
+        path = iaDirectory::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }    
 
