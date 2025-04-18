@@ -25,10 +25,10 @@ namespace igor
     {
         _scroll = new iWidgetScroll(this);
 
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);        
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
         _scroll->addWidget(_vboxLayout);
 
-        _scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));        
+        _scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
     }
 
     iClickTreeViewEvent &iUserControlTreeView::getClickEvent()
@@ -36,65 +36,98 @@ namespace igor
         return _clickEvent;
     }
 
-    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath)
-    {        
+    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath, int indentation)
+    {
+        bool filter = true;
+
         std::vector<iaString> tokens;
         itemPath.split('/', tokens);
-        int indentation = tokens.size();
 
         iaString path = itemPath;
         path += "/";
         path += item->getID();
 
-        iaString displayName = item->getID();
-        if (item->hasValue(IGOR_ITEM_DATA_NAME))
+        if (!_filters.empty())
         {
-            displayName = item->getValue<iaString>(IGOR_ITEM_DATA_NAME);
+            filter = false;
+            for (const auto &pair : _filters)
+            {
+                if (item->hasValue(pair.first))
+                {
+                    std::vector<iaString> matches;
+                    const auto &value = item->getValue<iaString>(pair.first);
+                    for (const auto &filterValue : pair.second)
+                    {
+                        iaString::searchRegex(value, filterValue, matches);
+                        if (!matches.empty())
+                        {
+                            filter = true;
+                            break;
+                        }
+                    }
+                }
+
+                if(filter)
+                {
+                    break;
+                }
+            }
         }
 
-        iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
-
-        iWidgetButtonPtr button = new iWidgetButton();
-        _allInteractiveWidgets.push_back(button);
-        button->setHorizontalAlignment(iHorizontalAlignment::Left);
-        button->setBackground(iaColor4f::transparent);
-        button->setText(displayName);
-        button->setCheckable(true);
-        button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
-        button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
-
-        if (path == _selectedItemPath)
+        if (filter)
         {
-            button->setChecked(true);
+            iaString displayName = item->getID();
+            if (item->hasValue(IGOR_ITEM_DATA_NAME))
+            {
+                displayName = item->getValue<iaString>(IGOR_ITEM_DATA_NAME);
+            }
+
+            iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+
+            iWidgetButtonPtr button = new iWidgetButton();
+            _allInteractiveWidgets.push_back(button);
+            button->setHorizontalAlignment(iHorizontalAlignment::Left);
+            button->setBackground(iaColor4f::transparent);
+            button->setText(displayName);
+            button->setCheckable(true);
+            button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
+            button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
+
+            if (path == _selectedItemPath)
+            {
+                button->setChecked(true);
+            }
+
+            button->setUserData(path);
+
+            if (item->hasValue(IGOR_ITEM_DATA_ICON))
+            {
+                const iaString icon = item->getValue<iaString>(IGOR_ITEM_DATA_ICON);
+                button->setIcon(icon);
+                button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+            }
+            else
+            {
+                button->setHorizontalTextAlignment(iHorizontalAlignment::Center);
+            }
+
+            if (item->hasValue(IGOR_ITEM_DATA_ENABLED))
+            {
+                const bool enabled = item->getValue<bool>(IGOR_ITEM_DATA_ENABLED);
+                button->setEnabled(enabled);
+            }
+
+            buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
+            buttonLayout->addWidget(button);
+
+            _vboxLayout->addWidget(buttonLayout);
+
+            ++indentation;
         }
-
-        button->setUserData(path);
-
-        if (item->hasValue(IGOR_ITEM_DATA_ICON))
-        {
-            const iaString icon = item->getValue<iaString>(IGOR_ITEM_DATA_ICON);
-            button->setIcon(icon);
-            button->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-        }
-        else
-        {
-            button->setHorizontalTextAlignment(iHorizontalAlignment::Center);
-        }
-
-        if (item->hasValue(IGOR_ITEM_DATA_ENABLED))
-        {
-            const bool enabled = item->getValue<bool>(IGOR_ITEM_DATA_ENABLED);
-            // TODO display enabled/disabled
-        }
-
-        buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
-        buttonLayout->addWidget(button);
-
-        _vboxLayout->addWidget(buttonLayout);
 
         for (const auto subItem : item->getItems())
         {
-            updateUI(subItem, path);
+            updateUI(subItem, path, indentation);
         }
     }
 
@@ -126,7 +159,7 @@ namespace igor
     {
         con_assert(itemData != nullptr, "zero pointer");
         _vboxLayout->clear();
-        _allInteractiveWidgets.clear();        
+        _allInteractiveWidgets.clear();
 
         _scroll->setUserData(iaString(""));
 
@@ -144,6 +177,27 @@ namespace igor
     iContextMenuTreeViewEvent &iUserControlTreeView::getContextMenuTreeViewEvent()
     {
         return _contextMenuTreeViewEvent;
+    }
+
+    void iUserControlTreeView::clearFilter()
+    {
+        _filters.clear();
+    }
+
+    void iUserControlTreeView::setFilter(const iaString &key, const iaString &value)
+    {
+        if (_filters.end() == _filters.find(key))
+        {
+            _filters[key] = std::vector<iaString>();
+        }
+
+        auto &values = _filters[key];
+        auto iterValue = std::find(values.begin(), values.end(), value);
+
+        if (iterValue == values.end())
+        {
+            values.push_back(value);
+        }
     }
 
 } // namespace igor

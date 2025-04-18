@@ -83,6 +83,19 @@ namespace igor
          */
         iContextMenuTreeViewEvent &getContextMenuTreeViewEvent();
 
+        /*! clears filter
+        */
+        void clearFilter();
+
+        /*! filter for given key and value (iaString type only)
+
+        the filter is applied during setItems
+
+        \param key the key to filter for
+        \param value the value to filter for
+        */
+        void setFilter(const iaString &key, const iaString &value);
+
         /*! clears the widget back to default
          */
         void clear() override;
@@ -112,6 +125,10 @@ namespace igor
          */
         std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
 
+        /*! only display what matches the filter
+        */
+        std::unordered_map<iaString, std::vector<iaString>> _filters;
+
         /*! handle click events from our buttons
 
         \param source the widget that was clicked
@@ -132,8 +149,9 @@ namespace igor
 
         \param item the current item to update from
         \param itemPath the path of the current item
+        \param indentation indentation of given item
          */
-        virtual void updateUI(iItem *item, const iaString &itemPath);
+        virtual void updateUI(iItem *item, const iaString &itemPath, int indentation = 0);
     };
 
     /*! widget tree view pointer definition

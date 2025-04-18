@@ -54,6 +54,7 @@ void AssetBrowser::initUI()
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
+    _treeView->setFilter(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
     splitter->addWidget(_treeView);
 
     _gridView = new iWidgetFixedGridLayout();
