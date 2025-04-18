@@ -117,16 +117,33 @@ namespace igor
         filename.getData(temp, 2048);
 
         std::ifstream file(temp);
-        json data = json::parse(file);
+        json projectSceneJson = json::parse(file);
 
-        _projectName = iJson::getValue<iaString>(data, "projectName", "New Project");
+        _projectName = iJson::getValue<iaString>(projectSceneJson, "projectName", "New Project");
+        const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
 
-        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName);
+        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName, projectSceneID);
         iEntitySystemModule::getInstance().activateScene(_projectScene);
 
-        if (data.contains("scenes"))
+        if (projectSceneJson.contains("quadtree"))
         {
-            json scenesJson = data["scenes"];
+            json quadtreeJson = projectSceneJson["quadtree"];
+            _projectScene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
+                                      quadtreeJson["splitThreshold"].get<uint32>(),
+                                      quadtreeJson["maxDepth"].get<uint32>());
+        }
+
+        if (projectSceneJson.contains("octree"))
+        {
+            json octreeJson = projectSceneJson["octree"];
+            _projectScene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
+                                    octreeJson["splitThreshold"].get<uint32>(),
+                                    octreeJson["maxDepth"].get<uint32>());
+        }        
+
+        if (projectSceneJson.contains("scenes"))
+        {
+            json scenesJson = projectSceneJson["scenes"];
 
             for (const auto &sceneJson : scenesJson)
             {
@@ -191,16 +208,36 @@ namespace igor
         }
 
         json scenesJson = json::array();
-        if (_projectScene != nullptr)
+        iEntityPtr root = _projectScene->getRootEntity();
+        writeScenes(root->getChildren(), scenesJson);
+        writeScenes(root->getInactiveChildren(), scenesJson);
+
+        json projectSceneJson = {
+            {"name", _projectScene->getName()},
+            {"id", _projectScene->getID()}};
+
+        if (_projectScene->hasQuadtree())
         {
-            iEntityPtr root = _projectScene->getRootEntity();
-            writeScenes(root->getChildren(), scenesJson);
-            writeScenes(root->getInactiveChildren(), scenesJson);
+            auto quadtree = _projectScene->getQuadtree();
+            projectSceneJson["quadtree"] = {
+                {"area", quadtree.getArea()},
+                {"splitThreshold", quadtree.getSplitThreshold()},
+                {"maxDepth", quadtree.getMaxDepth()}};
+        }
+
+        if (_projectScene->hasOctree())
+        {
+            auto octree = _projectScene->getOctree();
+            projectSceneJson["octree"] = {
+                {"volume", octree.getVolume()},
+                {"splitThreshold", octree.getSplitThreshold()},
+                {"maxDepth", octree.getMaxDepth()}};
         }
 
         json projectJson = 
         {
             {"projectName", _projectName},
+            {"projectScene", projectSceneJson},
             {"scenes", scenesJson}
         };
 

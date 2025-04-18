@@ -240,22 +240,6 @@ namespace igor
 
             prefab->_sceneID = scene->getID();
 
-            if (entityScene.contains("quadtree"))
-            {
-                json quadtreeJson = entityScene["quadtree"];
-                scene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
-                                          quadtreeJson["splitThreshold"].get<uint32>(),
-                                          quadtreeJson["maxDepth"].get<uint32>());
-            }
-
-            if (entityScene.contains("octree"))
-            {
-                json octreeJson = entityScene["octree"];
-                scene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
-                                        octreeJson["splitThreshold"].get<uint32>(),
-                                        octreeJson["maxDepth"].get<uint32>());
-            }
-
             json entitiesJson = entityScene["entities"];
             for (const auto &entityJson : entitiesJson)
             {
@@ -399,24 +383,6 @@ namespace igor
                 {"name", scene->getName()},
                 {"id", scene->getID()},
                 {"entities", entitiesJson}};
-
-            if (scene->hasQuadtree())
-            {
-                auto quadtree = scene->getQuadtree();
-                sceneJson["quadtree"] = {
-                    {"area", quadtree.getArea()},
-                    {"splitThreshold", quadtree.getSplitThreshold()},
-                    {"maxDepth", quadtree.getMaxDepth()}};
-            }
-
-            if (scene->hasOctree())
-            {
-                auto octree = scene->getOctree();
-                sceneJson["octree"] = {
-                    {"volume", octree.getVolume()},
-                    {"splitThreshold", octree.getSplitThreshold()},
-                    {"maxDepth", octree.getMaxDepth()}};
-            }
 
             json dataJson;
             dataJson["entityScene"] = sceneJson;
