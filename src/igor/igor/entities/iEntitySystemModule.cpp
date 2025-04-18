@@ -67,7 +67,7 @@ namespace igor
         }
 
         _mutex.lock();
-        con_assert(_scenes.find(scene->getID()) == _scenes.end(), "id collision");
+        con_assert(_scenes.find(scene->getID()) == _scenes.end(), "scene id collision");
 
         _scenes[scene->getID()] = scene;
         _inactiveScenes.push_back(scene);

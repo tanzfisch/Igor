@@ -7,6 +7,7 @@
 #include "../actions/MicaActionContext.h"
 
 #include <igor/resources/texture/iThumbnailCache.h>
+#include <iaux/system/iaFile.h>
 
 UserControlResourceIcon::UserControlResourceIcon(const iaString &filename, const iaString &referencePath, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent), _filename(filename), _referencePath(referencePath)
@@ -196,7 +197,8 @@ void UserControlResourceIcon::onDrag()
     iDrag drag(this);
     iMimeData mimeData;
     mimeData.setResourceID(getResourceID());
-    mimeData.setText(_referencePath);
+    iaFile file(_filename);
+    mimeData.setText(file.getStem());
     drag.setMimeData(mimeData);
     drag.setTexture(_picture->getTexture());
     drag.execute();

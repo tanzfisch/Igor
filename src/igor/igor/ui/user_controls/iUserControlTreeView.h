@@ -106,7 +106,7 @@ namespace igor
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
         /*! scroll widget
-        */
+         */
         iWidgetScrollPtr _scroll = nullptr;
 
         /*! click event
@@ -126,7 +126,7 @@ namespace igor
         std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
 
         /*! only display what matches the filter
-        */
+         */
         std::unordered_map<iaString, std::vector<iaString>> _filters;
 
         /*! handle click events from our buttons
@@ -152,6 +152,7 @@ namespace igor
         \param indentation indentation of given item
          */
         virtual void updateUI(iItem *item, const iaString &itemPath, int indentation = 0);
+
     };
 
     /*! widget tree view pointer definition

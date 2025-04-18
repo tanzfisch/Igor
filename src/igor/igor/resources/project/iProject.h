@@ -120,9 +120,11 @@ namespace igor
 
         /*! add scene to project
 
-        \param sceneID the scene/prefab to add
+        \param sceneID the scene to add (aka type prefab)
+        \param name name of the scene
+        \param active if scene is active when added
         */
-        void addScene(const iResourceID &sceneID);
+        void addScene(const iResourceID &sceneID, const iaString &name = "scene", bool active = true);
 
         /*! remove scene from project
 
@@ -208,6 +210,12 @@ namespace igor
         \param filename the project configuration file
         */
         bool read(const iaString &filename);
+
+        /*! read individual scene from json
+
+        \param sceneJson the given json
+        */
+        bool readScene(const json &sceneJson);
 
         /*! write project configuration
 

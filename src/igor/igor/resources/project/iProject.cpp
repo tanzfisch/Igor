@@ -67,7 +67,7 @@ namespace igor
 
         con_info("created project in \"" << path << "\"");
 
-        load();        
+        load();
     }
 
     void iProject::load()
@@ -130,17 +130,11 @@ namespace igor
 
             for (const auto &sceneJson : scenesJson)
             {
-                auto prefabID = iJson::getValue<iResourceID>(sceneJson, "id", iResourceID::getInvalid());
-                bool active = iJson::getValue<bool>(sceneJson, "active", false);
-                auto name = iJson::getValue<iaString>(sceneJson, "name", "");
+                const auto prefabID = iJson::getValue<iResourceID>(sceneJson, "id", iResourceID::getInvalid());
+                const bool active = iJson::getValue<bool>(sceneJson, "active", false);
+                const auto name = iJson::getValue<iaString>(sceneJson, "name", "");
 
-                addScene(prefabID);
-
-                iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(prefabID);
-                iEntityPtr entityPrefab = _projectScene->createEntity();
-                entityPrefab->setName(name);
-                entityPrefab->addComponent(new iPrefabComponent(prefab));
-                entityPrefab->setActive(active);
+                addScene(prefabID, name, active);
             }
         }
 
@@ -273,7 +267,7 @@ namespace igor
         return _projectUnloadedEvent;
     }
 
-    void iProject::addScene(const iResourceID &sceneID)
+    void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)
     {
         auto iter = std::find(_scenes.begin(), _scenes.end(), sceneID);
         if (iter != _scenes.end())
@@ -281,8 +275,14 @@ namespace igor
             return;
         }
 
-        _scenes.push_back(sceneID);
+        _scenes.push_back(sceneID);        
         _projectSceneAddedEvent(sceneID);
+
+        iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(sceneID);
+        iEntityPtr entityPrefab = _projectScene->createEntity();
+        entityPrefab->setName(name);
+        entityPrefab->addComponent(new iPrefabComponent(prefab));
+        entityPrefab->setActive(active);
     }
 
     void iProject::removeScene(const iResourceID &sceneID)

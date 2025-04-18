@@ -285,7 +285,9 @@ void Outliner::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     const iaString resourceType = iResourceManager::getInstance().getType(id);
     if (resourceType == IGOR_RESOURCE_PREFAB)
     {
-        iProject::getInstance().addScene(id);
+        iaString name = mimeData.hasText() ? mimeData.getText() : "scene";
+
+        iProject::getInstance().addScene(id, name);
         refresh();
         return;
     }
