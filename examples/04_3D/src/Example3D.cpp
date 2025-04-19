@@ -48,8 +48,7 @@ void Example3D::onInit()
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    _entityScene = iProject::getInstance().getScene();
-    getView().setEntityScene(_entityScene);
+    getView().setEntityScene(iProject::getInstance().getProjectScene());
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);
@@ -59,9 +58,11 @@ void Example3D::onInit()
 
 void Example3D::onEvent(iEvent &event)
 {
-    if(getView().getEntityScene() != _entityScene)
+    auto scene = iProject::getInstance().getProjectScene();
+
+    if(getView().getEntityScene() != scene)
     {
-        getView().setEntityScene(_entityScene);
+        getView().setEntityScene(scene);
     }
 
     // first call example base
@@ -79,7 +80,7 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
     case iKeyCode::Space:
     {
         iEntityPrintTraverser print;
-        auto scene = iProject::getInstance().getScene();
+        auto scene = iProject::getInstance().getProjectScene();
         print.traverse(scene);
     }
         return true;
@@ -90,18 +91,15 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
 
 bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if(_entityScene == nullptr)
-    {
-        return false;
-    }
+    auto scene = iProject::getInstance().getProjectScene();
 
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();
 
     if (iMouse::getInstance().getLeftButton())
     {
-        auto pitch = _entityScene->getEntity(_cameraPitch)->getComponent<iTransformComponent>();
-        auto heading = _entityScene->getEntity(_cameraHeading)->getComponent<iTransformComponent>();
+        auto pitch = scene->getEntity(_cameraPitch)->getComponent<iTransformComponent>();
+        auto heading = scene->getEntity(_cameraHeading)->getComponent<iTransformComponent>();
 
         pitch->rotate(iaVector3d((to._y - from._y) * 0.005f, 0.0, 0.0));
         heading->rotate(iaVector3d(0.0, (to._x - from._x) * 0.005f, 0.0));
@@ -114,12 +112,8 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 
 bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
 {
-    if(_entityScene == nullptr)
-    {
-        return false;
-    }
-
-    auto translation = _entityScene->getEntity(_camera)->getComponent<iTransformComponent>();
+    auto scene = iProject::getInstance().getProjectScene();
+    auto translation = scene->getEntity(_camera)->getComponent<iTransformComponent>();
 
     if (event.getWheelDelta() < 0)
     {

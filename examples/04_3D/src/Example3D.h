@@ -46,10 +46,6 @@ public:
     ~Example3D() = default;
 
 private:
-    /*! entity scene
-     */
-    iEntityScenePtr _entityScene = nullptr;
-
     /*! entity id of camera heading
      */
     iEntityID _cameraHeading;
