@@ -11,7 +11,7 @@ namespace igor
 {
 
     iActionSetEntityActive::iActionSetEntityActive()
-        : iAction("igor:set_entities_active")
+        : iAction("igor:set_entity_active")
     {
         setDescription("Activate entity");
     }
@@ -51,7 +51,7 @@ namespace igor
     }
 
     iActionSetEntityInactive::iActionSetEntityInactive()
-        : iAction("igor:set_entities_inactive")
+        : iAction("igor:set_entity_inactive")
     {
         setDescription("Deactivate entity");
     }
@@ -91,7 +91,7 @@ namespace igor
     }
 
     iActionDeleteEntity::iActionDeleteEntity()
-        : iAction("igor:delete_entities")
+        : iAction("igor:delete_entity")
     {
         setIcon("igor_icon_delete");
         setDescription("Delete entity");
@@ -131,7 +131,7 @@ namespace igor
     }
 
     iActionCopyEntity::iActionCopyEntity()
-        : iAction("igor:copy_entities")
+        : iAction("igor:copy_entity")
     {
         setIcon("igor_icon_copy");
         setDescription("Copy entities");
@@ -169,7 +169,7 @@ namespace igor
     }
 
     iActionCutEntity::iActionCutEntity()
-        : iAction("igor:cut_entities")
+        : iAction("igor:cut_entity")
     {
         setIcon("igor_icon_cut");
         setDescription("Cut entities");
@@ -207,7 +207,7 @@ namespace igor
     }    
 
     iActionPasteEntity::iActionPasteEntity()
-        : iAction("igor:paste_entities")
+        : iAction("igor:paste_entity")
     {
         setIcon("igor_icon_paste");
         setDescription("Paste entities");
@@ -263,7 +263,6 @@ namespace igor
     iActionCreateEntity::iActionCreateEntity()
         : iAction("igor:create_new_entity")
     {
-        // TODO setIcon("igor_icon_create_entity");
         setDescription("Create new entity");
     }
 
