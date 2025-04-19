@@ -1,3 +1,27 @@
 {
-    "projectName": "Supremacy"
+    "projectName": "Supremacy",
+    "projectScene": {
+        "id": "0x493163547664aa39",
+        "name": "Supremacy",
+        "quadtree": {
+            "area": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "width": 1200.0,
+                    "height": 1200.0
+            },
+            "splitThreshold": 8,
+            "maxDepth": 8
+        },
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_transform_system",
+            "igor_behaviour_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    }
 }
