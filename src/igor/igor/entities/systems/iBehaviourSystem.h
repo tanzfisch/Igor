@@ -43,6 +43,14 @@ namespace igor
 		 */
 		iBehaviourSystem();
 
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();
+
 		/*! updates system
 
 		\param context the update context
@@ -50,13 +58,12 @@ namespace igor
 		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
 		/*! \returns processing stage this system want's to run in
-		*/
-		iEntitySystemStage getStage() const override;		
+		 */
+		iEntitySystemStage getStage() const override;
 
 	private:
-
 		/*! a view on some entities
-		*/
+		 */
 		iEntityViewPtr _view;
 	};
 

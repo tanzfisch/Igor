@@ -18,6 +18,12 @@ namespace igor
         return new iQuadtreeComponent();
     }  
 
+    const iaString& iQuadtreeComponent::getTypeName()
+    {
+        static const iaString name("igor_quadtree_component");
+        return name;
+    }       
+
     iEntityComponentPtr iQuadtreeComponent::getCopy()
     {
         iQuadtreeComponent *component = new iQuadtreeComponent();

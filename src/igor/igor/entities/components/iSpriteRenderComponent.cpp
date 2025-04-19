@@ -16,6 +16,12 @@ namespace igor
         return new iSpriteRenderComponent();
     }      
 
+    const iaString& iSpriteRenderComponent::getTypeName()
+    {
+        static const iaString name("igor_sprite_render_component");
+        return name;
+    }       
+
     iEntityComponentPtr iSpriteRenderComponent::getCopy()
     {
         iSpriteRenderComponent *component = new iSpriteRenderComponent();

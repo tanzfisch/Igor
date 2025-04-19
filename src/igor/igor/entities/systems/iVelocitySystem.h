@@ -45,6 +45,14 @@ namespace igor
 		 */
 		iVelocitySystem();
 
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();		
+
 		/*! sets global bounds
 		 */
 		void setBounds(const iAABoxd &box);

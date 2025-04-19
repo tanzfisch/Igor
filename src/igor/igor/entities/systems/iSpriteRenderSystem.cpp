@@ -19,6 +19,17 @@ namespace igor
 		_view = createView<iTransformComponent, iSpriteRenderComponent>();
 	}
 
+    iEntitySystemPtr iSpriteRenderSystem::createInstance()
+    {
+        return new iSpriteRenderSystem();
+    }
+
+    const iaString &iSpriteRenderSystem::getTypeName()
+    {
+        static const iaString typeName("igor_sprite_render_system");
+        return typeName;
+    }	
+
 	iEntitySystemStage iSpriteRenderSystem::getStage() const
 	{
 		return iEntitySystemStage::Render;

@@ -27,6 +27,15 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 
+#include <igor/entities/systems/iAnimationSystem.h>
+#include <igor/entities/systems/iBehaviourSystem.h>
+#include <igor/entities/systems/iCameraSystem.h>
+#include <igor/entities/systems/iLightSystem.h>
+#include <igor/entities/systems/iMeshRenderSystem.h>
+#include <igor/entities/systems/iSpriteRenderSystem.h>
+#include <igor/entities/systems/iTransformSystem.h>
+#include <igor/entities/systems/iVelocitySystem.h>
+
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <igor/resources/profiler/iProfiler.h>
@@ -38,24 +47,57 @@ namespace igor
 
     iEntitySystemModule::iEntitySystemModule()
     {
-        registerComponentType<iSpriteRenderComponent>(iSpriteRenderComponent::createInstance, "Sprite Render");
-        registerComponentType<iTransformComponent>(iTransformComponent::createInstance, "Transform");
-        registerComponentType<iLightComponent>(iLightComponent::createInstance, "Light");
-        registerComponentType<iQuadtreeComponent>(iQuadtreeComponent::createInstance, "Quadtree");
-        registerComponentType<iOctreeComponent>(iOctreeComponent::createInstance, "Octree");
-        registerComponentType<iCircleComponent>(iCircleComponent::createInstance, "Circle");
-        registerComponentType<iSphereComponent>(iSphereComponent::createInstance, "Sphere");
-        registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, "Velocity");
-        registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, "Behaviour");
-        registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, "Global Boundary");
-        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, "Camera");
-        registerComponentType<iPartyComponent>(iPartyComponent::createInstance, "Party");
-        registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, "Animation");
-        registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, "Mesh Render");
-        registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, "Mesh Reference");
-        registerComponentType<iPrefabComponent>(iPrefabComponent::createInstance, "Prefab");
+        registerComponentType<iSpriteRenderComponent>(iSpriteRenderComponent::createInstance, iSpriteRenderComponent::getTypeName());
+        registerComponentType<iTransformComponent>(iTransformComponent::createInstance, iTransformComponent::getTypeName());
+        registerComponentType<iLightComponent>(iLightComponent::createInstance, iLightComponent::getTypeName());
+        registerComponentType<iQuadtreeComponent>(iQuadtreeComponent::createInstance, iQuadtreeComponent::getTypeName());
+        registerComponentType<iOctreeComponent>(iOctreeComponent::createInstance, iOctreeComponent::getTypeName());
+        registerComponentType<iCircleComponent>(iCircleComponent::createInstance, iCircleComponent::getTypeName());
+        registerComponentType<iSphereComponent>(iSphereComponent::createInstance, iSphereComponent::getTypeName());
+        registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
+        registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, iBehaviourComponent::getTypeName());
+        registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
+        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
+        registerComponentType<iPartyComponent>(iPartyComponent::createInstance, iPartyComponent::getTypeName());
+        registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());
+        registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, iMeshRenderComponent::getTypeName());
+        registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, iMeshReferenceComponent::getTypeName());
+        registerComponentType<iPrefabComponent>(iPrefabComponent::createInstance, iPrefabComponent::getTypeName());
+
+        registerSystemType(iAnimationSystem::createInstance, iAnimationSystem::getTypeName());
+        registerSystemType(iBehaviourSystem::createInstance, iBehaviourSystem::getTypeName());
+        registerSystemType(iCameraSystem::createInstance, iCameraSystem::getTypeName());
+        registerSystemType(iLightSystem::createInstance, iLightSystem::getTypeName());
+        registerSystemType(iMeshRenderSystem::createInstance, iMeshRenderSystem::getTypeName());
+        registerSystemType(iSpriteRenderSystem::createInstance, iSpriteRenderSystem::getTypeName());
+        registerSystemType(iTransformSystem::createInstance, iTransformSystem::getTypeName());
+        registerSystemType(iVelocitySystem::createInstance, iVelocitySystem::getTypeName());
 
         _simulationFrameTime = iTimer::getInstance().getTime();
+    }
+
+    void iEntitySystemModule::registerSystemType(iEntitySystemFactory factoryFunction, const iaString &systemTypeName)
+    {
+        if (_registeredSystemTypes.find(systemTypeName) != _registeredSystemTypes.end())
+        {
+            con_warn("system \"" << systemTypeName << "\" already registered");
+            return;
+        }
+
+        iEntitySystemTypeInfo info(factoryFunction, systemTypeName);
+        _registeredSystemTypes[systemTypeName] = info;
+    }
+
+    iEntitySystemPtr iEntitySystemModule::createSystem(const iaString &systemTypeName) const
+    {
+        auto iter = _registeredSystemTypes.find(systemTypeName);
+        if (iter == _registeredSystemTypes.end())
+        {
+            con_err("system \"" << systemTypeName << "\" not registered");
+            return nullptr;
+        }
+
+        return iter->second._factory();
     }
 
     iEntityScenePtr iEntitySystemModule::createScene(const iaString &name, const iEntitySceneID &id, bool addIgorSystems)
@@ -78,22 +120,27 @@ namespace igor
             return scene;
         }
 
-        scene->addSystem(new iAnimationSystem());
+        scene->addSystem(iAnimationSystem::getTypeName());
 
-        scene->addSystem(new iVelocitySystem());
-        scene->addSystem(new iTransformSystem());
+        scene->addSystem(iVelocitySystem::getTypeName());
+        scene->addSystem(iTransformSystem::getTypeName());
 
         // running behaviour after transforms and update of oc/quad trees so behaviour system can rely on it
         // this will lead to position changes by the behaviour systems show up one frame late
-        scene->addSystem(new iBehaviourSystem());
+        scene->addSystem(iBehaviourSystem::getTypeName());
 
-        scene->addSystem(new iCameraSystem());
-        scene->addSystem(new iLightSystem());
-        scene->addSystem(new iMeshRenderSystem());
+        scene->addSystem(iCameraSystem::getTypeName());
+        scene->addSystem(iLightSystem::getTypeName());
+        scene->addSystem(iMeshRenderSystem::getTypeName());
 
-        scene->addSystem(new iSpriteRenderSystem());
+        scene->addSystem(iSpriteRenderSystem::getTypeName());
 
         return scene;
+    }
+
+    const std::unordered_map<iaString, iEntitySystemTypeInfo> &iEntitySystemModule::getRegisteredSystemTypes() const
+    {
+        return _registeredSystemTypes;
     }
 
     iEntityComponentMask iEntitySystemModule::getComponentMask(const std::type_index &typeID)

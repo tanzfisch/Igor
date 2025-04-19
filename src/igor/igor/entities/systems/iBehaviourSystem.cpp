@@ -14,6 +14,17 @@ namespace igor
 		_view = createView<iBehaviourComponent>();
     }
 
+    iEntitySystemPtr iBehaviourSystem::createInstance()
+    {
+        return new iBehaviourSystem();
+    }
+
+    const iaString &iBehaviourSystem::getTypeName()
+    {
+        static const iaString typeName("igor_behaviour_system");
+        return typeName;
+    }
+
     iEntitySystemStage iBehaviourSystem::getStage() const
     {
         return iEntitySystemStage::Update;

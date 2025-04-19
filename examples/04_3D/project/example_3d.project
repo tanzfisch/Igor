@@ -1,15 +1,41 @@
 {
     "projectName": "Example 3D",
+    "projectScene": {
+        "id": "0x493a655576540a39",
+        "name": "Example 3D",
+        "octree": {
+            "maxDepth": 16,
+            "splitThreshold": 8,
+            "volume": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "halfEdgeLength": 10000.0
+            }
+        },
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_transform_system",
+            "igor_behaviour_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    },
     "scenes": [
         {
-            "name": "main",
             "active": true,
-            "id": "0x25a68c9b0130d191"
+            "id": "0x25a68c9b0130d191",
+            "name": "main"
         },
         {
-            "name": "side",
             "active": true,
-            "id": "0xf5a28394053adbda"
+            "id": "0xf5a28394053adbda",
+            "name": "side"
         }
     ]
 }

@@ -75,6 +75,14 @@ namespace igor
             return new iPartyComponent();
         }
 
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName()
+        {
+            static const iaString name("igor_party_component");
+            return name;
+        }
+
         /*! party id
          */
         uint32 _partyID = 0;
@@ -109,6 +117,14 @@ namespace igor
         static iEntityComponent *createInstance()
         {
             return new iAnimationComponent();
+        }
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName()
+        {
+            static const iaString name("igor_animation_component");
+            return name;
         }
 
         /*! animation controller

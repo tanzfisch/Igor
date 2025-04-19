@@ -19,6 +19,12 @@ namespace igor
         return new iSphereComponent();
     }      
 
+    const iaString& iSphereComponent::getTypeName()
+    {
+        static const iaString name("igor_sphere_component");
+        return name;
+    }      
+
     float64 iSphereComponent::getRadius() const
     {
         return _radius;

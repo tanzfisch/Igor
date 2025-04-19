@@ -16,6 +16,12 @@ namespace igor
         return new iGlobalBoundaryComponent();
     }
 
+    const iaString& iGlobalBoundaryComponent::getTypeName()
+    {
+        static const iaString name("igor_global_boundary_component");
+        return name;
+    }        
+
     iEntityComponentPtr iGlobalBoundaryComponent::getCopy()
     {
         iGlobalBoundaryComponent *component = new iGlobalBoundaryComponent();

@@ -18,6 +18,12 @@ namespace igor
         return new iOctreeComponent();
     }    
 
+    const iaString& iOctreeComponent::getTypeName()
+    {
+        static const iaString name("igor_octree_component");
+        return name;
+    }    
+
     iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object)
         : _object(object)
     {

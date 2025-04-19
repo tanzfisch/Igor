@@ -16,6 +16,12 @@ namespace igor
         return new iTransformComponent();
     }
 
+    const iaString &iTransformComponent::getTypeName()
+    {
+        static const iaString name("igor_transform_component");
+        return name;
+    }
+
     iEntityComponentPtr iTransformComponent::getCopy()
     {
         iTransformComponent *component = new iTransformComponent();

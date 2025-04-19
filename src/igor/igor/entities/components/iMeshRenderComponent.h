@@ -42,9 +42,9 @@ namespace igor
     struct iMeshReference
     {
         iMeshReference(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
-        : _mesh(mesh), _material(material), _offset(offset)
+            : _mesh(mesh), _material(material), _offset(offset)
         {
-        }        
+        }
 
         /*! the mesh to render
          */
@@ -71,11 +71,15 @@ namespace igor
         iMeshRenderComponent();
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! \returns all mesh references
-        */
+         */
         const std::vector<iMeshReference> &getMeshReferences() const;
 
     private:
@@ -99,7 +103,7 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
 
-        /*! finds and adds all meshes to component 
+        /*! finds and adds all meshes to component
 
         (recursive)
 

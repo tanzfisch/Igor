@@ -80,6 +80,10 @@ namespace igor
          */
         static iEntityComponent *createInstance();
 
+        /*! \returns type name of component
+        */
+        static const iaString& getTypeName();
+
     private:
         /*! behaviors
          */

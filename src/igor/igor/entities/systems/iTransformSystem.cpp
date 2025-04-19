@@ -16,6 +16,17 @@ namespace igor
     {
     }
 
+    iEntitySystemPtr iTransformSystem::createInstance()
+    {
+        return new iTransformSystem();
+    }
+
+    const iaString &iTransformSystem::getTypeName()
+    {
+        static const iaString typeName("igor_transform_system");
+        return typeName;
+    }	    
+
     iEntitySystemStage iTransformSystem::getStage() const
     {
         return iEntitySystemStage::Update;

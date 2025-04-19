@@ -16,6 +16,17 @@ namespace igor
 		_cameraView = createView<iCameraComponent, iTransformComponent>();
 	}
 
+    iEntitySystemPtr iCameraSystem::createInstance()
+    {
+        return new iCameraSystem();
+    }
+
+    const iaString &iCameraSystem::getTypeName()
+    {
+        static const iaString typeName("igor_camera_system");
+        return typeName;
+    }	
+
 	iEntitySystemStage iCameraSystem::getStage() const
 	{
 		return iEntitySystemStage::PreRender;

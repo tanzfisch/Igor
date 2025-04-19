@@ -44,6 +44,14 @@ namespace igor
 		*/
 		iAnimationSystem();
 
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();
+
 		/*! updates system
 
 		\param context the update context

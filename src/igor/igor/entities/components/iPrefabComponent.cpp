@@ -18,6 +18,12 @@ namespace igor
         return new iPrefabComponent();
     }   
 
+    const iaString& iPrefabComponent::getTypeName()
+    {
+        static const iaString name("igor_prefab_component");
+        return name;
+    }        
+
     iEntityComponentPtr iPrefabComponent::getCopy()
     {
         iPrefabComponent *component = new iPrefabComponent();

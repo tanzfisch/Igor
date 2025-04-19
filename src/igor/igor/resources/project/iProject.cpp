@@ -27,7 +27,7 @@ namespace igor
             unload();
         }
 
-        if(iaDirectory::isDirectory(path))
+        if (iaDirectory::isDirectory(path))
         {
             _projectFolder = path;
             _projectFile = s_defaultProjectFilename;
@@ -38,7 +38,7 @@ namespace igor
             _projectFolder = projectFile.getPath();
             _projectFile = projectFile.getFileName();
         }
-        
+
         load();
     }
 
@@ -117,33 +117,53 @@ namespace igor
         filename.getData(temp, 2048);
 
         std::ifstream file(temp);
-        json projectSceneJson = json::parse(file);
+        json projectJson = json::parse(file);
+        if (!projectJson.contains("projectName"))
+        {
+            con_err("no project name found");
+            return false;
+        }
+        _projectName = projectJson["projectName"].get<iaString>();
 
-        _projectName = iJson::getValue<iaString>(projectSceneJson, "projectName", "New Project");
+        if (!projectJson.contains("projectScene"))
+        {
+            con_err("no project scene found");
+            return false;
+        }
+        json projectSceneJson = projectJson["projectScene"];
+
         const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
-
-        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName, projectSceneID);
+        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName, projectSceneID, false);
         iEntitySystemModule::getInstance().activateScene(_projectScene);
+
+        if (projectSceneJson.contains("systems"))
+        {
+            const auto systems = projectSceneJson["systems"].get<std::vector<iaString>>();
+            for (const auto &system : systems)
+            {
+                _projectScene->addSystem(system);
+            }
+        }
 
         if (projectSceneJson.contains("quadtree"))
         {
             json quadtreeJson = projectSceneJson["quadtree"];
             _projectScene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
-                                      quadtreeJson["splitThreshold"].get<uint32>(),
-                                      quadtreeJson["maxDepth"].get<uint32>());
+                                              quadtreeJson["splitThreshold"].get<uint32>(),
+                                              quadtreeJson["maxDepth"].get<uint32>());
         }
 
         if (projectSceneJson.contains("octree"))
         {
             json octreeJson = projectSceneJson["octree"];
             _projectScene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
-                                    octreeJson["splitThreshold"].get<uint32>(),
-                                    octreeJson["maxDepth"].get<uint32>());
-        }        
+                                            octreeJson["splitThreshold"].get<uint32>(),
+                                            octreeJson["maxDepth"].get<uint32>());
+        }
 
-        if (projectSceneJson.contains("scenes"))
+        if (projectJson.contains("scenes"))
         {
-            json scenesJson = projectSceneJson["scenes"];
+            json scenesJson = projectJson["scenes"];
 
             for (const auto &sceneJson : scenesJson)
             {
@@ -165,7 +185,7 @@ namespace igor
         return _projectScene;
     }
 
-    static void writeScenes(const std::vector<iEntityPtr>& entities, json &scenesJson)
+    static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
     {
         for (auto entity : entities)
         {
@@ -176,19 +196,18 @@ namespace igor
             }
 
             auto prefab = prefabComponent->getPrefab();
-            if(prefab == nullptr)
+            if (prefab == nullptr)
             {
                 continue;
             }
 
             iResourceManager::getInstance().saveResource(prefabComponent->getPrefab()->getID());
-            
-            json sceneJson = 
-            {
-                {"id", prefabComponent->getPrefab()->getID()},
-                {"active", entity->isActive()},
-                {"name", entity->getName()}
-            };
+
+            json sceneJson =
+                {
+                    {"id", prefabComponent->getPrefab()->getID()},
+                    {"active", entity->isActive()},
+                    {"name", entity->getName()}};
             scenesJson.push_back(sceneJson);
         }
     }
@@ -212,9 +231,17 @@ namespace igor
         writeScenes(root->getChildren(), scenesJson);
         writeScenes(root->getInactiveChildren(), scenesJson);
 
-        json projectSceneJson = {
-            {"name", _projectScene->getName()},
-            {"id", _projectScene->getID()}};
+        json systemsJson = json::array();
+        for (const auto &system : _projectScene->getSystems())
+        {
+            systemsJson.push_back(system);
+        }
+
+        json projectSceneJson =
+            {
+                {"name", _projectScene->getName()},
+                {"id", _projectScene->getID()},
+                {"systems", systemsJson}};
 
         if (_projectScene->hasQuadtree())
         {
@@ -234,12 +261,11 @@ namespace igor
                 {"maxDepth", octree.getMaxDepth()}};
         }
 
-        json projectJson = 
-        {
-            {"projectName", _projectName},
-            {"projectScene", projectSceneJson},
-            {"scenes", scenesJson}
-        };
+        json projectJson =
+            {
+                {"projectName", _projectName},
+                {"projectScene", projectSceneJson},
+                {"scenes", scenesJson}};
 
         stream << projectJson.dump(4);
 
@@ -312,7 +338,7 @@ namespace igor
             return;
         }
 
-        _scenes.push_back(sceneID);        
+        _scenes.push_back(sceneID);
         _projectSceneAddedEvent(sceneID);
 
         iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(sceneID);

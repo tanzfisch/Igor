@@ -17,6 +17,12 @@ namespace igor
         return new iVelocityComponent();
     }
 
+    const iaString &iVelocityComponent::getTypeName()
+    {
+        static const iaString name("igor_velocity_component");
+        return name;
+    }
+
     const iaVector3d &iVelocityComponent::getVelocity() const
     {
         return _velocity;

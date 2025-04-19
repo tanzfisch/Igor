@@ -18,6 +18,17 @@ namespace igor
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
 
+    iEntitySystemPtr iVelocitySystem::createInstance()
+    {
+        return new iVelocitySystem();
+    }
+
+    const iaString &iVelocitySystem::getTypeName()
+    {
+        static const iaString typeName("igor_velocity_system");
+        return typeName;
+    }		
+
 	iEntitySystemStage iVelocitySystem::getStage() const
 	{
 		return iEntitySystemStage::Update;

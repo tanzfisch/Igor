@@ -34,20 +34,24 @@
 namespace igor
 {
     /*! light component
-    */
+     */
     class IGOR_API iLightComponent : public iEntityComponent
     {
     public:
         /*! ctor
-        */
+         */
         iLightComponent();
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! returns ambient material color
-        */
+         */
         iaColor3f &getAmbient();
 
         /*! set ambient material color
@@ -65,7 +69,7 @@ namespace igor
         void setAmbient(float32 r, float32 g, float32 b);
 
         /*! returns diffuse material color
-        */
+         */
         iaColor3f &getDiffuse();
 
         /*! set diffuse material color
@@ -80,10 +84,10 @@ namespace igor
         \param g green
         \param b blue
         */
-        void setDiffuse(float32 r, float32 g, float32 b);        
+        void setDiffuse(float32 r, float32 g, float32 b);
 
         /*! returns specular material color
-        */
+         */
         iaColor3f &getSpecular();
 
         /*! set specular material color
@@ -98,7 +102,7 @@ namespace igor
         \param g green
         \param b blue
         */
-        void setSpecular(float32 r, float32 g, float32 b);     
+        void setSpecular(float32 r, float32 g, float32 b);
 
         /*! set type of light
 
@@ -107,35 +111,34 @@ namespace igor
         void setType(iLightType type);
 
         /*! \returns type of light
-        */
+         */
         iLightType getType() const;
 
     private:
-
         /*! ambient material color
-        */
+         */
         iaColor3f _ambient = {0.7f, 0.7f, 0.7f};
 
         /*! diffuse material color
-        */
+         */
         iaColor3f _diffuse = {0.9f, 0.9f, 0.9f};
 
         /*! specular material color
-        */
+         */
         iaColor3f _specular = {1.0f, 1.0f, 1.0f};
 
         /*! type of light
-        */
+         */
         iLightType _type = iLightType::Directional;
 
         /*! \returns a copy of this component
-        */
-        iEntityComponentPtr getCopy() override;        
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
     /*! light component pointer definition
-    */
-    typedef iLightComponent* iLightComponentPtr;
+     */
+    typedef iLightComponent *iLightComponentPtr;
 }
 
 #endif // IGOR_LIGHT_COMPONENT_H

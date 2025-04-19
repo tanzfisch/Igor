@@ -43,7 +43,7 @@ namespace igor
 
     public:
         /*! default ctor
-        */
+         */
         iTransformComponent() = default;
 
         /*! ctor
@@ -51,8 +51,12 @@ namespace igor
         iTransformComponent(const iaVector3d &position, const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! \returns world matrix
          */

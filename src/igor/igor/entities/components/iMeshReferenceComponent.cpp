@@ -17,6 +17,12 @@ namespace igor
         return new iMeshReferenceComponent();
     }
 
+    const iaString& iMeshReferenceComponent::getTypeName()
+    {
+        static const iaString name("igor_mesh_reference_component");
+        return name;
+    }    
+
     iMeshReferenceComponent::iMeshReferenceComponent(iModelPtr model, const std::vector<iaString> &meshPaths)
         : _model(model), _meshPaths(meshPaths)
     {

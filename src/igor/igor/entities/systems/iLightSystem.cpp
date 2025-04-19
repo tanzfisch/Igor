@@ -19,6 +19,17 @@ namespace igor
 		_view = createView<iTransformComponent, iLightComponent>();
 	}
 
+    iEntitySystemPtr iLightSystem::createInstance()
+    {
+        return new iLightSystem();
+    }
+
+    const iaString &iLightSystem::getTypeName()
+    {
+        static const iaString typeName("igor_light_system");
+        return typeName;
+    }	
+
 	iEntitySystemStage iLightSystem::getStage() const
 	{
 		return iEntitySystemStage::Render;

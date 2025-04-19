@@ -17,6 +17,12 @@ namespace igor
         return new iCameraComponent();
     }
 
+    const iaString& iCameraComponent::getTypeName()
+    {
+        static const iaString name("igor_camera_component");
+        return name;
+    }
+
     iEntityComponentPtr iCameraComponent::getCopy()
     {
         iCameraComponent *component = new iCameraComponent();

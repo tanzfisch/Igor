@@ -21,6 +21,12 @@ namespace igor
         return new iMeshRenderComponent();
     }
 
+    const iaString& iMeshRenderComponent::getTypeName()
+    {
+        static const iaString name("igor_mesh_render_component");
+        return name;
+    }    
+
     iEntityComponentPtr iMeshRenderComponent::getCopy()
     {
         iMeshRenderComponent *component = new iMeshRenderComponent();

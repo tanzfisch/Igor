@@ -46,6 +46,37 @@ namespace igor
 	class iRenderEngine;
 	typedef iRenderEngine *iRenderEnginePtr;
 
+	/*! entity system pointer definition
+	 */
+	class iEntitySystem;
+	typedef iEntitySystem *iEntitySystemPtr;
+
+    /*! entity system factory function
+     */
+    using iEntitySystemFactory = std::function<iEntitySystemPtr()>;	
+
+    /*! entity system type info
+     */
+    struct iEntitySystemTypeInfo
+    {
+        /*! factory function to create systems
+         */
+        iEntitySystemFactory _factory;
+
+        /*! type name
+         */
+        iaString _typeName;
+
+        iEntitySystemTypeInfo()
+        {
+        }
+
+        iEntitySystemTypeInfo(iEntitySystemFactory factory, const iaString &typeName)
+            : _factory(factory), _typeName(typeName)
+        {
+        }
+    };
+
 	/*! entity system processing stage
 	 */
 	enum class iEntitySystemStage
@@ -162,10 +193,6 @@ namespace igor
 		 */
 		iEntityScenePtr _scene;
 	};
-
-	/*! entity system pointer definition
-	 */
-	typedef iEntitySystem *iEntitySystemPtr;
 
 } // igor
 

@@ -49,8 +49,12 @@ namespace igor
         iCircleComponent(float64 radius, const iaVector2d &offset = iaVector2d());
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! \returns the circles radius
          */

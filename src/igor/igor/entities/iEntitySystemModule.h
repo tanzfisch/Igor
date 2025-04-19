@@ -69,7 +69,7 @@ namespace igor
 
         \param name the name of the scene
         \param id optional id to override the generated one
-        \param addIgorSystems if true adds all igor systems to it. if false there will be no systems registered with this scene
+        \param addIgorSystems if true adds all default igor systems to it. if false there will be no systems added to this scene
         \returns new created scene
         */
         iEntityScenePtr createScene(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid(), bool addIgorSystems = true);
@@ -134,10 +134,26 @@ namespace igor
 
         /*! registers a component type
 
+        \param factoryFunction factory function returning instance of given component
         \param componentTypeName component type name (must be unique)
          */
         template <typename T>
         void registerComponentType(iEntityComponentFactory factoryFunction, const iaString &componentTypeName);
+
+        /*! registers a system type
+
+        \param factoryFunction factory function returning instance of given system
+        \param systemTypeName system type name (must be unique)
+         */
+        void registerSystemType(iEntitySystemFactory factoryFunction, const iaString &systemTypeName);
+
+        /*! \returns newly created system instance
+
+        \param systemTypeName type of system to create
+
+        caller takes ownership
+        */
+        iEntitySystemPtr createSystem(const iaString &systemTypeName) const;
 
         /*! \returns mask for given component type
 
@@ -189,6 +205,10 @@ namespace igor
          */
         const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &getRegisteredComponentTypes() const;
 
+        /*! \returns registered system types
+        */
+        const std::unordered_map<iaString, iEntitySystemTypeInfo> &getRegisteredSystemTypes() const;
+
     private:
         /*! entity scenes
          */
@@ -235,6 +255,10 @@ namespace igor
         IGOR_MAX_ENTITY_COMPONENT_TYPES is the maximum that can be registered
         */
         std::unordered_map<std::type_index, iEntityComponentTypeInfo> _registeredComponentTypes;
+
+        /*! registered systems
+        */
+        std::unordered_map<iaString, iEntitySystemTypeInfo> _registeredSystemTypes;
 
         /*! register known types
          */

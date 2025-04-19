@@ -41,7 +41,7 @@ namespace igor
     {
     public:
         /*! default ctor
-        */
+         */
         iPrefabComponent() = default;
 
         /*! ctor
@@ -51,8 +51,12 @@ namespace igor
         iPrefabComponent(iPrefabPtr prefab);
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();        
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! set prefab
 

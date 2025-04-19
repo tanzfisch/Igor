@@ -19,6 +19,17 @@ namespace igor
 		_componentMask = iEntity::calcComponentMask({typeid(iTransformComponent), typeid(iMeshRenderComponent)});
 	}
 
+    iEntitySystemPtr iMeshRenderSystem::createInstance()
+    {
+        return new iMeshRenderSystem();
+    }
+
+    const iaString &iMeshRenderSystem::getTypeName()
+    {
+        static const iaString typeName("igor_mesh_render_system");
+        return typeName;
+    }	
+
 	iEntitySystemStage iMeshRenderSystem::getStage() const
 	{
 		return iEntitySystemStage::PreRender;

@@ -167,15 +167,19 @@ namespace igor
 
 		/*! add system
 
-		\param system the system to add
+		\param systemName the system to add
 		*/
-		void addSystem(iEntitySystemPtr system);
+		void addSystem(const iaString &systemName);
 
 		/*! remove system
 
-		\param system the system to remove
+		\param systemName the system to remove
 		*/
-		void removeSystem(iEntitySystemPtr system);		
+		void removeSystem(const iaString &systemName);
+
+		/*! \returns list of systems running on this scene
+		*/
+		const std::vector<iaString> getSystems();
 
 	private:
 		/*! entity scene id
@@ -212,7 +216,7 @@ namespace igor
 
 		/*! list of systems
 		 */
-		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
+		std::array<std::vector<std::pair<iaString, iEntitySystemPtr>>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! systems mutex
 		*/

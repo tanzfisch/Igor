@@ -15,6 +15,12 @@ namespace igor
         return new iBehaviourComponent();
     }
 
+    const iaString& iBehaviourComponent::getTypeName()
+    {
+        static const iaString name("igor_behaviour_component");
+        return name;
+    }
+
     iEntityComponentPtr iBehaviourComponent::getCopy()
     {
         iBehaviourComponent *component = new iBehaviourComponent();

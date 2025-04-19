@@ -42,9 +42,9 @@ namespace igor
      */
     enum class iGlobalBoundaryType
     {
-        None, //! no constraint
+        None,   //! no constraint
         Normal, //! do not allow entity to leave boundaries
-        Repeat //! if the entity leaves the bounds it reappears at the other end of the boundaries
+        Repeat  //! if the entity leaves the bounds it reappears at the other end of the boundaries
     };
 
     /*! keeps entities within some global boundaries
@@ -63,6 +63,10 @@ namespace igor
         /*! creates instance of this component type
          */
         static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! \returns global boundary type
          */

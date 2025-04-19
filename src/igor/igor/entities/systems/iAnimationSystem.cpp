@@ -16,6 +16,17 @@ namespace igor
         _view = createView<iTransformComponent, iAnimationComponent>();
     }
 
+    iEntitySystemPtr iAnimationSystem::createInstance()
+    {
+        return new iAnimationSystem();
+    }
+
+    const iaString &iAnimationSystem::getTypeName()
+    {
+        static const iaString typeName("igor_animation_system");
+        return typeName;
+    }
+
     iEntitySystemStage iAnimationSystem::getStage() const
     {
         return iEntitySystemStage::Update;
@@ -27,7 +38,7 @@ namespace igor
 
         for (auto entity : _view->getEntities())
         {
-            auto animation = entity->getComponent<iAnimationComponent>();            
+            auto animation = entity->getComponent<iAnimationComponent>();
             animation->_animationController->update(time, entity);
         }
     }

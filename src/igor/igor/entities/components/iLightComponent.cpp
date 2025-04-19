@@ -15,6 +15,12 @@ namespace igor
         return new iLightComponent();
     }
 
+    const iaString& iLightComponent::getTypeName()
+    {
+        static const iaString name("igor_light_component");
+        return name;
+    }     
+
     iEntityComponentPtr iLightComponent::getCopy()
     {
         iLightComponent *component = new iLightComponent();

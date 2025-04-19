@@ -43,6 +43,14 @@ namespace igor
 		 */
 		iCameraSystem();
 
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();
+
 		/*! updates system
 
 		\param context the update context
@@ -50,22 +58,21 @@ namespace igor
 		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
 		/*! \returns processing stage this system want's to run in
-		*/
+		 */
 		iEntitySystemStage getStage() const override;
 
 		/*! \returns all cameras
-		*/
+		 */
 		std::vector<iEntityPtr> getCameras() const;
 
 		/*! \returns the active camera
-		*/
+		 */
 		iEntityPtr getActiveCamera() const;
 
 	private:
-
 		/*! a view on some entities
-		*/
-        iEntityViewPtr _cameraView;
+		 */
+		iEntityViewPtr _cameraView;
 	};
 
 } // igor

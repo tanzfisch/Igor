@@ -51,6 +51,10 @@ namespace igor
          */
         static iEntityComponent *createInstance();
 
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
+
         /*! \returns velocity
          */
         const iaVector3d &getVelocity() const;

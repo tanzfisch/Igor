@@ -41,7 +41,7 @@ namespace igor
     {
     public:
         /*! default ctor
-        */
+         */
         iQuadtreeComponent() = default;
 
         /*! ctor
@@ -49,8 +49,12 @@ namespace igor
         iQuadtreeComponent(iQuadtreed::ObjectPtr object);
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();        
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! quadtree object
          */

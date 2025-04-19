@@ -39,7 +39,7 @@ namespace igor
     {
     public:
         /*! default ctor
-        */
+         */
         iSphereComponent() = default;
 
         /*! ctor
@@ -50,8 +50,12 @@ namespace igor
         }
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();        
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! \returns the sphere's radius
          */
