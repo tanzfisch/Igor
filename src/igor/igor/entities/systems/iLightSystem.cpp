@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iLightSystem.h>
@@ -18,6 +18,17 @@ namespace igor
 	{
 		_view = createView<iTransformComponent, iLightComponent>();
 	}
+
+    iEntitySystemPtr iLightSystem::createInstance()
+    {
+        return new iLightSystem();
+    }
+
+    const iaString &iLightSystem::getTypeName()
+    {
+        static const iaString typeName("igor_light_system");
+        return typeName;
+    }	
 
 	iEntitySystemStage iLightSystem::getStage() const
 	{

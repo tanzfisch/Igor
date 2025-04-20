@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -38,7 +38,7 @@ namespace igor
 {
 
     class iWidgetColorGradient;
-    class iUserControlColorChooser;
+    class iUserControlColor;
     class iWidgetNumberChooser;
 
     /*! the color chooser dialog
@@ -55,13 +55,12 @@ namespace igor
 		*/
         ~iDialogColorGradient() = default;
 
-        /*! show/open the decision box
+        /*! open the color gradient dialog
 
 		\param dialogCloseDelegate closing delegate
-		\param gradient to start with
-		\param useAlpha if true use alpha channel too
+        \param modal if true dialog opens modal
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true) override;
 
         /*! sets color gradient
 
@@ -102,7 +101,7 @@ namespace igor
 
         /*! color chooser
 		*/
-        iUserControlColorChooser *_colorChooser = nullptr;
+        iUserControlColor *_colorChooser = nullptr;
 
         /*! position number chooser
 		*/

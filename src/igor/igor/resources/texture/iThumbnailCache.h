@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -57,6 +57,12 @@ namespace igor
         \param filename full path of existing filename
         */
         iTexturePtr getThumbnail(const iaString &filename);
+
+        /*! \returns thumbnail for given resource id
+
+        \param resourceID the resource id
+        */
+        iTexturePtr getThumbnail(const iResourceID &resourceID);
 
     private:
         /*! path to thumbnail cache

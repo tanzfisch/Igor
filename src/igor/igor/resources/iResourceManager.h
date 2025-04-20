@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -38,6 +38,7 @@
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/shader/iShader.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/iResourceDictionary.h>
 
 #include <iaux/system/iaDirectory.h>
@@ -52,6 +53,10 @@ using namespace iaux;
 
 namespace igor
 {
+
+    /*! resource processed (aka loaded) event
+     */
+    IGOR_EVENT_DEFINITION(iResourceProcessed, iResourceID);
 
     /*! manages resources and their factories
      */
@@ -311,13 +316,13 @@ namespace igor
         \param filename path to resource (must be relative to search paths)
         \param alias optional alias
         */
-        void addResource(const iaString &filename, const iaString &alias = "");
+        void addToDictionary(const iaString &filename, const iaString &alias = "", const iaUUID &uuid = iaUUID::getInvalid());
 
         /*! removes given resource from dictionary
 
         \param resourceID the given resource id
         */
-        void removeResource(const iResourceID &resourceID);
+        void removeFromDictionary(const iResourceID &resourceID);
 
         /*! \returns resource type for given filename
         
@@ -351,6 +356,10 @@ namespace igor
         */
         bool saveResource(iResourceID resourceID, const iaString &filename = "");
 
+        /*! \returns resource process event
+        */
+        iResourceProcessedEvent &getResourceProcessedEvent();
+
     private:
         /*! mutex to manage access to internal data
          */
@@ -383,6 +392,10 @@ namespace igor
         /*! resource dictionary
          */
         iResourceDictionary _resourceDictionary;
+
+        /*! resource processed event
+         */
+        iResourceProcessedEvent _resourceProcessedEvent;        
 
         /*! \returns factory for given resource parameters
 

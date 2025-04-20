@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGFILESELECT__
-#define __IGOR_DIALOGFILESELECT__
+#ifndef IGOR_DIALOG_FILE_SELECT_H
+#define IGOR_DIALOG_FILE_SELECT_H
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
@@ -69,9 +69,11 @@ namespace igor
         /*! opens dialog in load mode
 
 		\param closeDelegate delegate called after dialog was closed
+        \param purpose the purpose that drives the appearance and behaviour of the dialog
 		\param path the path to start with
+        \param extensions list of extension to show in dialog. If empty all extensions are allowed
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString &path = "");
+        void open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString &path = "", const std::vector<iaString> &extensions = std::vector<iaString>());
 
         /*! \returns full path currently selected by dialog
 		*/
@@ -89,6 +91,16 @@ namespace igor
         */
         iFileDialogPurpose getPurpose() const;
 
+        /*! sets extensions filter
+
+        \param extensions list of extension to show in dialog. If empty all extensions are allowed
+        */
+        void setExtensionsFilter(const std::vector<iaString> &extensions);
+
+        /*! \returns extensions filter
+        */
+        const std::vector<iaString> &getExtensionsFilter() const;
+
     private:
         /*! current directory in dialog
 		*/
@@ -97,6 +109,10 @@ namespace igor
         /*! current filename in dialog
 		*/
         iaString _filename;
+
+        /*! list of allowed extensions. If empty all extensions are allowed
+        */
+        std::vector<iaString> _extensions;
 
         /*! the purpose of this file dialog
 		*/
@@ -156,6 +172,12 @@ namespace igor
 		*/
         void clearFileGrid();
 
+        /*! \returns true if given extension is allowed
+
+        \param extension the given extension
+        */
+        bool filterExtension(const iaString &extension);
+
         /*! add entry to file grid
 
 		\param col column in grid
@@ -185,4 +207,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGFILESELECT__
+#endif // IGOR_DIALOG_FILE_SELECT_H

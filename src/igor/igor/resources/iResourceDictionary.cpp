@@ -1,13 +1,13 @@
 
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResourceDictionary.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/utils/iJson.h>
 
-#include <iaux/utils/iaJson.h>
 #include <iaux/system/iaFile.h>
 using namespace iaux;
 
@@ -41,8 +41,7 @@ namespace igor
 
             json resourceJson = {
                 {"id", id},
-                {"source", source},
-                {"internal", true},
+                {"source", source}
             };
 
             if (!std::get<2>(tuple).isEmpty())
@@ -148,8 +147,8 @@ namespace igor
             }
             iaString source = element["source"].get<iaString>();
 
-            const bool internal = iaJson::getValue<bool>(element, "internal", false);
-            const iaString alias = iaJson::getValue<iaString>(element, "alias", "");
+            const bool internal = iJson::getValue<bool>(element, "internal", false);
+            const iaString alias = iJson::getValue<iaString>(element, "alias", "");
             
             if (!addResource(uuid, source, alias, internal))
             {

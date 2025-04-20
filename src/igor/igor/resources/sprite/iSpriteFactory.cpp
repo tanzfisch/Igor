@@ -1,13 +1,13 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/sprite/iSpriteFactory.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/utils/iJson.h>
 
 #include <iaux/system/iaFile.h>
-#include <iaux/utils/iaJson.h>
 using namespace iaux;
 
 namespace igor
@@ -92,7 +92,7 @@ namespace igor
         sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
 
         // TODO pixelPerUnit
-        uint32 pixelPerUnit = iaJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
+        uint32 pixelPerUnit = iJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
 
         if (!spriteJson.contains("frames"))
         {
@@ -114,7 +114,7 @@ namespace igor
             iaVector2f size = frame["size"].get<iaVector2f>();
             iaVector2f pivot = frame["pivot"].get<iaVector2f>();
 
-            bool pixel = iaJson::getValue<bool>(frame, "pixel", false);
+            bool pixel = iJson::getValue<bool>(frame, "pixel", false);
 
             sprite->addFrame(pos, size, pivot, pixel);
         }

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iSpriteRenderSystem.h>
@@ -19,6 +19,17 @@ namespace igor
 		_view = createView<iTransformComponent, iSpriteRenderComponent>();
 	}
 
+    iEntitySystemPtr iSpriteRenderSystem::createInstance()
+    {
+        return new iSpriteRenderSystem();
+    }
+
+    const iaString &iSpriteRenderSystem::getTypeName()
+    {
+        static const iaString typeName("igor_sprite_render_system");
+        return typeName;
+    }	
+
 	iEntitySystemStage iSpriteRenderSystem::getStage() const
 	{
 		return iEntitySystemStage::Render;
@@ -36,6 +47,10 @@ namespace igor
 
 		for (auto entity : entities)
 		{
+			if(entity->getName() == "shop")
+			{
+				con_endl("shop");
+			}
 			auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
 			auto transformComponent = entity->getComponent<iTransformComponent>();
 

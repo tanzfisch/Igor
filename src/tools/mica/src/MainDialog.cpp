@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "MainDialog.h"
@@ -135,6 +135,7 @@ void MainDialog::onCut(const iWidgetPtr source)
 
 void MainDialog::initGUI()
 {
+    setTitle("Mica");
     setZValue(10000);
     setDockable(false);
     setMoveable(false);

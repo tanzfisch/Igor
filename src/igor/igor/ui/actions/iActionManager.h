@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTIONMANAGER__
-#define __IGOR_ACTIONMANAGER__
+#ifndef IGOR_ACTIONMANAGER_H
+#define IGOR_ACTIONMANAGER_H
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/resources/module/iModule.h>
@@ -107,4 +107,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ACTIONMANAGER__
+#endif // IGOR_ACTIONMANAGER_H

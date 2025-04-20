@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetCheckBox.h>
@@ -18,7 +18,7 @@ namespace igor
 		: iWidget(iWidgetType::iWidgetCheckBox, iWidgetKind::Widget, parent)
 	{
 		_configuredMinHeight = 20;
-		_configuredMinWidth = 60;
+		_configuredMinWidth = 20;
 		_reactOnMouseWheel = false;
 
 		if (_generatingRadioButtonGroup)

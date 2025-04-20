@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityView.h>
@@ -27,7 +27,7 @@ namespace igor
 
 	void iEntityView::onEntityChanged(iEntityPtr entity)
 	{
-		const bool compatible = checkCompatibility(entity);		
+		const bool compatible = checkCompatibility(entity);
 
 		// need to remove?
 		if (!compatible)

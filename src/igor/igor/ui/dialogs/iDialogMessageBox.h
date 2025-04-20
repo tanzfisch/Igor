@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGMESSAGEBOX__
-#define __IGOR_DIALOGMESSAGEBOX__
+#ifndef IGOR_DIALOG_MESSAGE_BOX_H
+#define IGOR_DIALOG_MESSAGE_BOX_H
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -65,18 +65,11 @@ namespace igor
 
         /*! initializes gui and opens the message box dialog
 
-		\param dialogCloseDelegate the close delegate
 		\param message the message to display
 		\param buttons the button configuration to use
+        \param dialogCloseDelegate the close delegate
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
-
-        /*! initializes gui and opens the message box dialog
-
-		\param message the message to display
-		\param buttons the button configuration to use
-		*/
-        void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+        void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok, iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate());
 
     private:
         /*! handles ok button clicked event
@@ -110,4 +103,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGMESSAGEBOX__
+#endif // IGOR_DIALOG_MESSAGE_BOX_H

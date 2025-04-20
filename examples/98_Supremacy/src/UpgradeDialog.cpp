@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UpgradeDialog.h"
@@ -26,8 +26,7 @@ void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::ve
 	_option3 = (*iter++);
 
 	updateGUI();
-	iDialog::open(dialogCloseDelegate);
-	iWidgetManager::getInstance().setModal(this);
+	iDialog::open(dialogCloseDelegate, true);
 }
 
 void UpgradeDialog::updateGUI()
@@ -44,9 +43,9 @@ void UpgradeDialog::updateGUI()
 	_labelDescription2->setText(config2._description);
 	_labelDescription3->setText(config3._description);
 
-	_button1->setTexture(config1._icon);
-	_button2->setTexture(config2._icon);
-	_button3->setTexture(config3._icon);
+	_button1->setBackgroundTexture(config1._icon);
+	_button2->setBackgroundTexture(config2._icon);
+	_button3->setBackgroundTexture(config3._icon);
 }
 
 void UpgradeDialog::initGUI()
@@ -85,19 +84,19 @@ void UpgradeDialog::initGUI()
 	_button1->setMinSize(128, 128);
 	_button1->setVerticalAlignment(iVerticalAlignment::Center);
 	_button1->setHorizontalAlignment(iHorizontalAlignment::Center);
-	_button1->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect1));
+	_button1->getClickEvent().add(iClickDelegate(this, &UpgradeDialog::onSelect1));
 
 	_button2 = new iWidgetButton();
 	_button2->setMinSize(128, 128);
 	_button2->setVerticalAlignment(iVerticalAlignment::Center);
 	_button2->setHorizontalAlignment(iHorizontalAlignment::Center);
-	_button2->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect2));
+	_button2->getClickEvent().add(iClickDelegate(this, &UpgradeDialog::onSelect2));
 
 	_button3 = new iWidgetButton();
 	_button3->setMinSize(128, 128);
 	_button3->setVerticalAlignment(iVerticalAlignment::Center);
 	_button3->setHorizontalAlignment(iHorizontalAlignment::Center);
-	_button3->registerOnClickEvent(iClickDelegate(this, &UpgradeDialog::onSelect3));
+	_button3->getClickEvent().add(iClickDelegate(this, &UpgradeDialog::onSelect3));
 
 	grid->addWidget(_labelName1, 0, 0);
 	grid->addWidget(_labelName2, 1, 0);

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __RESOURCE__
-#define __RESOURCE__
+#ifndef IGOR_RESOURCE_H
+#define IGOR_RESOURCE_H
 
 #include <igor/data/iParameters.h>
 
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
@@ -68,13 +69,14 @@ namespace igor
         virtual ~iResource() = default;
 
         /*! \returns true if there is valid data present
+
+        valid also implies that it was processed
          */
         bool isValid() const;
 
         /*! \returns true if the resource was processed
 
-        processed does not mean that it was loaded correctly
-        it can also mean that we are done trying to loading it
+        processed does not imply valid data
         */
         bool isProcessed() const;
 
@@ -192,4 +194,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __RESOURCE__
+#endif // IGOR_RESOURCE_H

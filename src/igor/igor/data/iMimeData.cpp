@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iMimeData.h>
@@ -27,6 +27,11 @@ namespace igor
 
         *data = iter->second._data;
         dataSize = iter->second._dataSize;
+    }
+
+    bool iMimeData::hasData() const
+    {
+        return !_data.empty();
     }
 
     bool iMimeData::hasType(const iaString &mimeType) const

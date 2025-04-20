@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
@@ -12,7 +12,7 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -27,7 +27,7 @@ namespace igor
 
     void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         _oldColor = color;
         initGUI(color, useAlpha);
@@ -40,7 +40,6 @@ namespace igor
 		setHorizontalAlignment(iHorizontalAlignment::Center);
         setResizeable(false);
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
         setMinWidth(20);
@@ -53,7 +52,7 @@ namespace igor
         grid->setCellSpacing(4);
         grid->setBorder(4);
 
-        _userControlColorChooser = new iUserControlColorChooser();
+        _userControlColorChooser = new iUserControlColor();
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);
@@ -66,17 +65,17 @@ namespace igor
         iWidgetButton *okButton = new iWidgetButton();
         okButton->setText("OK");
         okButton->setTooltip("Close the dialog and set new color.");
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onOK));
 
         iWidgetButton *cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
         cancelButton->setTooltip("Close the dialog without changes.");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
         iWidgetButton *resetButton = new iWidgetButton();
         resetButton->setText("Reset");
         resetButton->setTooltip("Resets dialog to previous color.");
-        resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
+        resetButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onReset));
 
         grid->addWidget(_userControlColorChooser, 0, 0);
         grid->addWidget(buttonGrid, 0, 1);

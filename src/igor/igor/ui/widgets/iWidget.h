@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET__
-#define __IGOR_WIDGET__
+#ifndef IGOR_WIDGET_H
+#define IGOR_WIDGET_H
 
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
@@ -61,49 +61,49 @@ namespace igor
 
     /*! widget click event
      */
-    IGOR_EVENT_DEFINITION(iClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iClick, const iWidgetPtr);
 
     /*! mouse off click event
 
     so when there was a click outside the range of a widget
     */
-    IGOR_EVENT_DEFINITION(iMouseOffClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOffClick, const iWidgetPtr);
 
     /*! context menu event
      */
-    IGOR_EVENT_DEFINITION(iContextMenu, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iContextMenu, const iWidgetPtr);
 
     /*! wheel up event
      */
-    IGOR_EVENT_DEFINITION(iWheelUp, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iWheelUp, const iWidgetPtr);
 
     /*! wheel down event
      */
-    IGOR_EVENT_DEFINITION(iWheelDown, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iWheelDown, const iWidgetPtr);
 
     /*! double click event
      */
-    IGOR_EVENT_DEFINITION(iDoubleClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iDoubleClick, const iWidgetPtr);
 
     /*! mouse over event
      */
-    IGOR_EVENT_DEFINITION(iMouseOver, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOver, const iWidgetPtr);
 
     /*! mouse off event
      */
-    IGOR_EVENT_DEFINITION(iMouseOff, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOff, const iWidgetPtr);
 
     /*! change event
      */
-    IGOR_EVENT_DEFINITION(iChange, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iChange, const iWidgetPtr);
 
     /*! keyboard focus changed event
      */
-    IGOR_EVENT_DEFINITION(iFocus, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iFocus, const iWidgetPtr);
 
     /*! selection changed event
      */
-    IGOR_EVENT_DEFINITION(iSelectionChanged, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iSelectionChanged, const iWidgetPtr);
 
     /*! interaction state of widget
      */
@@ -160,12 +160,14 @@ namespace igor
         iWidgetDockingLayout,
 
         iUserControl,
-        iUserControlColorChooser,
-        iUserControlFileChooser,
-        iUserControlTextureChooser,
-        iUserControlMaterialChooser,
-        iUserControlShaderMaterialChooser,
+        iUserControlColor,
+        iUserControlFile,
+        iUserControlTexture,
+        iUserControlMaterial,
+        iUserControlShaderMaterial,
         iUserControlTreeView,
+        iUserControlVector,
+        iUserControlMeshReference,
 
         iDialog,
         iDialogColorChooser,
@@ -280,11 +282,9 @@ namespace igor
          */
         iWidgetState getState() const;
 
-        /*! registers delegate to click event (click is left mouse button)
-
-        \param clickDelegate the delegate to register
+        /*! \returns click event
         */
-        void registerOnClickEvent(iClickDelegate clickDelegate);
+        iClickEvent& getClickEvent();
 
         /*! registers delegate to mouse out of bounds click events
 
@@ -345,12 +345,6 @@ namespace igor
         \param wheelDownDelegate the delegate to unregister
         */
         void unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
-
-        /*! unregisters delegate from click event (click is left mouse button)
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterOnClickEvent(iClickDelegate clickDelegate);
 
         /*! unregisters delegate from mouse off click event
 
@@ -733,6 +727,10 @@ namespace igor
         */
         void setSelection(const std::vector<iWidgetPtr>& selection);
 
+        /*! queue this widget for refresh in next frame
+        */
+        void refresh();
+
     protected:
 
         /*! if true widget is selected
@@ -858,6 +856,10 @@ namespace igor
         /*! mouse position when last time pressed
         */
         iaVector2f _lastMousePressPos;
+
+        /*! if true widget will be refreshed next frame
+        */
+        bool _needRefresh = true;
 
         /*! removes and deletes all children
 
@@ -1003,24 +1005,30 @@ namespace igor
         /*! drag move handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
         virtual void onDragMove(iDrag &drag, const iaVector2f &mousePos);
 
         /*! drag leave handle
 
-        \param drag the drag data
+        \param drag the drag data        
         */
         virtual void onDragLeave(iDrag &drag);
 
         /*! drop handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
-        virtual void onDrop(const iDrag &drag);
+        virtual void onDrop(const iDrag &drag, const iaVector2f &mousePos);
 
         /*! called when dragged
         */
         virtual void onDrag();
+
+        /*! called when widget was queued for refresh in last frame
+        */
+        virtual void onRefresh();        
 
     private:
         /*! the next node id
@@ -1159,4 +1167,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET__
+#endif // IGOR_WIDGET_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,7 +30,6 @@
 #define MICA_UILAYER_H
 
 #include "Workspace.h"
-#include "scene_outliner/SceneOutliner.h"
 #include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
@@ -57,10 +56,6 @@ private:
     /*! the main dialog
     */
     MainDialog *_mainDialog = nullptr;
-
-    /*! the outliner
-	*/
-    SceneOutliner *_sceneOutliner = nullptr;
 
     /*! entities outliner
     */
@@ -134,6 +129,10 @@ private:
     void onFileSaveDialogClosed(iDialogPtr dialog);
     void onLoadMaterialFileDialogClosed(iDialogPtr dialog);
 
+    /*! called when outliner selection changed
+    */
+    void onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID);
+
     /*! init ui
 	*/
     void onInit() override;
@@ -156,23 +155,11 @@ private:
     */
     bool onKeyDown(iEventKeyDown &event);
 
-    /*! triggered when node was added to scene
-
-    \param event the event to handle
-    */
-    bool onNodeAddedToScene(iEventNodeAddedToScene &event);
-
-    /*! triggered when node was removed from scene
-
-    \param event the event to handle
-    */
-    bool onNodeRemovedFromScene(iEventNodeRemovedFromScene &event);
-
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
+    bool onFileCreated(iEventFileCreated &event);
+    bool onFileDeleted(iEventFileDeleted &event);
+    bool onFileMovedFrom(iEventFileMovedFrom &event);
+    bool onFileMovedTo(iEventFileMovedTo &event);
+    bool onFileChanged(iEventFileChanged &event);   
 };
 
 #endif // MICA_UILAYER_H

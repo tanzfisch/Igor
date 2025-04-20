@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetViewport.h>
@@ -56,7 +56,7 @@ namespace igor
 		const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
 		bool wireframeEnabled = iRenderer::getInstance().isWireframeEnabled();
 
-	 	_view.render();
+	 	_view.render(true);
 
         // restore everything
 		iRenderer::getInstance().setWireframeEnabled(wireframeEnabled);

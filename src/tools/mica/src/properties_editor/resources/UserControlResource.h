@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLRESOURCE__
-#define __USERCONTROLRESOURCE__
+#ifndef USERCONTROL_RESOURCE_H
+#define USERCONTROL_RESOURCE_H
 
 #include <igor/igor.h>
 using namespace iaux;
@@ -64,7 +64,7 @@ public:
     virtual void updateResource();
 
 protected:
-    /*! \returns main layout
+    /*! \returns main layout so deriving classes can access it
      */
     iWidgetBoxLayoutPtr getLayout();
 
@@ -100,4 +100,4 @@ private:
     void onAliasChanged(const iWidgetPtr source);
 };
 
-#endif // __USERCONTROLRESOURCE__
+#endif // USERCONTROL_RESOURCE_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -57,7 +57,14 @@ public:
 
     \param resourceID the id to be selected
     */
-    void setSelection(const iResourceID &resourceID);
+    void setSelectionResource(const iResourceID &resourceID);
+
+    /*! sets selection for entity scene and entity
+
+    \param sceneID the scene id
+    \param entityID the entity id in the same scene
+    */
+    void setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID);
 
 private:
 

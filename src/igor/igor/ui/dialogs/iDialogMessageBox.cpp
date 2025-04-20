@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogMessageBox.h>
@@ -21,13 +21,14 @@ namespace igor
 	{
 	}
 
-	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
+	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons, iDialogCloseDelegate dialogCloseDelegate)
 	{
-        setHorizontalAlignment(iHorizontalAlignment::Center);
-        setVerticalAlignment(iVerticalAlignment::Center);
+		iDialog::open(dialogCloseDelegate, true);
+
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+		setVerticalAlignment(iVerticalAlignment::Center);
 		setResizeable(false);
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinWidth(20);
@@ -60,7 +61,7 @@ namespace igor
 		{
 			iWidgetButtonPtr okButton = new iWidgetButton();
 			okButton->setText("OK");
-			okButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onOK));
+			okButton->getClickEvent().add(iClickDelegate(this, &iDialogMessageBox::onOK));
 			buttonGrid->addWidget(okButton, i--, 0);
 		}
 
@@ -68,7 +69,7 @@ namespace igor
 		{
 			iWidgetButtonPtr cancelButton = new iWidgetButton();
 			cancelButton->setText("Cancel");
-			cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
+			cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogMessageBox::onCancel));
 			buttonGrid->addWidget(cancelButton, i--, 0);
 			buttonGrid->addWidget(new iWidgetSpacer(4, 1), i--, 0);
 		}
@@ -77,7 +78,7 @@ namespace igor
 		{
 			iWidgetButtonPtr noButton = new iWidgetButton();
 			noButton->setText("No");
-			noButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onNo));
+			noButton->getClickEvent().add(iClickDelegate(this, &iDialogMessageBox::onNo));
 			buttonGrid->addWidget(noButton, i--, 0);
 		}
 
@@ -85,16 +86,9 @@ namespace igor
 		{
 			iWidgetButtonPtr yesButton = new iWidgetButton();
 			yesButton->setText("Yes");
-			yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));
+			yesButton->getClickEvent().add(iClickDelegate(this, &iDialogMessageBox::onYes));
 			buttonGrid->addWidget(yesButton, i--, 0);
 		}
-	}
-
-	void iDialogMessageBox::open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
-	{
-		iDialog::open(dialogCloseDelegate);
-
-		open(message, buttons);
 	}
 
 	IGOR_DISABLE_WARNING(4100)

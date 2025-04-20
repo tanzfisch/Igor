@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETTHEME__
-#define __IGOR_WIDGETTHEME__
+#ifndef IGOR_WIDGETTHEME_H
+#define IGOR_WIDGETTHEME_H
 
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -51,6 +52,7 @@ namespace igor
         // working on new interface using the widgets them selves as input
         virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
+        virtual void drawWidgetButton(iWidgetButtonPtr widget) = 0;
         virtual void drawSelection(const iaRectanglef &rect) = 0;
         virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
 
@@ -108,4 +110,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETTHEME__
+#endif // IGOR_WIDGETTHEME_H

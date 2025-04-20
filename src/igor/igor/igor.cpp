@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/igor.h>
@@ -10,66 +10,74 @@
 #include <iaux/system/iaDate.h>
 using namespace iaux;
 
-extern const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite"};
-extern const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader"};
-extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat"};
-extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim"};
-extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
-extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
+const std::vector<iaString> IGOR_SUPPORTED_SPRITE_EXTENSIONS = {"sprite", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_TEXTURE_EXTENSIONS = {"png", "jpg"};
+const std::vector<iaString> IGOR_SUPPORTED_SHADER_EXTENSIONS = {"shader", "xml"};
+const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS = {"mat", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
+const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
+const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
 
-extern const iaString IGOR_RESOURCE_SHADER = "shader";
-extern const iaString IGOR_RESOURCE_MATERIAL = "material";
-extern const iaString IGOR_RESOURCE_ANIMATION = "animation";
-extern const iaString IGOR_RESOURCE_TEXTURE = "texture";
-extern const iaString IGOR_RESOURCE_SOUND = "sound";
-extern const iaString IGOR_RESOURCE_SPRITE = "sprite";
-extern const iaString IGOR_RESOURCE_MODEL = "model";
+const iaString IGOR_RESOURCE_SHADER = "shader";
+const iaString IGOR_RESOURCE_MATERIAL = "material";
+const iaString IGOR_RESOURCE_ANIMATION = "animation";
+const iaString IGOR_RESOURCE_TEXTURE = "texture";
+const iaString IGOR_RESOURCE_SOUND = "sound";
+const iaString IGOR_RESOURCE_SPRITE = "sprite";
+const iaString IGOR_RESOURCE_MODEL = "model";
+const iaString IGOR_RESOURCE_PREFAB = "prefab";
 
-extern const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
-extern const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
-extern const iaString IGOR_RESOURCE_PARAM_ID = "id";
-extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
-extern const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
-extern const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
-extern const iaString IGOR_RESOURCE_PARAM_NODE = "node";
-extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
-extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
-extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
-extern const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
-extern const iaString IGOR_RESOURCE_PARAM_SHADER = "shader";
-extern const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
-extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
-extern const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
-extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
-extern const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
-extern const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
-extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
-extern const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
-extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
-extern const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
-extern const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
-extern const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
-extern const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
+const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE = "textureBuildMode";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE = "wrapMode";
+const iaString IGOR_RESOURCE_PARAM_ID = "id";
+const iaString IGOR_RESOURCE_PARAM_CACHE_MODE = "cacheMode";
+const iaString IGOR_RESOURCE_PARAM_PIXMAP = "pixmap";
+const iaString IGOR_RESOURCE_PARAM_SOURCE = "source";
+const iaString IGOR_RESOURCE_PARAM_NODE = "node";
+const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE = "exportMode";
+const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES = "joinVertices";
+const iaString IGOR_RESOURCE_PARAM_SUB_TYPE = "subType";
+const iaString IGOR_RESOURCE_PARAM_QUIET = "quiet";
+const iaString IGOR_RESOURCE_PARAM_SHADER = "shader";
+const iaString IGOR_RESOURCE_PARAM_MATERIAL = "material";
+const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL = "physicsMaterial";
+const iaString IGOR_RESOURCE_PARAM_LOD = "lod";
+const iaString IGOR_RESOURCE_PARAM_KEEP_MESH = "keepMesh";
+const iaString IGOR_RESOURCE_PARAM_GENERATE = "generate";
+const iaString IGOR_RESOURCE_PARAM_SEED = "seed";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE = "texture";
+const iaString IGOR_RESOURCE_PARAM_EMISSIVE = "emissive";
+const iaString IGOR_RESOURCE_PARAM_AMBIENT = "ambient";
+const iaString IGOR_RESOURCE_PARAM_DIFFUSE = "diffuse";
+const iaString IGOR_RESOURCE_PARAM_SPECULAR = "specular";
+const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
+const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
+const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
+const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
 
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE2 = "texture2";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE3 = "texture3";
 
-extern const iaString IGOR_ITEM_DATA_NAME = "name";
-extern const iaString IGOR_ITEM_DATA_ICON = "icon";
+const iaString IGOR_ITEM_DATA_ID = "id";
+const iaString IGOR_ITEM_DATA_NAME = "name";
+const iaString IGOR_ITEM_DATA_ICON = "icon";
+const iaString IGOR_ITEM_DATA_UUID = "uuid";
+const iaString IGOR_ITEM_DATA_ENABLED = "enabled";
+const iaString IGOR_ITEM_DATA_SCENE_ID = "sceneID";
+const iaString IGOR_ITEM_DATA_ENTITY_ID = "entityID";
 
 #ifdef IGOR_DEBUG
-extern const iaString IGOR_BUILD_CONFIGURATION = "debug";
+const iaString IGOR_BUILD_CONFIGURATION = "debug";
 #else
 #ifdef RELWITHDEBINFO
-extern const iaString IGOR_BUILD_CONFIGURATION = "release with debug info";
+const iaString IGOR_BUILD_CONFIGURATION = "release with debug info";
 #else
-extern const iaString IGOR_BUILD_CONFIGURATION = "release";
+const iaString IGOR_BUILD_CONFIGURATION = "release";
 #endif
 #endif
 
@@ -101,6 +109,22 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 namespace igor
 {
 
+    /*! prints a birthday cake in the log
+
+    \param name the name of the birthday child
+     */
+    void printCake(const iaString &name)
+    {
+        iaConsole::getInstance() << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Yellow << "    , , ,    " << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}    BIRTHDAY" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::White << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   " << name << endlTab;
+        iaConsole::getInstance() << iaForegroundColor::Gray << "\\___________/" << endlTab << endl;
+    }
+
     void printInfo()
     {
 #ifdef IGOR_DEBUG
@@ -131,7 +155,7 @@ namespace igor
         iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
         iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
-        iaConsole::getInstance() << T << "      (c) Copyright 2012-2024 by Martin Loga" << G << "   \\_/__/   " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2025 by Martin A. Loga" << G << " \\/___/   " << endl;
 
         iaConsole::getInstance() << endl
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
@@ -140,6 +164,8 @@ namespace igor
         iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML, nlohmann json and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
+                                 << endl;
+        iaConsole::getInstance() << T << "      special thanks to my wife Gabrielle Loga" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
@@ -156,101 +182,130 @@ namespace igor
         // Igor's last reincarnation was 29 September 2012.
         // Before that this game engine was called EasyGL (ca 2003) and OpenDC (ca 2005).
         iaDate date = iaDate::getToday();
-        if (date.getMonth() == 8 &&
-            date.getDay() == 29)
+        if (date.getMonth() == 8 && date.getDay() == 29)
         {
-            iaConsole::getInstance().printCake();
+            printCake("IGOR");
+        }
+        if (date.getMonth() == 7 && date.getDay() == 9)
+        {
+            printCake("Gabrielle");
+        }
+        if (date.getMonth() == 12 && date.getDay() == 25)
+        {
+            printCake("Jesus");
+        }
+        if (date.getMonth() == 3 && date.getDay() == 29)
+        {
+            printCake("Martin");
         }
     }
 
     void createModules()
     {
-        iResourceManager::create();
-        iApplication::create();
-        iAudio::create();
-        iActionManager::create();
-        iMouse::create();
-        iKeyboard::create();
-        iPhysics::create();
-        iRenderer::create();
-        iWidgetManager::create();
-        iSceneFactory::create();
-        iNodeManager::create();
-        iTaskManager::create();
-        iEntitySystemModule::create();
+        iFilesystem::createInstance();
+        iResourceManager::createInstance();
+        iApplication::createInstance();
+        iAudio::createInstance();
+        iActionManager::createInstance();
+        iMouse::createInstance();
+        iKeyboard::createInstance();
+        iPhysics::createInstance();
+        iRenderer::createInstance();
+        iWidgetManager::createInstance();
+        iSceneFactory::createInstance();
+        iNodeManager::createInstance();
+        iTaskManager::createInstance();
+        iEntitySystemModule::createInstance();
+        iProject::createInstance();
+        iClipboard::createInstance();
     }
 
     void destroyModules()
     {
-        // don't change the order if you don't know what you are doing
-        if (iEntitySystemModule::isInstantiated())
+        if (iClipboard::isInstantiated())
         {
-            iEntitySystemModule::destroy();
+            iClipboard::destroyInstance();
         }
 
+        if (iProject::isInstantiated())
+        {
+            iProject::destroyInstance();
+        }
+
+        // don't change the order if you don't know what you are doing
         if (iTaskManager::isInstantiated())
         {
-            iTaskManager::destroy();
+            iTaskManager::destroyInstance();
         }
 
         if (iResourceManager::isInstantiated())
         {
-            iResourceManager::destroy();
+            iResourceManager::destroyInstance();
+        }        
+
+        if (iEntitySystemModule::isInstantiated())
+        {
+            iEntitySystemModule::destroyInstance();
         }
 
         if (iWidgetManager::isInstantiated())
         {
-            iWidgetManager::destroy();
+            iWidgetManager::destroyInstance();
         }
 
         if (iSceneFactory::isInstantiated())
         {
-            iSceneFactory::destroy();
+            iSceneFactory::destroyInstance();
         }
 
         if (iNodeManager::isInstantiated())
         {
-            iNodeManager::destroy();
+            iNodeManager::destroyInstance();
         }
 
         if (iRenderer::isInstantiated())
         {
-            iRenderer::destroy();
+            iRenderer::destroyInstance();
         }
 
         if (iPhysics::isInstantiated())
         {
-            iPhysics::destroy();
+            iPhysics::destroyInstance();
         }
 
         if (iKeyboard::isInstantiated())
         {
-            iKeyboard::destroy();
+            iKeyboard::destroyInstance();
         }
 
         if (iMouse::isInstantiated())
         {
-            iMouse::destroy();
+            iMouse::destroyInstance();
         }
 
         if (iTimer::isInstantiated())
         {
-            iTimer::destroy();
+            iTimer::destroyInstance();
         }
 
         if (iApplication::isInstantiated())
         {
-            iApplication::destroy();
+            iApplication::destroyInstance();
         }
 
         if (iActionManager::isInstantiated())
         {
-            iActionManager::destroy();
+            iActionManager::destroyInstance();
         }
 
         if (iAudio::isInstantiated())
         {
-            iAudio::destroy();
+            iAudio::destroyInstance();
+        }
+        
+        if (iFilesystem::isInstantiated())
+        {
+            iFilesystem::destroyInstance();
         }
     }
 
@@ -258,7 +313,7 @@ namespace igor
     {
         // first things first
         iaux::startup();
-        iTimer::create();
+        iTimer::createInstance();
         printInfo();
 
         con_info("current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
@@ -288,7 +343,7 @@ namespace igor
             }
         }
 
-        iConfig::create();
+        iConfig::createInstance();
 
         if (configurationFilepath.isEmpty())
         {

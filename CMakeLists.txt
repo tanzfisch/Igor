@@ -61,6 +61,7 @@ find_package(Threads REQUIRED)
 
 # X11
 if(LINUX)
+message(STATUS "X11")
   find_package(X11 REQUIRED)
   if(X11_xf86vmode_FOUND)
     set(X11_EXT_DEFINITIONS "-DXF86VMODE_FOUND")
@@ -71,14 +72,15 @@ if(LINUX)
 endif() # LINUX
 
 # OpenGL
+message(STATUS "OpenGL")
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 # OpenAL Soft
+message(STATUS "OpenAL Soft")
 if(LINUX)
   find_package(ALSA REQUIRED)
 endif()
-
 add_subdirectory(vendor/openal-soft)
 set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
@@ -88,6 +90,8 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER}/OpenAL-Soft)
 
+# Newton Dynamic
+message(STATUS "Newton Dynamic")
 set(NEWTON_DOUBLE_PRECISION ON CACHE BOOL "Newton: generate double precision" FORCE)
 set(NEWTON_BUILD_CORE_ONLY ON CACHE BOOL "Newton: build core only" FORCE)
 set(NEWTON_BUILD_SANDBOX_DEMOS OFF CACHE BOOL "Newton: build sandbox demos" FORCE)
@@ -99,12 +103,20 @@ set_property(TARGET dgNewtonAvx PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgNewtonReferenceGPU PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 set_property(TARGET dgPhysics PROPERTY FOLDER ${VENDOR_FOLDER}/Newton)
 
+# Glad
 add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER}/Glad)
 
 # tiny XML
 add_subdirectory(vendor/TinyXML)
 set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER}/TinyXML)
+
+# clip
+message(STATUS "clip")
+add_subdirectory(vendor/clip)
+set_target_properties(clip PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_property(TARGET clip PROPERTY FOLDER ${VENDOR_FOLDER}/clip)
+set(CLIP_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/clip")
 
 # nlohmann json
 message(STATUS "nlohmann json")
@@ -148,10 +160,10 @@ add_library(ompf SHARED ${OMPF_SOURCES})
 
 if(IS_GNU)
     target_compile_definitions(ompf PRIVATE -D__OMPF_BUILDING_DLL__)
-    target_compile_options(ompf PRIVATE -std=c++17)
+    target_compile_options(ompf PRIVATE -std=c++20)
 elseif(IS_MSVC)
     target_compile_definitions(ompf PRIVATE -D__OMPF_BUILDING_DLL__)
-    target_compile_options(ompf PRIVATE "/std:c++17" "/MP" "/FS")
+    target_compile_options(ompf PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
 target_include_directories(ompf PUBLIC ${OMPF_HEADERS_DIR})
@@ -175,10 +187,10 @@ add_executable(mica ${MICA_SOURCES})
 
 if(IS_GNU)
     target_compile_definitions(mica PRIVATE -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(mica PRIVATE -std=c++17)
+    target_compile_options(mica PRIVATE -std=c++20)
 elseif(IS_MSVC)
     target_compile_definitions(mica PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/FS")
+    target_compile_options(mica PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
 target_link_libraries(mica PRIVATE igor iaux ompf)
@@ -196,10 +208,10 @@ add_executable(obj2ompf ${OBJ2OMPF_SOURCES})
 
 if(IS_GNU)
     target_compile_definitions(obj2ompf PRIVATE -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(obj2ompf PRIVATE -std=c++17)
+    target_compile_options(obj2ompf PRIVATE -std=c++20)
 elseif(IS_MSVC)
     target_compile_definitions(obj2ompf PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/FS")
+    target_compile_options(obj2ompf PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
 target_include_directories(obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR})
@@ -238,10 +250,10 @@ foreach(
 
     if(IS_GNU)
         target_compile_definitions(${EXAMPLE} PRIVATE -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-        target_compile_options(${EXAMPLE} PRIVATE -std=c++17)
+        target_compile_options(${EXAMPLE} PRIVATE -std=c++20)
     elseif(IS_MSVC)
         target_compile_definitions(${EXAMPLE} PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-        target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/FS")
+        target_compile_options(${EXAMPLE} PRIVATE "/std:c++20" "/MP" "/FS")
     endif()
 
     set_target_properties(${EXAMPLE} PROPERTIES 
@@ -268,10 +280,10 @@ add_executable(iauxTest ${IAUX_TEST_SOURCES})
 
 if(IS_GNU)
     target_compile_definitions(iauxTest PRIVATE -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(iauxTest PRIVATE -std=c++17)
+    target_compile_options(iauxTest PRIVATE -std=c++20)
 elseif(IS_MSVC)
     target_compile_definitions(iauxTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iauxTest PRIVATE "/std:c++17" "/MP" "/FS")
+    target_compile_options(iauxTest PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
 target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR} ${IAUX_HEADERS_DIR})
@@ -289,10 +301,10 @@ add_executable(igorTest ${IGOR_TEST_SOURCES})
 
 if(IS_GNU)
     target_compile_definitions(igorTest PRIVATE -D_cplusplus=201703L ${IGOR_GNU_BUILD_TYPE})
-    target_compile_options(igorTest PRIVATE -std=c++17)
+    target_compile_options(igorTest PRIVATE -std=c++20)
 elseif(IS_MSVC)
     target_compile_definitions(igorTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(igorTest PRIVATE "/std:c++17" "/MP" "/FS")
+    target_compile_options(igorTest PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
 target_include_directories(igorTest PRIVATE ${IGOR_TEST_HEADERS_DIR} ${IGOR_HEADERS_DIR})

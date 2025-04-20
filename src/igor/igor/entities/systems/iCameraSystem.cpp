@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iCameraSystem.h>
@@ -15,6 +15,17 @@ namespace igor
 	{
 		_cameraView = createView<iCameraComponent, iTransformComponent>();
 	}
+
+    iEntitySystemPtr iCameraSystem::createInstance()
+    {
+        return new iCameraSystem();
+    }
+
+    const iaString &iCameraSystem::getTypeName()
+    {
+        static const iaString typeName("igor_camera_system");
+        return typeName;
+    }	
 
 	iEntitySystemStage iCameraSystem::getStage() const
 	{
@@ -50,8 +61,6 @@ namespace igor
 
 	void iCameraSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		con_assert(_cameraView->getEntities().size() < 2, "more then one camera active. this will lead to undefined behaviour");
-
 		auto camera = getActiveCamera();
 		if (camera == nullptr)
 		{

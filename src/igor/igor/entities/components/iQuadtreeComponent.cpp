@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iQuadtreeComponent.h>
@@ -8,15 +8,32 @@
 
 namespace igor
 {
-    iQuadtreeComponent::iQuadtreeComponent(iQuadtreed::ObjectPtr object, const iaString &name)
-        : iEntityComponent(name), _object(object)
+    iQuadtreeComponent::iQuadtreeComponent(iQuadtreed::ObjectPtr object)
+        : _object(object)
     {
+    }
+
+    iEntityComponent *iQuadtreeComponent::createInstance()
+    {
+        return new iQuadtreeComponent();
+    }  
+
+    const iaString& iQuadtreeComponent::getTypeName()
+    {
+        static const iaString name("igor_quadtree_component");
+        return name;
+    }       
+
+    iEntityComponentPtr iQuadtreeComponent::getCopy()
+    {
+        iQuadtreeComponent *component = new iQuadtreeComponent();
+        return component;
     }
 
     void iQuadtreeComponent::onActivate(iEntityPtr entity)
     {
         auto &quadtree = entity->getScene()->getQuadtree();
-        const iaVector2d &center = quadtree.getRootBox().getCenter();
+        const iaVector2d &center = quadtree.getArea().getCenter();
 
         _object = std::make_shared<iQuadtreed::Object>(iaCircled(center._x, center._y, 1.0), entity->getID());
         quadtree.insert(_object);

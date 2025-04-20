@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTIONS__
-#define __IGOR_ACTIONS__
+#ifndef IGOR_ACTIONS_H
+#define IGOR_ACTIONS_H
 
 #include <igor/ui/actions/iAction.h>
 
@@ -35,28 +35,28 @@ namespace igor
 {
 
     /*! application stop action
-	*/
+     */
     class IGOR_API iActionApplicationStop : public iAction
     {
 
     public:
         /*! init members
-        */
+         */
         iActionApplicationStop();
 
         /*! executed when action gets triggered
 
-		\param context the context the action was called with
-		*/
+        \param context the context the action was called with
+        */
         void execute(const iActionContext &context) override;
 
         /*! \returns true if this action will execute with given context
 
-		\param context the context the action was called with
-		*/
+        \param context the context the action was called with
+        */
         bool isCompatible(const iActionContext &context) override;
     };
 
 } // namespace igor
 
-#endif // __IGOR_ACTION__
+#endif // IGOR_ACTIONS_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iVelocitySystem.h>
@@ -7,15 +7,27 @@
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
+#include <igor/entities/components/iGlobalBoundaryComponent.h>
 
 namespace igor
 {
 	iVelocitySystem::iVelocitySystem()
 	{
-		_interactionResolverView = createView<iVelocityComponent, iQuadtreeComponent, iMotionInteractionResolverComponent>();
 		_noBoundsView = createView<iVelocityComponent, iTransformComponent>();
 		_boundsView = createView<iVelocityComponent, iTransformComponent, iGlobalBoundaryComponent>();
 	}
+
+    iEntitySystemPtr iVelocitySystem::createInstance()
+    {
+        return new iVelocitySystem();
+    }
+
+    const iaString &iVelocitySystem::getTypeName()
+    {
+        static const iaString typeName("igor_velocity_system");
+        return typeName;
+    }		
 
 	iEntitySystemStage iVelocitySystem::getStage() const
 	{
@@ -24,72 +36,13 @@ namespace igor
 
 	void iVelocitySystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		iEntityScenePtr scene = context._scene;
-
-		if (scene->hasQuadtree())
-		{
-			auto &quadtree = scene->getQuadtree();
-
-			for (auto entity : _interactionResolverView->getEntities())
-			{
-				auto velocity = entity->getComponent<iVelocityComponent>();
-				auto quadComp = entity->getComponent<iQuadtreeComponent>();
-				auto motionResolver = entity->getComponent<iMotionInteractionResolverComponent>();
-
-				switch (motionResolver->_type)
-				{
-				case iMotionInteractionType::Divert:
-				{
-					iaCircled circle = quadComp->_object->_circle;
-					circle._radius *= 1.1;
-					iQuadtreed::Objects objects;
-					quadtree.query(circle, objects);
-
-					float64 speed = velocity->_velocity.length();
-					iaVector2d diversion;
-
-					for (const auto &object : objects)
-					{
-						iEntityID otherEntityID = std::any_cast<iEntityID>(object->_userData);
-
-						// skip self
-						if (otherEntityID == entity->getID())
-						{
-							continue;
-						}
-
-						/*auto *hasMotionInteraction = registry->try_get<iMotionInteractionResolverComponent>(otherEntityID);
-						if (hasMotionInteraction == nullptr)
-						{
-							continue;
-						}*/
-
-						// calc diversion
-						diversion += circle._center - object->_circle._center;
-					}
-
-					diversion.normalize();
-					diversion *= speed;
-
-					velocity->_velocity._x += diversion._x;
-					velocity->_velocity._y += diversion._y;
-				}
-				break;
-
-				case iMotionInteractionType::None:
-				default:
-					break;
-				}
-			}
-		}
-
 		for (auto entity : _noBoundsView->getEntities())
 		{
-			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto velocityComp = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 
-			transform->translate(velocity->_velocity);
-			transform->rotate(velocity->_angularVelocity);
+			transform->translate(velocityComp->getVelocity());
+			transform->rotate(velocityComp->getAngularVelocity());
 		}
 
 		iaVector3d min;
@@ -99,19 +52,19 @@ namespace igor
 
 		for (auto entity : _boundsView->getEntities())
 		{
-			auto velocity = entity->getComponent<iVelocityComponent>();
+			auto velocityComp = entity->getComponent<iVelocityComponent>();
 			auto transform = entity->getComponent<iTransformComponent>();
 			auto bounds = entity->getComponent<iGlobalBoundaryComponent>();
 
 			auto position = transform->getPosition();
 
-			transform->rotate(velocity->_angularVelocity);
+			transform->rotate(velocityComp->getAngularVelocity());
 
-			switch (bounds->_type)
+			switch (bounds->getType())
 			{
 			case iGlobalBoundaryType::Repeat:
 
-				position += velocity->_velocity;
+				position += velocityComp->getVelocity();
 
 				if (position._x > max._x)
 				{
@@ -143,7 +96,7 @@ namespace igor
 
 			case iGlobalBoundaryType::None:
 			default:
-				position += velocity->_velocity;
+				position += velocityComp->getVelocity();
 				break;
 			}
 

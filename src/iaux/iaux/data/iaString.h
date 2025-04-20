@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -113,13 +113,17 @@ namespace iaux
          */
         int64 getHashValue() const;
 
-        /*! change string to lower case letters
+        /*! \returns a lower case version of given string 
          */
-        void toLower();
+        iaString toLower() const;
 
-        /*! change string to upper case letters
+        /*! \returns a upper case version of given string 
          */
-        void toUpper();
+        iaString toUpper() const;
+
+        /*! \returns a snake case version of given string 
+        */
+        iaString toSnakeCase() const;
 
         /*! + operator concatanates two strings
 
@@ -542,16 +546,18 @@ namespace iaux
         /*! trims white spaces on the left hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimLeft(const iaString &text);
+        static iaString trimLeft(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on the right hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimRight(const iaString &text);
+        static iaString trimRight(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on both ends of the string
 

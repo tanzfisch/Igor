@@ -12,10 +12,10 @@ IAUX_TEST(QuadtreeTests, EmptyTree)
 {
     iQuadtreef tree(testRect1);
 
-    IAUX_EXPECT_EQUAL(tree.getRootBox().getX(), testRect1.getX());
-    IAUX_EXPECT_EQUAL(tree.getRootBox().getY(), testRect1.getY());
-    IAUX_EXPECT_EQUAL(tree.getRootBox().getWidth(), testRect1.getWidth());
-    IAUX_EXPECT_EQUAL(tree.getRootBox().getHeight(), testRect1.getHeight());
+    IAUX_EXPECT_EQUAL(tree.getArea().getX(), testRect1.getX());
+    IAUX_EXPECT_EQUAL(tree.getArea().getY(), testRect1.getY());
+    IAUX_EXPECT_EQUAL(tree.getArea().getWidth(), testRect1.getWidth());
+    IAUX_EXPECT_EQUAL(tree.getArea().getHeight(), testRect1.getHeight());
 
     IAUX_EXPECT_TRUE(tree.getRoot()->_children[0] == nullptr);
     IAUX_EXPECT_TRUE(tree.getRoot()->_children[1] == nullptr);

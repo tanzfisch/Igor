@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaDirectory.h>
@@ -69,9 +69,9 @@ namespace iaux
         {
             std::sort(result.begin(), result.end(), [](iaDirectory const a, iaDirectory const b)
                       { 
-                        iaString sa = a.getFullDirectoryName();
+                        iaString sa = a.getAbsoluteDirectoryName();
                         sa.toLower();
-                        iaString sb = b.getFullDirectoryName();
+                        iaString sb = b.getAbsoluteDirectoryName();
                         sb.toLower();
                         return sa < sb; });
         }
@@ -86,8 +86,8 @@ namespace iaux
             return false;
         }
 
-        std::filesystem::directory_entry entry(path.getData());
-        if (entry.is_directory())
+        std::filesystem::file_status entry = std::filesystem::status(path.getData());
+        if (std::filesystem::is_directory(entry))
         {
             return true;
         }
@@ -108,7 +108,7 @@ namespace iaux
         }
 
         std::filesystem::path fspath(path.getData());
-        if(std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
+        if (std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
         {
             return true;
         }
@@ -204,19 +204,21 @@ namespace iaux
         return result;
     }
 
-    iaString iaDirectory::getFullDirectoryName() const
+    iaString iaDirectory::getAbsoluteDirectoryName() const
     {
-        return _directoryName;
+        return fixPath(_directoryName);
     }
 
     iaString iaDirectory::getDirectoryName() const
     {
-        return _directoryName.getSubString(_directoryName.findLastOf(IGOR_PATHSEPARATOR) + 1);
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
-    iaString iaDirectory::getFullParentDirectoryName() const
+    iaString iaDirectory::getAbsoluteParentDirectoryName() const
     {
-        return _directoryName.getSubString(0, _directoryName.findLastOf(IGOR_PATHSEPARATOR));
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     bool iaDirectory::isRoot()
@@ -331,12 +333,12 @@ namespace iaux
             iaDirectory dirFrom(from);
             if (iaDirectory::isDirectory(from))
             {
-                tempFrom = dirFrom.getFullDirectoryName();
+                tempFrom = dirFrom.getAbsoluteDirectoryName();
             }
             else
             {
                 // assuming the subfolder is actually a filename
-                tempFrom = dirFrom.getFullParentDirectoryName();
+                tempFrom = dirFrom.getAbsoluteParentDirectoryName();
             }
         }
 

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -18,11 +18,8 @@ namespace igor
         _configuredMinHeight = 10;
         _configuredMinWidth = 20;
         _reactOnMouseWheel = false;
-    }
 
-    iWidgetButton::~iWidgetButton()
-    {
-        _texture = nullptr;
+        setBackground(iaColor4f::white);
     }
 
     void iWidgetButton::setAction(const iaString &actionName, const iActionContextPtr context)
@@ -40,7 +37,7 @@ namespace igor
 
         if (_action != nullptr)
         {
-            unregisterOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+            getClickEvent().remove(iClickDelegate(this, &iWidgetButton::onInternalClick));
         }
 
         _action = action;
@@ -51,7 +48,7 @@ namespace igor
             return;
         }
 
-        registerOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+        getClickEvent().add(iClickDelegate(this, &iWidgetButton::onInternalClick));
 
         setText(_action->getBrief());
         setTooltip(_action->getDescription());
@@ -105,12 +102,22 @@ namespace igor
         _iconTexture = texture;
     }
 
-    void iWidgetButton::setTexture(const iaString &textureAlias)
+    iTexturePtr iWidgetButton::getIcon() const
     {
-        setTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        return _iconTexture;
     }
 
-    void iWidgetButton::setTexture(iTexturePtr texture)
+    iTexturePtr iWidgetButton::getBackgroundTexture() const
+    {
+        return _texture;
+    }
+
+    void iWidgetButton::setBackgroundTexture(const iaString &textureAlias)
+    {
+        setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+    }
+
+    void iWidgetButton::setBackgroundTexture(iTexturePtr texture)
     {
         _texture = texture;
     }
@@ -119,21 +126,37 @@ namespace igor
     {
         int32 minWidth = 0;
         int32 minHeight = 0;
+        const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
         if (isGrowingByContent())
         {
             if (_texture != nullptr)
             {
                 // we don't actually want it to scale with the texture size since the texture is considered a background
-                minWidth = 16;
-                minHeight = 16;
+                minWidth = fontSize * 1.2f;
+                minHeight = fontSize * 1.2f;
             }
-            else if (!_text.isEmpty())
+
+            if (_iconTexture != nullptr)
             {
-                const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                // we don't actually want it to scale with the texture size since the texture is considered a background
+                minWidth = fontSize * 1.5f;
+                minHeight = fontSize * 1.5f;
+            }
+
+            if (!_text.isEmpty())
+            {
                 const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
-                minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
+                if (_iconTexture != nullptr)
+                {
+                    minWidth = std::max(minWidth, static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f));
+                }
+                else
+                {
+                    minWidth = std::max(minWidth, static_cast<int32>(static_cast<float32>(textWidth) + fontSize));
+                }
+
                 minHeight = static_cast<int32>(fontSize * 1.5f);
             }
 
@@ -171,7 +194,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, _iconTexture, getState(), isEnabled(), _checkable && _checked);
+        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);
     }
 
     void iWidgetButton::setCheckable(bool checkable)

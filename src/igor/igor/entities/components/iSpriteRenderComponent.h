@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -40,6 +40,18 @@ namespace igor
     {
 
     public:
+        /*! default ctor
+        */
+        iSpriteRenderComponent() = default;
+
+        /*! creates instance of this component type
+        */
+        static iEntityComponent* createInstance();
+
+        /*! \returns type name of component
+        */
+        static const iaString& getTypeName();
+
         /*! sprite render mode
          */
         enum class iRenderMode
@@ -49,10 +61,8 @@ namespace igor
         };
 
         /*! ctor
-
-        \param name the name of this component
-        */
-        iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple, const iaString &name = "sprite render");
+         */
+        iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple);
 
         /*! sprite to render
          */
@@ -77,6 +87,11 @@ namespace igor
         /*! index of the sprite frame to render
          */
         uint32 _frameIndex = 0;
+
+    private:
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

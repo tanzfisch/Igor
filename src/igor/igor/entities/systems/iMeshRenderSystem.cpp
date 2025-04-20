@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iMeshRenderSystem.h>
@@ -18,6 +18,17 @@ namespace igor
 	{
 		_componentMask = iEntity::calcComponentMask({typeid(iTransformComponent), typeid(iMeshRenderComponent)});
 	}
+
+    iEntitySystemPtr iMeshRenderSystem::createInstance()
+    {
+        return new iMeshRenderSystem();
+    }
+
+    const iaString &iMeshRenderSystem::getTypeName()
+    {
+        static const iaString typeName("igor_mesh_render_system");
+        return typeName;
+    }	
 
 	iEntitySystemStage iMeshRenderSystem::getStage() const
 	{
@@ -45,8 +56,7 @@ namespace igor
 			auto entityID = std::any_cast<iEntityID>(object->_userData);
 			auto entity = scene->getEntity(entityID);
 			
-			const auto match = _componentMask & entity->getComponentMask();
-			if (match == _componentMask)
+			if ((_componentMask & entity->getComponentMask()).any())
 			{
 				renderEngine->addMesh(entity);
 			}

@@ -1,13 +1,13 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/animation/iAnimationFactory.h>
 
 #include <igor/resources/iResourceManager.h>
+#include <igor/utils/iJson.h>
 
 #include <iaux/system/iaFile.h>
-#include <iaux/utils/iaJson.h>
 using namespace iaux;
 
 namespace igor
@@ -117,8 +117,8 @@ namespace igor
             }
             json framesJson = animationJson["frames"];
 
-            const iaString keyFrameType = iaJson::getValue<iaString>(animationJson, "keyFrameType", "int");
-            const iaString target = iaJson::getValue<iaString>(animationJson, "target", "FrameIndex");
+            const iaString keyFrameType = iJson::getValue<iaString>(animationJson, "keyFrameType", "int");
+            const iaString target = iJson::getValue<iaString>(animationJson, "target", "FrameIndex");
 
             iInterpolationMode interpolationMode = iInterpolationMode::None;
             if (animationJson.contains("interpolationMode"))

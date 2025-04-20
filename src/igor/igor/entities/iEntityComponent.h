@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -31,19 +31,84 @@
 
 #include <igor/iDefines.h>
 
+#include <igor/utils/iJson.h>
 #include <iaux/data/iaUUID.h>
 using namespace iaux;
+
+#include <functional>
+#include <bitset>
 
 namespace igor
 {
 
+    /*! entity component state
+     */
     enum class iEntityComponentState
     {
-        Unloaded,   //! initial state unloaded
-        Loaded,     //! loaded but inactive
-        LoadFailed, //! load failed, stays inactive
-        Active,     //! active
-        Inactive,   //! inactive
+        Unloaded,         //! initial state unloaded
+        UnloadedInactive, //! unloaded but inactive
+        LoadFailed,       //! load failed, stays inactive
+        Inactive,         //! inactive
+        Active,           //! active
+    };
+
+    /*
+    +---------------+                                                           +----------------+  
+    |               v                                                           v                |
+    |   ------------------------------------------    ----------------------------------------   |
+    |   |                Unloaded                |    |           UnloadedInactive           |   |
+    |   ------------------------------------------    ----------------------------------------   |
+    |               |                         |          |                      |                |
+    |               |                         v          v                      |                |
+    |               |                 --------------------------                |                |
+    |               |                 |       LoadFailed       |                |                |
+    |               |                 --------------------------                |                |
+    |               |                                                           |                |
+    |               v                                                           v                |
+    |   --------------------------                                  --------------------------   |
+    +-- |         Active         | -------------------------------> |        Inactive        | --+
+        |                        | <------------------------------- |                        |
+        --------------------------                                  --------------------------
+
+    */
+
+    /*! pointer definition of entity component
+     */
+    class iEntityComponent;
+    typedef iEntityComponent *iEntityComponentPtr;
+
+    /*! entity component mask definition
+     */
+    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
+
+    /*! entity component factory function component
+     */
+    using iEntityComponentFactory = std::function<iEntityComponentPtr()>;
+
+    /*! entity component type info
+     */
+    struct iEntityComponentTypeInfo
+    {
+        /*! factory function to create components
+         */
+        iEntityComponentFactory _factory;
+
+        /*! bit mask to identify component type
+         */
+        iEntityComponentMask _mask;
+
+        /*! human readable type name
+         */
+        iaString _typeName;
+
+        iEntityComponentTypeInfo()
+        {
+        }
+
+        iEntityComponentTypeInfo(iEntityComponentFactory factory, const iEntityComponentMask &mask, const iaString &typeName)
+            : _factory(factory), _typeName(typeName), _mask(mask)
+        {
+        }
     };
 
     /*! entity component id
@@ -57,21 +122,20 @@ namespace igor
     /*! entity pointer definition
      */
     class iEntity;
-    typedef iEntity *iEntityPtr;    
+    typedef iEntity *iEntityPtr;
 
     /*! entity component base class
      */
     class IGOR_API iEntityComponent
     {
         friend class iEntity;
+        friend class iEntityScene;
         friend class iTransformComponent;
 
     public:
         /*! ctor
-
-        \param name the name of this component
-        */
-        iEntityComponent(const iaString &name = "");
+         */
+        iEntityComponent();
 
         /*! does nothing
          */
@@ -81,20 +145,18 @@ namespace igor
          */
         const iEntityComponentID &getID() const;
 
-        /*! sets name of component
+        /*! \returns state of this component
          */
-        void setName(const iaString &name);
-
-        /*! \returns component name
-         */
-        const iaString &getName() const;
+        iEntityComponentState getState() const;
 
     protected:
         /*! callback for loading component
 
+        \param entity the entity this component relates to
+        \param[out] asyncLoad if true try again if unsuccessful
         \returns true when loading was successful
         */
-        virtual bool onLoad(iEntityPtr entity);
+        virtual bool onLoad(iEntityPtr entity, bool &asyncLoad);
 
         /*! callback to activate component
          */
@@ -108,28 +170,23 @@ namespace igor
          */
         virtual void onUnLoad(iEntityPtr entity);
 
+        /*! \returns a copy of this component
+         */
+        virtual iEntityComponentPtr getCopy() = 0;
+
     private:
         /*! entity component id
          */
         iEntityComponentID _id;
-
-        /*! component name
-         */
-        iaString _name;
 
         /*! component state
          */
         iEntityComponentState _state = iEntityComponentState::Unloaded;
 
         /*! reference to entity
-        */
+         */
         iEntityPtr _entity = nullptr;
     };
-
-    /*! pointer definition of entity component
-     */
-    typedef iEntityComponent *iEntityComponentPtr;
-
 }
 
 #endif //  IGOR_ENTITY_COMPONENT_H

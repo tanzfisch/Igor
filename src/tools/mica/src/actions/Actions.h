@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,33 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ACTIONS__
-#define __ACTIONS__
+#ifndef ACTIONS_H
+#define ACTIONS_H
 
 #include "MicaActionContext.h"
-
-/*! delete node action
-*/
-class ActionDeleteNode : public iAction
-{
-
-public:
-    /*! init members
-    */
-    ActionDeleteNode();
-    
-    /*! executed when action gets triggered
-
-    \param context the context the action was called with
-    */
-    void execute(const iActionContext &context) override;
-
-    /*! \returns true if this action will execute with given context
-
-	\param context the context the action was called with
-    */
-    bool isCompatible(const iActionContext &context) override;
-};
 
 /*! copy node action
 */
@@ -238,29 +215,6 @@ public:
     bool isCompatible(const iActionContext &context) override;
 };
 
-/*! add model action
-*/
-class ActionAddModel : public iAction
-{
-
-public:
-    /*! init members
-    */
-    ActionAddModel();
-
-    /*! executed when action gets triggered
-
-    \param context the context the action was called with
-    */
-    void execute(const iActionContext &context) override;
-
-    /*! \returns true if this action will execute with given context
-
-	\param context the context the action was called with
-    */
-    bool isCompatible(const iActionContext &context) override;
-};
-
 /*! bake mesh to world
 */
 class ActionBakeMeshToWorld : public iAction
@@ -292,8 +246,4 @@ private:
     void bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root);
 };
 
-/*! registers mica actions to action manager
-*/
-void registerMicaActions();
-
-#endif // __ACTIONS__
+#endif // ACTIONS_H

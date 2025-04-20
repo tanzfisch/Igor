@@ -1,0 +1,96 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": -1.0,
+                            "y": 0.20000000298023224,
+                            "z": -0.25
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    }
+                ],
+                "id": "0x05d66bc172d8139a",
+                "name": "crate_left"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 1.0,
+                            "y": -0.30000001192092896,
+                            "z": -0.25
+                        },
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.10000000149011612,
+                            "z": 0.10000000149011612
+                        }
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    }
+                ],
+                "id": "0x65d167c87238139a",
+                "name": "teapot_right"
+            }
+        ],
+        "id": "0xe41417fa7d3c0e1a",
+        "name": "side scene"
+    }
+}

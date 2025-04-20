@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STATEMACHINE__
-#define __IAUX_STATEMACHINE__
+#ifndef IAUX_STATEMACHINE_H
+#define IAUX_STATEMACHINE_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/statemachine/iaTransition.h>
@@ -40,19 +40,19 @@ namespace iaux
 
     /*! enter state event
      */
-    IGOR_EVENT_DEFINITION(iaEnterState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaEnterState, iaStateID);
 
     /*! re enter state event
      */
-    IGOR_EVENT_DEFINITION(iaReEnterState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaReEnterState, iaStateID);
 
     /*! leave state event
      */
-    IGOR_EVENT_DEFINITION(iaLeaveState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaLeaveState, iaStateID);
 
     /*! handle state event
      */
-    IGOR_EVENT_DEFINITION(iaUpdateState, void, iaStateID);
+    IGOR_EVENT_DEFINITION(iaUpdateState, iaStateID);
 
     /*! state machine
      */
@@ -261,4 +261,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_STATEMACHINE_H

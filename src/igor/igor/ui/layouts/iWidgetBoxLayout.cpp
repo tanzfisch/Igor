@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
@@ -32,24 +32,37 @@ namespace igor
         int32 minHeight = 0;
 
         if (!isGrowingByContent() ||
-            getChildren().empty())
+            getChildren().empty() ||
+            !isVisible())
         {
             updateMinSize(minWidth, minHeight);
             return;
         }
 
+        bool first = true;
         for (const auto child : getChildren())
         {
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 minWidth = std::max(minWidth, child->getMinWidth());
                 minHeight += child->getMinHeight();
+                if (!first)
+                {
+                    minHeight += _spacing;
+                }
             }
             else
             {
                 minHeight = std::max(minHeight, child->getMinHeight());
                 minWidth += child->getMinWidth();
+
+                if (!first)
+                {
+                    minWidth += _spacing;
+                }
             }
+
+            first = false;
         }
 
         minWidth = std::max(minWidth, getConfiguredMinWidth());
@@ -72,8 +85,14 @@ namespace igor
 
         auto &children = getChildren();
 
+        bool first = true;
         for (auto child : children)
         {
+            if(!first)
+            {
+                offsetPos += _spacing;
+            }
+
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 clientRect.setX(0);
@@ -94,6 +113,7 @@ namespace igor
             }
 
             offsets.push_back(clientRect);
+            first = false;
         }
 
         if (getVerticalAlignment() == iVerticalAlignment::Stretch &&

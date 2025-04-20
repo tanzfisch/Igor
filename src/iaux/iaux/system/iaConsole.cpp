@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaConsole.h>
@@ -200,18 +200,6 @@ namespace iaux
         *this << iaForegroundColor::Gray << "   | " << iaForegroundColor::Blue << "@" << iaForegroundColor::Gray << "         |" << endlTab;
         *this << iaForegroundColor::Green << " \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "//       \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "/" << endlTab;
         *this << iaForegroundColor::DarkGreen << "^^^^^^^^^^^^^^^^^^^" << endl;
-    }
-
-    void iaConsole::printCake()
-    {
-        *this << endlTab;
-        *this << iaForegroundColor::Yellow << "    , , ,    " << endlTab;
-        *this << iaForegroundColor::White << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endlTab;
-        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endlTab;
-        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endlTab;
-        *this << iaForegroundColor::White << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endlTab;
-        *this << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endlTab;
-        *this << iaForegroundColor::Gray << "\\___________/" << endlTab << endl;
     }
 
     void iaConsole::printCallStack(uint32 maxDepth)

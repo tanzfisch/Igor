@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -21,7 +21,7 @@ namespace igor
 
 	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
-		iDialog::open(dialogCloseDelegate);
+		iDialog::open(dialogCloseDelegate, true);
 
 		initGUI(title, message, radioButtonTexts, preSelection);
 	}
@@ -48,7 +48,6 @@ namespace igor
 		setHorizontalAlignment(iHorizontalAlignment::Center);		
 		setResizeable(false);
 
-		iWidgetManager::getInstance().setModal(this);
 		setEnabled();
 		setVisible();
 		setMinWidth(20);
@@ -73,11 +72,11 @@ namespace igor
 
 		iWidgetButtonPtr okButton = new iWidgetButton();
 		okButton->setText("OK");
-		okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
+		okButton->getClickEvent().add(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
 		iWidgetButtonPtr cancelButton = new iWidgetButton();
 		cancelButton->setText("Cancel");
-		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
+		cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
 		iWidgetGridLayoutPtr radioGrid = new iWidgetGridLayout();
 		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);

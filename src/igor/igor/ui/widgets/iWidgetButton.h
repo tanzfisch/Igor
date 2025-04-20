@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETBUTTON__
-#define __IGOR_WIDGETBUTTON__
+#ifndef IGOR_WIDGETBUTTON_H
+#define IGOR_WIDGETBUTTON_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/ui/actions/iAction.h>
@@ -50,9 +50,9 @@ namespace igor
 		*/
         iWidgetButton(const iWidgetPtr parent = nullptr);
 
-        /*! release texture
+        /*! does nothing
 		*/
-        virtual ~iWidgetButton();
+        virtual ~iWidgetButton() = default;
 
         /*! sets the action this widget is associated with
 
@@ -110,13 +110,17 @@ namespace igor
 
         \param textureAlias alias or id to texture
         */
-        void setTexture(const iaString &textureAlias);
+        void setBackgroundTexture(const iaString &textureAlias);
 
         /*! sets the background texture to use for the whole button
 
         \param texture the texture
         */
-        void setTexture(iTexturePtr texture);
+        void setBackgroundTexture(iTexturePtr texture);
+
+        /*! \returns background texture
+        */
+        iTexturePtr getBackgroundTexture() const;
 
         /*! sets the icon texture by name
 
@@ -137,6 +141,10 @@ namespace igor
         \param texture the texture to use
         */
         void setIcon(iTexturePtr texture);
+
+        /*! \returns icon
+        */
+        iTexturePtr getIcon() const;
 
         /*! sets the button checkable
 
@@ -213,4 +221,4 @@ namespace igor
     typedef iWidgetButton *iWidgetButtonPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETBUTTON__
+#endif // IGOR_WIDGETBUTTON_H

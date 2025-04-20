@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/iWidgetManager.h>
@@ -69,11 +69,6 @@ namespace igor
             return (*iter).second;
         }
         return nullptr;
-    }
-
-    iDialogPtr iWidgetManager::getModal() const
-    {
-        return _modal;
     }
 
     void iWidgetManager::putDialogInFront(iDialogPtr dialog)
@@ -151,15 +146,36 @@ namespace igor
         _tooltipText = "";
     }
 
-    bool iWidgetManager::isModal(iDialogPtr dialog)
-    {
-        return (_modal == dialog) ? true : false;
-    }
-
     void iWidgetManager::setModal(iDialogPtr dialog)
     {
-        con_assert_sticky(_modal == nullptr, "an other dialog is alsready modal");
-        _modal = dialog;
+        _modalStack.push_back(dialog);
+    }
+
+    void iWidgetManager::resetModal(iDialogPtr dialog)
+    {
+        con_assert(!_modalStack.empty(), "stack underflow");
+        con_assert(dialog == _modalStack.back(), "invalid stack");
+        _modalStack.pop_back();
+    }
+
+    iDialogPtr iWidgetManager::getModal() const
+    {
+        if (_modalStack.empty())
+        {
+            return nullptr;
+        }
+        
+        return _modalStack.back();
+    }
+
+    bool iWidgetManager::isModal(iDialogPtr dialog)
+    {
+        if (_modalStack.empty())
+        {
+            return false;
+        }
+
+        return _modalStack.back() == dialog;
     }
 
     void iWidgetManager::closeDialog(iDialogPtr dialog)
@@ -173,17 +189,6 @@ namespace igor
         }
 
         _dialogsToClose.insert(dialog->getID());
-    }
-
-    void iWidgetManager::resetModal()
-    {
-        if (_modal == nullptr)
-        {
-            return;
-        }
-
-        auto pos = _modal->getLastMousePos();
-        _modal = nullptr;
     }
 
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending)
@@ -236,6 +241,17 @@ namespace igor
 
             // align children with their parents top down
             traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
+        }
+
+        for (auto pair : _widgets)
+        {
+            if (!pair.second->_needRefresh)
+            {
+                continue;
+            }
+
+            pair.second->onRefresh();
+            pair.second->_needRefresh = false;
         }
 
         for (auto pair : _widgets)

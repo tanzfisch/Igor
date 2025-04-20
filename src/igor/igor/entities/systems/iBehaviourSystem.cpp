@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iBehaviourSystem.h>
@@ -12,6 +12,17 @@ namespace igor
     iBehaviourSystem::iBehaviourSystem()
     {
 		_view = createView<iBehaviourComponent>();
+    }
+
+    iEntitySystemPtr iBehaviourSystem::createInstance()
+    {
+        return new iBehaviourSystem();
+    }
+
+    const iaString &iBehaviourSystem::getTypeName()
+    {
+        static const iaString typeName("igor_behaviour_system");
+        return typeName;
     }
 
     iEntitySystemStage iBehaviourSystem::getStage() const

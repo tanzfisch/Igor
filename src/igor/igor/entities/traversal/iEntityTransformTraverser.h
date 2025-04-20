@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -59,6 +59,14 @@ namespace igor
         /*! current matrix that eventually gets pushed on stack or came popped from stack
          */
         iaMatrixd _currentMatrix;
+
+        /*! if true scene has quadtree
+        */
+        bool _hasQuadtree = false;
+
+        /*! if true scene has octree
+        */
+        bool _hasOctree = false;
 
         /*! is called before traversal
 

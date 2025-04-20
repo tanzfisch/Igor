@@ -1,14 +1,13 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/material/loader/iMaterialIO.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/data/iXMLHelper.h>
 
 #include <iaux/system/iaFile.h>
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
 
 #include <fstream>
 #include <iostream>

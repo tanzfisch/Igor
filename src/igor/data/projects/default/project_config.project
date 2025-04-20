@@ -1,0 +1,16 @@
+{
+    "projectName": "Project Template",
+    "projectScene": {
+        "name": "Scene Template",
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_transform_system",
+            "igor_behaviour_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    }
+}

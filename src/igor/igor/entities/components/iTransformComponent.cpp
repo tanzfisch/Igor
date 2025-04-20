@@ -1,14 +1,34 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iTransformComponent.h>
 
 namespace igor
 {
-    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale, const iaString &name)
-        : iEntityComponent(name), _position(position), _orientation(orientation), _scale(scale)
+    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
+        : _position(position), _orientation(orientation), _scale(scale)
     {
+    }
+
+    iEntityComponent *iTransformComponent::createInstance()
+    {
+        return new iTransformComponent();
+    }
+
+    const iaString &iTransformComponent::getTypeName()
+    {
+        static const iaString name("igor_transform_component");
+        return name;
+    }
+
+    iEntityComponentPtr iTransformComponent::getCopy()
+    {
+        iTransformComponent *component = new iTransformComponent();
+        component->_position = _position;
+        component->_orientation = _orientation;
+        component->_scale = _scale;
+        return component;
     }
 
     bool iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
@@ -28,14 +48,16 @@ namespace igor
 
     void iTransformComponent::setPosition(const iaVector3d &position)
     {
-        _position = position;
-        _entity->setDirtyHierarchy(true);
+        if (_position != position)
+        {
+            _position = position;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     void iTransformComponent::translate(const iaVector3d &translate)
     {
-        _position += translate;
-        _entity->setDirtyHierarchy(true);
+        setPosition(_position + translate);
     }
 
     const iaVector3d &iTransformComponent::getPosition() const
@@ -45,14 +67,16 @@ namespace igor
 
     void iTransformComponent::setOrientation(const iaVector3d &orientation)
     {
-        _orientation = orientation;
-        _entity->setDirtyHierarchy(true);
+        if (_orientation != orientation)
+        {
+            _orientation = orientation;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     void iTransformComponent::rotate(const iaVector3d &rotate)
     {
-        _orientation += rotate;
-        _entity->setDirtyHierarchy(true);
+        setOrientation(_orientation + rotate);
     }
 
     const iaVector3d &iTransformComponent::getOrientation() const
@@ -62,8 +86,11 @@ namespace igor
 
     void iTransformComponent::setScale(const iaVector3d &scale)
     {
-        _scale = scale;
-        _entity->setDirtyHierarchy(true);
+        if (_scale != scale)
+        {
+            _scale = scale;
+            _entity->setDirtyHierarchy(true);
+        }
     }
 
     const iaVector3d &iTransformComponent::getScale() const

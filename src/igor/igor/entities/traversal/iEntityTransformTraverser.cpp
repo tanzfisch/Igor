@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/traversal/iEntityTransformTraverser.h>
@@ -7,8 +7,8 @@
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
 #include <igor/entities/components/iTransformComponent.h>
-#include <igor/entities/components/iCircleCollision2DComponent.h>
-#include <igor/entities/components/iSphereCollision3DComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -18,6 +18,8 @@ namespace igor
 
     void iEntityTransformTraverser::preTraverse()
     {
+        _hasQuadtree = getScene()->hasQuadtree();
+        _hasOctree = getScene()->hasOctree();
         _currentMatrix.identity();
     }
 
@@ -33,17 +35,18 @@ namespace igor
 
         iaVector2d position(_currentMatrix._pos._x, _currentMatrix._pos._y);
 
-        iCircleCollision2DComponent *collision = entity->getComponent<iCircleCollision2DComponent>();
-        if (collision != nullptr)
+        iCircleComponent *component = entity->getComponent<iCircleComponent>();
+        if (component != nullptr)
         {
-            const iaCircled circle(position._x + collision->_offset._x,
-                                   position._y + collision->_offset._y,
-                                   collision->_radius);
-            _scene->getQuadtree().update(body->_object, circle);
+            const auto &offset = component->getOffset();
+            const iaCircled circle(position._x + offset._x,
+                                   position._y + offset._y,
+                                   component->getRadius());
+            getScene()->getQuadtree().update(body->_object, circle);
         }
         else
         {
-            _scene->getQuadtree().update(body->_object, position);
+            getScene()->getQuadtree().update(body->_object, position);
         }
     }
 
@@ -57,15 +60,15 @@ namespace igor
             return;
         }
 
-        iSphereCollision3DComponent *collision = entity->getComponent<iSphereCollision3DComponent>();
+        iSphereComponent *collision = entity->getComponent<iSphereComponent>();
         if (collision != nullptr)
         {
-            const iaSphered sphere(_currentMatrix._pos + collision->_offset, collision->_radius);
-            _scene->getOctree().update(body->_object, sphere);
+            const iaSphered sphere(_currentMatrix._pos + collision->getOffset(), collision->getRadius());
+            getScene()->getOctree().update(body->_object, sphere);
         }
         else
         {
-            _scene->getOctree().update(body->_object, _currentMatrix._pos);
+            getScene()->getOctree().update(body->_object, _currentMatrix._pos);
         }
     }
 
@@ -78,28 +81,26 @@ namespace igor
             _matrixStack.push_back(_currentMatrix);
         }
 
-        if (entity->isHierarchyDirty())
+        if (!entity->isHierarchyDirty())
         {
-            if (transformComponent != nullptr)
-            {
-                if (transformComponent->updateWorldMatrix(_currentMatrix))
-                {
-                    if (_scene->hasQuadtree())
-                    {
-                        updateQuadtree(entity);
-                    }
-
-                    if (_scene->hasOctree())
-                    {
-                        updateOctree(entity);
-                    }
-                }
-            }
-            entity->setDirtyHierarchy(false);
-            return true;
+            return false;
         }
 
-        return false;
+        if (transformComponent != nullptr &&
+            transformComponent->updateWorldMatrix(_currentMatrix))
+        {
+            if (_hasQuadtree)
+            {
+                updateQuadtree(entity);
+            }
+
+            if (_hasOctree)
+            {
+                updateOctree(entity);
+            }
+        }
+        entity->setDirtyHierarchy(false);
+        return true;
     }
 
     void iEntityTransformTraverser::postOrderVisit(iEntityPtr entity)

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "LSystems.h"
@@ -7,9 +7,7 @@
 int main()
 {
 	// call this before you call anything else of Igor
-	igor::startup();
-
-	iProject::getInstance().load("project");
+	igor::startup();	
 
 	// create window and open it
 	iWindowPtr window = igor::iApplication::getInstance().getWindow();
@@ -17,6 +15,8 @@ int main()
 	window->setClientSize(1024, 768);
 	window->setCentered();
 	window->open();
+
+	iProject::getInstance().load("project/example_lsystem.project");
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new LSystems(window));

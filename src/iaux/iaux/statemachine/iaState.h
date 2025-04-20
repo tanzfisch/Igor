@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STATE__
-#define __IAUX_STATE__
+#ifndef IAUX_STATE_H
+#define IAUX_STATE_H
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaIDGenerator.h>
@@ -84,4 +84,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_STATE_H

@@ -1,19 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <typename T>
 T *iEntity::addComponent(T *component)
 {
     const std::type_index typeID = typeid(T);
-    auto iter = _components.find(typeID);
-    con_assert(iter == _components.end(), "component already exists");
-
-    _components[typeID] = component;
-    component->_entity = this;
-
-    _addedComponents.emplace_back(typeID, component);
-    componentToAdd(typeID);
+    addComponent(typeID, component);
     return component;
 }
 
@@ -26,13 +19,20 @@ T *iEntity::getComponent() const
         return nullptr;
     }
 
-    return static_cast<T*>(iter->second);
+    return static_cast<T *>(iter->second);
 }
 
 template <typename T>
 void iEntity::destroyComponent()
 {
-    const std::type_index typeID = typeid(T);    
+    const std::type_index typeID = typeid(T);
     destroyComponent(typeID);
     onEntityChanged();
+}
+
+template <typename T>
+void iEntity::reloadComponent()
+{
+    const std::type_index typeID = typeid(T);
+    reloadComponent(typeID);
 }

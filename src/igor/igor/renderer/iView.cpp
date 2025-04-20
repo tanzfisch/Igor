@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iView.h>
@@ -204,73 +204,57 @@ namespace igor
         return _updateViewport;
     }
 
-    void iView::render()
+    void iView::render(bool embedded)
     {
         if (!_visible)
         {
             return;
         }
 
-        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-
         if (_entityScene != nullptr)
         {
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-
-            _renderEngine.setupCamera(_viewport);
-
-            if(_skyBox != nullptr)
-            {
-            // TODO put back in later    _skyBox->render();
-            }
-
+            _renderEngine.setupCamera(_viewport, embedded);
             _renderEngine.render();
-
             iEntitySystemModule::getInstance().onRender(_entityScene);
-            _renderEvent();
-
-            iRenderer::getInstance().flush();
-            return;
-        }
-
-        // now run legacy stuff
-
-        if (_scene != nullptr)
-        {
-            _scene->handle();
-        }
-
-        if (_updateViewport)
-        {
-            iRenderer::getInstance().setViewport(_viewport);
-        }
-
-        if (_clearColorActive)
-        {
-            iRenderer::getInstance().clearColorBuffer(_clearColor);
-        }
-
-        if (_clearDepthActive)
-        {
-            iRenderer::getInstance().clearDepthBuffer(_clearDepth);
-        }
-
-        if (_perspective)
-        {
-            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
         }
         else
         {
-            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-        }
+            iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
 
-        if (_scene != nullptr)
-        {
-            _renderEngineOld.render();
+            if (_updateViewport)
+            {
+                iRenderer::getInstance().setViewport(_viewport);
+            }
+
+            if (_clearColorActive)
+            {
+                iRenderer::getInstance().clearColorBuffer(_clearColor);
+            }
+
+            if (_clearDepthActive)
+            {
+                iRenderer::getInstance().clearDepthBuffer(_clearDepth);
+            }
+
+            if (_perspective)
+            {
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+            }
+            else
+            {
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+            }
+
+            // TODO this needs to go
+            if (_scene != nullptr)
+            {
+                _scene->handle();
+                _renderEngineOld.render();
+            }
         }
 
         _renderEvent();
-
         iRenderer::getInstance().flush();
     }
 
@@ -284,6 +268,11 @@ namespace igor
         std::vector<uint64> colorIDs;
 
         pickColorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
+
+        if(colorIDs.empty())
+        {
+            return 0;
+        }
 
         return colorIDs.front();
     }
@@ -364,6 +353,12 @@ namespace igor
     void iView::setEntityScene(iEntityScenePtr entityScene)
     {
         _entityScene = entityScene;
+        if(_entityScene == nullptr)
+        {
+            return;
+        }
+        
+        // TODO this is BS _entityScene->setRenderEngine calls _renderEngine->setScene(this);
         _entityScene->setRenderEngine(&_renderEngine);
     }
 

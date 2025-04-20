@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -34,15 +34,15 @@
 #include <igor/igor.h>
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(CreateProject, void);
-IGOR_EVENT_DEFINITION(LoadProject, void);
-IGOR_EVENT_DEFINITION(SaveProject, void);
-IGOR_EVENT_DEFINITION(LoadFile, void);
-IGOR_EVENT_DEFINITION(SaveFile, void);
+IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(LoadFile);
+IGOR_EVENT_DEFINITION_NO_ARGS(SaveFile);
 
-IGOR_EVENT_DEFINITION(CopyNode, void, uint64);
-IGOR_EVENT_DEFINITION(PasteNode, void, uint64);
-IGOR_EVENT_DEFINITION(CutNode, void, uint64);
+IGOR_EVENT_DEFINITION(CopyNode, uint64);
+IGOR_EVENT_DEFINITION(PasteNode, uint64);
+IGOR_EVENT_DEFINITION(CutNode, uint64);
 
 /*! main dialog
  */

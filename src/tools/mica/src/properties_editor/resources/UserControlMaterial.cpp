@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlMaterial.h"
@@ -112,22 +112,22 @@ void UserControlMaterial::init()
 
     iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, lightGroupBox);
 
-    _ambientColorChooser = new iUserControlColorChooser(materialLayout);
+    _ambientColorChooser = new iUserControlColor(materialLayout);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _diffuseColorChooser = new iUserControlColorChooser(materialLayout);
+    _diffuseColorChooser = new iUserControlColor(materialLayout);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _specularColorChooser = new iUserControlColorChooser(materialLayout);
+    _specularColorChooser = new iUserControlColor(materialLayout);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _emissiveColorChooser = new iUserControlColorChooser(materialLayout);
+    _emissiveColorChooser = new iUserControlColor(materialLayout);
     _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");
     _emissiveColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
@@ -166,7 +166,7 @@ void UserControlMaterial::init()
         labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
         labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-        _textureChooser[i] = new iUserControlTextureChooser(textureLayout);
+        _textureChooser[i] = new iUserControlTexture(textureLayout);
         _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     }
 
@@ -176,7 +176,7 @@ void UserControlMaterial::init()
     shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
     shaderMaterialLabel->setText("Shader");
     shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _shaderMaterialChooser = new iUserControlShaderMaterialChooser(shaderMaterialLayout);
+    _shaderMaterialChooser = new iUserControlShaderMaterial(shaderMaterialLayout);
 
     _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 }

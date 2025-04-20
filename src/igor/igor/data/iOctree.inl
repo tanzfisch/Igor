@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <typename F>
@@ -363,7 +363,19 @@ void iOctree<F>::clear()
 }
 
 template <typename F>
-const iAACube<F> &iOctree<F>::getRootCube() const
+const iAACube<F> &iOctree<F>::getVolume() const
 {
     return _root->_cube;
+}
+
+template <typename F>
+uint32 iOctree<F>::getSplitThreshold() const
+{
+    return _splitThreshold;
+}
+
+template <typename F>
+uint32 iOctree<F>::getMaxDepth() const
+{
+    return _maxDepth;
 }

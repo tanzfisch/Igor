@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <class T>
@@ -213,6 +213,12 @@ template <class T>
 IGOR_INLINE T iaVector3<T>::length2() const
 {
     return (_x * _x + _y * _y + _z * _z);
+}
+
+template <class T>
+IGOR_INLINE bool iaVector3<T>::zero() const
+{
+    return _x == 0.0 && _y == 0.0 && _z == 0.0;
 }
 
 template <class T>

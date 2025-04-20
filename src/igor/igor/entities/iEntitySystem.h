@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -45,6 +45,37 @@ namespace igor
 	 */
 	class iRenderEngine;
 	typedef iRenderEngine *iRenderEnginePtr;
+
+	/*! entity system pointer definition
+	 */
+	class iEntitySystem;
+	typedef iEntitySystem *iEntitySystemPtr;
+
+    /*! entity system factory function
+     */
+    using iEntitySystemFactory = std::function<iEntitySystemPtr()>;	
+
+    /*! entity system type info
+     */
+    struct iEntitySystemTypeInfo
+    {
+        /*! factory function to create systems
+         */
+        iEntitySystemFactory _factory;
+
+        /*! type name
+         */
+        iaString _typeName;
+
+        iEntitySystemTypeInfo()
+        {
+        }
+
+        iEntitySystemTypeInfo(iEntitySystemFactory factory, const iaString &typeName)
+            : _factory(factory), _typeName(typeName)
+        {
+        }
+    };
 
 	/*! entity system processing stage
 	 */
@@ -162,10 +193,6 @@ namespace igor
 		 */
 		iEntityScenePtr _scene;
 	};
-
-	/*! entity system pointer definition
-	 */
-	typedef iEntitySystem *iEntitySystemPtr;
 
 } // igor
 

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidget.h>
@@ -18,7 +18,7 @@ namespace igor
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
-        : _type(type), _kind(kind) // TODO _parent(parent) why not?
+        : _type(type), _kind(kind)
     {
         _id = _idGenerator.getNextID();
 
@@ -249,11 +249,6 @@ namespace igor
         onParentChanged();
     }
 
-    void iWidget::unregisterOnClickEvent(iClickDelegate iClickDelegate)
-    {
-        _click.remove(iClickDelegate);
-    }
-
     void iWidget::unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
     {
         _mouseOffClick.remove(clickDelegate);
@@ -279,9 +274,9 @@ namespace igor
         _focus.remove(iFocusDelegate);
     }
 
-    void iWidget::registerOnClickEvent(iClickDelegate iClickDelegate)
+    iClickEvent& iWidget::getClickEvent()
     {
-        _click.add(iClickDelegate);
+        return _click;
     }
 
     void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
@@ -593,7 +588,7 @@ namespace igor
                 if (isAcceptingDrop() &&
                     iWidgetManager::getInstance().inDrag())
                 {
-                    onDrop(iWidgetManager::getInstance().getDrag());
+                    onDrop(iWidgetManager::getInstance().getDrag(), event.getPosition());
                     return true;
                 }
 
@@ -605,7 +600,11 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
-                        _click(this);
+                        if (event.getKey() == iKeyCode::MouseLeft)
+                        {
+                            _click(this);
+                        }
+
                         select();
 
                         if (event.getKey() == iKeyCode::MouseRight)
@@ -1039,11 +1038,11 @@ namespace igor
             "iWidgetDockingLayout",
 
             "iUserControl",
-            "iUserControlColorChooser",
-            "iUserControlFileChooser",
-            "iUserControlTextureChooser",
-            "iUserControlMaterialChooser",
-            "iUserControlShaderMaterialChooser",
+            "iUserControlColor",
+            "iUserControlFile",
+            "iUserControlTexture",
+            "iUserControlMaterial",
+            "iUserControlShaderMaterial",
             "iUserControlTreeView",
 
             "iDialog",
@@ -1075,7 +1074,7 @@ namespace igor
         drag.clear();
     }
 
-    void iWidget::onDrop(const iDrag &drag)
+    void iWidget::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         // nothing to do
     }
@@ -1344,6 +1343,16 @@ namespace igor
     bool iWidget::isSelectable() const
     {
         return _isSelectable;
+    }
+
+    void iWidget::refresh()
+    {
+        _needRefresh = true;
+    }
+
+    void iWidget::onRefresh()
+    {
+        // does nothing
     }
 
 } // namespace igor

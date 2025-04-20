@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -54,7 +54,7 @@ namespace igor
 
     /*! draw event triggered for every frame a view is rendered
      */
-    IGOR_EVENT_DEFINITION(iDraw, void);
+    IGOR_EVENT_DEFINITION_NO_ARGS(iDraw);
 
     /*! represents a view rectangle within a window and projection of the scene
 
@@ -429,8 +429,10 @@ namespace igor
         void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
+
+        \param embedded if true frame buffer will not be cleared. This is used when rendering inside a widget
          */
-        void render();
+        void render(bool embedded = false);
 
         /*! updates window rectangle
 

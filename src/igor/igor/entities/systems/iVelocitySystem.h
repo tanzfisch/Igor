@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -45,6 +45,14 @@ namespace igor
 		 */
 		iVelocitySystem();
 
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();		
+
 		/*! sets global bounds
 		 */
 		void setBounds(const iAABoxd &box);
@@ -67,10 +75,6 @@ namespace igor
 		/*! global bounds
 		 */
 		iAABoxd _bounds;
-
-		/*! a view on some entities with interaction resolvers
-		 */
-		iEntityViewPtr _interactionResolverView;
 
 		/*! a view on some entities with no bounds
 		 */

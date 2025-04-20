@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -63,6 +63,13 @@ extern const std::vector<iaString> IGOR_SUPPORTED_MATERIAL_EXTENSIONS; //! suppo
 extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supported file extensions for animations
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS; //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS; //! supported file extensions for sounds
+extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS; //! supported file extensions for prefabs and scenes
+
+/*! \returns true if given extension fits supported model extensions
+    \param ext extension to test
+*/
+#define IGOR_SUPPORTED_MODEL_EXTENSION(ext) (std::find(IGOR_SUPPORTED_MODEL_EXTENSIONS.begin(), IGOR_SUPPORTED_MODEL_EXTENSIONS.end(), file.getExtension()) != IGOR_SUPPORTED_MODEL_EXTENSIONS.end())
+
 
 // resources
 extern const iaString IGOR_RESOURCE_SHADER; //! shader resource name
@@ -72,44 +79,51 @@ extern const iaString IGOR_RESOURCE_TEXTURE; //! texture resource name
 extern const iaString IGOR_RESOURCE_SOUND; //! sound resource name
 extern const iaString IGOR_RESOURCE_SPRITE; //! sprite resource name
 extern const iaString IGOR_RESOURCE_MODEL; //! model resource name
+extern const iaString IGOR_RESOURCE_PREFAB; //! prefab resource name
 
 // resource parameters
-extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameters id
-extern const iaString IGOR_RESOURCE_PARAM_ALIAS; //! resource parameters alias
-extern const iaString IGOR_RESOURCE_PARAM_TYPE; //! resource parameters type
-extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE; //! resource parameters cache mode
-extern const iaString IGOR_RESOURCE_PARAM_SOURCE; //! resource parameters filename
-extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameters pixmap
-extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameters node
-extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameters export mode
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource parameters texture build mode
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE; //! resource parameters texture build mode
-extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameters join vertices
-extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameters sub type
-extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameters quiet
-extern const iaString IGOR_RESOURCE_PARAM_SHADER; //! resource parameters shader
-extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameters material
-extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameters physics material
-extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameters level of detail
-extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameters keep mesh
-extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameters generate
-extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameters seed
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE; //! resource parameters texture
-extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE; //! resource parameters emissive
-extern const iaString IGOR_RESOURCE_PARAM_AMBIENT; //! resource parameters ambient
-extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE; //! resource parameters diffuse
-extern const iaString IGOR_RESOURCE_PARAM_SPECULAR; //! resource parameters specular
-extern const iaString IGOR_RESOURCE_PARAM_SHININESS; //! resource parameters shininess
-extern const iaString IGOR_RESOURCE_PARAM_ALPHA; //! resource parameters alpha
-extern const iaString IGOR_RESOURCE_PARAM_TILING; //! resource parameters tiling
+extern const iaString IGOR_RESOURCE_PARAM_ID; //! resource parameter id
+extern const iaString IGOR_RESOURCE_PARAM_ALIAS; //! resource parameter alias
+extern const iaString IGOR_RESOURCE_PARAM_TYPE; //! resource parameter type
+extern const iaString IGOR_RESOURCE_PARAM_CACHE_MODE; //! resource parameter cache mode
+extern const iaString IGOR_RESOURCE_PARAM_SOURCE; //! resource parameter filename
+extern const iaString IGOR_RESOURCE_PARAM_PIXMAP; //! resource parameter pixmap
+extern const iaString IGOR_RESOURCE_PARAM_NODE; //! resource parameter node
+extern const iaString IGOR_RESOURCE_PARAM_EXPORT_MODE; //! resource parameter export mode
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE; //! resource parameter texture build mode
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE; //! resource parameter texture build mode
+extern const iaString IGOR_RESOURCE_PARAM_JOIN_VERTICES; //! resource parameter join vertices
+extern const iaString IGOR_RESOURCE_PARAM_SUB_TYPE; //! resource parameter sub type
+extern const iaString IGOR_RESOURCE_PARAM_QUIET; //! resource parameter quiet
+extern const iaString IGOR_RESOURCE_PARAM_SHADER; //! resource parameter shader
+extern const iaString IGOR_RESOURCE_PARAM_MATERIAL; //! resource parameter material
+extern const iaString IGOR_RESOURCE_PARAM_PHYSICS_MATERIAL; //! resource parameter physics material
+extern const iaString IGOR_RESOURCE_PARAM_LOD; //! resource parameter level of detail
+extern const iaString IGOR_RESOURCE_PARAM_KEEP_MESH; //! resource parameter keep mesh
+extern const iaString IGOR_RESOURCE_PARAM_GENERATE; //! resource parameter generate
+extern const iaString IGOR_RESOURCE_PARAM_SEED; //! resource parameter seed
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE; //! resource parameter texture
+extern const iaString IGOR_RESOURCE_PARAM_EMISSIVE; //! resource parameter emissive
+extern const iaString IGOR_RESOURCE_PARAM_AMBIENT; //! resource parameter ambient
+extern const iaString IGOR_RESOURCE_PARAM_DIFFUSE; //! resource parameter diffuse
+extern const iaString IGOR_RESOURCE_PARAM_SPECULAR; //! resource parameter specular
+extern const iaString IGOR_RESOURCE_PARAM_SHININESS; //! resource parameter shininess
+extern const iaString IGOR_RESOURCE_PARAM_ALPHA; //! resource parameter alpha
+extern const iaString IGOR_RESOURCE_PARAM_TILING; //! resource parameter tiling
+extern const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID; //! resource parameter entity scene
 
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameters texture unit 0
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameters texture unit 1
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameters texture unit 2
-extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameters texture unit 3
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameter texture unit 0
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameter texture unit 1
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE2; //! resource parameter texture unit 2
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE3; //! resource parameter texture unit 3
 
+extern const iaString IGOR_ITEM_DATA_ID; //! item data type ID
 extern const iaString IGOR_ITEM_DATA_NAME; //! item data type name
 extern const iaString IGOR_ITEM_DATA_ICON; //! item data type icon
+extern const iaString IGOR_ITEM_DATA_UUID; //! item data type UUID
+extern const iaString IGOR_ITEM_DATA_ENABLED; //! item data type enabled
+extern const iaString IGOR_ITEM_DATA_SCENE_ID; //! item data scene id
+extern const iaString IGOR_ITEM_DATA_ENTITY_ID; //! item data entity id
 
 namespace igor
 {

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlProperties.h"
@@ -17,6 +17,8 @@
 #include "resources/UserControlMaterial.h"
 #include "resources/UserControlTexture.h"
 
+#include "entities/UserControlEntity.h"
+
 UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
 {
@@ -24,11 +26,23 @@ UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr pa
     initNodeUI(nodeID);
 }
 
-UserControlProperties::UserControlProperties(const iResourceID &resourceID, const iWidgetPtr parent)
+UserControlProperties::UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
 {
+    con_assert(!id.empty(), "no ids");
+
     initUI();
-    initResourceUI(resourceID);
+
+    switch (propertyType)
+    {
+    case PropertyType::Resource:
+        initResourceUI(id.front());
+        break;        
+    case PropertyType::Entity:
+        con_assert(id.size() == 2, "invalid ids");
+        initEntityUI(id[0], id[1]);
+        break;
+    }
 }
 
 void UserControlProperties::initUI()
@@ -95,6 +109,18 @@ void UserControlProperties::initNodeUI(iNodeID nodeID)
     userControl->update();
 }
 
+void UserControlProperties::initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    if (iEntitySystemModule::getInstance().getScene(sceneID) == nullptr)
+    {
+        return;
+    }
+
+    UserControlEntity *userControl = new UserControlEntity(sceneID, entityID, _layout);
+    userControl->init();
+    userControl->update();
+}
+
 void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 {
     iaString resourceType = iResourceManager::getInstance().getType(resourceID);
@@ -108,7 +134,7 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
     {
         userControl = new UserControlMaterial(resourceID, _layout);
     }
-    else if (resourceType == "texture")
+    else if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
         userControl = new UserControlTexture(resourceID, _layout);
     }

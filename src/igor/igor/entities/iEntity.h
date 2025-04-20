@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,17 +30,13 @@
 #define IGOR_ENTITY_H
 
 #include <igor/entities/components/iComponents.h>
+#include <igor/entities/components/iBehaviourComponent.h>
 
 #include <unordered_map>
 #include <typeindex>
 
 namespace igor
 {
-
-    /*! entity component mask definition
-    */
-    typedef std::bitset<IGOR_MAX_ENTITY_COMPONENT_TYPES> iEntityComponentMask;
-
     /*! pointer to entity
      */
     class iEntity;
@@ -51,18 +47,25 @@ namespace igor
     class iEntityScene;
     typedef iEntityScene *iEntityScenePtr;
 
-    /*! entity
+    /*! entity definition
+
+    Igor uses the terms entity, component and system but it is not a classic entity component system or ECS.
+    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.    
      */
     class IGOR_API iEntity
     {
         friend class iEntityScene;
-        friend class iEntitySystem;
-        friend class iEntityView;
 
     public:
         /*! \returns entity id
          */
         const iEntityID &getID() const;
+
+        /*! sets name of entity
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
 
         /*! \returns name of entity
          */
@@ -76,20 +79,20 @@ namespace igor
 
         /*! sets parent of this entity
 
-        \param parent the given parent 
+        \param parent the given parent
         */
         void setParent(iEntityPtr parent);
 
         /*! removes parent connection
-        */
+         */
         void removeParent();
 
-        /*! \returns parent id
-        */
+        /*! \returns parent
+         */
         iEntityPtr getParent() const;
 
         /*! \returns true if entity has parent
-        */
+         */
         bool hasParent() const;
 
         /*! \returns true if this is the root entity
@@ -99,16 +102,12 @@ namespace igor
         bool isRoot() const;
 
         /*! \returns active children
-        */
-        const std::vector<iEntityPtr>& getChildren() const;
+         */
+        const std::vector<iEntityPtr> &getChildren() const;
 
         /*! \returns inactive children
-        */
-        const std::vector<iEntityPtr>& getInactiveChildren() const;
-
-        /*! \returns true if entity has children
-        */
-        bool hasChildren() const;
+         */
+        const std::vector<iEntityPtr> &getInactiveChildren() const;
 
         /*! sets wether and entity is active or not
 
@@ -117,42 +116,65 @@ namespace igor
         void setActive(bool active);
 
         /*! \returns true if entity is active
-        */
+         */
         bool isActive() const;
 
         /*! \returns scene this entity belongs to
-        */
+         */
         iEntityScenePtr getScene() const;
 
         /*! calculate type hash from component types
 
         \param types the types to use for calculation
         */
-        static iEntityComponentMask calcComponentMask(const std::vector<std::type_index> &types);        
+        static iEntityComponentMask calcComponentMask(const std::vector<std::type_index> &types);
 
         /*! \returns type hash of this entity
-        */
+         */
         iEntityComponentMask getComponentMask() const;
 
-        /*! add component (or overrides if already existing)
+        /*! add component
 
         entity takes ownership of component
 
         \param component the component to add
         \returns the new component
         */
-        template<typename T>
-        T* addComponent(T* component);
+        template <typename T>
+        T *addComponent(T *component);
+
+        /*! adds component with given type id
+
+        entity takes ownership of component
+
+        \param typeID the given type id
+        \param component the component to add
+        */
+        void addComponent(const std::type_index &typeID, iEntityComponentPtr component);
 
         /*! \returns component for given type
+         */
+        template <typename T>
+        T *getComponent() const;
+
+        /*! \returns component for given type
+        \param typeID the given type
         */
-        template<typename T>
-        T* getComponent() const;
+        iEntityComponentPtr getComponent(const std::type_index &typeID) const;
+
+        /*! \returns component types
+         */
+        const std::vector<std::type_index> getComponentTypes();
 
         /*! destroys given component by type
-        */
-        template<typename T>
+         */
+        template <typename T>
         void destroyComponent();
+
+        /*! destroys given component by type
+         */
+        template <typename T>
+        void reloadComponent();        
 
         /*! adds behaviour to entity
 
@@ -169,11 +191,11 @@ namespace igor
         void removeBehaviour(const iBehaviourDelegate &behaviour);
 
         /*! removes all components
-        */
+         */
         void clearComponents();
 
         /*! \returns true if hierarchy (including transforms) is dirty
-        */
+         */
         bool isHierarchyDirty() const;
 
         /*! sets dirty hierarchy flag
@@ -192,27 +214,27 @@ namespace igor
         iaString _name;
 
         /*! scene this entity belongs to
-        */
+         */
         iEntityScenePtr _scene = nullptr;
 
         /*! parent entity
-        */
+         */
         iEntityPtr _parent = nullptr;
 
         /*! child entities
-        */
+         */
         std::vector<iEntityPtr> _children;
 
         /*! inactive child entities
-        */
+         */
         std::vector<iEntityPtr> _inactiveChildren;
 
         /*! if true entity is active and will be processed
-        */
+         */
         bool _active = true;
 
         /*! true in case hierarchy (or transforms) is dirty
-        */
+         */
         bool _dirtyHierarchy = true;
 
         /*! map of components
@@ -220,12 +242,16 @@ namespace igor
         std::unordered_map<std::type_index, iEntityComponentPtr> _components;
 
         /*! added components end up in a queue first
-        */
-        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _addedComponents;
+         */
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> _unloadedComponents;
 
         /*! type hash of entity
-        */
-        iEntityComponentMask _componentMask = 0;
+         */
+        std::atomic<iEntityComponentMask> _componentMask;
+
+        /*! mutex to protect the entity
+         */
+        iaMutex _mutex;
 
         /*! ctor with name
 
@@ -244,8 +270,10 @@ namespace igor
         iEntityComponentMask calcComponentMask();
 
         /*! flushes queues
-        */
-        void processComponents();
+
+        \returns true if all was processed. false if this needs to be called again
+         */
+        bool processComponents();
 
         /*! destroy component by type id
 
@@ -253,24 +281,29 @@ namespace igor
         */
         void destroyComponent(const std::type_index &typeID);
 
+        /*! reload component by type id
+
+        \param typeID the components type id
+        */
+        void reloadComponent(const std::type_index &typeID);        
+
         /*! called for component that is about to be added
 
         \param typeID the components type id
         */
-        void componentToAdd(const std::type_index &typeID);
+        void componentToProcess(const std::type_index &typeID);
 
         /*! notifies scene that components have changed
-        */
+         */
         void onEntityChanged();
 
         /*! sets dirty hierarchy up the hierarchy
-        */
+         */
         void setDirtyHierarchyUp();
 
         /*! sets dirty hierarchy down the hierarchy
-        */
+         */
         void setDirtyHierarchyDown();
-
     };
 
 #include <igor/entities/iEntity.inl>

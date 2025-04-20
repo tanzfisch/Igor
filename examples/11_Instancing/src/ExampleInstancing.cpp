@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "ExampleInstancing.h"
@@ -12,13 +12,15 @@ ExampleInstancing::ExampleInstancing(iWindowPtr window)
 void ExampleInstancing::onInit()
 {
     const float64 spacing = 5.0;
-    const int32 amountPerDimension = 55;
+    const int32 amountPerDimension = 5;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
 
     // create entity scene
-    _entityScene = iEntitySystemModule::getInstance().createScene();
+    iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
+    _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
+    // _entityScene = iEntitySystemModule::getInstance().createScene();
     // setup octree for culling iOctreeComponents
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
     getView().setEntityScene(_entityScene);
@@ -52,21 +54,13 @@ void ExampleInstancing::onInit()
     iaRandomNumberGenerator random;
 
     // load a bunch of models and put them in the scene
-    // TODO need to be able to load a mesh from file without all of this
     iModelPtr modelCat = iResourceManager::getInstance().loadResource<iModel>("example_model_cat");
-    iNodeMeshPtr meshNodeCat = static_cast<iNodeMeshPtr>(modelCat->getNode());
-
     iModelPtr modelCrate = iResourceManager::getInstance().loadResource<iModel>("example_model_crate");
-    iNodeMeshPtr meshNodeCrate = static_cast<iNodeMeshPtr>(modelCrate->getNode());
-
     iModelPtr modelCube = iResourceManager::getInstance().loadResource<iModel>("example_model_cube_green");
-    iNodeMeshPtr meshNodeCube = static_cast<iNodeMeshPtr>(modelCube->getNode());
-
     iModelPtr modelTeapot = iResourceManager::getInstance().loadResource<iModel>("example_model_teapot");
-    iNodeMeshPtr meshNodeTeapot = static_cast<iNodeMeshPtr>(modelTeapot->getNode());
 
     const iaVector3d offset(-spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5, -spacing * amountPerDimension * 0.5);
-    
+
     for (int z = 0; z < amountPerDimension; ++z)
     {
         for (int y = 0; y < amountPerDimension; ++y)
@@ -89,26 +83,29 @@ void ExampleInstancing::onInit()
 
                 iEntityPtr entity = _entityScene->createEntity();
                 entity->addComponent(new iTransformComponent(position + offset, orientation));
+                entity->addComponent(new iSphereComponent(1));
                 entity->addComponent(new iOctreeComponent());
 
                 switch (random.getNextRange(4))
                 {
                 case 0:
-                    entity->addComponent(new iMeshRenderComponent(meshNodeCat->getMesh(), meshNodeCat->getMaterial()));
+                    entity->addComponent(new iMeshReferenceComponent(modelCat));
                     break;
 
                 case 1:
-                    entity->addComponent(new iMeshRenderComponent(meshNodeCrate->getMesh(), meshNodeCrate->getMaterial()));
+                    entity->addComponent(new iMeshReferenceComponent(modelCrate));
                     break;
 
                 case 2:
-                    entity->addComponent(new iMeshRenderComponent(meshNodeCube->getMesh(), meshNodeCube->getMaterial()));
+                    entity->addComponent(new iMeshReferenceComponent(modelCube));
                     break;
 
                 case 3:
-                    entity->addComponent(new iMeshRenderComponent(meshNodeTeapot->getMesh(), meshNodeTeapot->getMaterial()));
+                    entity->addComponent(new iMeshReferenceComponent(modelTeapot));
                     break;
                 }
+
+                entity->addComponent(new iMeshRenderComponent());
             }
         }
     }
@@ -117,6 +114,8 @@ void ExampleInstancing::onInit()
     iEntityPtr sun = _entityScene->createEntity("sun_light");
     sun->addComponent(new iTransformComponent(iaVector3d(1, 1, 1)));
     sun->addComponent(new iLightComponent());
+
+    iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/11_Instancing/project/scenes/main.scene");
 }
 
 void ExampleInstancing::onDeinit()

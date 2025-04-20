@@ -36,7 +36,7 @@ Preferred setup is VSCode, MSVC and CMAKE extension but it should work with Visu
 **Note!** Under Linux you might need to install some additional dependencies like the following ...
 
 ```
-sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev
+sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev libpng-dev
 ```
 
 Run from VSCode

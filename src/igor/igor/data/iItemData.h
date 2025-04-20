@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -43,9 +43,9 @@ namespace igor
         /*! adds item to this container
 
         \returns newly added item
-        \param name unique name of item
+        \param id unique id of item (unique amongst siblings)
         */
-        iItemPtr addItem(const iaString &name);
+        iItemPtr addItem(const iaString &id);
 
         /*! removes given item from this container
 

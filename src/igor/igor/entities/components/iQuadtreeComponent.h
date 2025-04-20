@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -40,11 +40,21 @@ namespace igor
     class iQuadtreeComponent : public iEntityComponent
     {
     public:
-        /*! ctor
+        /*! default ctor
+         */
+        iQuadtreeComponent() = default;
 
-        \param name the name of this component
-        */
-        iQuadtreeComponent(iQuadtreed::ObjectPtr object = nullptr, const iaString &name = "body 2d");
+        /*! ctor
+         */
+        iQuadtreeComponent(iQuadtreed::ObjectPtr object);
+
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! quadtree object
          */
@@ -58,6 +68,10 @@ namespace igor
         /*! callback to deactivate component
          */
         void onDeactivate(iEntityPtr entity) override;
+
+        /*! \returns a copy of this component
+         */
+        iEntityComponentPtr getCopy() override;
     };
 
 }

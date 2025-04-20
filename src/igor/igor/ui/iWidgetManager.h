@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETMANAGER__
-#define __IGOR_WIDGETMANAGER__
+#ifndef IGOR_WIDGETMANAGER_H
+#define IGOR_WIDGETMANAGER_H
 
 #include <igor/iDefines.h>
 #include <igor/system/iKeyboard.h>
@@ -125,24 +125,6 @@ namespace igor
         */
         void draw();
 
-        /*! set this widget exclusively modal
-         */
-        void setModal(iDialogPtr dialog);
-
-        /*! \returns current modal widget
-         */
-        iDialogPtr getModal() const;
-
-        /*! \returns true: if widget is modal
-
-        \param dialog the dialog to check if it is modal
-        */
-        bool isModal(iDialogPtr dialog);
-
-        /*! reset modal flag
-         */
-        void resetModal();
-
         /*! updates recursively all widgets before rendering
          */
         void onUpdate();
@@ -168,9 +150,9 @@ namespace igor
         void deleteWidget(iWidgetPtr widget);           
 
     private:
-        /*! modal marker
+        /*! modal stack (using vector so we can search in it)
          */
-        iDialogPtr _modal = nullptr;
+        std::vector<iDialogPtr> _modalStack;
 
         /*! pointer to current theme
          */
@@ -377,7 +359,23 @@ namespace igor
         */
         void applyCursor();
 
-        void startTooltip(const iaString &tooltip, const iaVector2f &position, iWidgetID sourceID);
+        /*! set this widget exclusively modal
+         */
+        void setModal(iDialogPtr dialog);
+
+        /*! reset modal flag
+         */
+        void resetModal(iDialogPtr dialog);
+
+        /*! \returns current modal widget
+         */
+        iDialogPtr getModal() const;
+
+        /*! \returns true: if widget is modal
+
+        \param dialog the dialog to check if it is modal
+        */
+        bool isModal(iDialogPtr dialog);
 
         /*! init
          */
@@ -390,4 +388,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETMANAGER__
+#endif // IGOR_WIDGETMANAGER_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iItemData.h>
@@ -21,7 +21,7 @@ namespace igor
 
             for(const auto item : current->getItems())
             {
-                if(item->getName() == token)
+                if(item->getID() == token)
                 {
                     next = item;
                     break;
@@ -39,9 +39,9 @@ namespace igor
         return current;
     }
 
-    iItemPtr iItemData::addItem(const iaString& name)
+    iItemPtr iItemData::addItem(const iaString& id)
     {
-        return _root.addItem(name);
+        return _root.addItem(id);
     }
 
     void iItemData::removeItem(iItemPtr item)

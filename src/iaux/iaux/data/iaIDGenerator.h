@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2024 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_IDGENERATOR__
-#define __IAUX_IDGENERATOR__
+#ifndef IAUX_IDGENERATOR_H
+#define IAUX_IDGENERATOR_H
 
 #include <iaux/system/iaMutex.h>
 
@@ -59,4 +59,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_IDGENERATOR__
+#endif // IAUX_IDGENERATOR_H

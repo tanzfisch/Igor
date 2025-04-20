@@ -1,14 +1,34 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iLightComponent.h>
 
 namespace igor
 {
-    iLightComponent::iLightComponent(const iaString &name)
-        : iEntityComponent(name)
+    iLightComponent::iLightComponent()
     {
+    }
+
+    iEntityComponent *iLightComponent::createInstance()
+    {
+        return new iLightComponent();
+    }
+
+    const iaString& iLightComponent::getTypeName()
+    {
+        static const iaString name("igor_light_component");
+        return name;
+    }     
+
+    iEntityComponentPtr iLightComponent::getCopy()
+    {
+        iLightComponent *component = new iLightComponent();
+        component->_ambient = _ambient;
+        component->_diffuse = _diffuse;
+        component->_specular = _specular;
+        component->_type = _type;
+        return component;
     }
 
     void iLightComponent::setType(iLightType type)

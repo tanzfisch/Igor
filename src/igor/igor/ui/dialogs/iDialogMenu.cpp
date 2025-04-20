@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogMenu.h>
@@ -24,9 +24,9 @@ namespace igor
         init();
     }
 
-    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
+    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, modal);
         putInFront();
     }
 
@@ -47,8 +47,10 @@ namespace igor
     void iDialogMenu::clear()
     {
         iWidget::clear();
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);        
-    }    
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        
+        _hasActions = false;
+    }       
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
@@ -74,7 +76,12 @@ namespace igor
         _vboxLayout->addWidget(menu);
     }
 
-    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
+    bool iDialogMenu::hasActions() const
+    {
+        return _hasActions;
+    }
+
+    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context, bool enabled)
     {
         if (!iActionManager::getInstance().isRegistered(action))
         {
@@ -92,13 +99,15 @@ namespace igor
         button->setMinHeight(25);
         button->setAction(action, context);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-
-        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->setEnabled(enabled);
 
         _vboxLayout->addWidget(button);
+
+        _hasActions = true;
     }
 
-    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled)
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -107,15 +116,16 @@ namespace igor
         button->setTooltip(description);
         button->setIcon(iconAlias);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
-        button->registerOnClickEvent(delegate);
+        button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->getClickEvent().add(delegate);
+        button->setEnabled(enabled);
 
         _vboxLayout->addWidget(button);
     }
 
-    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)
+    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context, bool enabled)
     {
-        addAction(iActionManager::getInstance().getAction(actionName), context);
+        addAction(iActionManager::getInstance().getAction(actionName), context, enabled);
     }
 
 } // namespace igor

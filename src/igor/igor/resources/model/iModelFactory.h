@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MODEL_FACTORY__
-#define __IGOR_MODEL_FACTORY__
+#ifndef IGOR_MODEL_FACTORY_H
+#define IGOR_MODEL_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/model/iModel.h>
@@ -106,4 +106,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_MODEL_FACTORY__
+#endif // IGOR_MODEL_FACTORY_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,15 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __VIEWPORT__
-#define __VIEWPORT__
+#ifndef MICA_VIEWPORT_H
+#define MICA_VIEWPORT_H
 
 #include "../Workspace.h"
 #include "overlay/NodeOverlay.h"
 
 class Viewport : public iDialog
 {
-
     friend class iWidgetManager;
 
 public:
@@ -109,6 +108,9 @@ private:
     /*! selected node
      */
     iNodePtr _selectedNode = nullptr;
+
+    // TODO 
+    iResourceID _sceneResourceID;
 
     /*! handles incoming generic event
 
@@ -196,14 +198,28 @@ private:
     /*! drag move handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
     void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
 
     /*! drop handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
-    void onDrop(const iDrag &drag) override;
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! called when a resource was loaded
+    */
+    void onResourceLoaded(const iResourceID resourceID);
+
+    /*! called when project was loaded
+    */
+    void onProjectLoaded();
+
+    /*! called when project was unloaded
+    */
+    void onProjectUnloaded();
 };
 
-#endif // __VIEWPORT__
+#endif // MICA_VIEWPORT_H

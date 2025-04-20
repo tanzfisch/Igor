@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,15 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_THREAD__
-#define __IAUX_THREAD__
+#ifndef IAUX_THREAD_H
+#define IAUX_THREAD_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaIDGenerator.h>
 #include <iaux/data/iaString.h>
 
-#include <thread>
 #include <map>
 
 namespace iaux
@@ -94,6 +93,10 @@ namespace iaux
          */
         static iaID32 getThisThreadID();
 
+        /*! \returns true if this is called on main thread
+        */
+        static bool isMainThread();
+
         /*! \returns type of thread
          */
         const iaString &getType() const;        
@@ -143,4 +146,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // IAUX_THREAD_H

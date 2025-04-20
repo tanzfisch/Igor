@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetMenu.h>
@@ -45,7 +45,7 @@ namespace igor
 
         grid->addWidget(_picture, 2, 0);
 
-        grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
+        grid->getClickEvent().add(iClickDelegate(this, &iWidgetMenu::onClick));
 
         _dialogMenu = new iDialogMenu();
     }

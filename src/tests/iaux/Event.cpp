@@ -4,8 +4,6 @@
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
-IGOR_EVENT_DEFINITION(SimpleVoid, int);
-
 int simpleFunction1()
 {
     return 1;

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -27,13 +27,15 @@
 // contact: igorgameengine@protonmail.com
 //
 
-#ifndef __IAUX_EVENT__
-#define __IAUX_EVENT__
+#ifndef IAUX_EVENT_H
+#define IAUX_EVENT_H
 
 #include <iaux/system/iaConsole.h>
 
+#include <mutex>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 namespace iaux
 {
@@ -60,6 +62,7 @@ namespace iaux
         template <typename T>
         iaDelegate(T *instance, R (T::*method)(Args...))
         {
+            con_assert(instance != nullptr, "zero pointer");
             _internal = (InternalThisCall<T> *)malloc(sizeof(InternalThisCall<T>));
             new (_internal) InternalThisCall<T>(instance, method);
         }
@@ -309,32 +312,79 @@ namespace iaux
         return stream;
     }
 
-    /*! helper class to determine return type
-     */
-    template <typename R, typename... Args>
-    class iaEventReturnHandler
+    typedef iaDelegate<void> iaEventPoolDelegate;
+
+    /*! pool of events that need to be triggered in main thread
+    */
+    class iaEventPool
     {
     public:
-        using ReturnType = std::vector<R>;
 
-        static ReturnType processDelegate(const iaDelegate<R, Args...> &delegate, Args... args)
+        /*! \returns instance of this pool
+        */
+        static iaEventPool &getInstance()
         {
-            return {delegate(std::forward<Args>(args)...)};
+            static iaEventPool instance;
+            return instance;
         }
-    };
 
-    /*! helper class for void return type
-     */
-    template <typename... Args>
-    class iaEventReturnHandler<void, Args...>
-    {
-    public:
-        using ReturnType = void;
-
-        static void processDelegate(const iaDelegate<void, Args...> &delegate, Args... args)
+        /*! execute all events in pool
+        */
+        void execute()
         {
-            delegate(std::forward<Args>(args)...);
+            con_assert(std::this_thread::get_id() == IGOR_MAIN_THREAD_ID, "only allowed to run in main thread");
+
+            _mutex.lock();
+            auto delegates = _delegates;
+            _mutex.unlock();
+
+            for (const auto &delegate : delegates)
+            {
+                delegate();
+            }
         }
+
+        /*! registers event to pool
+
+        \param delegate the delegate representing event and function
+        */
+        void registerEvent(const iaEventPoolDelegate &delegate)
+        {
+            std::lock_guard<std::mutex> lock(_mutex);
+            _delegates.push_back(delegate);
+        }
+
+        /*! unregisters event from pool
+
+        \param delegate the delegate representing event and function
+        */
+        void unregisterEvent(const iaEventPoolDelegate &delegate)
+        {
+            std::lock_guard<std::mutex> lock(_mutex);
+            auto it = std::find(_delegates.begin(), _delegates.end(), delegate);
+            if (it == _delegates.end())
+            {
+                return;
+            }
+            _delegates.erase(it);
+        }
+
+    private:
+        /*! mutex to protect pool
+        */
+        std::mutex _mutex;
+
+        /*! the pool
+        */
+        std::vector<iaEventPoolDelegate> _delegates;
+
+        /*! does nothing
+        */
+        iaEventPool() = default;
+
+        /*! does nothing
+        */
+        ~iaEventPool() = default;
     };
 
     /*! event container for delegates that executes delegates when triggered
@@ -343,20 +393,63 @@ namespace iaux
     class iaEvent
     {
     public:
-        using ReturnHandler = iaEventReturnHandler<R, Args...>;
-        using ReturnType = typename ReturnHandler::ReturnType;
+        /*! unregister from pool in case it is needed
+        */
+        ~iaEvent()
+        {
+            iaEventPool::getInstance().unregisterEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
+        }
 
         /*! adds delegate to event
 
         \param delegate the delegate to add
+        \param fireOnce if true delegate will be fired once and then removed
+        \param mainThread fire only on main thread
         */
-        void add(const iaDelegate<R, Args...> &delegate)
+        void add(const iaDelegate<R, Args...> &delegate, bool fireOnce = false, bool mainThread = false)
         {
             _mutex.lock();
-            auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
-            if (iter == _delegates.end())
+            if (!fireOnce)
             {
-                _delegates.push_back(delegate);
+                if (mainThread)
+                {
+                    iaEventPool::getInstance().registerEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
+
+                    auto iter = std::find(_delegatesMainThread.begin(), _delegatesMainThread.end(), delegate);
+                    if (iter == _delegatesMainThread.end())
+                    {
+                        _delegatesMainThread.push_back(delegate);
+                    }
+                }
+                else
+                {
+                    auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
+                    if (iter == _delegates.end())
+                    {
+                        _delegates.push_back(delegate);
+                    }
+                }
+            }
+            else
+            {
+                if (mainThread)
+                {
+                    iaEventPool::getInstance().registerEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
+
+                    auto iter = std::find(_fireOnceDelegatesMainThread.begin(), _fireOnceDelegatesMainThread.end(), delegate);
+                    if (iter == _fireOnceDelegatesMainThread.end())
+                    {
+                        _fireOnceDelegatesMainThread.push_back(delegate);
+                    }
+                }
+                else
+                {
+                    auto iter = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
+                    if (iter == _fireOnceDelegates.end())
+                    {
+                        _fireOnceDelegates.push_back(delegate);
+                    }
+                }
             }
             _mutex.unlock();
         }
@@ -372,6 +465,21 @@ namespace iaux
             if (iter != _delegates.end())
             {
                 _delegates.erase(iter);
+            }
+            iter = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
+            if (iter != _fireOnceDelegates.end())
+            {
+                _fireOnceDelegates.erase(iter);
+            }
+            iter = std::find(_delegatesMainThread.begin(), _delegatesMainThread.end(), delegate);
+            if (iter != _delegatesMainThread.end())
+            {
+                _delegatesMainThread.erase(iter);
+            }
+            iter = std::find(_fireOnceDelegatesMainThread.begin(), _fireOnceDelegatesMainThread.end(), delegate);
+            if (iter != _fireOnceDelegatesMainThread.end())
+            {
+                _fireOnceDelegatesMainThread.erase(iter);
             }
             _mutex.unlock();
         }
@@ -401,40 +509,30 @@ namespace iaux
 
         /*! executes event
          */
-        ReturnType operator()(Args... args)
+        void operator()(Args... args)
         {
             if (_blocked)
             {
-                if constexpr (!std::is_same_v<ReturnType, void>)
-                {
-                    return {};
-                }
-                else
-                {
-                    return;
-                }
+                return;
             }
 
+            bool mainThread = std::this_thread::get_id() == IGOR_MAIN_THREAD_ID;
             _mutex.lock();
-            auto delegates = _delegates;
+            if (!mainThread &&
+                (!_fireOnceDelegatesMainThread.empty() ||
+                 !_delegatesMainThread.empty()))
+            {
+                // store args for being executed in main thread
+                _fireInMain.emplace_back(std::forward<Args>(args)...);
+            }
+
+            auto delegates = std::move(_fireOnceDelegates);
+            delegates.insert(delegates.end(), _delegates.begin(), _delegates.end());
             _mutex.unlock();
 
-            if constexpr (!std::is_same_v<ReturnType, void>)
+            for (auto &delegate : delegates)
             {
-                ReturnType results;
-                for (auto &delegate : delegates)
-                {
-                    auto result = ReturnHandler::processDelegate(delegate, args...);
-                    results.insert(results.end(), result.begin(), result.end());
-                }
-                return results;
-            }
-            else
-            {
-                for (auto &delegate : delegates)
-                {
-                    ReturnHandler::processDelegate(delegate, args...);
-                }
+                delegate(std::forward<Args>(args)...);
             }
         }
 
@@ -444,6 +542,7 @@ namespace iaux
         {
             _mutex.lock();
             _delegates.clear();
+            _fireOnceDelegates.clear();
             _mutex.unlock();
         }
 
@@ -451,13 +550,50 @@ namespace iaux
          */
         bool hasDelegates()
         {
-            return _delegates.size() ? true : false;
+            return (!_delegates.empty() || !_fireOnceDelegates.empty()) ? true : false;
         }
 
-    protected:
+    private:
         iaMutex _mutex;
         std::vector<iaDelegate<R, Args...>> _delegates;
+        std::vector<iaDelegate<R, Args...>> _fireOnceDelegates;
+        std::vector<iaDelegate<R, Args...>> _delegatesMainThread;
+        std::vector<iaDelegate<R, Args...>> _fireOnceDelegatesMainThread;
+        std::vector<std::tuple<Args...>> _fireInMain;
         bool _blocked = false;
+
+        void processInMain()
+        {
+            con_assert(std::this_thread::get_id() == IGOR_MAIN_THREAD_ID, "not in main thread");
+
+            _mutex.lock();
+            auto fire = std::move(_fireInMain);
+            _mutex.unlock();
+
+            for (const auto &entry : fire)
+            {
+                std::apply(&iaEvent::processDelegate, std::tuple_cat(std::make_tuple(this), entry));
+            }
+
+            if (_delegatesMainThread.empty() &&
+                _fireOnceDelegatesMainThread.empty())
+            {
+                iaEventPool::getInstance().unregisterEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
+            }
+        }
+
+        void processDelegate(Args &&...args)
+        {
+            _mutex.lock();
+            auto delegates = std::move(_fireOnceDelegatesMainThread);
+            delegates.insert(delegates.end(), _delegatesMainThread.begin(), _delegatesMainThread.end());
+            _mutex.unlock();
+
+            for (auto &delegate : delegates)
+            {
+                delegate(std::forward<Args>(args)...);
+            }
+        }
     };
 
 /*! helper function to specify an event and its corresponding delegate
@@ -465,10 +601,14 @@ namespace iaux
 \param NAME the name of the event
 \param ... parameter types. first parameter is expected to be the return type
 */
-#define IGOR_EVENT_DEFINITION(NAME, ...)      \
-    typedef iaEvent<__VA_ARGS__> NAME##Event; \
-    typedef iaDelegate<__VA_ARGS__> NAME##Delegate;
+#define IGOR_EVENT_DEFINITION(NAME, ...)            \
+    typedef iaEvent<void, __VA_ARGS__> NAME##Event; \
+    typedef iaDelegate<void, __VA_ARGS__> NAME##Delegate;
+
+#define IGOR_EVENT_DEFINITION_NO_ARGS(NAME) \
+    typedef iaEvent<void> NAME##Event;      \
+    typedef iaDelegate<void> NAME##Delegate;
 
 } // iaux
 
-#endif // __IAUX_EVENT__l
+#endif // IAUX_EVENT_H

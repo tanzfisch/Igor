@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityComponent.h>
@@ -7,14 +7,8 @@
 namespace igor
 {
 
-    iEntityComponent::iEntityComponent(const iaString &name)
+    iEntityComponent::iEntityComponent()
     {
-        setName(name);
-    }
-
-    void iEntityComponent::setName(const iaString &name)
-    {
-        _name = name;
     }
 
     const iEntityComponentID &iEntityComponent::getID() const
@@ -22,12 +16,7 @@ namespace igor
         return _id;
     }
 
-    const iaString &iEntityComponent::getName() const
-    {
-        return _name;
-    }
-
-    bool iEntityComponent::onLoad(iEntityPtr entity)
+    bool iEntityComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
     {
         return true;
     }
@@ -42,6 +31,11 @@ namespace igor
 
     void iEntityComponent::onUnLoad(iEntityPtr entity)
     {
+    }
+
+    iEntityComponentState iEntityComponent::getState() const
+    {
+        return _state;
     }
 
 } // igor

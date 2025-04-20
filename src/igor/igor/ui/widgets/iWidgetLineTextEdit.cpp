@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetLineTextEdit.h>
@@ -50,8 +50,7 @@ namespace igor
 
 		// skip all we don't care about
 		if (character < 32 ||
-			character > 32 + 128 - 1 ||
-			character == 13)
+			character > 126)
 		{
 			return true;
 		}
@@ -133,7 +132,7 @@ namespace igor
 		if (_triggerChangeAtOnce)
 		{
 			handleChanges();
-		}
+		}		
 
 		// always consume the event when widget has keyboard fo
 		return true;

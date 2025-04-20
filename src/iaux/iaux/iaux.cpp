@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/iaux.h>
@@ -39,11 +39,14 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 #pragma warning(default : 4100)
 #endif // IGOR_WINDOWS
 
-namespace iaux
-{
+std::thread::id IGOR_MAIN_THREAD_ID;
 
+namespace iaux
+{    
     void startup()
     {
+        IGOR_MAIN_THREAD_ID = std::this_thread::get_id();
+
         iaClock::resetClock();
         iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 

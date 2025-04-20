@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,40 +26,41 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DEFINES__
-#define __IAUX_DEFINES__
+#ifndef IAUX_DEFINES_H
+#define IAUX_DEFINES_H
 
 #include <stdint.h>
+#include <thread>
 
 // detect environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-    #ifdef _WIN64
-        #define IGOR_WINDOWS
+#ifdef _WIN64
+#define IGOR_WINDOWS
 
-        #ifndef _UNICODE
-            #error Igor needs unicode!
-        #endif
-    #else
-        #error Igor currently does not support win32
-    #endif
+#ifndef _UNICODE
+#error Igor needs unicode!
+#endif
+#else
+#error Igor currently does not support win32
+#endif
 
 #elif __linux__
-    #define IGOR_LINUX
+#define IGOR_LINUX
 #else
-    #error unsupported environment
+#error unsupported environment
 #endif
 
 #define IGOR_PATHSEPARATOR_WINDOWS '\\'
 #define IGOR_PATHSEPARATOR_LINUX '/'
 
 #ifdef IGOR_WINDOWS
-    #define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
-    #define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
+#define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
+#define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
 #elif defined(IGOR_LINUX)
-    #define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
-    #define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
+#define IGOR_PATHSEPARATOR IGOR_PATHSEPARATOR_LINUX
+#define IGOR_NOT_PATHSEPARATOR IGOR_PATHSEPARATOR_WINDOWS
 #else
-    #error unsupported environment
+#error unsupported environment
 #endif
 
 #define S1(x) #x
@@ -73,62 +74,62 @@
 // configure MSVC environment
 #ifdef _MSC_VER
 
-    #define IGOR_MSCOMPILER
+#define IGOR_MSCOMPILER
 
-    // Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
-    // http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-    #define IGOR_FUNCTION __FUNCTION__
+// Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
+// http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
+#define IGOR_FUNCTION __FUNCTION__
 
-    #ifdef _DEBUG
-        #define IGOR_DEBUG
-        #define IGOR_INLINE __inline
-    #else
-        #define IGOR_INLINE __inline
-    #endif
+#ifdef _DEBUG
+#define IGOR_DEBUG
+#define IGOR_INLINE __inline
+#else
+#define IGOR_INLINE __inline
+#endif
 
-    #define IGOR_DISABLE_WARNING(num) __pragma(warning(disable \
-                                                        : num))
-    #define IGOR_ENABLE_WARNING(num) __pragma(warning(default \
-                                                        : num))
+#define IGOR_DISABLE_WARNING(num) __pragma(warning(disable \
+                                                   : num))
+#define IGOR_ENABLE_WARNING(num) __pragma(warning(default \
+                                                  : num))
 
-    #ifdef IAUX_BUILDING_DLL
-        #define IAUX_API __declspec(dllexport)
-        #define IAUX_API_EXPORT_ONLY __declspec(dllexport)
-        #define IAUX_API_IMPORT_ONLY
-    #else
-        #define IAUX_API __declspec(dllimport)
-        #define IAUX_API_EXPORT_ONLY
-        #define IAUX_API_IMPORT_ONLY __declspec(dllimport)
-    #endif
+#ifdef IAUX_BUILDING_DLL
+#define IAUX_API __declspec(dllexport)
+#define IAUX_API_EXPORT_ONLY __declspec(dllexport)
+#define IAUX_API_IMPORT_ONLY
+#else
+#define IAUX_API __declspec(dllimport)
+#define IAUX_API_EXPORT_ONLY
+#define IAUX_API_IMPORT_ONLY __declspec(dllimport)
+#endif
 
-    #define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
-    #define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
+#define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
+#define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
 #endif // IGOR_WINDOWS
 
 // configure GCC environment
 #ifdef __GNUG__
 
-    #define IGOR_GCC
+#define IGOR_GCC
 
-    #define IGOR_FUNCTION __PRETTY_FUNCTION__
+#define IGOR_FUNCTION __PRETTY_FUNCTION__
 
-    #if defined(DEBUG) || defined(_DEBUG)
-        #define IGOR_DEBUG
-        #define IGOR_INLINE inline
-    #else
-        #define IGOR_INLINE inline
-    #endif
+#if defined(DEBUG) || defined(_DEBUG)
+#define IGOR_DEBUG
+#define IGOR_INLINE inline
+#else
+#define IGOR_INLINE inline
+#endif
 
-    #define IGOR_DISABLE_WARNING(num)
-    #define IGOR_ENABLE_WARNING(num)
+#define IGOR_DISABLE_WARNING(num)
+#define IGOR_ENABLE_WARNING(num)
 
-    #define IAUX_API
-    #define IAUX_API_EXPORT_ONLY
-    #define IAUX_API_IMPORT_ONLY
+#define IAUX_API
+#define IAUX_API_EXPORT_ONLY
+#define IAUX_API_IMPORT_ONLY
 
-    #define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(*name) parameters
-    #define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
+#define IGOR_FUNCTION_POINTER(name, returntype, parameters) typedef returntype(*name) parameters
+#define IGOR_MEMBERFUNCTION_POINTER(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
 #endif // IGOR_LINUX
 
@@ -146,25 +147,25 @@ typedef double float64;
 #ifndef _USE_MATH_DEFINES
 
 /* Define _USE_MATH_DEFINES before including math.h to expose these macro
-* definitions for common math constants.  These are placed under an #ifdef
-* since these commonly-defined names are not part of the C/C++ standards.
-*/
+ * definitions for common math constants.  These are placed under an #ifdef
+ * since these commonly-defined names are not part of the C/C++ standards.
+ */
 
 /* Definitions of useful mathematical constants
-* M_E        - e
-* M_LOG2E    - log2(e)
-* M_LOG10E   - log10(e)
-* M_LN2      - ln(2)
-* M_LN10     - ln(10)
-* M_PI       - pi
-* M_PI_2     - pi/2
-* M_PI_4     - pi/4
-* M_1_PI     - 1/pi
-* M_2_PI     - 2/pi
-* M_2_SQRTPI - 2/sqrt(pi)
-* M_SQRT2    - sqrt(2)
-* M_SQRT1_2  - 1/sqrt(2)
-*/
+ * M_E        - e
+ * M_LOG2E    - log2(e)
+ * M_LOG10E   - log10(e)
+ * M_LN2      - ln(2)
+ * M_LN10     - ln(10)
+ * M_PI       - pi
+ * M_PI_2     - pi/2
+ * M_PI_4     - pi/4
+ * M_1_PI     - 1/pi
+ * M_2_PI     - 2/pi
+ * M_2_SQRTPI - 2/sqrt(pi)
+ * M_SQRT2    - sqrt(2)
+ * M_SQRT1_2  - 1/sqrt(2)
+ */
 #define M_E 2.71828182845904523536
 #define M_LOG2E 1.44269504088896340736
 #define M_LOG10E 0.434294481903251827651
@@ -184,7 +185,7 @@ typedef double float64;
 namespace iaux
 {
     /*! axis definition
-    */
+     */
     enum class iaAxis
     {
         X,
@@ -194,7 +195,7 @@ namespace iaux
 } // namespace iaux
 
 /*! igor tab definition
-*/
+ */
 #define IGOR_TAB L"    "
 
 //! helper macro to handle strings in macros
@@ -203,63 +204,63 @@ namespace iaux
 #define STR(x) STR2(x)
 
 /*! definitions of gram
-*/
+ */
 #define IGOR_GRAM 0.001
 
 /*! definitions of kilogram
-*/
+ */
 #define IGOR_KILO 1.0
 
 /*! definitions of ton
-*/
+ */
 #define IGOR_TON 1000.0
 
 /*! base weight
-*/
+ */
 #define IGOR_BASE_WEIGHT IGOR_KILO
 
 /*! definition of millimeter
-*/
+ */
 #define IGOR_MILLIMETER 0.001
 
 /*! definition of centimeter
-*/
+ */
 #define IGOR_CENTIMETER 0.01
 
 /*! definition of decimeter
-*/
+ */
 #define IGOR_DECIMETER 0.1
 
 /*! definition of one meter
-*/
+ */
 #define IGOR_METER 1.0
 
 /*! definition of kilometer
-*/
+ */
 #define IGOR_KILOMETER 1000.0
 
 /*! base length
-*/
+ */
 #define IGOR_BASE_LENGHT IGOR_METER
 
 /*! definition of millisecond
-*/
+ */
 #define IGOR_MILLISECOND 1.0
 
 /*! definition of second
-*/
+ */
 #define IGOR_SECOND 1000.0
 
 /*! definition of minute
-*/
+ */
 #define IGOR_MINUTE 60000.0
 
 /*! base time
-*/
+ */
 #define IGOR_BASE_TIME IGOR_MILLISECOND
 
 /*! default gravity in m/s
-*/
+ */
 #define IGOR_EARTH_GRAVITY 9.81
 
 #define __IGOR_BIT_0__ 0x00000001
@@ -300,11 +301,15 @@ namespace iaux
 
 #define IGOR_INVALID_ID 0
 
-#define IGOR_RAD2GRAD 180.0/M_PI
-#define IGOR_GRAD2RAD M_PI/180.0
+#define IGOR_RAD2GRAD 180.0 / M_PI
+#define IGOR_GRAD2RAD M_PI / 180.0
 
 // id types
 typedef uint64 iaID64;
 typedef uint32 iaID32;
 
-#endif // __IAUX_DEFINES__
+/*! igor main thread id
+ */
+extern std::thread::id IGOR_MAIN_THREAD_ID;
+
+#endif // IAUX_DEFINES_H

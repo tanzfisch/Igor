@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -47,10 +47,16 @@ namespace igor
     {
     public:
         /*! ctor
+         */
+        iCameraComponent();
 
-        \param name the name of this component
-        */
-        iCameraComponent(const iaString &name = "camera");
+        /*! creates instance of this component type
+         */
+        static iEntityComponent *createInstance();
+
+        /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
 
         /*! sets the view port within a window.
 
@@ -64,7 +70,7 @@ namespace igor
 
         /*! \returns viewport in pixels
          */
-        const iaRectangled& getViewport() const;
+        const iaRectangled &getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
 
@@ -82,7 +88,7 @@ namespace igor
         void setOrthogonal(float32 left, float32 right, float32 bottom, float32 top);
 
         /*! \returns field of view
-        */
+         */
         float64 getFieldOfView() const;
 
         /*! defines the near and far clipping planes
@@ -93,12 +99,12 @@ namespace igor
         void setClipPlanes(float32 nearPlain, float32 farPlain);
 
         /*! \returns near clipping plane
-        */
-        float64 getNearClipPlane() const; 
+         */
+        float64 getNearClipPlane() const;
 
         /*! \returns far clipping plane
-        */
-        float64 getFarClipPlane() const; 
+         */
+        float64 getFarClipPlane() const;
 
         /*! sets the clear color bit.
 
@@ -150,27 +156,26 @@ namespace igor
         float32 getClearDepth() const;
 
         /*! \returns projection type
-        */
+         */
         iProjectionType getProjectionType() const;
 
         /*! \returns left edge of orthogonal projection
-        */
+         */
         float64 getLeftOrtho() const;
 
         /*! \returns right edge of orthogonal projection
-        */
+         */
         float64 getRightOrtho() const;
 
         /*! \returns top edge of orthogonal projection
-        */
+         */
         float64 getTopOrtho() const;
 
         /*! \returns bottom edge of orthogonal projection
-        */
+         */
         float64 getBottomOrtho() const;
 
     private:
-
         /*! viewport
          */
         iaRectangled _viewport = {0.0, 0.0, 1.0, 1.0};
@@ -223,10 +228,11 @@ namespace igor
          */
         float64 _bottomOrtho = -1.0;
 
-        /*! z index aka order in which cameras will be rendered
+        /*! \returns a copy of this component
          */
-        int32 _zIndex = 0;
+        iEntityComponentPtr getCopy() override;
     };
+
 }
 
 #endif // IGOR_CAMERA_COMPONENT_H

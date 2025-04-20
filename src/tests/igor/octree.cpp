@@ -12,8 +12,8 @@ IAUX_TEST(OctreeTests, EmptyTree)
 {
     iOctreef tree(testCube1, 4);
 
-    IAUX_EXPECT_EQUAL(tree.getRootCube().getCenter(), testCube1.getCenter());
-    IAUX_EXPECT_EQUAL(tree.getRootCube().getHalfEdge(), testCube1.getHalfEdge());
+    IAUX_EXPECT_EQUAL(tree.getVolume().getCenter(), testCube1.getCenter());
+    IAUX_EXPECT_EQUAL(tree.getVolume().getHalfEdge(), testCube1.getHalfEdge());
 
     IAUX_EXPECT_TRUE(tree.getRoot()->_children[0] == nullptr);
     IAUX_EXPECT_TRUE(tree.getRoot()->_children[1] == nullptr);

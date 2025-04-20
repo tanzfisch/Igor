@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/config/iConfig.h>
@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <iaux/utils/iaJson.h>
+#include <igor/utils/iJson.h>
 
 namespace igor
 {

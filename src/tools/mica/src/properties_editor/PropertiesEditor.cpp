@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "PropertiesEditor.h"
@@ -14,7 +14,7 @@ void PropertiesEditor::initGUI()
     setTitle("Properties Editor");
 
     setDockable(true);
-    setMinWidth(380);
+    setMinWidth(450);
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
@@ -43,14 +43,27 @@ void PropertiesEditor::setSelection(iNodeID nodeID)
     _userControlProperties = new UserControlProperties(nodeID, _scroll);
 }
 
-void PropertiesEditor::setSelection(const iResourceID &resourceID)
+void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
 {
     deinitProperties();
 
-    if(!resourceID.isValid())
+    if (!resourceID.isValid())
     {
         return;
     }
 
-    _userControlProperties = new UserControlProperties(resourceID, _scroll);
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
+}
+
+void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    deinitProperties();
+
+    if (!sceneID.isValid() ||
+        !entityID.isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityID}, _scroll);
 }

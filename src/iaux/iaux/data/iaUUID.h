@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -129,6 +129,14 @@ namespace iaux
     \returns stream it self
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid);
+
+    /*! print list of uuid in console
+
+    \param stream the stream to write to
+    \param uuids the uuids to write
+    \returns stream it self
+    */
+   IAUX_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaUUID> &uuids);
 }
 
 /*! so can be used as key in a map

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
@@ -38,82 +38,232 @@ namespace igor
         clearComponents();
     }
 
-    void iEntity::componentToAdd(const std::type_index &typeID)
+    const std::vector<std::type_index> iEntity::getComponentTypes()
     {
-        _scene->onComponentToAdd(this, typeID);
+        std::vector<std::type_index> result;
+        _mutex.lock();
+        for(const auto &pair : _components)
+        {
+            result.push_back(pair.first);
+        }
+        _mutex.unlock();
+
+        return result;
     }
 
-    void iEntity::processComponents()
+    iEntityComponentPtr iEntity::getComponent(const std::type_index &typeID) const
     {
-        if (!isActive() ||
-            _addedComponents.empty())
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            return nullptr;
+        }
+
+        return iter->second;
+    }
+
+    void iEntity::setName(const iaString &name)
+    {
+        if (_name == name)
         {
             return;
         }
 
-        for (const auto &pair : _addedComponents)
+        _name = name;
+
+        iEntitySystemModule::getInstance().getEntityNameChangedEvent()(this);
+    }
+
+    void iEntity::addComponent(const std::type_index &typeID, iEntityComponentPtr component)
+    {
+        con_assert(component != nullptr, "zero pointer");
+
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter != _components.end())
         {
-            if (pair.second->onLoad(this))
+            con_err("component already exists");
+            _mutex.unlock();
+            return;
+        }
+
+        _components[typeID] = component;
+        component->_entity = this;
+
+        _unloadedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
+        componentToProcess(typeID);
+    }
+
+    void iEntity::componentToProcess(const std::type_index &typeID)
+    {
+        _scene->onComponentToProcess(this, typeID);
+    }
+
+    bool iEntity::processComponents()
+    {
+        if (getName() == "shop")
+        {
+            int x = 0;
+        }
+
+        _mutex.lock();
+        auto componentsToProcess = std::move(_unloadedComponents);
+        _mutex.unlock();
+
+        if (componentsToProcess.empty())
+        {
+            return true;
+        }
+
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> remainUnloaded;
+
+        bool changed = false;
+
+        for (const auto &pair : componentsToProcess)
+        {
+            con_assert(pair.second->_state == iEntityComponentState::Unloaded || pair.second->_state == iEntityComponentState::UnloadedInactive, "invalid state");
+
+            bool asyncLoad = false;
+            bool active = pair.second->_state == iEntityComponentState::Unloaded;
+
+            bool success = pair.second->onLoad(this, asyncLoad);
+            if (success)
             {
-                pair.second->_state = iEntityComponentState::Loaded;
-                pair.second->onActivate(this);
-                pair.second->_state = iEntityComponentState::Active;
+                if (active)
+                {
+                    pair.second->onActivate(this);
+                    pair.second->_state = iEntityComponentState::Active;
+                }
+                else
+                {
+                    pair.second->onActivate(this);
+                    pair.second->onDeactivate(this);
+                    pair.second->_state = iEntityComponentState::Inactive;
+                }
+
+                changed = true;
+                _scene->onComponentAdded(this, pair.first);
             }
             else
             {
-                pair.second->_state = iEntityComponentState::LoadFailed;
-                con_err("load of component \"" << pair.second->getName() << "\" type(" << pair.first.name() << ") failed");
+                if (!asyncLoad)
+                {
+                    pair.second->_state = iEntityComponentState::LoadFailed;
+                    con_err("load of component " << pair.first.name() << " failed");
+                }
+                else
+                {
+                    // keep in queue
+                    remainUnloaded.push_back(pair);
+                }
             }
-
-            _scene->onComponentAdded(this, pair.first);
         }
 
-        _addedComponents.clear();
+        const bool processAgain = !remainUnloaded.empty();
 
-        _componentMask = calcComponentMask();
+        if (processAgain)
+        {
+            _mutex.lock();
+            _unloadedComponents.insert(_unloadedComponents.end(), remainUnloaded.begin(), remainUnloaded.end());
+            _mutex.unlock();
+        }
 
-        onEntityChanged();
+        if (changed)
+        {
+            _componentMask = calcComponentMask();
+            onEntityChanged();
+        }
+
+        return !processAgain;
     }
 
     void iEntity::destroyComponent(const std::type_index &typeID)
     {
         _scene->onComponentToRemove(this, typeID);
 
+        _mutex.lock();
         auto iter = _components.find(typeID);
         if (iter == _components.end())
         {
+            _mutex.unlock();
             con_err("trying to remove component that does not exist");
             return;
         }
 
-        if (iter->second->_state == iEntityComponentState::Active)
+        auto component = iter->second;
+        _components.erase(iter);
+        _mutex.unlock();
+
+        if (component->_state == iEntityComponentState::Active)
         {
-            iter->second->onDeactivate(this);
-            iter->second->onUnLoad(this);
+            component->onDeactivate(this);
+            component->_state == iEntityComponentState::Inactive;
         }
 
-        delete iter->second;
-        _components.erase(iter);
+        if (component->_state == iEntityComponentState::Inactive)
+        {
+            component->onUnLoad(this);
+            component->_state = iEntityComponentState::Unloaded;
+        }
+
+        delete component;
 
         _componentMask = calcComponentMask();
 
         _scene->onComponentRemoved(this, typeID);
     }
 
+    void iEntity::reloadComponent(const std::type_index &typeID)
+    {
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            _mutex.unlock();
+            con_err("trying to reload component that does not exist");
+            return;
+        }
+
+        auto component = iter->second;
+        _mutex.unlock();
+
+        con_assert(component->_state == iEntityComponentState::Active || component->_state == iEntityComponentState::Inactive, "invalid state");
+
+        const bool active = component->_state == iEntityComponentState::Active;
+
+        if (active)
+        {
+            component->onDeactivate(this);
+        }
+
+        component->onUnLoad(this);
+        component->_state = active ? iEntityComponentState::Unloaded : iEntityComponentState::UnloadedInactive;
+
+        _mutex.lock();
+        _unloadedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
+        componentToProcess(typeID);
+    }
+
     void iEntity::onEntityChanged()
     {
         _scene->onEntityChanged(this);
+
+        iEntitySystemModule::getInstance().getEntityChangedEvent()(this);
     }
 
     void iEntity::clearComponents()
     {
+        _mutex.lock();
         const auto components = _components;
+        _mutex.unlock();
         for (const auto &pair : components)
         {
             destroyComponent(pair.first);
         }
-
-        _components.clear();
 
         onEntityChanged();
     }
@@ -177,28 +327,30 @@ namespace igor
 
     void iEntity::setParent(iEntityPtr parent)
     {
-        con_assert_sticky(parent != nullptr, "null pointer");
-        con_assert_sticky(parent->getScene() == getScene(), "incompatible scene");
+        if (parent == nullptr)
+        {
+            con_err("invalid pointer");
+            return;
+        }
+
+        if (parent->getScene() != getScene())
+        {
+            con_err("incompatible scene");
+            return;
+        }
 
         removeParent();
 
         _parent = parent;
         _parent->_children.push_back(this);
+
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
     }
 
     void iEntity::setParent(const iEntityID &parentID)
     {
-        removeParent();
-
         iEntityPtr parent = _scene->getEntity(parentID);
-        if (parent == nullptr)
-        {
-            con_err("can't find parent with id:" << parentID);
-            return;
-        }
-
-        _parent = parent;
-        _parent->_children.push_back(this);
+        setParent(parent);
     }
 
     void iEntity::removeParent()
@@ -216,6 +368,7 @@ namespace igor
         }
 
         _parent = _scene->_root;
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
     }
 
     iEntityPtr iEntity::getParent() const
@@ -241,11 +394,6 @@ namespace igor
     const std::vector<iEntityPtr> &iEntity::getInactiveChildren() const
     {
         return _inactiveChildren;
-    }
-
-    bool iEntity::hasChildren() const
-    {
-        return !_children.empty();
     }
 
     void iEntity::setActive(bool active)
@@ -286,11 +434,14 @@ namespace igor
             // activate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Loaded ||
-                    pair.second->_state == iEntityComponentState::Inactive)
+                if (pair.second->_state == iEntityComponentState::Inactive)
                 {
                     pair.second->onActivate(this);
                     pair.second->_state = iEntityComponentState::Active;
+                }
+                else if (pair.second->_state == iEntityComponentState::UnloadedInactive)
+                {
+                    pair.second->_state = iEntityComponentState::Unloaded;
                 }
             }
 
@@ -308,8 +459,12 @@ namespace igor
             {
                 if (pair.second->_state == iEntityComponentState::Active)
                 {
-                    pair.second->onDeactivate(this);                    
+                    pair.second->onDeactivate(this);
                     pair.second->_state = iEntityComponentState::Inactive;
+                }
+                else if (pair.second->_state == iEntityComponentState::Unloaded)
+                {
+                    pair.second->_state = iEntityComponentState::UnloadedInactive;
                 }
             }
 
@@ -347,7 +502,7 @@ namespace igor
         iEntityComponentMask result = 0;
         auto &esm = iEntitySystemModule::getInstance();
 
-        // adding types so the order does not matter
+        _mutex.lock();
         for (const auto &pair : _components)
         {
             if (pair.second->_state == iEntityComponentState::Active)
@@ -355,6 +510,7 @@ namespace igor
                 result |= esm.getComponentMask(pair.first);
             }
         }
+        _mutex.unlock();
 
         return result;
     }
@@ -408,7 +564,7 @@ namespace igor
         {
             child->setDirtyHierarchyDown();
         }
-    }    
+    }
 
     bool iEntity::isRoot() const
     {

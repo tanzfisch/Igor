@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -34,13 +34,18 @@
 #include <igor/data/iItemData.h>
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetButton.h>
+#include <igor/ui/widgets/iWidgetScroll.h>
 
 namespace igor
 {
 
     /*! widget click event
      */
-    IGOR_EVENT_DEFINITION(iClickTreeView, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iClickTreeView, const iWidgetPtr);
+
+    /*! context menu event
+     */
+    IGOR_EVENT_DEFINITION(iContextMenuTreeView, const iWidgetPtr);
 
     /*! tree view widget
      */
@@ -60,40 +65,81 @@ namespace igor
 
         /*! sets tree items
 
+        caller keeps ownership
+
         \param itemData item data container
         */
         void setItems(iItemData *itemData);
 
         /*! \returns selected item path
-        */
-        const iaString& getSelectedItemPath() const;
+         */
+        const iaString &getSelectedItemPath() const;
 
         /*! \returns the click event
+         */
+        iClickTreeViewEvent &getClickEvent();
+
+        /*! \returns context menu event
+         */
+        iContextMenuTreeViewEvent &getContextMenuTreeViewEvent();
+
+        /*! clears filter
         */
-        iClickTreeViewEvent& getClickEvent();
+        void clearFilter();
+
+        /*! filter for given key and value (iaString type only)
+
+        the filter is applied during setItems
+
+        \param key the key to filter for
+        \param value the value to filter for
+        */
+        void setFilter(const iaString &key, const iaString &value);
+
+        /*! clears the widget back to default
+         */
+        void clear() override;
 
     protected:
         /*! box layout
          */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
+        /*! scroll widget
+         */
+        iWidgetScrollPtr _scroll = nullptr;
+
+        /*! click event
+         */
+        iClickTreeViewEvent _clickEvent;
+
         /*! context menu event
          */
-        iClickTreeViewEvent _clickEvent;        
+        iContextMenuTreeViewEvent _contextMenuTreeViewEvent;
 
         /*! selected item path
-        */
+         */
         iaString _selectedItemPath;
 
         /*! hold on to all widgets
-        */
+         */
         std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
+
+        /*! only display what matches the filter
+         */
+        std::unordered_map<iaString, std::vector<iaString>> _filters;
 
         /*! handle click events from our buttons
 
         \param source the widget that was clicked
         */
         void onClick(const iWidgetPtr source);
+
+        /*! called when context menu is to be opened
+
+        \param source the widget that was clicked
+        */
+        void onContextMenu(const iWidgetPtr source);
 
         /*! initializes ui
          */
@@ -103,8 +149,10 @@ namespace igor
 
         \param item the current item to update from
         \param itemPath the path of the current item
+        \param indentation indentation of given item
          */
-        virtual void updateUI(iItem *item, const iaString &itemPath);
+        virtual void updateUI(iItem *item, const iaString &itemPath, int indentation = 0);
+
     };
 
     /*! widget tree view pointer definition

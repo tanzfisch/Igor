@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogGraph.h>
@@ -42,7 +42,7 @@ namespace igor
 
     void iDialogGraph::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>> &graphs)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         con_assert(!graphs.empty() && !graphs[0].empty(), "invalid data");
 
@@ -66,7 +66,6 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
         setMinWidth(450);
@@ -185,7 +184,7 @@ namespace igor
         iWidgetButton *delButton = new iWidgetButton();
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
-        delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
+        delButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
@@ -194,15 +193,15 @@ namespace igor
 
         iWidgetButton *okButton = new iWidgetButton();
         okButton->setText("OK");
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onOK));
 
         iWidgetButton *cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onCancel));
 
         iWidgetButton *resetButton = new iWidgetButton();
         resetButton->setText("Reset");
-        resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
+        resetButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onReset));
 
         grid->addWidget(groupBoxGradient, 0, 0);
         grid->addWidget(groupBoxSelection, 0, 1);

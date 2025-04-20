@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,8 +29,10 @@
 #ifndef IGOR_PROJECT_H
 #define IGOR_PROJECT_H
 
-#include <igor/iDefines.h>
+#include <igor/resources/iResourceManager.h>
+#include <igor/resources/module/iModule.h>
 
+#include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
@@ -39,6 +41,22 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! project scene added event
+     */
+    IGOR_EVENT_DEFINITION(iProjectSceneAdded, const iResourceID &);
+
+    /*! project scene removed event
+     */
+    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
+
+    /*! project loaded event
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectLoaded);
+
+    /*! project unloaded event
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
+
     /*! project pointer definition
      */
     class iProject;
@@ -46,31 +64,29 @@ namespace igor
 
     /*! project definition
      */
-    class IGOR_API iProject
+    class IGOR_API iProject : public iModule<iProject>
     {
-    public:
-        /*! \returns singleton instance of thumbnail cache
-         */
-        static iProject &getInstance();
+        friend class iModule<iProject>;
 
-        /*! opens project from project folder
+    public:
+        /*! opens project
 
         closes active project if any
 
-        \param projectFolder the given project folder
+        \param path the given project file or folder
         \returns project
         */
-        void load(const iaString &projectFolder);
+        void load(const iaString &path);
 
         /*! unloads project
-        */
+         */
         void unload();
 
         /*! creates new project in given project folder and loads it
 
-        \param projectFolder given project folder
+        \param path given project folder
         */
-        void create(const iaString &projectFolder);
+        void create(const iaString &path);
 
         /*! saves existing project
 
@@ -80,7 +96,11 @@ namespace igor
 
         /*! \returns project folder
          */
-        const iaString &getProjectFolder() const;
+        const iaString &getProjectPath() const;
+
+        /*! \returns scenes folder
+        */
+        const iaString getScenesPath() const;
 
         /*! \returns project name
          */
@@ -91,32 +111,98 @@ namespace igor
         void setName(const iaString &projectName);
 
         /*! \returns true if changes been made and not saved
-        */
+         */
         bool hasChanges() const;
 
         /*! \returns true if a project currently is loaded
+         */
+        bool isLoaded() const;
+
+        /*! add scene to project
+
+        \param sceneID the scene to add (aka type prefab)
+        \param name name of the scene
+        \param active if scene is active when added
         */
-        bool isLoaded() const; 
+        void addScene(const iResourceID &sceneID, const iaString &name = "scene", bool active = true);
+
+        /*! remove scene from project
+
+        \param sceneID the scene/prefab to remove
+        */
+        void removeScene(const iResourceID &sceneID);
+
+        /*! \returns list of scene references
+         */
+        const std::vector<iResourceID> &getScenes() const;
+
+        /*! \returns the project scene
+         */
+        iEntityScenePtr getProjectScene() const;
+
+        /*! \returns project scene added event
+         */
+        iProjectSceneAddedEvent &getProjectSceneAddedEvent();
+
+        /*! \returns project scene removed event
+         */
+        iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
+
+        /*! \returns project loaded event
+         */
+        iProjectLoadedEvent &getProjectLoadedEvent();
+
+        /*! \returns project unloaded event
+         */
+        iProjectUnloadedEvent &getProjectUnloadedEvent();
 
     private:
         /*! project folder
          */
         iaString _projectFolder;
 
+        /*! project file
+        */
+        iaString _projectFile;
+
         /*! project name
          */
         iaString _projectName;
 
+        /*! the root project scene all other scenes get added to as prefabs
+         */
+        iEntityScenePtr _projectScene = nullptr;
+
         /*! if true project configuration has changes
-        */
+         */
         bool _hasChanges = false;
 
         /*! true if project is loaded
-        */
+         */
         bool _isLoaded = false;
 
+        /*! project scene added event
+         */
+        iProjectSceneAddedEvent _projectSceneAddedEvent;
+
+        /*! project scene added event
+         */
+        iProjectSceneRemovedEvent _projectSceneRemovedEvent;
+
+        /*! project loaded event
+         */
+        iProjectLoadedEvent _projectLoadedEvent;
+
+        /*! project unloaded event
+         */
+        iProjectUnloadedEvent _projectUnloadedEvent;
+
+        /*! scenes references by project
+         */
+        std::vector<iResourceID> _scenes;
+
         /*! loads project
-        */
+         */
         void load();
 
         /*! reads project configuration
@@ -124,6 +210,12 @@ namespace igor
         \param filename the project configuration file
         */
         bool read(const iaString &filename);
+
+        /*! read individual scene from json
+
+        \param sceneJson the given json
+        */
+        bool readScene(const json &sceneJson);
 
         /*! write project configuration
 

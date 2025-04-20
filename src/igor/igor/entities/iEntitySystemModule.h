@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -32,21 +32,34 @@
 #include <igor/resources/module/iModule.h>
 
 #include <igor/entities/iEntityScene.h>
+#include <igor/resources/prefab/iPrefab.h>
 
 #include <unordered_map>
 
 namespace igor
-{    
+{
     /*! event called after creation of new entity
-    */
-    IGOR_EVENT_DEFINITION(iCreatedEntity, void, iEntityPtr);
+     */
+    IGOR_EVENT_DEFINITION(iCreatedEntity, iEntityPtr);
 
     /*! event called before destruction of given entity
-    */
-    IGOR_EVENT_DEFINITION(iDestroyEntity, void, iEntityPtr);
+     */
+    IGOR_EVENT_DEFINITION(iDestroyEntity, iEntityPtr);
+
+    /*! event called after entity has changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityChanged, iEntityPtr);    
+
+    /*! event called when hierarchy of given scene has changed
+     */
+    IGOR_EVENT_DEFINITION(iHierarchyChanged, iEntityScenePtr);
+
+    /*! event called when entity name changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityNameChanged, iEntityPtr);
 
     /*! entity system module
-    */
+     */
     class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
     {
 
@@ -59,16 +72,35 @@ namespace igor
         ownership of scenes always stay with module
 
         \param name the name of the scene
-        \param addIgorSystems if true adds all igor systems to it. if false there will be no systems registered with this scene
+        \param id optional id to override the generated one
+        \param addIgorSystems if true adds all default igor systems to it. if false there will be no systems added to this scene
         \returns new created scene
         */
-        iEntityScenePtr createScene(const iaString &name = "", bool addIgorSystems = true);
+        iEntityScenePtr createScene(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid(), bool addIgorSystems = true);
 
         /*! \returns scene for given scene id
 
         \param sceneID the given id
         */
         iEntityScenePtr getScene(const iEntitySceneID &sceneID);
+
+        /*! insert copy of prefab at given entity
+
+        This copies entities recursively
+
+        \param prefab the source scene or prefab to insert
+        \param entity the entity inside the destination scene
+        */
+        void insert(iPrefabPtr prefab, iEntityPtr dstEntity);
+
+        /*! insert copy of entity at given entity 
+
+        This copies entities recursively
+
+        \param srcEntity the entity to copy
+        \param dstEntity the entity to copy to
+        */
+        void insert(iEntityPtr srcEntity, iEntityPtr dstEntity);
 
         /*! destroys scene with given id
 
@@ -101,19 +133,37 @@ namespace igor
         void setSimulationRate(float64 simulationRate);
 
         /*! \returns simulation rate
-        */
+         */
         float64 getSimulationRate();
 
         /*! registers a component type
+
+        \param factoryFunction factory function returning instance of given component
+        \param componentTypeName component type name (must be unique)
+         */
+        template <typename T>
+        void registerComponentType(iEntityComponentFactory factoryFunction, const iaString &componentTypeName);
+
+        /*! registers a system type
+
+        \param factoryFunction factory function returning instance of given system
+        \param systemTypeName system type name (must be unique)
+         */
+        void registerSystemType(iEntitySystemFactory factoryFunction, const iaString &systemTypeName);
+
+        /*! \returns newly created system instance
+
+        \param systemTypeName type of system to create
+
+        caller takes ownership
         */
-        template<typename T>
-        void registerComponentType();
+        iEntitySystemPtr createSystem(const iaString &systemTypeName) const;
 
         /*! \returns mask for given component type
 
         \param typeID the given component type
         */
-        iEntityComponentMask getComponentMask(const std::type_index &typeID) const;
+        iEntityComponentMask getComponentMask(const std::type_index &typeID);
 
         /*! activates given scene
 
@@ -125,23 +175,47 @@ namespace igor
 
         \param scene the given scene to deactivate
         */
-        void deactivateScene(iEntityScenePtr scene);       
-        
+        void deactivateScene(iEntityScenePtr scene);
+
         /*! \returns all active scenes
-        */
-        const std::vector<iEntityScenePtr>& getActiveScenes() const;
+         */
+        std::vector<iEntityScenePtr> getActiveScenes();
 
         /*! \returns all inactive scenes
-        */
-        const std::vector<iEntityScenePtr>& getInactiveScenes() const;
+         */
+        std::vector<iEntityScenePtr> getInactiveScenes();
 
         /*! \returns entity got created event
-        */
-        iCreatedEntityEvent& getCreatedEntityEvent();
+         */
+        iCreatedEntityEvent &getCreatedEntityEvent();
 
         /*! \returns entity will be destroyed event
+         */
+        iDestroyEntityEvent &getDestroyEntityEvent();
+
+        /*! \returns entity changed event
         */
-        iDestroyEntityEvent& getDestroyEntityEvent();
+        iEntityChangedEvent &getEntityChangedEvent();
+
+        /*! \returns hierarchy changed event
+         */
+        iHierarchyChangedEvent &getHierarchyChangedEvent();
+
+        /*! \returns entity name changed event
+         */
+        iEntityNameChangedEvent &getEntityNameChangedEvent();
+
+        /*! clear everything
+         */
+        void clear();
+
+        /*! \returns registered component types
+         */
+        const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &getRegisteredComponentTypes() const;
+
+        /*! \returns registered system types
+        */
+        const std::unordered_map<iaString, iEntitySystemTypeInfo> &getRegisteredSystemTypes() const;
 
     private:
         /*! entity scenes
@@ -153,35 +227,54 @@ namespace igor
         std::vector<iEntityScenePtr> _activeScenes;
 
         /*! inactive entity scenes
-        */
+         */
         std::vector<iEntityScenePtr> _inactiveScenes;
 
+        /*! mutex protecting all data
+         */
+        iaMutex _mutex;
+
         /*! simulation rate in Hz
-        */
-        float64 _simulationRate = 60.0;        
+         */
+        float64 _simulationRate = 60.0;
 
         /*! simulation frame time
-        */
-        iaTime _simulationFrameTime = iaTime::getNow();
+         */
+        iaTime _simulationFrameTime;
 
         /*! event triggered when entity got created
-        */
+         */
         iCreatedEntityEvent _createdEntityEvent;
 
-        /*! event triggered before entity get's destroyed
+        /*! event triggered when entity changed
         */
-        iDestroyEntityEvent _destroyEntityEvent;        
+       iEntityChangedEvent _entityChangeEvent;
+
+        /*! event triggered before entity get's destroyed
+         */
+        iDestroyEntityEvent _destroyEntityEvent;
+
+        /*! the hierarchy changed event
+         */
+        iHierarchyChangedEvent _hierarchyChangedEvent;
+
+        /*! entity name changed event
+         */
+        iEntityNameChangedEvent _entityNameChangedEvent;
 
         /*! the registered component types
 
         IGOR_MAX_ENTITY_COMPONENT_TYPES is the maximum that can be registered
         */
-        std::unordered_map<std::type_index, iEntityComponentMask> _registeredComponentTypes;
+        std::unordered_map<std::type_index, iEntityComponentTypeInfo> _registeredComponentTypes;
+
+        /*! registered systems
+        */
+        std::unordered_map<iaString, iEntitySystemTypeInfo> _registeredSystemTypes;
 
         /*! register known types
-        */
+         */
         iEntitySystemModule();
-
     };
 
 #include <igor/entities/iEntitySystemModule.inl>

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iItem.h>
@@ -7,25 +7,25 @@
 namespace igor
 {
 
-    void iItem::setName(const iaString &name)
-    {
-        setValue<iaString>(IGOR_ITEM_DATA_NAME, name);
-    }
-
     bool iItem::hasValue(const iaString &key) const
     {
         return _data.hasType(key);
     }
 
-    const iaString iItem::getName() const
+    const iaString iItem::getID() const
     {
-        return getValue<iaString>(IGOR_ITEM_DATA_NAME);
+        return getValue<iaString>(IGOR_ITEM_DATA_ID);
     }
 
-    iItemPtr iItem::addItem(const iaString &name)
+    bool iItem::hasData() const
+    {
+        return _data.hasData();
+    }
+
+    iItemPtr iItem::addItem(const iaString &id)
     {
         _items.emplace_back(std::make_unique<iItem>());
-        _items.back().get()->setName(name);
+        _items.back().get()->setValue<iaString>(IGOR_ITEM_DATA_ID, id);
         _items.back().get()->_parent = this;
         return _items.back().get();
     }

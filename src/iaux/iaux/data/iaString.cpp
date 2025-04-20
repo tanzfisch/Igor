@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header stream
 
 #include <iaux/data/iaString.h>
@@ -109,6 +109,12 @@ namespace iaux
 
     int64 iaString::getHashValue() const
     {
+        if (_data == nullptr)
+        {
+            con_err("invalid data");
+            return 0;
+        }
+
         std::hash<std::wstring> hashFunc;
         return static_cast<int64>(hashFunc(_data));
     }
@@ -152,20 +158,43 @@ namespace iaux
         setData(data.getData());
     }
 
-    void iaString::toLower()
+    iaString iaString::toLower() const
     {
-        for (int64 i = 0; i < getLength(); i++)
+        iaString result(getData());
+        for (int64 i = 0; i < result.getLength(); i++)
         {
-            (*this)[i] = static_cast<wchar_t>(tolower((*this)[i]));
+            result[i] = static_cast<wchar_t>(std::towlower(result[i]));
         }
+        return result;
     }
 
-    void iaString::toUpper()
+    iaString iaString::toUpper() const
     {
-        for (int64 i = 0; i < getLength(); i++)
+        iaString result(getData());
+        for (int64 i = 0; i < result.getLength(); i++)
         {
-            (*this)[i] = static_cast<wchar_t>(toupper((*this)[i]));
+            result[i] = static_cast<wchar_t>(std::towupper(result[i]));
         }
+        return result;
+    }
+
+    iaString iaString::toSnakeCase() const
+    {
+        iaString result(getData());
+        result = trim(result);
+
+        for (int64 i = 0; i < result.getLength(); i++)
+        {
+            if (std::isspace(result[i]))
+            {
+                result[i] = '_';
+            }
+            else
+            {
+                result[i] = static_cast<wchar_t>(std::towlower(result[i]));
+            }
+        }
+        return result;
     }
 
     const wchar_t *iaString::getData() const
@@ -473,6 +502,8 @@ namespace iaux
 
     void iaString::clear()
     {
+        CHECK_CONSISTENCY();
+
         if (_data != nullptr)
         {
             delete[] _data;
@@ -586,23 +617,33 @@ namespace iaux
 
     void iaString::operator+=(const iaString &text)
     {
+        if (text.isEmpty())
+        {
+            return;
+        }
+
         CHECK_CONSISTENCY();
 
-        if (!text.isEmpty())
+        if (isEmpty())
         {
-            wchar_t *temp = new wchar_t[_charCount + text.getLength() + 1];
-            if (_charCount > 0)
-            {
-                wmemcpy(temp, _data, _charCount);
-            }
-            wmemcpy(temp + _charCount, text.getData(), text.getLength());
-            _charCount += text.getLength();
-            temp[_charCount] = 0;
-            delete[] _data;
-            _data = temp;
+            setData(text.getData());
 
             CHECK_CONSISTENCY();
+            return;
         }
+
+        wchar_t *temp = new wchar_t[_charCount + text.getLength() + 1];
+        if (_charCount > 0)
+        {
+            wmemcpy(temp, _data, _charCount);
+        }
+        wmemcpy(temp + _charCount, text.getData(), text.getLength());
+        _charCount += text.getLength();
+        temp[_charCount] = 0;
+        delete[] _data;
+        _data = temp;
+
+        CHECK_CONSISTENCY();
     }
 
     iaString iaString::operator+(const wchar_t &character) const
@@ -617,6 +658,14 @@ namespace iaux
     void iaString::operator+=(const wchar_t &character)
     {
         CHECK_CONSISTENCY();
+
+        if (isEmpty())
+        {
+            *this = character;
+
+            CHECK_CONSISTENCY();
+            return;
+        }        
 
         wchar_t *temp = new wchar_t[_charCount + 2];
         if (_charCount > 0)
@@ -633,6 +682,8 @@ namespace iaux
 
     iaString iaString::operator=(const iaString &text)
     {
+        CHECK_CONSISTENCY();
+
         // skip if this is the same exact data
         if (getData() != text.getData())
         {
@@ -1010,7 +1061,7 @@ namespace iaux
     {
         CHECK_CONSISTENCY();
 
-        if (len == 0 || _data == nullptr)
+        if (isEmpty())
         {
             return iaString();
         }
@@ -1333,25 +1384,25 @@ namespace iaux
         return (integer + (part * decimals)) * sign;
     }
 
-    iaString iaString::trimLeft(const iaString &text)
+    iaString iaString::trimLeft(const iaString &text, const iaString &chars)
     {
         if (text.isEmpty())
         {
             return text;
         }
 
-        int64 start = text.findFirstNotOf(L" \n\r\t\f\v");
+        int64 start = text.findFirstNotOf(chars.getData());
         return text.getSubString(start);
     }
 
-    iaString iaString::trimRight(const iaString &text)
+    iaString iaString::trimRight(const iaString &text, const iaString &chars)
     {
         if (text.isEmpty())
         {
             return text;
         }
 
-        int64 stop = text.findLastNotOf(L" \n\r\t\f\v");
+        int64 stop = text.findLastNotOf(chars.getData());
         return (stop == iaString::INVALID_POSITION) ? "" : text.getSubString(0, stop + 1);
     }
 

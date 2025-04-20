@@ -1,6 +1,6 @@
 
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
@@ -25,31 +25,25 @@ UILayer::~UILayer()
 
 void UILayer::onInit()
 {
-    // call base class
     iLayerWidgets::onInit();
-
-    registerMicaActions();
 
     _mainDialog = new MainDialog(_workspace);
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
-    _sceneOutliner = new SceneOutliner(_workspace);
-    _sceneOutliner->setEnabled();
-    _sceneOutliner->setVisible();
-
-    _outliner = new Outliner();
-    _outliner->setEnabled();
-    _outliner->setVisible();
-
     _propertiesDialog = new PropertiesEditor();
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
 
+    _outliner = new Outliner();
+    _outliner->setEnabled();
+    _outliner->setVisible();
+    _outliner->getEntitySelectionChangedEvent().add(EntitySelectionChangedDelegate(this, &UILayer::onOutlinerSelectionChanged));
+
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();
     _assetBrowser->setVisible();
-    _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
+    _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelectionResource));
 
     _viewport = new Viewport(_workspace);
     _viewport->setEnabled();
@@ -61,27 +55,14 @@ void UILayer::onInit()
     _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
     _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
-    _sceneOutliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
-    _sceneOutliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
-
-    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelection));
-    _sceneOutliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
-
-    // load layout configuration here instead of this hack
+    // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
-
     iWidgetSplitterPtr splitter0 = new iWidgetSplitter(true);
     iWidgetSplitterPtr splitter1 = new iWidgetSplitter(true);
-    iWidgetSplitterPtr splitter2 = new iWidgetSplitter(true);
-    
-    splitter2->setOrientation(iSplitterOrientation::Horizontal);
-    splitter2->setRatio(0.5f);
-    splitter2->addWidget(_outliner);
-    splitter2->addWidget(_sceneOutliner);
 
     rootSplitter->setOrientation(iSplitterOrientation::Vertical);
     rootSplitter->setRatio(0.1f);
-    rootSplitter->addWidget(splitter2);
+    rootSplitter->addWidget(_outliner);
     rootSplitter->addWidget(splitter0);
 
     splitter0->setOrientation(iSplitterOrientation::Vertical);
@@ -95,18 +76,17 @@ void UILayer::onInit()
     splitter1->addWidget(_assetBrowser);
 }
 
+void UILayer::onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID)
+{
+    _propertiesDialog->setSelectionEntity(sceneID, entityID);
+}
+
 void UILayer::onDeinit()
 {
     if (_propertiesDialog != nullptr)
     {
         delete _propertiesDialog;
         _propertiesDialog = nullptr;
-    }
-
-    if (_sceneOutliner != nullptr)
-    {
-        delete _sceneOutliner;
-        _sceneOutliner = nullptr;
     }
 
     if (_outliner != nullptr)
@@ -122,8 +102,6 @@ void UILayer::onDeinit()
 void UILayer::onAddMaterial()
 {
     iResourceManager::getInstance().createResource<iShader>();
-
-    _sceneOutliner->refresh();
 }
 
 void UILayer::onLoadMaterial()
@@ -154,12 +132,12 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().create(_fileDialog.getFullPath());
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
 }
 
 void UILayer::onLoadProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaDirectory::getCurrentDirectory(), {"project"});
 }
 
 void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
@@ -169,10 +147,8 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
         return;
     }
 
-    iProject::getInstance().unload();
-
     iProject::getInstance().load(_fileDialog.getFullPath());
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectFolder());
+    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
 }
 
 void UILayer::onSaveProject()
@@ -227,7 +203,6 @@ void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
 
     iShaderPtr material = iResourceManager::getInstance().loadResource<iShader>(_fileDialog.getFullPath());
     material->setVisibility(iMaterialVisibility::Public);
-    _sceneOutliner->refresh();
 }
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
@@ -276,7 +251,6 @@ void UILayer::onUpdate()
 {
     if (_refresh)
     {
-        _sceneOutliner->refresh();
         _refresh = false;
     }
 
@@ -288,24 +262,39 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-    event.dispatch<iEventNodeAddedToScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeAddedToScene));
-    event.dispatch<iEventNodeRemovedFromScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeRemovedFromScene));
-    event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onSceneSelectionChanged));
+
+    event.dispatch<iEventFileCreated>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileCreated));
+    event.dispatch<iEventFileDeleted>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileDeleted));
+    event.dispatch<iEventFileMovedFrom>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedFrom));
+    event.dispatch<iEventFileMovedTo>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedTo));
+    event.dispatch<iEventFileChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileChanged));
 }
 
-bool UILayer::onNodeAddedToScene(iEventNodeAddedToScene &event)
+bool UILayer::onFileCreated(iEventFileCreated &event)
 {
     _refresh = true;
     return false;
 }
 
-bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
+bool UILayer::onFileDeleted(iEventFileDeleted &event)
 {
     _refresh = true;
     return false;
 }
 
-bool UILayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+bool UILayer::onFileMovedFrom(iEventFileMovedFrom &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onFileMovedTo(iEventFileMovedTo &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onFileChanged(iEventFileChanged &event)
 {
     _refresh = true;
     return false;
@@ -368,33 +357,14 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         _workspace->deleteSelected();
         return true;
 
+        /* TODO hide _outliner, _propertiesDialog, _assetBrowser
+            and make full screen _viewport
+            and vice versa
     case iKeyCode::Space:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            if (_sceneOutliner->isEnabled() && _sceneOutliner->isVisible())
-            {
-                _sceneOutliner->setEnabled(false);
-                _sceneOutliner->setVisible(false);
-            }
-            else
-            {
-                _sceneOutliner->setEnabled();
-                _sceneOutliner->setVisible();
-                _sceneOutliner->refresh();
-            }
-
-            if (_propertiesDialog->isEnabled() && _propertiesDialog->isVisible())
-            {
-                _propertiesDialog->setEnabled(false);
-                _propertiesDialog->setVisible(false);
-            }
-            else
-            {
-                _propertiesDialog->setEnabled();
-                _propertiesDialog->setVisible();
-            }
         }
-        return true;
+        return true; */
     }
 
     return false;

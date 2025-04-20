@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResourceManager.h>
@@ -11,6 +11,7 @@
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
+#include <igor/resources/prefab/iPrefabFactory.h>
 #include <igor/resources/config/iConfig.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
@@ -46,6 +47,7 @@ namespace igor
         configure();
 
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iPrefabFactory()));
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
@@ -396,6 +398,7 @@ namespace igor
 
         result->setProcessed(true);
         result->setValid(true);
+        _resourceProcessedEvent(result->getID());
 
         return result;
     }
@@ -409,7 +412,7 @@ namespace igor
         }
 
         iResourceID id;
-        if (!iResource::extractID(parameters, id))
+         if (!iResource::extractID(parameters, id))
         {
             const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
             const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
@@ -428,14 +431,16 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_trace("cache hit " << result->getType() << " " << result->getInfo());
-
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);
             if (iter != _loadingQueue.end())
             {
                 _loadingQueue.erase(iter);
                 loadNow = true;
+            }
+            else
+            {
+                con_trace("cache hit " << result->getType() << " " << result->getInfo());
             }
         }
         else
@@ -451,15 +456,18 @@ namespace igor
 
         if (loadNow)
         {
-            result->setValid(factory->loadResource(result));
+            bool valid = factory->loadResource(result);
 
-            if (result->isValid() &&
+            if (valid &&
                 result->getSource().isEmpty())
             {
                 result->setSource(iResourceManager::getInstance().getFilename(result->getID()));
             }
 
             result->setProcessed(true);
+            result->setValid(valid);
+            
+            _resourceProcessedEvent(result->getID());
         }
 
         const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
@@ -536,8 +544,17 @@ namespace igor
             // should never fail
             iFactoryPtr factory = getFactory(resource->getParameters());
 
-            resource->setValid(factory->loadResource(resource));
+            bool valid = factory->loadResource(resource);
+
+            if (valid &&
+                resource->getSource().isEmpty())
+            {
+                resource->setSource(iResourceManager::getInstance().getFilename(resource->getID()));
+            }
+
             resource->setProcessed(true);
+            resource->setValid(valid);
+            _resourceProcessedEvent(resource->getID());
         }
 
         _interruptLoading = false;
@@ -602,7 +619,7 @@ namespace igor
         const iaDirectory checkDir(filepath);
         if (checkDir.exists())
         {
-            return checkDir.getFullDirectoryName();
+            return checkDir.getAbsoluteDirectoryName();
         }
 
         iaFile checkFile(filepath);
@@ -640,11 +657,10 @@ namespace igor
             const iaDirectory dir(path);
             if (dir.exists())
             {
-                return dir.getFullDirectoryName();
+                return dir.getAbsoluteDirectoryName();
             }
         }
 
-        con_warn("could not find file or directory for \"" << filepath << "\"");
         return filepath;
     }
 
@@ -656,10 +672,10 @@ namespace igor
             iaDirectory dir(path);
 
             std::vector<iaString> matches;
-            iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
+            iaString::searchRegex(filename, dir.getAbsoluteDirectoryName(), matches);
             if (!matches.empty())
             {
-                result = iaDirectory::getRelativePath(dir.getFullDirectoryName(), filename);
+                result = iaDirectory::getRelativePath(dir.getAbsoluteDirectoryName(), filename);
                 break;
             }
         }
@@ -793,14 +809,20 @@ namespace igor
         return param;
     }
 
-    void iResourceManager::removeResource(const iResourceID &resourceID)
+    void iResourceManager::removeFromDictionary(const iResourceID &resourceID)
     {
         _resourceDictionary.removeResource(resourceID);
     }
 
-    void iResourceManager::addResource(const iaString &filename, const iaString &alias)
+    void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)
     {
-        _resourceDictionary.addResource(filename, alias);
+        iaUUID id = uuid.isValid() ? uuid : iaUUID();
+        _resourceDictionary.addResource(id, filename, alias, false);
+    }
+
+    iResourceProcessedEvent &iResourceManager::getResourceProcessedEvent()
+    {
+        return _resourceProcessedEvent;
     }
 
 } // namespace igor

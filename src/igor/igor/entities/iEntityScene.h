@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -56,8 +56,19 @@ namespace igor
 		friend class iEntity;
 		friend class iView;
 		friend class iEntityTraverser;
+		friend class iPrefabIO;
 
 	public:
+		/*! ctor
+
+		\param name the name of the scene
+		*/
+		iEntityScene(const iaString &name);
+
+		/*! dtor clean up
+		 */
+		~iEntityScene();
+
 		/*! sets name of scene
 
 		\param name the name of the scene
@@ -72,14 +83,29 @@ namespace igor
 
 		ownership stays with the scene
 
+		\param name the name of this entity
+		\param id optional id to override the generated one
+
 		\returns newly created entity
 		*/
-		iEntityPtr createEntity(const iaString &name = "");
+		iEntityPtr createEntity(const iaString &name = "", const iEntityID &id = iEntityID::getInvalid());
+
+		/*! create entity from existing one
+
+		\param srcEntity the source entity to create a copy from
+		\param copyID if true also copy the ID of the original entity else generate a new id
+		\returns newly created entity
+		*/
+		iEntityPtr createEntity(iEntityPtr srcEntity, bool copyID = false);
 
 		/*! \returns entity for given entity ID. zero if not found
 		\param entityID the given entity ID
 		*/
-		iEntityPtr getEntity(iEntityID entityID) const;
+		iEntityPtr getEntity(iEntityID entityID);
+
+		/*! \returns the root entity
+		*/
+		iEntityPtr getRootEntity() const;
 
 		/*! \returns all entities with camera component
 
@@ -96,6 +122,12 @@ namespace igor
 		\param entity the given entity
 		*/
 		void destroyEntity(iEntityPtr entity);
+
+		/*! destroys given entity by id
+
+		\param entityID the given entity id
+		*/
+		void destroyEntity(iEntityID entityID);
 
 		/*! \returns entity scene id
 		 */
@@ -135,15 +167,19 @@ namespace igor
 
 		/*! add system
 
-		\param system the system to add
+		\param systemName the system to add
 		*/
-		void addSystem(iEntitySystemPtr system);
+		void addSystem(const iaString &systemName);
 
 		/*! remove system
 
-		\param system the system to remove
+		\param systemName the system to remove
 		*/
-		void removeSystem(iEntitySystemPtr system);		
+		void removeSystem(const iaString &systemName);
+
+		/*! \returns list of systems running on this scene
+		*/
+		const std::vector<iaString> getSystems();
 
 	private:
 		/*! entity scene id
@@ -162,9 +198,17 @@ namespace igor
 		 */
 		std::vector<iEntityPtr> _deleteQueue;
 
+		/*! delete queue mutex
+		*/
+		iaMutex _deleteQueueMutex;
+
 		/*! entity process queue
 		*/
 		std::vector<iEntityPtr> _processQueue;
+
+		/*! process queue mutex
+		*/
+		iaMutex _processQueueMutex;
 
 		/*! keep one specialized root entity for tree traversal
 		 */
@@ -172,7 +216,11 @@ namespace igor
 
 		/*! list of systems
 		 */
-		std::array<std::vector<iEntitySystemPtr>, (int)iEntitySystemStage::StageCount> _systems;
+		std::array<std::vector<std::pair<iaString, iEntitySystemPtr>>, (int)iEntitySystemStage::StageCount> _systems;
+
+		/*! systems mutex
+		*/
+		iaMutex _systemsMutex;
 
 		/*! quadtree
 		 */
@@ -190,15 +238,9 @@ namespace igor
 		*/
 		iRenderEnginePtr _renderEngine = nullptr;
 
-		/*! ctor
-
-		\param name the name of the scene
+		/*! handle multi thread access to scene
 		*/
-		iEntityScene(const iaString &name);
-
-		/*! dtor clean up
-		 */
-		~iEntityScene();
+		iaMutex _mutex;
 
 		/*! sets render engine
 
@@ -217,12 +259,12 @@ namespace igor
 		 */
 		void onUpdate(const iaTime &time, iEntitySystemStage stage);
 
-		/*! called when a component is to be added
+		/*! called when a component is to be processed (usually when being added)
 
 		\param entity pointer of entity
 		\param typeID type of component to be added
 		*/
-		void onComponentToAdd(iEntityPtr entity, const std::type_index &typeID);
+		void onComponentToProcess(iEntityPtr entity, const std::type_index &typeID);
 
 		/*! callback to handle added component
 

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DATE__
-#define __IAUX_DATE__
+#ifndef IAUX_DATE_H
+#define IAUX_DATE_H
 
 #include <iaux/iaDefines.h>
 
@@ -39,9 +39,8 @@ namespace iaux
     class IAUX_API iaDate
     {
     public:
-
         /*! ctor
-        */
+         */
         iaDate() = default;
 
         /*! ctor date
@@ -53,11 +52,11 @@ namespace iaux
         iaDate(uint32 day, uint32 month, uint32 year);
 
         /*! copy ctor
-        */
+         */
         iaDate(const iaDate &other);
 
         /*! \returns todays date
-        */
+         */
         static iaDate getToday();
 
         /*! \returns day
@@ -72,22 +71,34 @@ namespace iaux
          */
         uint32 getYear() const;
 
-    private:
+        /*! equal operator
 
+        \returns true if other is equal to this
+        \param other the other date to compare to
+         */
+        bool operator==(const iaDate &other) const;
+
+        /*! unequal operator
+
+        \returns true if other is not equal to this
+        \param other the other date to compare to
+         */
+        bool operator!=(const iaDate &other) const;
+
+    private:
         /*! the day
-        */
+         */
         uint32 _day = 0;
 
         /*! the month
-        */
+         */
         uint32 _month = 0;
 
         /*! the year
-        */
+         */
         uint32 _year = 0;
     };
 
-
 } // namespace iaux
 
-#endif // __IAUX_TIME__
+#endif // IAUX_DATE_H

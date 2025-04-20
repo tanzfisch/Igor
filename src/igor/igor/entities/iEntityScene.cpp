@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
@@ -11,28 +11,6 @@
 
 namespace igor
 {
-
-    // for debugging
-    static void renderQuadtree(const iQuadtreed::NodePtr &node)
-    {
-        if (node == nullptr)
-        {
-            return;
-        }
-
-        iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height, iaColor4f::red);
-
-        for (auto object : node->_objects)
-        {
-            iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, object->_circle._radius);
-        }
-
-        for (auto child : node->_children)
-        {
-            renderQuadtree(child);
-        }
-    }
-
     iEntityScene::iEntityScene(const iaString &name)
     {
         setName(name);
@@ -43,30 +21,36 @@ namespace igor
 
     iEntityScene::~iEntityScene()
     {
+        _deleteQueueMutex.lock();
         _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
 
         delete _root;
 
+        _systemsMutex.lock();
         for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
-            for (auto system : _systems[i])
+            auto &stage = _systems[i];
             {
-                delete system;
+                for (const auto &pair : stage)
+                {
+                    delete pair.second;
+                }
             }
+            stage.clear();
         }
+        _systemsMutex.unlock();
     }
 
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
         con_assert(_quadtree == nullptr, "Quadtree already initialized");
-
         _quadtree = new iQuadtreed(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
     {
         con_assert(_quadtree != nullptr, "Quadtree was not initialized");
-
         return *_quadtree;
     }
 
@@ -78,14 +62,12 @@ namespace igor
     void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
     {
         con_assert(_octree == nullptr, "Octree already initialized");
-
         _octree = new iOctreed(cube, splitThreshold, maxDepth);
     }
 
     iOctreed &iEntityScene::getOctree() const
     {
         con_assert(_octree != nullptr, "Octree was not initialized");
-
         return *_octree;
     }
 
@@ -94,50 +76,75 @@ namespace igor
         return _octree != nullptr;
     }
 
-    void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stage)
+    void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stageIndex)
     {
-        con_assert((int)stage < (int)iEntitySystemStage::StageCount, "out of range stage");
+        con_assert((int)stageIndex < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if (stage == iEntitySystemStage::Update)
+        if (stageIndex == iEntitySystemStage::Update)
         {
             flushQueues();
         }
 
-        auto &systems = _systems[(int)stage];
-        for (auto system : systems)
+        _systemsMutex.lock();
+        const auto stage = _systems[(int)stageIndex];
+        _systemsMutex.unlock();
+
+        for (const auto &pair : stage)
         {
-            system->onUpdate(iEntitySceneUpdateContext{time, stage, this, _renderEngine});
+            pair.second->onUpdate(iEntitySceneUpdateContext{time, stageIndex, this, _renderEngine});
         }
     }
 
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
         _renderEngine = renderEngine;
+        if (_renderEngine == nullptr)
+        {
+            return;
+        }
+
         _renderEngine->setScene(this);
     }
 
     void iEntityScene::flushQueues()
     {
+        _deleteQueueMutex.lock();
         const auto deleteQueue = std::move(_deleteQueue);
+        _deleteQueueMutex.unlock();
+
         for (auto entity : deleteQueue)
         {
+            _mutex.lock();
             auto iter = _entities.find(entity->getID());
             if (iter == _entities.end())
             {
+                _mutex.unlock();
                 continue;
             }
-
-            iEntitySystemModule::getInstance().getDestroyEntityEvent()(iter->second);
-
-            delete iter->second;
             _entities.erase(iter);
+            _mutex.unlock();
+
+            iEntitySystemModule::getInstance().getDestroyEntityEvent()(entity);
+            delete entity;
         }
 
+        _processQueueMutex.lock();
         const auto processQueue = std::move(_processQueue);
+        _processQueueMutex.unlock();
+
+        std::vector<iEntityPtr> processAgain;
+
         for (auto entity : processQueue)
         {
-            entity->processComponents();
+            if (!entity->processComponents())
+            {
+                processAgain.push_back(entity);
+            }
         }
+
+        _processQueueMutex.lock();
+        _processQueue.insert(_processQueue.end(), processAgain.begin(), processAgain.end());
+        _processQueueMutex.unlock();
     }
 
     void iEntityScene::setName(const iaString &name)
@@ -150,33 +157,95 @@ namespace igor
         return _name;
     }
 
-    iEntityPtr iEntityScene::createEntity(const iaString &name)
+    iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity, bool copyID)
     {
-        iEntityPtr entity = new iEntity(name);
+        iEntityPtr entity = new iEntity(srcEntity->getName());
+        if (copyID)
+        {
+            entity->_id = srcEntity->getID();
+        }
+
+        _mutex.lock();
+        if (_entities.find(entity->getID()) != _entities.end())
+        {
+            con_err("Entity ID collision " << entity->getID());
+        }
+
         _entities[entity->getID()] = entity;
         entity->_scene = this;
         entity->setParent(_root);
+        _mutex.unlock();
+
+        iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
+
+        const auto componentTypes = srcEntity->getComponentTypes();
+        for (const auto &typeIndex : componentTypes)
+        {
+            entity->addComponent(typeIndex, srcEntity->getComponent(typeIndex)->getCopy());
+        }
+
+        return entity;
+    }
+
+    iEntityPtr iEntityScene::createEntity(const iaString &name, const iEntityID &id)
+    {
+        iEntityPtr entity = new iEntity(name);
+        if (id.isValid())
+        {
+            entity->_id = id;
+        }
+        _mutex.lock();
+        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+
+        _entities[entity->getID()] = entity;
+        entity->_scene = this;
+        entity->setParent(_root);
+        _mutex.unlock();
 
         iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
 
         return entity;
     }
 
-    iEntityPtr iEntityScene::getEntity(iEntityID entityID) const
+    iEntityPtr iEntityScene::getRootEntity() const
     {
+        return _root;
+    }
+
+    iEntityPtr iEntityScene::getEntity(iEntityID entityID)
+    {
+        iEntityPtr result = nullptr;
+
+        _mutex.lock();
         auto iter = _entities.find(entityID);
-        if (iter == _entities.end())
+        if (iter != _entities.end())
         {
-            return nullptr;
+            result = iter->second;
+        }
+        _mutex.unlock();
+
+        if (result == nullptr &&
+            _root->getID() == entityID)
+        {
+            result = _root;
         }
 
-        return iter->second;
+        return result;
     }
 
     void iEntityScene::destroyEntity(iEntityPtr entity)
     {
         con_assert(entity != nullptr, "zero pointer");
+        _deleteQueueMutex.lock();
         _deleteQueue.push_back(entity);
+        _deleteQueueMutex.unlock();
+    }
+
+    void iEntityScene::destroyEntity(iEntityID entityID)
+    {
+        auto entity = getEntity(entityID);
+        con_assert(entity != nullptr, "entity not found");
+        destroyEntity(entity);
     }
 
     const iEntitySceneID &iEntityScene::getID() const
@@ -184,19 +253,25 @@ namespace igor
         return _id;
     }
 
-    void iEntityScene::onComponentToAdd(iEntityPtr entity, const std::type_index &typeID)
+    void iEntityScene::onComponentToProcess(iEntityPtr entity, const std::type_index &typeID)
     {
+        _processQueueMutex.lock();
         _processQueue.push_back(entity);
+        _processQueueMutex.unlock();
     }
 
     void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        for (auto systems : _systems)
+        // make no send to lock the list if we can manipulate the pointers in it. need to rework this
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
         {
-            for (auto system : systems)
+            for (auto pair : stage)
             {
-                system->onComponentAdded(entity, typeID);
+                pair.second->onComponentAdded(entity, typeID);
             }
         }
     }
@@ -204,11 +279,14 @@ namespace igor
     void iEntityScene::onComponentRemoved(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        for (auto systems : _systems)
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
         {
-            for (auto system : systems)
+            for (auto pair : stage)
             {
-                system->onComponentRemoved(entity, typeID);
+                pair.second->onComponentRemoved(entity, typeID);
             }
         }
     }
@@ -216,11 +294,14 @@ namespace igor
     void iEntityScene::onComponentToRemove(iEntityPtr entity, const std::type_index &typeID)
     {
         // TODO this seems such a waste
-        for (auto systems : _systems)
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
         {
-            for (auto system : systems)
+            for (auto pair : stage)
             {
-                system->onComponentToRemove(entity, typeID);
+                pair.second->onComponentToRemove(entity, typeID);
             }
         }
     }
@@ -228,51 +309,102 @@ namespace igor
     void iEntityScene::onEntityChanged(iEntityPtr entity)
     {
         // TODO this seems such a waste
-        for (auto systems : _systems)
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
         {
-            for (auto system : systems)
+            for (auto pair : stage)
             {
-                system->onEntityChanged(entity);
+                pair.second->onEntityChanged(entity);
             }
         }
     }
 
-    void iEntityScene::addSystem(iEntitySystemPtr system)
+    const std::vector<iaString> iEntityScene::getSystems()
     {
-        auto &systems = _systems[(int)system->getStage()];
-        con_assert(std::find(systems.begin(), systems.end(), system) == systems.end(), "system already added");
-        systems.push_back(system);
+        std::vector<iaString> result;
 
-        system->_scene = this;
+        _systemsMutex.lock();
 
-        for (const auto &pair : _entities)
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
-            system->onEntityChanged(pair.second);
+            auto &stage = _systems[i];
+            for (const auto &pair : stage)
+            {
+                result.push_back(pair.first);
+            }
         }
+
+        _systemsMutex.unlock();
+
+        return result;
+    }
+
+    void iEntityScene::addSystem(const iaString &systemName)
+    {
+        iEntitySystemPtr system = iEntitySystemModule::getInstance().createSystem(systemName);
+
+        _systemsMutex.lock();
+        auto &stage = _systems[(int)system->getStage()];
+
+        auto iter = std::find_if(stage.begin(), stage.end(), [systemName](const std::pair<iaString, iEntitySystemPtr> &element)
+                                 { return element.first == systemName; });
+        if (iter != stage.end())
+        {
+            con_err("system \"" << systemName << "\" already added to scene");
+            delete system;
+            _systemsMutex.unlock();
+            return;
+        }
+
+        stage.emplace_back(systemName, system);
+        system->_scene = this;
 
         iCameraSystem *cameraSystem = dynamic_cast<iCameraSystem *>(system);
         if (cameraSystem != nullptr)
         {
             _cameraSystem = cameraSystem;
         }
+        _systemsMutex.unlock();
+
+        _mutex.lock();
+        auto entities = _entities;
+        _mutex.unlock();
+
+        for (const auto &pair : entities)
+        {
+            system->onEntityChanged(pair.second);
+        }
     }
 
-    void iEntityScene::removeSystem(iEntitySystemPtr system)
+    void iEntityScene::removeSystem(const iaString &systemName)
     {
-        auto &systems = _systems[(int)system->getStage()];
-        auto iter = std::find(systems.begin(), systems.end(), system);
-        if (iter == systems.end())
+        _systemsMutex.lock();
+
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
         {
-            return;
+            auto &stage = _systems[i];
+            const auto iter = std::find_if(stage.begin(), stage.end(), [systemName](const std::pair<iaString, iEntitySystemPtr> &element)
+                                           { return element.first == systemName; });
+            if (iter == stage.end())
+            {
+                continue;
+            }
+
+            iter->second->_scene = nullptr;
+
+            if (iter->second == _cameraSystem)
+            {
+                _cameraSystem = nullptr;
+            }
+
+            delete iter->second;
+            stage.erase(iter);
+            break;
         }
 
-        systems.erase(iter);
-        system->_scene = nullptr;
-
-        if (system == _cameraSystem)
-        {
-            _cameraSystem = nullptr;
-        }
+        _systemsMutex.unlock();
     }
 
     std::vector<iEntityPtr> iEntityScene::getCameras() const

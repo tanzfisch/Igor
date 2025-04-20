@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaThread.h>
@@ -9,7 +9,7 @@
 namespace iaux
 {
     std::map<size_t, iaID32> iaThread::_threadIDs;
-    iaMutex iaThread::_mutex;
+    iaMutex iaThread::_mutex;    
 
     iaIDGenerator32 iaThread::_idGenerator;
 
@@ -68,6 +68,11 @@ namespace iaux
 
         // this must be the main thread
         return 1;
+    }
+
+    bool iaThread::isMainThread()
+    {
+        return std::this_thread::get_id() == IGOR_MAIN_THREAD_ID;
     }
 
     void *threadFunc(void *data)

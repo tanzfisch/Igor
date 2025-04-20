@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -29,9 +29,11 @@ namespace igor
         setAcceptESCToClose(true);
     }
 
-    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)
+    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path, const std::vector<iaString> &extensions)
     {
-        iDialog::open(dialogCloseDelegate);
+        setExtensionsFilter(extensions);
+
+        iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
         initGUI();
@@ -68,7 +70,6 @@ namespace igor
 
         updateFileDir();
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
 
@@ -149,12 +150,12 @@ namespace igor
         grid->addWidget(buttonGrid, 0, 3);
 
         iWidgetButtonPtr okButton = new iWidgetButton();
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onOK));
         buttonGrid->addWidget(okButton, 0, 0);
 
         iWidgetButtonPtr cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onCancel));
         buttonGrid->addWidget(cancelButton, 1, 0);
 
         switch (_purpose)
@@ -188,18 +189,12 @@ namespace igor
 
     iaString iDialogFileSelect::getFullPath()
     {
-        iaString temp;
-
         if (_filename.isEmpty())
         {
-            temp = iaDirectory::fixPath(_directory);
-        }
-        else
-        {
-            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
+            return iaDirectory::fixPath(_directory);
         }
 
-        return temp;
+        return iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
     }
 
     void iDialogFileSelect::updateFileDir()
@@ -225,6 +220,27 @@ namespace igor
         }
     }
 
+    bool iDialogFileSelect::filterExtension(const iaString &filename)
+    {
+        if(_extensions.empty())
+        {
+            return true;
+        }
+
+        const iaFile file(filename);
+        const iaString fileExt = file.getExtension();
+
+        for(const auto &extension : _extensions)
+        {
+            if(fileExt == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void iDialogFileSelect::updateFileGrid()
     {
         clearFileGrid();
@@ -238,18 +254,23 @@ namespace igor
 
         if (!directory.isRoot())
         {
-            addToFileGrid(0, 0, directory.getFullParentDirectoryName(), "..", true);
+            addToFileGrid(0, 0, directory.getAbsoluteParentDirectoryName(), "..", true);
             index++;
         }
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / 10, index % 10, iter.getFullDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / 10, index % 10, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
             index++;
         }
 
         for (auto iter : files)
         {
+            if(!filterExtension(iter.getFileName()))
+            {
+                continue;
+            }
+
             addToFileGrid(index / 10, index % 10, iter.getFullFileName(), iter.getFileName(), false);
             index++;
         }
@@ -380,5 +401,15 @@ namespace igor
         }
 
         iDialog::close();
+    }
+
+    void iDialogFileSelect::setExtensionsFilter(const std::vector<iaString> &extensions)
+    {
+        _extensions = extensions;
+    }
+
+    const std::vector<iaString> &iDialogFileSelect::getExtensionsFilter() const
+    {
+        return _extensions;
     }
 } // namespace igor

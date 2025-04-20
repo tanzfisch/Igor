@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/layouts/iWidgetGridLayout.h>
@@ -662,7 +662,10 @@ namespace igor
             if (event.getKey() == iKeyCode::MouseLeft ||
                 event.getKey() == iKeyCode::MouseRight)
             {
-                _click(this);
+                if (event.getKey() == iKeyCode::MouseLeft)
+                {
+                    _click(this);
+                }
 
                 if (_selectMode != iSelectionMode::NoSelection)
                 {

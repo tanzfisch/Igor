@@ -21,6 +21,14 @@ Changelog                           {#changelog}
 - iEntityScene is registered with iView which eventually will replace iScene
 - #424 added sky box compatible to new render engine
 - #420 integrated json and replaced all xml files except for shaders
+- introduced prefab as resource
+- iaEvent now allows to add a delegate that only get's triggered once
+- introduced iaEventPool to handle events that only get called in main thread
+- fixed del key issue in iWidgetLineTextEdit
+- modal dialogs are allowed to be nested using a modal stack. The top one is the current modal one
+- added iClipboard copy pasting text and entity IDs
+- #412 bring entity system to use in Mica at least make a start
+- added iFilesystem to watch changes in the filesystem and trigger events like iEventFileCreated, iEventFileChanged etc
 
 0.44.0
 ------
@@ -75,7 +83,7 @@ Changelog                           {#changelog}
 - fixed texture font vertical alignment
 - added new widget selection interfaces
 - Mica drag drop assets in viewport (models and textures on models)
-- added iUserControlTextureChooser
+- added iUserControlTexture
 - added background color and background checkerboard option to iWidgetPicture
 
 Known issues:

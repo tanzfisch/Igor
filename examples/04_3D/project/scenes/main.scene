@@ -1,0 +1,158 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x494714df579bf91e",
+                "name": "cameraHeading"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 3.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    {
+                        "clearColor": {
+                            "a": 1.0,
+                            "b": 0.4000000059604645,
+                            "g": 0.4000000059604645,
+                            "r": 0.4000000059604645
+                        },
+                        "clearColorActive": true,
+                        "clearDepth": 1.0,
+                        "clearDepthActive": true,
+                        "clipFar": 100.0,
+                        "clipNear": 0.009999999776482582,
+                        "componentType": "camera",
+                        "fov": 45.0,
+                        "orthoBottom": -1.0,
+                        "orthoLeft": -1.0,
+                        "orthoRight": 1.0,
+                        "orthoTop": 1.0,
+                        "perspective": true,
+                        "viewport": {
+                            "height": 1.0,
+                            "width": 1.0,
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    }
+                ],
+                "id": "0x55192542cbb0c27d",
+                "name": "camera",
+                "parent": "0x1cab7c99336dbea8"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x1cab7c99336dbea8",
+                "name": "cameraPitch",
+                "parent": "0x494714df579bf91e"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": -0.30000001192092896,
+                            "z": -0.5
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "meshPaths": [
+                            "cat"
+                        ],
+                        "model": "0x42000caa82a2e5e0"
+                    }
+                ],
+                "id": "0x66d197c8d23f13ea",
+                "name": "cat"
+            }
+        ],
+        "id": "0xe41e13fa710b9ff4",
+        "name": "main"
+    }
+}

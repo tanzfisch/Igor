@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,11 @@
 #include <igor/igor.h>
 using namespace igor;
 
+IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const iEntityID &);
+
 /*! outliner
+
+    a hierarchy of scenes and their entities
  */
 class Outliner : public iDialog
 {
@@ -43,6 +47,10 @@ public:
     /*! init ui
      */
     Outliner();
+
+    /*! \returns entity selection changed event
+    */
+    EntitySelectionChangedEvent& getEntitySelectionChangedEvent();
 
 private:
     /*! main layout
@@ -57,6 +65,18 @@ private:
      */
     std::unique_ptr<iItemData> _itemData;
 
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;
+
+    /*! resource to do actions on
+     */
+    iResourceID _contextResourceID;
+
+    /*! entity selection changed event
+    */
+    EntitySelectionChangedEvent _entitySelectionChangedEvent;
+
     /*! init user interface
      */
     void initGUI();
@@ -67,16 +87,100 @@ private:
     */
     void onClickTreeView(const iWidgetPtr source);
 
+    /*! handles context menu for tree view
+
+    \param source the source widget of this event
+    */
+    void onContextMenuTreeView(const iWidgetPtr source);
+
     /*! populate the entity tree
      */
     void populateTree();
 
-    /*! populate scene
-     */
-    void populateScene(iEntityScenePtr scene, iItemPtr sceneItem);
+    /*! populate the entity tree
+    */
+    void populateTree(iItemPtr item, iEntityPtr entity);
 
-    void onEntityCreated(iEntityPtr scene);
-    void onEntityDestroyed(iEntityPtr scene);
+    /*! drag move handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! drop handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! called when entity was created
+
+    \param entity the entity that was created
+    */
+    void onEntityCreated(iEntityPtr entity);
+
+    /*! called when entity is about to be destroyed
+
+    \param entity the entity that is about to be destroyed
+    */
+    void onEntityDestroyed(iEntityPtr entity);
+
+    /*! called when given entity's name changed
+    
+    \param entity the given entity
+    */
+    void onEntityNameChanged(iEntityPtr entity);
+
+    /*! called when hierarchy of given scene changed
+
+    \param scene the given scene
+    */
+    void onHierarchyChanged(iEntityScenePtr scene);
+
+    /*! called when scene was added
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneAdded(const iResourceID &sceneID);
+
+    /*! called when scene was removed
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneRemoved(const iResourceID &sceneID);
+
+    /*! called when project was loaded
+     */
+    void onProjectLoaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectUnloaded();    
+
+    /*! called when user want's to load a scene
+     */
+    void onLoadScene(const iWidgetPtr source);
+
+    /*! called when scene was loaded
+     */
+    void onResourceLoaded(iResourceID resourceID);
+
+    /*! called when user want's to unload a scene
+     */
+    void onUnloadScene(const iWidgetPtr source);
+
+    /*! called when widget was queued for refresh in last frame
+     */
+    void onRefresh() override;
+
+    /*! populate outliner with sub scenes
+
+    \param children list of entities that represent sub scenes or prefabs
+    \param active if true this subscene will be displayed as active
+    */
+    void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
 };
 
 #endif // MICA_OUTLINER_H

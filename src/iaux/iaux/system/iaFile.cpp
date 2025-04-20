@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaFile.h>
@@ -123,6 +123,24 @@ namespace iaux
     bool iaFile::exists() const
     {
         return iaFile::exists(getFullFileName());
+    }
+
+    iaString iaFile::generateUniqueFilename(const iaString &filename)
+    {
+        const iaFile file(filename);
+        const iaString extension = file.getExtension();
+        const iaString stem = file.getStem();
+        const iaString path = file.getPath();
+
+        auto result = filename;
+
+        int index = 1;
+        while (exists(result)) {
+            result = path + stem + iaString::toString(index) + '.' + extension;
+            ++index;
+        }
+
+        return result;
     }
 
     bool iaFile::exists(const iaString &filename)

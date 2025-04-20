@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2024 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -65,11 +65,13 @@ namespace igor
         */
         void traverse(iEntityScenePtr scene);
 
-    protected:
-        /*! entity scene
-         */
-        iEntityScenePtr _scene = nullptr;
+        /*! traverses tree under given entity
 
+        \param entity the start point to traverse the scene
+        */
+        void traverse(iEntityPtr entity);
+
+    protected:
         /*! is called before traversal
 
         has to be implemented by deriving class
@@ -94,7 +96,15 @@ namespace igor
         */
         virtual void postTraverse() = 0;
 
+        /*! \returns the scene that is being traversed
+        */
+        iEntityScenePtr getScene() const;
+
     private:
+        /*! entity scene
+         */
+        iEntityScenePtr _scene = nullptr;
+
         /*! flag if inactive children shall be traversed too
          */
         bool _ignoreInactive = true;
