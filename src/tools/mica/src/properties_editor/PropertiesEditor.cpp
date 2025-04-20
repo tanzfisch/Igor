@@ -31,18 +31,6 @@ void PropertiesEditor::deinitProperties()
     }
 }
 
-void PropertiesEditor::setSelection(iNodeID nodeID)
-{
-    deinitProperties();
-
-    if (nodeID == iNode::INVALID_NODE_ID)
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(nodeID, _scroll);
-}
-
 void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
 {
     deinitProperties();

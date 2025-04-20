@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PROPERTIES_EDITOR__
-#define __PROPERTIES_EDITOR__
+#ifndef MICA_PROPERTIES_EDITOR_H
+#define MICA_PROPERTIES_EDITOR_H
 
 #include "UserControlProperties.h"
 
@@ -46,12 +46,6 @@ public:
     /*! does nothing
      */
     ~PropertiesEditor() = default;
-
-    /*! sets selection of a node id
-
-    \param nodeID the node id to be selected
-    */
-    void setSelection(iNodeID nodeID);
 
     /*! sets selection of a resource id
 
@@ -85,4 +79,4 @@ private:
     void deinitProperties();
 };
 
-#endif // __PROPERTIES_EDITOR__
+#endif // MICA_PROPERTIES_EDITOR_H

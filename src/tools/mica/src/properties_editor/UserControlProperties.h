@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_PROPERTIES_H
-#define USERCONTROL_PROPERTIES_H
+#ifndef MICA_USERCONTROL_PROPERTIES_H
+#define MICA_USERCONTROL_PROPERTIES_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -44,13 +44,6 @@ public:
         Resource,
         Entity
     };
-
-    /*! init ui for nodes
-
-    \param nodeID the node to represent
-    \param parent the parent widget (optional)
-    */
-    UserControlProperties(iNodeID nodeID, const iWidgetPtr parent = nullptr);
 
     /*! init ui with id
 
@@ -73,10 +66,6 @@ private:
      */
     void initUI();
 
-    /*! initializes node UI
-     */
-    void initNodeUI(iNodeID nodeID);
-
     /*! initializes resource UI
 
     \param resourceID id of resource to display
@@ -91,4 +80,4 @@ private:
     void initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID);
 };
 
-#endif // USERCONTROL_PROPERTIES_H
+#endif // MICA_USERCONTROL_PROPERTIES_H
