@@ -4,17 +4,15 @@
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
-#include "actions/Actions.h"
 
 /*! default file open folder definition
  */
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
 
-UILayer::UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace)
+UILayer::UILayer(iWindowPtr window, int32 zIndex)
     : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
                                                             iResourceManager::getInstance().loadResource<iTexture>("igor_widget_theme_pattern"))),
-                    window, "Widgets", zIndex),
-      _workspace(workspace)
+                    window, "Widgets", zIndex)
 {
 }
 
@@ -27,7 +25,7 @@ void UILayer::onInit()
 {
     iLayerWidgets::onInit();
 
-    _mainDialog = new MainDialog(_workspace);
+    _mainDialog = new MainDialog();
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
@@ -45,15 +43,13 @@ void UILayer::onInit()
     _assetBrowser->setVisible();
     _assetBrowser->getResourceSelectionChangedEvent().add(ResourceSelectionChangedDelegate(_propertiesDialog, &PropertiesEditor::setSelectionResource));
 
-    _viewport = new Viewport(_workspace);
+    _viewport = new Viewport();
     _viewport->setEnabled();
     _viewport->setVisible();
 
     _mainDialog->getEventCreateProject().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _mainDialog->getEventLoadProject().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
     _mainDialog->getEventSaveProject().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
-    _mainDialog->getEventLoadFile().add(LoadFileDelegate(this, &UILayer::onLoadFile));
-    _mainDialog->getEventSaveFile().add(SaveFileDelegate(this, &UILayer::onSaveFile));
 
     // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
@@ -99,26 +95,6 @@ void UILayer::onDeinit()
     iLayerWidgets::onDeinit();
 }
 
-void UILayer::onAddMaterial()
-{
-    iResourceManager::getInstance().createResource<iShader>();
-}
-
-void UILayer::onLoadMaterial()
-{
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadMaterialFileDialogClosed), iFileDialogPurpose::Load);
-}
-
-void UILayer::onImportFile()
-{
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-}
-
-void UILayer::onImportFileReference()
-{
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-}
-
 void UILayer::onCreateProject()
 {
     _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
@@ -154,97 +130,6 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 void UILayer::onSaveProject()
 {
     iProject::getInstance().save();
-}
-
-void UILayer::onLoadFile()
-{
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-}
-
-void UILayer::onSaveFile()
-{
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
-}
-
-void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
-{
-    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
-    {
-        return;
-    }
-
-    iaString filename = _fileDialog.getFullPath();
-
-    auto rootNode = _workspace->getUserScene();
-
-    std::vector<iNodePtr> children = rootNode->getChildren();
-    children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());
-
-    if (children.empty())
-    {
-        con_warn("nothing to save");
-    }
-    else if (children.size() == 1)
-    {
-        iModelFactory::exportToFile(filename, children[0]);
-    }
-    else
-    {
-        iModelFactory::exportToFile(filename, rootNode);
-    }
-}
-
-void UILayer::onLoadMaterialFileDialogClosed(iDialogPtr dialog)
-{
-    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
-    {
-        return;
-    }
-
-    iShaderPtr material = iResourceManager::getInstance().loadResource<iShader>(_fileDialog.getFullPath());
-    material->setVisibility(iMaterialVisibility::Public);
-}
-
-void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
-{
-    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
-    {
-        return;
-    }
-
-    _workspace->importFile(_fileDialog.getFullPath());
-}
-
-void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
-{
-    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
-    {
-        return;
-    }
-
-    _workspace->importFileReference(_fileDialog.getFullPath());
-}
-
-void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
-{
-    if (_fileDialog.getReturnState() != iDialogReturnState::Ok)
-    {
-        return;
-    }
-
-    _workspace->loadFile(_fileDialog.getFullPath());
-}
-
-void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
-{
-    if (nodeID == iNode::INVALID_NODE_ID)
-    {
-        _workspace->clearSelection();
-    }
-    else
-    {
-        _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
-    }
 }
 
 void UILayer::onUpdate()
@@ -307,54 +192,54 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::N:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            clearWorkspace();
+            // clearWorkspace();
         }
         return true;
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _workspace->duplicateSelected();
+            // _workspace->duplicateSelected();
         }
         return true;
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _workspace->cutSelected();
+            // _workspace->cutSelected();
         }
         return true;
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _workspace->copySelected();
+            // _workspace->copySelected();
         }
         return true;
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _workspace->pasteSelected();
+            // _workspace->pasteSelected();
         }
         return true;
 
     case iKeyCode::O:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            onLoadFile();
+            // TODO open project
         }
         return true;
 
     case iKeyCode::S:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            onSaveFile();
+            // TODO save project
         }
         return true;
 
     case iKeyCode::Delete:
-        _workspace->deleteSelected();
+        // TODO _workspace->deleteSelected();
         return true;
 
         /* TODO hide _outliner, _propertiesDialog, _assetBrowser
@@ -368,9 +253,4 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     }
 
     return false;
-}
-
-void UILayer::clearWorkspace()
-{
-    _workspace->clear();
 }

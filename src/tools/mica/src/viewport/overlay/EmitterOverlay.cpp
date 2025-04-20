@@ -4,8 +4,8 @@
 
 #include "EmitterOverlay.h"
 
-EmitterOverlay::EmitterOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
-    : NodeOverlay(view, scene, workspace)
+EmitterOverlay::EmitterOverlay(iViewPtr view)
+    : EntityOverlay(view)
 {
     onInit();
 }
@@ -15,25 +15,19 @@ EmitterOverlay::~EmitterOverlay()
     onDeinit();
 }
 
-void EmitterOverlay::setNodeID(uint64 nodeID)
-{
-    NodeOverlay::setNodeID(nodeID);
-
-    update();
-}
-
 void EmitterOverlay::setActive(bool active)
 {
-    NodeOverlay::setActive(active);
+    EntityOverlay::setActive(active);
 
-    _rootTransform->setActive(active);
+    // _rootTransform->setActive(active);
 
     update();
 }
 
-bool EmitterOverlay::accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType)
+bool EmitterOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
-    return nodeType == iNodeType::iNodeEmitter;
+    // TODO check if this entity has an emitter component
+    return false;
 }
 
 void EmitterOverlay::setOverlayMode(OverlayMode mode)
@@ -79,52 +73,12 @@ void EmitterOverlay::onInit()
     });
     _materialVolume = iResourceManager::getInstance().loadResource<iMaterial>(paramVolume);
 
-    _rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    getScene()->getRoot()->insertNode(_rootTransform);
-
-    _scaleTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _rootTransform->insertNode(_scaleTransform);
-
-    _switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
-    _scaleTransform->insertNode(_switchNode);
-
-    _discMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    _discMeshNode->setName("disc mesh");
-    _discMeshNode->setMesh(createDisc());
-    _discMeshNode->setMaterial(_materialFlat);
-    _switchNode->insertNode(_discMeshNode);
-
-    _circleMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    _circleMeshNode->setName("circle mesh");
-    _circleMeshNode->setMesh(createCircle());
-    _circleMeshNode->setMaterial(_materialFlat);
-    _switchNode->insertNode(_circleMeshNode);
-
-    _sphereMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    _sphereMeshNode->setName("sphere mesh");
-    _sphereMeshNode->setMesh(createSphere());
-    _sphereMeshNode->setMaterial(_materialVolume);
-    _switchNode->insertNode(_sphereMeshNode);
-
-    _squareMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    _squareMeshNode->setName("square mesh");
-    _squareMeshNode->setMesh(createSquare());
-    _squareMeshNode->setMaterial(_materialFlat);
-    _switchNode->insertNode(_squareMeshNode);
-
-    _cubeMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-    _cubeMeshNode->setName("cube mesh");
-    _cubeMeshNode->setMesh(createCube());
-    _cubeMeshNode->setMaterial(_materialVolume);
-    _switchNode->insertNode(_cubeMeshNode);
-
-    _rootTransform->setActive(false);
-    _switchNode->setActiveChild(nullptr);
+   // TODO
 }
 
 void EmitterOverlay::update()
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
+    /*iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
     if (node == nullptr ||
         node->getType() != iNodeType::iNodeEmitter)
     {
@@ -174,7 +128,7 @@ void EmitterOverlay::update()
     // update matrix
     iaMatrixd matrix;
     node->calcWorldTransformation(matrix);
-    _rootTransform->setMatrix(matrix);
+    _rootTransform->setMatrix(matrix);*/
 }
 
 void EmitterOverlay::onRender()

@@ -26,37 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __TRANSFORM_OVERLAY__
-#define __TRANSFORM_OVERLAY__
+#ifndef MICA_TRANSFORM_OVERLAY_H
+#define MICA_TRANSFORM_OVERLAY_H
 
-#include "NodeOverlay.h"
+#include "EntityOverlay.h"
 
 /*! 3d overlay ui element for scene nodes
 
     to modify position, orientation and scale of objects in the scene
     to display additional information when nodes are selected
 */
-class TransformOverlay : public NodeOverlay
+class TransformOverlay : public EntityOverlay
 {
 
 public:
     /*! initialize node overlay
 
     \param view the view to use
-    \param scene the scene to use
-    \param workspace the mica workspace
     */
-    TransformOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    TransformOverlay(iViewPtr view);
 
     /*! cleanup
      */
     ~TransformOverlay();
-
-    /*! sets the node to control by ID
-
-    \param nodeID id of node to control
-    */
-    void setNodeID(uint64 nodeID) override;
 
     /*! sets node overlay active
 
@@ -64,13 +56,12 @@ public:
     */
     void setActive(bool active) override;
 
-    /*! \returns true if mode in combination with node type can be handled by this node overlay
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
 
-    \param mode the overlay mode
-    \param nodeKind kind of node
-    \param nodeType type of node
+    \param mode the overlay mod
+    \param entity the given entity
     */
-    bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) override;
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
 
     /*! sets overlay mode
 
@@ -79,50 +70,6 @@ public:
     void setOverlayMode(OverlayMode mode) override;
 
 private:
-    /*! id of selected manipulator node
-     */
-    iNodeID _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
-
-    /*! root transform of manipulator
-     */
-    iNodeTransformPtr _rootTransform = nullptr;
-
-    /*! switch node to switch between manipulator states
-     */
-    iNodeSwitchPtr _switchNode = nullptr;
-
-    /*! translate node ids
-     */
-    std::vector<iNodeID> _translateIDs;
-
-    /*! scale node ids
-     */
-    std::vector<iNodeID> _scaleIDs;
-
-    /*! rotate node ids
-     */
-    std::vector<iNodeID> _rotateIDs;
-
-    /*! rotate billboard transform
-     */
-    iNodeTransformPtr _rotateBillboardTransform = nullptr;
-
-    /*! locator representation of manipulator
-     */
-    iNodePtr _locatorRepresentation = nullptr;
-
-    /*! transform modifier representation of manipulator
-     */
-    iNodePtr _translateModifier = nullptr;
-
-    /*! scale modifier representation of manipulator
-     */
-    iNodePtr _scaleModifier = nullptr;
-
-    /*! rotate modifier representation of manipulator
-     */
-    iNodePtr _roateModifier = nullptr;
-
     /*! red material
      */
     iMaterialPtr _red = nullptr;
@@ -251,9 +198,9 @@ private:
     */
     void createLocatorRepresentation(iMeshPtr &cylinder);
 
-    /*! highlight selected manipulator node
+    /*! highlight selected manipulator mesh
      */
     void renderHighlight();
 };
 
-#endif // __TRANSFORM_OVERLAY__
+#endif // MICA_TRANSFORM_OVERLAY_H

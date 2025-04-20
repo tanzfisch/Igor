@@ -26,34 +26,26 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EMITTER_OVERLAY__
-#define __EMITTER_OVERLAY__
+#ifndef MICA_EMITTER_OVERLAY_H
+#define MICA_EMITTER_OVERLAY_H
 
-#include "NodeOverlay.h"
+#include "EntityOverlay.h"
 
 /*! makes emitter nodes visible when selected
 */
-class EmitterOverlay : public NodeOverlay
+class EmitterOverlay : public EntityOverlay
 {
 
 public:
     /*! initialize node overlay
 
     \param view the view to use
-    \param scene the scene to use
-    \param workspace the mica workspace
     */
-    EmitterOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    EmitterOverlay(iViewPtr view);
 
     /*! cleanup
      */
     ~EmitterOverlay();
-
-    /*! sets the node to control by ID
-
-    \param nodeID id of node to control
-    */
-    void setNodeID(uint64 nodeID) override;
 
     /*! sets node overlay active
 
@@ -61,13 +53,12 @@ public:
     */
     void setActive(bool active) override;
 
-    /*! \returns true if mode in combination with node type can be handled by this node overlay
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
 
-    \param mode the overlay mode
-    \param nodeKind kind of node
-    \param nodeType type of node
+    \param mode the overlay mod
+    \param entity the given entity
     */
-    bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) override;
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
 
     /*! sets overlay mode
 
@@ -76,18 +67,6 @@ public:
     void setOverlayMode(OverlayMode mode) override;    
 
 private:
-    /*! root transform of overlay
-     */
-    iNodeTransformPtr _rootTransform = nullptr;
-
-    /*! scale transform of overlay
-     */
-    iNodeTransformPtr _scaleTransform = nullptr;
-
-    /*! switch node
-    */
-    iNodeSwitchPtr _switchNode = nullptr;
-
     /*! flat material
      */
     iMaterialPtr _materialFlat;
@@ -95,26 +74,6 @@ private:
     /*! volume material
      */
     iMaterialPtr _materialVolume;
-
-    /*! disc mesh node
-    */
-    iNodeMeshPtr _discMeshNode = nullptr;
-
-    /*! circle mesh node
-    */
-    iNodeMeshPtr _circleMeshNode = nullptr;
-
-    /*! sphere mesh node
-    */
-    iNodeMeshPtr _sphereMeshNode = nullptr;
-
-    /*! square mesh node
-    */
-    iNodeMeshPtr _squareMeshNode = nullptr;
-
-    /*! cube mesh node
-    */
-    iNodeMeshPtr _cubeMeshNode = nullptr;
 
     /*! update internal structure
      */
@@ -157,4 +116,4 @@ private:
  */
 typedef EmitterOverlay *EmitterOverlayPtr;
 
-#endif // __EMITTER_OVERLAY__
+#endif // MICA_EMITTER_OVERLAY_H

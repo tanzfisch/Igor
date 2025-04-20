@@ -26,10 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MAIN_LAYOUT__
-#define __MAIN_LAYOUT__
-
-#include "Workspace.h"
+#ifndef MICA_MAIN_LAYOUT_H
+#define MICA_MAIN_LAYOUT_H
 
 #include <igor/igor.h>
 using namespace igor;
@@ -37,45 +35,23 @@ using namespace igor;
 IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
-IGOR_EVENT_DEFINITION_NO_ARGS(LoadFile);
-IGOR_EVENT_DEFINITION_NO_ARGS(SaveFile);
-
-IGOR_EVENT_DEFINITION(CopyNode, uint64);
-IGOR_EVENT_DEFINITION(PasteNode, uint64);
-IGOR_EVENT_DEFINITION(CutNode, uint64);
 
 /*! main dialog
  */
 class MainDialog : public iDialog
 {
 public:
-    MainDialog(WorkspacePtr workspace);
+    MainDialog();
     ~MainDialog();
 
-    CreateProjectEvent& getEventCreateProject();
-    LoadProjectEvent& getEventLoadProject();
-    SaveProjectEvent& getEventSaveProject();
-    LoadFileEvent& getEventLoadFile();
-    SaveFileEvent& getEventSaveFile();
-    CopyNodeEvent& getEventCopyNode();
-    CutNodeEvent& getEventCutNode();
-    PasteNodeEvent& getEventPasteNode();
+    CreateProjectEvent &getEventCreateProject();
+    LoadProjectEvent &getEventLoadProject();
+    SaveProjectEvent &getEventSaveProject();
 
 private:
-    /*! the mica workspace
-    */
-    WorkspacePtr _workspace;
-
     CreateProjectEvent _createProject;
     LoadProjectEvent _loadProject;
     SaveProjectEvent _saveProject;
-
-    LoadFileEvent _loadFile;
-    SaveFileEvent _saveFile;
-
-    CopyNodeEvent _copyNode;
-    CutNodeEvent _cutNode;
-    PasteNodeEvent _pasteNode;
 
     void initGUI();
     void deinitGUI();
@@ -84,15 +60,7 @@ private:
     void onLoadProject(const iWidgetPtr source);
     void onSaveProject(const iWidgetPtr source);
 
-    void onLoadFile(const iWidgetPtr source);
-    void onSaveFile(const iWidgetPtr source);
-
-    void onCopy(const iWidgetPtr source);
-    void onPaste(const iWidgetPtr source);
-    void onCut(const iWidgetPtr source);    
-    void onDelete(const iWidgetPtr source);
-
     iWidgetMenuBarPtr createMenu();
 };
 
-#endif // __MAIN_LAYOUT__
+#endif // MICA_MAIN_LAYOUT_H

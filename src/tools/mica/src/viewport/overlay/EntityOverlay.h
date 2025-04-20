@@ -26,10 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __NODEOVERLAY__
-#define __NODEOVERLAY__
+#ifndef MICA_ENTITY_OVERLAY_H
+#define MICA_ENTITY_OVERLAY_H
 
-#include "../../Workspace.h"
+#include <igor/igor.h>
+using namespace igor;
 
 #include <memory>
 
@@ -48,27 +49,19 @@ enum class OverlayMode
     to modify position, orientation and scale of objects in the scene
     to display additional information when nodes are selected
 */
-class NodeOverlay
+class EntityOverlay
 {
 
 public:
     /*! initialize node overlay
 
     \param view the view to use
-    \param scene the scene to use
-    \param workspace the mica workspace
     */
-    NodeOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    EntityOverlay(iViewPtr view);
 
     /*! cleanup
      */
-    ~NodeOverlay();
-
-    /*! sets the node to control by ID
-
-    \param nodeID id of node to control
-    */
-    virtual void setNodeID(uint64 nodeID);
+    ~EntityOverlay() = default;
 
     /*! sets node overlay active
 
@@ -86,13 +79,12 @@ public:
     */
     virtual void setOverlayMode(OverlayMode mode);
 
-    /*! \returns true if mode in combination with node type can be handled by this node overlay
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
 
     \param mode the overlay mod
-    \param nodeKind kind of node
-    \param nodeType type of node
+    \param entity the given entity
     */
-    virtual bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) = 0;
+    virtual bool accepts(OverlayMode mode, iEntityPtr entity) = 0;
 
     /*! handles mouse key down event
 
@@ -121,48 +113,23 @@ public:
     */
     virtual bool onKeyDown(iEventKeyDown &event);
 
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    virtual bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
-
-    /*! \returns id of controled node
-     */
-    uint64 getNodeID() const;
-
     /*! \returns current overlay mode
      */
     OverlayMode getOverlayMode() const;
-
-    /*! \returns mica workspace
-     */
-    WorkspacePtr getWorkspace() const;
-
-    /*! \returns the node overlay scene
-     */
-    iScenePtr getScene() const;
 
     /*! \returns the view
      */
     iViewPtr getView() const;
 
 private:
-    /*! id of node connected to this node overlay
-     */
-    uint64 _nodeID = iNode::INVALID_NODE_ID;
+
+    /*! the entity this overlay is used on
+    */
+    iEntityID _entityID = iEntityID::getInvalid();
 
     /*! the overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;
-
-    /*! mica workspace
-     */
-    WorkspacePtr _workspace;
-
-    /*! the node overlay scene
-     */
-    iScenePtr _scene;
 
     /*! the view
      */
@@ -175,6 +142,6 @@ private:
 
 /*! node overlay pointer definition
  */
-typedef std::shared_ptr<NodeOverlay> NodeOverlayPtr;
+typedef std::shared_ptr<EntityOverlay> EntityOverlayPtr;
 
-#endif // __NODEOVERLAY__
+#endif // MICA_ENTITY_OVERLAY_H

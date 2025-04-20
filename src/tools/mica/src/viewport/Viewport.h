@@ -29,8 +29,7 @@
 #ifndef MICA_VIEWPORT_H
 #define MICA_VIEWPORT_H
 
-#include "../Workspace.h"
-#include "overlay/NodeOverlay.h"
+#include "overlay/EntityOverlay.h"
 
 class Viewport : public iDialog
 {
@@ -39,19 +38,15 @@ class Viewport : public iDialog
 public:
     /*! init
      */
-    Viewport(WorkspacePtr workspace);
+    Viewport();
 
     /*! deinit
      */
     ~Viewport();
 
-    void setCamera(iNodeID cameraID);
-    iNodeID getCamera() const;
+    /*! sets the manipulator mode on currently selected entity
 
-    /*! sets the manipulator mode on currently selected node
-    but only if it is a transform node otherwise its set to none
-
-    \param modifierMode the modifier mode to set
+    \param overlayMode the modifier mode to set
     */
     void setOverlayMode(OverlayMode overlayMode);
 
@@ -60,7 +55,7 @@ public:
     OverlayMode getOverlayMode() const;
 
 private:
-    /*! viewport to display workspace scene
+    /*! viewport to display scene
      */
     iWidgetViewportPtr _viewportScene = nullptr;
 
@@ -68,11 +63,7 @@ private:
      */
     iWidgetViewportPtr _viewportOverlay = nullptr;
 
-    /*! the workspace
-     */
-    WorkspacePtr _workspace;
-
-    /*! cel shading material for selecting nodes in the scene
+    /*! cel shading material for selecting entities in the scene
      */
     iShaderPtr _materialCelShading;
 
@@ -88,14 +79,9 @@ private:
      */
     iScenePtr _overlayScene;
 
-    /*! node overlays
+    /*! entity overlays
      */
-    std::vector<NodeOverlayPtr> _nodeOverlays;
-
-    // TODO need to handle light differently
-    iNodeTransform *_directionalLightTranslate = nullptr;
-    iNodeTransform *_directionalLightRotate = nullptr;
-    iNodeLight *_lightNode = nullptr;
+    std::vector<EntityOverlayPtr> _entityOverlays;
 
     /*! last mouse position
      */
@@ -104,10 +90,6 @@ private:
     /*! overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;
-
-    /*! selected node
-     */
-    iNodePtr _selectedNode = nullptr;
 
     // TODO 
     iResourceID _sceneResourceID;
@@ -165,13 +147,9 @@ private:
     \param x horizontal screen position
     \param y vertical screen position
     */
-    iNodePtr getNodeAt(int32 x, int32 y);
+    // TODO getEntityAt // iNodePtr getNodeAt(int32 x, int32 y);
 
-    /*! initialize basic scene
-     */
-    void initScene();
-
-    /*! frame viewport on selected nodes
+    /*! frame viewport on selected entities
      */
     void frameOnSelection();
 
@@ -191,7 +169,7 @@ private:
      */
     void renderOrientationPlane();
 
-    /*! checks overlays for candidates that accept current mode node combination
+    /*! checks overlays for candidates that accept current mode-entity combination
      */
     void updateAcceptance();
 

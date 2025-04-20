@@ -10,14 +10,7 @@ int main(int argc, char *argv[])
 
     // create and run mica
     Mica *mica = new Mica();
-    if (argc >= 2)
-    {
-        mica->run(argv[1]);
-    }
-    else
-    {
-        mica->run("");
-    }
+    mica->run();
 
     // kill mica
     delete mica;

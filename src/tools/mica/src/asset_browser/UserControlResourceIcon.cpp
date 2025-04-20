@@ -4,8 +4,6 @@
 
 #include "UserControlResourceIcon.h"
 
-#include "../actions/MicaActionContext.h"
-
 #include <igor/resources/texture/iThumbnailCache.h>
 #include <iaux/system/iaFile.h>
 

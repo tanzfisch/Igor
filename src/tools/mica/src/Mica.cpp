@@ -19,18 +19,11 @@ Mica::Mica()
 	_window->setDoubleClick(true);
 	_window->open();
 
-	_workspace = WorkspacePtr(new Workspace());
-
-	iApplication::getInstance().addLayer(new UILayer(_window, 20, _workspace));
+	iApplication::getInstance().addLayer(new UILayer(_window, 20));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(_window, "Profiler", 100, iProfilerVerbosity::None));
 }
 
-void Mica::run(const iaString &filename)
+void Mica::run()
 {
-	if (!filename.isEmpty())
-	{
-		_workspace->loadFile(filename);
-	}
-
 	iApplication::getInstance().run();
 }

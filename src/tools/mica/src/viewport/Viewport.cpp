@@ -9,8 +9,7 @@
 
 static const float64 s_wheelSensitivity = 1.2;
 
-Viewport::Viewport(WorkspacePtr workspace)
-    : _workspace(workspace)
+Viewport::Viewport()
 {
     setTitle("Viewport");
     setHeaderEnabled(false);
@@ -23,37 +22,11 @@ Viewport::Viewport(WorkspacePtr workspace)
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
-    // _viewportScene->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
     _viewportScene->getView().setClearColorActive(false);
     addWidget(_viewportScene);
 
-/*    _viewportOverlay = new iWidgetViewport();
-    _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
-    _viewportOverlay->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _viewportOverlay->getView().setName("Overlay");
-    _viewportOverlay->getView().setCamera(_workspace->getCameraArc()->getCameraNode());
-    _viewportOverlay->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
-    _viewportOverlay->getView().setClearColorActive(false);
-    _viewportOverlay->getView().setClearDepthActive(true);
-    _viewportOverlay->getView().setPerspective(45.0f);
-    _viewportOverlay->getView().setClipPlanes(1.0f, 10000.f);
-
-    _overlayScene = iSceneFactory::getInstance().createScene();
-    _overlayScene->setName("Overlay");
-    _viewportOverlay->getView().setScene(_overlayScene);*/
-
-    // addWidget(_viewportOverlay);
-
-    // initScene();
-
-    /*_materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
-
-    _nodeOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));
-    _nodeOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView(), _overlayScene, _workspace));*/
-
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
     iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
-
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 }
@@ -86,7 +59,7 @@ void Viewport::setOverlayMode(OverlayMode overlayMode)
     _overlayMode = overlayMode;
     updateAcceptance();
 
-    for (auto overlay : _nodeOverlays)
+    for (auto overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -102,34 +75,9 @@ OverlayMode Viewport::getOverlayMode() const
     return _overlayMode;
 }
 
-void Viewport::initScene()
-{
-    // light
-    _directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _directionalLightRotate->setName("directional light rotate");
-
-    _directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _directionalLightTranslate->setName("directional light translate");
-    _directionalLightTranslate->translate(10000, 10000, 0);
-
-    _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    _lightNode->setName("directional light");
-    _lightNode->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
-    _lightNode->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-    _lightNode->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
-
-    _workspace->getMicaScene()->insertNode(_directionalLightRotate);
-    _directionalLightRotate->insertNode(_directionalLightTranslate);
-    _directionalLightTranslate->insertNode(_lightNode);
-
-    // load materials
-    _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
-    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_bounding_box");
-}
-
 void Viewport::frameOnSelection()
 {
-    auto selection = _workspace->getSelection();
+    /*auto selection = _workspace->getSelection();
 
     iNodeVisitorBoundings visitorBoundings;
     iaSphered sphere;
@@ -155,7 +103,7 @@ void Viewport::frameOnSelection()
     else
     {
         _workspace->getCameraArc()->setDistance(10.0);
-    }
+    }*/
 }
 
 void Viewport::renderScene()
@@ -165,44 +113,7 @@ void Viewport::renderScene()
 
 void Viewport::renderSelection()
 {
-    for (auto nodeID : _workspace->getSelection())
-    {
-        iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-        if (node == nullptr)
-        {
-            continue;
-        }
-
-        if (node->getKind() != iNodeKind::Renderable &&
-            node->getKind() != iNodeKind::Volume)
-        {
-            continue;
-        }
-
-        iNodeRender *renderNode = static_cast<iNodeRender *>(node);
-        iaMatrixd matrix = renderNode->getWorldMatrix();
-        iRenderer::getInstance().setModelMatrix(matrix);
-
-        if (node->getType() == iNodeType::iNodeMesh)
-        {
-            iRenderer::getInstance().setShader(_materialCelShading);
-
-            iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            iRenderer::getInstance().setLineWidth(4);
-            iRenderer::getInstance().drawMesh(meshNode->getMesh(), nullptr);
-        }
-        else
-        {
-            if (node->getKind() == iNodeKind::Volume)
-            {
-                iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-                iRenderer::getInstance().setShader(_materialBoundingBox);
-
-                iAABoxd box = renderVolume->getBoundingBox();
-                iRenderer::getInstance().drawBox(box, iaColor4f::yellow);
-            }
-        }
-    }
+    // TODO
 }
 
 void Viewport::renderOverlay()
@@ -240,7 +151,7 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
         return true;
     }
 
-    for (auto &overlay : _nodeOverlays)
+    for (auto &overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -276,15 +187,7 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F9:
-    {
-        iNodeVisitorPrintTree printTree;
-        const auto &selection = _workspace->getSelection();
-        for (auto nodeID : selection)
-        {
-            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-            printTree.printToConsole(node);
-        }
-    }
+        // TODO unused
         return true;
 
     case iKeyCode::F10:
@@ -308,7 +211,7 @@ bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
     iWidget::onMouseKeyDown(event);
 
     bool result = false;
-    for (auto &overlay : _nodeOverlays)
+    for (auto &overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -330,7 +233,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
     iWidget::onMouseKeyUp(event);
 
     bool result = false;
-    for (auto &overlay : _nodeOverlays)
+    for (auto &overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -354,6 +257,8 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
     case iKeyCode::MouseLeft:
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
+            // TODO select entity
+
             /*auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
             if (node != nullptr)
             {
@@ -375,7 +280,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     iWidget::onMouseMove(event);
 
     bool result = false;
-    for (auto &overlay : _nodeOverlays)
+    for (auto &overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -403,8 +308,9 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            _workspace->getCameraArc()->setPitch(_workspace->getCameraArc()->getPitch() + (from._y - to._y) * rotateSensitivity);
-            _workspace->getCameraArc()->setHeading(_workspace->getCameraArc()->getHeading() + (from._x - to._x) * rotateSensitivity);
+            // TODO interact with cam
+            // _workspace->getCameraArc()->setPitch(_workspace->getCameraArc()->getPitch() + (from._y - to._y) * rotateSensitivity);
+            // _workspace->getCameraArc()->setHeading(_workspace->getCameraArc()->getHeading() + (from._x - to._x) * rotateSensitivity);
         }
     }
 
@@ -412,7 +318,9 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraNode()));
+            // TODO interact with cam
+
+            /*iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraNode()));
             iNodeTransformPtr cameraDistance = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraDistanceNode()));
             if (camera != nullptr &&
                 cameraDistance != nullptr)
@@ -429,7 +337,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
                 auto coi = _workspace->getCameraArc()->getCenterOfInterest();
                 coi += (fromWorld - toWorld) * translateFactor;
                 _workspace->getCameraArc()->setCenterOfInterest(coi);
-            }
+            }*/
         }
     }
 
@@ -450,34 +358,25 @@ bool Viewport::onMouseWheel(iEventMouseWheel &event)
         return true;
     }
 
-    if (event.getWheelDelta() < 0)
+    // TODO interact with cam
+    /*if (event.getWheelDelta() < 0)
     {
         _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * s_wheelSensitivity);
     }
     else
     {
         _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * (1.0 / s_wheelSensitivity));
-    }
+    }*/
 
     return true;
 }
 
-iNodePtr Viewport::getNodeAt(int32 x, int32 y)
+/*iNodePtr Viewport::getNodeAt(int32 x, int32 y)
 {
     iView &view = _viewportScene->getView();
     const auto &rect = getActualRect();
     return iNodeManager::getInstance().getNode(view.pickColorID(x - rect._x, y - rect._y));
-}
-
-void Viewport::setCamera(iNodeID cameraID)
-{
-    _viewportScene->getView().setCamera(cameraID);
-}
-
-iNodeID Viewport::getCamera() const
-{
-    return _viewportScene->getView().getCamera();
-}
+}*/
 
 void Viewport::draw()
 {
@@ -503,25 +402,26 @@ bool Viewport::onEvent(iEvent &event)
 
 void Viewport::updateAcceptance()
 {
-    if (_selectedNode != nullptr)
+    /*if (_selectedNode != nullptr)
     {
-        for (auto overlay : _nodeOverlays)
+        for (auto overlay : _entityOverlays)
         {
             overlay->setActive(overlay->accepts(_overlayMode, _selectedNode->getKind(), _selectedNode->getType()));
         }
     }
     else
     {
-        for (auto overlay : _nodeOverlays)
+        for (auto overlay : _entityOverlays)
         {
             overlay->setActive(overlay->accepts(OverlayMode::None, iNodeKind::Undefined, iNodeType::Undefined));
         }
-    }
+    }*/
 }
 
 bool Viewport::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 {
-    if (!_workspace->getSelection().empty())
+    // TODO act on selection change
+    /*if (!_workspace->getSelection().empty())
     {
         _selectedNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
     }
@@ -537,7 +437,7 @@ bool Viewport::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
         return false;
     }
 
-    for (auto overlay : _nodeOverlays)
+    for (auto overlay : _entityOverlays)
     {
         if (!overlay->isActive())
         {
@@ -545,7 +445,7 @@ bool Viewport::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
         }
 
         overlay->setNodeID(_selectedNode->getID());
-    }
+    }*/
 
     return false;
 }
@@ -595,7 +495,8 @@ void Viewport::onDrop(const iDrag &drag, const iaVector2f &mousePos)
         return;
     }
 
-    iResourceID id = mimeData.getResourceID();
+    // TODO
+    /*iResourceID id = mimeData.getResourceID();
 
     const iaString resourceType = iResourceManager::getInstance().getType(id);
     if (resourceType == IGOR_RESOURCE_MODEL)
@@ -637,5 +538,5 @@ void Viewport::onDrop(const iDrag &drag, const iaVector2f &mousePos)
                 return;
             }
         }
-    }
+    }*/
 }

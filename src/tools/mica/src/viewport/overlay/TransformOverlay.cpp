@@ -4,8 +4,8 @@
 
 #include "TransformOverlay.h"
 
-TransformOverlay::TransformOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
-    : NodeOverlay(view, scene, workspace)
+TransformOverlay::TransformOverlay(iViewPtr view)
+    : EntityOverlay(view)
 {
     onInit();
 }
@@ -15,16 +15,10 @@ TransformOverlay::~TransformOverlay()
     onDeinit();
 }
 
-void TransformOverlay::setNodeID(uint64 nodeID)
+bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
-    NodeOverlay::setNodeID(nodeID);
-
-    update();
-}
-
-bool TransformOverlay::accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType)
-{
-    return nodeKind == iNodeKind::Transformation;
+    // TODO check if transform component present
+    return false;
 }
 
 void TransformOverlay::onDeinit()
@@ -112,24 +106,24 @@ void TransformOverlay::onInit()
     iMeshPtr ringMesh2D = create2DRingMesh();
     iMeshPtr cylinder = createCylinder();
 
-    _rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    /*_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     _switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
-    _rootTransform->insertNode(_switchNode);
+    _rootTransform->insertNode(_switchNode);*/
 
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
     createRotateModifier(ringMesh, ringMesh2D, cylinder);
     createLocatorRepresentation(cylinder);
 
-    getScene()->getRoot()->insertNode(_rootTransform);
+    //getScene()->getRoot()->insertNode(_rootTransform);
 
-    _rootTransform->setActive(false);
-    _switchNode->setActiveChild(nullptr);
+    //_rootTransform->setActive(false);
+    //_switchNode->setActiveChild(nullptr);
 }
 
 void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
 {
-    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+/*    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
     iaVector3d scale;
 
     for (int i = 0; i < 4; ++i)
@@ -140,12 +134,12 @@ void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
             matrix.scale(scale);
             return;
         }
-    }
+    }*/
 }
 
 void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
 {
-    static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    /*static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     iaVector3d translate;
 
     for (int i = 0; i < 3; ++i)
@@ -156,12 +150,12 @@ void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
             matrix.translate(translate);
             return;
         }
-    }
+    }*/
 }
 
 void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
 {
-    iNode *node = iNodeManager::getInstance().getNode(getNodeID());
+  /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
     iaMatrixd transformWorldMatrix;
     node->calcWorldTransformation(transformWorldMatrix);
 
@@ -206,21 +200,21 @@ void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMa
             matrix.rotate(angle, static_cast<iaAxis>(i));
             return;
         }
-    }
+    }*/
 }
 
 void TransformOverlay::setActive(bool active)
 {
-    NodeOverlay::setActive(active);
+    EntityOverlay::setActive(active);
 
-    _rootTransform->setActive(active);
+    // _rootTransform->setActive(active);
 
     update();
 }
 
 void TransformOverlay::update()
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
+    /*iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
     if (node == nullptr)
     {
         return;
@@ -257,12 +251,12 @@ void TransformOverlay::update()
     billboardMatrix._depth = camMatrix._depth;
     _rotateBillboardTransform->setMatrix(parentMatrix * billboardMatrix);
     _rotateBillboardTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _rotateBillboardTransform->scale(2.1, 2.1, 2.1);
+    _rotateBillboardTransform->scale(2.1, 2.1, 2.1);*/
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
 {
-    _roateModifier = iNodeManager::getInstance().createNode<iNode>();
+    /*_roateModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_roateModifier);
 
     iNodeTransform *xRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -338,12 +332,12 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
     zCylinder->setMaterial(_blue);
-    zTransform->insertNode(zCylinder);
+    zTransform->insertNode(zCylinder);*/
 }
 
 void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinder)
 {
-    _locatorRepresentation = iNodeManager::getInstance().createNode<iNode>();
+    /*_locatorRepresentation = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_locatorRepresentation);
 
     iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -373,12 +367,12 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinder)
     zCylinder->setName("manipulator.cylinder.z");
     zCylinder->setMesh(cylinder);
     zCylinder->setMaterial(_blue);
-    zTransform->insertNode(zCylinder);
+    zTransform->insertNode(zCylinder);*/
 }
 
 void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
-    _translateModifier = iNodeManager::getInstance().createNode<iNode>();
+    /*_translateModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_translateModifier);
 
     iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -412,12 +406,12 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 
     _translateIDs.push_back(xUmbrella->getID());
     _translateIDs.push_back(yUmbrella->getID());
-    _translateIDs.push_back(zUmbrella->getID());
+    _translateIDs.push_back(zUmbrella->getID());*/
 }
 
 void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 {
-    _scaleModifier = iNodeManager::getInstance().createNode<iNode>();
+    /*_scaleModifier = iNodeManager::getInstance().createNode<iNode>();
     _switchNode->insertNode(_scaleModifier);
 
     iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -460,7 +454,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     _scaleIDs.push_back(xCube->getID());
     _scaleIDs.push_back(yCube->getID());
     _scaleIDs.push_back(zCube->getID());
-    _scaleIDs.push_back(xyzCube->getID());
+    _scaleIDs.push_back(xyzCube->getID());*/
 }
 
 iMeshPtr TransformOverlay::createRingMesh()
@@ -550,9 +544,9 @@ iMeshPtr TransformOverlay::createTranslateMesh()
 
 void TransformOverlay::setOverlayMode(OverlayMode manipulatorMode)
 {
-    NodeOverlay::setOverlayMode(manipulatorMode);
+    EntityOverlay::setOverlayMode(manipulatorMode);
 
-    switch (manipulatorMode)
+    /*switch (manipulatorMode)
     {
     case OverlayMode::None:
         _switchNode->setActiveChild(_locatorRepresentation);
@@ -569,7 +563,7 @@ void TransformOverlay::setOverlayMode(OverlayMode manipulatorMode)
     case OverlayMode::Rotate:
         _switchNode->setActiveChild(_roateModifier);
         break;
-    }
+    }*/
 
     update();
 }
@@ -581,7 +575,7 @@ void TransformOverlay::onRender()
 
 void TransformOverlay::renderHighlight()
 {
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
     {
         return;
     }
@@ -605,23 +599,23 @@ void TransformOverlay::renderHighlight()
     iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
     iRenderer::getInstance().setLineWidth(4);
     iRenderer::getInstance().setShader(_materialCelShading->getShader());
-    iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);
+    iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);*/
 }
 
 bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
     {
         return false;
     }
 
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
+    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;*/
     return true;
 }
 
 bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    auto rect = getView()->getViewport();
+    /*auto rect = getView()->getViewport();
     auto window = iApplication::getInstance().getWindow();
 
     auto top = window->getClientHeight() - rect._height - rect._y;
@@ -652,14 +646,14 @@ bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
             _selectedManipulatorNodeID = nodeID;
             return true;
         }
-    }
+    }*/
 
     return false;
 }
 
 bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
     {
         return false;
     }
@@ -707,7 +701,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
         break;
     }
 
-    transformNode->setMatrix(nodeMatrix);
+    transformNode->setMatrix(nodeMatrix);*/
 
     update();
 

@@ -4,8 +4,6 @@ Changelog                           {#changelog}
 0.45.0
 ------
 
-!!! MSVC build fails. no time to fix !!!
-
 - #422 new entity based render engine (will eventually replace the scene graph based renderer)
 - #414 reintroducing home brew entity system (it's something like a game object component thingy)
 - IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
@@ -29,11 +27,10 @@ Changelog                           {#changelog}
 - added iClipboard copy pasting text and entity IDs
 - #412 bring entity system to use in Mica at least make a start
 - added iFilesystem to watch changes in the filesystem and trigger events like iEventFileCreated, iEventFileChanged etc
+- #441 TODO
 
 0.44.0
 ------
-
-!!! MSVC build fails. no time to fix !!!
 
 - #388 allow file select dialogs to be closed using ESC
 - #387 improved render of drag operation
@@ -50,8 +47,6 @@ Changelog                           {#changelog}
 0.43.1
 ------
 
-!!! MSVC build fails. no time to fix !!!
-
 - #393 fixed invalid node info issue
 - #391 adding more docs to examples
 - #383 thumbnails now respect aspect ratio
@@ -59,8 +54,7 @@ Changelog                           {#changelog}
 0.43.0
 ------
 
-!!! MSVC build fails. no time to fix !!!
-
+- MSVC support discontinued
 - reimplemented iMaterial and make it a iResource
 - replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
 - some spring cleaning around plenty of TODOs

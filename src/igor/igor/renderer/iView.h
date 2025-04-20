@@ -48,7 +48,6 @@ namespace igor
 
     class iWindow;
     class iPixmap;
-    class iNodeCamera;
     class iOctreeObject;
     class iSkyBox;
 
