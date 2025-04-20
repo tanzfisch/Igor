@@ -335,6 +335,7 @@ namespace igor
         auto iter = std::find(_scenes.begin(), _scenes.end(), sceneID);
         if (iter != _scenes.end())
         {
+            con_warn("scene \"" << name << "\" [" << sceneID << "] was already added to project");
             return;
         }
 

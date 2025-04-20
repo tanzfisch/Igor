@@ -87,7 +87,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 
     for (const auto &selectedItemPath : selectedItemPaths)
     {
-        iItemPtr item = _itemData->getItem(itemPath);
+        iItemPtr item = _itemData->getItem(selectedItemPath);
 
         if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
         {
@@ -109,12 +109,6 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
             auto prefabID = item->getValue<iResourceID>(IGOR_ITEM_DATA_UUID);
             const auto &subScenes = iProject::getInstance().getScenes();
             isScene = std::find(subScenes.begin(), subScenes.end(), prefabID) != subScenes.end();
-
-            if (isScene)
-            {
-                entities.clear();
-                break;
-            }
         }
     }
 
@@ -168,12 +162,12 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
             {
                 _contextMenu.addAction("igor:set_entity_active", actionContext);
             }
-        }
-    }
 
-    if (isScene)
-    {
-        // TODO unload scene? activate/deactivate? remove/delete
+            if (isScene)
+            {
+                // TODO unload scene? activate/deactivate? remove/delete
+            }              
+        }
     }
 
     if (_contextMenu.hasActions())
