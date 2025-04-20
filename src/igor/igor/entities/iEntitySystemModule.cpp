@@ -314,6 +314,11 @@ namespace igor
         return _createdEntityEvent;
     }
 
+    iEntityChangedEvent &iEntitySystemModule::getEntityChangedEvent()
+    {
+        return _entityChangeEvent;
+    }
+
     iDestroyEntityEvent &iEntitySystemModule::getDestroyEntityEvent()
     {
         return _destroyEntityEvent;

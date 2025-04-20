@@ -43,11 +43,11 @@ void DialogComponentTypeSelection::initGUI()
 
 	_cancelButton = new iWidgetButton(buttonLayout);
 	_cancelButton->setText("Cancel");
-	_cancelButton->registerOnClickEvent(iClickDelegate(this, &DialogComponentTypeSelection::onCancel));
+	_cancelButton->getClickEvent().add(iClickDelegate(this, &DialogComponentTypeSelection::onCancel));
 
 	_okButton = new iWidgetButton(buttonLayout);
 	_okButton->setText("Ok");
-	_okButton->registerOnClickEvent(iClickDelegate(this, &DialogComponentTypeSelection::onOK));
+	_okButton->getClickEvent().add(iClickDelegate(this, &DialogComponentTypeSelection::onOK));
 }
 
 bool DialogComponentTypeSelection::hasSelectedTypeIndex() const

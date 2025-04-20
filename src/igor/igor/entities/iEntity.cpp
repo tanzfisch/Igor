@@ -251,6 +251,8 @@ namespace igor
     void iEntity::onEntityChanged()
     {
         _scene->onEntityChanged(this);
+
+        iEntitySystemModule::getInstance().getEntityChangedEvent()(this);
     }
 
     void iEntity::clearComponents()

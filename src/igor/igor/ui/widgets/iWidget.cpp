@@ -249,11 +249,6 @@ namespace igor
         onParentChanged();
     }
 
-    void iWidget::unregisterOnClickEvent(iClickDelegate iClickDelegate)
-    {
-        _click.remove(iClickDelegate);
-    }
-
     void iWidget::unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
     {
         _mouseOffClick.remove(clickDelegate);
@@ -279,9 +274,9 @@ namespace igor
         _focus.remove(iFocusDelegate);
     }
 
-    void iWidget::registerOnClickEvent(iClickDelegate iClickDelegate)
+    iClickEvent& iWidget::getClickEvent()
     {
-        _click.add(iClickDelegate);
+        return _click;
     }
 
     void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)

@@ -85,7 +85,7 @@ void UserControlEntity::init()
     _addComponent->setHorizontalAlignment(iHorizontalAlignment::Center);
     _addComponent->setText("Add Component");
     _addComponent->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _addComponent->registerOnClickEvent(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));
+    _addComponent->getClickEvent().add(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));
 
     iWidgetGroupBoxPtr componentsGroupBox = new iWidgetGroupBox(mainLayout);
     componentsGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -94,12 +94,26 @@ void UserControlEntity::init()
 
     _componentsLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, componentsGroupBox);
     _componentsLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _componentsLayout->setVerticalAlignment(iVerticalAlignment::Top);    
+    _componentsLayout->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iEntitySystemModule::getInstance().getEntityChangedEvent().add(iEntityChangedDelegate(this, &UserControlEntity::onEntityChanged));
+}
+
+void UserControlEntity::onEntityChanged(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+
+    if (_entityID != entity->getID())
+    {
+        return;
+    }
+
+    update();
 }
 
 void UserControlEntity::onDialogClosed(iDialogPtr source)
 {
-    if(_componentSelectionDialog->getReturnState() != iDialogReturnState::Ok)
+    if (_componentSelectionDialog->getReturnState() != iDialogReturnState::Ok)
     {
         return;
     }
@@ -119,7 +133,7 @@ void UserControlEntity::onDialogClosed(iDialogPtr source)
     const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
 
     auto iter = componentTypes.find(_componentSelectionDialog->getSelectedTypeIndex());
-    if(iter == componentTypes.end())
+    if (iter == componentTypes.end())
     {
         return;
     }
@@ -194,7 +208,7 @@ void UserControlEntity::update()
         UserControlComponentLight *userControl = new UserControlComponentLight(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
-    }    
+    }
 
     auto meshReference = entity->getComponent<iMeshReferenceComponent>();
     if (meshReference != nullptr)
@@ -226,7 +240,7 @@ void UserControlEntity::update()
         UserControlComponentPrefab *userControl = new UserControlComponentPrefab(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
-    }    
+    }
 
     auto quadtree = entity->getComponent<iQuadtreeComponent>();
     if (quadtree != nullptr)
@@ -234,7 +248,7 @@ void UserControlEntity::update()
         UserControlComponentQuadtree *userControl = new UserControlComponentQuadtree(_sceneID, _entityID, _componentsLayout);
         userControl->init();
         userControl->update();
-    }   
+    }
 
     _ignoreUpdate = false;
 }

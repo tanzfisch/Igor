@@ -23,6 +23,31 @@ void UserControlComponent::init()
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, groupBox);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _layout->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _buttonlayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    _buttonlayout->setHorizontalAlignment(iHorizontalAlignment::Right);
+
+    iWidgetButtonPtr deleteButton = new iWidgetButton();
+    deleteButton->setIcon("igor_icon_delete");
+    deleteButton->getClickEvent().add(iClickDelegate(this, &UserControlComponent::onClickDelete));
+    _buttonlayout->addWidget(deleteButton);
+}
+
+void UserControlComponent::onClickDelete(iWidgetPtr source)
+{
+    auto scene = iEntitySystemModule::getInstance().getScene(_sceneID);
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    auto entity = scene->getEntity(_entityID);
+    if(entity == nullptr)
+    {
+        return;
+    }
+
+    onDestroyComponent(entity);
 }
 
 void UserControlComponent::update()

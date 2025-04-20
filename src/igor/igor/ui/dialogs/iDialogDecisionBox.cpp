@@ -72,11 +72,11 @@ namespace igor
 
 		iWidgetButtonPtr okButton = new iWidgetButton();
 		okButton->setText("OK");
-		okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
+		okButton->getClickEvent().add(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
 		iWidgetButtonPtr cancelButton = new iWidgetButton();
 		cancelButton->setText("Cancel");
-		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
+		cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
 		iWidgetGridLayoutPtr radioGrid = new iWidgetGridLayout();
 		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);

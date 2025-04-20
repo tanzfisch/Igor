@@ -37,7 +37,7 @@ namespace igor
 
         if (_action != nullptr)
         {
-            unregisterOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+            getClickEvent().remove(iClickDelegate(this, &iWidgetButton::onInternalClick));
         }
 
         _action = action;
@@ -48,7 +48,7 @@ namespace igor
             return;
         }
 
-        registerOnClickEvent(iClickDelegate(this, &iWidgetButton::onInternalClick));
+        getClickEvent().add(iClickDelegate(this, &iWidgetButton::onInternalClick));
 
         setText(_action->getBrief());
         setTooltip(_action->getDescription());
@@ -126,27 +126,35 @@ namespace igor
     {
         int32 minWidth = 0;
         int32 minHeight = 0;
+        const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
         if (isGrowingByContent())
         {
             if (_texture != nullptr)
             {
                 // we don't actually want it to scale with the texture size since the texture is considered a background
-                minWidth = 16;
-                minHeight = 16;
+                minWidth = fontSize * 1.2f;
+                minHeight = fontSize * 1.2f;
             }
-            else if (!_text.isEmpty())
+
+            if (_iconTexture != nullptr)
             {
-                const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                // we don't actually want it to scale with the texture size since the texture is considered a background
+                minWidth = fontSize * 1.5f;
+                minHeight = fontSize * 1.5f;
+            }
+
+            if (!_text.isEmpty())
+            {
                 const int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize));
 
                 if (_iconTexture != nullptr)
                 {
-                    minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f);
+                    minWidth = std::max(minWidth, static_cast<int32>(static_cast<float32>(textWidth) + fontSize * 2.5f));
                 }
                 else
                 {
-                    minWidth = static_cast<int32>(static_cast<float32>(textWidth) + fontSize);
+                    minWidth = std::max(minWidth, static_cast<int32>(static_cast<float32>(textWidth) + fontSize));
                 }
 
                 minHeight = static_cast<int32>(fontSize * 1.5f);

@@ -83,6 +83,24 @@ protected:
     /*! main layout
      */
     iWidgetBoxLayoutPtr _layout = nullptr;
+
+    /*! button layout
+    */
+    iWidgetBoxLayoutPtr _buttonlayout = nullptr;
+
+    /*! delete button was clicked
+
+    \param source the source widget
+    */
+    void onClickDelete(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    deriving class decides what type component to destroy
+
+    \param entity the entity to destroy the component from
+    */
+    virtual void onDestroyComponent(iEntityPtr entity) = 0;
 };
 
 #endif // USERCONTROL_COMPONENT_H

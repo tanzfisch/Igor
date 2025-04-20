@@ -88,3 +88,10 @@ void UserControlComponentSpriteRender::updateComponent()
 
     // TODO 
 }
+
+void UserControlComponentSpriteRender::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iSpriteRenderComponent>();
+}

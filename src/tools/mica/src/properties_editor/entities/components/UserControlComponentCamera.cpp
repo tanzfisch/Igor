@@ -274,3 +274,10 @@ void UserControlComponentCamera::updateComponent()
     component->setClearDepth(iaString::toFloat(_clearDepth->getText()));
     component->setClearDepthActive(_activeClearDepth->isChecked());
 }
+
+void UserControlComponentCamera::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iCameraComponent>();
+}

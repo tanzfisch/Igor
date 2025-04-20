@@ -73,19 +73,19 @@ void UserControlParticleSystem::init()
     _buttonStart->setText("Start");
     _buttonStart->setTooltip("Start/Continue particle system playback");
     _buttonStart->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
+    _buttonStart->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onStart));
 
     _buttonStop = new iWidgetButton();
     _buttonStop->setText("Stop");
     _buttonStop->setTooltip("Stop/Pause particle system playback");
     _buttonStop->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
+    _buttonStop->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onStop));
 
     _buttonReset = new iWidgetButton();
     _buttonReset->setText("Reset");
     _buttonReset->setTooltip("Reset/Restart particle system playback");
     _buttonReset->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
+    _buttonReset->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
     ///////////////
     iWidgetGroupBox *simulationGroupBox = new iWidgetGroupBox();
@@ -152,7 +152,7 @@ void UserControlParticleSystem::init()
 
     _emissionGraph = new iWidgetGraph();
     _emissionGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _emissionGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
+    _emissionGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
     _emissionGraph->setExtrapolateData();
     _emissionGraph->setViewGrid();
     _emissionGraph->setBoundings(iaRectanglef(0, 0, 1, 1));
@@ -309,7 +309,7 @@ void UserControlParticleSystem::init()
 
     _startVelocityGraph = new iWidgetGraph();
     _startVelocityGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _startVelocityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartVelocityGradientEditor));
+    _startVelocityGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenStartVelocityGradientEditor));
     _startVelocityGraph->setExtrapolateData();
     _startVelocityGraph->setViewGrid();
     _startVelocityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -324,7 +324,7 @@ void UserControlParticleSystem::init()
 
     _startLiftGraph = new iWidgetGraph();
     _startLiftGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _startLiftGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartLiftGradientEditor));
+    _startLiftGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenStartLiftGradientEditor));
     _startLiftGraph->setExtrapolateData();
     _startLiftGraph->setViewGrid();
     _startLiftGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -390,7 +390,7 @@ void UserControlParticleSystem::init()
 
     _colorGradient = new iWidgetColorGradient();
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
+    _colorGradient->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
 
     iWidgetLabel *labelSizeGradient = new iWidgetLabel();
     labelSizeGradient->setText("Size");
@@ -401,7 +401,7 @@ void UserControlParticleSystem::init()
 
     _startSizeGraph = new iWidgetGraph();
     _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
+    _startSizeGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
     _startSizeGraph->setExtrapolateData();
     _startSizeGraph->setViewGrid();
     _startSizeGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -416,7 +416,7 @@ void UserControlParticleSystem::init()
 
     _scaleSizeGraph = new iWidgetGraph();
     _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
+    _scaleSizeGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
     _scaleSizeGraph->setExtrapolateData();
     _scaleSizeGraph->setViewGrid();
     _scaleSizeGraph->setBoundings(iaRectanglef(0, 0, 1, 1));
@@ -431,7 +431,7 @@ void UserControlParticleSystem::init()
 
     _visibilityGraph = new iWidgetGraph();
     _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _visibilityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
+    _visibilityGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
     _visibilityGraph->setExtrapolateData();
     _visibilityGraph->setViewGrid();
     _visibilityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -446,7 +446,7 @@ void UserControlParticleSystem::init()
 
     _orientationGraph = new iWidgetGraph();
     _orientationGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _orientationGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationGradientEditor));
+    _orientationGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationGradientEditor));
     _orientationGraph->setExtrapolateData();
     _orientationGraph->setViewGrid();
     _orientationGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -461,7 +461,7 @@ void UserControlParticleSystem::init()
 
     _orientationRateGraph = new iWidgetGraph();
     _orientationRateGraph->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _orientationRateGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationRateGradientEditor));
+    _orientationRateGraph->getClickEvent().add(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationRateGradientEditor));
     _orientationRateGraph->setExtrapolateData();
     _orientationRateGraph->setViewGrid();
     _orientationRateGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));

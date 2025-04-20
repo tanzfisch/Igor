@@ -133,3 +133,9 @@ void UserControlComponentTransform::updateComponent()
     transform->setScale(scale);
 }
 
+void UserControlComponentTransform::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iTransformComponent>();
+}

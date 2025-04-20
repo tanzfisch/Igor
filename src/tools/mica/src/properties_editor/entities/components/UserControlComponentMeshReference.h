@@ -59,14 +59,19 @@ public:
     void updateComponent() override;
 
 private:
-
     /*! mesh reference
-    */
+     */
     iUserControlMeshReferencePtr _meshReference;
 
     /*! called after values changed
-    */
+     */
     void onValueChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_MESH_REFERENCE_H

@@ -59,22 +59,27 @@ public:
     void updateComponent() override;
 
 private:
-
     /*! position vector
-    */
+     */
     iUserControlVectorPtr _position;
 
     /*! orientation vector
-    */
+     */
     iUserControlVectorPtr _orientation;
 
     /*! scale vector
-    */
+     */
     iUserControlVectorPtr _scale;
 
     /*! called after values changed
-    */
+     */
     void onValueChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_TRANSFORM_H

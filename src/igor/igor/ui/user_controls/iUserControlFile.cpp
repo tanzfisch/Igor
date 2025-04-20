@@ -104,7 +104,7 @@ namespace igor
         fileSelectButton->setText("...");
         fileSelectButton->setTooltip("Browse for file.");
         fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
-        fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFile::onFileSelectButtonPressed));
+        fileSelectButton->getClickEvent().add(iClickDelegate(this, &iUserControlFile::onFileSelectButtonPressed));
 
         grid->addWidget(_fileNameTextEdit, 0, 0);
         grid->addWidget(fileSelectButton, 1, 0);

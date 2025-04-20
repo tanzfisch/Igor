@@ -65,17 +65,17 @@ namespace igor
         iWidgetButton *okButton = new iWidgetButton();
         okButton->setText("OK");
         okButton->setTooltip("Close the dialog and set new color.");
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onOK));
 
         iWidgetButton *cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
         cancelButton->setTooltip("Close the dialog without changes.");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
         iWidgetButton *resetButton = new iWidgetButton();
         resetButton->setText("Reset");
         resetButton->setTooltip("Resets dialog to previous color.");
-        resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
+        resetButton->getClickEvent().add(iClickDelegate(this, &iDialogColorChooser::onReset));
 
         grid->addWidget(_userControlColorChooser, 0, 0);
         grid->addWidget(buttonGrid, 0, 1);

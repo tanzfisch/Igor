@@ -183,14 +183,14 @@ void ShopDialog::initGUI()
 	buyButton->setVerticalAlignment(iVerticalAlignment::Center);
 	buyButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	buyButton->setText("buy");
-	buyButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onBuy));
+	buyButton->getClickEvent().add(iClickDelegate(this, &ShopDialog::onBuy));
 
 	iWidgetButton *cancelButton = new iWidgetButton();
 	cancelButton->setMinSize(50, 20);
 	cancelButton->setVerticalAlignment(iVerticalAlignment::Center);
 	cancelButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	cancelButton->setText("cancel");
-	cancelButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onCancel));
+	cancelButton->getClickEvent().add(iClickDelegate(this, &ShopDialog::onCancel));
 
 	coinsGrid->addWidget(coinPicture, 0, 0);
 	coinsGrid->addWidget(_labelCoins, 1, 0);

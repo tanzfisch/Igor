@@ -59,26 +59,31 @@ public:
     void updateComponent() override;
 
 private:
-
     /*! ambient color selector
-    */
+     */
     iUserControlColorPtr _ambient;
 
     /*! diffuse color selector
-    */
+     */
     iUserControlColorPtr _diffuse;
 
     /*! specular color selector
-    */
+     */
     iUserControlColorPtr _specular;
 
     /*! light type select box
-    */
+     */
     iWidgetSelectBoxPtr _lightType;
 
     /*! called after values changed
-    */
+     */
     void onValueChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_LIGHT_H

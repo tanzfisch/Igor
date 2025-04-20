@@ -20,3 +20,9 @@ void UserControlComponentOctree::init()
     label->setHorizontalAlignment(iHorizontalAlignment::Left);  
 }
 
+void UserControlComponentOctree::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iOctreeComponent>();
+}

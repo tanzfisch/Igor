@@ -68,39 +68,39 @@ private:
     iWidgetCheckBoxPtr _perspective;
 
     /*! perspective layout
-    */
+     */
     iWidgetBoxLayoutPtr _perspectiveLayout;
 
     /*! field of view text edit
-    */
+     */
     iWidgetLineTextEditPtr _fov;
 
     /*! left, right, top and bottom orthogonal values
-    */
+     */
     std::array<iWidgetLineTextEditPtr, 4> _ortho;
 
     /*! orthogonal layout
-    */
+     */
     iWidgetBoxLayoutPtr _orthogonalLayout;
 
     /*! near far clip planes
-    */
+     */
     iUserControlVectorPtr _clipNearFar;
 
     /*! active clear color checkbox
-    */
+     */
     iWidgetCheckBoxPtr _activeClearColor;
 
     /*! clear color selector
-    */
+     */
     iUserControlColorPtr _clearColor;
 
     /*! active clear depth checkbox
-    */
+     */
     iWidgetCheckBoxPtr _activeClearDepth;
 
     /*! clear depth value
-    */
+     */
     iWidgetLineTextEditPtr _clearDepth;
 
     /*! called after values changed
@@ -108,8 +108,14 @@ private:
     void onValueChanged(iWidgetPtr source);
 
     /*! called when projection changed
-    */
+     */
     void onProjectionChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_CAMERA_H

@@ -126,6 +126,12 @@ private:
     /*! called when component type selection dialog closed
     */
     void onDialogClosed(iDialogPtr source);
+
+    /*! called when entity changed
+
+    \param entity the given entity that changed
+    */
+    void onEntityChanged(iEntityPtr entity);
 };
 
 #endif // USERCONTROL_ENTITY_H

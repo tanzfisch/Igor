@@ -136,3 +136,10 @@ void UserControlComponentLight::updateComponent()
     const iaColor4f &specular = _specular->getColor();
     component->setSpecular(specular._r, specular._g, specular._b);
 }
+
+void UserControlComponentLight::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iLightComponent>();
+}

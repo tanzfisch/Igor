@@ -45,7 +45,7 @@ namespace igor
 
         grid->addWidget(_picture, 2, 0);
 
-        grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
+        grid->getClickEvent().add(iClickDelegate(this, &iWidgetMenu::onClick));
 
         _dialogMenu = new iDialogMenu();
     }

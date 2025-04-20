@@ -165,7 +165,7 @@ namespace igor
         _expandButton->setText("");
         _expandButton->setMinWidth(12);
         _expandButton->setMinHeight(12);
-        _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColor::onExpandButtonPressed));
+        _expandButton->getClickEvent().add(iClickDelegate(this, &iUserControlColor::onExpandButtonPressed));
         _expandButton->setVisible(_showHeadline);
         _expandButton->setEnabled(_showHeadline);
 

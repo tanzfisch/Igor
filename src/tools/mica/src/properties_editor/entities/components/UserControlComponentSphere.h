@@ -59,18 +59,23 @@ public:
     void updateComponent() override;
 
 private:
-
     /*! radius of circle
-    */
+     */
     iWidgetLineTextEditPtr _radius;
 
     /*! offset vector
-    */
+     */
     iUserControlVectorPtr _offset;
 
     /*! called after values changed
-    */
+     */
     void onValueChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_SPHERE_H

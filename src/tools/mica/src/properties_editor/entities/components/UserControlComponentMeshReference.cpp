@@ -106,3 +106,10 @@ void UserControlComponentMeshReference::updateComponent()
         entity->reloadComponent<iMeshRenderComponent>();
     }
 }
+
+void UserControlComponentMeshReference::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iMeshReferenceComponent>();
+}

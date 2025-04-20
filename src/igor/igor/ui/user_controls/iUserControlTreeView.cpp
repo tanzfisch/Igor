@@ -90,7 +90,7 @@ namespace igor
             button->setBackground(iaColor4f::transparent);
             button->setText(displayName);
             button->setCheckable(true);
-            button->registerOnClickEvent(iClickDelegate(this, &iUserControlTreeView::onClick));
+            button->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
             button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
             if (path == _selectedItemPath)

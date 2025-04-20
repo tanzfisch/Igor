@@ -106,3 +106,10 @@ void UserControlComponentSphere::updateComponent()
     const iaVector3d offset(_offset->getValue(0), _offset->getValue(1), _offset->getValue(2));
     component->setOffset(offset);
 }
+
+void UserControlComponentSphere::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iSphereComponent>();
+}

@@ -56,7 +56,7 @@ public:
 
     /*! update entity
      */
-    void updateComponent() override;        
+    void updateComponent() override;
 
 private:
     /*! prefab id
@@ -64,16 +64,22 @@ private:
     iResourceID _prefabID;
 
     /*! label id
-    */
+     */
     iWidgetLabelPtr _labelID;
 
     /*! source id
-    */
+     */
     iWidgetLabelPtr _labelSource;
 
     /*! label alias
-    */
+     */
     iWidgetLabelPtr _labelAlias;
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_PREFAB_H

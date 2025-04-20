@@ -49,6 +49,13 @@ public:
     /*! init ui
      */
     void init() override;
+
+private:
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
 };
 
 #endif // USERCONTROL_COMPONENT_OCTREE_H

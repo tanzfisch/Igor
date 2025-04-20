@@ -105,3 +105,10 @@ void UserControlComponentCircle::updateComponent()
     iaVector2d offset(_offset->getValue(0), _offset->getValue(1));
     component->setOffset(offset);
 }
+
+void UserControlComponentCircle::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iCircleComponent>();
+}

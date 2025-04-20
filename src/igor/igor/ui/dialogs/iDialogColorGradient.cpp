@@ -144,7 +144,7 @@ namespace igor
 		iWidgetButton *delButton = new iWidgetButton();
 		delButton->setText("Delete Color");
 		delButton->setTooltip("Deletes selected color key.");
-		delButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onDelete));
+		delButton->getClickEvent().add(iClickDelegate(this, &iDialogColorGradient::onDelete));
 		delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
 		controlGrid->addWidget(delButton, 0, 2);
 
@@ -166,19 +166,19 @@ namespace igor
 		iWidgetButton *okButton = new iWidgetButton();
 		okButton->setText("OK");
 		okButton->setTooltip("Closes the dialog and applies new color gradient.");
-		okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onOK));
+		okButton->getClickEvent().add(iClickDelegate(this, &iDialogColorGradient::onOK));
 		buttonGrid->addWidget(okButton, 2, 0);
 
 		iWidgetButton *cancelButton = new iWidgetButton();
 		cancelButton->setText("Cancel");
 		cancelButton->setTooltip("Closes the dialog without changes.");
-		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onCancel));
+		cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogColorGradient::onCancel));
 		buttonGrid->addWidget(cancelButton, 1, 0);
 
 		iWidgetButton *resetButton = new iWidgetButton();
 		resetButton->setText("Reset");
 		resetButton->setTooltip("Resets dialog to previous color gradient.");
-		resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onReset));
+		resetButton->getClickEvent().add(iClickDelegate(this, &iDialogColorGradient::onReset));
 		buttonGrid->addWidget(resetButton, 0, 0);
 	}
 

@@ -184,7 +184,7 @@ namespace igor
         iWidgetButton *delButton = new iWidgetButton();
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
-        delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
+        delButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
@@ -193,15 +193,15 @@ namespace igor
 
         iWidgetButton *okButton = new iWidgetButton();
         okButton->setText("OK");
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onOK));
 
         iWidgetButton *cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onCancel));
 
         iWidgetButton *resetButton = new iWidgetButton();
         resetButton->setText("Reset");
-        resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
+        resetButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onReset));
 
         grid->addWidget(groupBoxGradient, 0, 0);
         grid->addWidget(groupBoxSelection, 0, 1);

@@ -20,3 +20,9 @@ void UserControlComponentQuadtree::init()
     label->setHorizontalAlignment(iHorizontalAlignment::Left);  
 }
 
+void UserControlComponentQuadtree::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iQuadtreeComponent>();
+}

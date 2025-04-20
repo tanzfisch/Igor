@@ -282,11 +282,9 @@ namespace igor
          */
         iWidgetState getState() const;
 
-        /*! registers delegate to click event (click is left mouse button)
-
-        \param clickDelegate the delegate to register
+        /*! \returns click event
         */
-        void registerOnClickEvent(iClickDelegate clickDelegate);
+        iClickEvent& getClickEvent();
 
         /*! registers delegate to mouse out of bounds click events
 
@@ -347,12 +345,6 @@ namespace igor
         \param wheelDownDelegate the delegate to unregister
         */
         void unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
-
-        /*! unregisters delegate from click event (click is left mouse button)
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterOnClickEvent(iClickDelegate clickDelegate);
 
         /*! unregisters delegate from mouse off click event
 

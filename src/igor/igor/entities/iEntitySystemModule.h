@@ -46,6 +46,10 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iDestroyEntity, iEntityPtr);
 
+    /*! event called after entity has changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityChanged, iEntityPtr);    
+
     /*! event called when hierarchy of given scene has changed
      */
     IGOR_EVENT_DEFINITION(iHierarchyChanged, iEntityScenePtr);
@@ -189,6 +193,10 @@ namespace igor
          */
         iDestroyEntityEvent &getDestroyEntityEvent();
 
+        /*! \returns entity changed event
+        */
+        iEntityChangedEvent &getEntityChangedEvent();
+
         /*! \returns hierarchy changed event
          */
         iHierarchyChangedEvent &getHierarchyChangedEvent();
@@ -237,6 +245,10 @@ namespace igor
         /*! event triggered when entity got created
          */
         iCreatedEntityEvent _createdEntityEvent;
+
+        /*! event triggered when entity changed
+        */
+       iEntityChangedEvent _entityChangeEvent;
 
         /*! event triggered before entity get's destroyed
          */

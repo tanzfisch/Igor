@@ -150,12 +150,12 @@ namespace igor
         grid->addWidget(buttonGrid, 0, 3);
 
         iWidgetButtonPtr okButton = new iWidgetButton();
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onOK));
         buttonGrid->addWidget(okButton, 0, 0);
 
         iWidgetButtonPtr cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onCancel));
         buttonGrid->addWidget(cancelButton, 1, 0);
 
         switch (_purpose)

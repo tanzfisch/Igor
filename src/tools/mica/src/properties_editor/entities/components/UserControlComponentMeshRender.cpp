@@ -122,3 +122,10 @@ void UserControlComponentMeshRender::updateComponent()
 
     // TODO nothing to do here right?
 }
+
+void UserControlComponentMeshRender::onDestroyComponent(iEntityPtr entity)
+{
+    con_assert(entity != nullptr, "zero pointer");
+    
+    entity->destroyComponent<iMeshReferenceComponent>();
+}
