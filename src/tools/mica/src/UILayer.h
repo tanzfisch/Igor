@@ -35,6 +35,8 @@
 #include "properties_editor/PropertiesEditor.h"
 #include "viewport/Viewport.h"
 
+/*! ui layer handling all widget things
+*/
 class UILayer : public iLayerWidgets
 {
 
@@ -72,16 +74,36 @@ private:
      */
     iDialogFileSelect _fileDialog;
 
+    /*! opens the create project dialog
+     */
     void onCreateProject();
+
+    /*! opens the load project dialog
+     */
     void onLoadProject();
+
+    /*! saves the current project
+     */
     void onSaveProject();
 
+    /*! handles closing the create project dialog
+
+    \param dialog the calling widget
+    */
     void onCreateProjectDialogClosed(iDialogPtr dialog);
+
+    /*! handles closing the load project dialog
+
+    \param dialog the calling widget
+    */
     void onLoadProjectDialogClosed(iDialogPtr dialog);
 
     /*! called when outliner selection changed
+
+    \param sceneID the selected scene
+    \param entityIDs selected entities in given scene
      */
-    void onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const iEntityID &entityID);
+    void onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs);
 
     /*! init ui
      */

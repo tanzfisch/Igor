@@ -32,7 +32,7 @@
 #include <igor/igor.h>
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const iEntityID &);
+IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
 
 /*! outliner
 

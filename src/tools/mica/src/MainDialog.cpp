@@ -9,11 +9,6 @@ MainDialog::MainDialog()
     initGUI();
 }
 
-MainDialog::~MainDialog()
-{
-    deinitGUI();
-}
-
 void MainDialog::initGUI()
 {
     setTitle("Mica");
@@ -32,11 +27,6 @@ void MainDialog::initGUI()
     vbox->addWidget(new iWidgetDockingLayout());
 }
 
-void MainDialog::deinitGUI()
-{
-}
-
-// this really should not be in the MainDialog but in the UILayer in the "main" menu that does not exists yet
 iWidgetMenuBarPtr MainDialog::createMenu()
 {
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();

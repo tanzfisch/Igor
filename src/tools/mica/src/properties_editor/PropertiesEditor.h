@@ -56,9 +56,9 @@ public:
     /*! sets selection for entity scene and entity
 
     \param sceneID the scene id
-    \param entityID the entity id in the same scene
+    \param entityIDs the entity ids in the same scene
     */
-    void setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID);
+    void setSelectionEntity(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs);
 
 private:
 

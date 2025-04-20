@@ -31,6 +31,8 @@
 
 #include "overlay/EntityOverlay.h"
 
+/*! Mica's viewport dialog
+*/
 class Viewport : public iDialog
 {
     friend class iWidgetManager;
@@ -90,9 +92,6 @@ private:
     /*! overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;
-
-    // TODO 
-    iResourceID _sceneResourceID;
 
     /*! handles incoming generic event
 

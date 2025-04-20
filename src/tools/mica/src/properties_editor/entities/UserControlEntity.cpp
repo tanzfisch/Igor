@@ -82,7 +82,7 @@ void UserControlEntity::init()
     _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 
     _addComponent = new iWidgetButton(entityLayout);
-    _addComponent->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _addComponent->setHorizontalAlignment(iHorizontalAlignment::Left);
     _addComponent->setText("Add Component");
     _addComponent->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _addComponent->getClickEvent().add(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));

@@ -53,9 +53,9 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
     if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
         item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
     {
-        iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
-        _entitySelectionChangedEvent(sceneID, entityID);
+        const iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+        const std::vector<iEntityID> entityIDs = {item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID)};
+        _entitySelectionChangedEvent(sceneID, entityIDs);
     }
     else
     {
@@ -166,7 +166,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
             if (isScene)
             {
                 // TODO unload scene? activate/deactivate? remove/delete
-            }              
+            }
         }
     }
 

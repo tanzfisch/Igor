@@ -41,25 +41,65 @@ IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
 class MainDialog : public iDialog
 {
 public:
+    /*! init
+     */
     MainDialog();
-    ~MainDialog();
 
+    /*! does nothing
+     */
+    ~MainDialog() = default;
+
+    /*! \returns create project event
+     */
     CreateProjectEvent &getEventCreateProject();
+
+    /*! \returns load project event
+     */
     LoadProjectEvent &getEventLoadProject();
+
+    /*! \returns save project event
+     */
     SaveProjectEvent &getEventSaveProject();
 
 private:
+    /*! create project event
+     */
     CreateProjectEvent _createProject;
+
+    /*! load project event
+     */
     LoadProjectEvent _loadProject;
+
+    /*! save project event
+     */
     SaveProjectEvent _saveProject;
 
+    /*! init ui
+     */
     void initGUI();
-    void deinitGUI();
 
+    /*! triggers create project event
+
+    \param source the event source
+    */
     void onCreateProject(const iWidgetPtr source);
+
+    /*! triggers load project event
+
+    \param source the event source
+    */
     void onLoadProject(const iWidgetPtr source);
+
+    /*! triggers save project event
+
+    \param source the event source
+    */
     void onSaveProject(const iWidgetPtr source);
 
+    /*! creates main application menu
+
+    \returns created menu
+    */
     iWidgetMenuBarPtr createMenu();
 };
 

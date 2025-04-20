@@ -32,7 +32,10 @@
 #include <igor/igor.h>
 using namespace igor;
 
-// https://wiki.lspace.org/Mica ;-)
+/*! entry point of Mica
+
+	What is Mica? -> https://wiki.lspace.org/Mica
+*/
 class Mica
 {
 

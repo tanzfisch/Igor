@@ -43,15 +43,16 @@ void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
     _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
 }
 
-void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID)
+void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs)
 {
     deinitProperties();
 
-    if (!sceneID.isValid() ||
-        !entityID.isValid())
+    if (entityIDs.size() != 1 ||
+        !sceneID.isValid() ||
+        !entityIDs[0].isValid())
     {
         return;
     }
 
-    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityID}, _scroll);
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityIDs[0]}, _scroll);
 }
