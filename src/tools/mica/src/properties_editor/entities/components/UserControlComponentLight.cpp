@@ -7,7 +7,7 @@
 #include <igor/entities/components/iLightComponent.h>
 
 UserControlComponentLight::UserControlComponentLight(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
-    : UserControlComponent(scene, entity, "Sphere", parent)
+    : UserControlComponent(scene, entity, "Light", parent)
 {    
 }
 
