@@ -30,7 +30,7 @@ void UserControlComponentTransform::init()
     _position = new iUserControlVector(3, positionLayout);
     _position->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _position->setEnabled(true);
-    _position->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));
+    _position->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));
 
     iWidgetBoxLayoutPtr orientationLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     orientationLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -43,7 +43,7 @@ void UserControlComponentTransform::init()
     _orientation = new iUserControlVector(3, orientationLayout);
     _orientation->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _orientation->setEnabled(true);
-    _orientation->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));    
+    _orientation->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));    
 
     iWidgetBoxLayoutPtr scaleLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     scaleLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -56,7 +56,7 @@ void UserControlComponentTransform::init()
     _scale = new iUserControlVector(3, scaleLayout);
     _scale->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _scale->setEnabled(true);
-    _scale->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));       
+    _scale->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentTransform::onValueChanged));       
 }
 
 void UserControlComponentTransform::onValueChanged(iWidgetPtr source)

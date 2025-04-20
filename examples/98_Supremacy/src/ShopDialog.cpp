@@ -99,7 +99,7 @@ void ShopDialog::initGUI()
 	_itemGrid->setStretchRow(0);
 	_itemGrid->setSelectMode(iSelectionMode::Column);
 	_itemGrid->setEmptyCellsSelectable();
-	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
+	_itemGrid->getChangeEvent().add(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
 	iWidgetGridLayout *item1Grid = new iWidgetGridLayout();
 	item1Grid->appendRows(4);

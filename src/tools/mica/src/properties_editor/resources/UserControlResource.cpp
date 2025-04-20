@@ -78,7 +78,7 @@ void UserControlResource::init()
     _textAlias->setMaxTextLength(256);
     _textAlias->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textAlias->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textAlias->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onAliasChanged));    
+    _textAlias->getChangeEvent().add(iChangeDelegate(this, &UserControlResource::onAliasChanged));    
 }
 
 iWidgetBoxLayoutPtr UserControlResource::getLayout()

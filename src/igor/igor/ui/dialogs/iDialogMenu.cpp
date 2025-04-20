@@ -34,7 +34,7 @@ namespace igor
     {
         setMinSize(100, 0);
         setAcceptOutOfBoundsClicks();
-        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
         setIgnoreChildEventConsumption(false);
         setGrowingByContent(true);

@@ -36,7 +36,7 @@ void DialogComponentTypeSelection::initGUI()
 	{
 		_selectBoxComponentType->addItem(componentType.second._typeName, componentType.first);
 	}
-	_selectBoxComponentType->registerOnChangeEvent(iChangeDelegate(this, &DialogComponentTypeSelection::onTypeChanged));
+	_selectBoxComponentType->getChangeEvent().add(iChangeDelegate(this, &DialogComponentTypeSelection::onTypeChanged));
 
 	iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, mainLayout);
 	buttonLayout->setHorizontalAlignment(iHorizontalAlignment::Right);

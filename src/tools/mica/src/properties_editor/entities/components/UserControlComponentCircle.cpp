@@ -27,7 +27,7 @@ void UserControlComponentCircle::init()
 
     _radius = new iWidgetLineTextEdit(radiusLayout);
     _radius->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _radius->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
+    _radius->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
 
     iWidgetBoxLayoutPtr offsetLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     offsetLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -39,7 +39,7 @@ void UserControlComponentCircle::init()
 
     _offset = new iUserControlVector(2, offsetLayout);
     _offset->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _offset->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
+    _offset->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
 }
 
 void UserControlComponentCircle::onValueChanged(iWidgetPtr source)

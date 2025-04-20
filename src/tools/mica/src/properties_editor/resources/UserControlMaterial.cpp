@@ -115,22 +115,22 @@ void UserControlMaterial::init()
     _ambientColorChooser = new iUserControlColor(materialLayout);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
-    _ambientColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _ambientColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _diffuseColorChooser = new iUserControlColor(materialLayout);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
-    _diffuseColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _diffuseColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _specularColorChooser = new iUserControlColor(materialLayout);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
-    _specularColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _specularColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _emissiveColorChooser = new iUserControlColor(materialLayout);
     _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");
-    _emissiveColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _emissiveColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     iWidgetLabel *labelShininess = new iWidgetLabel(materialLayout);
     labelShininess->setText("Shininess");
@@ -145,7 +145,7 @@ void UserControlMaterial::init()
     _sliderShininess->setSteppingWheel(0.1f, 0.1f);
     _sliderShininess->setValue(0.0f);
     _sliderShininess->setMinWidth(220);
-    _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
+    _sliderShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
     _numberChooserShininess = new iWidgetNumberChooser(shininessLayout);
     _numberChooserShininess->setMinMaxNumber(0.0f, 1000.0f);
@@ -154,7 +154,7 @@ void UserControlMaterial::init()
     _numberChooserShininess->setMinWidth(80);
     _numberChooserShininess->setSteppingWheel(0.1f, 0.1f);
     _numberChooserShininess->setStepping(0.01f, 0.01f);
-    _numberChooserShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
+    _numberChooserShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
     iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
     for (int i = 0; i < 4; ++i)
@@ -167,7 +167,7 @@ void UserControlMaterial::init()
         labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
         _textureChooser[i] = new iUserControlTexture(textureLayout);
-        _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+        _textureChooser[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     }
 
     iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
@@ -178,7 +178,7 @@ void UserControlMaterial::init()
     shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
     _shaderMaterialChooser = new iUserControlShaderMaterial(shaderMaterialLayout);
 
-    _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 }
 
 void UserControlMaterial::onDoUpdateShininess(const iWidgetPtr source)

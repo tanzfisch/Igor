@@ -32,7 +32,7 @@ namespace igor
             textField->setHorizontalTextAlignment(iHorizontalAlignment::Right);
             textField->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             textField->setMinWidth(80);
-            textField->registerOnChangeEvent(iChangeDelegate(this, &iUserControlVector::onValueChanged));
+            textField->getChangeEvent().add(iChangeDelegate(this, &iUserControlVector::onValueChanged));
             _textValues.push_back(textField);
         }
     }

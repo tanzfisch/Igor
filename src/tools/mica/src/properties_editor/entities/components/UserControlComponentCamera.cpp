@@ -27,7 +27,7 @@ void UserControlComponentCamera::init()
 
     _viewport = new iUserControlVector(4, viewportLayout);
     _viewport->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _viewport->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _viewport->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr projectionLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     projectionLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -39,7 +39,7 @@ void UserControlComponentCamera::init()
 
     _perspective = new iWidgetCheckBox(projectionLayout);
     _perspective->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _perspective->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onProjectionChanged));
+    _perspective->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onProjectionChanged));
 
     _perspectiveLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
     _perspectiveLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -54,7 +54,7 @@ void UserControlComponentCamera::init()
 
     _fov = new iWidgetLineTextEdit(fovLayout);
     _fov->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _fov->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _fov->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     _orthogonalLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
     _orthogonalLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -85,7 +85,7 @@ void UserControlComponentCamera::init()
 
         _ortho[i] = new iWidgetLineTextEdit(orthoLayout);
         _ortho[i]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _ortho[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+        _ortho[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
     }
 
     iWidgetBoxLayoutPtr clipPlanesLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
@@ -98,7 +98,7 @@ void UserControlComponentCamera::init()
 
     _clipNearFar = new iUserControlVector(2, clipPlanesLayout);
     _clipNearFar->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clipNearFar->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));    
+    _clipNearFar->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));    
 
     iWidgetBoxLayoutPtr activeClearColorLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     activeClearColorLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -111,7 +111,7 @@ void UserControlComponentCamera::init()
 
     _activeClearColor = new iWidgetCheckBox(activeClearColorLayout);
     _activeClearColor->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _activeClearColor->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _activeClearColor->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr clearColorLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearColorLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -120,7 +120,7 @@ void UserControlComponentCamera::init()
 
     _clearColor = new iUserControlColor(clearColorLayout);
     _clearColor->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clearColor->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _clearColor->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr activeClearDepthLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     activeClearDepthLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -133,7 +133,7 @@ void UserControlComponentCamera::init()
 
     _activeClearDepth = new iWidgetCheckBox(activeClearDepthLayout);
     _activeClearDepth->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _activeClearDepth->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _activeClearDepth->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr clearDepthLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearDepthLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -142,7 +142,7 @@ void UserControlComponentCamera::init()
 
     _clearDepth = new iWidgetLineTextEdit(clearDepthLayout);
     _clearDepth->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clearDepth->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _clearDepth->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 }
 
 void UserControlComponentCamera::onProjectionChanged(iWidgetPtr source)

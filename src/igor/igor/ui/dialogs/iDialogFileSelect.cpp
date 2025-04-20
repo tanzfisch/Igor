@@ -105,7 +105,7 @@ namespace igor
         _pathEdit->setMaxTextLength(1024);
         _pathEdit->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
-        _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
+        _pathEdit->getChangeEvent().add(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
         grid->addWidget(_pathEdit, 0, 0);
 
         _scroll = new iWidgetScroll();
@@ -115,7 +115,7 @@ namespace igor
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Cell);
-        _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
+        _fileGrid->getDoubleClickEvent().add(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
         if (_purpose != iFileDialogPurpose::SelectFolder)
         {
@@ -138,7 +138,7 @@ namespace igor
             _filenameEdit->setMaxTextLength(256);
             _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
             _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
-            _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
+            _filenameEdit->getChangeEvent().add(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
             filenameGrid->addWidget(_filenameEdit, 1, 0);
         }
 

@@ -49,7 +49,7 @@ namespace igor
 		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
-		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
+		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
@@ -58,7 +58,7 @@ namespace igor
 		grid->setSelectMode(iSelectionMode::Row);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
-		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogIndexMenu::onChange));
+		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogIndexMenu::onChange));
 		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)
@@ -79,7 +79,7 @@ namespace igor
 		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
-		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
+		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendColumns(1);
@@ -89,7 +89,7 @@ namespace igor
 		grid->setSelectMode(iSelectionMode::Row);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
-		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogIndexMenu::onChange));
+		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogIndexMenu::onChange));
 		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)

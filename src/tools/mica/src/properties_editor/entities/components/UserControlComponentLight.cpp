@@ -29,7 +29,7 @@ void UserControlComponentLight::init()
     _lightType->addItem("Directional", iLightType::Directional);
     _lightType->addItem("Point", iLightType::Point);
     _lightType->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _lightType->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
+    _lightType->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
 
     iWidgetBoxLayoutPtr ambientLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     ambientLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -41,7 +41,7 @@ void UserControlComponentLight::init()
 
     _ambient = new iUserControlColor(ambientLayout);
     _ambient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _ambient->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
+    _ambient->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
 
     iWidgetBoxLayoutPtr diffuseLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     diffuseLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -53,7 +53,7 @@ void UserControlComponentLight::init()
 
     _diffuse = new iUserControlColor(diffuseLayout);
     _diffuse->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _diffuse->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));    
+    _diffuse->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));    
 
     iWidgetBoxLayoutPtr specularLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     specularLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -65,7 +65,7 @@ void UserControlComponentLight::init()
 
     _specular = new iUserControlColor(specularLayout);
     _specular->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _specular->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));      
+    _specular->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));      
 }
 
 void UserControlComponentLight::onValueChanged(iWidgetPtr source)

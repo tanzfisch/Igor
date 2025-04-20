@@ -29,7 +29,7 @@ void UserControlComponentMeshReference::init()
 
     _meshReference = new iUserControlMeshReference(meshRefLayout);
     _meshReference->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _meshReference->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentMeshReference::onValueChanged));
+    _meshReference->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentMeshReference::onValueChanged));
 }
 
 void UserControlComponentMeshReference::onValueChanged(iWidgetPtr source)

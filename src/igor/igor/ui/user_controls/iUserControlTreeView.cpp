@@ -28,7 +28,7 @@ namespace igor
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
         _scroll->addWidget(_vboxLayout);
 
-        _scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
+        _scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
     }
 
     iClickTreeViewEvent &iUserControlTreeView::getClickEvent()
@@ -91,7 +91,7 @@ namespace igor
             button->setText(displayName);
             button->setCheckable(true);
             button->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
-            button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
+            button->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
             if (path == _selectedItemPath)
             {

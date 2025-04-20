@@ -249,79 +249,59 @@ namespace igor
         onParentChanged();
     }
 
-    void iWidget::unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
-    {
-        _mouseOffClick.remove(clickDelegate);
-    }
-
-    void iWidget::unregisterOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
-    {
-        _mouseOver.remove(iMouseOverDelegate);
-    }
-
-    void iWidget::unregisterOnMouseOffEvent(iMouseOffDelegate iMouseOffDelegate)
-    {
-        _mouseOff.remove(iMouseOffDelegate);
-    }
-
-    void iWidget::unregisterOnChangeEvent(iChangeDelegate iChangeDelegate)
-    {
-        _change.remove(iChangeDelegate);
-    }
-
-    void iWidget::unregisterOnFocusEvent(iFocusDelegate iFocusDelegate)
-    {
-        _focus.remove(iFocusDelegate);
-    }
-
-    iClickEvent& iWidget::getClickEvent()
+    iClickEvent &iWidget::getClickEvent()
     {
         return _click;
     }
 
-    void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
+    iMouseOffClickEvent &iWidget::getMouseOffClickEvent()
     {
-        _mouseOffClick.add(clickDelegate);
+        return _mouseOffClick;
     }
 
-    void iWidget::registerOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
+    iDoubleClickEvent &iWidget::getDoubleClickEvent()
     {
-        _mouseOver.add(iMouseOverDelegate);
+        return _doubleClick;
     }
 
-    void iWidget::registerOnMouseOffEvent(iMouseOffDelegate iMouseOffDelegate)
+    iMouseOverEvent &iWidget::getMouseOverEvent()
     {
-        _mouseOff.add(iMouseOffDelegate);
+        return _mouseOver;
     }
 
-    void iWidget::registerOnChangeEvent(iChangeDelegate iChangeDelegate)
+    iMouseOffEvent &iWidget::getMouseOffEvent()
     {
-        _change.add(iChangeDelegate);
+        return _mouseOff;
     }
 
-    void iWidget::registerOnFocusEvent(iFocusDelegate iFocusDelegate)
+    iChangeEvent &iWidget::getChangeEvent()
     {
-        _focus.add(iFocusDelegate);
+        return _change;
     }
 
-    void iWidget::registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
+    iFocusEvent &iWidget::getFocusEvent()
     {
-        _doubleClick.add(doubleClickDelegate);
+        return _focus;
     }
 
-    void iWidget::unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
+    iWheelUpEvent &iWidget::getWheelUpEvent()
     {
-        _doubleClick.remove(doubleClickDelegate);
+        return _wheelUp;
     }
 
-    void iWidget::registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    iWheelDownEvent &iWidget::getWheelDownEvent()
     {
-        _contextMenu.add(contextMenuDelegate);
+        return _wheelDown;
     }
 
-    void iWidget::unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    iContextMenuEvent &iWidget::getContextMenuEvent()
     {
-        _contextMenu.remove(contextMenuDelegate);
+        return _contextMenu;
+    }
+
+    iSelectionChangedEvent& iWidget::getSelectionChangedEvent()
+    {
+        return _selectionChanged;
     }
 
     void iWidget::setKeyboardFocus()
@@ -374,26 +354,6 @@ namespace igor
     bool iWidget::isMouseOver()
     {
         return _isMouseOver;
-    }
-
-    void iWidget::registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
-    {
-        _wheelUp.add(wheelUpDelegate);
-    }
-
-    void iWidget::unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
-    {
-        _wheelUp.remove(wheelUpDelegate);
-    }
-
-    void iWidget::registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
-    {
-        _wheelDown.add(wheelDownDelegate);
-    }
-
-    void iWidget::unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
-    {
-        _wheelDown.remove(wheelDownDelegate);
     }
 
     void iWidget::onLostKeyboardFocus()
@@ -510,16 +470,6 @@ namespace igor
     bool iWidget::getAcceptOutOfBoundsClicks() const
     {
         return _acceptOutOfBoundsClicks;
-    }
-
-    void iWidget::registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.add(delegate);
-    }
-
-    void iWidget::unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.remove(delegate);
     }
 
     bool iWidget::onMouseKeyDown(iEventMouseKeyDown &event)

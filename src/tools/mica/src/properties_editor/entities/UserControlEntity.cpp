@@ -54,7 +54,7 @@ void UserControlEntity::init()
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textName->setEnabled(true);
-    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onNameChanged));
+    _textName->getChangeEvent().add(iChangeDelegate(this, &UserControlEntity::onNameChanged));
 
     iWidgetBoxLayoutPtr idLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, entityLayout);
     idLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -79,7 +79,7 @@ void UserControlEntity::init()
 
     _checkBoxActive = new iWidgetCheckBox(activeLayout);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
+    _checkBoxActive->getChangeEvent().add(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 
     _addComponent = new iWidgetButton(entityLayout);
     _addComponent->setHorizontalAlignment(iHorizontalAlignment::Left);

@@ -61,11 +61,11 @@ void AssetBrowser::initUI()
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
-    _gridView->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
+    _gridView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
     
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
-    scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
+    scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
     scroll->addWidget(_gridView);
     splitter->addWidget(scroll);
 }
