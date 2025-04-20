@@ -39,13 +39,13 @@ class UILayer : public iLayerWidgets
 {
 
 public:
-    /*! nothing to do
+    /*! init members
      */
     UILayer(iWindowPtr window, int32 zIndex);
 
-    /*! deinit resources
+    /*! nothing to do
      */
-    ~UILayer();
+    ~UILayer() = default;
 
 private:
     /*! the main dialog
@@ -72,10 +72,6 @@ private:
      */
     iDialogFileSelect _fileDialog;
 
-    /*! if true refresh ui next frame
-     */
-    bool _refresh = false;
-
     void onCreateProject();
     void onLoadProject();
     void onSaveProject();
@@ -95,10 +91,6 @@ private:
      */
     void onDeinit() override;
 
-    /*! called on application pre draw event
-     */
-    void onUpdate() override;
-
     /*! called on any other event
      */
     void onEvent(iEvent &event) override;
@@ -109,10 +101,24 @@ private:
     */
     bool onKeyDown(iEventKeyDown &event);
 
+    /*! filesystem changed event
+     */
     bool onFileCreated(iEventFileCreated &event);
+
+    /*! filesystem changed event
+     */
     bool onFileDeleted(iEventFileDeleted &event);
+
+    /*! filesystem changed event
+     */
     bool onFileMovedFrom(iEventFileMovedFrom &event);
+
+    /*! filesystem changed event
+     */
     bool onFileMovedTo(iEventFileMovedTo &event);
+
+    /*! filesystem changed event
+     */
     bool onFileChanged(iEventFileChanged &event);
 };
 

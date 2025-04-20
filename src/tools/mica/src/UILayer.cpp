@@ -5,20 +5,11 @@
 
 #include "UILayer.h"
 
-/*! default file open folder definition
- */
-static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"../../data/models";
-
 UILayer::UILayer(iWindowPtr window, int32 zIndex)
     : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
                                                             iResourceManager::getInstance().loadResource<iTexture>("igor_widget_theme_pattern"))),
                     window, "Widgets", zIndex)
 {
-}
-
-UILayer::~UILayer()
-{
-    // TODO ?
 }
 
 void UILayer::onInit()
@@ -132,16 +123,6 @@ void UILayer::onSaveProject()
     iProject::getInstance().save();
 }
 
-void UILayer::onUpdate()
-{
-    if (_refresh)
-    {
-        _refresh = false;
-    }
-
-    iLayerWidgets::onUpdate();
-}
-
 void UILayer::onEvent(iEvent &event)
 {
     iLayerWidgets::onEvent(event);
@@ -157,31 +138,26 @@ void UILayer::onEvent(iEvent &event)
 
 bool UILayer::onFileCreated(iEventFileCreated &event)
 {
-    _refresh = true;
     return false;
 }
 
 bool UILayer::onFileDeleted(iEventFileDeleted &event)
 {
-    _refresh = true;
     return false;
 }
 
 bool UILayer::onFileMovedFrom(iEventFileMovedFrom &event)
 {
-    _refresh = true;
     return false;
 }
 
 bool UILayer::onFileMovedTo(iEventFileMovedTo &event)
 {
-    _refresh = true;
     return false;
 }
 
 bool UILayer::onFileChanged(iEventFileChanged &event)
 {
-    _refresh = true;
     return false;
 }
 

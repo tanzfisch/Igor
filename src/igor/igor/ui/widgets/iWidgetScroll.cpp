@@ -640,6 +640,12 @@ namespace igor
         }
 
         calcChildFrame();
+
+        if (_childFrame.getWidth() <= 0 || _childFrame.getHeight() <= 0)
+        {
+            return;
+        }
+
         calcButtons();
 
         // begin rendering

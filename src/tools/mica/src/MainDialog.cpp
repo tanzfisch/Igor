@@ -14,6 +14,28 @@ MainDialog::~MainDialog()
     deinitGUI();
 }
 
+void MainDialog::initGUI()
+{
+    setTitle("Mica");
+    setZValue(10000);
+    setDockable(false);
+    setMoveable(false);
+    setHeaderEnabled(false);
+    setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    setVerticalAlignment(iVerticalAlignment::Stretch);
+
+    iWidgetBoxLayoutPtr vbox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+    vbox->setStretchIndex(1);
+    vbox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    vbox->setVerticalAlignment(iVerticalAlignment::Stretch);
+    vbox->addWidget(createMenu());
+    vbox->addWidget(new iWidgetDockingLayout());
+}
+
+void MainDialog::deinitGUI()
+{
+}
+
 // this really should not be in the MainDialog but in the UILayer in the "main" menu that does not exists yet
 iWidgetMenuBarPtr MainDialog::createMenu()
 {
@@ -66,26 +88,4 @@ void MainDialog::onLoadProject(const iWidgetPtr source)
 void MainDialog::onSaveProject(const iWidgetPtr source)
 {
     _saveProject();
-}
-
-void MainDialog::initGUI()
-{
-    setTitle("Mica");
-    setZValue(10000);
-    setDockable(false);
-    setMoveable(false);
-    setHeaderEnabled(false);
-    setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    setVerticalAlignment(iVerticalAlignment::Stretch);
-
-    iWidgetBoxLayoutPtr vbox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
-    vbox->setStretchIndex(1);
-    vbox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    vbox->setVerticalAlignment(iVerticalAlignment::Stretch);
-    vbox->addWidget(createMenu());
-    vbox->addWidget(new iWidgetDockingLayout());
-}
-
-void MainDialog::deinitGUI()
-{
 }
