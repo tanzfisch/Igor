@@ -17,7 +17,8 @@
 
  how to build: 
 
- http://igor.logasoft.co.nz/doxygen/contribute.html
+ https://tanzfisch.github.io/Igor/doxygen/contribute.html
+
  
   
  
