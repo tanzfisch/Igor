@@ -37,6 +37,7 @@ namespace igor
 
         if (_prefab == nullptr)
         {
+            asyncLoad = true; // keep trying
             return false;
         }
 
