@@ -104,7 +104,7 @@ namespace igor
 		iEntityPtr getEntity(iEntityID entityID);
 
 		/*! \returns the root entity
-		*/
+		 */
 		iEntityPtr getRootEntity() const;
 
 		/*! \returns all entities with camera component
@@ -155,7 +155,7 @@ namespace igor
 		\param splitThreshold threshold count of objects on a node before splitting the node
 		\param maxDepth the maximum depth of the tree
 		*/
-		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);		
+		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);
 
 		/*! \returns internal octree
 		 */
@@ -163,7 +163,7 @@ namespace igor
 
 		/*! \returns true if octree present
 		 */
-		bool hasOctree() const;		
+		bool hasOctree() const;
 
 		/*! add system
 
@@ -178,7 +178,7 @@ namespace igor
 		void removeSystem(const iaString &systemName);
 
 		/*! \returns list of systems running on this scene
-		*/
+		 */
 		const std::vector<iaString> getSystems();
 
 	private:
@@ -199,15 +199,15 @@ namespace igor
 		std::vector<iEntityPtr> _deleteQueue;
 
 		/*! delete queue mutex
-		*/
+		 */
 		iaMutex _deleteQueueMutex;
 
 		/*! entity process queue
-		*/
+		 */
 		std::vector<iEntityPtr> _processQueue;
 
 		/*! process queue mutex
-		*/
+		 */
 		iaMutex _processQueueMutex;
 
 		/*! keep one specialized root entity for tree traversal
@@ -219,7 +219,7 @@ namespace igor
 		std::array<std::vector<std::pair<iaString, iEntitySystemPtr>>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! systems mutex
-		*/
+		 */
 		iaMutex _systemsMutex;
 
 		/*! quadtree
@@ -227,7 +227,7 @@ namespace igor
 		iQuadtreed *_quadtree = nullptr;
 
 		/*! octree
-		*/
+		 */
 		iOctreed *_octree = nullptr;
 
 		/*! pointer to camera system if it was added
@@ -235,11 +235,11 @@ namespace igor
 		iCameraSystem *_cameraSystem = nullptr;
 
 		/*! the render engine to use in render update stage
-		*/
+		 */
 		iRenderEnginePtr _renderEngine = nullptr;
 
 		/*! handle multi thread access to scene
-		*/
+		 */
 		iaMutex _mutex;
 
 		/*! sets render engine
@@ -292,6 +292,10 @@ namespace igor
 		\param entity the entity that has changed it's components
 		*/
 		void onEntityChanged(iEntityPtr entity);
+
+		/*! \returns all entities ordered by name
+		 */
+		const std::vector<iEntityPtr> getEntities() const;
 	};
 
 } // igor

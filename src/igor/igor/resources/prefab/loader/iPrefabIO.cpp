@@ -275,7 +275,11 @@ namespace igor
         }
 
         json componentsJson = json::array();
-        const auto componentTypes = entity->getComponentTypes();
+        auto componentTypes = entity->getComponentTypes();
+        std::sort(componentTypes.begin(), componentTypes.end(), [](const std::type_index& a, const std::type_index& b) {
+            return a.name() < b.name();
+        });
+
         for (const auto &typeIndex : componentTypes)
         {
             const auto component = entity->getComponent(typeIndex);
@@ -372,10 +376,10 @@ namespace igor
             auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
 
             json entitiesJson = json::array();
-            for (const auto &pair : scene->_entities)
+            for (const auto entity : scene->getEntities())
             {
                 json entityJson;
-                writeEntity(entityJson, pair.second);
+                writeEntity(entityJson, entity);
                 entitiesJson.push_back(entityJson);
             }
 

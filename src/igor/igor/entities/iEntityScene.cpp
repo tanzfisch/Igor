@@ -427,4 +427,19 @@ namespace igor
         return nullptr;
     }
 
+    const std::vector<iEntityPtr> iEntityScene::getEntities() const
+    {
+        std::vector<iEntityPtr> result;
+        for(const auto &pair : _entities)
+        {
+            result.push_back(pair.second);
+        }
+
+        std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b) {
+            return a->getName() < b->getName();
+        });
+
+        return result;
+    }
+
 } // igor
