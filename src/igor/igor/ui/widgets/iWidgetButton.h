@@ -39,19 +39,19 @@ namespace igor
 {
 
     /*! button widget
-    */
+     */
     class IGOR_API iWidgetButton : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent the optional parent
-		*/
+        \param parent the optional parent
+        */
         iWidgetButton(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetButton() = default;
 
         /*! sets the action this widget is associated with
@@ -69,11 +69,17 @@ namespace igor
         void setAction(const iaString &actionName, const iActionContextPtr context);
 
         /*! \returns action that is associated with this widget
-        */
+         */
         iActionPtr getAction() const;
 
-        /*! \returns action context
+        /*! sets action context
+
+        \param context the action context to set
         */
+       void setActionContext(iActionContextPtr context);        
+
+        /*! \returns action context
+         */
         iActionContextPtr getActionContext() const;
 
         /*! sets text of the widget
@@ -83,7 +89,7 @@ namespace igor
         void setText(const iaString &text);
 
         /*! \returns text of the widget
-        */
+         */
         const iaString &getText() const;
 
         /*! sets horizontal text alignment
@@ -93,7 +99,7 @@ namespace igor
         void setHorizontalTextAlignment(iHorizontalAlignment align);
 
         /*! \returns horizontal text alignment
-        */
+         */
         iHorizontalAlignment getHorizontalTextAlignment() const;
 
         /*! sets vertical text alignment
@@ -103,7 +109,7 @@ namespace igor
         void setVerticalTextAlignment(iVerticalAlignment valign);
 
         /*! \returns vertical text alignment
-        */
+         */
         iVerticalAlignment getVerticalTextAlignment() const;
 
         /*! sets the background texture to use for the whole button by name
@@ -119,14 +125,14 @@ namespace igor
         void setBackgroundTexture(iTexturePtr texture);
 
         /*! \returns background texture
-        */
+         */
         iTexturePtr getBackgroundTexture() const;
 
         /*! sets the icon texture by name
 
         the icon is rendered in the foreground.
         if there is no text then centred
-        if there is text then on the opposite side of the text        
+        if there is text then on the opposite side of the text
 
         \param iconAlias alias or id to icon texture
         */
@@ -136,14 +142,14 @@ namespace igor
 
         the icon is rendered in the foreground.
         if there is no text then centred
-        if there is text then on the opposite side of the text        
+        if there is text then on the opposite side of the text
 
         \param texture the texture to use
         */
         void setIcon(iTexturePtr texture);
 
         /*! \returns icon
-        */
+         */
         iTexturePtr getIcon() const;
 
         /*! sets the button checkable
@@ -153,7 +159,7 @@ namespace igor
         void setCheckable(bool checkable);
 
         /*! \returns true if button is checkable
-        */
+         */
         bool isCheckable() const;
 
         /*! sets button checked
@@ -163,61 +169,62 @@ namespace igor
         void setChecked(bool check);
 
         /*! \returns true if button is checked
-        */
+         */
         bool isChecked() const;
 
     protected:
         /*! the horizontal alignment
-        */
+         */
         iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Center;
 
         /*! the vertical alignment
-        */
+         */
         iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
 
         /*! current text of the button
-        */
+         */
         iaString _text;
 
         /*! the background texture
-        */
+         */
         iTexturePtr _texture;
 
         /*! the icon texture
-        */
+         */
         iTexturePtr _iconTexture;
 
         /*! the action
-        */
-        iActionPtr _action;
+         */
+        iActionPtr _action = nullptr;
 
         /*! the action context
-        */
-        iActionContextPtr _actionContext;        
+         */
+        iActionContextPtr _actionContext = nullptr;
 
         /*! if true button is checkable
-        */
+         */
         bool _checkable = false;
 
         /*! if true button is checked
-        */
+         */
         bool _checked = false;
 
         /*! internal click handler
-        */
+         */
         void onInternalClick(const iWidgetPtr source);
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! draws the widget
-         */ 
+         */
         void draw() override;
+
     };
 
     /*! widget button pointer definition
-	*/
+     */
     typedef iWidgetButton *iWidgetButtonPtr;
 } // namespace igor
 

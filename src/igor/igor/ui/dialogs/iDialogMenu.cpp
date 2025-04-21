@@ -49,7 +49,7 @@ namespace igor
         iWidget::clear();
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
         
-        _hasActions = false;
+        _hasEntries = false;
     }       
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
@@ -74,11 +74,13 @@ namespace igor
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
         _vboxLayout->addWidget(menu);
+        
+        _hasEntries = true;
     }
 
-    bool iDialogMenu::hasActions() const
+    bool iDialogMenu::hasEntries() const
     {
-        return _hasActions;
+        return _hasEntries;
     }
 
     void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context, bool enabled)
@@ -104,10 +106,10 @@ namespace igor
 
         _vboxLayout->addWidget(button);
 
-        _hasActions = true;
+        _hasEntries = true;
     }
 
-    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled)
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -118,9 +120,12 @@ namespace igor
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->getClickEvent().add(delegate);
+        button->setActionContext(context);
         button->setEnabled(enabled);
 
         _vboxLayout->addWidget(button);
+
+        _hasEntries = true;
     }
 
     void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context, bool enabled)

@@ -170,7 +170,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         }
     }
 
-    if (_contextMenu.hasActions())
+    if (_contextMenu.hasEntries())
     {
         _contextMenu.open();
     }

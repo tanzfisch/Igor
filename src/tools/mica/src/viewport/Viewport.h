@@ -93,6 +93,10 @@ private:
      */
     OverlayMode _overlayMode = OverlayMode::None;
 
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;    
+
     /*! handles incoming generic event
 
     \param event the event
@@ -197,6 +201,16 @@ private:
     /*! called when project was unloaded
     */
     void onProjectUnloaded();
+
+    /*! handles context menu call
+
+    \param source the event source
+    */
+    void onContextMenu(iWidgetPtr source);
+
+    /*! change camera
+    */
+    void onChangeCamera(iWidgetPtr source);
 };
 
 #endif // MICA_VIEWPORT_H

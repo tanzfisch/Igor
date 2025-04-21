@@ -55,6 +55,11 @@ namespace igor
         setIcon(_action->getIcon());
     }
 
+    void iWidgetButton::setActionContext(iActionContextPtr context)
+    {
+        _actionContext = context;
+    }
+
     void iWidgetButton::onInternalClick(const iWidgetPtr source)
     {
         if (_action == nullptr)

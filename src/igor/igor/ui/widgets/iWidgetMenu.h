@@ -97,8 +97,10 @@ namespace igor
         \param title the title or brief description
         \param description the full description (used as tooltip)
         \param iconAlias an alias or id for texture resource
+        \param enabled if true widget will be enabled
+        \param context action context
         */
-        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 

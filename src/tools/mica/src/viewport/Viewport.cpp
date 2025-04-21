@@ -23,6 +23,7 @@ Viewport::Viewport()
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
     _viewportScene->getView().setClearColorActive(false);
+    _viewportScene->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
     addWidget(_viewportScene);
 
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
@@ -37,6 +38,74 @@ Viewport::~Viewport()
 
     _viewportScene->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
     _viewportOverlay->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
+}
+
+void Viewport::onChangeCamera(iWidgetPtr source)
+{
+    iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
+    const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&*button->getActionContext());
+    if(actionContext->getEntities().empty())
+    {
+        return;
+    }
+    
+    auto entityScene = _viewportScene->getView().getEntityScene();
+    if (entityScene == nullptr)
+    {
+        return;
+    }
+
+    auto cameras = entityScene->getCameras();
+    for(const auto &camera : cameras)
+    {
+        if(camera->getID() == actionContext->getEntities()[0])
+        {
+            camera->setActive(true);
+        }
+        else
+        {
+            camera->setActive(false);
+        }
+    }
+}
+
+void Viewport::onContextMenu(iWidgetPtr source)
+{
+    _contextMenu.clear();
+    _contextMenu.setPos(iMouse::getInstance().getPos());
+
+    auto entityScene = _viewportScene->getView().getEntityScene();
+    if (entityScene == nullptr)
+    {
+        return;
+    }
+
+    auto cameras = entityScene->getCameras();
+    if (cameras.size() > 1)
+    {
+        iWidgetMenuPtr camMenu = new iWidgetMenu("Camera");
+        _contextMenu.addMenu(camMenu);
+
+        bool skipFirst = true;
+        for (const auto &camera : cameras)
+        {
+            // skip first because it is the active camera
+            if(skipFirst)
+            {
+                skipFirst = false;
+                continue;
+            }
+            std::vector<iEntityID> cameraID = {camera->getID()};
+            iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(entityScene->getID(), cameraID);
+            iaString description = iaString("Switch to ") + camera->getName() + " camera";
+            camMenu->addCallback(iClickDelegate(this, &Viewport::onChangeCamera), camera->getName(), description, "", true, actionContext);
+        }
+    }
+
+    if (_contextMenu.hasEntries())
+    {
+        _contextMenu.open();
+    }
 }
 
 void Viewport::onProjectLoaded()

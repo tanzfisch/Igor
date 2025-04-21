@@ -150,9 +150,9 @@ namespace igor
         _dialogMenu->addAction(action, context);        
     }
 
-    void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)
     {
-        _dialogMenu->addCallback(delegate, title, description, iconAlias);
+        _dialogMenu->addCallback(delegate, title, description, iconAlias, enabled, context);
     }
 
     void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)
