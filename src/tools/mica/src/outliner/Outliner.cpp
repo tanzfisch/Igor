@@ -163,9 +163,9 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
                 _contextMenu.addAction("igor:set_entity_active", actionContext);
             }
 
-            if (isScene)
+            if (isScene && entities.size() == 1)
             {
-                // TODO unload scene? activate/deactivate? remove/delete
+                _contextMenu.addCallback(iClickDelegate(this, &Outliner::onSavePrefab), "save prefab", "Save the prefab scene.", "", true, actionContext);
             }
         }
     }
@@ -174,6 +174,34 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     {
         _contextMenu.open();
     }
+}
+
+void Outliner::onSavePrefab(const iWidgetPtr source)
+{
+    iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
+    iEntityActionContext* context = static_cast<iEntityActionContext*>(&*button->getActionContext());
+    auto scene = iEntitySystemModule::getInstance().getScene(context->getSceneID());
+    
+    auto prefabEntity = scene->getEntity(context->getEntities()[0]);
+
+    auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
+    auto prefab = prefabComp->getPrefab();
+    auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+    prefabScene->clear();
+    
+    iEntityCopyTraverser traverser(prefabScene->getRootEntity(), true);
+
+    for(const auto entity : prefabEntity->getChildren())
+    {
+        traverser.traverse(entity);
+    }
+
+    for(const auto entity : prefabEntity->getInactiveChildren())
+    {
+        traverser.traverse(entity);
+    }
+
+    iResourceManager::getInstance().saveResource(prefab->getID());
 }
 
 void Outliner::onLoadScene(const iWidgetPtr source)

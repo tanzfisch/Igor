@@ -148,6 +148,11 @@ void AssetBrowser::onUpdateGridView()
     _gridView->clear();
 
     const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
+    if(item == nullptr)
+    {
+        return;
+    }
+
     if (!item->hasValue("relativePath"))
     {
         return;

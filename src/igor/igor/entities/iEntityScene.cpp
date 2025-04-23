@@ -42,6 +42,18 @@ namespace igor
         _systemsMutex.unlock();
     }
 
+    void iEntityScene::clear()
+    {
+        _deleteQueueMutex.lock();
+        _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
+
+        delete _root;
+
+        _root = new iEntity("root");
+        _root->_scene = this;        
+    }
+
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
         con_assert(_quadtree == nullptr, "Quadtree already initialized");

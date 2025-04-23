@@ -134,6 +134,7 @@
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 #include <igor/entities/traversal/iEntityPrintTraverser.h>
+#include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

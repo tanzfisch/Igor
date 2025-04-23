@@ -48,7 +48,11 @@ CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entit
 CameraArc::~CameraArc()
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-    con_assert(scene != nullptr, "no scene found");
+    if(scene == nullptr)
+    {
+        return;
+    }
+    
     scene->destroyEntity(_cameraCOI);
 }
 

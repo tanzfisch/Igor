@@ -175,6 +175,12 @@ private:
      */
     void onRefresh() override;
 
+    /*! save prefab event
+
+    \param source the event source
+    */
+    void onSavePrefab(const iWidgetPtr source);
+
     /*! populate outliner with sub scenes
 
     \param children list of entities that represent sub scenes or prefabs

@@ -36,7 +36,7 @@ namespace igor
 
     /*! entity copy traverser
      */
-    class iEntityCopyTraverser : public iEntityTraverser
+    class IGOR_API iEntityCopyTraverser : public iEntityTraverser
     {
 
     public:

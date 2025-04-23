@@ -181,6 +181,10 @@ namespace igor
 		 */
 		const std::vector<iaString> getSystems();
 
+		/*! empty out scene
+		*/
+		void clear();
+
 	private:
 		/*! entity scene id
 		 */
