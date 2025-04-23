@@ -223,6 +223,11 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
 {
     for (const auto &child : children)
     {
+        if(child->getName().find("mica_") != iaString::INVALID_POSITION)
+        {
+            continue;
+        }
+
         auto scene = child->getScene();
         iItemPtr item = _itemData->addItem(child->getID().toString());
 

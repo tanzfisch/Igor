@@ -132,6 +132,10 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! transform component pointer definition
+    */
+    typedef iTransformComponent* iTransformComponentPtr;
 }
 
 #endif // IGOR_TRANSFORM_COMPONENT_H

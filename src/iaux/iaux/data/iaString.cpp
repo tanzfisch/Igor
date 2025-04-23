@@ -665,7 +665,7 @@ namespace iaux
 
             CHECK_CONSISTENCY();
             return;
-        }        
+        }
 
         wchar_t *temp = new wchar_t[_charCount + 2];
         if (_charCount > 0)
@@ -933,6 +933,12 @@ namespace iaux
         }
 
         return INVALID_POSITION;
+    }
+
+    int64 iaString::find(const iaString &text) const
+    {
+        std::wstring temp = getData();
+        return temp.find(text.getData());
     }
 
     int64 iaString::findLastNotOf(const wchar_t character) const

@@ -30,6 +30,7 @@
 #define MICA_VIEWPORT_H
 
 #include "overlay/EntityOverlay.h"
+#include "camera/CameraArc.h"
 
 /*! Mica's viewport dialog
 */
@@ -96,6 +97,10 @@ private:
     /*! the context menu
      */
     iDialogMenu _contextMenu;    
+
+    /*! camera arc controller
+    */
+    std::unique_ptr<CameraArc> _cameraArc;
 
     /*! handles incoming generic event
 

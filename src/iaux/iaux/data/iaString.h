@@ -340,6 +340,12 @@ namespace iaux
         */
         int64 findLastNotOf(const wchar_t *characters) const;
 
+        /*! \returns first occurrence of givent text
+
+        \param text the given text
+        */
+        int64 find(const iaString &text) const;
+
         /*! empties the string
          */
         void clear();

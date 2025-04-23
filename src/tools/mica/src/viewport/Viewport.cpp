@@ -111,6 +111,7 @@ void Viewport::onContextMenu(iWidgetPtr source)
 void Viewport::onProjectLoaded()
 {
     _viewportScene->getView().setEntityScene(iProject::getInstance().getProjectScene());
+    _cameraArc = std::make_unique<CameraArc>(iProject::getInstance().getProjectScene()->getID(), iProject::getInstance().getProjectScene()->getRootEntity()->getID());
 }
 
 void Viewport::onProjectUnloaded()
@@ -163,15 +164,15 @@ void Viewport::frameOnSelection()
         }
     }
 
-    _workspace->getCameraArc()->setCenterOfInterest(sphere._center);
+    _cameraArc->setCenterOfInterest(sphere._center);
 
     if (sphere._radius > 0.0f)
     {
-        _workspace->getCameraArc()->setDistance(sphere._radius * 4.0f);
+        _cameraArc->setDistance(sphere._radius * 4.0f);
     }
     else
     {
-        _workspace->getCameraArc()->setDistance(10.0);
+        _cameraArc->setDistance(10.0);
     }*/
 }
 
@@ -373,13 +374,14 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     const auto from = _lastMousePos;
     const auto to = event.getPosition();
 
+    // TODO this needs to move in to camera arc
+
     if (iMouse::getInstance().getLeftButton())
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            // TODO interact with cam
-            // _workspace->getCameraArc()->setPitch(_workspace->getCameraArc()->getPitch() + (from._y - to._y) * rotateSensitivity);
-            // _workspace->getCameraArc()->setHeading(_workspace->getCameraArc()->getHeading() + (from._x - to._x) * rotateSensitivity);
+            _cameraArc->setPitch(_cameraArc->getPitch() + (from._y - to._y) * rotateSensitivity);
+            _cameraArc->setHeading(_cameraArc->getHeading() + (from._x - to._x) * rotateSensitivity);
         }
     }
 
@@ -387,26 +389,17 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            // TODO interact with cam
+            iaMatrixd camWorldMatrix;
+            _cameraArc->getWorldTransformation(camWorldMatrix);
 
-            /*iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraNode()));
-            iNodeTransformPtr cameraDistance = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraDistanceNode()));
-            if (camera != nullptr &&
-                cameraDistance != nullptr)
-            {
-                iaMatrixd camWorldMatrix;
-                camera->calcWorldTransformation(camWorldMatrix);
-                iaVector3d fromWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-                iaVector3d toWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+            iaVector3d fromWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+            iaVector3d toWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 
-                iaMatrixd camTranslateMatrix;
-                cameraDistance->getMatrix(camTranslateMatrix);
-                float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
+            float64 translateFactor = _cameraArc->getDistance() * translateSensitivity;
 
-                auto coi = _workspace->getCameraArc()->getCenterOfInterest();
-                coi += (fromWorld - toWorld) * translateFactor;
-                _workspace->getCameraArc()->setCenterOfInterest(coi);
-            }*/
+            auto coi = _cameraArc->getCenterOfInterest();
+            coi += (fromWorld - toWorld) * translateFactor;
+            _cameraArc->setCenterOfInterest(coi);
         }
     }
 
@@ -427,25 +420,17 @@ bool Viewport::onMouseWheel(iEventMouseWheel &event)
         return true;
     }
 
-    // TODO interact with cam
-    /*if (event.getWheelDelta() < 0)
+    if (event.getWheelDelta() < 0)
     {
-        _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * s_wheelSensitivity);
+        _cameraArc->setDistance(_cameraArc->getDistance() * s_wheelSensitivity);
     }
     else
     {
-        _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * (1.0 / s_wheelSensitivity));
-    }*/
+        _cameraArc->setDistance(_cameraArc->getDistance() * (1.0 / s_wheelSensitivity));
+    }
 
     return true;
 }
-
-/*iNodePtr Viewport::getNodeAt(int32 x, int32 y)
-{
-    iView &view = _viewportScene->getView();
-    const auto &rect = getActualRect();
-    return iNodeManager::getInstance().getNode(view.pickColorID(x - rect._x, y - rect._y));
-}*/
 
 void Viewport::draw()
 {
