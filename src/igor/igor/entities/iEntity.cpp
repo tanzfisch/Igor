@@ -188,7 +188,6 @@ namespace igor
         if (iter == _components.end())
         {
             _mutex.unlock();
-            con_err("trying to remove component that does not exist");
             return;
         }
 
