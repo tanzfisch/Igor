@@ -11,11 +11,11 @@
 namespace igor
 {
 
-	void iEntitySystem::onEntityChanged(iEntityPtr entity)
+	void iEntitySystem::onEntityStructureChanged(iEntityPtr entity)
 	{
 		for (auto view : _views)
 		{
-			view->onEntityChanged(entity);
+			view->onEntityStructureChanged(entity);
 		}
 	}
 

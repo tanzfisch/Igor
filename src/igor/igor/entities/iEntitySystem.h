@@ -169,7 +169,7 @@ namespace igor
 
 		\param entity the entity to update with this system
 		*/
-		void onEntityChanged(iEntityPtr entity);
+		void onEntityStructureChanged(iEntityPtr entity);
 
 		/*! create an entity view for given component types
 

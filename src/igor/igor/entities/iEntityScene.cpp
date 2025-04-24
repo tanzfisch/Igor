@@ -318,7 +318,7 @@ namespace igor
         }
     }
 
-    void iEntityScene::onEntityChanged(iEntityPtr entity)
+    void iEntityScene::onEntityStructureChanged(iEntityPtr entity)
     {
         // TODO this seems such a waste
         _systemsMutex.lock();
@@ -328,7 +328,7 @@ namespace igor
         {
             for (auto pair : stage)
             {
-                pair.second->onEntityChanged(entity);
+                pair.second->onEntityStructureChanged(entity);
             }
         }
     }
@@ -386,7 +386,7 @@ namespace igor
 
         for (const auto &pair : entities)
         {
-            system->onEntityChanged(pair.second);
+            system->onEntityStructureChanged(pair.second);
         }
     }
 

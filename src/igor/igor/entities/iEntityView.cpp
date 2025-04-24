@@ -25,7 +25,7 @@ namespace igor
 		}
 	}
 
-	void iEntityView::onEntityChanged(iEntityPtr entity)
+	void iEntityView::onEntityStructureChanged(iEntityPtr entity)
 	{
 		const bool compatible = checkCompatibility(entity);
 

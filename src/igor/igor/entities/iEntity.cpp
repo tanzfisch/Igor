@@ -173,7 +173,7 @@ namespace igor
         if (changed)
         {
             _componentMask = calcComponentMask();
-            onEntityChanged();
+            onEntityStructureChanged();
         }
 
         return !processAgain;
@@ -248,9 +248,9 @@ namespace igor
         componentToProcess(typeID);
     }
 
-    void iEntity::onEntityChanged()
+    void iEntity::onEntityStructureChanged()
     {
-        _scene->onEntityChanged(this);
+        _scene->onEntityStructureChanged(this);
 
         iEntitySystemModule::getInstance().getEntityChangedEvent()(this);
     }
@@ -265,7 +265,7 @@ namespace igor
             destroyComponent(pair.first);
         }
 
-        onEntityChanged();
+        onEntityStructureChanged();
     }
 
     const iEntityID &iEntity::getID() const
@@ -398,16 +398,14 @@ namespace igor
 
     void iEntity::setActive(bool active)
     {
-        if (_active == active)
+        if(isActive() == active)
         {
             return;
         }
 
-        _active = active;
-
         if (hasParent())
         {
-            if (!_active)
+            if (!active)
             {
                 auto &children = _parent->_children;
                 auto iter = std::find(children.begin(), children.end(), this);
@@ -429,7 +427,7 @@ namespace igor
             }
         }
 
-        if (_active)
+        if (active)
         {
             // activate components
             for (const auto &pair : _components)
@@ -449,7 +447,7 @@ namespace igor
             auto children = getInactiveChildren(); // make copy
             for (auto child : children)
             {
-                child->setActive(_active);
+                child->setActive(active);
             }
         }
         else
@@ -472,16 +470,23 @@ namespace igor
             auto children = getChildren(); // make copy
             for (auto child : children)
             {
-                child->setActive(_active);
+                child->setActive(active);
             }
         }
 
-        onEntityChanged();
+        onEntityStructureChanged();
     }
 
     bool iEntity::isActive() const
     {
-        return _active;
+        const auto parent = getParent();
+        if(parent == nullptr)
+        {
+            return true;
+        }
+
+        const auto &siblings = parent->getChildren();
+        return std::find(siblings.begin(), siblings.end(), this) != siblings.end();
     }
 
     iEntityComponentMask iEntity::calcComponentMask(const std::vector<std::type_index> &types)

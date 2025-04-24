@@ -229,10 +229,6 @@ namespace igor
          */
         std::vector<iEntityPtr> _inactiveChildren;
 
-        /*! if true entity is active and will be processed
-         */
-        bool _active = true;
-
         /*! true in case hierarchy (or transforms) is dirty
          */
         bool _dirtyHierarchy = true;
@@ -293,9 +289,13 @@ namespace igor
         */
         void componentToProcess(const std::type_index &typeID);
 
-        /*! notifies scene that components have changed
+        /*! notifies scene that the structure of the entity has changed
+
+        * components
+        * active/inactive
+        * parent/child relationship
          */
-        void onEntityChanged();
+        void onEntityStructureChanged();
 
         /*! sets dirty hierarchy up the hierarchy
          */

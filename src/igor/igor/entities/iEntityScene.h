@@ -295,7 +295,7 @@ namespace igor
 
 		\param entity the entity that has changed it's components
 		*/
-		void onEntityChanged(iEntityPtr entity);
+		void onEntityStructureChanged(iEntityPtr entity);
 
 		/*! \returns all entities ordered by name
 		 */

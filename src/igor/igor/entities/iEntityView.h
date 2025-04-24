@@ -110,7 +110,7 @@ namespace igor
 
 		\param entity the given entity
 		 */
-		void onEntityChanged(iEntityPtr entity);
+		void onEntityStructureChanged(iEntityPtr entity);
 
 		/*! removes given entity from view
 
