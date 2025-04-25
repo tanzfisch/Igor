@@ -78,6 +78,14 @@ namespace igor
          */
         static const iaString &getTypeName();
 
+        /*! adds mesh to render component
+
+        \param mesh the mesh to add
+        \param material the material to use
+        \param offset the offset matrix to apply
+        */
+        void addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset = iaMatrixd());
+
         /*! \returns all mesh references
          */
         const std::vector<iMeshReference> &getMeshReferences() const;

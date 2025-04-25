@@ -78,10 +78,6 @@ private:
      */
     iShaderPtr _materialOrientationPlane;
 
-    /*! the scene for the overlay
-     */
-    iScenePtr _overlayScene;
-
     /*! entity overlays
      */
     std::vector<EntityOverlayPtr> _entityOverlays;
@@ -93,6 +89,10 @@ private:
     /*! overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;
+
+    /*! selected entity
+     */
+    iEntityPtr _selectedEntity = nullptr;    
 
     /*! the context menu
      */
@@ -107,12 +107,6 @@ private:
     \param event the event
     */
     bool onEvent(iEvent &event) override;
-
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 
     /*! handles pressed key event
 

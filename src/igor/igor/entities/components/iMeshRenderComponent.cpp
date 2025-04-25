@@ -34,6 +34,11 @@ namespace igor
         return component;
     }
 
+    void iMeshRenderComponent::addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
+    {
+        _meshReferences.emplace_back(mesh, material, offset);
+    }
+
     void iMeshRenderComponent::onUnLoad(iEntityPtr entity)
     {
         _meshReferences.clear();

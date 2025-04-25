@@ -50,7 +50,7 @@ namespace igor
     /*! entity definition
 
     Igor uses the terms entity, component and system but it is not a classic entity component system or ECS.
-    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.    
+    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.
      */
     class IGOR_API iEntity
     {
@@ -115,6 +115,12 @@ namespace igor
         */
         void setActive(bool active);
 
+        /*! sets wether and entity is active or not while at the same time make sure all siblings will be set to the opposite
+
+        \param active if true entity will be active
+        */
+        void setActiveExclusive(bool active);
+
         /*! \returns true if entity is active
          */
         bool isActive() const;
@@ -174,7 +180,7 @@ namespace igor
         /*! destroys given component by type
          */
         template <typename T>
-        void reloadComponent();        
+        void reloadComponent();
 
         /*! adds behaviour to entity
 
@@ -281,7 +287,7 @@ namespace igor
 
         \param typeID the components type id
         */
-        void reloadComponent(const std::type_index &typeID);        
+        void reloadComponent(const std::type_index &typeID);
 
         /*! called for component that is about to be added
 

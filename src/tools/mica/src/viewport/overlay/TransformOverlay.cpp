@@ -15,10 +15,27 @@ TransformOverlay::~TransformOverlay()
     onDeinit();
 }
 
+void TransformOverlay::setEntity(iEntityID entityID)
+{
+    EntityOverlay::setEntity(entityID);
+
+    update();
+}
+
 bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
-    // TODO check if transform component present
-    return false;
+    con_assert(entity != nullptr, "zero pointer");
+
+    if (mode != OverlayMode::Rotate &&
+        mode != OverlayMode::Translate &&
+        mode != OverlayMode::Scale)
+    {
+        return false;
+    }
+
+    auto transform = entity->getComponent<iTransformComponent>();
+
+    return transform != nullptr;
 }
 
 void TransformOverlay::onDeinit()
@@ -106,35 +123,29 @@ void TransformOverlay::onInit()
     iMeshPtr ringMesh2D = create2DRingMesh();
     iMeshPtr cylinder = createCylinder();
 
-    /*_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
-    _rootTransform->insertNode(_switchNode);*/
+    _rootTransform = getView()->getEntityScene()->createEntity();
+    _rootTransform->setActive(false);
 
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
     createRotateModifier(ringMesh, ringMesh2D, cylinder);
     createLocatorRepresentation(cylinder);
-
-    //getScene()->getRoot()->insertNode(_rootTransform);
-
-    //_rootTransform->setActive(false);
-    //_switchNode->setActiveChild(nullptr);
 }
 
 void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
 {
-/*    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
-    iaVector3d scale;
+    /*    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+        iaVector3d scale;
 
-    for (int i = 0; i < 4; ++i)
-    {
-        if (_selectedManipulatorNodeID == _scaleIDs[i])
+        for (int i = 0; i < 4; ++i)
         {
-            scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
-            matrix.scale(scale);
-            return;
-        }
-    }*/
+            if (_selectedManipulatorNodeID == _scaleIDs[i])
+            {
+                scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
+                matrix.scale(scale);
+                return;
+            }
+        }*/
 }
 
 void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
@@ -155,59 +166,59 @@ void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
 
 void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
 {
-  /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
-    iaMatrixd transformWorldMatrix;
-    node->calcWorldTransformation(transformWorldMatrix);
+    /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
+      iaMatrixd transformWorldMatrix;
+      node->calcWorldTransformation(transformWorldMatrix);
 
-    iaMatrixd camWorldMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-    iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
+      iaMatrixd camWorldMatrix;
+      getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
+      iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
 
-    iaVector2d center2D(center._x, center._y);
+      iaVector2d center2D(center._x, center._y);
 
-    iaVector2d a = from - center2D;
-    iaVector2d b = to - center2D;
+      iaVector2d a = from - center2D;
+      iaVector2d b = to - center2D;
 
-    float64 angle = b.angle(a);
+      float64 angle = b.angle(a);
 
-    for (int i = 0; i < 3; ++i)
-    {
-        if (_selectedManipulatorNodeID == _rotateIDs[i])
-        {
-            iaAxis axis = static_cast<iaAxis>(i);
-            float64 scalar = 0;
+      for (int i = 0; i < 3; ++i)
+      {
+          if (_selectedManipulatorNodeID == _rotateIDs[i])
+          {
+              iaAxis axis = static_cast<iaAxis>(i);
+              float64 scalar = 0;
 
-            iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
+              iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
 
-            switch (axis)
-            {
-            case iaAxis::X:
-                scalar = toCam * matrix._right;
-                break;
-            case iaAxis::Y:
-                scalar = toCam * matrix._top;
-                break;
-            case iaAxis::Z:
-                scalar = toCam * matrix._depth;
-                break;
-            }
+              switch (axis)
+              {
+              case iaAxis::X:
+                  scalar = toCam * matrix._right;
+                  break;
+              case iaAxis::Y:
+                  scalar = toCam * matrix._top;
+                  break;
+              case iaAxis::Z:
+                  scalar = toCam * matrix._depth;
+                  break;
+              }
 
-            if (scalar < 0)
-            {
-                angle = -angle;
-            }
+              if (scalar < 0)
+              {
+                  angle = -angle;
+              }
 
-            matrix.rotate(angle, static_cast<iaAxis>(i));
-            return;
-        }
-    }*/
+              matrix.rotate(angle, static_cast<iaAxis>(i));
+              return;
+          }
+      }*/
 }
 
 void TransformOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
 
-    // _rootTransform->setActive(active);
+    _rootTransform->setActive(active);
 
     update();
 }
@@ -372,41 +383,30 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinder)
 
 void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
-    /*_translateModifier = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_translateModifier);
+    _translateModifier = getView()->getEntityScene()->createEntity();
+    _translateModifier->setParent(_rootTransform);
 
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _translateModifier->insertNode(xTransform);
+    iEntityPtr xTransform = getView()->getEntityScene()->createEntity("transform.x");
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(translateMesh, _red);
+    xTransform->setParent(_translateModifier);
 
-    iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _translateModifier->insertNode(yTransform);
+    iEntityPtr yTransform = getView()->getEntityScene()->createEntity("transform.y");
+    yTransform->addComponent(new iTransformComponent());
+    auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(translateMesh, _green);
+    yTransform->setParent(_translateModifier);
 
-    iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _translateModifier->insertNode(zTransform);
+    iEntityPtr zTransform = getView()->getEntityScene()->createEntity("transform.z");
+    zTransform->addComponent(new iTransformComponent(iaVector3d(M_PI * 0.5, 0, 0)));
+    auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(translateMesh, _blue);
+    zTransform->setParent(_translateModifier);
 
-    iNodeMesh *xUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xUmbrella->setName("manipulator.umbrella.x");
-    xUmbrella->setMesh(translateMesh);
-    xUmbrella->setMaterial(_red);
-    xTransform->insertNode(xUmbrella);
-
-    iNodeMesh *yUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yUmbrella->setName("manipulator.umbrella.y");
-    yUmbrella->setMesh(translateMesh);
-    yUmbrella->setMaterial(_green);
-    yTransform->insertNode(yUmbrella);
-
-    iNodeMesh *zUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zUmbrella->setName("manipulator.umbrella.z");
-    zUmbrella->setMesh(translateMesh);
-    zUmbrella->setMaterial(_blue);
-    zTransform->insertNode(zUmbrella);
-
-    _translateIDs.push_back(xUmbrella->getID());
-    _translateIDs.push_back(yUmbrella->getID());
-    _translateIDs.push_back(zUmbrella->getID());*/
+    _translateIDs.push_back(xTransform->getID());
+    _translateIDs.push_back(yTransform->getID());
+    _translateIDs.push_back(zTransform->getID());
 }
 
 void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
@@ -542,28 +542,28 @@ iMeshPtr TransformOverlay::createTranslateMesh()
     return meshBuilder.createMesh();
 }
 
-void TransformOverlay::setOverlayMode(OverlayMode manipulatorMode)
+void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 {
-    EntityOverlay::setOverlayMode(manipulatorMode);
+    EntityOverlay::setOverlayMode(overlayMode);
 
-    /*switch (manipulatorMode)
+    switch (overlayMode)
     {
     case OverlayMode::None:
-        _switchNode->setActiveChild(_locatorRepresentation);
+        // _switchNode->setActiveChild(_locatorRepresentation);
         break;
 
     case OverlayMode::Translate:
-        _switchNode->setActiveChild(_translateModifier);
+        _translateModifier->setActiveExclusive(true);
         break;
 
     case OverlayMode::Scale:
-        _switchNode->setActiveChild(_scaleModifier);
+     //   _switchNode->setActiveChild(_scaleModifier);
         break;
 
     case OverlayMode::Rotate:
-        _switchNode->setActiveChild(_roateModifier);
+       // _switchNode->setActiveChild(_roateModifier);
         break;
-    }*/
+    }
 
     update();
 }

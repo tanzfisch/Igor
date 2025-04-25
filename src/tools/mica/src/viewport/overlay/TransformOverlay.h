@@ -50,6 +50,10 @@ public:
      */
     ~TransformOverlay();
 
+    /*! id of entity used in this overlay
+     */
+    void setEntity(iEntityID entityID) override;
+
     /*! sets node overlay active
 
     \param active true to set node overlay active
@@ -89,6 +93,26 @@ private:
     /*! cel shader material for selection
      */
     iMaterialPtr _materialCelShading;
+
+    /*! translate ids
+     */
+    std::vector<iEntityID> _translateIDs;
+
+    /*! scale ids
+     */
+    std::vector<iEntityID> _scaleIDs;
+
+    /*! rotate ids
+     */
+    std::vector<iEntityID> _rotateIDs;    
+
+    /*! root transform
+     */
+    iEntityPtr _rootTransform = nullptr;
+
+    /*! translate modifier
+    */
+    iEntityPtr _translateModifier = nullptr;
 
     /*! translate given matrix by vector projected on selected axis
 
@@ -134,7 +158,7 @@ private:
     \param event the mouse key up event
     \returns true if consumed
     */
-    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);    
+    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
 
     /*! initialisation
      */

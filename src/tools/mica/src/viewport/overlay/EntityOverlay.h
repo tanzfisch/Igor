@@ -63,6 +63,14 @@ public:
      */
     ~EntityOverlay() = default;
 
+    /*! id of entity used in this overlay
+    */
+    virtual void setEntity(iEntityID entityID);
+
+    /*! \returns entity id
+    */
+    const iEntityID& getEntity() const;
+
     /*! sets node overlay active
 
     \param active true to set node overlay active

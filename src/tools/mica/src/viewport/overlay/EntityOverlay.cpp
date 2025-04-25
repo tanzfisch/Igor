@@ -53,3 +53,13 @@ iViewPtr EntityOverlay::getView() const
 {
     return _view;
 }
+
+void EntityOverlay::setEntity(iEntityID entityID)
+{
+    _entityID = entityID;
+}
+
+const iEntityID &EntityOverlay::getEntity() const
+{
+    return _entityID;
+}

@@ -42,7 +42,7 @@ namespace igor
     {
         std::vector<std::type_index> result;
         _mutex.lock();
-        for(const auto &pair : _components)
+        for (const auto &pair : _components)
         {
             result.push_back(pair.first);
         }
@@ -395,9 +395,42 @@ namespace igor
         return _inactiveChildren;
     }
 
+    void iEntity::setActiveExclusive(bool active)
+    {
+        setActive(active);
+
+        if (hasParent())
+        {
+            if (!active)
+            {
+                auto inactiveChildren = _parent->_inactiveChildren;
+                for (const auto &sibling : inactiveChildren)
+                {
+                    if (sibling == this)
+                    {
+                        continue;
+                    }
+                    sibling->setActive(true);
+                }
+            }
+            else
+            {
+                auto children = _parent->_children;
+                for (const auto &sibling : children)
+                {
+                    if (sibling == this)
+                    {
+                        continue;
+                    }
+                    sibling->setActive(false);
+                }
+            }
+        }
+    }
+
     void iEntity::setActive(bool active)
     {
-        if(isActive() == active)
+        if (isActive() == active)
         {
             return;
         }
@@ -479,7 +512,7 @@ namespace igor
     bool iEntity::isActive() const
     {
         const auto parent = getParent();
-        if(parent == nullptr)
+        if (parent == nullptr)
         {
             return true;
         }
