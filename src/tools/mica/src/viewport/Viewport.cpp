@@ -77,14 +77,13 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         if (camera->getID() == actionContext->getEntities()[0])
         {
             camera->setActive(true);
+            _viewportOverlay->getView().setOverrideCamera(camera->getID(), entityScene->getID());
         }
         else
         {
             camera->setActive(false);
         }
     }
-
-    // _viewportOverlay->getView().setCamera
 }
 
 void Viewport::onContextMenu(iWidgetPtr source)
@@ -128,8 +127,15 @@ void Viewport::onContextMenu(iWidgetPtr source)
 
 void Viewport::onProjectLoaded()
 {
-    _viewportScene->getView().setEntityScene(iProject::getInstance().getProjectScene());
-    _cameraArc = std::make_unique<CameraArc>(iProject::getInstance().getProjectScene()->getID(), iProject::getInstance().getProjectScene()->getRootEntity()->getID());
+    auto projectScene = iProject::getInstance().getProjectScene();
+    _viewportScene->getView().setEntityScene(projectScene);
+    _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
+
+    // TODO this should be true by the time the project is loaded
+    if (projectScene->getActiveCamera() != nullptr)
+    {
+        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera()->getID(), projectScene->getID());
+    }
 }
 
 void Viewport::onProjectUnloaded()

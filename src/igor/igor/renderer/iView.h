@@ -294,6 +294,19 @@ namespace igor
         */
         bool isPerspective() const;
 
+        /*! \returns true if this view is embedded inside a widget
+         */
+        bool isEmbedded();
+
+        /*! specifies a camera to override the active cam of the scene
+
+        camera is allowed to not be from the same scene as the view scene
+
+        \param cameraID the id of the camera to override with
+        \param sceneID scene of the camera to override with
+        */
+        void setOverrideCamera(const iEntityID &cameraID, const iEntitySceneID sceneID = iEntitySceneID::getInvalid());
+
     private:
         /*! z index
          */
@@ -392,6 +405,18 @@ namespace igor
          */
         iEntityScenePtr _entityScene = nullptr;
 
+        /*! if true view behaves as it was embedded in a widget
+         */
+        bool _embedded = false;
+
+        /*! override camera id
+        */
+        iEntityID _overrideCameraID = iEntityID::getInvalid();
+
+        /*! override scene id
+        */
+        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();
+
         /*! sets the z index of this view. will be used by window to determine the render order
 
         \param zindex the z index to be set
@@ -399,16 +424,20 @@ namespace igor
         void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
-
-        \param embedded if true frame buffer will not be cleared. This is used when rendering inside a widget
          */
-        void render(bool embedded = false);
+        void onRender();
 
         /*! updates window rectangle
 
         \param windowRect the new window rectangle
         */
         void updateWindowRect(const iaRectanglei &windowRect);
+
+        /*! tells the view that it is rendered embedded inside a widget
+
+        \param embedded if true this view will behave as it was embedded in a widget
+        */
+        void setEmbedded(bool embedded);
     };
 
     /*! view pointer definition

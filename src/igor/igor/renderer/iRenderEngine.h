@@ -75,8 +75,10 @@ namespace igor
 
         \param viewport the viewport given by the parent view
         \param embedded if true frame buffer will not be cleared. This is used when running the render engine inside a widget
+        \param clearColor if false we override to prevent clearing the color buffer
+        \param clearDepth if false we override to prevent clearing the depth buffer
         */
-        void setupCamera(const iaRectanglei &viewport, bool embedded = false);
+        void setupCamera(const iaRectanglei &viewport, bool embedded = false, bool clearColor = true, bool clearDepth = true, const iEntityID &overrideCameraID = iEntityID::getInvalid(), const iEntitySceneID &overrideSceneID = iEntitySceneID::getInvalid());
 
         /*! renders given data
 

@@ -26,6 +26,7 @@ namespace igor
 		_view.setClearColorActive(false);
 		_view.setPerspective(45.0f);
 		_view.setClipPlanes(1.0f, 10000.f);
+		_view.setEmbedded(true);
 	}
 
 	void iWidgetViewport::onUpdate()
@@ -56,7 +57,7 @@ namespace igor
 		const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
 		bool wireframeEnabled = iRenderer::getInstance().isWireframeEnabled();
 
-	 	_view.render(true);
+	 	_view.onRender();
 
         // restore everything
 		iRenderer::getInstance().setWireframeEnabled(wireframeEnabled);

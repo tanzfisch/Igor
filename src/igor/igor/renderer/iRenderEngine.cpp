@@ -80,23 +80,27 @@ namespace igor
         }
     }
 
-    void iRenderEngine::setupCamera(const iaRectanglei &viewport, bool embedded)
+    void iRenderEngine::setupCamera(const iaRectanglei &viewport, bool embedded, bool clearColor, bool clearDepth, const iEntityID &overrideCameraID, const iEntitySceneID &overrideSceneID)
     {
-        auto scene = iEntitySystemModule::getInstance().getScene(_sceneID);
-        if(scene == nullptr)
+        auto sceneID = overrideSceneID.isValid() ? overrideSceneID : _sceneID;
+        auto cameraID = overrideCameraID.isValid() ? overrideCameraID : _cameraID;
+
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
         {
             return;
         }
 
-        iEntityPtr camera = scene->getEntity(_cameraID);
+        iEntityPtr camera = scene->getEntity(cameraID);
         if (camera == nullptr)
         {
             return;
         }
 
         auto cameraComponent = camera->getComponent<iCameraComponent>();
-        auto transformComponent = camera->getComponent<iTransformComponent>();
         const auto &camViewport = cameraComponent->getViewport();
+
+        auto transformComponent = camera->getComponent<iTransformComponent>();
         const auto &camWorldMatrix = transformComponent->getWorldMatrix();
 
         iaRectanglei rect;
@@ -107,7 +111,7 @@ namespace igor
         iRenderer::getInstance().setViewport(rect);
 
         // TODO iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-        if (cameraComponent->isClearColorActive())
+        if (clearColor && cameraComponent->isClearColorActive())
         {
             if (embedded)
             {
@@ -121,7 +125,7 @@ namespace igor
             }
         }
 
-        if (cameraComponent->isClearDepthActive())
+        if (clearDepth && cameraComponent->isClearDepthActive())
         {
             iRenderer::getInstance().clearDepthBuffer(cameraComponent->getClearDepth());
         }

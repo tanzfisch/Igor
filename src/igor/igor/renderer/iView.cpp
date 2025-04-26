@@ -196,7 +196,7 @@ namespace igor
         return _updateViewport;
     }
 
-    void iView::render(bool embedded)
+    void iView::onRender()
     {
         if (!_visible)
         {
@@ -207,7 +207,7 @@ namespace igor
         {
             // a system is setting viewport, perspective etc.
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-            _renderEngine.setupCamera(_viewport, embedded);
+            _renderEngine.setupCamera(_viewport, _embedded, _clearColorActive, _clearDepthActive, _overrideCameraID, _overrideSceneID);
             _renderEngine.render();
             iEntitySystemModule::getInstance().onRender(_entityScene);
         }
@@ -377,6 +377,22 @@ namespace igor
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
         return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
+    }
+
+    void iView::setEmbedded(bool embedded)
+    {
+        _embedded = embedded;
+    }
+
+    bool iView::isEmbedded()
+    {
+        return _embedded;
+    }
+
+    void iView::setOverrideCamera(const iEntityID &cameraID, const iEntitySceneID sceneID)
+    {
+        _overrideCameraID = cameraID;
+        _overrideSceneID = sceneID;
     }
 
 }; // namespace igor
