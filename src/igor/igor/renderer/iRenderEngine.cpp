@@ -8,28 +8,26 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/iEntitySystemModule.h>
 
 namespace igor
 {
 
-    void iRenderEngine::setScene(iEntityScenePtr scene)
+    void iRenderEngine::setScene(const iEntitySceneID &sceneID)
     {
-        _scene = scene;
+        _sceneID = sceneID;
     }
 
-    void iRenderEngine::setCamera(iEntityPtr camera)
+    void iRenderEngine::setCamera(const iEntityID &cameraID)
     {
-        con_assert(camera != nullptr, "zero pointer");
-        con_assert(camera->getScene() == _scene, "incompatible scene");
-        con_assert(camera->getComponent<iCameraComponent>() != nullptr && camera->getComponent<iTransformComponent>() != nullptr, "missing components");
-
-        _cameraID = camera->getID();
+        _cameraID = cameraID;
     }
 
     void iRenderEngine::addMesh(iEntityPtr meshEntity)
     {
         con_assert(meshEntity != nullptr, "zero pointer");
-        con_assert(meshEntity->getScene() == _scene, "incompatible scene");
+        con_assert(meshEntity->getScene() != nullptr, "no scene");
+        con_assert(meshEntity->getScene()->getID() == _sceneID, "incompatible scene");
 
         auto transformComponent = meshEntity->getComponent<iTransformComponent>();
         auto meshRenderComponent = meshEntity->getComponent<iMeshRenderComponent>();
@@ -84,7 +82,13 @@ namespace igor
 
     void iRenderEngine::setupCamera(const iaRectanglei &viewport, bool embedded)
     {
-        auto camera = _scene->getEntity(_cameraID);
+        auto scene = iEntitySystemModule::getInstance().getScene(_sceneID);
+        if(scene == nullptr)
+        {
+            return;
+        }
+
+        iEntityPtr camera = scene->getEntity(_cameraID);
         if (camera == nullptr)
         {
             return;

@@ -30,7 +30,6 @@
 #define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
-#include <igor/renderer/iRenderEngineOld.h>
 #include <igor/renderer/iRenderEngine.h>
 #include <igor/entities/iEntityScene.h>
 
@@ -75,16 +74,6 @@ namespace igor
         /*! checks consistency
          */
         virtual ~iView();
-
-        /*! sets the scene to be rendered with this view
-
-        \param scene scene to be rendered
-        */
-        void setScene(iScenePtr scene);
-
-        /*! \returns scene to be rendered with this view
-         */
-        iScenePtr getScene() const;
 
         /*! sets the entity scene to be rendered with this view
 
@@ -259,16 +248,6 @@ namespace igor
          */
         bool isOctreeVisible() const;
 
-        /*! sets current camera by id
-
-        \param cameraID the camery id
-        */
-        void setCamera(iNodeID cameraID);
-
-        /*! \returns current camera id
-         */
-        iNodeID getCamera() const;
-
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)
@@ -331,14 +310,6 @@ namespace igor
         /*! views name
          */
         iaString _name = "iView";
-
-        /*! scene that is currently bound with this view
-         */
-        iScenePtr _scene = nullptr;
-
-        /*! entity scene to render
-         */
-        iEntityScenePtr _entityScene = nullptr;
 
         /*! size of parenting window in pixel
          */
@@ -409,17 +380,17 @@ namespace igor
          */
         iDrawEvent _renderEvent;
 
-        /*! old render engine
-         */
-        iRenderEngineOld _renderEngineOld;
-
         /*! render engine
-        */
+         */
         iRenderEngine _renderEngine;
 
-        /*! sky box
-        */
+        /*! sky box // TODO not sure if this belongs here
+         */
         std::unique_ptr<iSkyBox> _skyBox;
+
+        /*! entity scene to render
+         */
+        iEntityScenePtr _entityScene = nullptr;
 
         /*! sets the z index of this view. will be used by window to determine the render order
 

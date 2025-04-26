@@ -83,6 +83,8 @@ void Viewport::onChangeCamera(iWidgetPtr source)
             camera->setActive(false);
         }
     }
+
+    // _viewportOverlay->getView().setCamera
 }
 
 void Viewport::onContextMenu(iWidgetPtr source)
@@ -216,6 +218,9 @@ void Viewport::renderOverlay()
 
 void Viewport::renderOrientationPlane()
 {
+    // TODO this does not render because the camera is not setup correctly
+    // we need to use the camera from the other scene
+
     iaMatrixd identity;
     iRenderer::getInstance().setModelMatrix(identity);
 

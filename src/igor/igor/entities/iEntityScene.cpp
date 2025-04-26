@@ -51,7 +51,7 @@ namespace igor
         delete _root;
 
         _root = new iEntity("root");
-        _root->_scene = this;        
+        _root->_scene = this;
     }
 
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
@@ -109,13 +109,22 @@ namespace igor
 
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
-        _renderEngine = renderEngine;
-        if (_renderEngine == nullptr)
+        if (_renderEngine == renderEngine)
         {
             return;
         }
 
-        _renderEngine->setScene(this);
+        if (_renderEngine != nullptr)
+        {
+            _renderEngine->setScene(iEntitySceneID::getInvalid());
+        }
+
+        _renderEngine = renderEngine;
+
+        if (_renderEngine != nullptr)
+        {
+            _renderEngine->setScene(getID());
+        }
     }
 
     void iEntityScene::flushQueues()
@@ -442,14 +451,13 @@ namespace igor
     const std::vector<iEntityPtr> iEntityScene::getEntities() const
     {
         std::vector<iEntityPtr> result;
-        for(const auto &pair : _entities)
+        for (const auto &pair : _entities)
         {
             result.push_back(pair.second);
         }
 
-        std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b) {
-            return a->getName() < b->getName();
-        });
+        std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b)
+                  { return a->getName() < b->getName(); });
 
         return result;
     }

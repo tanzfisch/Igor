@@ -68,22 +68,24 @@ namespace igor
 
     void iView::setBoundingBoxVisible(bool boundingBox)
     {
-        _renderEngineOld.setBoundingBoxVisible(boundingBox);
+        // TODO        _renderEngineOld.setBoundingBoxVisible(boundingBox);
     }
 
     bool iView::isBoundingBoxVisible() const
     {
-        return _renderEngineOld.isBoundingBoxVisible();
+        // TODO        return _renderEngineOld.isBoundingBoxVisible();
+        return false;
     }
 
     void iView::setOctreeVisible(bool octree)
     {
-        _renderEngineOld.setOctreeVisible(octree);
+        // TODO        _renderEngineOld.setOctreeVisible(octree);
     }
 
     bool iView::isOctreeVisible() const
     {
-        return _renderEngineOld.isOctreeVisible();
+        // TODO        return _renderEngineOld.isOctreeVisible();
+        return false;
     }
 
     void iView::setName(const iaString &name)
@@ -184,16 +186,6 @@ namespace igor
         return _clearColor;
     }
 
-    void iView::setCamera(iNodeID cameraID)
-    {
-        _renderEngineOld.setCamera(cameraID);
-    }
-
-    iNodeID iView::getCamera() const
-    {
-        return _renderEngineOld.getCamera();
-    }
-
     void iView::setUpdateViewport(bool enabled)
     {
         _updateViewport = enabled;
@@ -213,6 +205,7 @@ namespace igor
 
         if (_entityScene != nullptr)
         {
+            // a system is setting viewport, perspective etc.
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
             _renderEngine.setupCamera(_viewport, embedded);
             _renderEngine.render();
@@ -245,13 +238,6 @@ namespace igor
             {
                 iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
-
-            // TODO this needs to go
-            if (_scene != nullptr)
-            {
-                _scene->handle();
-                _renderEngineOld.render();
-            }
         }
 
         _renderEvent();
@@ -269,7 +255,7 @@ namespace igor
 
         pickColorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
-        if(colorIDs.empty())
+        if (colorIDs.empty())
         {
             return 0;
         }
@@ -279,7 +265,7 @@ namespace igor
 
     void iView::pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
-        if (_scene != nullptr &&
+        /*if (_scene != nullptr &&
             getCamera() != iNode::INVALID_NODE_ID)
         {
             iRenderEngineOld renderEngine;
@@ -324,7 +310,7 @@ namespace igor
             }
 
             delete[] data;
-        }
+        }*/
     }
 
     void iView::updateWindowRect(const iaRectanglei &windowRect)
@@ -337,28 +323,14 @@ namespace igor
         _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
-    void iView::setScene(iScenePtr scene)
-    {
-        con_assert(scene != nullptr, "zero pointer");
-
-        _scene = scene;
-        _renderEngineOld.setScene(_scene);
-    }
-
-    iScenePtr iView::getScene() const
-    {
-        return _scene;
-    }
-
     void iView::setEntityScene(iEntityScenePtr entityScene)
     {
         _entityScene = entityScene;
-        if(_entityScene == nullptr)
+        if (_entityScene == nullptr)
         {
             return;
         }
-        
-        // TODO this is BS _entityScene->setRenderEngine calls _renderEngine->setScene(this);
+
         _entityScene->setRenderEngine(&_renderEngine);
     }
 

@@ -54,14 +54,16 @@ namespace igor
         virtual ~iRenderEngine() = default;
 
         /*! sets the scene to render
+
+        \param sceneID id of scene to render
          */
-        void setScene(iEntityScenePtr scene);
+        void setScene(const iEntitySceneID &sceneID);
 
         /*! sets the current camera
 
-        \param camera entity that contains iCameraComponent and iTransformComponent
+        \param cameraID ID of entity that contains iCameraComponent and iTransformComponent
         */
-        void setCamera(iEntityPtr camera);
+        void setCamera(const iEntityID &cameraID);
 
         /*! add mesh for render queue
 
@@ -91,7 +93,7 @@ namespace igor
     private:
         /*! the scene to render
          */
-        iEntityScenePtr _scene = nullptr;
+        iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
 
         /*! camera ID
          */
