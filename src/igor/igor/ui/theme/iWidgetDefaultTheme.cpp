@@ -86,8 +86,8 @@ static const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
-static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.3f, 0.7f};
-static const iaColor4f COLOR_CHECKED_FILL = {0.2f, 0.2f, 0.2f, 0.2f};
+static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.9f, 0.9f};
+static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.3f, 0.9f, 0.3f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 

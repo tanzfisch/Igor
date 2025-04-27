@@ -102,6 +102,14 @@ private:
      */
     std::unique_ptr<CameraArc> _cameraArc;
 
+    /*! if true render orientation plane
+    */
+    bool _renderOrientationPlane = true;
+
+    /*! grid button
+    */
+    iWidgetButtonPtr _buttonGrid = nullptr;
+
     /*! handles incoming generic event
 
     \param event the event
@@ -210,6 +218,10 @@ private:
     /*! change camera
      */
     void onChangeCamera(iWidgetPtr source);
+
+    /*! on grid button click
+    */
+    void onGridClick(iWidgetPtr source);
 };
 
 #endif // MICA_VIEWPORT_H

@@ -18,14 +18,27 @@ Viewport::Viewport()
     setIgnoreChildEventConsumption(true);
     setAcceptDrop(true);
 
+    auto boxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+    boxLayout->setVerticalAlignment(iVerticalAlignment::Stretch);
+    boxLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    boxLayout->setStretchIndex(1);
+
+    auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, boxLayout);
+    _buttonGrid = new iWidgetButton();
+    _buttonGrid->setIcon("igor_icon_grid");
+    _buttonGrid->setMinSize(24, 24);
+    _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
+    _buttonGrid->setCheckable(true);
+    _buttonGrid->setChecked(_renderOrientationPlane);
+    buttonLayout->addWidget(_buttonGrid);
+
     _viewportScene = new iWidgetViewport();
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
     _viewportScene->getView().setClearColorActive(false);
     _viewportScene->getView().setPerspective(45.0f);
-    _viewportScene->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
-    addWidget(_viewportScene);
+    boxLayout->addWidget(_viewportScene);
 
     _viewportOverlay = new iWidgetViewport();
     _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -37,7 +50,8 @@ Viewport::Viewport()
     _viewportOverlay->getView().setPerspective(45.0f);
     _viewportOverlay->getView().setClipPlanes(1.0f, 10000.f);
     _viewportOverlay->getView().setEntityScene(iEntitySystemModule::getInstance().createScene("Overlay"));
-    addWidget(_viewportOverlay);
+    _viewportOverlay->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
+    _viewportScene->addWidget(_viewportOverlay);
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
@@ -51,6 +65,12 @@ Viewport::~Viewport()
 {
     _viewportScene->getView().getRenderEvent().remove(iRenderDelegate(this, &Viewport::renderScene));
     _viewportOverlay->getView().getRenderEvent().remove(iRenderDelegate(this, &Viewport::renderOverlay));
+}
+
+void Viewport::onGridClick(iWidgetPtr source)
+{
+    _renderOrientationPlane = !_renderOrientationPlane;
+    _buttonGrid->setChecked(_renderOrientationPlane);
 }
 
 void Viewport::onChangeCamera(iWidgetPtr source)
@@ -137,17 +157,17 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
         // TODO this is a workarround for now until active camera returns the right camera after loading the project
 
         auto entities = projectScene->getEntities();
-        for(const auto &entity : entities)
+        for (const auto &entity : entities)
         {
-            if(!entity->isActive() ||
-            entity->getComponent<iCameraComponent>() == nullptr ||
-            entity->getComponent<iTransformComponent>() == nullptr)
+            if (!entity->isActive() ||
+                entity->getComponent<iCameraComponent>() == nullptr ||
+                entity->getComponent<iTransformComponent>() == nullptr)
             {
                 continue;
             }
 
             _viewportOverlay->getView().setOverrideCamera(entity->getID(), projectScene->getID());
-            
+
             break;
         }
     }
@@ -238,14 +258,14 @@ void Viewport::renderSelection()
 
 void Viewport::renderOverlay()
 {
-    renderOrientationPlane();
+    if (_renderOrientationPlane)
+    {
+        renderOrientationPlane();
+    }
 }
 
 void Viewport::renderOrientationPlane()
 {
-    // TODO this does not render because the camera is not setup correctly
-    // we need to use the camera from the other scene
-
     iaMatrixd identity;
     iRenderer::getInstance().setModelMatrix(identity);
 
@@ -310,7 +330,8 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F9:
-        // TODO unused
+        _renderOrientationPlane = !_renderOrientationPlane;
+        _buttonGrid->setChecked(_renderOrientationPlane);
         return true;
 
     case iKeyCode::F10:

@@ -65,6 +65,11 @@ namespace igor
 		iRenderer::getInstance().setViewMatrix(viewMatrix);
         iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
         iRenderer::getInstance().setViewport(viewport);
+		
+        for (const auto child : _children)
+        {
+            child->draw();
+        }
 	}
 
 	iView &iWidgetViewport::getView()

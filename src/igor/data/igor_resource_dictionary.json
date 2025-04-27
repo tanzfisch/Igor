@@ -54,6 +54,12 @@
         "source": "icons/gears.png"
     },
     {
+        "alias": "igor_icon_grid",
+        "id": "0x1c6fddafa600941e",
+        "internal": true,
+        "source": "icons/grid.png"
+    },
+    {
         "alias": "igor_shader_material_emitter_overlay_volume",
         "id": "0x154a6ddd0ad85d96",
         "internal": true,

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_VIEWPORT__
-#define __IGOR_WIDGET_VIEWPORT__
+#ifndef IGOR_WIDGET_VIEWPORT_H
+#define IGOR_WIDGET_VIEWPORT_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/renderer/iView.h>
@@ -75,4 +75,4 @@ namespace igor
     typedef iWidgetViewport *iWidgetViewportPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGET_VIEWPORT__
+#endif // IGOR_WIDGET_VIEWPORT_H
