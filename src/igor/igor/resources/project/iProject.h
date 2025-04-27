@@ -49,14 +49,6 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
 
-    /*! project loaded event
-     */
-    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectLoaded);
-
-    /*! project unloaded event
-     */
-    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
-
     /*! project pointer definition
      */
     class iProject;
@@ -148,14 +140,6 @@ namespace igor
          */
         iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
 
-        /*! \returns project loaded event
-         */
-        iProjectLoadedEvent &getProjectLoadedEvent();
-
-        /*! \returns project unloaded event
-         */
-        iProjectUnloadedEvent &getProjectUnloadedEvent();
-
     private:
         /*! project folder
          */
@@ -188,14 +172,6 @@ namespace igor
         /*! project scene added event
          */
         iProjectSceneRemovedEvent _projectSceneRemovedEvent;
-
-        /*! project loaded event
-         */
-        iProjectLoadedEvent _projectLoadedEvent;
-
-        /*! project unloaded event
-         */
-        iProjectUnloadedEvent _projectUnloadedEvent;
 
         /*! scenes references by project
          */

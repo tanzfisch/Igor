@@ -128,37 +128,6 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-
-    event.dispatch<iEventFileCreated>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileCreated));
-    event.dispatch<iEventFileDeleted>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileDeleted));
-    event.dispatch<iEventFileMovedFrom>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedFrom));
-    event.dispatch<iEventFileMovedTo>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileMovedTo));
-    event.dispatch<iEventFileChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onFileChanged));
-}
-
-bool UILayer::onFileCreated(iEventFileCreated &event)
-{
-    return false;
-}
-
-bool UILayer::onFileDeleted(iEventFileDeleted &event)
-{
-    return false;
-}
-
-bool UILayer::onFileMovedFrom(iEventFileMovedFrom &event)
-{
-    return false;
-}
-
-bool UILayer::onFileMovedTo(iEventFileMovedTo &event)
-{
-    return false;
-}
-
-bool UILayer::onFileChanged(iEventFileChanged &event)
-{
-    return false;
 }
 
 bool UILayer::onKeyDown(iEventKeyDown &event)

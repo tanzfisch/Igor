@@ -4,6 +4,8 @@
 
 #include <igor/resources/project/iProject.h>
 
+#include <igor/events/iEventProject.h>
+#include <igor/system/iApplication.h>
 #include <igor/utils/iJson.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
@@ -84,7 +86,7 @@ namespace igor
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
 
-        _projectLoadedEvent();
+        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectLoaded(filenameConfig)));
     }
 
     void iProject::unload()
@@ -99,7 +101,7 @@ namespace igor
         _scenes.clear();
 
         _isLoaded = false;
-        _projectUnloadedEvent();
+        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectUnloaded()));
     }
 
     void iProject::save()
@@ -318,16 +320,6 @@ namespace igor
     iProjectSceneRemovedEvent &iProject::getProjectSceneRemovedEvent()
     {
         return _projectSceneRemovedEvent;
-    }
-
-    iProjectLoadedEvent &iProject::getProjectLoadedEvent()
-    {
-        return _projectLoadedEvent;
-    }
-
-    iProjectUnloadedEvent &iProject::getProjectUnloadedEvent()
-    {
-        return _projectUnloadedEvent;
     }
 
     void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)

@@ -49,8 +49,8 @@ public:
     Outliner();
 
     /*! \returns entity selection changed event
-    */
-    EntitySelectionChangedEvent& getEntitySelectionChangedEvent();
+     */
+    EntitySelectionChangedEvent &getEntitySelectionChangedEvent();
 
 private:
     /*! main layout
@@ -74,7 +74,7 @@ private:
     iResourceID _contextResourceID;
 
     /*! entity selection changed event
-    */
+     */
     EntitySelectionChangedEvent _entitySelectionChangedEvent;
 
     /*! init user interface
@@ -98,7 +98,7 @@ private:
     void populateTree();
 
     /*! populate the entity tree
-    */
+     */
     void populateTree(iItemPtr item, iEntityPtr entity);
 
     /*! drag move handle
@@ -128,7 +128,7 @@ private:
     void onEntityDestroyed(iEntityPtr entity);
 
     /*! called when given entity's name changed
-    
+
     \param entity the given entity
     */
     void onEntityNameChanged(iEntityPtr entity);
@@ -153,11 +153,11 @@ private:
 
     /*! called when project was loaded
      */
-    void onProjectLoaded();
+    bool onProjectLoaded(iEventProjectLoaded &event);
 
     /*! called when project was unloaded
      */
-    void onProjectUnloaded();    
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
 
     /*! called when user want's to load a scene
      */
@@ -187,6 +187,12 @@ private:
     \param active if true this subscene will be displayed as active
     */
     void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
 };
 
 #endif // MICA_OUTLINER_H

@@ -44,9 +44,6 @@ Viewport::Viewport()
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
 
-    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
-    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
-
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 }
 
@@ -125,14 +122,21 @@ void Viewport::onContextMenu(iWidgetPtr source)
     }
 }
 
-void Viewport::onProjectLoaded()
+bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getProjectScene();
     _viewportScene->getView().setEntityScene(projectScene);
     _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
+
+    if (projectScene->getActiveCamera() != nullptr)
+    {
+        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera()->getID(), projectScene->getID());
+    }
+
+    return true;
 }
 
-void Viewport::onProjectUnloaded()
+bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
 {
     _viewportScene->getView().setEntityScene(nullptr);
     _cameraArc = nullptr;
@@ -485,7 +489,15 @@ void Viewport::draw()
 
 bool Viewport::onEvent(iEvent &event)
 {
-    return false;
+    if (iWidget::onEvent(event))
+    {
+        return true;
+    }
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectUnloaded));
+
+    return true;
 }
 
 void Viewport::updateAcceptance()

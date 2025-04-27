@@ -31,9 +31,6 @@
 
 #include <igor/events/iEvent.h>
 
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNode.h>
-
 namespace igor
 {
 

@@ -36,7 +36,7 @@
 #include "viewport/Viewport.h"
 
 /*! ui layer handling all widget things
-*/
+ */
 class UILayer : public iLayerWidgets
 {
 
@@ -122,26 +122,6 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
-
-    /*! filesystem changed event
-     */
-    bool onFileCreated(iEventFileCreated &event);
-
-    /*! filesystem changed event
-     */
-    bool onFileDeleted(iEventFileDeleted &event);
-
-    /*! filesystem changed event
-     */
-    bool onFileMovedFrom(iEventFileMovedFrom &event);
-
-    /*! filesystem changed event
-     */
-    bool onFileMovedTo(iEventFileMovedTo &event);
-
-    /*! filesystem changed event
-     */
-    bool onFileChanged(iEventFileChanged &event);
 };
 
 #endif // MICA_UILAYER_H

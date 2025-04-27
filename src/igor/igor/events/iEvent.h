@@ -61,14 +61,14 @@ namespace igor
         iEventNodeRemovedFromScene,
         iEventSceneSelectionChanged,
 
-        iEventEntityCreated,
-        iEventEntityDestroyed,
-
         iEventFileCreated,
         iEventFileDeleted,
         iEventFileMovedFrom,
         iEventFileMovedTo,
         iEventFileChanged,
+
+        iEventProjectLoaded,
+        iEventProjectUnloaded,
 
         // has to be last
         iEventTypeCount
@@ -82,8 +82,9 @@ namespace igor
         Keyboard = 2,
         Mouse = 4,
         Window = 8,
-        Scene = 16,
-        Filesystem = 32
+        Scene = 16, // TODO remove
+        Project = 32,
+        Filesystem = 64
     };
 
     /*! define event kind mask

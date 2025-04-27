@@ -33,7 +33,7 @@
 #include "camera/CameraArc.h"
 
 /*! Mica's viewport dialog
-*/
+ */
 class Viewport : public iDialog
 {
     friend class iWidgetManager;
@@ -92,14 +92,14 @@ private:
 
     /*! selected entity
      */
-    iEntityPtr _selectedEntity = nullptr;    
+    iEntityPtr _selectedEntity = nullptr;
 
     /*! the context menu
      */
-    iDialogMenu _contextMenu;    
+    iDialogMenu _contextMenu;
 
     /*! camera arc controller
-    */
+     */
     std::unique_ptr<CameraArc> _cameraArc;
 
     /*! handles incoming generic event
@@ -190,16 +190,16 @@ private:
     void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
 
     /*! called when a resource was loaded
-    */
+     */
     void onResourceLoaded(const iResourceID resourceID);
 
     /*! called when project was loaded
-    */
-    void onProjectLoaded();
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
 
     /*! called when project was unloaded
-    */
-    void onProjectUnloaded();
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
 
     /*! handles context menu call
 
@@ -208,7 +208,7 @@ private:
     void onContextMenu(iWidgetPtr source);
 
     /*! change camera
-    */
+     */
     void onChangeCamera(iWidgetPtr source);
 };
 

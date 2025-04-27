@@ -112,6 +112,7 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 #include <igor/events/iEventFilesystem.h>
+#include <igor/events/iEventProject.h>
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>

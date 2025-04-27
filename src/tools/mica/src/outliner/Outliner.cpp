@@ -14,8 +14,6 @@ Outliner::Outliner()
     iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
     iProject::getInstance().getProjectSceneAddedEvent().add(iProjectSceneAddedDelegate(this, &Outliner::onSceneAdded));
     iProject::getInstance().getProjectSceneRemovedEvent().add(iProjectSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
-    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
-    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
@@ -356,14 +354,29 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
     refresh();
 }
 
-void Outliner::onProjectLoaded()
+bool Outliner::onEvent(iEvent &event)
 {
-    refresh();
+    if (iWidget::onEvent(event))
+    {
+        return true;
+    }
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
+
+    return false;
 }
 
-void Outliner::onProjectUnloaded()
+bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
     refresh();
+    return false;
+}
+
+bool Outliner::onProjectUnloaded(iEventProjectUnloaded &event)
+{
+    refresh();
+    return false;
 }
 
 void Outliner::onEntityNameChanged(iEntityPtr entity)
