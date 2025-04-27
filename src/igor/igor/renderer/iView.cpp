@@ -6,11 +6,12 @@
 
 #include <igor/system/iWindow.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/scene/iScene.h>
+#include <igor/renderer/environment/iSkyBox.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
-#include <igor/renderer/environment/iSkyBox.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iCameraComponent.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/system/iaConsole.h>
@@ -196,6 +197,85 @@ namespace igor
         return _updateViewport;
     }
 
+    void iView::setupCamera()
+    {
+        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _renderEngine.getSceneID();
+        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _renderEngine.getCameraID();
+
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            return;
+        }
+
+        iEntityPtr camera = scene->getEntity(cameraID);
+        if (camera == nullptr)
+        {
+            return;
+        }
+
+        auto cameraComponent = camera->getComponent<iCameraComponent>();
+        const auto &camViewport = cameraComponent->getViewport();
+
+        auto transformComponent = camera->getComponent<iTransformComponent>();
+        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+
+        iaRectanglei rect;
+        rect.setX(_viewport.getX() + camViewport.getX() * static_cast<float32>(_viewport.getWidth()) + 0.5f);
+        rect.setY(_viewport.getY() + camViewport.getY() * static_cast<float32>(_viewport.getHeight()) + 0.5f);
+        rect.setWidth(camViewport.getWidth() * static_cast<float32>(_viewport.getWidth()) + 0.5f);
+        rect.setHeight(camViewport.getHeight() * static_cast<float32>(_viewport.getHeight()) + 0.5f);
+        iRenderer::getInstance().setViewport(rect);
+
+        iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
+        if (_clearColorActive && cameraComponent->isClearColorActive())
+        {
+            if (_embedded)
+            {
+                iRenderer::getInstance().setOrtho(0.0, 1.0, 1.0, 0.0, 0.001, 10.0);
+                iRenderer::getInstance().drawFilledRectangle(0.0, 0.0, 1.0, 1.0, cameraComponent->getClearColor());
+                iRenderer::getInstance().flush();
+            }
+            else
+            {
+                iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
+            }
+        }
+
+        if (_clearDepthActive && cameraComponent->isClearDepthActive())
+        {
+            iRenderer::getInstance().clearDepthBuffer(cameraComponent->getClearDepth());
+        }
+
+        if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
+        {
+            float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
+
+            iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
+                                                    aspect,
+                                                    cameraComponent->getNearClipPlane(),
+                                                    cameraComponent->getFarClipPlane());
+        }
+        else
+        {
+            iRenderer::getInstance().setOrtho(cameraComponent->getLeftOrtho(),
+                                              cameraComponent->getRightOrtho(),
+                                              cameraComponent->getBottomOrtho(),
+                                              cameraComponent->getTopOrtho(),
+                                              cameraComponent->getNearClipPlane(),
+                                              cameraComponent->getFarClipPlane());
+        }
+
+        iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
+
+        iaMatrixd viewmatrix;
+        viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
+
+        iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
+        projectionViewMatrix *= viewmatrix;
+        _renderEngine.setFrustum(projectionViewMatrix);
+    }
+
     void iView::onRender()
     {
         if (!_visible)
@@ -207,7 +287,7 @@ namespace igor
         {
             // a system is setting viewport, perspective etc.
             iEntitySystemModule::getInstance().onPreRender(_entityScene);
-            _renderEngine.setupCamera(_viewport, _embedded, _clearColorActive, _clearDepthActive, _overrideCameraID, _overrideSceneID);
+            setupCamera();
             _renderEngine.render();
             iEntitySystemModule::getInstance().onRender(_entityScene);
         }

@@ -67,7 +67,7 @@ namespace igor
 			return;
 		}
 
-		context._renderEngine->setCamera(camera->getID());
+		context._renderEngine->setCameraID(camera->getID());
 	}
 
 } // igor

@@ -116,14 +116,14 @@ namespace igor
 
         if (_renderEngine != nullptr)
         {
-            _renderEngine->setScene(iEntitySceneID::getInvalid());
+            _renderEngine->setSceneID(iEntitySceneID::getInvalid());
         }
 
         _renderEngine = renderEngine;
 
         if (_renderEngine != nullptr)
         {
-            _renderEngine->setScene(getID());
+            _renderEngine->setSceneID(getID());
         }
     }
 

@@ -57,28 +57,27 @@ namespace igor
 
         \param sceneID id of scene to render
          */
-        void setScene(const iEntitySceneID &sceneID);
+        void setSceneID(const iEntitySceneID &sceneID);
+
+        /*! \returns scene id
+        */
+        const iEntitySceneID& getSceneID() const;
 
         /*! sets the current camera
 
         \param cameraID ID of entity that contains iCameraComponent and iTransformComponent
         */
-        void setCamera(const iEntityID &cameraID);
+        void setCameraID(const iEntityID &cameraID);
+
+        /*! \returns camera id
+        */
+       const iEntityID& getCameraID() const;
 
         /*! add mesh for render queue
 
         \param mesh entity that contains iTransformComponent and iMeshRenderComponent
         */
         void addMesh(iEntityPtr mesh);
-
-        /*! setup camera for render
-
-        \param viewport the viewport given by the parent view
-        \param embedded if true frame buffer will not be cleared. This is used when running the render engine inside a widget
-        \param clearColor if false we override to prevent clearing the color buffer
-        \param clearDepth if false we override to prevent clearing the depth buffer
-        */
-        void setupCamera(const iaRectanglei &viewport, bool embedded = false, bool clearColor = true, bool clearDepth = true, const iEntityID &overrideCameraID = iEntityID::getInvalid(), const iEntitySceneID &overrideSceneID = iEntitySceneID::getInvalid());
 
         /*! renders given data
 
@@ -91,6 +90,18 @@ namespace igor
         valid after render/setupCamera
         */
         const iFrustumd &getFrustum() const;
+
+        /*! set frustum
+
+        \param frustum the frustum to set
+        */
+        void setFrustum(const iFrustumd &frustum);
+
+        /*! set frustum by matrix
+
+        \param matrix the matrix for the frustum
+        */
+        void setFrustum(const iaMatrixd &matrix);
 
     private:
         /*! the scene to render

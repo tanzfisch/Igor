@@ -410,11 +410,11 @@ namespace igor
         bool _embedded = false;
 
         /*! override camera id
-        */
+         */
         iEntityID _overrideCameraID = iEntityID::getInvalid();
 
         /*! override scene id
-        */
+         */
         iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();
 
         /*! sets the z index of this view. will be used by window to determine the render order
@@ -438,6 +438,10 @@ namespace igor
         \param embedded if true this view will behave as it was embedded in a widget
         */
         void setEmbedded(bool embedded);
+
+        /*! setup camera for render
+        */
+        void setupCamera();
     };
 
     /*! view pointer definition

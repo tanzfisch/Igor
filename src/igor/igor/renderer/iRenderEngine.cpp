@@ -13,12 +13,12 @@
 namespace igor
 {
 
-    void iRenderEngine::setScene(const iEntitySceneID &sceneID)
+    void iRenderEngine::setSceneID(const iEntitySceneID &sceneID)
     {
         _sceneID = sceneID;
     }
 
-    void iRenderEngine::setCamera(const iEntityID &cameraID)
+    void iRenderEngine::setCameraID(const iEntityID &cameraID)
     {
         _cameraID = cameraID;
     }
@@ -80,85 +80,6 @@ namespace igor
         }
     }
 
-    void iRenderEngine::setupCamera(const iaRectanglei &viewport, bool embedded, bool clearColor, bool clearDepth, const iEntityID &overrideCameraID, const iEntitySceneID &overrideSceneID)
-    {
-        auto sceneID = overrideSceneID.isValid() ? overrideSceneID : _sceneID;
-        auto cameraID = overrideCameraID.isValid() ? overrideCameraID : _cameraID;
-
-        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if (scene == nullptr)
-        {
-            return;
-        }
-
-        iEntityPtr camera = scene->getEntity(cameraID);
-        if (camera == nullptr)
-        {
-            return;
-        }
-
-        auto cameraComponent = camera->getComponent<iCameraComponent>();
-        const auto &camViewport = cameraComponent->getViewport();
-
-        auto transformComponent = camera->getComponent<iTransformComponent>();
-        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
-
-        iaRectanglei rect;
-        rect.setX(viewport.getX() + camViewport.getX() * static_cast<float32>(viewport.getWidth()) + 0.5f);
-        rect.setY(viewport.getY() + camViewport.getY() * static_cast<float32>(viewport.getHeight()) + 0.5f);
-        rect.setWidth(camViewport.getWidth() * static_cast<float32>(viewport.getWidth()) + 0.5f);
-        rect.setHeight(camViewport.getHeight() * static_cast<float32>(viewport.getHeight()) + 0.5f);
-        iRenderer::getInstance().setViewport(rect);
-
-        // TODO iRenderer::getInstance().setWireframeEnabled(_wireframeEnabled);
-        if (clearColor && cameraComponent->isClearColorActive())
-        {
-            if (embedded)
-            {
-                iRenderer::getInstance().setOrtho(0.0, 1.0, 1.0, 0.0, 0.001, 10.0);
-                iRenderer::getInstance().drawFilledRectangle(0.0, 0.0, 1.0, 1.0, cameraComponent->getClearColor());
-                iRenderer::getInstance().flush();
-            }
-            else
-            {
-                iRenderer::getInstance().clearColorBuffer(cameraComponent->getClearColor());
-            }
-        }
-
-        if (clearDepth && cameraComponent->isClearDepthActive())
-        {
-            iRenderer::getInstance().clearDepthBuffer(cameraComponent->getClearDepth());
-        }
-
-        if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
-        {
-            float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
-
-            iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
-                                                    aspect,
-                                                    cameraComponent->getNearClipPlane(),
-                                                    cameraComponent->getFarClipPlane());
-        }
-        else
-        {
-            iRenderer::getInstance().setOrtho(cameraComponent->getLeftOrtho(),
-                                              cameraComponent->getRightOrtho(),
-                                              cameraComponent->getBottomOrtho(),
-                                              cameraComponent->getTopOrtho(),
-                                              cameraComponent->getNearClipPlane(),
-                                              cameraComponent->getFarClipPlane());
-        }
-
-        iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
-
-        iaMatrixd viewmatrix;
-        viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
-
-        iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
-        projectionViewMatrix *= viewmatrix;
-        _frustum.set(projectionViewMatrix);
-    }
-
     void iRenderEngine::renderInstances()
     {
         std::sort(_materialGroups.begin(), _materialGroups.end(), [](const iMaterialGroup a, const iMaterialGroup b) -> bool
@@ -183,6 +104,26 @@ namespace igor
     const iFrustumd &iRenderEngine::getFrustum() const
     {
         return _frustum;
+    }
+
+    void iRenderEngine::setFrustum(const iFrustumd &frustum)
+    {
+        _frustum = frustum;
+    }
+
+    void iRenderEngine::setFrustum(const iaMatrixd &matrix)
+    {
+        _frustum.set(matrix);
+    }
+
+    const iEntitySceneID &iRenderEngine::getSceneID() const
+    {
+        return _sceneID;
+    }
+
+    const iEntityID &iRenderEngine::getCameraID() const
+    {
+        return _cameraID;
     }
 
 } // namespace igor
