@@ -38,7 +38,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _viewOrtho.setClearDepthActive(false);
         _viewOrtho.setClipPlanes(0.1f, 10000.0f);
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-        _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+        _viewOrtho.getRenderEvent().add(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
         getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
         if (!skyBoxTexture.isEmpty())
@@ -84,7 +84,7 @@ ExampleBase::~ExampleBase()
     _outlineFont = nullptr;
     _igorLogo = nullptr;
 
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+    _viewOrtho.getRenderEvent().remove(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
 
     con_info("stopped example \"" << getName() << "\"");
 }

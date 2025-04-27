@@ -52,7 +52,7 @@ namespace igor
 
     /*! draw event triggered for every frame a view is rendered
      */
-    IGOR_EVENT_DEFINITION_NO_ARGS(iDraw);
+    IGOR_EVENT_DEFINITION_NO_ARGS(iRender);
 
     /*! represents a view rectangle within a window and projection of the scene
 
@@ -99,17 +99,9 @@ namespace igor
          */
         float64 getAspectRatio() const;
 
-        /*! registers delegate to render event
-
-        \param renderDelegate delegate to register
+        /*! \returns render event
         */
-        void registerRenderDelegate(iDrawDelegate renderDelegate);
-
-        /*! unregister delegate from render event
-
-        \param renderDelegate delegate to unregister
-        */
-        void unregisterRenderDelegate(iDrawDelegate renderDelegate);
+        iRenderEvent& getRenderEvent();
 
         /*! sets the view port within a window.
 
@@ -391,7 +383,7 @@ namespace igor
 
         /*! event called one per render frame
          */
-        iDrawEvent _renderEvent;
+        iRenderEvent _renderEvent;
 
         /*! render engine
          */

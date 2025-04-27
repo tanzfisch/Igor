@@ -31,7 +31,7 @@ Viewport::Viewport()
     _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportOverlay->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportOverlay->getView().setName("Overlay");
-    _viewportOverlay->getView().registerRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
+    _viewportOverlay->getView().getRenderEvent().add(iRenderDelegate(this, &Viewport::renderOverlay));
     _viewportOverlay->getView().setClearColorActive(false);
     _viewportOverlay->getView().setClearDepthActive(true);
     _viewportOverlay->getView().setPerspective(45.0f);
@@ -52,8 +52,8 @@ Viewport::Viewport()
 
 Viewport::~Viewport()
 {
-    _viewportScene->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderScene));
-    _viewportOverlay->getView().unregisterRenderDelegate(iDrawDelegate(this, &Viewport::renderOverlay));
+    _viewportScene->getView().getRenderEvent().remove(iRenderDelegate(this, &Viewport::renderScene));
+    _viewportOverlay->getView().getRenderEvent().remove(iRenderDelegate(this, &Viewport::renderOverlay));
 }
 
 void Viewport::onChangeCamera(iWidgetPtr source)
@@ -130,12 +130,6 @@ void Viewport::onProjectLoaded()
     auto projectScene = iProject::getInstance().getProjectScene();
     _viewportScene->getView().setEntityScene(projectScene);
     _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
-
-    // TODO this should be true by the time the project is loaded
-    if (projectScene->getActiveCamera() != nullptr)
-    {
-        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera()->getID(), projectScene->getID());
-    }
 }
 
 void Viewport::onProjectUnloaded()

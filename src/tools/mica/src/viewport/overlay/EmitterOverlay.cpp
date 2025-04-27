@@ -37,7 +37,7 @@ void EmitterOverlay::setOverlayMode(OverlayMode mode)
 
 void EmitterOverlay::onDeinit()
 {
-    getView()->unregisterRenderDelegate(iDrawDelegate(this, &EmitterOverlay::onRender));
+    getView()->getRenderEvent().remove(iRenderDelegate(this, &EmitterOverlay::onRender));
 
     _materialFlat = nullptr;
     _materialVolume = nullptr;
@@ -45,7 +45,7 @@ void EmitterOverlay::onDeinit()
 
 void EmitterOverlay::onInit()
 {
-    getView()->registerRenderDelegate(iDrawDelegate(this, &EmitterOverlay::onRender));
+    getView()->getRenderEvent().add(iRenderDelegate(this, &EmitterOverlay::onRender));
 
     iShaderPtr shaderFlat = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_emitter_overlay_flat");
     iParameters paramFlat({

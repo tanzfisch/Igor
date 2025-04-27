@@ -38,7 +38,7 @@ void GameLayer::onInit()
     loadSpecs("project/supremacy.xml");
 
     _viewOrtho.setName("view ortho");
-    _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
+    _viewOrtho.getRenderEvent().add({this, &GameLayer::onRenderOrtho});
     _viewOrtho.setEntityScene(_entityScene);
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
@@ -1289,7 +1289,7 @@ void GameLayer::onDeinit()
 
     // clean up window
     getWindow()->removeView(&_viewOrtho);
-    _viewOrtho.unregisterRenderDelegate({this, &GameLayer::onRenderOrtho});
+    _viewOrtho.getRenderEvent().remove({this, &GameLayer::onRenderOrtho});
 }
 
 void GameLayer::onUpdate()

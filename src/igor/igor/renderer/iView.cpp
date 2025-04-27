@@ -419,14 +419,9 @@ namespace igor
         return _entityScene;
     }
 
-    void iView::registerRenderDelegate(iDrawDelegate render_delegate)
+    iRenderEvent& iView::getRenderEvent()
     {
-        _renderEvent.add(render_delegate);
-    }
-
-    void iView::unregisterRenderDelegate(iDrawDelegate render_delegate)
-    {
-        _renderEvent.remove(render_delegate);
+        return _renderEvent;
     }
 
     float64 iView::getAspectRatio() const

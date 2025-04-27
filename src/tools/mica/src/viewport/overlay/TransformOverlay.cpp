@@ -40,7 +40,7 @@ bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 
 void TransformOverlay::onDeinit()
 {
-    getView()->unregisterRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
+    getView()->getRenderEvent().remove(iRenderDelegate(this, &TransformOverlay::onRender));
 
     _red = nullptr;
     _green = nullptr;
@@ -51,7 +51,7 @@ void TransformOverlay::onDeinit()
 
 void TransformOverlay::onInit()
 {
-    getView()->registerRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
+    getView()->getRenderEvent().add(iRenderDelegate(this, &TransformOverlay::onRender));
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
     iParameters paramMaterial({
