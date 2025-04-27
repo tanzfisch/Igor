@@ -132,6 +132,25 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
     {
         _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera()->getID(), projectScene->getID());
     }
+    else
+    {
+        // TODO this is a workarround for now until active camera returns the right camera after loading the project
+
+        auto entities = projectScene->getEntities();
+        for(const auto &entity : entities)
+        {
+            if(!entity->isActive() ||
+            entity->getComponent<iCameraComponent>() == nullptr ||
+            entity->getComponent<iTransformComponent>() == nullptr)
+            {
+                continue;
+            }
+
+            _viewportOverlay->getView().setOverrideCamera(entity->getID(), projectScene->getID());
+            
+            break;
+        }
+    }
 
     return true;
 }
@@ -140,6 +159,8 @@ bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
 {
     _viewportScene->getView().setEntityScene(nullptr);
     _cameraArc = nullptr;
+
+    return true;
 }
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)

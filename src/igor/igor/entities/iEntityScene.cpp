@@ -448,13 +448,15 @@ namespace igor
         return nullptr;
     }
 
-    const std::vector<iEntityPtr> iEntityScene::getEntities() const
+    const std::vector<iEntityPtr> iEntityScene::getEntities()
     {
+        _mutex.lock();
         std::vector<iEntityPtr> result;
         for (const auto &pair : _entities)
         {
             result.push_back(pair.second);
         }
+        _mutex.unlock();
 
         std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b)
                   { return a->getName() < b->getName(); });

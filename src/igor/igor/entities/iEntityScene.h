@@ -185,6 +185,12 @@ namespace igor
 		*/
 		void clear();
 
+		/*! \returns all entities ordered by name
+
+		This is slow. Don't use it unless you really have to
+		 */
+		const std::vector<iEntityPtr> getEntities();
+
 	private:
 		/*! entity scene id
 		 */
@@ -296,10 +302,6 @@ namespace igor
 		\param entity the entity that has changed it's components
 		*/
 		void onEntityStructureChanged(iEntityPtr entity);
-
-		/*! \returns all entities ordered by name
-		 */
-		const std::vector<iEntityPtr> getEntities() const;
 	};
 
 } // igor
