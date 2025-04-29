@@ -52,7 +52,7 @@ namespace igor
 
         \param keyCode the specified key
         */
-        bool getKey(iKeyCode keyCode);
+        bool keyPressed(iKeyCode keyCode);
 
         /*! \returns true: if any key is pressed; false: if no key is pressed
 

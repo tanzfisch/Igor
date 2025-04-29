@@ -622,7 +622,7 @@ bool Ascent::onMouseMoveEvent(iEventMouseMove &event)
 
         _mouseDelta.set(to._x - from._x, to._y - from._y);
 
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
+        if (!iKeyboard::getInstance().keyPressed(iKeyCode::Space))
         {
             iMouse::getInstance().setCenter();
         }

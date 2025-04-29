@@ -6,6 +6,7 @@
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/system/iKeyboard.h>
 
 namespace igor
 {
@@ -24,11 +25,11 @@ namespace igor
     void iUserControlTreeView::initUI()
     {
         _scroll = new iWidgetScroll(this);
+        _scroll->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
+        _scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
         _scroll->addWidget(_vboxLayout);
-
-        _scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
     }
 
     iClickTreeViewEvent &iUserControlTreeView::getClickEvent()
@@ -67,7 +68,7 @@ namespace igor
                     }
                 }
 
-                if(filter)
+                if (filter)
                 {
                     break;
                 }
@@ -133,12 +134,69 @@ namespace igor
 
     void iUserControlTreeView::onClick(const iWidgetPtr source)
     {
-        // change selection
-        for (auto button : _allInteractiveWidgets)
+        const bool lshift = iKeyboard::getInstance().keyPressed(iKeyCode::LShift);
+        const bool lctrl = iKeyboard::getInstance().keyPressed(iKeyCode::LControl);
+        const bool isButton = source->getWidgetType() == iWidgetType::iWidgetButton;
+
+        if (lshift && isButton) // shift overrides ctrl
         {
-            button->setChecked(button == source);
+            int checkCount = 0;
+            bool check = false;
+            bool sourceFirst = false;
+            bool oldFirst = false;
+            for (auto button : _allInteractiveWidgets)
+            {
+                bool wasChecked = button->isChecked();
+                if (wasChecked && !oldFirst)
+                {
+                    check = !sourceFirst;
+                    oldFirst = true;
+                }
+                else if (button == source && !sourceFirst)
+                {
+                    button->setChecked(true);
+                    check = !oldFirst;
+                    sourceFirst = true;
+                }
+                else
+                {
+                    button->setChecked(check);
+                }
+
+                if (button->isChecked())
+                {
+                    checkCount++;
+                }
+            }
+
+            iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
         }
-        _selectedItemPath = std::any_cast<iaString>(source->getUserData());
+        else if (lctrl && isButton)
+        {
+            int checkCount = 0;
+            for (auto button : _allInteractiveWidgets)
+            {
+                if (button == source)
+                {
+                    button->setChecked(true);
+                }
+
+                if (button->isChecked())
+                {
+                    checkCount++;
+                }
+            }
+
+            _selectedItemPath = checkCount == 0 ? "" : std::any_cast<iaString>(source->getUserData());
+        }
+        else
+        {
+            for (auto button : _allInteractiveWidgets)
+            {
+                button->setChecked(button == source);
+            }
+            _selectedItemPath = std::any_cast<iaString>(source->getUserData());
+        }
 
         // pass on event
         _clickEvent(source);

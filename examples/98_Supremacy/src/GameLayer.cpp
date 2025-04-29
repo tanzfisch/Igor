@@ -347,22 +347,22 @@ void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
 
     iaVector3d velocity;
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::W))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::W))
     {
         velocity._y -= 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::A))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::A))
     {
         velocity._x -= 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::S))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::S))
     {
         velocity._y += 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::D))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::D))
     {
         velocity._x += 1.0;
     }

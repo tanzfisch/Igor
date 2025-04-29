@@ -399,7 +399,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
+        if (!iKeyboard::getInstance().keyPressed(iKeyCode::Alt))
         {
             // TODO select entity
 
@@ -453,7 +453,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     {
         if (iMouse::getInstance().getLeftButton())
         {
-            if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
+            if (iKeyboard::getInstance().keyPressed(iKeyCode::Alt))
             {
                 _cameraArc->setPitch(_cameraArc->getPitch() + (from._y - to._y) * rotateSensitivity);
                 _cameraArc->setHeading(_cameraArc->getHeading() + (from._x - to._x) * rotateSensitivity);
@@ -462,7 +462,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
 
         if (iMouse::getInstance().getMiddleButton())
         {
-            if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
+            if (iKeyboard::getInstance().keyPressed(iKeyCode::Alt))
             {
                 iaMatrixd camWorldMatrix;
                 _cameraArc->getWorldTransformation(camWorldMatrix);

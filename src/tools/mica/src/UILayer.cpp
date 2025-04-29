@@ -135,49 +135,49 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::N:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // clearWorkspace();
         }
         return true;
 
     case iKeyCode::D:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->duplicateSelected();
         }
         return true;
 
     case iKeyCode::X:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->cutSelected();
         }
         return true;
 
     case iKeyCode::C:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->copySelected();
         }
         return true;
 
     case iKeyCode::V:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->pasteSelected();
         }
         return true;
 
     case iKeyCode::O:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // TODO open project
         }
         return true;
 
     case iKeyCode::S:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // TODO save project
         }
@@ -191,7 +191,7 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
             and make full screen _viewport
             and vice versa
     case iKeyCode::Space:
-        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
         }
         return true; */
