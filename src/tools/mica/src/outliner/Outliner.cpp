@@ -37,31 +37,56 @@ void Outliner::initGUI()
     _treeView->setMinWidth(150);
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _treeView->getClickEvent().add(iClickDelegate(this, &Outliner::onClickTreeView));
+    _treeView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &Outliner::onTreeViewSelectionChanged));
     _treeView->getContextMenuTreeViewEvent().add(iContextMenuTreeViewDelegate(this, &Outliner::onContextMenuTreeView));
+    _treeView->setMultiSelection(true);
 
     refresh();
 }
 
-void Outliner::onClickTreeView(const iWidgetPtr source)
+void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
-    iaString itemPath = std::any_cast<iaString>(source->getUserData());
-    iItemPtr item = _itemData->getItem(itemPath);
-
-    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
-        item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+    if (_treeView != source)
     {
-        const iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if(scene != nullptr)
+        return;
+    }
+
+    // collect selection changes for each scene
+    std::unordered_map<iEntityScenePtr, std::vector<iEntityID>> selections;
+
+    for (const auto widget : _treeView->getSelection())
+    {
+        iaString itemPath = std::any_cast<iaString>(widget->getUserData());
+        iItemPtr item = _itemData->getItem(itemPath);
+        if (item == nullptr)
         {
-            const std::vector<iEntityID> entityIDs = {item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID)};
-            scene->setSelection(entityIDs);
+            continue;
+        }
+
+        if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
+            item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        {
+            const iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
+            auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+            if (scene != nullptr)
+            {
+                if (selections.find(scene) == selections.end())
+                {
+                    selections[scene] = std::vector<iEntityID>();
+                }
+
+                selections[scene].push_back(item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID));
+            }
+        }
+        else
+        {
+            con_err("unexpected item");
         }
     }
-    else
+
+    for(const auto &selection : selections)
     {
-        con_err("unexpected item");
+        selection.first->setSelection(selection.second);
     }
 }
 
@@ -78,11 +103,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     bool isRoot = false;
     bool isScene = false;
 
-    std::vector<iaString> selectedItemPaths;
-    if (!_treeView->getSelectedItemPath().isEmpty())
-    {
-        selectedItemPaths.push_back(_treeView->getSelectedItemPath());
-    }
+    std::vector<iaString> selectedItemPaths = _treeView->getSelectedItemPaths();
     const iaString itemPath = std::any_cast<iaString>(source->getUserData());
     selectedItemPaths.erase(std::remove(selectedItemPaths.begin(), selectedItemPaths.end(), itemPath), selectedItemPaths.end());
     selectedItemPaths.insert(selectedItemPaths.begin(), itemPath);
@@ -181,24 +202,24 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 void Outliner::onSavePrefab(const iWidgetPtr source)
 {
     iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
-    iEntityActionContext* context = static_cast<iEntityActionContext*>(&*button->getActionContext());
+    iEntityActionContext *context = static_cast<iEntityActionContext *>(&*button->getActionContext());
     auto scene = iEntitySystemModule::getInstance().getScene(context->getSceneID());
-    
+
     auto prefabEntity = scene->getEntity(context->getEntities()[0]);
 
     auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
     auto prefab = prefabComp->getPrefab();
     auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
     prefabScene->clear();
-    
+
     iEntityCopyTraverser traverser(prefabScene->getRootEntity(), true);
 
-    for(const auto entity : prefabEntity->getChildren())
+    for (const auto entity : prefabEntity->getChildren())
     {
         traverser.traverse(entity);
     }
 
-    for(const auto entity : prefabEntity->getInactiveChildren())
+    for (const auto entity : prefabEntity->getInactiveChildren())
     {
         traverser.traverse(entity);
     }
@@ -253,7 +274,7 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
 {
     for (const auto &child : children)
     {
-        if(child->getName().find("mica_") != iaString::INVALID_POSITION)
+        if (child->getName().find("mica_") != iaString::INVALID_POSITION)
         {
             continue;
         }
@@ -371,8 +392,16 @@ bool Outliner::onEvent(iEvent &event)
     return false;
 }
 
+void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    refresh();
+    // TODO do something like _treeView->setSelection instead
+}
+
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
+    iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
+
     refresh();
     return false;
 }
@@ -401,9 +430,4 @@ void Outliner::onEntityDestroyed(iEntityPtr entity)
 void Outliner::onHierarchyChanged(iEntityScenePtr scene)
 {
     refresh();
-}
-
-void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
-{
-    // _treeView->setSelection()
 }

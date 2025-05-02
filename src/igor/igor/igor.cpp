@@ -68,6 +68,7 @@ const iaString IGOR_ITEM_DATA_NAME = "name";
 const iaString IGOR_ITEM_DATA_ICON = "icon";
 const iaString IGOR_ITEM_DATA_UUID = "uuid";
 const iaString IGOR_ITEM_DATA_ENABLED = "enabled";
+const iaString IGOR_ITEM_DATA_SELECTED = "selected";
 const iaString IGOR_ITEM_DATA_SCENE_ID = "sceneID";
 const iaString IGOR_ITEM_DATA_ENTITY_ID = "entityID";
 

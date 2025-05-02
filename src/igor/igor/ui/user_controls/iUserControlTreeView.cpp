@@ -83,21 +83,21 @@ namespace igor
                 displayName = item->getValue<iaString>(IGOR_ITEM_DATA_NAME);
             }
 
-            iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+            _buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
 
             iWidgetButtonPtr button = new iWidgetButton();
             _allInteractiveWidgets.push_back(button);
             button->setHorizontalAlignment(iHorizontalAlignment::Left);
             button->setBackground(iaColor4f::transparent);
             button->setText(displayName);
-            button->setCheckable(true);
+            button->setSelectable(true);
             button->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
             button->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
-            if (path == _selectedItemPath)
-            {
-                button->setChecked(true);
-            }
+            const auto iter = std::find_if(_selectedItemPaths.begin(), _selectedItemPaths.end(),
+                                           [path](const iaString &selectedPath)
+                                           { return selectedPath == path; });
+            button->setSelect(iter != _selectedItemPaths.end());
 
             button->setUserData(path);
 
@@ -118,10 +118,10 @@ namespace igor
                 button->setEnabled(enabled);
             }
 
-            buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
-            buttonLayout->addWidget(button);
+            _buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
+            _buttonLayout->addWidget(button);
 
-            _vboxLayout->addWidget(buttonLayout);
+            _vboxLayout->addWidget(_buttonLayout);
 
             ++indentation;
         }
@@ -137,69 +137,69 @@ namespace igor
         const bool lshift = iKeyboard::getInstance().keyPressed(iKeyCode::LShift);
         const bool lctrl = iKeyboard::getInstance().keyPressed(iKeyCode::LControl);
         const bool isButton = source->getWidgetType() == iWidgetType::iWidgetButton;
+        const bool multiSelect = isMultiSelectionEnabled();
 
-        if (lshift && isButton) // shift overrides ctrl
+        if (multiSelect && lshift && isButton) // shift overrides ctrl
         {
-            int checkCount = 0;
-            bool check = false;
+            bool select = false;
             bool sourceFirst = false;
             bool oldFirst = false;
+            _selectedItemPaths.clear();
+
             for (auto button : _allInteractiveWidgets)
             {
-                bool wasChecked = button->isChecked();
-                if (wasChecked && !oldFirst)
+                bool wasSelected = button->isSelected();
+                if (wasSelected && !oldFirst)
                 {
-                    check = !sourceFirst;
+                    select = !sourceFirst;
                     oldFirst = true;
                 }
                 else if (button == source && !sourceFirst)
                 {
-                    button->setChecked(true);
-                    check = !oldFirst;
+                    button->setSelect(true);
+                    select = !oldFirst;
                     sourceFirst = true;
                 }
                 else
                 {
-                    button->setChecked(check);
+                    button->setSelect(select);
                 }
 
-                if (button->isChecked())
+                if (button->isSelected())
                 {
-                    checkCount++;
+                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
                 }
             }
 
             iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
         }
-        else if (lctrl && isButton)
+        else if (multiSelect && lctrl && isButton)
         {
-            int checkCount = 0;
             for (auto button : _allInteractiveWidgets)
             {
                 if (button == source)
                 {
-                    button->setChecked(true);
-                }
-
-                if (button->isChecked())
-                {
-                    checkCount++;
+                    button->setSelect(true);
+                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
+                    break;
                 }
             }
-
-            _selectedItemPath = checkCount == 0 ? "" : std::any_cast<iaString>(source->getUserData());
         }
         else
         {
+            _selectedItemPaths.clear();
             for (auto button : _allInteractiveWidgets)
             {
-                button->setChecked(button == source);
+                bool select = button == source;
+                button->setSelect(select);
+                if (select)
+                {
+                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
+                }
             }
-            _selectedItemPath = std::any_cast<iaString>(source->getUserData());
         }
-
-        // pass on event
-        _clickEvent(source);
+        
+        _selectionChanged(this); // TODO for now just always trigger it
     }
 
     void iUserControlTreeView::onContextMenu(const iWidgetPtr source)
@@ -227,9 +227,9 @@ namespace igor
         }
     }
 
-    const iaString &iUserControlTreeView::getSelectedItemPath() const
+    const std::vector<iaString> &iUserControlTreeView::getSelectedItemPaths() const
     {
-        return _selectedItemPath;
+        return _selectedItemPaths;
     }
 
     iContextMenuTreeViewEvent &iUserControlTreeView::getContextMenuTreeViewEvent()

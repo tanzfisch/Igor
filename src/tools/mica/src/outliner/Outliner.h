@@ -74,7 +74,7 @@ private:
 
     \param source the source widget of this event
     */
-    void onClickTreeView(const iWidgetPtr source);
+    void onTreeViewSelectionChanged(const iWidgetPtr source);
 
     /*! handles context menu for tree view
 

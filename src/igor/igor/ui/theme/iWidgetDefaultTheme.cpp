@@ -89,6 +89,9 @@ static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.9f, 0.9f};
 static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.3f, 0.9f, 0.3f};
 
+static const iaColor4f COLOR_SELECTED_BORDER = {0.3f, 0.3f, 0.3f, 0.9f};
+static const iaColor4f COLOR_SELECTED_FILL = {0.3f, 0.3f, 0.3f, 0.3f};
+
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
 static const iaColor4f COLOR_SELECTION_FRAME(0.0, 0.0, 0.0, 0.8);
@@ -173,6 +176,7 @@ namespace igor
         const auto &text = widget->getText();
         const auto halign = widget->getHorizontalTextAlignment();
         const auto valign = widget->getVerticalTextAlignment();
+        const bool selected = widget->isSelectable() && widget->isSelected();
 
         if (texture == nullptr)
         {
@@ -259,6 +263,11 @@ namespace igor
         {
             iRenderer::getInstance().drawFilledRectangle(rect, COLOR_CHECKED_FILL);
             iRenderer::getInstance().drawRectangle(rect, COLOR_CHECKED_BORDER);
+        }
+        else if(selected)
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTED_FILL);
+            iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTED_BORDER);            
         }
 
         DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);

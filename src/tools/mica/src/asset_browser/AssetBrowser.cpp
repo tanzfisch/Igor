@@ -53,15 +53,15 @@ void AssetBrowser::initUI()
     _treeView->setMinWidth(150);
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
-    _treeView->setFilter(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
+    _treeView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChangedTree));
+    _treeView->setFilter(IGOR_ITEM_DATA_ICON, "igor_icon_folder");    
     splitter->addWidget(_treeView);
 
     _gridView = new iWidgetFixedGridLayout();
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
-    _gridView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
+    _gridView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChangedGrid));
     
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
@@ -92,7 +92,12 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     _contextMenu.open();
 }
 
-void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
+void AssetBrowser::onSelectionChangedTree(const iWidgetPtr source)
+{
+    onUpdateGridView();
+}
+
+void AssetBrowser::onSelectionChangedGrid(const iWidgetPtr source)
 {
     auto selection = source->getSelection();
     if (selection.empty())
@@ -147,7 +152,12 @@ void AssetBrowser::onUpdateGridView()
 {
     _gridView->clear();
 
-    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
+    if(_treeView->getSelectedItemPaths().empty())
+    {
+        return;
+    }
+
+    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPaths()[0]);
     if(item == nullptr)
     {
         return;
@@ -230,11 +240,6 @@ void AssetBrowser::onRefreshGridView()
         UserControlResourceIcon *icon = static_cast<UserControlResourceIcon *>(child);
         icon->refresh();
     }
-}
-
-void AssetBrowser::onClickTreeView(const iWidgetPtr source)
-{
-    onUpdateGridView();
 }
 
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)

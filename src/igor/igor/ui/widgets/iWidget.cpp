@@ -299,7 +299,7 @@ namespace igor
         return _contextMenu;
     }
 
-    iSelectionChangedEvent& iWidget::getSelectionChangedEvent()
+    iSelectionChangedEvent &iWidget::getSelectionChangedEvent()
     {
         return _selectionChanged;
     }
@@ -555,7 +555,7 @@ namespace igor
                             _click(this);
                         }
 
-                        select();
+                        setSelect(true);
 
                         if (event.getKey() == iKeyCode::MouseRight)
                         {
@@ -1200,42 +1200,39 @@ namespace igor
         return _isMultiSelectionEnabled;
     }
 
-    void iWidget::select()
+    void iWidget::setSelect(bool select)
     {
         if (!isSelectable())
         {
             return;
         }
 
-        auto parent = getParent();
-
-        if (parent != nullptr &&
-            !parent->isMultiSelectionEnabled())
+        if (select)
         {
-            parent->clearSelection();
+            auto parent = getParent();
+
+            if (parent != nullptr &&
+                !parent->isMultiSelectionEnabled())
+            {
+                parent->clearSelection();
+            }
+
+            _selected = true;
+
+            if (parent != nullptr)
+            {
+                parent->_selectionChanged(parent);
+            }
         }
-
-        _selected = true;
-
-        if (parent != nullptr)
+        else
         {
-            parent->_selectionChanged(parent);
-        }
-    }
+            _selected = false;
 
-    void iWidget::unselect()
-    {
-        if (!isSelectable())
-        {
-            return;
-        }
-
-        _selected = false;
-
-        auto parent = getParent();
-        if (parent != nullptr)
-        {
-            parent->_selectionChanged(parent);
+            auto parent = getParent();
+            if (parent != nullptr)
+            {
+                parent->_selectionChanged(parent);
+            }
         }
     }
 
@@ -1254,17 +1251,23 @@ namespace igor
         _selectionChanged(this);
     }
 
-    const std::vector<iWidgetPtr> iWidget::getSelection() const
+    static void getSelectionRecursive(const iWidget* widget, std::vector<iWidgetPtr> &selection)
     {
-        std::vector<iWidgetPtr> selection;
-
-        for (auto child : getChildren())
+        for (const auto child : widget->getChildren())
         {
             if (child->isSelected())
             {
                 selection.push_back(child);
             }
+
+            getSelectionRecursive(child, selection);
         }
+    }
+
+    const std::vector<iWidgetPtr> iWidget::getSelection() const
+    {
+        std::vector<iWidgetPtr> selection;
+        getSelectionRecursive(this, selection);
 
         return selection;
     }

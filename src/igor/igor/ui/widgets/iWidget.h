@@ -619,15 +619,9 @@ namespace igor
          */
         bool isMultiSelectionEnabled() const;
 
-        /*! selects widget
-
-        \param exclusive if true it unselects siblings
+        /*! selects or unselects widget
         */
-        void select();
-
-        /*! unselect widget
-         */
-        void unselect();
+        void setSelect(bool select);
 
         /*! \returns true if widget is selected
          */
