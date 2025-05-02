@@ -73,13 +73,13 @@ namespace igor
 
         /*! \returns selected item path
          */
-        const std::vector<iaString> &getSelectedItemPaths() const;
+        const std::vector<iItemPath> &getSelectedItemPaths() const;
 
         /*! sets selection from item paths
 
         \param itemPaths the item paths to select
          */
-        void setSelectedItemPaths(const std::vector<iaString> &itemPaths);
+        void setSelectedItemPaths(const std::vector<iItemPath> &itemPaths);
 
         /*! \returns the click event
          */
@@ -125,7 +125,7 @@ namespace igor
 
         /*! selected item paths
          */
-        std::vector<iaString> _selectedItemPaths;
+        std::vector<iItemPath> _selectedItemPaths;
 
         /*! hold on to all widgets
          */
@@ -161,7 +161,7 @@ namespace igor
         \param itemPath the path of the current item
         \param indentation indentation of given item
          */
-        virtual void updateUI(iItem *item, const iaString &itemPath, int indentation = 0);
+        virtual void updateUI(iItem *item, const iItemPath &itemPath, int indentation = 0);
     };
 
     /*! widget tree view pointer definition

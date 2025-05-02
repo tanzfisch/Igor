@@ -26,68 +26,64 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ITEM_DATA_H
-#define IGOR_ITEM_DATA_H
+#ifndef IGOR_ITEM_PATH_H
+#define IGOR_ITEM_PATH_H
 
 #include <igor/data/iItem.h>
-#include <igor/data/iItemPath.h>
 
 namespace igor
 {
-    /*! container for items
-
-    Caller needs to make sure all sibling items have unique names
+    /*! item path definition
      */
-    class iItemData
+    class iItemPath
     {
     public:
-        /*! adds item to this container
-
-        \returns newly added item
-        \param id unique id of item (unique amongst siblings)
-        */
-        iItemPtr addItem(const iaString &id);
-
-        /*! removes given item from this container
-
-        \param item the item to remove
-        */
-        void removeItem(iItemPtr item);
-
-        /*! \returns items of this container
+        /*! init empty item path
          */
-        const std::vector<iItemPtr> getItems() const;
+        iItemPath() = default;
 
-        /*! clear all data
-         */
-        void clear();
+        /*! init path from string
 
-        /*! \returns an item for given path. nullptr if it does not exist
-
-        \param itemPath the given item path
+        \param path the given path
         */
-        iItemPtr getItem(const iItemPath &itemPath);
+        iItemPath(const iaString &path);
 
-        /*! compare two item data sets for equality
+        /*! copy ctor
+         */
+        iItemPath(const std::vector<iaString> &path);
+
+        /*! \returns path data
+         */
+        const std::vector<iaString> &getPath() const;
+
+        /*! appends path to item path
+
+        \param path the path to append
+        */
+        void operator+=(const iaString &path);
+
+        /*! compare two item paths being equal
 
         \returns true if equal
-        \param other the other data set
+        \param other the other item path
         */
-        bool operator==(const iItemData &other) const;
+        bool operator==(const iItemPath &other) const;
 
-        /*! compare two item data sets for inequality
+        /*! compare two item paths being not equal
 
         \returns true if not equal
-        \param other the other data set
+        \param other the other item path
         */
-        bool operator!=(const iItemData &other) const;
+        bool operator!=(const iItemPath &other) const;
+
+        /*! \returns path as string using '/' as delimiter
+         */
+        const iaString toString() const;
 
     private:
-        /*! root item of this container
-         */
-        iItem _root;
+        std::vector<iaString> _path;
     };
 
 }
 
-#endif // IGOR_ITEM_DATA_H
+#endif // IGOR_ITEM_PATH_H

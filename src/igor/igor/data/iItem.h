@@ -34,6 +34,8 @@
 namespace igor
 {
 
+    /*! item pointer definition
+    */
     class iItem;
     typedef iItem *iItemPtr;
 
@@ -129,7 +131,7 @@ namespace igor
 
         /*! pointer to parent item
          */
-        iItem *_parent = nullptr;
+        iItemPtr _parent = nullptr;
 
         /*! sub items of this item
          */

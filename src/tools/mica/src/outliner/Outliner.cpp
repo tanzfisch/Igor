@@ -56,7 +56,7 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
     for (const auto widget : _treeView->getSelection())
     {
-        iaString itemPath = std::any_cast<iaString>(widget->getUserData());
+        iItemPath itemPath = std::any_cast<iItemPath>(widget->getUserData());
         iItemPtr item = _itemData->getItem(itemPath);
         if (item == nullptr)
         {
@@ -103,8 +103,8 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     bool isRoot = false;
     bool isScene = false;
 
-    std::vector<iaString> selectedItemPaths = _treeView->getSelectedItemPaths();
-    const iaString itemPath = std::any_cast<iaString>(source->getUserData());
+    std::vector<iItemPath> selectedItemPaths = _treeView->getSelectedItemPaths();
+    const iItemPath itemPath = std::any_cast<iItemPath>(source->getUserData());
     selectedItemPaths.erase(std::remove(selectedItemPaths.begin(), selectedItemPaths.end(), itemPath), selectedItemPaths.end());
     selectedItemPaths.insert(selectedItemPaths.begin(), itemPath);
 
@@ -315,7 +315,7 @@ void Outliner::populateTree()
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     auto projectScene = project.getProjectScene();
-    auto rootItem = _itemData->getItem("");
+    auto rootItem = _itemData->getItem(iItemPath(""));
     rootItem->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, projectScene->getID());
     rootItem->setValue<iaString>(IGOR_ITEM_DATA_NAME, iaString("root"));
     rootItem->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, false);

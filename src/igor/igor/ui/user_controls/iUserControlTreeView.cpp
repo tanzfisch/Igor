@@ -37,15 +37,11 @@ namespace igor
         return _clickEvent;
     }
 
-    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath, int indentation)
+    void iUserControlTreeView::updateUI(iItem *item, const iItemPath &itemPath, int indentation)
     {
         bool filter = true;
 
-        std::vector<iaString> tokens;
-        itemPath.split('/', tokens);
-
-        iaString path = itemPath;
-        path += "/";
+        iItemPath path = itemPath;
         path += item->getID();
 
         if (!_filters.empty())
@@ -95,7 +91,7 @@ namespace igor
             button->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
             const auto iter = std::find_if(_selectedItemPaths.begin(), _selectedItemPaths.end(),
-                                           [path](const iaString &selectedPath)
+                                           [path](const iItemPath &selectedPath)
                                            { return selectedPath == path; });
             button->setSelect(iter != _selectedItemPaths.end());
 
@@ -167,7 +163,7 @@ namespace igor
 
                 if (button->isSelected())
                 {
-                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
+                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
                 }
             }
 
@@ -180,7 +176,7 @@ namespace igor
                 if (button == source)
                 {
                     button->setSelect(true);
-                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
+                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
                     break;
                 }
             }
@@ -194,7 +190,7 @@ namespace igor
                 button->setSelect(select);
                 if (select)
                 {
-                    _selectedItemPaths.push_back(std::any_cast<iaString>(button->getUserData()));
+                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
                 }
             }
         }
@@ -223,11 +219,11 @@ namespace igor
 
         for (const auto item : itemData->getItems())
         {
-            updateUI(item, "");
+            updateUI(item, iItemPath());
         }
     }
 
-    const std::vector<iaString> &iUserControlTreeView::getSelectedItemPaths() const
+    const std::vector<iItemPath> &iUserControlTreeView::getSelectedItemPaths() const
     {
         return _selectedItemPaths;
     }

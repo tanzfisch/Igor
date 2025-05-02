@@ -45,8 +45,8 @@ namespace iaux
      */
     enum class iaStringSplitMode
     {
-        Normal,
-        RetriveAllEmpties
+        Normal,                     // ignores empties
+        RetriveAllEmpties           // returns all empties
     };
 
     /*! wide char (unicode) character string with trailing zero and length
