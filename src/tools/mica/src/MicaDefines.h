@@ -29,6 +29,9 @@
 #ifndef MICA_DEFINES_H
 #define MICA_DEFINES_H
 
+#include <igor/igor.h>
+using namespace igor;
+
 #define MICA_REGULARBUTTON_SIZE 80
 
 #endif // MICA_DEFINES_H

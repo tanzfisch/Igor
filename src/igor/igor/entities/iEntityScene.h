@@ -46,7 +46,11 @@ namespace igor
 
 	/*! entity scene id
 	 */
-	typedef iaUUID iEntitySceneID;
+	typedef iaUUID iEntitySceneID;	
+
+	/*! entity selection change event
+	*/
+	IGOR_EVENT_DEFINITION(iEntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
 
 	/*! entity scene
 	 */
@@ -191,6 +195,24 @@ namespace igor
 		 */
 		const std::vector<iEntityPtr> getEntities();
 
+		/*! sets selection on this scene
+
+		\param selection the entity IDs to select
+		*/
+		void setSelection(const std::vector<iEntityID> &selection);
+
+		/*! \returns selected entities
+		*/
+		const std::vector<iEntityID> &getSelection() const;
+
+		/*! clears current selection
+		*/
+		void clearSelection();
+
+		/*! \returns entity selection change event
+		*/
+		iEntitySelectionChangedEvent &getEntitySelectionChangedEvent();
+
 	private:
 		/*! entity scene id
 		 */
@@ -251,6 +273,14 @@ namespace igor
 		/*! handle multi thread access to scene
 		 */
 		iaMutex _mutex;
+
+		/*! list of selected entities
+		*/
+		std::vector<iEntityID> _selection;
+
+		/*! the entity selection changed event
+		*/
+		iEntitySelectionChangedEvent _entitySelectionChangedEvent;
 
 		/*! sets render engine
 

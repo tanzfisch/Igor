@@ -228,6 +228,10 @@ private:
     /*! on grid button click
     */
     void onGridClick(iWidgetPtr source);
+
+    /*! handle selection change
+    */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
 #endif // MICA_VIEWPORT_H

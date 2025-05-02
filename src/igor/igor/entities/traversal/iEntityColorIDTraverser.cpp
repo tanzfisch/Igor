@@ -42,7 +42,7 @@ namespace igor
             matrix *= meshRef._offset;
 
             iRenderer::getInstance().setModelMatrix(matrix);
-            iRenderer::getInstance().drawMesh(meshRef._mesh, meshRef._material);
+            iRenderer::getInstance().drawMesh(meshRef._mesh, nullptr);
         }
 
         return true;

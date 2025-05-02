@@ -464,4 +464,26 @@ namespace igor
         return result;
     }
 
+    void iEntityScene::setSelection(const std::vector<iEntityID> &selection)
+    {
+        _selection = selection;
+        _entitySelectionChangedEvent(getID(), _selection);
+    }
+
+    const std::vector<iEntityID> &iEntityScene::getSelection() const
+    {
+        return _selection;
+    }
+
+    void iEntityScene::clearSelection()
+    {
+        _selection.clear();
+        _entitySelectionChangedEvent(getID(), _selection);
+    }
+
+    iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
+    {
+        return _entitySelectionChangedEvent;
+    }    
+
 } // igor

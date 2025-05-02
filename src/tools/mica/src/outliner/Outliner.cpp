@@ -52,8 +52,12 @@ void Outliner::onClickTreeView(const iWidgetPtr source)
         item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
     {
         const iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        const std::vector<iEntityID> entityIDs = {item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID)};
-        _entitySelectionChangedEvent(sceneID, entityIDs);
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(scene != nullptr)
+        {
+            const std::vector<iEntityID> entityIDs = {item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID)};
+            scene->setSelection(entityIDs);
+        }
     }
     else
     {
@@ -399,7 +403,7 @@ void Outliner::onHierarchyChanged(iEntityScenePtr scene)
     refresh();
 }
 
-EntitySelectionChangedEvent &Outliner::getEntitySelectionChangedEvent()
+void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
 {
-    return _entitySelectionChangedEvent;
+    // _treeView->setSelection()
 }

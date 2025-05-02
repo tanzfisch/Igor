@@ -27,7 +27,6 @@ void UILayer::onInit()
     _outliner = new Outliner();
     _outliner->setEnabled();
     _outliner->setVisible();
-    _outliner->getEntitySelectionChangedEvent().add(EntitySelectionChangedDelegate(this, &UILayer::onOutlinerSelectionChanged));
 
     _assetBrowser = new AssetBrowser();
     _assetBrowser->setEnabled();
@@ -61,11 +60,6 @@ void UILayer::onInit()
     splitter1->setRatio(0.7f);
     splitter1->addWidget(_viewport);
     splitter1->addWidget(_assetBrowser);
-}
-
-void UILayer::onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs)
-{
-    _propertiesDialog->setSelectionEntity(sceneID, entityIDs);
 }
 
 void UILayer::onDeinit()

@@ -36,6 +36,7 @@ Viewport::Viewport()
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _viewportScene->getView().setName("Scene");
+    _viewportScene->getView().getRenderEvent().add(iRenderDelegate(this, &Viewport::renderScene));
     _viewportScene->getView().setClearColorActive(false);
     _viewportScene->getView().setPerspective(45.0f);
     boxLayout->addWidget(_viewportScene);
@@ -59,6 +60,9 @@ Viewport::Viewport()
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
+
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
+    _materialBoundingBox = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_bounding_box");
 }
 
 Viewport::~Viewport()
@@ -145,6 +149,7 @@ void Viewport::onContextMenu(iWidgetPtr source)
 bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getProjectScene();
+
     _viewportScene->getView().setEntityScene(projectScene);
     _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
 
@@ -253,7 +258,38 @@ void Viewport::renderScene()
 
 void Viewport::renderSelection()
 {
-    // TODO
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
+    for (const auto &entityID : projectScene->getSelection())
+    {
+        const auto entity = projectScene->getEntity(entityID);
+        const auto transformComponent = entity->getComponent<iTransformComponent>();
+        if (transformComponent == nullptr)
+        {
+            continue;
+        }
+        const auto meshRenderComponent = entity->getComponent<iMeshRenderComponent>();
+        if (meshRenderComponent == nullptr)
+        {
+            continue;
+        }
+
+        iRenderer::getInstance().setShader(_materialCelShading);
+        iRenderer::getInstance().setLineWidth(4);
+
+        for (const auto &meshRef : meshRenderComponent->getMeshReferences())
+        {
+            auto matrix = transformComponent->getWorldMatrix();
+            matrix *= meshRef._offset;
+
+            iRenderer::getInstance().setModelMatrix(matrix);
+            iRenderer::getInstance().drawMesh(meshRef._mesh, nullptr);
+        }
+    }
 }
 
 void Viewport::renderOverlay()
@@ -410,7 +446,11 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
                 auto entity = entityScene->getEntity(entityID);
                 if (entity != nullptr)
                 {
-                    con_endl("clicked on " << entity->getName());
+                    entityScene->setSelection({entityID});
+                }
+                else
+                {
+                    entityScene->clearSelection();
                 }
             }
         }
@@ -424,8 +464,6 @@ iEntityID Viewport::getEntityIDAt(int32 x, int32 y)
 {
     iView &view = _viewportScene->getView();
     const auto &rect = getActualRect();
-    con_endl("x " << x << " y " << y);
-    con_endl("rect.x " << rect._x << " rect.y " << rect._y);
     return iEntityID(view.pickEntityID(x - rect._x, y - rect._y));
 }
 

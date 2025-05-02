@@ -98,13 +98,6 @@ private:
     */
     void onLoadProjectDialogClosed(iDialogPtr dialog);
 
-    /*! called when outliner selection changed
-
-    \param sceneID the selected scene
-    \param entityIDs selected entities in given scene
-     */
-    void onOutlinerSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs);
-
     /*! init ui
      */
     void onInit() override;

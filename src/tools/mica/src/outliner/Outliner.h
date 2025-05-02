@@ -29,10 +29,7 @@
 #ifndef MICA_OUTLINER_H
 #define MICA_OUTLINER_H
 
-#include <igor/igor.h>
-using namespace igor;
-
-IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
+#include "../MicaDefines.h"
 
 /*! outliner
 
@@ -47,10 +44,6 @@ public:
     /*! init ui
      */
     Outliner();
-
-    /*! \returns entity selection changed event
-     */
-    EntitySelectionChangedEvent &getEntitySelectionChangedEvent();
 
 private:
     /*! main layout
@@ -72,10 +65,6 @@ private:
     /*! resource to do actions on
      */
     iResourceID _contextResourceID;
-
-    /*! entity selection changed event
-     */
-    EntitySelectionChangedEvent _entitySelectionChangedEvent;
 
     /*! init user interface
      */
@@ -193,6 +182,10 @@ private:
     \param event the event
     */
     bool onEvent(iEvent &event) override;
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
 #endif // MICA_OUTLINER_H
