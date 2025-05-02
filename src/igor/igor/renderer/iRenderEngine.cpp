@@ -89,8 +89,12 @@ namespace igor
         {
             for (const auto &pair : materialGroup._instancing)
             {
+                const iMeshPtr mesh = pair.first;
+                const iInstancingBufferPtr instancingBuffer = pair.second._buffer;
+                const iMaterialPtr material = pair.second._material;
+
                 iRenderer::getInstance().setShader(materialGroup._shader);
-                iRenderer::getInstance().drawMeshInstanced(pair.first, pair.second._buffer, pair.second._material);
+                iRenderer::getInstance().drawMeshInstanced(mesh, instancingBuffer, material);
                 pair.second._buffer->clear();
             }
         }
@@ -98,6 +102,7 @@ namespace igor
 
     void iRenderEngine::render()
     {
+
         renderInstances();
     }
 

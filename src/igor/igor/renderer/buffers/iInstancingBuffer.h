@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_INSTANCING_BUFFER__
-#define __IGOR_INSTANCING_BUFFER__
+#ifndef IGOR_INSTANCING_BUFFER_H
+#define IGOR_INSTANCING_BUFFER_H
 
 #include <igor/renderer/buffers/iVertexArray.h>
 
@@ -145,4 +145,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_INSTANCING_BUFFER__ 
+#endif // IGOR_INSTANCING_BUFFER_H

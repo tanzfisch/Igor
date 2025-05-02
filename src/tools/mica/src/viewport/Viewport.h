@@ -153,6 +153,12 @@ private:
      */
     void draw() override;
 
+    /*! \returns entityID at given screen position
+    \param x horizontal screen position
+    \param y vertical screen position
+    */
+    iEntityID getEntityIDAt(int32 x, int32 y);    
+
     /*! \returns node at given screen position
     \param x horizontal screen position
     \param y vertical screen position

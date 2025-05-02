@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TIMER__
-#define __IGOR_TIMER__
+#ifndef IGOR_TIMER_H
+#define IGOR_TIMER_H
 
 #include <igor/system/iTimerHandle.h>
 #include <igor/resources/module/iModule.h>
@@ -151,4 +151,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_TIMER__
+#endif // IGOR_TIMER_H

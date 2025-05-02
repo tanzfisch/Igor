@@ -4,6 +4,7 @@
 
 #include <igor/renderer/iView.h>
 
+#include <igor/system/iTimer.h>
 #include <igor/system/iWindow.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/renderer/environment/iSkyBox.h>
@@ -12,6 +13,7 @@
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
+#include <igor/entities/traversal/iEntityColorIDTraverser.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/system/iaConsole.h>
@@ -324,16 +326,16 @@ namespace igor
         iRenderer::getInstance().flush();
     }
 
-    uint64 iView::pickColorID(const iaVector2i &pos)
+    iEntityID iView::pickEntityID(const iaVector2i &pos)
     {
-        return pickColorID(pos._x, pos._y);
+        return pickEntityID(pos._x, pos._y);
     }
 
-    uint64 iView::pickColorID(uint32 posx, uint32 posy)
+    iEntityID iView::pickEntityID(uint32 posx, uint32 posy)
     {
-        std::vector<uint64> colorIDs;
+        std::vector<iEntityID> colorIDs;
 
-        pickColorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
+        pickEntityID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
         if (colorIDs.empty())
         {
@@ -343,19 +345,26 @@ namespace igor
         return colorIDs.front();
     }
 
-    void iView::pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
+    void iView::pickEntityID(const iaRectanglei &rectangle, std::vector<iEntityID> &entityIDs)
     {
-        /*if (_scene != nullptr &&
-            getCamera() != iNode::INVALID_NODE_ID)
+        if (_entityScene != nullptr &&
+            _entityScene->getActiveCamera() != nullptr)
         {
-            iRenderEngineOld renderEngine;
+            iEntityPtr camera = _entityScene->getActiveCamera();
+            iRenderEngine renderEngine;
 
-            uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+            /*auto cameraComponent = camera->getComponent<iCameraComponent>();
+            const auto &camViewport = cameraComponent->getViewport();*/
+
+            auto transformComponent = camera->getComponent<iTransformComponent>();
+            const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+
+            const iRenderTargetID renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
             iRenderer::getInstance().setRenderTarget(renderTarget);
 
             iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
 
-            iRenderer::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 0));
+            iRenderer::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 10));
             iRenderer::getInstance().clearDepthBuffer();
 
             if (_perspective)
@@ -367,12 +376,19 @@ namespace igor
                 iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
-            renderEngine.setScene(_scene);
-            renderEngine.setCamera(getCamera());
-            _scene->handle();
+            iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
 
-            renderEngine.setColorIDRendering();
-            renderEngine.render();
+            iaMatrixd viewmatrix;
+            viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
+
+            iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
+            projectionViewMatrix *= viewmatrix;
+            _renderEngine.setFrustum(projectionViewMatrix);
+
+            _entityScene->setRenderEngine(&renderEngine);
+
+            iEntityColorIDTraverser traverser;
+            traverser.traverse(_entityScene);
 
             int32 pixelCount = rectangle._width * rectangle._height;
             uint8 *data = new uint8[pixelCount * 4];
@@ -384,13 +400,19 @@ namespace igor
             uint8 *dataIter = data;
             for (int i = 0; i < pixelCount; ++i)
             {
-                uint64 colorID = (static_cast<uint64>(dataIter[0]) << 16) | (static_cast<uint64>(dataIter[1]) << 8) | (static_cast<uint64>(dataIter[2]));
-                colorIDs.push_back(colorID);
+                const uint32 colorID = (static_cast<uint32>(dataIter[0]) << 24) | (static_cast<uint32>(dataIter[1]) << 16) | (static_cast<uint32>(dataIter[2]) << 8) | (static_cast<uint32>(dataIter[3]));
+                auto entityID = traverser.getEntityID(colorID);
+                if (entityID.isValid())
+                {
+                    entityIDs.push_back(entityID);
+                }
                 dataIter += 4;
             }
 
             delete[] data;
-        }*/
+
+            _entityScene->setRenderEngine(&_renderEngine);
+        }
     }
 
     void iView::updateWindowRect(const iaRectanglei &windowRect)
@@ -419,7 +441,7 @@ namespace igor
         return _entityScene;
     }
 
-    iRenderEvent& iView::getRenderEvent()
+    iRenderEvent &iView::getRenderEvent()
     {
         return _renderEvent;
     }

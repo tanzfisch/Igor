@@ -403,20 +403,30 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
         {
             // TODO select entity
 
-            /*auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
-            if (node != nullptr)
+            auto entityScene = _viewportScene->getView().getEntityScene();
+            if (entityScene != nullptr)
             {
-                _workspace->setSelection({node->getID()});
+                auto entityID = getEntityIDAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+                auto entity = entityScene->getEntity(entityID);
+                if (entity != nullptr)
+                {
+                    con_endl("clicked on " << entity->getName());
+                }
             }
-            else
-            {
-                _workspace->clearSelection();
-            }*/
         }
         return true;
     }
 
     return false;
+}
+
+iEntityID Viewport::getEntityIDAt(int32 x, int32 y)
+{
+    iView &view = _viewportScene->getView();
+    const auto &rect = getActualRect();
+    con_endl("x " << x << " y " << y);
+    con_endl("rect.x " << rect._x << " rect.y " << rect._y);
+    return iEntityID(view.pickEntityID(x - rect._x, y - rect._y));
 }
 
 void Viewport::onMouseMove(iEventMouseMove &event)
@@ -580,8 +590,8 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
 
     if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
-        iNodeID nodeID = _viewportScene->getView().pickColorID(iaVector2i(mousePos._x - getActualPosX(),
-                                                                          mousePos._y - getActualPosY()));
+        iNodeID nodeID = _viewportScene->getView().pickEntityID(iaVector2i(mousePos._x - getActualPosX(),
+                                                                           mousePos._y - getActualPosY()));
         if (nodeID != iNode::INVALID_NODE_ID)
         {
             iNodePtr node = iNodeManager::getInstance().getNode(nodeID);

@@ -727,7 +727,7 @@ namespace igor
 
         \param colorID next color ID to render with
         */
-        void setColorID(uint64 colorID);
+        void setColorID(uint32 colorID);
 
         /*! sets the solid color
 

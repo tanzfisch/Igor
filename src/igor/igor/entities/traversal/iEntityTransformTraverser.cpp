@@ -60,10 +60,10 @@ namespace igor
             return;
         }
 
-        iSphereComponent *collision = entity->getComponent<iSphereComponent>();
-        if (collision != nullptr)
+        iSphereComponent *sphereComponent = entity->getComponent<iSphereComponent>();
+        if (sphereComponent != nullptr)
         {
-            const iaSphered sphere(_currentMatrix._pos + collision->getOffset(), collision->getRadius());
+            const iaSphered sphere(_currentMatrix._pos + sphereComponent->getOffset(), sphereComponent->getRadius());
             getScene()->getOctree().update(body->_object, sphere);
         }
         else

@@ -1978,12 +1978,12 @@ namespace igor
         _data->_lights[lightnum]._specular = specular;
     }
 
-    void iRenderer::setColorID(uint64 colorID)
+    void iRenderer::setColorID(uint32 colorID)
     {
-        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 24)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
                                static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
-                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
-                               1.0f);
+                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0);
     }
 
     void iRenderer::setColor(const iaColor4f &color)

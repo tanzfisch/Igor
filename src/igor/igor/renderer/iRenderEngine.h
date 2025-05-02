@@ -60,8 +60,8 @@ namespace igor
         void setSceneID(const iEntitySceneID &sceneID);
 
         /*! \returns scene id
-        */
-        const iEntitySceneID& getSceneID() const;
+         */
+        const iEntitySceneID &getSceneID() const;
 
         /*! sets the current camera
 
@@ -70,8 +70,8 @@ namespace igor
         void setCameraID(const iEntityID &cameraID);
 
         /*! \returns camera id
-        */
-       const iEntityID& getCameraID() const;
+         */
+        const iEntityID &getCameraID() const;
 
         /*! add mesh for render queue
 
@@ -86,9 +86,7 @@ namespace igor
         void render();
 
         /*! \returns current frustum
-
-        valid after render/setupCamera
-        */
+         */
         const iFrustumd &getFrustum() const;
 
         /*! set frustum
