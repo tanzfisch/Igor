@@ -39,8 +39,11 @@ namespace igor
 
                 const auto &box = meshRef._mesh->getBoundingBox();
                 iaSphered sphere;
-                sphere._center = matrix * box._center;
-                sphere._radius = std::max(box._halfWidths._x, std::max(box._halfWidths._y, box._halfWidths._z));
+                iaVector4d boxCenter(box._center);
+                auto sphereCenter = matrix * boxCenter;
+                sphere._center.set(sphereCenter._x, sphereCenter._y, sphereCenter._z);
+                auto radius = matrix * box._halfWidths;
+                sphere._radius = radius.length();
 
                 if (_initialSphere)
                 {

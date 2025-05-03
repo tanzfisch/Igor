@@ -21,6 +21,44 @@ void PropertiesEditor::initGUI()
     _scroll = new iWidgetScroll(this);
 }
 
+bool PropertiesEditor::onEvent(iEvent &event)
+{
+    iWidget::onEvent(event);
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectUnloaded));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
+{
+    iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectUnloaded(iEventProjectUnloaded &event)
+{
+    deinitProperties();
+
+    return false;
+}
+
+void PropertiesEditor::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    deinitProperties();
+
+    if (entities.size() != 1 ||
+        !sceneID.isValid() ||
+        !entities[0].isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entities[0]}, _scroll);
+}
+
 void PropertiesEditor::deinitProperties()
 {
     if (_userControlProperties != nullptr)
@@ -41,18 +79,4 @@ void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
     }
 
     _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
-}
-
-void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs)
-{
-    deinitProperties();
-
-    if (entityIDs.size() != 1 ||
-        !sceneID.isValid() ||
-        !entityIDs[0].isValid())
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityIDs[0]}, _scroll);
 }

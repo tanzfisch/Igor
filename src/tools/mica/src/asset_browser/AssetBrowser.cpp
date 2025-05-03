@@ -275,10 +275,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 
 bool AssetBrowser::onEvent(iEvent &event)
 {
-    if (iWidget::onEvent(event))
-    {
-        return true;
-    }
+    iWidget::onEvent(event);
 
     if (!event.isOfKind(iEventKind::Filesystem))
     {
@@ -287,7 +284,7 @@ bool AssetBrowser::onEvent(iEvent &event)
 
     onUpdateFilesystem();
 
-    return true;
+    return false;
 }
 
 void AssetBrowser::onUpdateFilesystem()

@@ -53,21 +53,13 @@ public:
     */
     void setSelectionResource(const iResourceID &resourceID);
 
-    /*! sets selection for entity scene and entity
-
-    \param sceneID the scene id
-    \param entityIDs the entity ids in the same scene
-    */
-    void setSelectionEntity(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entityIDs);
-
 private:
-
     /*! scroll widget
-    */
+     */
     iWidgetScrollPtr _scroll = nullptr;
 
     /*! user control properties
-    */
+     */
     UserControlProperties *_userControlProperties = nullptr;
 
     /*! init UI
@@ -75,8 +67,26 @@ private:
     void initGUI();
 
     /*! delete current properties UI
-    */
+     */
     void deinitProperties();
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
+    /*! called when project was loaded
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! called when project was unloaded
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
 #endif // MICA_PROPERTIES_EDITOR_H

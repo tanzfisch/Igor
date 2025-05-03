@@ -231,7 +231,6 @@ void Viewport::frameOnSelection()
     const auto &selection = projectScene->getSelection();
 
     iEntityBoundsTraverser traverser;
-    iaSphered sphere;
     iaSphered selectionSphere;
 
     for (auto entityID : selection)
@@ -242,11 +241,11 @@ void Viewport::frameOnSelection()
         selectionSphere.merge(traverser.getSphere());
     }
 
-    _cameraArc->setCenterOfInterest(sphere._center);
+    _cameraArc->setCenterOfInterest(selectionSphere._center);
 
-    if (sphere._radius > 0.0f)
+    if (selectionSphere._radius > 0.0f)
     {
-        _cameraArc->setDistance(sphere._radius * 4.0f);
+        _cameraArc->setDistance(selectionSphere._radius * 3.0f);
     }
     else
     {
@@ -602,15 +601,12 @@ void Viewport::draw()
 
 bool Viewport::onEvent(iEvent &event)
 {
-    if (iWidget::onEvent(event))
-    {
-        return true;
-    }
+    iWidget::onEvent(event);
 
     event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectLoaded));
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectUnloaded));
 
-    return true;
+    return false;
 }
 
 void Viewport::updateAcceptance()

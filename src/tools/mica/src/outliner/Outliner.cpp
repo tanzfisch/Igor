@@ -410,10 +410,7 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
 
 bool Outliner::onEvent(iEvent &event)
 {
-    if (iWidget::onEvent(event))
-    {
-        return true;
-    }
+    iWidget::onEvent(event);
 
     event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectLoaded));
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
