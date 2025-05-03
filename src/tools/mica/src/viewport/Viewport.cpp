@@ -217,26 +217,29 @@ OverlayMode Viewport::getOverlayMode() const
 
 void Viewport::frameOnSelection()
 {
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
     if (_cameraArc == nullptr)
     {
         return;
     }
 
-    /*auto selection = _workspace->getSelection();
+    const auto &selection = projectScene->getSelection();
 
-    iNodeVisitorBoundings visitorBoundings;
+    iEntityBoundsTraverser traverser;
     iaSphered sphere;
     iaSphered selectionSphere;
 
-    for (auto nodeID : selection)
+    for (auto entityID : selection)
     {
-        auto node = iNodeManager::getInstance().getNode(nodeID);
-        if (node != nullptr)
-        {
-            visitorBoundings.traverseTree(node);
-            visitorBoundings.getSphere(sphere);
-            selectionSphere.merge(sphere);
-        }
+        auto entity = projectScene->getEntity(entityID);
+
+        traverser.traverse(entity);
+        selectionSphere.merge(traverser.getSphere());
     }
 
     _cameraArc->setCenterOfInterest(sphere._center);
@@ -248,7 +251,7 @@ void Viewport::frameOnSelection()
     else
     {
         _cameraArc->setDistance(10.0);
-    }*/
+    }
 }
 
 void Viewport::renderScene()

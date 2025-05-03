@@ -10,7 +10,7 @@ iaSphere<T>::iaSphere(iaVector3<T> pos, T radius)
 }
 
 template <class T>
-bool iaSphere<T>::contains(const iaSphere<T> &sphere)
+bool iaSphere<T>::contains(const iaSphere<T> &sphere) const
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -38,7 +38,7 @@ bool iaSphere<T>::operator!=(const iaSphere<T> &sphere) const
 }
 
 template <class T>
-void iaSphere<T>::merge(iaSphere<T> &sphere)
+void iaSphere<T>::merge(const iaSphere<T> &sphere)
 {
     if (contains(sphere))
     {
