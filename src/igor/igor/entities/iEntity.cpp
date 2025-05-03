@@ -267,6 +267,23 @@ namespace igor
         onEntityStructureChanged();
     }
 
+    iEntityIDPath iEntity::getIDPath() const
+    {
+        iEntityIDPath result;
+
+        result += _id;
+
+        iEntityPtr parent = getParent();
+        while(parent != nullptr)
+        {
+            result += parent->getID();
+            parent = parent->getParent();
+        }
+        result.reverse();
+
+        return result;
+    }
+
     const iEntityID &iEntity::getID() const
     {
         return _id;

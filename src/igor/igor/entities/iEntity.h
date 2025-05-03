@@ -31,6 +31,7 @@
 
 #include <igor/entities/components/iComponents.h>
 #include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/iEntityIDPath.h>
 
 #include <unordered_map>
 #include <typeindex>
@@ -60,6 +61,12 @@ namespace igor
         /*! \returns entity id
          */
         const iEntityID &getID() const;
+
+        /*! \returns entity id path
+
+        This is slow. Use with care
+        */
+        iEntityIDPath getIDPath() const;
 
         /*! sets name of entity
 

@@ -26,68 +26,70 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ITEM_PATH_H
-#define IGOR_ITEM_PATH_H
+#ifndef IGOR_ENTITY_ID_PATH_H
+#define IGOR_ENTITY_ID_PATH_H
 
-#include <igor/data/iItem.h>
+#include <igor/entities/iEntityComponent.h>
 
 namespace igor
 {
-    /*! item path definition
+    /*! entity id path definition
      */
-    class iItemPath
+    class iEntityIDPath
     {
     public:
-        /*! init empty item path
+        /*! does nothing
          */
-        iItemPath() = default;
-
-        /*! init path from string
-
-        \param path the given path
-        */
-        iItemPath(const iaString &path);
+        iEntityIDPath() = default;
 
         /*! copy ctor
-         */
-        iItemPath(const std::vector<iaString> &path);
 
-        /*! \returns path data
+        \param other the other id path
+        */
+        iEntityIDPath(const iEntityIDPath &other);
+
+        /*! init from string
+
+        \param path the string to init with
+        */
+        iEntityIDPath(const iaString &path);
+
+        /*! \returns string version of ID path using '/' as delimiter
          */
-        const std::vector<iaString> &getPath() const;
+        const iaString toString() const;
+
+        /*! \returns path
+         */
+        const std::vector<iEntityID> &getPath() const;
 
         /*! appends path to item path
 
         \param path the path to append
         */
-        void operator+=(const iaString &path);
+        void operator+=(const iEntityID &entityID);
 
-        /*! compare two item paths being equal
+        /*! compare two entityID paths being equal
 
         \returns true if equal
-        \param other the other item path
+        \param other the other entityID path
         */
-        bool operator==(const iItemPath &other) const;
+        bool operator==(const iEntityIDPath &other) const;
 
-        /*! compare two item paths being not equal
+        /*! compare two entityID paths being not equal
 
         \returns true if not equal
-        \param other the other item path
+        \param other the other entityID path
         */
-        bool operator!=(const iItemPath &other) const;
-
-        /*! \returns path as string using '/' as delimiter
-         */
-        const iaString toString() const;
+        bool operator!=(const iEntityIDPath &other) const;
 
         /*! reverse path
          */
         void reverse();
 
     private:
-        std::vector<iaString> _path;
+        std::vector<iEntityID> _path;
     };
 
 }
 
-#endif // IGOR_ITEM_PATH_H
+#endif // IGOR_ENTITY_ID_PATH_H

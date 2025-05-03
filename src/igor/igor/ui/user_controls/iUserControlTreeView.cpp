@@ -134,12 +134,14 @@ namespace igor
         const bool lctrl = iKeyboard::getInstance().keyPressed(iKeyCode::LControl);
         const bool isButton = source->getWidgetType() == iWidgetType::iWidgetButton;
         const bool multiSelect = isMultiSelectionEnabled();
+        const bool previousSelection = !_selectedItemPaths.empty();
 
-        if (multiSelect && lshift && isButton) // shift overrides ctrl
+        if (previousSelection && multiSelect && lshift && isButton) // shift overrides ctrl
         {
             bool select = false;
             bool sourceFirst = false;
             bool oldFirst = false;
+
             _selectedItemPaths.clear();
 
             for (auto button : _allInteractiveWidgets)
@@ -171,13 +173,26 @@ namespace igor
         }
         else if (multiSelect && lctrl && isButton)
         {
-            for (auto button : _allInteractiveWidgets)
+            const auto iter = std::find(_allInteractiveWidgets.begin(), _allInteractiveWidgets.end(), source);
+            if (iter != _allInteractiveWidgets.end())
             {
-                if (button == source)
+                iWidgetButtonPtr button = (*iter);
+
+                bool wasSelected = button->isSelected();
+                button->setSelect(!wasSelected);
+
+                const auto itemPath = std::any_cast<iItemPath>(button->getUserData());
+                if (wasSelected)
                 {
-                    button->setSelect(true);
-                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
-                    break;
+                    const auto iterItemPath = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), itemPath);
+                    if (iterItemPath != _selectedItemPaths.end())
+                    {
+                        _selectedItemPaths.erase(iterItemPath);
+                    }
+                }
+                else
+                {
+                    _selectedItemPaths.push_back(itemPath);
                 }
             }
         }
@@ -194,7 +209,11 @@ namespace igor
                 }
             }
         }
-        
+
+
+        con_endl("_selectedItemPaths " << _selectedItemPaths.size());
+
+
         _selectionChanged(this); // TODO for now just always trigger it
     }
 
@@ -221,6 +240,20 @@ namespace igor
         {
             updateUI(item, iItemPath());
         }
+    }
+
+    void iUserControlTreeView::setSelectedItemPaths(const std::vector<iItemPath> &itemPaths)
+    {
+        _selectedItemPaths = itemPaths;
+
+        for (auto button : _allInteractiveWidgets)
+        {
+            const auto buttonItemPath = std::any_cast<iItemPath>(button->getUserData());
+            bool select = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), buttonItemPath) == _selectedItemPaths.end();
+            button->setSelect(select);
+        }
+
+        _selectionChanged(this);
     }
 
     const std::vector<iItemPath> &iUserControlTreeView::getSelectedItemPaths() const

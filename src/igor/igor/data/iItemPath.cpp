@@ -49,4 +49,10 @@ namespace igor
     {
         return _path != other._path;
     }
+
+    void iItemPath::reverse()
+    {
+        std::reverse(_path.begin(), _path.end());
+    }
+
 }

@@ -550,12 +550,18 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
+                        bool wasSelected = isSelected();
+
                         if (event.getKey() == iKeyCode::MouseLeft)
                         {
                             _click(this);
                         }
 
-                        setSelect(true);
+                        // unly change selection if it was not touched by click callback already
+                        if (wasSelected == isSelected())
+                        {
+                            setSelect(true);
+                        }
 
                         if (event.getKey() == iKeyCode::MouseRight)
                         {
@@ -1251,7 +1257,7 @@ namespace igor
         _selectionChanged(this);
     }
 
-    static void getSelectionRecursive(const iWidget* widget, std::vector<iWidgetPtr> &selection)
+    static void getSelectionRecursive(const iWidget *widget, std::vector<iWidgetPtr> &selection)
     {
         for (const auto child : widget->getChildren())
         {

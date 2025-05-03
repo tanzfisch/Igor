@@ -14,6 +14,8 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Top);
         setHorizontalAlignment(iHorizontalAlignment::Left);
+
+        getSelectionChangedEvent().block();
     }
 
     void iWidgetBoxLayout::addWidget(iWidgetPtr widget)

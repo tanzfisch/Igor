@@ -66,6 +66,10 @@ private:
      */
     iResourceID _contextResourceID;
 
+    /*! flag to prevent endless loop
+    */
+    bool _ignoreSelectionChange = false;
+
     /*! init user interface
      */
     void initGUI();

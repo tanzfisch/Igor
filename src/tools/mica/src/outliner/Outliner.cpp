@@ -44,15 +44,55 @@ void Outliner::initGUI()
     refresh();
 }
 
+void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    if (_ignoreSelectionChange)
+    {
+        return;
+    }
+
+    _ignoreSelectionChange = true;
+
+    auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+    if (scene == nullptr)
+    {
+        return;
+    }
+
+    std::vector<iItemPath> itemPaths;
+
+    for (const auto &entityID : entities)
+    {
+        auto entity = scene->getEntity(entityID);
+        if (entity == nullptr)
+        {
+            continue;
+        }
+
+        itemPaths.push_back(entity->getIDPath().toString());
+    }
+
+    _treeView->setSelectedItemPaths(itemPaths);
+
+    _ignoreSelectionChange = false;
+}
+
 void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
+    if (_ignoreSelectionChange)
+    {
+        return;
+    }
+
+    _ignoreSelectionChange = true;
+
     if (_treeView != source)
     {
         return;
     }
 
     // collect selection changes for each scene
-    std::unordered_map<iEntityScenePtr, std::vector<iEntityID>> selections;
+    std::vector<iEntityID> selection;
 
     for (const auto widget : _treeView->getSelection())
     {
@@ -63,31 +103,20 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
             continue;
         }
 
-        if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
-            item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        if (!item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
         {
-            const iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-            auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-            if (scene != nullptr)
-            {
-                if (selections.find(scene) == selections.end())
-                {
-                    selections[scene] = std::vector<iEntityID>();
-                }
+            continue;
+        }
 
-                selections[scene].push_back(item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID));
-            }
-        }
-        else
-        {
-            con_err("unexpected item");
-        }
+        selection.push_back(item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID));
     }
 
-    for(const auto &selection : selections)
-    {
-        selection.first->setSelection(selection.second);
-    }
+    iEntitySceneID sceneID = iProject::getInstance().getProjectScene()->getID();
+    iEntityScenePtr projectScene = iEntitySystemModule::getInstance().getScene(sceneID);
+
+    projectScene->setSelection(selection);
+
+    _ignoreSelectionChange = false;
 }
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
@@ -390,12 +419,6 @@ bool Outliner::onEvent(iEvent &event)
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
 
     return false;
-}
-
-void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
-{
-    refresh();
-    // TODO do something like _treeView->setSelection instead
 }
 
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
