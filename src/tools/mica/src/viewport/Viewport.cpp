@@ -267,6 +267,11 @@ void Viewport::renderSelection()
     for (const auto &entityID : projectScene->getSelection())
     {
         const auto entity = projectScene->getEntity(entityID);
+        if(entity == nullptr)
+        {
+            continue;
+        }
+        
         const auto transformComponent = entity->getComponent<iTransformComponent>();
         if (transformComponent == nullptr)
         {
@@ -444,13 +449,28 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
             {
                 auto entityID = getEntityIDAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
                 auto entity = entityScene->getEntity(entityID);
-                if (entity != nullptr)
+                if (entity == nullptr)
+                {
+                    entityScene->clearSelection();
+                }
+
+                if (!iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
                 {
                     entityScene->setSelection({entityID});
                 }
                 else
                 {
-                    entityScene->clearSelection();
+                    auto selection = entityScene->getSelection();
+                    auto iter = std::find(selection.begin(), selection.end(), entityID);
+                    if(iter != selection.end())
+                    {
+                        selection.erase(iter);
+                    }
+                    else
+                    {
+                        selection.push_back(entityID);
+                    }
+                    entityScene->setSelection(selection);
                 }
             }
         }
