@@ -23,15 +23,6 @@ Viewport::Viewport()
     boxLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     boxLayout->setStretchIndex(1);
 
-    auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, boxLayout);
-    _buttonGrid = new iWidgetButton();
-    _buttonGrid->setIcon("igor_icon_grid");
-    _buttonGrid->setMinSize(24, 24);
-    _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
-    _buttonGrid->setCheckable(true);
-    _buttonGrid->setChecked(_renderOrientationPlane);
-    buttonLayout->addWidget(_buttonGrid);
-
     _viewportScene = new iWidgetViewport();
     _viewportScene->setVerticalAlignment(iVerticalAlignment::Stretch);
     _viewportScene->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -39,7 +30,6 @@ Viewport::Viewport()
     _viewportScene->getView().getRenderEvent().add(iRenderDelegate(this, &Viewport::renderScene));
     _viewportScene->getView().setClearColorActive(false);
     _viewportScene->getView().setPerspective(45.0f);
-    boxLayout->addWidget(_viewportScene);
 
     _viewportOverlay = new iWidgetViewport();
     _viewportOverlay->setVerticalAlignment(iVerticalAlignment::Stretch);
@@ -52,7 +42,6 @@ Viewport::Viewport()
     _viewportOverlay->getView().setClipPlanes(1.0f, 10000.f);
     _viewportOverlay->getView().setEntityScene(iEntitySystemModule::getInstance().createScene("Overlay"));
     _viewportOverlay->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
-    _viewportScene->addWidget(_viewportOverlay);
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
@@ -63,6 +52,26 @@ Viewport::Viewport()
 
     _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
     _materialBoundingBox = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_bounding_box");
+
+    auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, boxLayout);
+    _buttonGrid = new iWidgetButton();
+    _buttonGrid->setIcon("igor_icon_grid");
+    _buttonGrid->setMinSize(24, 24);
+    _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
+    _buttonGrid->setCheckable(true);
+    _buttonGrid->setChecked(_renderOrientationPlane);
+    buttonLayout->addWidget(_buttonGrid);
+
+    _buttonBounds = new iWidgetButton();
+    _buttonBounds->setIcon("igor_icon_bounds");
+    _buttonBounds->setMinSize(24, 24);
+    _buttonBounds->getClickEvent().add(iClickDelegate(this, &Viewport::onBoundsClick));
+    _buttonBounds->setCheckable(true);
+    _buttonBounds->setChecked(_viewportScene->getView().isBoundingBoxVisible());
+    buttonLayout->addWidget(_buttonBounds);
+
+    boxLayout->addWidget(_viewportScene);
+    _viewportScene->addWidget(_viewportOverlay);
 }
 
 Viewport::~Viewport()
@@ -75,6 +84,12 @@ void Viewport::onGridClick(iWidgetPtr source)
 {
     _renderOrientationPlane = !_renderOrientationPlane;
     _buttonGrid->setChecked(_renderOrientationPlane);
+}
+
+void Viewport::onBoundsClick(iWidgetPtr source)
+{
+    _viewportScene->getView().setBoundingBoxVisible(!_viewportScene->getView().isBoundingBoxVisible());
+    _buttonBounds->setChecked(_viewportScene->getView().isBoundingBoxVisible());
 }
 
 void Viewport::onChangeCamera(iWidgetPtr source)
@@ -239,7 +254,7 @@ void Viewport::frameOnSelection()
         auto entity = projectScene->getEntity(entityID);
 
         traverser.traverse(entity);
-        if(firstSphere)
+        if (firstSphere)
         {
             selectionSphere = traverser.getSphere();
             firstSphere = false;
@@ -278,11 +293,11 @@ void Viewport::renderSelection()
     for (const auto &entityID : projectScene->getSelection())
     {
         const auto entity = projectScene->getEntity(entityID);
-        if(entity == nullptr)
+        if (entity == nullptr)
         {
             continue;
         }
-        
+
         const auto transformComponent = entity->getComponent<iTransformComponent>();
         if (transformComponent == nullptr)
         {
@@ -396,6 +411,7 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
 
     case iKeyCode::F12:
         _viewportScene->getView().setBoundingBoxVisible(!_viewportScene->getView().isBoundingBoxVisible());
+        _buttonBounds->setChecked(_viewportScene->getView().isBoundingBoxVisible());
         return true;
     }
 
@@ -473,7 +489,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
                 {
                     auto selection = entityScene->getSelection();
                     auto iter = std::find(selection.begin(), selection.end(), entityID);
-                    if(iter != selection.end())
+                    if (iter != selection.end())
                     {
                         selection.erase(iter);
                     }
@@ -494,7 +510,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 iEntityID Viewport::getEntityIDAt(int32 x, int32 y)
 {
     iView &view = _viewportScene->getView();
-    const auto &rect = getActualRect();
+    const auto &rect = _viewportScene->getActualRect();
     return iEntityID(view.pickEntityID(x - rect._x, y - rect._y));
 }
 

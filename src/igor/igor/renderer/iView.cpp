@@ -352,9 +352,6 @@ namespace igor
             iEntityPtr camera = _entityScene->getActiveCamera();
             iRenderEngine renderEngine;
 
-            /*auto cameraComponent = camera->getComponent<iCameraComponent>();
-            const auto &camViewport = cameraComponent->getViewport();*/
-
             auto transformComponent = camera->getComponent<iTransformComponent>();
             const auto &camWorldMatrix = transformComponent->getWorldMatrix();
 
@@ -363,7 +360,7 @@ namespace igor
 
             iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
 
-            iRenderer::getInstance().clearColorBuffer(iaColor4f(0, 0, 0, 10));
+            iRenderer::getInstance().clearColorBuffer(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             iRenderer::getInstance().clearDepthBuffer();
 
             if (_perspective)

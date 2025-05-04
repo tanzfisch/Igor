@@ -119,7 +119,7 @@ namespace igor
                     iRenderer::getInstance().setModelMatrix(dstMatrix);
 
                     const iAABoxd &bbox = mesh->getBoundingBox();
-                    iRenderer::getInstance().drawBox(bbox);
+                    iRenderer::getInstance().drawBox(bbox, iaColor4f(1.0,1.0,1.0,0.5));
                 }
             }
         }

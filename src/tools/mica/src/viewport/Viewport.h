@@ -103,12 +103,16 @@ private:
     std::unique_ptr<CameraArc> _cameraArc;
 
     /*! if true render orientation plane
-    */
+     */
     bool _renderOrientationPlane = true;
 
     /*! grid button
-    */
+     */
     iWidgetButtonPtr _buttonGrid = nullptr;
+
+    /*! bounds button
+     */
+    iWidgetButtonPtr _buttonBounds = nullptr;
 
     /*! handles incoming generic event
 
@@ -157,7 +161,7 @@ private:
     \param x horizontal screen position
     \param y vertical screen position
     */
-    iEntityID getEntityIDAt(int32 x, int32 y);    
+    iEntityID getEntityIDAt(int32 x, int32 y);
 
     /*! \returns node at given screen position
     \param x horizontal screen position
@@ -226,11 +230,15 @@ private:
     void onChangeCamera(iWidgetPtr source);
 
     /*! on grid button click
-    */
+     */
     void onGridClick(iWidgetPtr source);
 
+    /*! on bounds button click
+     */
+    void onBoundsClick(iWidgetPtr source);
+
     /*! handle selection change
-    */
+     */
     void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
