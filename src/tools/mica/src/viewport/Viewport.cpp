@@ -177,7 +177,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
         }
     }
 
-    return true;
+    return false;
 }
 
 bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
@@ -185,7 +185,7 @@ bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
     _viewportScene->getView().setEntityScene(nullptr);
     _cameraArc = nullptr;
 
-    return true;
+    return false;
 }
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)

@@ -249,7 +249,7 @@ namespace igor
         for (auto button : _allInteractiveWidgets)
         {
             const auto buttonItemPath = std::any_cast<iItemPath>(button->getUserData());
-            bool select = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), buttonItemPath) == _selectedItemPaths.end();
+            bool select = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), buttonItemPath) != _selectedItemPaths.end();
             button->setSelect(select);
         }
 

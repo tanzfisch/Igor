@@ -86,16 +86,13 @@ static const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
-static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.3f, 0.9f, 0.9f};
-static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.3f, 0.9f, 0.3f};
+static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.9f, 0.3f, 0.9f};
+static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.9f, 0.3f, 0.3f};
 
-static const iaColor4f COLOR_SELECTED_BORDER = {0.3f, 0.3f, 0.3f, 0.9f};
-static const iaColor4f COLOR_SELECTED_FILL = {0.3f, 0.3f, 0.3f, 0.3f};
+static const iaColor4f COLOR_SELECTED_BORDER = {0.3f, 0.3f, 0.9f, 0.9f};
+static const iaColor4f COLOR_SELECTED_FILL = {0.3f, 0.3f, 0.9f, 0.3f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
-
-static const iaColor4f COLOR_SELECTION_FRAME(0.0, 0.0, 0.0, 0.8);
-static const iaColor4f COLOR_SELECTION_FILL(0.0, 0.0, 0.0, 0.2);
 
 namespace igor
 {
@@ -275,8 +272,8 @@ namespace igor
 
     void iWidgetDefaultTheme::drawSelection(const iaRectanglef &rect)
     {
-        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTION_FILL);
-        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTION_FRAME);
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTED_FILL);
+        iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTED_BORDER);
     }
 
     void iWidgetDefaultTheme::drawDrag(const iaVector2f &pos, const iDrag &drag)
