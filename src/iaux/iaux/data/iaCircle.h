@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CIRCLE__
-#define __IAUX_CIRCLE__
+#ifndef IAUX_CIRCLE_H
+#define IAUX_CIRCLE_H
 
 #include <iaux/math/iaVector2.h>
 
@@ -163,6 +163,14 @@ namespace iaux
 
 #include <iaux/data/iaCircle.inl>
 
+    /*! stream operator e.g. for console output
+
+    \param ostr the out stream handle
+    \param circle the circle to print in stream
+    */
+    template <class T>
+    std::wostream &operator<<(std::wostream &ostr, const iaCircle<T> &circle);
+
     /*! float32 precision of rectangle
      */
     typedef iaCircle<float32> iaCirclef;
@@ -178,7 +186,7 @@ namespace iaux
     /*! int64 precision of rectangle
      */
     typedef iaCircle<int64> iaCircleI;
-    
+
 }; // namespace igor
 
-#endif // __IAUX_RECTANGLE__
+#endif // IAUX_CIRCLE_H

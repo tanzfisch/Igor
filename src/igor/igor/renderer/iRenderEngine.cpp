@@ -9,6 +9,9 @@
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/resources/iResourceManager.h>
+
+#include <iaux/data/iaConvert.h>
 
 namespace igor
 {
@@ -49,10 +52,7 @@ namespace igor
             iaMatrixd src = transformComponent->getWorldMatrix();
             src *= reference._offset;
             iaMatrixf dst;
-            for (int i = 0; i < 16; ++i)
-            {
-                dst[i] = src[i];
-            }
+            iaConvert::convert(src, dst);
 
             auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
                                      [&shader](const iMaterialGroup &materialGroup)
@@ -95,15 +95,53 @@ namespace igor
 
                 iRenderer::getInstance().setShader(materialGroup._shader);
                 iRenderer::getInstance().drawMeshInstanced(mesh, instancingBuffer, material);
-                pair.second._buffer->clear();
+            }
+        }
+    }
+
+    void iRenderEngine::renderBoundingBoxes()
+    {
+        iaMatrixf srcMatrix;
+        iaMatrixd dstMatrix;
+
+        // TODO make the bbox write in to depth buffer
+        for (const auto &materialGroup : _materialGroups)
+        {
+            for (const auto &pair : materialGroup._instancing)
+            {
+                const iMeshPtr mesh = pair.first;
+                const iInstancingBufferPtr instancingBuffer = pair.second._buffer;
+
+                for(int i=0;i<instancingBuffer->getInstanceCount();++i)
+                {
+                    instancingBuffer->getInstance(i, sizeof(iaMatrixf), (void*)&srcMatrix);
+                    iaConvert::convert(srcMatrix, dstMatrix);
+                    iRenderer::getInstance().setModelMatrix(dstMatrix);
+
+                    const iAABoxd &bbox = mesh->getBoundingBox();
+                    iRenderer::getInstance().drawBox(bbox);
+                }
             }
         }
     }
 
     void iRenderEngine::render()
     {
-
         renderInstances();
+
+        if (_showBoundingBoxes)
+        {
+            renderBoundingBoxes();
+        }
+
+        // reset instancing buffers ... 
+        for (const auto &materialGroup : _materialGroups)
+        {
+            for (const auto &pair : materialGroup._instancing)
+            {
+                pair.second._buffer->clear();;
+            }
+        }        
     }
 
     const iFrustumd &iRenderEngine::getFrustum() const
@@ -129,6 +167,16 @@ namespace igor
     const iEntityID &iRenderEngine::getCameraID() const
     {
         return _cameraID;
+    }
+
+    void iRenderEngine::setBoundingBoxVisible(bool boundingBox)
+    {
+        _showBoundingBoxes = boundingBox;
+    }
+
+    bool iRenderEngine::isBoundingBoxVisible() const
+    {
+        return _showBoundingBoxes;
     }
 
 } // namespace igor

@@ -67,6 +67,18 @@ namespace igor
         */
         void addInstance(uint32 size, const void* data);
 
+        /*! returns instance data
+
+        \param index index of first instance to return
+        \param size the size of data to returns. Must be multiple of the layout size (or stride)
+        \param[out] data the data to return
+        */
+        void getInstance(uint32 index, uint32 size, void* data);
+
+        /*! \returns size in byte of each instance. Including stride
+        */
+        uint32 getInstanceSize() const;
+
         /*! sets a new size hint.
 
         If new size hint is smaller then the previous one nothing will change.

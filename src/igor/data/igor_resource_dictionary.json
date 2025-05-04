@@ -294,11 +294,17 @@
         "source": "icons/cut.png"
     },
     {
+        "alias": "igor_shader_material_flat_shaded_no_depth_test",
+        "id": "0x640f1d123daf1786",
+        "internal": true,
+        "source": "shaders/flat_shaded_no_depth_test.shader"
+    },
+    {
         "alias": "igor_shader_material_flat_shaded",
         "id": "0x640f1dd866a227a2",
         "internal": true,
         "source": "shaders/flat_shaded.shader"
-    },
+    },    
     {
         "alias": "igor_icon_switch",
         "id": "0x64706e44c242b191",

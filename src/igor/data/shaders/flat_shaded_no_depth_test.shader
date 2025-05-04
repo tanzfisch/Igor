@@ -3,7 +3,7 @@
 	<!-- material definition for 2d flat shading -->
 	<ShaderMaterial name="igor.flat_shaded_opaque" visibility="Private">
 		<States>
-			<DepthTest>On</DepthTest>
+			<DepthTest>Off</DepthTest>
             <Blend>Off</Blend>
 		</States>
         <Program>

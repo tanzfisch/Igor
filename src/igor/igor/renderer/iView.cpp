@@ -71,13 +71,12 @@ namespace igor
 
     void iView::setBoundingBoxVisible(bool boundingBox)
     {
-        // TODO        _renderEngineOld.setBoundingBoxVisible(boundingBox);
+        _renderEngine.setBoundingBoxVisible(boundingBox);
     }
 
     bool iView::isBoundingBoxVisible() const
     {
-        // TODO        return _renderEngineOld.isBoundingBoxVisible();
-        return false;
+        return _renderEngine.isBoundingBoxVisible();
     }
 
     void iView::setOctreeVisible(bool octree)

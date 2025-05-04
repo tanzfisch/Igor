@@ -542,7 +542,7 @@ namespace igor
         _data->_colorIDShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_color_id");
 
         // don't cache the following so they stay invisible to the application
-        _data->_flatShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded_no_depth_test", iResourceCacheMode::DontCache);
         _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded_blend", iResourceCacheMode::DontCache);
         _data->_textureShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded", iResourceCacheMode::DontCache);
         _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded_blend", iResourceCacheMode::DontCache);

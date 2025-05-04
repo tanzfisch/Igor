@@ -101,6 +101,16 @@ namespace igor
         */
         void setFrustum(const iaMatrixd &matrix);
 
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
+         */
+        bool isBoundingBoxVisible() const;
+
     private:
         /*! the scene to render
          */
@@ -137,9 +147,17 @@ namespace igor
          */
         std::vector<iMaterialGroup> _materialGroups;
 
+        /*! flag if bounding boxes are drawn
+         */
+        bool _showBoundingBoxes = false;        
+
         /*! renders all mesh instances
          */
         void renderInstances();
+
+        /*! renders bounding boxes
+        */
+        void renderBoundingBoxes();
     };
 } // namespace igor
 
