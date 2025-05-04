@@ -232,13 +232,22 @@ void Viewport::frameOnSelection()
 
     iEntityBoundsTraverser traverser;
     iaSphered selectionSphere;
+    bool firstSphere = true;
 
     for (auto entityID : selection)
     {
         auto entity = projectScene->getEntity(entityID);
 
         traverser.traverse(entity);
-        selectionSphere.merge(traverser.getSphere());
+        if(firstSphere)
+        {
+            selectionSphere = traverser.getSphere();
+            firstSphere = false;
+        }
+        else
+        {
+            selectionSphere.merge(traverser.getSphere());
+        }
     }
 
     _cameraArc->setCenterOfInterest(selectionSphere._center);

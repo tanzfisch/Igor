@@ -42,8 +42,9 @@ namespace igor
                 iaVector4d boxCenter(box._center);
                 auto sphereCenter = matrix * boxCenter;
                 sphere._center.set(sphereCenter._x, sphereCenter._y, sphereCenter._z);
-                auto radius = matrix * box._halfWidths;
-                sphere._radius = radius.length();
+                const auto scaled = matrix._right * box._halfWidths._x + matrix._top * box._halfWidths._y + matrix._depth * box._halfWidths._z;
+
+                sphere._radius = scaled.length();
 
                 if (_initialSphere)
                 {
