@@ -126,8 +126,21 @@ namespace igor
 
         struct iInstaningPackage
         {
-            iInstancingBufferPtr _buffer;
-            iMaterialPtr _material; // TODO needs to be part of the buffer so individual instances can have different colors etc
+            iInstancingBufferPtr _buffer = nullptr;
+            iMaterialPtr _material = nullptr; // TODO needs to be part of the buffer so individual instances can have different colors etc
+        };
+
+        struct iRegularPackage
+        {
+            iMeshPtr _mesh;
+            iaMatrixd _matrix;
+            iMaterialPtr _material;
+
+            iRegularPackage(iMeshPtr mesh, const iaMatrixd &matrix, iMaterialPtr material)
+            : _mesh(mesh), _matrix(matrix), _material(material)
+            {
+
+            }
         };
 
         /*! bringing all nodes using the same material together for more efficient rendering
@@ -137,6 +150,10 @@ namespace igor
             /*! the shader used
              */
             iShaderPtr _shader;
+
+            /*! non instanced data
+            */
+            std::vector<iRegularPackage> _regular;
 
             /*! optional instancing buffers per mesh that is using the same material
              */
@@ -151,9 +168,9 @@ namespace igor
          */
         bool _showBoundingBoxes = false;        
 
-        /*! renders all mesh instances
+        /*! renders all mesh material groups
          */
-        void renderInstances();
+        void renderMaterialGroups();
 
         /*! renders bounding boxes
         */

@@ -185,56 +185,47 @@ void TransformOverlay::update()
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
 {
-    /*_roateModifier = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_roateModifier);
+    _roateModifier = getView()->getEntityScene()->createEntity();
+    _roateModifier->setParent(_rootTransform);
 
-    iNodeTransform *xRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xRingTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    xRingTransform->scale(2.0, 0.1, 2.0);
-    _roateModifier->insertNode(xRingTransform);
+    iEntityPtr xRingTransform = getView()->getEntityScene()->createEntity("ring.x");
+    xRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5), iaVector3d(2.0, 0.1, 2.0)));
+    xRingTransform->addComponent(new iSphereComponent(1.0));
+    xRingTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xRingTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(ringMesh, _red);
+    xRingTransform->setParent(_roateModifier);
 
-    iNodeTransform *yRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    yRingTransform->scale(1.99, 0.1, 1.99);
-    _roateModifier->insertNode(yRingTransform);
+    iEntityPtr yRingTransform = getView()->getEntityScene()->createEntity("ring.y");
+    yRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(1.99, 0.1, 1.99)));
+    yRingTransform->addComponent(new iSphereComponent(1.0));
+    yRingTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(ringMesh, _green);
+    yRingTransform->setParent(_roateModifier);
 
-    iNodeTransform *zRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zRingTransform->rotate(M_PI * 0.5, iaAxis::X);
-    zRingTransform->scale(1.98, 0.1, 1.98);
-    _roateModifier->insertNode(zRingTransform);
+    iEntityPtr zRingTransform = getView()->getEntityScene()->createEntity("ring.z");
+    zRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0), iaVector3d(1.99, 0.1, 1.99)));
+    zRingTransform->addComponent(new iSphereComponent(1.0));
+    zRingTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(ringMesh, _blue);
+    zRingTransform->setParent(_roateModifier);
 
-    iNodeMesh *xRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xRing->setName("manipulator.ring.x");
-    xRing->setMesh(ringMesh);
-    xRing->setMaterial(_red);
-    xRingTransform->insertNode(xRing);
+    _rotateBillboardTransform = getView()->getEntityScene()->createEntity("ring.billboard");
+    _rotateBillboardTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d()));
+    _rotateBillboardTransform->addComponent(new iSphereComponent(1.0));
+    _rotateBillboardTransform->addComponent(new iOctreeComponent());
+    auto billboardMeshRenderComponent = _rotateBillboardTransform->addComponent(new iMeshRenderComponent());
+    billboardMeshRenderComponent->addMesh(ringMesh2D, _cyan);
+    _rotateBillboardTransform->setParent(_roateModifier);
 
-    iNodeMesh *yRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yRing->setName("manipulator.ring.y");
-    yRing->setMesh(ringMesh);
-    yRing->setMaterial(_green);
-    yRingTransform->insertNode(yRing);
-
-    iNodeMesh *zRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zRing->setName("manipulator.ring.z");
-    zRing->setMesh(ringMesh);
-    zRing->setMaterial(_blue);
-    zRingTransform->insertNode(zRing);
-
-    _rotateBillboardTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _roateModifier->insertNode(_rotateBillboardTransform);
-
-    iNodeMesh *ring = iNodeManager::getInstance().createNode<iNodeMesh>();
-    ring->setName("manipulator.ring");
-    ring->setMesh(ringMesh2D);
-    ring->setMaterial(_cyan);
-    _rotateBillboardTransform->insertNode(ring);
-
-    _rotateIDs.push_back(xRing->getID());
+    /*_rotateIDs.push_back(xRing->getID());
     _rotateIDs.push_back(yRing->getID());
-    _rotateIDs.push_back(zRing->getID());
+    _rotateIDs.push_back(zRing->getID());*/
 
     // add a locator in the middle for better orientation
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    /*iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
     _roateModifier->insertNode(xTransform);
 
@@ -306,18 +297,24 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 
     iEntityPtr xTransform = getView()->getEntityScene()->createEntity("transform.x");
     xTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iSphereComponent(1.0));
+    xTransform->addComponent(new iOctreeComponent());
     auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
     xMeshRenderComponent->addMesh(translateMesh, _red);
     xTransform->setParent(_translateModifier);
 
     iEntityPtr yTransform = getView()->getEntityScene()->createEntity("transform.y");
-    yTransform->addComponent(new iTransformComponent());
+    yTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d()));
+    yTransform->addComponent(new iSphereComponent(1.0));
+    yTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
     yMeshRenderComponent->addMesh(translateMesh, _green);
     yTransform->setParent(_translateModifier);
 
     iEntityPtr zTransform = getView()->getEntityScene()->createEntity("transform.z");
-    zTransform->addComponent(new iTransformComponent(iaVector3d(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iSphereComponent(1.0));
+    zTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
     zMeshRenderComponent->addMesh(translateMesh, _blue);
     zTransform->setParent(_translateModifier);

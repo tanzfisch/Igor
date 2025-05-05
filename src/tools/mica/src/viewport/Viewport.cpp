@@ -47,9 +47,6 @@ Viewport::Viewport()
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
-    _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
-    _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
-
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 
     _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
@@ -194,11 +191,19 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
         }
     }
 
+    if (projectScene->hasOctree())
+    {
+        _viewportOverlay->getView().getEntityScene()->initializeOctree(projectScene->getOctree().getVolume());
+        _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
+        _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
+    }
+
     return false;
 }
 
 bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
 {
+    _entityOverlays.clear();
     _viewportScene->getView().setEntityScene(nullptr);
     _cameraArc = nullptr;
 

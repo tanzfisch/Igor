@@ -56,8 +56,7 @@ namespace igor
 
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        con_assert(_quadtree == nullptr, "Quadtree already initialized");
-        _quadtree = new iQuadtreed(rect, splitThreshold, maxDepth);
+        _quadtree = std::make_unique<iQuadtreed>(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
@@ -73,8 +72,7 @@ namespace igor
 
     void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        con_assert(_octree == nullptr, "Octree already initialized");
-        _octree = new iOctreed(cube, splitThreshold, maxDepth);
+        _octree = std::make_unique<iOctreed>(cube, splitThreshold, maxDepth);
     }
 
     iOctreed &iEntityScene::getOctree() const
@@ -100,6 +98,11 @@ namespace igor
         _systemsMutex.lock();
         const auto stage = _systems[(int)stageIndex];
         _systemsMutex.unlock();
+
+        if (stageIndex == iEntitySystemStage::PreRender)
+        {
+            int x = 0;
+        }
 
         for (const auto &pair : stage)
         {

@@ -61,6 +61,14 @@ namespace igor
         iOctreed::ObjectPtr _object = nullptr;
 
     private:
+        /*! callback for loading component
+
+        \param entity the entity this component relates to
+        \param[out] asyncLoad if true try again if unsuccessful
+        \returns true when loading was successful
+        */
+        bool onLoad(iEntityPtr entity, bool &asyncLoad) override;
+
         /*! callback to activate component
          */
         void onActivate(iEntityPtr entity) override;

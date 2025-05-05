@@ -256,11 +256,11 @@ namespace igor
 
 		/*! quadtree
 		 */
-		iQuadtreed *_quadtree = nullptr;
+		std::unique_ptr<iQuadtreed> _quadtree;
 
 		/*! octree
 		 */
-		iOctreed *_octree = nullptr;
+		std::unique_ptr<iOctreed> _octree;
 
 		/*! pointer to camera system if it was added
 		 */

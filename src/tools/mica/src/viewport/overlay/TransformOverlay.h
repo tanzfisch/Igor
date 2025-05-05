@@ -114,6 +114,14 @@ private:
     */
     iEntityPtr _translateModifier = nullptr;
 
+    /*! rotate modifier
+    */
+    iEntityPtr _roateModifier = nullptr;
+
+    /*! rotate modifier billboard
+    */
+    iEntityPtr _rotateBillboardTransform = nullptr;
+
     /*! translate given matrix by vector projected on selected axis
 
     \param vec vector to translate

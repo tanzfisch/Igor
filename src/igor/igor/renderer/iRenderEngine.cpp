@@ -40,61 +40,81 @@ namespace igor
 
         for (const auto &reference : meshReferences)
         {
-            auto material = reference._material;
+            const auto mesh = reference._mesh;
+            const auto material = reference._material;
 
             iShaderPtr shader = material->getShader();
-            if (!shader->isValid() ||
-                shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off) // only instanced is supported for now
+            if (!shader->isValid())
             {
                 continue;
             }
 
-            iaMatrixd src = transformComponent->getWorldMatrix();
-            src *= reference._offset;
-            iaMatrixf dst;
-            iaConvert::convert(src, dst);
+            auto iterMaterialGroup = std::find_if(_materialGroups.begin(), _materialGroups.end(),
+                                                  [&shader](const iMaterialGroup &materialGroup)
+                                                  { return materialGroup._shader == shader; });
 
-            auto iter = std::find_if(_materialGroups.begin(), _materialGroups.end(),
-                                     [&shader](const iMaterialGroup &materialGroup)
-                                     { return materialGroup._shader == shader; });
+            iMaterialGroup *materialGroup;
 
-            auto mesh = reference._mesh;
-
-            if (iter == _materialGroups.end())
+            if (iterMaterialGroup == _materialGroups.end())
             {
-                std::unordered_map<iMeshPtr, iInstaningPackage> instancing;
-                instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
-                instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
-                instancing[mesh]._material = material;
-                _materialGroups.push_back({shader, instancing});
+                iMaterialGroup group;
+                group._shader = shader;
+                _materialGroups.push_back(group);
+                materialGroup = &_materialGroups.back();
             }
             else
             {
-                if (iter->_instancing[mesh]._buffer == nullptr)
+                materialGroup = &(*iterMaterialGroup);
+            }
+
+            if (shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::Off)
+            {
+                materialGroup->_regular.emplace_back(mesh, transformComponent->getWorldMatrix(), material);
+            }
+            else
+            {
+                iaMatrixd src = transformComponent->getWorldMatrix();
+                src *= reference._offset;
+                iaMatrixf matrix;
+                iaConvert::convert(src, matrix);
+
+                if (materialGroup->_instancing[mesh]._buffer == nullptr)
                 {
-                    iter->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
-                    iter->_instancing[mesh]._material = material;
+                    materialGroup->_instancing[mesh]._buffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
+                    materialGroup->_instancing[mesh]._material = material;
                 }
-                iter->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), dst.getData());
+                materialGroup->_instancing[mesh]._buffer->addInstance(sizeof(iaMatrixf), matrix.getData());
             }
         }
     }
 
-    void iRenderEngine::renderInstances()
+    void iRenderEngine::renderMaterialGroups()
     {
         std::sort(_materialGroups.begin(), _materialGroups.end(), [](const iMaterialGroup a, const iMaterialGroup b) -> bool
                   { return a._shader->getOrder() < b._shader->getOrder(); });
 
         for (const auto &materialGroup : _materialGroups)
         {
-            for (const auto &pair : materialGroup._instancing)
-            {
-                const iMeshPtr mesh = pair.first;
-                const iInstancingBufferPtr instancingBuffer = pair.second._buffer;
-                const iMaterialPtr material = pair.second._material;
+            iRenderer::getInstance().setShader(materialGroup._shader);
 
-                iRenderer::getInstance().setShader(materialGroup._shader);
-                iRenderer::getInstance().drawMeshInstanced(mesh, instancingBuffer, material);
+            if (materialGroup._shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::On)
+            {
+                for (const auto &pair : materialGroup._instancing)
+                {
+                    const iMeshPtr mesh = pair.first;
+                    const iInstancingBufferPtr instancingBuffer = pair.second._buffer;
+                    const iMaterialPtr material = pair.second._material;
+
+                    iRenderer::getInstance().drawMeshInstanced(mesh, instancingBuffer, material);
+                }
+            }
+            else
+            {
+                for(const auto &regular :  materialGroup._regular)
+                {
+                    iRenderer::getInstance().setModelMatrix(regular._matrix);
+                    iRenderer::getInstance().drawMesh(regular._mesh, regular._material);
+                }
             }
         }
     }
@@ -112,14 +132,14 @@ namespace igor
                 const iMeshPtr mesh = pair.first;
                 const iInstancingBufferPtr instancingBuffer = pair.second._buffer;
 
-                for(int i=0;i<instancingBuffer->getInstanceCount();++i)
+                for (int i = 0; i < instancingBuffer->getInstanceCount(); ++i)
                 {
-                    instancingBuffer->getInstance(i, sizeof(iaMatrixf), (void*)&srcMatrix);
+                    instancingBuffer->getInstance(i, sizeof(iaMatrixf), (void *)&srcMatrix);
                     iaConvert::convert(srcMatrix, dstMatrix);
                     iRenderer::getInstance().setModelMatrix(dstMatrix);
 
                     const iAABoxd &bbox = mesh->getBoundingBox();
-                    iRenderer::getInstance().drawBox(bbox, iaColor4f(1.0,1.0,1.0,0.5));
+                    iRenderer::getInstance().drawBox(bbox, iaColor4f(1.0, 1.0, 1.0, 0.5));
                 }
             }
         }
@@ -127,21 +147,22 @@ namespace igor
 
     void iRenderEngine::render()
     {
-        renderInstances();
+        renderMaterialGroups();
 
         if (_showBoundingBoxes)
         {
             renderBoundingBoxes();
         }
 
-        // reset instancing buffers ... 
-        for (const auto &materialGroup : _materialGroups)
+        // reset buffers ... TODO check how slow this is
+        for (auto &materialGroup : _materialGroups)
         {
+            materialGroup._regular.clear();
             for (const auto &pair : materialGroup._instancing)
             {
-                pair.second._buffer->clear();;
+                pair.second._buffer->clear();
             }
-        }        
+        }
     }
 
     const iFrustumd &iRenderEngine::getFrustum() const

@@ -35,6 +35,16 @@ namespace igor
         return component;
     }
 
+    bool iOctreeComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
+    {
+        if(!entity->getScene()->hasOctree())
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     void iOctreeComponent::onActivate(iEntityPtr entity)
     {
         auto &octree = entity->getScene()->getOctree();
