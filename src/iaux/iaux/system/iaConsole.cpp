@@ -206,7 +206,6 @@ namespace iaux
     {
         std::vector<iaString> callStack;
         getCallStack(callStack);
-        bool skip = true;
         for (int i = 1; i < callStack.size(); ++i)
         {
             *this << callStack[i];

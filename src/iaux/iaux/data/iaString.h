@@ -125,10 +125,10 @@ namespace iaux
         */
         iaString toSnakeCase() const;
 
-        /*! + operator concatanates two strings
+        /*! + operator concatenates two strings
 
         \param text the string to add
-        \returns resulting concatanated string
+        \returns resulting concatenates string
         */
         iaString operator+(const iaString &text) const;
 

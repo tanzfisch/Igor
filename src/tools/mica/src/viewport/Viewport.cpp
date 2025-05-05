@@ -40,7 +40,9 @@ Viewport::Viewport()
     _viewportOverlay->getView().setClearDepthActive(true);
     _viewportOverlay->getView().setPerspective(45.0f);
     _viewportOverlay->getView().setClipPlanes(1.0f, 10000.f);
-    _viewportOverlay->getView().setEntityScene(iEntitySystemModule::getInstance().createScene("Overlay"));
+    auto overlayScene = iEntitySystemModule::getInstance().createScene("Overlay");
+    iEntitySystemModule::getInstance().activateScene(overlayScene);
+    _viewportOverlay->getView().setEntityScene(overlayScene);
     _viewportOverlay->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
@@ -211,17 +213,16 @@ void Viewport::onResourceLoaded(const iResourceID resourceID)
 void Viewport::setOverlayMode(OverlayMode overlayMode)
 {
     _overlayMode = overlayMode;
-    updateAcceptance();
+    updateOverlay();
 
     for (auto overlay : _entityOverlays)
     {
-        /* if (!overlay->isActive())
-         {
-             continue;
-         }*/
+        if (!overlay->isActive())
+        {
+            continue;
+        }
 
         overlay->setOverlayMode(_overlayMode);
-        overlay->setActive(true);
     }
 }
 
@@ -232,13 +233,13 @@ OverlayMode Viewport::getOverlayMode() const
 
 void Viewport::frameOnSelection()
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
-    if (projectScene == nullptr)
+    if (_cameraArc == nullptr)
     {
         return;
     }
 
-    if (_cameraArc == nullptr)
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
     {
         return;
     }
@@ -634,21 +635,40 @@ bool Viewport::onEvent(iEvent &event)
     return false;
 }
 
-void Viewport::updateAcceptance()
+void Viewport::clearOverlay()
 {
-    if (_selectedEntity != nullptr)
+    for (auto overlay : _entityOverlays)
     {
-        for (auto overlay : _entityOverlays)
-        {
-            overlay->setActive(overlay->accepts(_overlayMode, _selectedEntity));
-        }
+        overlay->setActive(false);
     }
-    else
+}
+
+void Viewport::updateOverlay()
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
     {
-        for (auto overlay : _entityOverlays)
-        {
-            overlay->setActive(false);
-        }
+        clearOverlay();
+        return;
+    }
+
+    const auto &selection = projectScene->getSelection();
+    if (selection.size() != 1)
+    {
+        clearOverlay();
+        return;
+    }
+
+    auto entity = projectScene->getEntity(selection[0]);
+    if (entity == nullptr)
+    {
+        clearOverlay();
+        return;
+    }
+
+    for (auto overlay : _entityOverlays)
+    {
+        overlay->setActive(overlay->accepts(_overlayMode, entity));
     }
 }
 

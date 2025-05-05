@@ -132,88 +132,6 @@ void TransformOverlay::onInit()
     createLocatorRepresentation(cylinder);
 }
 
-void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
-{
-    /*    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
-        iaVector3d scale;
-
-        for (int i = 0; i < 4; ++i)
-        {
-            if (_selectedManipulatorNodeID == _scaleIDs[i])
-            {
-                scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
-                matrix.scale(scale);
-                return;
-            }
-        }*/
-}
-
-void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
-{
-    /*static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    iaVector3d translate;
-
-    for (int i = 0; i < 3; ++i)
-    {
-        if (_selectedManipulatorNodeID == _translateIDs[i])
-        {
-            translate = vec.project(dir[i]);
-            matrix.translate(translate);
-            return;
-        }
-    }*/
-}
-
-void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
-{
-    /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
-      iaMatrixd transformWorldMatrix;
-      node->calcWorldTransformation(transformWorldMatrix);
-
-      iaMatrixd camWorldMatrix;
-      getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-      iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
-
-      iaVector2d center2D(center._x, center._y);
-
-      iaVector2d a = from - center2D;
-      iaVector2d b = to - center2D;
-
-      float64 angle = b.angle(a);
-
-      for (int i = 0; i < 3; ++i)
-      {
-          if (_selectedManipulatorNodeID == _rotateIDs[i])
-          {
-              iaAxis axis = static_cast<iaAxis>(i);
-              float64 scalar = 0;
-
-              iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
-
-              switch (axis)
-              {
-              case iaAxis::X:
-                  scalar = toCam * matrix._right;
-                  break;
-              case iaAxis::Y:
-                  scalar = toCam * matrix._top;
-                  break;
-              case iaAxis::Z:
-                  scalar = toCam * matrix._depth;
-                  break;
-              }
-
-              if (scalar < 0)
-              {
-                  angle = -angle;
-              }
-
-              matrix.rotate(angle, static_cast<iaAxis>(i));
-              return;
-          }
-      }*/
-}
-
 void TransformOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
@@ -557,11 +475,11 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
         break;
 
     case OverlayMode::Scale:
-     //   _switchNode->setActiveChild(_scaleModifier);
+        //   _switchNode->setActiveChild(_scaleModifier);
         break;
 
     case OverlayMode::Rotate:
-       // _switchNode->setActiveChild(_roateModifier);
+        // _switchNode->setActiveChild(_roateModifier);
         break;
     }
 
@@ -706,4 +624,86 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     update();
 
     return false;
+}
+
+void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
+{
+    /*const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+    iaVector3d scale;
+
+    for (int i = 0; i < 4; ++i)
+    {
+        if (_selectedManipulatorNodeID == _scaleIDs[i])
+        {
+            scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
+            matrix.scale(scale);
+            return;
+        }
+    }*/
+}
+
+void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
+{
+    /*static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    iaVector3d translate;
+
+    for (int i = 0; i < 3; ++i)
+    {
+        if (_selectedManipulatorNodeID == _translateIDs[i])
+        {
+            translate = vec.project(dir[i]);
+            matrix.translate(translate);
+            return;
+        }
+    }*/
+}
+
+void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
+{
+    /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
+      iaMatrixd transformWorldMatrix;
+      node->calcWorldTransformation(transformWorldMatrix);
+
+      iaMatrixd camWorldMatrix;
+      getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
+      iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
+
+      iaVector2d center2D(center._x, center._y);
+
+      iaVector2d a = from - center2D;
+      iaVector2d b = to - center2D;
+
+      float64 angle = b.angle(a);
+
+      for (int i = 0; i < 3; ++i)
+      {
+          if (_selectedManipulatorNodeID == _rotateIDs[i])
+          {
+              iaAxis axis = static_cast<iaAxis>(i);
+              float64 scalar = 0;
+
+              iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
+
+              switch (axis)
+              {
+              case iaAxis::X:
+                  scalar = toCam * matrix._right;
+                  break;
+              case iaAxis::Y:
+                  scalar = toCam * matrix._top;
+                  break;
+              case iaAxis::Z:
+                  scalar = toCam * matrix._depth;
+                  break;
+              }
+
+              if (scalar < 0)
+              {
+                  angle = -angle;
+              }
+
+              matrix.rotate(angle, static_cast<iaAxis>(i));
+              return;
+          }
+      }*/
 }

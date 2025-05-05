@@ -27,7 +27,8 @@ Changelog                           {#changelog}
 - added iClipboard copy pasting text and entity IDs
 - #412 bring entity system to use in Mica at least make a start
 - added iFilesystem to watch changes in the filesystem and trigger events like iEventFileCreated, iEventFileChanged etc
-- #441 TODO
+- #441 cleared Mica form all scene node code so we can phase out the scene graph and replace it with entities
+- #436 made callstack more readable
 
 0.44.0
 ------

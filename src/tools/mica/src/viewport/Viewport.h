@@ -90,10 +90,6 @@ private:
      */
     OverlayMode _overlayMode = OverlayMode::None;
 
-    /*! selected entity
-     */
-    iEntityPtr _selectedEntity = nullptr;
-
     /*! the context menu
      */
     iDialogMenu _contextMenu;
@@ -191,7 +187,11 @@ private:
 
     /*! checks overlays for candidates that accept current mode-entity combination
      */
-    void updateAcceptance();
+    void updateOverlay();
+
+    /*! deactivates all overlays
+    */
+    void clearOverlay();
 
     /*! drag move handle
 

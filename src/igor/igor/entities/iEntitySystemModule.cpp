@@ -27,15 +27,6 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 
-#include <igor/entities/systems/iAnimationSystem.h>
-#include <igor/entities/systems/iBehaviourSystem.h>
-#include <igor/entities/systems/iCameraSystem.h>
-#include <igor/entities/systems/iLightSystem.h>
-#include <igor/entities/systems/iMeshRenderSystem.h>
-#include <igor/entities/systems/iSpriteRenderSystem.h>
-#include <igor/entities/systems/iTransformSystem.h>
-#include <igor/entities/systems/iVelocitySystem.h>
-
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <igor/resources/profiler/iProfiler.h>
