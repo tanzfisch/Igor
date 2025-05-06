@@ -35,6 +35,7 @@ using namespace igor;
 IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(CloseProject);
 
 /*! main dialog
  */
@@ -51,15 +52,19 @@ public:
 
     /*! \returns create project event
      */
-    CreateProjectEvent &getEventCreateProject();
+    CreateProjectEvent &getCreateProjectEvent();
 
     /*! \returns load project event
      */
-    LoadProjectEvent &getEventLoadProject();
+    LoadProjectEvent &getLoadProjectEvent();
 
     /*! \returns save project event
      */
-    SaveProjectEvent &getEventSaveProject();
+    SaveProjectEvent &getSaveProjectEvent();
+
+    /*! \returns close project event
+     */
+    CloseProjectEvent &getCloseProjectEvent();
 
 private:
     /*! create project event
@@ -73,6 +78,10 @@ private:
     /*! save project event
      */
     SaveProjectEvent _saveProject;
+
+    /*! save project event
+     */
+    CloseProjectEvent _closeProject;
 
     /*! init ui
      */
@@ -95,6 +104,12 @@ private:
     \param source the event source
     */
     void onSaveProject(const iWidgetPtr source);
+
+    /*! triggers close project event
+
+    \param source the event source
+    */
+    void onCloseProject(const iWidgetPtr source);
 
     /*! creates main application menu
 

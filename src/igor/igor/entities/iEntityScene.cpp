@@ -95,14 +95,14 @@ namespace igor
             flushQueues();
         }
 
+        if (_renderEngine == nullptr)
+        {
+            return;
+        }
+
         _systemsMutex.lock();
         const auto stage = _systems[(int)stageIndex];
         _systemsMutex.unlock();
-
-        if (stageIndex == iEntitySystemStage::PreRender)
-        {
-            int x = 0;
-        }
 
         for (const auto &pair : stage)
         {
@@ -112,16 +112,6 @@ namespace igor
 
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
-        if (_renderEngine == renderEngine)
-        {
-            return;
-        }
-
-        if (_renderEngine != nullptr)
-        {
-            _renderEngine->setSceneID(iEntitySceneID::getInvalid());
-        }
-
         _renderEngine = renderEngine;
 
         if (_renderEngine != nullptr)
@@ -268,7 +258,10 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
         auto entity = getEntity(entityID);
-        con_assert(entity != nullptr, "entity not found");
+        if(entity == nullptr)
+        {
+            return;
+        }
         destroyEntity(entity);
     }
 
@@ -487,6 +480,6 @@ namespace igor
     iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
     {
         return _entitySelectionChangedEvent;
-    }    
+    }
 
 } // igor

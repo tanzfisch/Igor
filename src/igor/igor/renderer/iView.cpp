@@ -284,13 +284,14 @@ namespace igor
             return;
         }
 
-        if (_entityScene != nullptr)
+        auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
+        if (scene != nullptr)
         {
             // a system is setting viewport, perspective etc.
-            iEntitySystemModule::getInstance().onPreRender(_entityScene);
+            iEntitySystemModule::getInstance().onPreRender(scene);
             setupCamera();
             _renderEngine.render();
-            iEntitySystemModule::getInstance().onRender(_entityScene);
+            iEntitySystemModule::getInstance().onRender(scene);
         }
         else
         {
@@ -346,10 +347,11 @@ namespace igor
 
     void iView::pickEntityID(const iaRectanglei &rectangle, std::vector<iEntityID> &entityIDs)
     {
-        if (_entityScene != nullptr &&
-            _entityScene->getActiveCamera() != nullptr)
+        auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
+        if (scene != nullptr &&
+            scene->getActiveCamera() != nullptr)
         {
-            iEntityPtr camera = _entityScene->getActiveCamera();
+            iEntityPtr camera = scene->getActiveCamera();
             iRenderEngine renderEngine;
 
             auto transformComponent = camera->getComponent<iTransformComponent>();
@@ -381,10 +383,10 @@ namespace igor
             projectionViewMatrix *= viewmatrix;
             _renderEngine.setFrustum(projectionViewMatrix);
 
-            _entityScene->setRenderEngine(&renderEngine);
+            scene->setRenderEngine(&renderEngine);
 
             iEntityColorIDTraverser traverser;
-            traverser.traverse(_entityScene);
+            traverser.traverse(scene);
 
             int32 pixelCount = rectangle._width * rectangle._height;
             uint8 *data = new uint8[pixelCount * 4];
@@ -407,7 +409,7 @@ namespace igor
 
             delete[] data;
 
-            _entityScene->setRenderEngine(&_renderEngine);
+            scene->setRenderEngine(&_renderEngine);
         }
     }
 
@@ -421,20 +423,19 @@ namespace igor
         _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
-    void iView::setEntityScene(iEntityScenePtr entityScene)
+    void iView::setEntityScene(const iEntitySceneID &entitySceneID)
     {
-        _entityScene = entityScene;
-        if (_entityScene == nullptr)
+        _entitySceneID = entitySceneID;
+        auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
+        if (scene != nullptr)
         {
-            return;
+            scene->setRenderEngine(&_renderEngine);
         }
-
-        _entityScene->setRenderEngine(&_renderEngine);
     }
 
-    iEntityScenePtr iView::getEntityScene() const
+    const iEntitySceneID &iView::getEntitySceneID() const
     {
-        return _entityScene;
+        return _entitySceneID;
     }
 
     iRenderEvent &iView::getRenderEvent()

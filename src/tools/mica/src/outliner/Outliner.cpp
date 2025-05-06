@@ -336,14 +336,14 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    if (!project.isLoaded())
+    auto projectScene = project.getProjectScene();
+    if (!project.isLoaded() || projectScene == nullptr)
     {
         return;
     }
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
-    auto projectScene = project.getProjectScene();
     auto rootItem = _itemData->getItem(iItemPath(""));
     rootItem->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, projectScene->getID());
     rootItem->setValue<iaString>(IGOR_ITEM_DATA_NAME, iaString("root"));
@@ -420,6 +420,13 @@ bool Outliner::onEvent(iEvent &event)
 
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if(projectScene == nullptr)
+    {
+        refresh();
+        return false;    
+    }
+
     iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
 
     refresh();

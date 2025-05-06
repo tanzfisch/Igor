@@ -74,6 +74,11 @@ namespace igor
 
     void iProject::load()
     {
+        if(_isLoaded)
+        {
+            return;
+        }
+
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
         const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
@@ -91,14 +96,28 @@ namespace igor
 
     void iProject::unload()
     {
+        if(!_isLoaded)
+        {
+            return;
+        }
+
+        for (const auto &sceneID : _scenes)
+        {
+            iEntitySystemModule::getInstance().destroyScene(sceneID);
+        }
+        _scenes.clear();
+
+        if (_projectScene != nullptr)
+        {
+            iEntitySystemModule::getInstance().destroyScene(_projectScene->getID());
+            _projectScene = nullptr;
+        }
+
         iResourceManager::getInstance().removeSearchPath(_projectFolder);
         iResourceManager::getInstance().clearResourceDictionary();
 
-        iEntitySystemModule::getInstance().clear();
-
         _projectFolder = "";
         _projectName = "";
-        _scenes.clear();
 
         _isLoaded = false;
         iApplication::getInstance().onEvent(iEventPtr(new iEventProjectUnloaded()));

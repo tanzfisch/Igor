@@ -173,7 +173,7 @@ namespace igor
          */
         iProjectSceneRemovedEvent _projectSceneRemovedEvent;
 
-        /*! scenes references by project
+        /*! scenes referenced by project
          */
         std::vector<iResourceID> _scenes;
 

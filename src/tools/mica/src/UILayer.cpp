@@ -37,9 +37,10 @@ void UILayer::onInit()
     _viewport->setEnabled();
     _viewport->setVisible();
 
-    _mainDialog->getEventCreateProject().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
-    _mainDialog->getEventLoadProject().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
-    _mainDialog->getEventSaveProject().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
+    _mainDialog->getCreateProjectEvent().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
+    _mainDialog->getLoadProjectEvent().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
+    _mainDialog->getSaveProjectEvent().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
+    _mainDialog->getCloseProjectEvent().add(SaveProjectDelegate(this, &UILayer::onCloseProject));
 
     // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
@@ -108,6 +109,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
         return;
     }
 
+    iProject::getInstance().unload();
     iProject::getInstance().load(_fileDialog.getFullPath());
     _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
 }
@@ -115,6 +117,11 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 void UILayer::onSaveProject()
 {
     iProject::getInstance().save();
+}
+
+void UILayer::onCloseProject()
+{
+    iProject::getInstance().unload();
 }
 
 void UILayer::onEvent(iEvent &event)
@@ -131,51 +138,51 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::N:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
-            // clearWorkspace();
+            iProject::getInstance().unload();
+            return true;
         }
-        return true;
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->duplicateSelected();
+            return true;
         }
-        return true;
-
+        
     case iKeyCode::X:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->cutSelected();
+            return true;
         }
-        return true;
-
+        
     case iKeyCode::C:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->copySelected();
+            return true;
         }
-        return true;
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // _workspace->pasteSelected();
+            return true;
         }
-        return true;
 
     case iKeyCode::O:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // TODO open project
+            return true;
         }
-        return true;
 
     case iKeyCode::S:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
             // TODO save project
+            return true;
         }
-        return true;
 
     case iKeyCode::Delete:
         // TODO _workspace->deleteSelected();

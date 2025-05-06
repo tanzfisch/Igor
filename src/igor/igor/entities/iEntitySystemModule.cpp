@@ -155,17 +155,13 @@ namespace igor
 
     iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
     {
-        iEntityScenePtr result = nullptr;
+        iEntityScenePtr result = nullptr;        
 
         _mutex.lock();
         auto iter = _scenes.find(sceneID);
         if (iter != _scenes.end())
         {
             result = iter->second;
-        }
-        else
-        {
-            con_err("scene with id " << sceneID << " not found");
         }
         _mutex.unlock();
 

@@ -33,7 +33,13 @@ bool PropertiesEditor::onEvent(iEvent &event)
 
 bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
 {
-    iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if(projectScene == nullptr)
+    {
+        return false;
+    }
+    
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
 
     return false;
 }

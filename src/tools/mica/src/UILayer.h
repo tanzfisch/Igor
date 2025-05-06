@@ -86,6 +86,10 @@ private:
      */
     void onSaveProject();
 
+    /*! closes the current project
+     */
+    void onCloseProject();
+
     /*! handles closing the create project dialog
 
     \param dialog the calling widget

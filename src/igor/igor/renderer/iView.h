@@ -75,15 +75,15 @@ namespace igor
          */
         virtual ~iView();
 
-        /*! sets the entity scene to be rendered with this view
+        /*! sets the entity scene to render with this view
 
-        \param entityScene entity scene to be rendered
+        \param entitySceneID entity scene ID to render
         */
-        void setEntityScene(iEntityScenePtr entityScene);
+        void setEntityScene(const iEntitySceneID &entitySceneID);
 
-        /*! \returns scene to be rendered with this view
+        /*! \returns scene ID
          */
-        iEntityScenePtr getEntityScene() const;
+        const iEntitySceneID &getEntitySceneID() const;
 
         /*! sets name of view
 
@@ -100,8 +100,8 @@ namespace igor
         float64 getAspectRatio() const;
 
         /*! \returns render event
-        */
-        iRenderEvent& getRenderEvent();
+         */
+        iRenderEvent &getRenderEvent();
 
         /*! sets the view port within a window.
 
@@ -270,7 +270,7 @@ namespace igor
 
         \param pos the position to pick a color from
         */
-       iEntityID pickEntityID(const iaVector2i &pos);
+        iEntityID pickEntityID(const iaVector2i &pos);
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
          */
@@ -395,7 +395,7 @@ namespace igor
 
         /*! entity scene to render
          */
-        iEntityScenePtr _entityScene = nullptr;
+        iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
 
         /*! if true view behaves as it was embedded in a widget
          */
@@ -432,7 +432,7 @@ namespace igor
         void setEmbedded(bool embedded);
 
         /*! setup camera for render
-        */
+         */
         void setupCamera();
     };
 

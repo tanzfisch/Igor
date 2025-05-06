@@ -66,6 +66,10 @@ private:
      */
     iWidgetViewportPtr _viewportOverlay = nullptr;
 
+    /*! overlay scene id
+    */
+    iEntitySceneID _overlaySceneID;
+
     /*! cel shading material for selecting entities in the scene
      */
     iShaderPtr _materialCelShading;

@@ -35,6 +35,7 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "Create Project", "Create a new project");
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Load Project", "Loading an existing project", "igor_icon_load");
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save Project", "Saving the current project", "igor_icon_save");
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCloseProject), "Close Project", "Closing the current project");
     fileMenu->addSeparator();
     fileMenu->addAction("igor:exit");
     menuBar->addMenu(fileMenu);
@@ -50,19 +51,24 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     return menuBar;
 }
 
-CreateProjectEvent &MainDialog::getEventCreateProject()
+CreateProjectEvent &MainDialog::getCreateProjectEvent()
 {
     return _createProject;
 }
 
-LoadProjectEvent &MainDialog::getEventLoadProject()
+LoadProjectEvent &MainDialog::getLoadProjectEvent()
 {
     return _loadProject;
 }
 
-SaveProjectEvent &MainDialog::getEventSaveProject()
+SaveProjectEvent &MainDialog::getSaveProjectEvent()
 {
     return _saveProject;
+}
+
+CloseProjectEvent &MainDialog::getCloseProjectEvent()
+{
+    return _closeProject;
 }
 
 void MainDialog::onCreateProject(const iWidgetPtr source)
@@ -78,4 +84,9 @@ void MainDialog::onLoadProject(const iWidgetPtr source)
 void MainDialog::onSaveProject(const iWidgetPtr source)
 {
     _saveProject();
+}
+
+void MainDialog::onCloseProject(const iWidgetPtr source)
+{
+    _closeProject();
 }
