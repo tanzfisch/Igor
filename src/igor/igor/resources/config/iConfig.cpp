@@ -62,11 +62,7 @@ namespace igor
 
     void iConfig::read(const iaString &filename)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
-
-        std::ifstream file(temp);
-        json data = json::parse(file);
+        json data = iJson::parse(filename);
 
         for (const auto &element : data.items())
         {

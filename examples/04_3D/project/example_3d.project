@@ -2,7 +2,6 @@
     "projectName": "Example 3D",
     "projectScene": {
         "id": "0x493a655576540a39",
-        "name": "Example 3D",
         "octree": {
             "maxDepth": 16,
             "splitThreshold": 8,

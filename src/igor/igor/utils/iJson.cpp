@@ -6,6 +6,32 @@
 
 namespace igor
 {
+    json iJson::parse(const iaString &filename)
+    {
+        json result;
+
+        char temp[2048];
+        filename.getData(temp, 2048);
+
+        std::ifstream file(temp);        
+        
+        try {
+            result = json::parse(file);
+        } catch (json::parse_error& e) {
+            con_err("Parse error: " << e.what());
+        } catch (json::type_error& e) {
+            con_err("Type error: " << e.what());
+        } catch (json::out_of_range& e) {
+            con_err("Out of range: " << e.what());
+        } catch (json::exception& e) { // base class catch-all
+            con_err("JSON exception: " << e.what());
+        } catch (std::exception& e) {
+            con_err("Exception: " << e.what());
+        }        
+
+        return result;
+    }
+
     void to_json(json &j, const iAACubef &cube)
     {
         j["center"] = cube._center;

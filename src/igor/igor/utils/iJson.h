@@ -52,6 +52,8 @@ namespace igor
     public:
         template <typename T>
         static const T getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue);
+
+        static json parse(const iaString &filename);
     };
 
     /*! iAACubef to json

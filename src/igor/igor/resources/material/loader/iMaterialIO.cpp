@@ -16,11 +16,7 @@ namespace igor
 {
     bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
-
-        std::ifstream file(temp);
-        json data = json::parse(file);
+        json data = iJson::parse(filename);
 
         if (!data.contains("material"))
         {

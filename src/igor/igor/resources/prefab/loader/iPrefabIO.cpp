@@ -219,46 +219,29 @@ namespace igor
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
     {
-        try // for catching json exceptions
+        json data = iJson::parse(filename);
+
+        if (!data.contains("entityScene"))
         {
-            char temp[2048];
-            filename.getData(temp, 2048);
-
-            std::ifstream file(temp);
-            json data = json::parse(file);
-
-            if (!data.contains("entityScene"))
-            {
-                con_err("unexpected data format");
-                return false;
-            }
-
-            json entityScene = data["entityScene"];
-            const iaString sceneName = entityScene["name"].get<iaString>();
-            const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
-            auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
-
-            prefab->_sceneID = scene->getID();
-
-            json entitiesJson = entityScene["entities"];
-            for (const auto &entityJson : entitiesJson)
-            {
-                readEntity(scene, entityJson);
-            }
-            for (const auto &entityJson : entitiesJson)
-            {
-                connectEntity(scene, entityJson);
-            }
-        }
-        catch (const std::exception &e)
-        {
-            con_err("Caught an exception: " << e.what());
+            con_err("unexpected data format");
             return false;
         }
-        catch (...)
+
+        json entityScene = data["entityScene"];
+        const iaString sceneName = entityScene["name"].get<iaString>();
+        const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
+        auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+
+        prefab->_sceneID = scene->getID();
+
+        json entitiesJson = entityScene["entities"];
+        for (const auto &entityJson : entitiesJson)
         {
-            con_err("Caught an unknown exception.");
-            return false;
+            readEntity(scene, entityJson);
+        }
+        for (const auto &entityJson : entitiesJson)
+        {
+            connectEntity(scene, entityJson);
         }
 
         return true;
