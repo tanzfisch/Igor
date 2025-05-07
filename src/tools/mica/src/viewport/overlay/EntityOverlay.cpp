@@ -54,12 +54,18 @@ iViewPtr EntityOverlay::getView() const
     return _view;
 }
 
-void EntityOverlay::setEntity(iEntityID entityID)
+void EntityOverlay::setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
 {
     _entityID = entityID;
+    _entitySceneID = entitySceneID;
 }
 
-const iEntityID &EntityOverlay::getEntity() const
+const iEntityID &EntityOverlay::getEntityID() const
 {
     return _entityID;
+}
+
+const iEntityID &EntityOverlay::getEntitySceneID() const
+{
+    return _entitySceneID;
 }

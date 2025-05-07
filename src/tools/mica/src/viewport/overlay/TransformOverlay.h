@@ -50,9 +50,12 @@ public:
      */
     ~TransformOverlay();
 
-    /*! id of entity used in this overlay
+    /*! set entity used in this overlay
+
+    \param entitySceneID the entity scene id
+    \param entityID the entity id
      */
-    void setEntity(iEntityID entityID) override;
+    void setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID) override;
 
     /*! sets node overlay active
 
@@ -104,22 +107,22 @@ private:
 
     /*! rotate ids
      */
-    std::vector<iEntityID> _rotateIDs;    
+    std::vector<iEntityID> _rotateIDs;
 
     /*! root transform
      */
     iEntityPtr _rootTransform = nullptr;
 
     /*! translate modifier
-    */
+     */
     iEntityPtr _translateModifier = nullptr;
 
     /*! rotate modifier
-    */
-    iEntityPtr _roateModifier = nullptr;
+     */
+    iEntityPtr _rotateModifier = nullptr;
 
     /*! rotate modifier billboard
-    */
+     */
     iEntityPtr _rotateBillboardTransform = nullptr;
 
     /*! translate given matrix by vector projected on selected axis

@@ -63,13 +63,20 @@ public:
      */
     ~EntityOverlay() = default;
 
-    /*! id of entity used in this overlay
-    */
-    virtual void setEntity(iEntityID entityID);
+    /*! set entity used in this overlay
+
+    \param entitySceneID the entity scene id
+    \param entityID the entity id
+     */
+    virtual void setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID);
 
     /*! \returns entity id
-    */
-    const iEntityID& getEntity() const;
+     */
+    const iEntityID &getEntityID() const;
+
+    /*! \returns entity scene id
+     */
+    const iEntityID &getEntitySceneID() const;
 
     /*! sets node overlay active
 
@@ -78,7 +85,7 @@ public:
     virtual void setActive(bool active);
 
     /*! \returns true id overlay is active
-    */
+     */
     bool isActive() const;
 
     /*! sets overlay mode
@@ -131,8 +138,12 @@ public:
 
 private:
 
-    /*! the entity this overlay is used on
+    /*! entity scene this overlay if for
     */
+    iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
+
+    /*! the entity this overlay is used on
+     */
     iEntityID _entityID = iEntityID::getInvalid();
 
     /*! the overlay mode
@@ -144,7 +155,7 @@ private:
     iViewPtr _view = nullptr;
 
     /*! if overlay is active or not
-    */
+     */
     bool _active = false;
 };
 

@@ -15,9 +15,9 @@ TransformOverlay::~TransformOverlay()
     onDeinit();
 }
 
-void TransformOverlay::setEntity(iEntityID entityID)
+void TransformOverlay::setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
 {
-    EntityOverlay::setEntity(entityID);
+    EntityOverlay::setEntity(entitySceneID, entityID);
 
     update();
 }
@@ -127,6 +127,7 @@ void TransformOverlay::onInit()
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
     _rootTransform = entityScene->createEntity();
+    _rootTransform->addComponent(new iTransformComponent());
     _rootTransform->setActive(false);
 
     createTranslateModifier(translateMesh);
@@ -146,52 +147,55 @@ void TransformOverlay::setActive(bool active)
 
 void TransformOverlay::update()
 {
-    /*iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
-    if (node == nullptr)
+    if (!isActive())
     {
         return;
     }
 
-    iaMatrixd matrix;
-    node->calcWorldTransformation(matrix);
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getEntitySceneID());
+    if (entityScene == nullptr)
+    {
+        return;
+    }
 
-    iaMatrixd camMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camMatrix);
+    auto entity = entityScene->getEntity(getEntityID());
+    if (entity == nullptr)
+    {
+        return;
+    }
 
-    float64 distanceToCam = camMatrix._pos.distance(matrix._pos) * 0.1;
+    auto transformComp = entity->getComponent<iTransformComponent>();
+    if (transformComp == nullptr)
+    {
+        return;
+    }
 
-    matrix._right.normalize();
-    matrix._top.normalize();
-    matrix._depth.normalize();
-    _rootTransform->setMatrix(matrix);
-    _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
+    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
+    const auto &camPos = camTransformComp->getPosition();
+    const auto &camOrientation = camTransformComp->getOrientation();
 
-    // compensate for parent orientation
-    iaMatrixd parentMatrix;
-    _rotateBillboardTransform->getParent()->calcWorldTransformation(parentMatrix);
-    parentMatrix._pos.set(0, 0, 0);
-    parentMatrix.invert();
-    parentMatrix._right.normalize();
-    parentMatrix._top.normalize();
-    parentMatrix._depth.normalize();
+    const auto &entityPos = transformComp->getPosition();
+    const auto &entityOrientation = transformComp->getOrientation();
 
-    _rotateBillboardTransform->identity();
-    iaMatrixd billboardMatrix;
-    _rotateBillboardTransform->getMatrix(billboardMatrix);
-    billboardMatrix._right = camMatrix._right;
-    billboardMatrix._top = camMatrix._top;
-    billboardMatrix._depth = camMatrix._depth;
-    _rotateBillboardTransform->setMatrix(parentMatrix * billboardMatrix);
-    _rotateBillboardTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _rotateBillboardTransform->scale(2.1, 2.1, 2.1);*/
+    float64 distanceToCam = camPos.distance(entityPos) * 0.1;
+
+    // update transform
+    auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
+    rootTransformComp->setPosition(entityPos);
+    rootTransformComp->setOrientation(entityOrientation);
+    rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+
+    auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
+    billboardTransformComp->setOrientation(camOrientation);
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
 {
     const auto &entitySceneID = getView()->getEntitySceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
-    _roateModifier = entityScene->createEntity();
-    _roateModifier->setParent(_rootTransform);
+    _rotateModifier = entityScene->createEntity();
+    _rotateModifier->setParent(_rootTransform);
+    _rotateModifier->setActive(false);
 
     iEntityPtr xRingTransform = entityScene->createEntity("ring.x");
     xRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5), iaVector3d(2.0, 0.1, 2.0)));
@@ -199,7 +203,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     xRingTransform->addComponent(new iOctreeComponent());
     auto xMeshRenderComponent = xRingTransform->addComponent(new iMeshRenderComponent());
     xMeshRenderComponent->addMesh(ringMesh, _red);
-    xRingTransform->setParent(_roateModifier);
+    xRingTransform->setParent(_rotateModifier);
 
     iEntityPtr yRingTransform = entityScene->createEntity("ring.y");
     yRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d(1.99, 0.1, 1.99)));
@@ -207,7 +211,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     yRingTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
     yMeshRenderComponent->addMesh(ringMesh, _green);
-    yRingTransform->setParent(_roateModifier);
+    yRingTransform->setParent(_rotateModifier);
 
     iEntityPtr zRingTransform = entityScene->createEntity("ring.z");
     zRingTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0), iaVector3d(1.99, 0.1, 1.99)));
@@ -215,7 +219,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     zRingTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
     zMeshRenderComponent->addMesh(ringMesh, _blue);
-    zRingTransform->setParent(_roateModifier);
+    zRingTransform->setParent(_rotateModifier);
 
     _rotateBillboardTransform = entityScene->createEntity("ring.billboard");
     _rotateBillboardTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d()));
@@ -223,7 +227,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     _rotateBillboardTransform->addComponent(new iOctreeComponent());
     auto billboardMeshRenderComponent = _rotateBillboardTransform->addComponent(new iMeshRenderComponent());
     billboardMeshRenderComponent->addMesh(ringMesh2D, _cyan);
-    _rotateBillboardTransform->setParent(_roateModifier);
+    _rotateBillboardTransform->setParent(_rotateModifier);
 
     /*_rotateIDs.push_back(xRing->getID());
     _rotateIDs.push_back(yRing->getID());
@@ -232,14 +236,14 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     // add a locator in the middle for better orientation
     /*iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _roateModifier->insertNode(xTransform);
+    _rotateModifier->insertNode(xTransform);
 
     iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _roateModifier->insertNode(yTransform);
+    _rotateModifier->insertNode(yTransform);
 
     iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _roateModifier->insertNode(zTransform);
+    _rotateModifier->insertNode(zTransform);
 
     iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
     xCylinder->setName("manipulator.cylinder.x");
@@ -483,7 +487,7 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
         break;
 
     case OverlayMode::Rotate:
-        // _switchNode->setActiveChild(_roateModifier);
+        _rotateModifier->setActiveExclusive(true);
         break;
     }
 
@@ -625,7 +629,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
 
     transformNode->setMatrix(nodeMatrix);*/
 
-    update();
+    // update();
 
     return false;
 }

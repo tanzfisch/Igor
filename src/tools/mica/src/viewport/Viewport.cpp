@@ -169,13 +169,28 @@ void Viewport::onContextMenu(iWidgetPtr source)
     }
 }
 
+void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    if(entities.size() != 1)
+    {
+        return;
+    }
+
+    for (auto overlay : _entityOverlays)
+    {
+        overlay->setEntity(sceneID, entities[0]);
+    }
+}
+
 bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getProjectScene();
-    if(projectScene == nullptr)
+    if (projectScene == nullptr)
     {
         return false;
     }
+
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Viewport::onSelectionChanged));
 
     _viewportScene->getView().setEntityScene(projectScene->getID());
     _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
@@ -679,7 +694,8 @@ void Viewport::updateOverlay()
 
     for (auto overlay : _entityOverlays)
     {
-        overlay->setActive(overlay->accepts(_overlayMode, entity));
+        const bool active = overlay->accepts(_overlayMode, entity);
+        overlay->setActive(active);
     }
 }
 
