@@ -121,6 +121,14 @@ private:
      */
     iEntityPtr _rotateModifier = nullptr;
 
+    /*! scale modifier
+    */
+    iEntityPtr _scaleModifier = nullptr;
+
+    /*! locator representation
+    */
+    iEntityPtr _locatorRepresentation = nullptr;
+
     /*! rotate modifier billboard
      */
     iEntityPtr _rotateBillboardTransform = nullptr;

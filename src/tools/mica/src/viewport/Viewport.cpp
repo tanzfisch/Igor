@@ -60,6 +60,7 @@ Viewport::Viewport()
     auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, boxLayout);
     _buttonGrid = new iWidgetButton();
     _buttonGrid->setIcon("igor_icon_grid");
+    _buttonGrid->setTooltip("On/Off orientation grid [F9]");
     _buttonGrid->setMinSize(24, 24);
     _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
     _buttonGrid->setCheckable(true);
@@ -68,6 +69,7 @@ Viewport::Viewport()
 
     _buttonBounds = new iWidgetButton();
     _buttonBounds->setIcon("igor_icon_bounds");
+    _buttonBounds->setTooltip("On/Off mesh bounds [F12]");
     _buttonBounds->setMinSize(24, 24);
     _buttonBounds->getClickEvent().add(iClickDelegate(this, &Viewport::onBoundsClick));
     _buttonBounds->setCheckable(true);
