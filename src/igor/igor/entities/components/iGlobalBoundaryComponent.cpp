@@ -38,4 +38,13 @@ namespace igor
     {
         _type = type;
     }
+
+    std::vector<iaString> iGlobalBoundaryComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }    
 }

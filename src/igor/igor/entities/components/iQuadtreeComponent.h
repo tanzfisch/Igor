@@ -60,6 +60,10 @@ namespace igor
          */
         iQuadtreed::ObjectPtr _object = nullptr;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! callback to activate component
          */

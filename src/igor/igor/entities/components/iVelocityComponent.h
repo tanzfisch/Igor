@@ -75,6 +75,10 @@ namespace igor
         */
         void setAngularVelocity(const iaVector3d &angularVelocity);
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! vector to describe the velocity
          */

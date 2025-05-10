@@ -55,4 +55,13 @@ namespace igor
     {
         return _meshPaths;
     }
+
+    std::vector<iaString> iMeshReferenceComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }     
 }

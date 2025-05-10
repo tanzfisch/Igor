@@ -159,4 +159,13 @@ namespace igor
         return _bottomOrtho;
     }
 
+    std::vector<iaString> iCameraComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }
+
 }

@@ -80,6 +80,10 @@ namespace igor
          */
         const std::vector<iaString> &getMeshPaths() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! reference to model
          */

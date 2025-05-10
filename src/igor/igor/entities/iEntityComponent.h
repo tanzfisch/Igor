@@ -52,8 +52,16 @@ namespace igor
         Active,           //! active
     };
 
+    /*! stream operator
+
+    \param stream the destination
+    \param state the entity component state
+    \returns the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, iEntityComponentState state);
+
     /*
-    +---------------+                                                           +----------------+  
+    +---------------+                                                           +----------------+
     |               v                                                           v                |
     |   ------------------------------------------    ----------------------------------------   |
     |   |                Unloaded                |    |           UnloadedInactive           |   |
@@ -148,6 +156,10 @@ namespace igor
         /*! \returns state of this component
          */
         iEntityComponentState getState() const;
+
+        /*! \returns a set of info strings
+         */
+        virtual std::vector<iaString> getInfo() const;
 
     protected:
         /*! callback for loading component

@@ -137,4 +137,13 @@ namespace igor
     {
         return _meshReferences;
     }
+
+    std::vector<iaString> iMeshRenderComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }         
 }

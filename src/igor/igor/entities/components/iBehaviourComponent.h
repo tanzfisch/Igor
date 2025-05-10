@@ -39,7 +39,7 @@ using namespace iaux;
 namespace igor
 {
     class iEntity;
-    typedef iEntity* iEntityPtr;
+    typedef iEntity *iEntityPtr;
 
     /*! behaviour function definition
      */
@@ -81,8 +81,12 @@ namespace igor
         static iEntityComponent *createInstance();
 
         /*! \returns type name of component
-        */
-        static const iaString& getTypeName();
+         */
+        static const iaString &getTypeName();
+
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
 
     private:
         /*! behaviors

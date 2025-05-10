@@ -114,6 +114,10 @@ namespace igor
          */
         iLightType getType() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! ambient material color
          */

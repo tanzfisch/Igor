@@ -16,13 +16,13 @@ namespace igor
     iEntityComponent *iPrefabComponent::createInstance()
     {
         return new iPrefabComponent();
-    }   
+    }
 
-    const iaString& iPrefabComponent::getTypeName()
+    const iaString &iPrefabComponent::getTypeName()
     {
         static const iaString name("igor_prefab_component");
         return name;
-    }        
+    }
 
     iEntityComponentPtr iPrefabComponent::getCopy()
     {
@@ -62,4 +62,12 @@ namespace igor
         return _prefab;
     }
 
+    std::vector<iaString> iPrefabComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }
 }

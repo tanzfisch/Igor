@@ -85,4 +85,13 @@ namespace igor
     {
         _specular = color;
     }
+
+    std::vector<iaString> iLightComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }        
 }

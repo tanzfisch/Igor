@@ -98,4 +98,10 @@ namespace igor
         return _scale;
     }
 
+    std::vector<iaString> iTransformComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        return result;
+    }    
 }

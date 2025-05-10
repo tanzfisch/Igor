@@ -27,7 +27,7 @@ namespace igor
 
     void iEntityComponent::onDeactivate(iEntityPtr entity)
     {
-    }    
+    }
 
     void iEntityComponent::onUnLoad(iEntityPtr entity)
     {
@@ -36,6 +36,28 @@ namespace igor
     iEntityComponentState iEntityComponent::getState() const
     {
         return _state;
+    }
+
+    std::vector<iaString> iEntityComponent::getInfo() const
+    {
+        std::vector<iaString> result;
+
+        result.push_back(iaString("id: ") + getID().toString());
+
+        return result;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, iEntityComponentState state)
+    {
+        const static std::wstring text[] = {
+            L"Unloaded",
+            L"UnloadedInactive",
+            L"LoadFailed",
+            L"Inactive",
+            L"Active"};
+
+        stream << text[static_cast<int>(state)];
+        return stream;
     }
 
 } // igor

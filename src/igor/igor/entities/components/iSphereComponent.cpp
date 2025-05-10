@@ -17,18 +17,18 @@ namespace igor
     iEntityComponent *iSphereComponent::createInstance()
     {
         return new iSphereComponent();
-    }      
+    }
 
-    const iaString& iSphereComponent::getTypeName()
+    const iaString &iSphereComponent::getTypeName()
     {
         static const iaString name("igor_sphere_component");
         return name;
-    }      
+    }
 
     float64 iSphereComponent::getRadius() const
     {
         return _radius;
-    }    
+    }
 
     const iaVector3d &iSphereComponent::getOffset() const
     {
@@ -45,4 +45,12 @@ namespace igor
         _offset = offset;
     }
 
+    std::vector<iaString> iSphereComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }
 }

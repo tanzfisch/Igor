@@ -27,4 +27,16 @@ namespace igor
         component->_behaviors = _behaviors;
         return component;
     }
+
+    std::vector<iaString> iBehaviourComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        for(const auto &behaviour : _behaviors)
+        {
+            result.push_back(behaviour._name);
+        }
+
+        return result;
+    }
 }

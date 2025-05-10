@@ -43,4 +43,12 @@ namespace igor
         _angularVelocity = angularVelocity;
     }
 
+    std::vector<iaString> iVelocityComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }       
 }

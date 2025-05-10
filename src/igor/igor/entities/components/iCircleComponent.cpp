@@ -54,4 +54,13 @@ namespace igor
         component->_offset = _offset;
         return component;
     }
+
+    std::vector<iaString> iCircleComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }    
 }

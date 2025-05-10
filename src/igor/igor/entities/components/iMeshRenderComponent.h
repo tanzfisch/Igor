@@ -90,6 +90,10 @@ namespace igor
          */
         const std::vector<iMeshReference> &getMeshReferences() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! list of mesh references
          */

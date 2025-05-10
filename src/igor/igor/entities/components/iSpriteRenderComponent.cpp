@@ -14,13 +14,13 @@ namespace igor
     iEntityComponent *iSpriteRenderComponent::createInstance()
     {
         return new iSpriteRenderComponent();
-    }      
+    }
 
-    const iaString& iSpriteRenderComponent::getTypeName()
+    const iaString &iSpriteRenderComponent::getTypeName()
     {
         static const iaString name("igor_sprite_render_component");
         return name;
-    }       
+    }
 
     iEntityComponentPtr iSpriteRenderComponent::getCopy()
     {
@@ -34,4 +34,12 @@ namespace igor
         return component;
     }
 
+    std::vector<iaString> iSpriteRenderComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        // TODO
+
+        return result;
+    }
 }

@@ -68,6 +68,10 @@ namespace igor
          */
         iPrefabPtr getPrefab() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! referenced prefab data
          */

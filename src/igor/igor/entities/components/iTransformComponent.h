@@ -104,6 +104,10 @@ namespace igor
          */
         const iaVector3d &getScale() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! position
          */

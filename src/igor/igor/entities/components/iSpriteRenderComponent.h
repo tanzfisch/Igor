@@ -88,6 +88,10 @@ namespace igor
          */
         uint32 _frameIndex = 0;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! \returns a copy of this component
          */
