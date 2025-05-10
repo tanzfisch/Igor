@@ -136,6 +136,7 @@ void TransformOverlay::onInit()
     createLocatorRepresentation(cylinder);
 
     // setOverlayMode(OverlayMode::None);
+    //_rootTransform->setActive(false);
 }
 
 void TransformOverlay::setActive(bool active)
@@ -146,10 +147,10 @@ void TransformOverlay::setActive(bool active)
 
 void TransformOverlay::update()
 {
-    /*    if (!isActive())
-        {
-            return;
-        }*/
+    if (!isActive())
+    {
+        return;
+    }
 
     auto entityScene = iEntitySystemModule::getInstance().getScene(getEntitySceneID());
     if (entityScene == nullptr)
@@ -186,8 +187,6 @@ void TransformOverlay::update()
 
     auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
     billboardTransformComp->setOrientation(camOrientation); // TODO
-
-    _rootTransform->setDirtyHierarchy(true);
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
