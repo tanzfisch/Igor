@@ -67,7 +67,7 @@ private:
     iWidgetViewportPtr _viewportOverlay = nullptr;
 
     /*! overlay scene id
-    */
+     */
     iEntitySceneID _overlaySceneID;
 
     /*! cel shading material for selecting entities in the scene
@@ -194,7 +194,7 @@ private:
     void updateOverlay();
 
     /*! deactivates all overlays
-    */
+     */
     void clearOverlay();
 
     /*! drag move handle
@@ -244,6 +244,14 @@ private:
     /*! handle selection change
      */
     void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
+
+    /*! prints project tree to console
+     */
+    void onPrintProjectTree();
+
+    /*! prints overlay tree to console
+     */
+    void onPrintOverlayTree();
 };
 
 #endif // MICA_VIEWPORT_H

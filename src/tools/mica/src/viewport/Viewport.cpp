@@ -49,6 +49,8 @@ Viewport::Viewport()
 
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
+    
+    onPrintOverlayTree();
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
@@ -736,6 +738,19 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     }
 
     drag.reject();
+}
+
+void Viewport::onPrintOverlayTree()
+{
+    iEntityPrintTraverser print;
+    auto scene = iEntitySystemModule::getInstance().getScene(_viewportOverlay->getView().getEntitySceneID());
+    print.traverse(scene);
+}
+
+void Viewport::onPrintProjectTree()
+{
+    iEntityPrintTraverser print;
+    print.traverse(iProject::getInstance().getProjectScene());
 }
 
 void Viewport::onDrop(const iDrag &drag, const iaVector2f &mousePos)
