@@ -44,4 +44,20 @@ namespace igor
         auto &quadtree = entity->getScene()->getQuadtree();
         quadtree.remove(_object);
     }
+
+    std::vector<iaString> iQuadtreeComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        if(_object != nullptr)
+        {
+            result.push_back(iaString("object initialized"));
+        }
+        else
+        {
+            result.push_back(iaString("no object"));
+        }
+
+        return result;
+    }    
 }

@@ -66,8 +66,7 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        result.push_back(iaString("ID : ") + _prefab->getID().toString());
-        result.push_back(iaString("Src: ") + _prefab->getSource());
+        result.push_back(iaString("Pfb: ") + _prefab->getID().toString());
 
         return result;
     }

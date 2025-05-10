@@ -77,18 +77,23 @@ namespace igor
 
     bool iEntityPrintTraverser::preOrderVisit(iEntityPtr entity)
     {
-        con_endl(getIndent(_indentation) << entity->getName() << " (" << entity->getID() << ") " << (entity->isActive() ? "active" : "inactive"));
+        con_endl(getIndent(_indentation) << "_________________________________________");
+        con_endl(getIndent(_indentation) << "|" << entity->getName() << " (" << entity->getID() << ") " << (entity->isActive() ? "Active" : "Inactive"));
 
         for (const auto &compType : entity->getComponentTypes())
         {
-            con_endl(getIndent(_indentation) << "| " << cleanupTypeName(compType.name()));
+            auto component = entity->getComponent(compType);
+            con_assert(component != nullptr, "zero pointer");
+
+            std::wstringstream stream;
+            stream << component->getState();
+            con_endl(getIndent(_indentation) << "|  * " << cleanupTypeName(compType.name()) + " (" + component->getID().toString() + ") " + stream.str().c_str());
+
             if (_verbose)
             {
-                auto component = entity->getComponent(compType);
-                con_assert(component != nullptr, "zero pointer");
                 for (const auto &info : component->getInfo())
                 {
-                    con_endl(getIndent(_indentation) << "|   " << info);
+                    con_endl(getIndent(_indentation) << "|      - " << info);
                 }
             }
         }

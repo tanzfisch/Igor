@@ -39,6 +39,8 @@ namespace igor
      */
     class iOctreeComponent : public iEntityComponent
     {
+        friend class iEntityTransformTraverser;
+
     public:
         /*! default ctor
          */
@@ -56,15 +58,15 @@ namespace igor
          */
         static const iaString &getTypeName();
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
+    private:
         /*! octree object
          */
         iOctreed::ObjectPtr _object = nullptr;
 
-        /*! \returns a set of info strings
-         */
-        std::vector<iaString> getInfo() const override;        
-
-    private:
         /*! callback for loading component
 
         \param entity the entity this component relates to

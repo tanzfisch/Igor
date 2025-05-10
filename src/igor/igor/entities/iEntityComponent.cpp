@@ -38,16 +38,7 @@ namespace igor
         return _state;
     }
 
-    std::vector<iaString> iEntityComponent::getInfo() const
-    {
-        std::vector<iaString> result;
-
-        result.push_back(iaString("id: ") + getID().toString());
-
-        return result;
-    }
-
-    std::wostream &operator<<(std::wostream &stream, iEntityComponentState state)
+    std::wostream &operator<<(std::wostream &stream, const iEntityComponentState &state)
     {
         const static std::wstring text[] = {
             L"Unloaded",
@@ -58,6 +49,15 @@ namespace igor
 
         stream << text[static_cast<int>(state)];
         return stream;
+    }
+
+    std::vector<iaString> iEntityComponent::getInfo() const
+    {
+        std::vector<iaString> result;
+
+        // nothing yet
+
+        return result;
     }
 
 } // igor

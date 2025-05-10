@@ -135,6 +135,10 @@ namespace igor
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
+
+        /*! callback to activate component
+         */
+        void onActivate(iEntityPtr entity) override;        
     };
 
     /*! transform component pointer definition

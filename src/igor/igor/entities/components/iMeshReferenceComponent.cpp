@@ -60,7 +60,7 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        result.push_back(iaString("Mdl: ") + _model->getID().toString());
 
         return result;
     }     

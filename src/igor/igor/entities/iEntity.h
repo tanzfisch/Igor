@@ -211,11 +211,19 @@ namespace igor
          */
         bool isHierarchyDirty() const;
 
-        /*! sets dirty hierarchy flag
+        /*! sets dirty flag up and down the hierarchy
 
         \param dirty the dirty flag to set
         */
         void setDirtyHierarchy(bool dirty);
+
+        /*! sets dirty flag up the hierarchy
+         */
+        void setDirtyHierarchyUp();
+
+        /*! sets dirty flag down the hierarchy
+         */
+        void setDirtyHierarchyDown();        
 
     private:
         /*! the entities id (unique)
@@ -310,13 +318,6 @@ namespace igor
          */
         void onEntityStructureChanged();
 
-        /*! sets dirty hierarchy up the hierarchy
-         */
-        void setDirtyHierarchyUp();
-
-        /*! sets dirty hierarchy down the hierarchy
-         */
-        void setDirtyHierarchyDown();
     };
 
 #include <igor/entities/iEntity.inl>

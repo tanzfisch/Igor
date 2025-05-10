@@ -107,5 +107,15 @@ namespace igor
         result.push_back(iaString("Sca: ") + iaString::toString(_scale));
 
         return result;
+    }
+
+    void iTransformComponent::onActivate(iEntityPtr entity)
+    {
+        if(entity->isHierarchyDirty())
+        {
+            return;
+        }
+
+        entity->setDirtyHierarchyDown();
     }    
 }

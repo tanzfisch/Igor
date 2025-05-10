@@ -58,7 +58,7 @@ namespace igor
     \param state the entity component state
     \returns the resulting stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, iEntityComponentState state);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iEntityComponentState &state);
 
     /*
     +---------------+                                                           +----------------+

@@ -40,8 +40,7 @@ namespace igor
 
         if(_sprite)
         {
-            result.push_back(iaString("ID : ") + _sprite->getID());
-            result.push_back(iaString("Src: ") + _sprite->getSource());
+            result.push_back(iaString("Spt: ") + _sprite->getID());
         }
         else
         {

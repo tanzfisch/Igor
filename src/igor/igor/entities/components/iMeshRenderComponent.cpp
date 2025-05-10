@@ -142,7 +142,17 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        if(_meshReferences.empty())
+        {
+            result.push_back(iaString("no references"));
+        }
+        else
+        {
+            for(const auto &ref : _meshReferences)
+            {
+                result.push_back(iaString("Mat: ") + ref._material->getID().toString() + " Tri:" + iaString::toString(ref._mesh->getTrianglesCount()));
+            }
+        }
 
         return result;
     }         

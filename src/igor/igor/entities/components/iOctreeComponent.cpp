@@ -63,7 +63,14 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        if(_object != nullptr)
+        {
+            result.push_back(iaString("object initialized"));
+        }
+        else
+        {
+            result.push_back(iaString("no object"));
+        }
 
         return result;
     }

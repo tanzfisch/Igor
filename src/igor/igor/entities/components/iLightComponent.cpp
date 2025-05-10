@@ -6,6 +6,18 @@
 
 namespace igor
 {
+    std::wostream &operator<<(std::wostream &stream, iLightType lightType)
+    {
+        const static std::wstring text[] = {
+            L"Directional",
+            L"Point",
+            L"Undefined"};
+
+        stream << text[static_cast<int>(lightType)];
+
+        return stream;
+    }
+
     iLightComponent::iLightComponent()
     {
     }
@@ -90,7 +102,9 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        std::wstringstream stream;
+        stream << getType();
+        result.push_back(iaString("Typ: ") + stream.str().c_str());
 
         return result;
     }        
