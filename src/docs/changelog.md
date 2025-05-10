@@ -29,6 +29,7 @@ Changelog                           {#changelog}
 - added iFilesystem to watch changes in the filesystem and trigger events like iEventFileCreated, iEventFileChanged etc
 - #441 cleared Mica form all scene node code so we can phase out the scene graph and replace it with entities
 - #436 made callstack more readable
+- added iEntityPrintTraverser for logging entity hierarchies in human readable format
 
 0.44.0
 ------
