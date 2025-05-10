@@ -103,11 +103,6 @@ namespace igor
 
     bool iEntity::processComponents()
     {
-        if (getName() == "shop")
-        {
-            int x = 0;
-        }
-
         _mutex.lock();
         auto componentsToProcess = std::move(_unloadedComponents);
         _mutex.unlock();
@@ -123,24 +118,25 @@ namespace igor
 
         for (const auto &pair : componentsToProcess)
         {
-            con_assert(pair.second->_state == iEntityComponentState::Unloaded || pair.second->_state == iEntityComponentState::UnloadedInactive, "invalid state");
+            iEntityComponentPtr component = pair.second;
+            con_assert(component->_state == iEntityComponentState::Unloaded || component->_state == iEntityComponentState::UnloadedInactive, "invalid state");
 
             bool asyncLoad = false;
-            bool active = pair.second->_state == iEntityComponentState::Unloaded;
+            bool active = component->_state == iEntityComponentState::Unloaded;
 
-            bool success = pair.second->onLoad(this, asyncLoad);
+            bool success = component->onLoad(this, asyncLoad);
             if (success)
             {
                 if (active)
                 {
-                    pair.second->onActivate(this);
-                    pair.second->_state = iEntityComponentState::Active;
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
                 }
                 else
                 {
-                    pair.second->onActivate(this);
-                    pair.second->onDeactivate(this);
-                    pair.second->_state = iEntityComponentState::Inactive;
+                    component->onActivate(this);
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
                 }
 
                 changed = true;
@@ -150,7 +146,7 @@ namespace igor
             {
                 if (!asyncLoad)
                 {
-                    pair.second->_state = iEntityComponentState::LoadFailed;
+                    component->_state = iEntityComponentState::LoadFailed;
                     con_err("load of component " << pair.first.name() << " failed");
                 }
                 else
@@ -454,17 +450,7 @@ namespace igor
 
         if (hasParent())
         {
-            if (!active)
-            {
-                auto &children = _parent->_children;
-                auto iter = std::find(children.begin(), children.end(), this);
-                if (iter != children.end())
-                {
-                    children.erase(iter);
-                    _parent->_inactiveChildren.push_back(this);
-                }
-            }
-            else
+            if (active)
             {
                 auto &inactiveChildren = _parent->_inactiveChildren;
                 auto iter = std::find(inactiveChildren.begin(), inactiveChildren.end(), this);
@@ -474,6 +460,16 @@ namespace igor
                     _parent->_children.push_back(this);
                 }
             }
+            else
+            {
+                auto &children = _parent->_children;
+                auto iter = std::find(children.begin(), children.end(), this);
+                if (iter != children.end())
+                {
+                    children.erase(iter);
+                    _parent->_inactiveChildren.push_back(this);
+                }
+            }
         }
 
         if (active)
@@ -481,14 +477,15 @@ namespace igor
             // activate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Inactive)
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Inactive)
                 {
-                    pair.second->onActivate(this);
-                    pair.second->_state = iEntityComponentState::Active;
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
                 }
-                else if (pair.second->_state == iEntityComponentState::UnloadedInactive)
+                else if (component->_state == iEntityComponentState::UnloadedInactive)
                 {
-                    pair.second->_state = iEntityComponentState::Unloaded;
+                    component->_state = iEntityComponentState::Unloaded;
                 }
             }
 
@@ -504,14 +501,15 @@ namespace igor
             // deactivate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Active)
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Active)
                 {
-                    pair.second->onDeactivate(this);
-                    pair.second->_state = iEntityComponentState::Inactive;
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
                 }
-                else if (pair.second->_state == iEntityComponentState::Unloaded)
+                else if (component->_state == iEntityComponentState::Unloaded)
                 {
-                    pair.second->_state = iEntityComponentState::UnloadedInactive;
+                    component->_state = iEntityComponentState::UnloadedInactive;
                 }
             }
 
@@ -559,7 +557,8 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _components)
         {
-            if (pair.second->_state == iEntityComponentState::Active)
+            iEntityComponentPtr component = pair.second;
+            if (component->_state == iEntityComponentState::Active)
             {
                 result |= esm.getComponentMask(pair.first);
             }

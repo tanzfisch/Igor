@@ -47,7 +47,8 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        result.push_back(iaString("Vel: ") + iaString::toString(_velocity));
+        result.push_back(iaString("AVl: ") + iaString::toString(_angularVelocity));
 
         return result;
     }       

@@ -127,8 +127,10 @@ void TransformOverlay::onInit()
     const auto &entitySceneID = getView()->getEntitySceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
+    auto root = entityScene->createEntity("overlay.root");
     _rootTransform = entityScene->createEntity("overlay.transform.root");
     _rootTransform->addComponent(new iTransformComponent());
+    _rootTransform->setParent(root);
 
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
@@ -136,7 +138,7 @@ void TransformOverlay::onInit()
     createLocatorRepresentation(cylinder);
 
     // setOverlayMode(OverlayMode::None);
-    //_rootTransform->setActive(false);
+    _rootTransform->setActive(false);
 }
 
 void TransformOverlay::setActive(bool active)

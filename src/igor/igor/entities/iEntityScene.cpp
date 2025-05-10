@@ -258,7 +258,7 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
         auto entity = getEntity(entityID);
-        if(entity == nullptr)
+        if (entity == nullptr)
         {
             return;
         }
@@ -273,7 +273,10 @@ namespace igor
     void iEntityScene::onComponentToProcess(iEntityPtr entity, const std::type_index &typeID)
     {
         _processQueueMutex.lock();
-        _processQueue.push_back(entity);
+        if (std::find(_processQueue.begin(), _processQueue.end(), entity) == _processQueue.end())
+        {
+            _processQueue.push_back(entity);
+        }
         _processQueueMutex.unlock();
     }
 

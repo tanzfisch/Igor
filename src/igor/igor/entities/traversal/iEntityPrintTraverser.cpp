@@ -34,21 +34,43 @@ namespace igor
         _indentation = 0;
     }
 
-    static iaString cleanupTypeName(const iaString &typeName)
+    static iaString cleanupTypeName(const iaString &text)
     {
-        std::wregex pattern(L"^N\\d+(\\w+)\\d+(\\w+)E$");
-        std::wsmatch match;
-        std::wstring const text(typeName.getData());
+        std::wstring mangled = text.getData();
         iaString result;
 
-        if (!std::regex_match(text, match, pattern)) {
-            con_err("no match");
-            return result;
+        // Skip leading and trailing character
+        size_t pos = 1;
+        size_t end = mangled.size() - 1;
+
+        bool first = true;
+
+        while (pos < end)
+        {
+            // Parse the number
+            int len = 0;
+            while (pos < end && iswdigit(mangled[pos]))
+            {
+                len = len * 10 + (mangled[pos] - L'0');
+                ++pos;
+            }
+
+            // Get the name part
+            if (pos + len > end)
+            {
+                break;
+            }
+            std::wstring part = mangled.substr(pos, len);
+            pos += len;
+
+            // Add to result
+            if (!first)
+            {
+                result += L"::";
+            }
+            result += part.c_str();
+            first = false;
         }
-        
-        result += match[1].str().c_str();
-        result += "::";
-        result += match[2].str().c_str();
 
         return result;
     }
@@ -64,7 +86,7 @@ namespace igor
             {
                 auto component = entity->getComponent(compType);
                 con_assert(component != nullptr, "zero pointer");
-                for(const auto &info : component->getInfo())
+                for (const auto &info : component->getInfo())
                 {
                     con_endl(getIndent(_indentation) << "|   " << info);
                 }

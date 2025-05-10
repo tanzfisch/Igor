@@ -49,7 +49,8 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        result.push_back(iaString("Rad: ") + iaString::toString(_radius));
+        result.push_back(iaString("Ofs: ") + iaString::toString(_offset));
 
         return result;
     }

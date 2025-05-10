@@ -38,7 +38,17 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        if(_sprite)
+        {
+            result.push_back(iaString("ID : ") + _sprite->getID());
+            result.push_back(iaString("Src: ") + _sprite->getSource());
+        }
+        else
+        {
+            result.push_back(iaString("no sprite"));
+        }
+
+        result.push_back(iaString("ZIx: ") + iaString::toString(_zIndex));
 
         return result;
     }

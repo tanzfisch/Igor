@@ -49,8 +49,6 @@ Viewport::Viewport()
 
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
-    
-    onPrintOverlayTree();
 
     _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
@@ -175,7 +173,7 @@ void Viewport::onContextMenu(iWidgetPtr source)
 
 void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
 {
-    if(entities.size() != 1)
+    if (entities.size() != 1)
     {
         return;
     }
@@ -476,6 +474,11 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 {
     iWidget::onMouseKeyUp(event);
 
+    if (event.getKey() == iKeyCode::MouseRight)
+    {
+        onPrintOverlayTree();
+    }
+
     bool result = false;
     for (auto &overlay : _entityOverlays)
     {
@@ -742,7 +745,7 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
 
 void Viewport::onPrintOverlayTree()
 {
-    iEntityPrintTraverser print;
+    iEntityPrintTraverser print(true);
     auto scene = iEntitySystemModule::getInstance().getScene(_viewportOverlay->getView().getEntitySceneID());
     print.traverse(scene);
 }

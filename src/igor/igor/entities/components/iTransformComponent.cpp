@@ -102,6 +102,10 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
+        result.push_back(iaString("Pos: ") + iaString::toString(_position));
+        result.push_back(iaString("Ori: ") + iaString::toString(_orientation));
+        result.push_back(iaString("Sca: ") + iaString::toString(_scale));
+
         return result;
     }    
 }
