@@ -111,6 +111,6 @@ namespace igor
 
     void iTransformComponent::onActivate(iEntityPtr entity)
     {
-        entity->setDirtyHierarchy();
+        entity->setDirtyHierarchyDown();
     }    
 }

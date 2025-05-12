@@ -57,6 +57,7 @@ namespace igor
     {
         friend class iEntityScene;
         friend class iEntityTransformTraverser;
+        friend class iTransformComponent;
 
     public:
         /*! \returns entity id
