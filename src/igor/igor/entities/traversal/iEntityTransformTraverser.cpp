@@ -99,7 +99,7 @@ namespace igor
                 updateOctree(entity);
             }
         }
-        entity->setDirtyHierarchy(false);
+        entity->resetDirtyHierarchy();
         return true;
     }
 

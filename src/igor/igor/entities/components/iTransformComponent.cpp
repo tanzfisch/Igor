@@ -51,7 +51,7 @@ namespace igor
         if (_position != position)
         {
             _position = position;
-            _entity->setDirtyHierarchy(true);
+            _entity->setDirtyHierarchy();
         }
     }
 
@@ -70,7 +70,7 @@ namespace igor
         if (_orientation != orientation)
         {
             _orientation = orientation;
-            _entity->setDirtyHierarchy(true);
+            _entity->setDirtyHierarchy();
         }
     }
 
@@ -89,7 +89,7 @@ namespace igor
         if (_scale != scale)
         {
             _scale = scale;
-            _entity->setDirtyHierarchy(true);
+            _entity->setDirtyHierarchy();
         }
     }
 
@@ -111,11 +111,6 @@ namespace igor
 
     void iTransformComponent::onActivate(iEntityPtr entity)
     {
-        if(entity->isHierarchyDirty())
-        {
-            return;
-        }
-
-        entity->setDirtyHierarchyDown();
+        entity->setDirtyHierarchy();
     }    
 }

@@ -472,7 +472,7 @@ namespace igor
             }
         }
 
-        bool changed = false;
+        bool componentsChanged = false;
 
         if (active)
         {
@@ -484,12 +484,12 @@ namespace igor
                 {
                     component->onActivate(this);
                     component->_state = iEntityComponentState::Active;
-                    changed = true;
+                    componentsChanged = true;
                 }
                 else if (component->_state == iEntityComponentState::UnloadedInactive)
                 {
                     component->_state = iEntityComponentState::Unloaded;
-                    changed = true;
+                    componentsChanged = true;
                 }
             }
 
@@ -510,12 +510,12 @@ namespace igor
                 {
                     component->onDeactivate(this);
                     component->_state = iEntityComponentState::Inactive;
-                    changed = true;
+                    componentsChanged = true;
                 }
                 else if (component->_state == iEntityComponentState::Unloaded)
                 {
                     component->_state = iEntityComponentState::UnloadedInactive;
-                    changed = true;
+                    componentsChanged = true;
                 }
             }
 
@@ -527,11 +527,14 @@ namespace igor
             }
         }
 
-        if (changed)
+        if (componentsChanged)
         {
             _componentMask = calcComponentMask();
-            onEntityStructureChanged();
         }
+
+        onEntityStructureChanged();
+
+        setDirtyHierarchy();
     }
 
     bool iEntity::isActive() const
@@ -588,34 +591,43 @@ namespace igor
         return _dirtyHierarchy;
     }
 
-    void iEntity::setDirtyHierarchy(bool dirty)
+    void iEntity::resetDirtyHierarchy()
     {
-        _dirtyHierarchy = dirty;
+        _dirtyHierarchy = false;
+    }
 
+    void iEntity::setDirtyHierarchy()
+    {
         if (_dirtyHierarchy)
         {
-            if (hasParent())
-            {
-                getParent()->setDirtyHierarchyUp();
-            }
+            return;
+        }
 
-            for (uint32 i = 0; i < _children.size(); ++i)
-            {
-                _children[i]->setDirtyHierarchyDown();
-            }
+        _dirtyHierarchy = true;
+
+        if (hasParent())
+        {
+            getParent()->setDirtyHierarchyUp();
+        }
+
+        for (uint32 i = 0; i < _children.size(); ++i)
+        {
+            _children[i]->setDirtyHierarchyDown();
         }
     }
 
     void iEntity::setDirtyHierarchyUp()
     {
-        if (!_dirtyHierarchy)
+        if (_dirtyHierarchy)
         {
-            _dirtyHierarchy = true;
+            return;
+        }
 
-            if (hasParent())
-            {
-                getParent()->setDirtyHierarchyUp();
-            }
+        _dirtyHierarchy = true;
+
+        if (hasParent())
+        {
+            getParent()->setDirtyHierarchyUp();
         }
     }
 

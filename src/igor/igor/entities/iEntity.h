@@ -56,6 +56,7 @@ namespace igor
     class IGOR_API iEntity
     {
         friend class iEntityScene;
+        friend class iEntityTransformTraverser;
 
     public:
         /*! \returns entity id
@@ -212,18 +213,12 @@ namespace igor
         bool isHierarchyDirty() const;
 
         /*! sets dirty flag up and down the hierarchy
-
-        \param dirty the dirty flag to set
-        */
-        void setDirtyHierarchy(bool dirty);
-
-        /*! sets dirty flag up the hierarchy
          */
-        void setDirtyHierarchyUp();
+        void setDirtyHierarchy();
 
-        /*! sets dirty flag down the hierarchy
+        /*! resets dirty flag on this entity
          */
-        void setDirtyHierarchyDown();        
+        void resetDirtyHierarchy();
 
     private:
         /*! the entities id (unique)
@@ -318,6 +313,13 @@ namespace igor
          */
         void onEntityStructureChanged();
 
+        /*! sets dirty flag up the hierarchy
+         */
+        void setDirtyHierarchyUp();
+
+        /*! sets dirty flag down the hierarchy
+         */
+        void setDirtyHierarchyDown();
     };
 
 #include <igor/entities/iEntity.inl>
