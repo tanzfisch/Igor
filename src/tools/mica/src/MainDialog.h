@@ -116,6 +116,12 @@ private:
     \returns created menu
     */
     iWidgetMenuBarPtr createMenu();
+
+    /*! prints project tree to console
+
+    \param source the event source
+     */
+    void onPrintProjectTree(const iWidgetPtr source);      
 };
 
 #endif // MICA_MAIN_LAYOUT_H

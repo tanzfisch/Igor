@@ -45,7 +45,7 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     menuBar->addMenu(editMenu);
 
     iWidgetMenuPtr projectMenu = new iWidgetMenu("Project");
-    // TODO
+    projectMenu->addCallback(iClickDelegate(this, &MainDialog::onPrintProjectTree), "Log Project Tree", "Logs the current project tree to the console");
     menuBar->addMenu(projectMenu);
 
     return menuBar;
@@ -90,3 +90,9 @@ void MainDialog::onCloseProject(const iWidgetPtr source)
 {
     _closeProject();
 }
+
+void MainDialog::onPrintProjectTree(const iWidgetPtr source)
+{
+    iEntityPrintTraverser print(true);
+    print.traverse(iProject::getInstance().getProjectScene());
+} 

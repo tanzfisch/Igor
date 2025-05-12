@@ -270,7 +270,7 @@ namespace igor
         result += _id;
 
         iEntityPtr parent = getParent();
-        while(parent != nullptr)
+        while (parent != nullptr)
         {
             result += parent->getID();
             parent = parent->getParent();
@@ -472,6 +472,8 @@ namespace igor
             }
         }
 
+        bool changed = false;
+
         if (active)
         {
             // activate components
@@ -482,10 +484,12 @@ namespace igor
                 {
                     component->onActivate(this);
                     component->_state = iEntityComponentState::Active;
+                    changed = true;
                 }
                 else if (component->_state == iEntityComponentState::UnloadedInactive)
                 {
                     component->_state = iEntityComponentState::Unloaded;
+                    changed = true;
                 }
             }
 
@@ -506,10 +510,12 @@ namespace igor
                 {
                     component->onDeactivate(this);
                     component->_state = iEntityComponentState::Inactive;
+                    changed = true;
                 }
                 else if (component->_state == iEntityComponentState::Unloaded)
                 {
                     component->_state = iEntityComponentState::UnloadedInactive;
+                    changed = true;
                 }
             }
 
@@ -521,7 +527,11 @@ namespace igor
             }
         }
 
-        onEntityStructureChanged();
+        if (changed)
+        {
+            _componentMask = calcComponentMask();
+            onEntityStructureChanged();
+        }
     }
 
     bool iEntity::isActive() const

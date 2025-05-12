@@ -244,14 +244,6 @@ private:
     /*! handle selection change
      */
     void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
-
-    /*! prints project tree to console
-     */
-    void onPrintProjectTree();
-
-    /*! prints overlay tree to console
-     */
-    void onPrintOverlayTree();
 };
 
 #endif // MICA_VIEWPORT_H

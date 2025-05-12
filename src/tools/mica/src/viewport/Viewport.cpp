@@ -474,11 +474,6 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 {
     iWidget::onMouseKeyUp(event);
 
-    if (event.getKey() == iKeyCode::MouseRight)
-    {
-        onPrintOverlayTree();
-    }
-
     bool result = false;
     for (auto &overlay : _entityOverlays)
     {
@@ -741,19 +736,6 @@ void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     }
 
     drag.reject();
-}
-
-void Viewport::onPrintOverlayTree()
-{
-    iEntityPrintTraverser print(true);
-    auto scene = iEntitySystemModule::getInstance().getScene(_viewportOverlay->getView().getEntitySceneID());
-    print.traverse(scene);
-}
-
-void Viewport::onPrintProjectTree()
-{
-    iEntityPrintTraverser print;
-    print.traverse(iProject::getInstance().getProjectScene());
 }
 
 void Viewport::onDrop(const iDrag &drag, const iaVector2f &mousePos)
