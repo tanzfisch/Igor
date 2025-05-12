@@ -106,6 +106,11 @@ namespace igor
         result.push_back(iaString("Ori: ") + iaString::toString(_orientation));
         result.push_back(iaString("Sca: ") + iaString::toString(_scale));
 
+        result.push_back(iaString("wld  ") + iaString::toString(_worldMatrix[0]) + ", " + iaString::toString(_worldMatrix[4]) + ", " + iaString::toString(_worldMatrix[8]) + ", " + iaString::toString(_worldMatrix[12]));
+        result.push_back(iaString("mtx: ") + iaString::toString(_worldMatrix[1]) + ", " + iaString::toString(_worldMatrix[5]) + ", " + iaString::toString(_worldMatrix[9]) + ", " + iaString::toString(_worldMatrix[13]));
+        result.push_back(iaString("     ") + iaString::toString(_worldMatrix[2]) + ", " + iaString::toString(_worldMatrix[6]) + ", " + iaString::toString(_worldMatrix[10]) + ", " + iaString::toString(_worldMatrix[14]));
+        result.push_back(iaString("     ") + iaString::toString(_worldMatrix[3]) + ", " + iaString::toString(_worldMatrix[7]) + ", " + iaString::toString(_worldMatrix[11]) + ", " + iaString::toString(_worldMatrix[15]));
+
         return result;
     }
 

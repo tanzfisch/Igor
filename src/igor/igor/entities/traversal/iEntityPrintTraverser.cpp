@@ -91,7 +91,7 @@ namespace igor
             {
                 for (const auto &info : component->getInfo())
                 {
-                    con_endl(getIndent(_indentation) << "|      - " << info);
+                    con_endl(getIndent(_indentation) << "|        " << info);
                 }
             }
         }
