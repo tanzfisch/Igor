@@ -412,31 +412,33 @@ namespace igor
     {
         setActive(active);
 
-        if (hasParent())
+        if (!hasParent())
         {
-            if (!active)
+            return;
+        }
+
+        if (!active)
+        {
+            auto inactiveChildren = _parent->_inactiveChildren;
+            for (const auto &sibling : inactiveChildren)
             {
-                auto inactiveChildren = _parent->_inactiveChildren;
-                for (const auto &sibling : inactiveChildren)
+                if (sibling == this)
                 {
-                    if (sibling == this)
-                    {
-                        continue;
-                    }
-                    sibling->setActive(true);
+                    continue;
                 }
+                sibling->setActive(true);
             }
-            else
+        }
+        else
+        {
+            auto children = _parent->_children;
+            for (const auto &sibling : children)
             {
-                auto children = _parent->_children;
-                for (const auto &sibling : children)
+                if (sibling == this)
                 {
-                    if (sibling == this)
-                    {
-                        continue;
-                    }
-                    sibling->setActive(false);
+                    continue;
                 }
+                sibling->setActive(false);
             }
         }
     }
@@ -598,11 +600,6 @@ namespace igor
 
     void iEntity::setDirtyHierarchy()
     {
-        if (_dirtyHierarchy)
-        {
-            return;
-        }
-
         _dirtyHierarchy = true;
 
         if (hasParent())
@@ -633,6 +630,11 @@ namespace igor
 
     void iEntity::setDirtyHierarchyDown()
     {
+        if (_dirtyHierarchy)
+        {
+            return;
+        }
+
         _dirtyHierarchy = true;
 
         for (auto child : _children)
