@@ -140,9 +140,9 @@ private:
     /*! translate given matrix by vector projected on selected axis
 
     \param vec vector to translate
-    \param matrix the matrix to manipulate
+    \param transformComp the transform component to manipulate
     */
-    void translate(const iaVector3d &vec, iaMatrixd &matrix);
+    void translate(const iaVector3d &vec, iTransformComponentPtr transformComp);
 
     /*! scele given matrix by vector on selected axis
 

@@ -131,7 +131,6 @@ void TransformOverlay::onInit()
     createRotateModifier(ringMesh, ringMesh2D, cylinder);
     createLocatorRepresentation(cylinder);
 
-    // setOverlayMode(OverlayMode::None);
     _rootTransform->setActive(false);
 }
 
@@ -179,7 +178,7 @@ void TransformOverlay::update()
     auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
     rootTransformComp->setPosition(entityPos);
     rootTransformComp->setOrientation(entityOrientation);
-    rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+    //rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
 
     auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
     billboardTransformComp->setOrientation(camOrientation); // TODO
@@ -487,57 +486,69 @@ bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 
 bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
 {
-    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    if(!_selectionID.isValid())
     {
         return false;
     }
 
-    iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
-    if (node == nullptr ||
-        node->getType() != iNodeType::iNodeTransform)
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getEntitySceneID());
+    con_assert(entityScene != nullptr, "no scene");
+
+    auto entity = entityScene->getEntity(getEntityID());
+    if(entity == nullptr)
     {
         return false;
     }
 
+    auto entityTransformComp = entity->getComponent<iTransformComponent>();
+    if(entityTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    auto camera = entityScene->getActiveCamera();
+    if(camera == nullptr)
+    {
+        return false;
+    }
+
+    auto camTransformComp = camera->getComponent<iTransformComponent>();
+    if(camTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    const iaMatrixd &camWorldMatrix = camTransformComp->getWorldMatrix();
     iaVector2d fromd = event.getLastPosition().convert<float64>();
     iaVector2d tod = event.getPosition().convert<float64>();
-
-    iaMatrixd camWorldMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-
+    
     iaVector3d fromWorld = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
     iaVector3d toWorld = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
 
-    iNodeTransform *transformNode = static_cast<iNodeTransform *>(node);
-    iaMatrixd transformWorldMatrix;
-    transformNode->calcWorldTransformation(transformWorldMatrix);
+    iaMatrixd transformWorldMatrix = entityTransformComp->getWorldMatrix();
     transformWorldMatrix.invert();
     fromWorld = transformWorldMatrix * fromWorld;
     toWorld = transformWorldMatrix * toWorld;
 
-    float64 distance = getWorkspace()->getCameraArc()->getDistance();
-
-    iaMatrixd nodeMatrix;
-    transformNode->getMatrix(nodeMatrix);
+    float64 distanceToCam = 10; // camTransformComp->getPosition().distance(entityTransformComp->getPosition());
+    con_endl("distanceToCam " << distanceToCam);
 
     switch (getOverlayMode())
     {
     case OverlayMode::None:
         break;
     case OverlayMode::Rotate:
-        rotate(fromd, tod, nodeMatrix);
+        //rotate(fromd, tod, nodeMatrix);
         break;
     case OverlayMode::Scale:
-        scale((toWorld - fromWorld) * distance * 2, nodeMatrix);
+        //scale((toWorld - fromWorld) * distanceToCam * 2, nodeMatrix);
         break;
     case OverlayMode::Translate:
-        translate((toWorld - fromWorld) * distance, nodeMatrix);
+        translate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
         break;
     }
 
-    transformNode->setMatrix(nodeMatrix);*/
-
-    // update();
+    update();
 
     return false;
 }
@@ -558,20 +569,20 @@ void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
     }*/
 }
 
-void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
+void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr transform)
 {
-    /*static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     iaVector3d translate;
 
     for (int i = 0; i < 3; ++i)
     {
-        if (_selectedManipulatorNodeID == _translateIDs[i])
+        if (_selectionID == _translateIDs[i])
         {
             translate = vec.project(dir[i]);
-            matrix.translate(translate);
+            transform->setPosition(transform->getPosition() + translate);
             return;
         }
-    }*/
+    }
 }
 
 void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
