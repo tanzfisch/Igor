@@ -348,69 +348,84 @@ namespace igor
     void iView::pickEntityID(const iaRectanglei &rectangle, std::vector<iEntityID> &entityIDs)
     {
         auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-        if (scene != nullptr &&
-            scene->getActiveCamera() != nullptr)
+        if (scene == nullptr)
         {
-            iEntityPtr camera = scene->getActiveCamera();
-            iRenderEngine renderEngine;
-
-            auto transformComponent = camera->getComponent<iTransformComponent>();
-            const auto &camWorldMatrix = transformComponent->getWorldMatrix();
-
-            const iRenderTargetID renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-            iRenderer::getInstance().setRenderTarget(renderTarget);
-
-            iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
-
-            iRenderer::getInstance().clearColorBuffer(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
-            iRenderer::getInstance().clearDepthBuffer();
-
-            if (_perspective)
-            {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
-            }
-            else
-            {
-                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-            }
-
-            iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
-
-            iaMatrixd viewmatrix;
-            viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
-
-            iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
-            projectionViewMatrix *= viewmatrix;
-            _renderEngine.setFrustum(projectionViewMatrix);
-
-            scene->setRenderEngine(&renderEngine);
-
-            iEntityColorIDTraverser traverser;
-            traverser.traverse(scene);
-
-            int32 pixelCount = rectangle._width * rectangle._height;
-            uint8 *data = new uint8[pixelCount * 4];
-            iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
-
-            iRenderer::getInstance().setRenderTarget();
-            iRenderer::getInstance().destroyRenderTarget(renderTarget);
-
-            uint8 *dataIter = data;
-            for (int i = 0; i < pixelCount; ++i)
-            {
-                const uint32 colorID = (static_cast<uint32>(dataIter[0]) << 24) | (static_cast<uint32>(dataIter[1]) << 16) | (static_cast<uint32>(dataIter[2]) << 8) | (static_cast<uint32>(dataIter[3]));
-                auto entityID = traverser.getEntityID(colorID);
-                if (entityID.isValid())
-                {
-                    entityIDs.push_back(entityID);
-                }
-                dataIter += 4;
-            }
-
-            delete[] data;
-
-            scene->setRenderEngine(&_renderEngine);
+            return;
         }
+
+        auto camSceneID = _overrideSceneID.isValid() ? _overrideSceneID : _renderEngine.getSceneID();
+        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _renderEngine.getCameraID();
+
+        auto camScene = iEntitySystemModule::getInstance().getScene(camSceneID);
+        if(camScene == nullptr)
+        {
+            return;
+        }
+
+        iEntityPtr camera = camScene->getEntity(cameraID);
+        if (camera == nullptr)
+        {
+            return;
+        }
+
+        iRenderEngine renderEngine;
+
+        auto transformComponent = camera->getComponent<iTransformComponent>();
+        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+
+        const iRenderTargetID renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+        iRenderer::getInstance().setRenderTarget(renderTarget);
+
+        iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
+
+        iRenderer::getInstance().clearColorBuffer(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
+        iRenderer::getInstance().clearDepthBuffer();
+
+        if (_perspective)
+        {
+            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+        }
+        else
+        {
+            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+        }
+
+        iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
+
+        iaMatrixd viewmatrix;
+        viewmatrix.lookAt(camWorldMatrix._pos, camWorldMatrix._pos - camWorldMatrix._depth, camWorldMatrix._top);
+
+        iaMatrixd projectionViewMatrix = iRenderer::getInstance().getProjectionMatrix();
+        projectionViewMatrix *= viewmatrix;
+        _renderEngine.setFrustum(projectionViewMatrix);
+
+        scene->setRenderEngine(&renderEngine);
+
+        iEntityColorIDTraverser traverser;
+        traverser.traverse(scene);
+
+        int32 pixelCount = rectangle._width * rectangle._height;
+        uint8 *data = new uint8[pixelCount * 4];
+        iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
+
+        iRenderer::getInstance().setRenderTarget();
+        iRenderer::getInstance().destroyRenderTarget(renderTarget);
+
+        uint8 *dataIter = data;
+        for (int i = 0; i < pixelCount; ++i)
+        {
+            const uint32 colorID = (static_cast<uint32>(dataIter[0]) << 24) | (static_cast<uint32>(dataIter[1]) << 16) | (static_cast<uint32>(dataIter[2]) << 8) | (static_cast<uint32>(dataIter[3]));
+            auto entityID = traverser.getEntityID(colorID);
+            if (entityID.isValid())
+            {
+                entityIDs.push_back(entityID);
+            }
+            dataIter += 4;
+        }
+
+        delete[] data;
+
+        scene->setRenderEngine(&_renderEngine);
     }
 
     void iView::updateWindowRect(const iaRectanglei &windowRect)

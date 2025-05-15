@@ -29,8 +29,6 @@ namespace igor
     void iRenderEngine::addMesh(iEntityPtr meshEntity)
     {
         con_assert(meshEntity != nullptr, "zero pointer");
-        con_assert(meshEntity->getScene() != nullptr, "no scene");
-        con_assert(meshEntity->getScene()->getID() == _sceneID, "incompatible scene");
 
         auto transformComponent = meshEntity->getComponent<iTransformComponent>();
         auto meshRenderComponent = meshEntity->getComponent<iMeshRenderComponent>();

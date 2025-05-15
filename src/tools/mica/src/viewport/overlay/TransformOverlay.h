@@ -79,23 +79,23 @@ public:
 private:
     /*! red material
      */
-    iMaterialPtr _red = nullptr;
+    iMaterialPtr _red;
 
     /*! green material
      */
-    iMaterialPtr _green = nullptr;
+    iMaterialPtr _green;
 
     /*! blue material
      */
-    iMaterialPtr _blue = nullptr;
+    iMaterialPtr _blue;
 
     /*! cyan material
      */
-    iMaterialPtr _cyan = nullptr;
+    iMaterialPtr _cyan;
 
-    /*! cel shader material for selection
+    /*! cel shading shader
      */
-    iMaterialPtr _materialCelShading;
+    iShaderPtr _materialCelShading;
 
     /*! translate ids
      */
@@ -122,16 +122,20 @@ private:
     iEntityPtr _rotateModifier = nullptr;
 
     /*! scale modifier
-    */
+     */
     iEntityPtr _scaleModifier = nullptr;
 
     /*! locator representation
-    */
+     */
     iEntityPtr _locatorRepresentation = nullptr;
 
     /*! rotate modifier billboard
      */
     iEntityPtr _rotateBillboardTransform = nullptr;
+
+    /*! selected entity ID
+     */
+    iEntityID _selectionID = iEntityID::getInvalid();
 
     /*! translate given matrix by vector projected on selected axis
 

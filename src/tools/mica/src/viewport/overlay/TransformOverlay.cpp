@@ -60,14 +60,6 @@ void TransformOverlay::onInit()
 
     });
 
-    iShaderPtr shaderMaterialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
-    iParameters paramMaterialCelshading({
-        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-        {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shaderMaterialCelShading},
-    });
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>(paramMaterialCelshading);
-
     const float32 alpha = 1.0f;
 
     iParameters paramRed({
@@ -117,6 +109,8 @@ void TransformOverlay::onInit()
         {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
     _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
+
+    _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
 
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();
@@ -407,78 +401,86 @@ void TransformOverlay::onRender()
 
 void TransformOverlay::renderHighlight()
 {
-    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    const auto &entitySceneID = getView()->getEntitySceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    con_assert(entityScene != nullptr, "no scene");
+
+    auto entity = entityScene->getEntity(_selectionID);
+    if (entity == nullptr)
     {
         return;
     }
 
-    const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
-
-    if (node->getKind() != iNodeKind::Renderable &&
-        node->getKind() != iNodeKind::Volume)
+    const auto transformComponent = entity->getComponent<iTransformComponent>();
+    if (transformComponent == nullptr)
     {
         return;
     }
 
-    const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
-    iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
-
-    if (node->getType() != iNodeType::iNodeMesh)
+    const auto meshRenderComponent = entity->getComponent<iMeshRenderComponent>();
+    if (meshRenderComponent == nullptr)
     {
         return;
     }
 
-    iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
+    iRenderer::getInstance().setShader(_materialCelShading);
     iRenderer::getInstance().setLineWidth(4);
-    iRenderer::getInstance().setShader(_materialCelShading->getShader());
-    iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);*/
+
+    for (const auto &meshRef : meshRenderComponent->getMeshReferences())
+    {
+        auto matrix = transformComponent->getWorldMatrix();
+        matrix *= meshRef._offset;
+
+        iRenderer::getInstance().setModelMatrix(matrix);
+        iRenderer::getInstance().drawMesh(meshRef._mesh, nullptr);
+    }
 }
 
 bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
-    /*if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
+    if (!_selectionID.isValid())
     {
         return false;
     }
 
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;*/
-    return false;
+    _selectionID = iEntityID::getInvalid();
+    return true;
 }
 
 bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    /*auto rect = getView()->getViewport();
+    auto rect = getView()->getViewport();
     auto window = iApplication::getInstance().getWindow();
 
     auto top = window->getClientHeight() - rect._height - rect._y;
 
-    iNodeID nodeID = getView()->pickColorID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
+    iEntityID selectionID = getView()->pickEntityID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
 
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
+    _selectionID = iEntityID::getInvalid();
 
     for (int i = 0; i < 4; ++i)
     {
-        if (nodeID == _scaleIDs[i])
+        if (selectionID == _scaleIDs[i])
         {
-            _selectedManipulatorNodeID = nodeID;
+            _selectionID = selectionID;
             return true;
         }
     }
 
     for (int i = 0; i < 3; ++i)
     {
-        if (nodeID == _translateIDs[i])
+        if (selectionID == _translateIDs[i])
         {
-            _selectedManipulatorNodeID = nodeID;
+            _selectionID = selectionID;
             return true;
         }
 
-        if (nodeID == _rotateIDs[i])
+        if (selectionID == _rotateIDs[i])
         {
-            _selectedManipulatorNodeID = nodeID;
+            _selectionID = selectionID;
             return true;
         }
-    }*/
+    }
 
     return false;
 }
