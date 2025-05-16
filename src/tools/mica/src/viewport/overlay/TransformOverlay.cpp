@@ -166,22 +166,22 @@ void TransformOverlay::update()
     }
 
     auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
-    const auto &camPos = camTransformComp->getPosition();
-    const auto &camOrientation = camTransformComp->getOrientation();
+    auto camWorldMatrix = camTransformComp->getWorldMatrix();
 
-    const auto &entityPos = transformComp->getPosition();
+    auto entityWorldMatrix = transformComp->getWorldMatrix();
+    const auto &entityPos = entityWorldMatrix._pos;
     const auto &entityOrientation = transformComp->getOrientation();
 
-    float64 distanceToCam = camPos.distance(entityPos);
+    float64 distanceToCam = camWorldMatrix._pos.distance(entityPos) * 0.1;
 
     // update transform
     auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
     rootTransformComp->setPosition(entityPos);
     rootTransformComp->setOrientation(entityOrientation);
-    //rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+    rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
 
     auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
-    billboardTransformComp->setOrientation(camOrientation); // TODO
+    // billboardTransformComp->setOrientation(camOrientation); // TODO
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
@@ -530,8 +530,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     fromWorld = transformWorldMatrix * fromWorld;
     toWorld = transformWorldMatrix * toWorld;
 
-    float64 distanceToCam = 10; // camTransformComp->getPosition().distance(entityTransformComp->getPosition());
-    con_endl("distanceToCam " << distanceToCam);
+    float64 distanceToCam = camWorldMatrix._pos.distance(entityTransformComp->getPosition());
 
     switch (getOverlayMode())
     {

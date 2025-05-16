@@ -357,7 +357,7 @@ namespace igor
         auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _renderEngine.getCameraID();
 
         auto camScene = iEntitySystemModule::getInstance().getScene(camSceneID);
-        if(camScene == nullptr)
+        if (camScene == nullptr)
         {
             return;
         }
@@ -368,7 +368,7 @@ namespace igor
             return;
         }
 
-        iRenderEngine renderEngine;
+        iRenderEngine tempRenderEngine;
 
         auto transformComponent = camera->getComponent<iTransformComponent>();
         const auto &camWorldMatrix = transformComponent->getWorldMatrix();
@@ -399,7 +399,7 @@ namespace igor
         projectionViewMatrix *= viewmatrix;
         _renderEngine.setFrustum(projectionViewMatrix);
 
-        scene->setRenderEngine(&renderEngine);
+        scene->setRenderEngine(&tempRenderEngine);
 
         iEntityColorIDTraverser traverser;
         traverser.traverse(scene);
@@ -463,6 +463,35 @@ namespace igor
         return static_cast<float64>(_viewport.getWidth()) / static_cast<float64>(_viewport.getHeight());
     }
 
+    iaVector3d iView::project(const iaVector3d &worldSpacePos)
+    {
+        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _renderEngine.getSceneID();
+        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _renderEngine.getCameraID();
+
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            con_err("no scene defined");
+            return iaVector3d();
+        }
+
+        iEntityPtr camera = scene->getEntity(cameraID);
+        if (camera == nullptr)
+        {
+            con_err("no camera found");
+            return iaVector3d();
+        }        
+
+        auto camTransformComp = camera->getComponent<iTransformComponent>();
+        if(camTransformComp == nullptr)
+        {
+            con_err("no transform component found");
+            return iaVector3d();
+        }
+
+        return project(worldSpacePos, camTransformComp->getWorldMatrix());
+    }
+
     iaVector3d iView::project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix)
     {
         iaMatrixd viewMatrix;
@@ -472,6 +501,35 @@ namespace igor
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
         return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
+    }    
+
+    iaVector3d iView::unProject(const iaVector3d &screenpos)
+    {
+        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _renderEngine.getSceneID();
+        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _renderEngine.getCameraID();
+
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            con_err("no scene defined");
+            return iaVector3d();
+        }
+
+        iEntityPtr camera = scene->getEntity(cameraID);
+        if (camera == nullptr)
+        {
+            con_err("no camera found");
+            return iaVector3d();
+        }        
+
+        auto camTransformComp = camera->getComponent<iTransformComponent>();
+        if(camTransformComp == nullptr)
+        {
+            con_err("no transform component found");
+            return iaVector3d();
+        }
+
+        return unProject(screenpos, camTransformComp->getWorldMatrix());        
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix)
@@ -498,10 +556,24 @@ namespace igor
         return _embedded;
     }
 
-    void iView::setOverrideCamera(const iEntityID &cameraID, const iEntitySceneID sceneID)
+    void iView::setOverrideCamera(iEntityPtr camera)
     {
-        _overrideCameraID = cameraID;
-        _overrideSceneID = sceneID;
+        con_assert(camera != nullptr, "zero pointer");
+        con_assert(camera->getComponent<iCameraComponent>() != nullptr, "no camera component");
+
+        _overrideCameraID = camera->getID();
+        _overrideSceneID = camera->getScene()->getID();
+    }
+
+    iEntityPtr iView::getOverrideCamera() const
+    {
+        auto scene = iEntitySystemModule::getInstance().getScene(_overrideSceneID);
+        if (scene == nullptr)
+        {
+            return nullptr;
+        }
+
+        return scene->getEntity(_overrideCameraID);
     }
 
 }; // namespace igor

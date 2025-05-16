@@ -85,6 +85,20 @@ namespace igor
          */
         const iEntitySceneID &getEntitySceneID() const;
 
+        /*! specifies a camera to override the active cam of the scene
+
+        camera is allowed to not be from the same scene as the view scene
+
+        \param camera camera entity to use
+        */
+        void setOverrideCamera(iEntityPtr camera);
+
+        /*! \returns override camera
+
+        returns zero pointer if not set or invalid
+        */
+        iEntityPtr getOverrideCamera() const;
+
         /*! sets name of view
 
         \param name name of the view
@@ -243,10 +257,24 @@ namespace igor
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)
-        \param modelMatrix the camera matrix to create the model view matrix from
         \returns unprojected position in object space
         */
-        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelMatrix);
+        iaVector3d unProject(const iaVector3d &screenpos);
+
+        /*! project world position to screen coordinates
+
+        \param worldSpacePos the position in world space to project
+        \returns projected screen position
+        */
+        iaVector3d project(const iaVector3d &worldSpacePos);
+
+        /*! unprojects screen position to object space
+
+        \param screenpos screen position in pixels (vertical origin is at top of window)
+        \param cameraMatrix the camera matrix to create the model view matrix from
+        \returns unprojected position in object space
+        */
+        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix);
 
         /*! project world position to screen coordinates
 
@@ -254,7 +282,7 @@ namespace igor
         \param cameraMatrix the camera matrix
         \returns projected screen position
         */
-        iaVector3d project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix);
+        iaVector3d project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix);        
 
         /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point.
 
@@ -289,15 +317,6 @@ namespace igor
         /*! \returns true if this view is embedded inside a widget
          */
         bool isEmbedded();
-
-        /*! specifies a camera to override the active cam of the scene
-
-        camera is allowed to not be from the same scene as the view scene
-
-        \param cameraID the id of the camera to override with
-        \param sceneID scene of the camera to override with
-        */
-        void setOverrideCamera(const iEntityID &cameraID, const iEntitySceneID sceneID = iEntitySceneID::getInvalid());
 
     private:
         /*! z index

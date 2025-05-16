@@ -332,12 +332,6 @@ void iaQuaternion<T>::setEuler(const iaVector3<T> &vec)
 }
 
 template <class T>
-void iaQuaternion<T>::getEuler(iaVector3<T> &vec) const
-{
-    getEuler(vec._x, vec._y, vec._z);
-}
-
-template <class T>
 IGOR_INLINE const T *iaQuaternion<T>::getData() const
 {
     return (T *)&_x;

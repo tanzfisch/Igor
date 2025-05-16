@@ -121,7 +121,7 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         if (camera->getID() == actionContext->getEntities()[0])
         {
             camera->setActive(true);
-            _viewportOverlay->getView().setOverrideCamera(camera->getID(), entitySceneID);
+            _viewportOverlay->getView().setOverrideCamera(camera);
         }
         else
         {
@@ -199,7 +199,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 
     if (projectScene->getActiveCamera() != nullptr)
     {
-        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera()->getID(), projectScene->getID());
+        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera());
     }
     else
     {
@@ -215,7 +215,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
                 continue;
             }
 
-            _viewportOverlay->getView().setOverrideCamera(entity->getID(), projectScene->getID());
+            _viewportOverlay->getView().setOverrideCamera(entity);
 
             break;
         }
