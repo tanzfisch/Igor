@@ -302,24 +302,27 @@ void iaQuaternion<T>::setEuler(T x, T y, T z)
 }
 
 template <class T>
-void iaQuaternion<T>::getEuler(T &x, T &y, T &z) const
+const iaVector3<T> iaQuaternion<T>::getEuler() const
 {
+    iaVector3<T> result;
     // roll (x-axis rotation)
     double sinr_cosp = +2.0 * (_w * _x + _y * _z);
     double cosr_cosp = +1.0 - 2.0 * (_x * _x + _y * _y);
-    x = atan2(sinr_cosp, cosr_cosp);
+    result._x = atan2(sinr_cosp, cosr_cosp);
 
     // pitch (y-axis rotation)
     double sinp = +2.0 * (_w * _y - _z * _x);
     if (fabs(sinp) >= 1)
-        y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+        result._y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
     else
-        y = asin(sinp);
+        result._y = asin(sinp);
 
     // yaw (z-axis rotation)
     double siny_cosp = +2.0 * (_w * _z + _x * _y);
     double cosy_cosp = +1.0 - 2.0 * (_y * _y + _z * _z);
-    z = atan2(siny_cosp, cosy_cosp);
+    result._z = atan2(siny_cosp, cosy_cosp);
+
+    return result;
 }
 
 template <class T>

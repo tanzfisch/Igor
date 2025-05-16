@@ -2,16 +2,40 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-template <class T>
+/*template <class T>
 IGOR_INLINE std::wostream& operator<<(std::wostream& ostr, const iaTransform<T>& t)
 {
     iaVector3d rotate;
     t._orientation.getEuler(rotate);
 
-    ostr << "t" << t._translate << "\n";
+    ostr << "t" << t._position << "\n";
     ostr << "r" << rotate << "\n";
     ostr << "s" << t._scale << "\n";
     return ostr;
+}*/
+
+template <class T>
+iaTransform<T>::iaTransform(const iaVector3<T>& position, const iaVector3<T> orientation, const iaVector3<T>& scale)
+{
+    _position = position;
+    _orientation = orientation;
+    _scale = scale;
+}
+
+template <class T>
+void iaTransform<T>::set(const iaVector3<T> &position, const iaVector3<T> orientation, const iaVector3<T> &scale)
+{
+    _position = position;
+    _orientation = orientation;
+    _scale = scale;
+}
+
+template <class T>
+iaTransform<T>::iaTransform()
+{
+    _position.set(0.0, 0.0, 0.0);
+    _orientation.set(0.0, 0.0, 0.0, 1.0);
+    _scale.set(1.0, 1.0, 1.0);
 }
 
 template <class T>
@@ -19,78 +43,19 @@ iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, T t)
 {
     iaTransform<T> result;
 
-    result._translate = lerp(a._translate, b._translate, t);
+    result._position = lerp(a._position, b._position, t);
     result._scale = lerp(a._scale, b._scale, t);
-    result._shear = lerp(a._shear, b._shear, t);
-    result._orientation = slerp(a._orientation, b._orientation, t);
+    result._orientation = lerp(a._orientation, b._orientation, t);
 
     return result;
 }
 
 template <class T>
-iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale)
+IGOR_INLINE const iaMatrix<T> iaTransform<T>::getMatrix() const;
 {
-    _translate = translate;
-    _orientation = orientation;
-    _scale = scale;
-    _shear.set(0.0, 0.0, 0.0);
-}
-
-template <class T>
-iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale, const iaVector3<T>& shear)
-{
-    _translate = translate;
-    _orientation = orientation;
-    _scale = scale;
-    _shear = shear;
-}
-
-template <class T>
-iaTransform<T>::iaTransform()
-{
-    _translate.set(0.0, 0.0, 0.0);
-    _orientation.set(0.0, 0.0, 0.0, 1.0);
-    _scale.set(1.0, 1.0, 1.0);
-    _shear.set(0.0, 0.0, 0.0);
-}
-
-template <class T>
-iaTransform<T>::iaTransform(const iaMatrix<T>& matrix)
-{
-    setMatrix(matrix);
-}
-
-template <class T>
-IGOR_INLINE iaTransform<T>::~iaTransform()
-{
-}
-
-template <class T>
-IGOR_INLINE void iaTransform<T>::getMatrix(iaMatrix<T>& matrix) const
-{
-    matrix.recompose(_scale, _orientation, _translate, _shear, iaVector4<T>(0, 0, 0, 1));
-}
-
-template <class T>
-IGOR_INLINE bool iaTransform<T>::hasShear() const
-{
-    return _shear != iaVector3d();
-}
-
-template <class T>
-IGOR_INLINE bool iaTransform<T>::hasScale() const
-{
-    return _scale != iaVector3d(1, 1, 1);
-}
-
-template <class T>
-IGOR_INLINE bool iaTransform<T>::hasTranslation() const
-{
-    return _translate != iaVector3d();
-}
-
-template <class T>
-IGOR_INLINE bool iaTransform<T>::hasRotation() const
-{
-    return _orientation != iaQuaterniond();
+    iaMatrix<T> matrix;
+    matrix.translate(_position);
+    matrix.rotate(_orientation);
+    matrix.scale(_scale);
+    return matrix;
 }

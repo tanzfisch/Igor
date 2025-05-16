@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_QUATERNION__
-#define __IAUX_QUATERNION__
+#ifndef IAUX_QUATERNION_H
+#define IAUX_QUATERNION_H
 
 #include <iaux/math/iaVector3.h>
 
@@ -136,19 +136,9 @@ namespace iaux
         */
         void setEuler(const iaVector3<T> &vec);
 
-        /*! returns euler angles
-
-        \param x[out] the rotation arround the x axis
-        \param y[out] the rotation arround the y axis
-        \param z[out] the rotation arround the z axis
+        /*! \returns euler angles
         */
-        void getEuler(T &x, T &y, T &z) const;
-
-        /*! returns euler angles
-
-        \param vec[out] euler angles in a vector
-        */
-        void getEuler(iaVector3<T> &vec) const;
+        const iaVector3<T> getEuler() const;
 
         /*! \returns true if both quaternions are equal
 
@@ -248,4 +238,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_QUATERNION__
+#endif // IAUX_QUATERNION_H

@@ -26,89 +26,59 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_TRANSFORM__
-#define __IAUX_TRANSFORM__
+#ifndef IAUX_TRANSFORM_H
+#define IAUX_TRANSFORM_H
 
 #include <iaux/math/iaMatrix.h>
-#include <iaux/math/iaQuaternion.h>
 
 namespace iaux
 {
 
-    /*! Transform based on the components translate, rotate, scale, shear and perspective
-	*/
+    /*! Transform based on the components position, rotate, scale
+     */
     template <class T>
     class IAUX_API_EXPORT_ONLY iaTransform
     {
-
     public:
-        /*! translate component
-		*/
-        iaVector3<T> _translate;
-
-        /*! orientation component as quaternion
-        */
-        iaQuaternion<T> _orientation;
-
-        /*! scale component
-		*/
-        iaVector3<T> _scale;
-
-        /*! shear component
-		*/
-        iaVector3<T> _shear;
-
-        /*! \returns true if transform has shear differnt from 0,0,0
-		*/
-        bool hasShear() const;
-
-        /*! \returns true if transform has scale different from 1,1,1
-		*/
-        bool hasScale() const;
-
-        /*! \returns true if transform has translation different from 0,0,0
-		*/
-        bool hasTranslation() const;
-
-        /*! \returns true if transform has rotation different from 0,0,0
-		*/
-        bool hasRotation() const;
-
-        /*! returns the transforms matrix based on it's components
-		\param[out] matrix the resulting matrix
-		*/
-        void getMatrix(iaMatrix<T> &matrix) const;
-
-        /*! initializes the matrix with the id matrix
-		*/
+        /*! initializes the transform effectively with the id matrix
+         */
         iaTransform();
 
-        /*! ctor set wit matrix to decompose
+        /*! initializes the transform with given components
 
-		\param matrix the matrix to decompose
-		*/
-        iaTransform(const iaMatrix<T> &matrix);
-
-        /*! initializes the matrix with given components
-
-		\param translate translation component
-		\param orientation the orientation component
-		\param scale the scale component
-		*/
-        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale);
-
-        /*! initializes the matrix with given components
-
-		\param translate translation component
-		\param orientation the orientation component
-		\param scale the scale component
-		\param shear the shear component
-		*/
-        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear);
+        \param position translation component
+        \param orientation the orientation component
+        \param scale the scale component
+        */
+        iaTransform(const iaVector3<T> &position, const iaVector3<T> orientation, const iaVector3<T> &scale);
 
         /*! does nothing
-		*/
-        ~iaTransform();
+         */
+        ~iaTransform() = default;
+
+        /*! set the transform with given components
+
+        \param position translation component
+        \param orientation the orientation component
+        \param scale the scale component
+        */
+        void set(const iaVector3<T> &position, const iaVector3<T> orientation, const iaVector3<T> &scale);        
+
+        /*! position component
+         */
+        iaVector3<T> _position;
+
+        /*! orientation component with euler angles
+         */
+        iaVector3<T> _orientation;
+
+        /*! scale component
+         */
+        iaVector3<T> _scale;
+
+        /*! \returns matrix the resulting matrix
+        */
+        const iaMatrix<T> getMatrix() const;
     };
 
     template <class T>
@@ -117,11 +87,11 @@ namespace iaux
 #include <iaux/math/iaTransform.inl>
 
     /*! float32 transform
-    */
+     */
     typedef iaTransform<float64> iaTransformf;
 
     /*! float64 transform
-	*/
+     */
     typedef iaTransform<float64> iaTransformd;
 
 }; // namespace iaux
