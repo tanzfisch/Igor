@@ -30,14 +30,14 @@ namespace igor
         entity->addComponent(component);
 
         component->setPosition(componentJson["position"].get<iaVector3d>());
-        component->setOrientation(componentJson["orientation"].get<iaVector3d>());
+        component->setOrientation(iaQuaterniond::fromEuler(componentJson["orientation"].get<iaVector3d>()));
         component->setScale(componentJson["scale"].get<iaVector3d>());
     }
 
     static void writeTransform(json &componentJson, iTransformComponent *component)
     {
         componentJson["position"] = component->getPosition();
-        componentJson["orientation"] = component->getOrientation();
+        componentJson["orientation"] = component->getOrientation().toEuler();
         componentJson["scale"] = component->getScale();
     }
 

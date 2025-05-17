@@ -139,7 +139,22 @@ namespace iaux
         \param a second vector to calculate the scalar product with
         \returns the resulting scalar product
         */
-        T operator*(const iaVector3<T> &a) const;
+        T dot(const iaVector3<T> &a) const;
+
+        /*! multiplication of two vectors
+
+        \param vec vector to multiply this vector with
+        \returns the product of the mutiplication
+        */
+        iaVector3<T> operator*(const iaVector3<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        the product is stored in this vector
+
+        \param vec vector to multiply this vector with
+        */
+        void operator*=(const iaVector3<T> &vec);        
 
         /*! comparison of two vectors
 

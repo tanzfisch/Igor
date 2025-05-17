@@ -67,13 +67,13 @@ namespace iaux
 
         if (orderAlphabetically)
         {
-            std::sort(result.begin(), result.end(), [](iaDirectory const a, iaDirectory const b)
-                      { 
-                        iaString sa = a.getAbsoluteDirectoryName();
-                        sa.toLower();
-                        iaString sb = b.getAbsoluteDirectoryName();
-                        sb.toLower();
-                        return sa < sb; });
+            std::sort(result.begin(), result.end(),
+                      [](iaDirectory const a, iaDirectory const b)
+                      {
+                          const iaString sa = iaString::toLower(a.getAbsoluteDirectoryName());
+                          const iaString sb = iaString::toLower(b.getAbsoluteDirectoryName());
+                          return sa < sb;
+                      });
         }
 
         return result;
@@ -192,13 +192,13 @@ namespace iaux
 
         if (orderAlphabetically)
         {
-            std::sort(result.begin(), result.end(), [](iaFile const a, iaFile const b)
-                      { 
-                        iaString sa = a.getFullFileName();
-                        sa.toLower();
-                        iaString sb = b.getFullFileName();
-                        sb.toLower();
-                        return sa < sb; });
+            std::sort(result.begin(), result.end(),
+                      [](iaFile const a, iaFile const b)
+                      {
+                          const iaString sa = iaString::toLower(a.getFullFileName());
+                          const iaString sb = iaString::toLower(b.getFullFileName());
+                          return sa < sb;
+                      });
         }
 
         return result;

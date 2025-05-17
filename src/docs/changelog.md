@@ -30,6 +30,7 @@ Changelog                           {#changelog}
 - #441 cleared Mica form all scene node code so we can phase out the scene graph and replace it with entities
 - #436 made callstack more readable
 - added iEntityPrintTraverser for logging entity hierarchies in human readable format
+- #445 introduced iaTransform
 
 0.44.0
 ------

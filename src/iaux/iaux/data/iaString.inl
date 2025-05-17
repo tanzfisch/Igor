@@ -71,6 +71,22 @@ iaString iaString::toString(const iaVector3<T> &vec, int afterPoint)
 }
 
 template <class T>
+iaString iaString::toString(const iaQuaternion<T> &q, int afterPoint)
+{
+    iaString result;
+
+    result += iaString::toString(q._w, afterPoint);
+    result += ", ";
+    result += iaString::toString(q._x, afterPoint);
+    result += ", ";
+    result += iaString::toString(q._y, afterPoint);
+    result += ", ";
+    result += iaString::toString(q._z, afterPoint);
+
+    return result;
+}
+
+template <class T>
 iaString iaString::toString(const iaVector4<T> &vec, int afterPoint)
 {
     iaString result;

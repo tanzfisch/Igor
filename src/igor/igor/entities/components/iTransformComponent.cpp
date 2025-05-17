@@ -6,9 +6,11 @@
 
 namespace igor
 {
-    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaVector3d &orientation, const iaVector3d &scale)
-        : _position(position), _orientation(orientation), _scale(scale)
+    iTransformComponent::iTransformComponent(const iaVector3d &position, const iaQuaterniond &orientation, const iaVector3d &scale)
     {
+        _transform._position = position;
+        _transform._orientation = orientation;
+        _transform._scale = scale;
     }
 
     iEntityComponent *iTransformComponent::createInstance()
@@ -25,20 +27,8 @@ namespace igor
     iEntityComponentPtr iTransformComponent::getCopy()
     {
         iTransformComponent *component = new iTransformComponent();
-        component->_position = _position;
-        component->_orientation = _orientation;
-        component->_scale = _scale;
+        component->_transform = _transform;
         return component;
-    }
-
-    bool iTransformComponent::updateWorldMatrix(iaMatrixd &worldMatrix)
-    {
-        worldMatrix.translate(_position);
-        worldMatrix.rotate(_orientation);
-        worldMatrix.scale(_scale);
-        bool result = _worldMatrix != worldMatrix;
-        _worldMatrix = worldMatrix;
-        return result;
     }
 
     const iaMatrixd &iTransformComponent::getWorldMatrix() const
@@ -48,68 +38,79 @@ namespace igor
 
     void iTransformComponent::setPosition(const iaVector3d &position)
     {
-        if (_position != position)
+        if (_transform._position != position)
         {
-            _position = position;
+            _transform._position = position;
             _entity->setDirtyHierarchy();
         }
     }
 
     void iTransformComponent::translate(const iaVector3d &translate)
     {
-        setPosition(_position + translate);
+        setPosition(_transform._position + translate);
     }
 
     const iaVector3d &iTransformComponent::getPosition() const
     {
-        return _position;
+        return _transform._position;
     }
 
-    void iTransformComponent::setOrientation(const iaVector3d &orientation)
+    const iaVector3d &iTransformComponent::getWorldPosition() const
     {
-        if (_orientation != orientation)
+        return _worldTransform._position;
+    }
+
+    void iTransformComponent::setOrientation(const iaQuaterniond &orientation)
+    {
+        if (_transform._orientation != orientation)
         {
-            _orientation = orientation;
+            _transform._orientation = orientation;
             _entity->setDirtyHierarchy();
         }
     }
 
-    void iTransformComponent::rotate(const iaVector3d &rotate)
+    void iTransformComponent::rotate(const iaQuaterniond &rotate)
     {
-        setOrientation(_orientation + rotate);
+        _transform._orientation *= rotate;
+        _entity->setDirtyHierarchy();
     }
 
-    const iaVector3d &iTransformComponent::getOrientation() const
+    const iaQuaterniond iTransformComponent::getOrientation() const
     {
-        return _orientation;
+        return _transform._orientation;
+    }
+
+    const iaQuaterniond iTransformComponent::getWorldOrientation() const
+    {
+        return _worldTransform._orientation;
     }
 
     void iTransformComponent::setScale(const iaVector3d &scale)
     {
-        if (_scale != scale)
+        if (_transform._scale != scale)
         {
-            _scale = scale;
+            _transform._scale = scale;
             _entity->setDirtyHierarchy();
         }
     }
 
     const iaVector3d &iTransformComponent::getScale() const
     {
-        return _scale;
+        return _transform._scale;
+    }
+
+    const iaVector3d &iTransformComponent::getWorldScale() const
+    {
+        return _worldTransform._scale;
     }
 
     std::vector<iaString> iTransformComponent::getInfo() const
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        result.push_back(iaString("Pos: ") + iaString::toString(_position));
-        result.push_back(iaString("Ori: ") + iaString::toString(_orientation));
-        result.push_back(iaString("Sca: ") + iaString::toString(_scale));
-
-        result.push_back(iaString("wld  ") + iaString::toString(_worldMatrix[0]) + ", " + iaString::toString(_worldMatrix[4]) + ", " + iaString::toString(_worldMatrix[8]) + ", " + iaString::toString(_worldMatrix[12]));
-        result.push_back(iaString("mtx: ") + iaString::toString(_worldMatrix[1]) + ", " + iaString::toString(_worldMatrix[5]) + ", " + iaString::toString(_worldMatrix[9]) + ", " + iaString::toString(_worldMatrix[13]));
-        result.push_back(iaString("     ") + iaString::toString(_worldMatrix[2]) + ", " + iaString::toString(_worldMatrix[6]) + ", " + iaString::toString(_worldMatrix[10]) + ", " + iaString::toString(_worldMatrix[14]));
-        result.push_back(iaString("     ") + iaString::toString(_worldMatrix[3]) + ", " + iaString::toString(_worldMatrix[7]) + ", " + iaString::toString(_worldMatrix[11]) + ", " + iaString::toString(_worldMatrix[15]));
+        result.push_back(iaString("Pos: ") + iaString::toString(_worldTransform._position) + " local:" + iaString::toString(_transform._position));
+        result.push_back(iaString("Ori: ") + iaString::toString(_worldTransform._orientation) + " local:" + iaString::toString(_transform._orientation));
+        result.push_back(iaString("Sca: ") + iaString::toString(_worldTransform._scale) + " local:" + iaString::toString(_transform._scale));
 
         return result;
     }
@@ -117,5 +118,5 @@ namespace igor
     void iTransformComponent::onActivate(iEntityPtr entity)
     {
         entity->setDirtyHierarchyDown();
-    }    
+    }
 }

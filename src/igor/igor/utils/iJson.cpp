@@ -121,6 +121,22 @@ namespace iaux
         vec._w = j["w"].get<float32>();
     }
 
+    void to_json(json &j, const iaQuaternionf &vec)
+    {
+        j["w"] = vec._w;
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+    }
+
+    void from_json(const json &j, iaQuaternionf &vec)
+    {
+        vec._w = j["w"].get<float32>();
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();        
+    }
+
     void to_json(json &j, const iaVector2d &vec)
     {
         j["x"] = vec._x;
@@ -162,6 +178,22 @@ namespace iaux
         vec._z = j["z"].get<float32>();
         vec._w = j["w"].get<float32>();
     }
+
+    void to_json(json &j, const iaQuaterniond &vec)
+    {
+        j["w"] = vec._w;
+        j["x"] = vec._x;
+        j["y"] = vec._y;
+        j["z"] = vec._z;
+    }
+
+    void from_json(const json &j, iaQuaterniond &vec)
+    {
+        vec._w = j["w"].get<float32>();
+        vec._x = j["x"].get<float32>();
+        vec._y = j["y"].get<float32>();
+        vec._z = j["z"].get<float32>();
+    }    
 
     void to_json(json &j, const iaColor3f &color)
     {

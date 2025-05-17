@@ -89,9 +89,10 @@ void UserControlComponentTransform::update()
     _position->setValue(0, transform->getPosition()._x);
     _position->setValue(1, transform->getPosition()._y);
     _position->setValue(2, transform->getPosition()._z);
-    _orientation->setValue(0, transform->getOrientation()._x);
-    _orientation->setValue(1, transform->getOrientation()._y);
-    _orientation->setValue(2, transform->getOrientation()._z);
+    const auto euler = transform->getOrientation().toEuler();
+    _orientation->setValue(0, euler._x);
+    _orientation->setValue(1, euler._y);
+    _orientation->setValue(2, euler._z);
     _scale->setValue(0, transform->getScale()._x);
     _scale->setValue(1, transform->getScale()._y);
     _scale->setValue(2, transform->getScale()._z);
@@ -124,12 +125,12 @@ void UserControlComponentTransform::updateComponent()
         return;
     }
 
-    iaVector3d position(_position->getValue(0), _position->getValue(1), _position->getValue(2));
-    iaVector3d orientation(_orientation->getValue(0), _orientation->getValue(1), _orientation->getValue(2));
-    iaVector3d scale(_scale->getValue(0), _scale->getValue(1), _scale->getValue(2));
+    const iaVector3d position(_position->getValue(0), _position->getValue(1), _position->getValue(2));
+    const iaVector3d orientation(_orientation->getValue(0), _orientation->getValue(1), _orientation->getValue(2));
+    const iaVector3d scale(_scale->getValue(0), _scale->getValue(1), _scale->getValue(2));
 
     transform->setPosition(position);
-    transform->setOrientation(orientation);
+    transform->setOrientation(iaQuaterniond::fromEuler(orientation));
     transform->setScale(scale);
 }
 

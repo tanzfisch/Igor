@@ -29,9 +29,10 @@
 #ifndef IAUX_QUATERNION_H
 #define IAUX_QUATERNION_H
 
-#include <iaux/math/iaVector3.h>
+#include <iaux/math/iaMatrix.h>
 
 #include <ostream>
+#include <algorithm>
 
 namespace iaux
 {
@@ -42,6 +43,10 @@ namespace iaux
     class IAUX_API_EXPORT_ONLY iaQuaternion
     {
     public:
+        /*! w component
+         */
+        T _w = 1.0;
+
         /*! x component
          */
         T _x = 0.0;
@@ -54,56 +59,45 @@ namespace iaux
          */
         T _z = 0.0;
 
-        /*! w component
-         */
-        T _w = 1.0;
-
         // default ctor
         iaQuaternion();
 
-        /*! ctor by axis angle
+        /*! ctor by direct values
 
-        \param axis the axis to rotate around
-        \param angle the angle to rotate
+        \param w the w component
+        \param x the x component
+        \param y the y component
+        \param z the z component
         */
-        iaQuaternion(const iaVector3<T> &axis, T angle);
+        iaQuaternion(T w, T x, T y, T z);
 
         /*! ctor by direct values
 
         \param x the x component
         \param y the y component
         \param z the z component
-        \param w the w component
-        */
-        iaQuaternion(T x, T y, T z, T w);
-
-        /*! ctor by euler angles
-
-        \param x rotation around x axis in rad
-        \param y rotation around y axis in rad
-        \param z rotation around z axis in rad
         */
         iaQuaternion(T x, T y, T z);
 
-        /*! ctor by euler angles
+        /*! init with other quaternion
 
-        \param vec vector that contains euler angles
+        \param other the other quaternion
         */
-        iaQuaternion(const iaVector3<T> &vec);
+        iaQuaternion(const iaQuaternion<T> &other);
 
         /*! set by axis angle
 
-        \param axis the axis to rotate arround
+        \param axis the axis to rotate around
         \param angle the angle to rotate
         */
-        void setAxisAngle(const iaVector3<T> &axis, T angle);
+        static const iaQuaternion<T> fromAxisAngle(const iaVector3<T> &axis, T angle);
 
         /*! returns axis angle from quaternion
 
         \param axis[out] the rotation axis
-        \parma angle[out] the rotation angle
+        \param angle[out] the rotation angle
         */
-        void getAxisAngle(iaVector3<T> &axis, T &angle) const;
+        void toAxisAngle(iaVector3<T> &axis, T &angle) const;
 
         /*! set by direct value
 
@@ -112,7 +106,7 @@ namespace iaux
         \param z the z component
         \param w the w component
         */
-        void set(T x, T y, T z, T w);
+        void set(T w, T x, T y, T z);
 
         /*! reset quaternion to identity
          */
@@ -124,92 +118,130 @@ namespace iaux
 
         /*! set by euler angles
 
-        \param x rotation arround x axis in rad
-        \param y rotation arround y axis in rad
-        \param z rotation arround z axis in rad
+        using order XYZ or pitch,yaw,roll
+
+        \param pitch rotation around x axis in rad
+        \param yaw rotation around y axis in rad
+        \param roll rotation around z axis in rad
         */
-        void setEuler(T x, T y, T z);
+        static const iaQuaternion<T> fromEuler(T pitch, T yaw, T roll);
 
         /*! set by euler angles
 
+        vector will be interpreted as pitch, yaw, roll
+
+        using order XYZ or pitch,yaw,roll
+
         \param vec vector that contains euler angles
         */
-        void setEuler(const iaVector3<T> &vec);
+        static const iaQuaternion<T> fromEuler(const iaVector3<T> &vec);
 
         /*! \returns euler angles
+
+        !!! terrible percision don't use unless you have to !!!
+         */
+        const iaVector3<T> toEuler() const;
+
+        /*! \returns a matrix withthe orientation of this quaternion
         */
-        const iaVector3<T> getEuler() const;
+        const iaMatrix<T> toMatrix() const;
 
         /*! \returns true if both quaternions are equal
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
         */
-        bool operator==(const iaQuaternion<T> &rhs) const;
+        iaQuaternion<T> &operator=(const iaQuaternion<T> &other);
+
+        /*! \returns true if both quaternions are equal
+
+        \param other the right hand side quaternion
+        */
+        bool operator==(const iaQuaternion<T> &other) const;
 
         /*! \returns true if both quaternions are not equal
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
         */
-        bool operator!=(const iaQuaternion<T> &rhs) const;
+        bool operator!=(const iaQuaternion<T> &other) const;
 
         /*! add one quaternion to an other
 
         \returns the resulting quaternion
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
         */
-        iaQuaternion<T> operator+(const iaQuaternion<T> &rhs);
+        const iaQuaternion<T> operator+(const iaQuaternion<T> &other);
 
         /*! add one quaternion to this quaternion
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
+        \returns resulting quaternion
         */
-        void operator+=(const iaQuaternion<T> &rhs);
+        iaQuaternion<T> &operator+=(const iaQuaternion<T> &other);
 
         /*! subtracts one quaternion from an other
 
         \returns the resulting quaternion
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
         */
-        iaQuaternion<T> operator-(const iaQuaternion<T> &rhs);
+        const iaQuaternion<T> operator-(const iaQuaternion<T> &other);
 
         /*! subtracts one quaternion from the other
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
+        \returns resulting quaternion
         */
-        void operator-=(const iaQuaternion<T> &rhs);
+        iaQuaternion<T> &operator-=(const iaQuaternion<T> &other);
 
         /*! multiply one quaternion to this quaternion
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
         \returns the resulting quaternion
         */
-        iaQuaternion<T> operator*(const iaQuaternion<T> &rhs);
+        const iaQuaternion<T> operator*(const iaQuaternion<T> &other) const;
 
         /*! multiply one quaternion with an other one
 
-        \param rhs the right hand side quaternion
+        \param other the right hand side quaternion
+        \returns resulting quaternion
         */
-        void operator*=(const iaQuaternion<T>& rhs);
+        iaQuaternion<T> &operator*=(const iaQuaternion<T> &other);
 
         /*! multiply quaternion with scalar
 
-        \param rhs right hand side the scalar value
+        \param scalar right hand side the scalar value
         \returns resulting quaternion
         */
-        iaQuaternion<T> operator*(T rhs);
+        const iaQuaternion<T> operator*(T scalar);
 
         /*! multiplies quaternion with scalar
 
-        \param rhs right hand side scalar value
+        \param scalar right hand side scalar value
         */
-        void operator*=(T rhs);
+        iaQuaternion<T> &operator*=(T scalar);
 
         // TODO inverse
         // https://stackoverflow.com/questions/6689967/calculate-quaternion-inverse
 
+        /*! rotates a given vector
+
+        \param vec the given vector
+        \returns rotated vector
+        */
+        const iaVector3<T> rotate(const iaVector3<T> &vec) const;
+
         /*! normalize the quaternion to unit length
          */
-        void normalize();
+        iaQuaternion<T> &normalize();
+
+        /*! dot product 
+        */
+        T dot(const iaQuaternion<T> &other) const;
+        T norm() const;
+        T normSquared() const;
+
+        /*! \returns conjugate
+         */
+        const iaQuaternion<T> conjugate() const;
 
         /*! \returns pointer to the data
          */

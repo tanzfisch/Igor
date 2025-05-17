@@ -6,7 +6,6 @@
 
 #include <igor/entities/components/iQuadtreeComponent.h>
 #include <igor/entities/components/iOctreeComponent.h>
-#include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iSphereComponent.h>
 
@@ -20,7 +19,7 @@ namespace igor
     {
         _hasQuadtree = getScene()->hasQuadtree();
         _hasOctree = getScene()->hasOctree();
-        _currentMatrix.identity();
+        _currentTransform.identity();
     }
 
     void iEntityTransformTraverser::updateQuadtree(iEntityPtr entity)
@@ -33,7 +32,7 @@ namespace igor
             return;
         }
 
-        iaVector2d position(_currentMatrix._pos._x, _currentMatrix._pos._y);
+        iaVector2d position(_currentTransform._position._x, _currentTransform._position._y);
 
         iCircleComponent *component = entity->getComponent<iCircleComponent>();
         if (component != nullptr)
@@ -63,22 +62,50 @@ namespace igor
         iSphereComponent *sphereComponent = entity->getComponent<iSphereComponent>();
         if (sphereComponent != nullptr)
         {
-            const iaSphered sphere(_currentMatrix._pos + sphereComponent->getOffset(), sphereComponent->getRadius());
+            const iaSphered sphere(_currentTransform._position + sphereComponent->getOffset(), sphereComponent->getRadius());
             getScene()->getOctree().update(body->_object, sphere);
         }
         else
         {
-            getScene()->getOctree().update(body->_object, _currentMatrix._pos);
+            getScene()->getOctree().update(body->_object, _currentTransform._position);
         }
+    }
+
+    bool iEntityTransformTraverser::updateTransformComponent(iTransformComponentPtr transformComponent, iaTransformd &transform)
+    {
+        const iaVector3d scaledLocalPos = transform._scale * transformComponent->_transform._position;
+        const iaVector3d rotatedPos = transform._orientation.rotate(scaledLocalPos);
+        const auto worldPosition = transform._position + rotatedPos;
+        iaQuaterniond worldOrientation = transform._orientation * transformComponent->_transform._orientation;
+        worldOrientation.normalize();
+        const auto worldScale = transform._scale * transformComponent->_transform._scale;
+
+        transform._position = worldPosition;
+        transform._orientation = worldOrientation;
+        transform._scale = worldScale;
+
+        if (transformComponent->_worldTransform._position == worldPosition &&
+            transformComponent->_worldTransform._orientation == worldOrientation &&
+            transformComponent->_worldTransform._scale == worldScale)
+        {
+            return false;
+        }
+
+        transformComponent->_worldTransform._position = worldPosition;
+        transformComponent->_worldTransform._orientation = worldOrientation;
+        transformComponent->_worldTransform._scale = worldScale;
+
+        transformComponent->_worldMatrix = transformComponent->_worldTransform.getMatrix();
+
+        return true;
     }
 
     bool iEntityTransformTraverser::preOrderVisit(iEntityPtr entity)
     {
         auto transformComponent = entity->getComponent<iTransformComponent>();
-
         if (transformComponent != nullptr)
         {
-            _matrixStack.push_back(_currentMatrix);
+            _transformStack.push_back(_currentTransform);
         }
 
         if (!entity->isHierarchyDirty())
@@ -87,7 +114,7 @@ namespace igor
         }
 
         if (transformComponent != nullptr &&
-            transformComponent->updateWorldMatrix(_currentMatrix))
+            updateTransformComponent(transformComponent, _currentTransform))
         {
             if (_hasQuadtree)
             {
@@ -113,14 +140,14 @@ namespace igor
             return;
         }
 
-        con_assert(_matrixStack.size() != 0, "stack underflow");
-        _currentMatrix = _matrixStack.back();
-        _matrixStack.pop_back();
+        con_assert(_transformStack.size() != 0, "stack underflow");
+        _currentTransform = _transformStack.back();
+        _transformStack.pop_back();
     }
 
     void iEntityTransformTraverser::postTraverse()
     {
-        con_assert(_matrixStack.size() == 0, "matrix stack should be empty");
+        con_assert(_transformStack.size() == 0, "matrix stack should be empty");
     }
 
 } // namespace igor

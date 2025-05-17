@@ -77,7 +77,7 @@ float64 CameraArc::getHeading() const
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    return transform->getOrientation()._y;
+    return transform->getOrientation().toEuler()._y;
 }
 
 void CameraArc::setHeading(float64 heading)
@@ -89,7 +89,7 @@ void CameraArc::setHeading(float64 heading)
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    transform->setOrientation(iaVector3d(0, heading, 0));
+    transform->setOrientation(iaQuaterniond::fromEuler(0, heading, 0));
 }
 
 float64 CameraArc::getPitch() const
@@ -101,7 +101,7 @@ float64 CameraArc::getPitch() const
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    return transform->getOrientation()._x;
+    return transform->getOrientation().toEuler()._x;
 }
 
 void CameraArc::setPitch(float64 pitch)
@@ -113,7 +113,7 @@ void CameraArc::setPitch(float64 pitch)
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    transform->setOrientation(iaVector3d(pitch, 0, 0));
+    transform->setOrientation(iaQuaterniond::fromEuler(pitch, 0, 0));
 }
 
 float64 CameraArc::getDistance() const

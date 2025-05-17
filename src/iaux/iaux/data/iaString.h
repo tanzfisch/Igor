@@ -31,8 +31,7 @@
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector2.h>
-#include <iaux/math/iaVector3.h>
-#include <iaux/math/iaVector4.h>
+#include <iaux/math/iaQuaternion.h>
 #include <iaux/system/iaConsole.h>
 
 #include <ostream>
@@ -114,12 +113,16 @@ namespace iaux
         int64 getHashValue() const;
 
         /*! \returns a lower case version of given string
-         */
-        iaString toLower() const;
 
-        /*! \returns a upper case version of given string
+        \param text given string
          */
-        iaString toUpper() const;
+        static iaString toLower(const iaString &text);
+
+        /*! \returns an upper case version of given string
+
+        \param text given string
+         */
+        static iaString toUpper(const iaString &text);
 
         /*! \returns a snake case version of given string
          */
@@ -481,6 +484,15 @@ namespace iaux
         */
         template <class T>
         static iaString toString(const iaVector4<T> &vec, int afterPoint = 4);
+
+        /*! transforms a quaternion to a iaString
+
+        \param vec the vector
+        \param afterPoint defines how many digits after the point for each component
+        \returns the string
+        */
+        template <class T>
+        static iaString toString(const iaQuaternion<T> &q, int afterPoint = 4);
 
         /*! human readabile number
 

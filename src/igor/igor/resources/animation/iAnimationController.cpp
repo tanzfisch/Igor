@@ -85,7 +85,7 @@ namespace igor
 
             if (animation->hasRotateAnimation())
             {
-                transform->setOrientation(animation->getRotate(t));
+                transform->setOrientation(iaQuaterniond::fromEuler(animation->getRotate(t)));
             }
 
             if (animation->hasScaleAnimation())

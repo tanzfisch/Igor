@@ -140,7 +140,22 @@ namespace iaux
         \param vec vector to multiply this vector with
         \returns dot product of both vectors
         */
-        T operator*(const iaVector2<T> &vec) const;
+        T dot(const iaVector2<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        \param vec vector to multiply this vector with
+        \returns the product of the mutiplication
+        */
+        iaVector2<T> operator*(const iaVector2<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        the product is stored in this vector
+
+        \param vec vector to multiply this vector with
+        */
+        void operator*=(const iaVector2<T> &vec);
 
         /*! \returns value by index (const version)
 
@@ -178,7 +193,7 @@ namespace iaux
         T length2() const;
 
         /*! \returns true if vector has zero length
-        */
+         */
         bool zero() const;
 
         /*! \returns distance between positions

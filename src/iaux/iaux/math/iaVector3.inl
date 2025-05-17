@@ -5,9 +5,7 @@
 template <class T>
 std::wostream &operator<<(std::wostream &ostr, const iaVector3<T> &v)
 {
-    ostr << "(" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._x << ", ";
-    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._y << ", ";
-    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._z << ")";
+    ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
     return ostr;
 }
 
@@ -36,8 +34,8 @@ iaVector3<T> iaVector3<T>::project(const iaVector3<T> &v) const
 {
     iaVector3<T> a(_x, _y, _z);
     iaVector3<T> b = v;
-    T s = b * a;
-    s /= b * b;
+    T s = b.dot(a);
+    s /= b.dot(b);
     return b * s;
 }
 
@@ -178,7 +176,7 @@ IGOR_INLINE void iaVector3<T>::operator/=(T a)
 }
 
 template <class T>
-IGOR_INLINE T iaVector3<T>::operator*(const iaVector3<T> &a) const
+IGOR_INLINE T iaVector3<T>::dot(const iaVector3<T> &a) const
 {
     return _x * a._x + _y * a._y + _z * a._z;
 }
@@ -258,7 +256,7 @@ void iaVector3<T>::normalize()
 template <class T>
 T iaVector3<T>::angle(const iaVector3<T> &a) const
 {
-    return (T)(acos(((*this) * a) / (length() * a.length())));
+    return (T)(acos(((*this).dot(a)) / (length() * a.length())));
 }
 
 template <class T>
@@ -296,4 +294,22 @@ iaVector3<T> lerp(const iaVector3<T> &a, const iaVector3<T> &b, T t)
     result._z = b._z * t + a._z * (1.0 - t);
 
     return result;
+}
+
+template <class T>
+IGOR_INLINE iaVector3<T> iaVector3<T>::operator*(const iaVector3<T> &vec) const
+{
+    iaVector3<T> result;
+    result._x = _x * vec._x;
+    result._y = _y * vec._y;
+    result._z = _z * vec._z;
+    return result;
+}
+
+template <class T>
+IGOR_INLINE void iaVector3<T>::operator*=(const iaVector3<T> &vec)
+{
+    _x *= vec._x;
+    _y *= vec._y;
+    _z *= vec._z;
 }

@@ -192,7 +192,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     _rotateModifier->setParent(_rootTransform);
 
     iEntityPtr xRingTransform = entityScene->createEntity("overlay.rotate.x");
-    xRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaVector3d(0, 0, -M_PI * 0.5)));
+    xRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
     xRingTransform->addComponent(new iSphereComponent(1.0));
     xRingTransform->addComponent(new iOctreeComponent());
     auto xMeshRenderComponent = xRingTransform->addComponent(new iMeshRenderComponent());
@@ -200,7 +200,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     xRingTransform->setParent(_rotateModifier);
 
     iEntityPtr yRingTransform = entityScene->createEntity("overlay.rotate.y");
-    yRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaVector3d(), iaVector3d(0.99, 1.0, 0.99)));
+    yRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond(), iaVector3d(0.99, 1.0, 0.99)));
     yRingTransform->addComponent(new iSphereComponent(1.0));
     yRingTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
@@ -208,7 +208,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     yRingTransform->setParent(_rotateModifier);
 
     iEntityPtr zRingTransform = entityScene->createEntity("overlay.rotate.z");
-    zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaVector3d(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
+    zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
     zRingTransform->addComponent(new iSphereComponent(1.0));
     zRingTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
@@ -216,7 +216,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     zRingTransform->setParent(_rotateModifier);
 
     _rotateBillboardTransform = entityScene->createEntity("overlay.rotate.billboard");
-    _rotateBillboardTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(), iaVector3d()));
+    _rotateBillboardTransform->addComponent(new iTransformComponent());
     _rotateBillboardTransform->addComponent(new iSphereComponent(1.0));
     _rotateBillboardTransform->addComponent(new iOctreeComponent());
     auto billboardMeshRenderComponent = _rotateBillboardTransform->addComponent(new iMeshRenderComponent());
@@ -229,7 +229,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
 
     // add a locator in the middle for better orientation
     iEntityPtr xCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.x");
-    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
     xCylinderTransform->addComponent(new iSphereComponent(1.0));
     xCylinderTransform->addComponent(new iOctreeComponent());
     auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -237,7 +237,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     xCylinderTransform->setParent(_rotateModifier);
 
     iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.y");
-    yCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d()));
+    yCylinderTransform->addComponent(new iTransformComponent());
     yCylinderTransform->addComponent(new iSphereComponent(1.0));
     yCylinderTransform->addComponent(new iOctreeComponent());
     auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -245,7 +245,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     yCylinderTransform->setParent(_rotateModifier);
 
     iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.z");
-    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0)));
+    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
     zCylinderTransform->addComponent(new iSphereComponent(1.0));
     zCylinderTransform->addComponent(new iOctreeComponent());
     auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -261,7 +261,7 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
     _locatorRepresentation->setParent(_rootTransform);
 
     iEntityPtr xCylinderTransform = entityScene->createEntity("overlay.locator.x");
-    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
     xCylinderTransform->addComponent(new iSphereComponent(1.0));
     xCylinderTransform->addComponent(new iOctreeComponent());
     auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -269,7 +269,7 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
     xCylinderTransform->setParent(_locatorRepresentation);
 
     iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.locator.y");
-    yCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d()));
+    yCylinderTransform->addComponent(new iTransformComponent());
     yCylinderTransform->addComponent(new iSphereComponent(1.0));
     yCylinderTransform->addComponent(new iOctreeComponent());
     auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -277,7 +277,7 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
     yCylinderTransform->setParent(_locatorRepresentation);
 
     iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.locator.z");
-    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0)));
+    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
     zCylinderTransform->addComponent(new iSphereComponent(1.0));
     zCylinderTransform->addComponent(new iOctreeComponent());
     auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
@@ -293,7 +293,7 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
     _translateModifier->setParent(_rootTransform);
 
     iEntityPtr xTransform = entityScene->createEntity("overlay.translate.x");
-    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
     xTransform->addComponent(new iSphereComponent(1.0));
     xTransform->addComponent(new iOctreeComponent());
     auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
@@ -301,7 +301,7 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
     xTransform->setParent(_translateModifier);
 
     iEntityPtr yTransform = entityScene->createEntity("overlay.translate.y");
-    yTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d()));
+    yTransform->addComponent(new iTransformComponent());
     yTransform->addComponent(new iSphereComponent(1.0));
     yTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
@@ -309,7 +309,7 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
     yTransform->setParent(_translateModifier);
 
     iEntityPtr zTransform = entityScene->createEntity("overlay.translate.z");
-    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
     zTransform->addComponent(new iSphereComponent(1.0));
     zTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
@@ -329,7 +329,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     _scaleModifier->setParent(_rootTransform);
 
     iEntityPtr xTransform = entityScene->createEntity("overlay.scale.x");
-    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
     xTransform->addComponent(new iSphereComponent(1.0));
     xTransform->addComponent(new iOctreeComponent());
     auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
@@ -337,7 +337,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     xTransform->setParent(_scaleModifier);
 
     iEntityPtr yTransform = entityScene->createEntity("overlay.scale.y");
-    yTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d()));
+    yTransform->addComponent(new iTransformComponent());
     yTransform->addComponent(new iSphereComponent(1.0));
     yTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
@@ -345,7 +345,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
     yTransform->setParent(_scaleModifier);
 
     iEntityPtr zTransform = entityScene->createEntity("overlay.scale.z");
-    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaVector3d(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
     zTransform->addComponent(new iSphereComponent(1.0));
     zTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
@@ -354,7 +354,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 
     iMeshPtr cube = createCube();
     iEntityPtr xyzCube = entityScene->createEntity("overlay.scale.cube");
-    xyzCube->addComponent(new iTransformComponent(iaVector3d(0.125, 0, 0.125), iaVector3d()));
+    xyzCube->addComponent(new iTransformComponent(iaVector3d(0.125, 0, 0.125)));
     xyzCube->addComponent(new iSphereComponent(1.0));
     xyzCube->addComponent(new iOctreeComponent());
     auto cubeRenderComponent = xyzCube->addComponent(new iMeshRenderComponent());

@@ -31,9 +31,11 @@
 
 #include <igor/entities/iEntity.h>
 
+#include <iaux/math/iaTransform.h>
+
 namespace igor
 {
-    /*! transform component representing position, orientation and scale of given entity
+    /*! transform component representing translate, rotate and scale of given entity
 
     3d variant
     */
@@ -48,7 +50,7 @@ namespace igor
 
         /*! ctor
          */
-        iTransformComponent(const iaVector3d &position, const iaVector3d &orientation = iaVector3d(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
+        iTransformComponent(const iaVector3d &translate, const iaQuaterniond &rotate = iaQuaterniond(), const iaVector3d &scale = iaVector3d(1.0, 1.0, 1.0));
 
         /*! creates instance of this component type
          */
@@ -62,11 +64,11 @@ namespace igor
          */
         const iaMatrixd &getWorldMatrix() const;
 
-        /*! sets position on transform
+        /*! sets translate on transform
 
-        \param position the position to set
+        \param translate the translate to set
         */
-        void setPosition(const iaVector3d &position);
+        void setPosition(const iaVector3d &translate);
 
         /*! translate by given amount
 
@@ -74,25 +76,33 @@ namespace igor
         */
         void translate(const iaVector3d &translate);
 
-        /*! \returns position on transform
+        /*! \returns translate on transform
          */
         const iaVector3d &getPosition() const;
 
-        /*! sets orientation on transform
+        /*! \returns world translate on transform
+         */
+        const iaVector3d &getWorldPosition() const;
 
-        \param orientation the orientation to set
+        /*! sets rotate on transform
+
+        \param rotate the rotate to set
         */
-        void setOrientation(const iaVector3d &orientation);
+        void setOrientation(const iaQuaterniond &rotate);
 
         /*! rotate by given amount
 
         \param rotate the amount to rotate
         */
-        void rotate(const iaVector3d &rotate);
+        void rotate(const iaQuaterniond &rotate);
 
-        /*! \returns orientation on transform
+        /*! \returns rotate on transform
          */
-        const iaVector3d &getOrientation() const;
+        const iaQuaterniond getOrientation() const;
+
+        /*! \returns world rotate on transform
+         */
+        const iaQuaterniond getWorldOrientation() const;
 
         /*! sets scale on transform
 
@@ -104,33 +114,27 @@ namespace igor
          */
         const iaVector3d &getScale() const;
 
+        /*! \returns world scale on transform
+         */
+        const iaVector3d &getWorldScale() const;
+
         /*! \returns a set of info strings
          */
         std::vector<iaString> getInfo() const override;
 
     private:
-        /*! position
-         */
-        iaVector3d _position;
 
-        /*! euler angles in rad
-         */
-        iaVector3d _orientation;
+        /*! local transform information
+        */
+        iaTransformd _transform;
 
-        /*! scale
-         */
-        iaVector3d _scale = {1.0, 1.0, 1.0};
+        /*! world transform information
+        */
+        iaTransformd _worldTransform;
 
         /*! the world matrix of this transform
          */
         iaMatrixd _worldMatrix;
-
-        /*! update world matrix
-
-        \param[in/out] worldMatrix parent entity world matrix
-        \returns true if matrix changed
-        */
-        bool updateWorldMatrix(iaMatrixd &worldMatrix);
 
         /*! \returns a copy of this component
          */
@@ -138,12 +142,12 @@ namespace igor
 
         /*! callback to activate component
          */
-        void onActivate(iEntityPtr entity) override;        
+        void onActivate(iEntityPtr entity) override;
     };
 
     /*! transform component pointer definition
-    */
-    typedef iTransformComponent* iTransformComponentPtr;
+     */
+    typedef iTransformComponent *iTransformComponentPtr;
 }
 
 #endif // IGOR_TRANSFORM_COMPONENT_H

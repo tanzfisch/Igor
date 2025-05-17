@@ -158,9 +158,9 @@ namespace iaux
         setData(data.getData());
     }
 
-    iaString iaString::toLower() const
+    iaString iaString::toLower(const iaString &text)
     {
-        iaString result(getData());
+        iaString result(text);
         for (int64 i = 0; i < result.getLength(); i++)
         {
             result[i] = static_cast<wchar_t>(std::towlower(result[i]));
@@ -168,9 +168,9 @@ namespace iaux
         return result;
     }
 
-    iaString iaString::toUpper() const
+    iaString iaString::toUpper(const iaString &text)
     {
-        iaString result(getData());
+        iaString result(text);
         for (int64 i = 0; i < result.getLength(); i++)
         {
             result[i] = static_cast<wchar_t>(std::towupper(result[i]));
@@ -205,14 +205,14 @@ namespace iaux
     const wchar_t &iaString::operator[](const int64 index) const
     {
         con_assert(_data != nullptr, "no data");
-        con_assert(index < _charCount, "invalid index");
+        con_assert(index < _charCount, "out of bounds");
         return _data[index];
     }
 
     wchar_t &iaString::operator[](const int64 index)
     {
         con_assert(_data != nullptr, "no data");
-        con_assert(index < _charCount, "invalid index");
+        con_assert(index < _charCount, "out of bounds");
         return _data[index];
     }
 
@@ -1242,8 +1242,7 @@ namespace iaux
 
     bool iaString::toBool(const iaString &text)
     {
-        iaString trimmed = iaString::trim(text);
-        trimmed.toLower();
+        iaString trimmed = toLower(trim(text));
 
         if (trimmed == "1")
         {
