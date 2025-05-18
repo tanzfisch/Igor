@@ -449,7 +449,7 @@ namespace igor
 
     void iView::setScene(const iEntitySceneID &entitySceneID)
     {
-        setScene(iEntitySystemModule::getInstance().getScene(_entitySceneID));
+        setScene(iEntitySystemModule::getInstance().getScene(entitySceneID));
     }
 
     const iEntitySceneID &iView::getSceneID() const
