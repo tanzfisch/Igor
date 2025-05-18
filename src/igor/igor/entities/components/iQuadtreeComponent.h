@@ -60,7 +60,11 @@ namespace igor
 
         /*! \returns a set of info strings
          */
-        std::vector<iaString> getInfo() const override;        
+        std::vector<iaString> getInfo() const override;
+        
+        /*! \retruns object bounds
+        */
+        const iaCircled& getObjectBounds() const;
 
     private:
         /*! quadtree object

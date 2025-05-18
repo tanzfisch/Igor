@@ -54,49 +54,7 @@ namespace igor
 
     // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
 
-    /*! I love parties <3
-     */
-    class iPartyComponent : public iEntityComponent
-    {
-    public:
-        /*! ctor
-
-        \param name the name of this component
-        */
-        iPartyComponent(uint32 partyID = 0, const iaString &name = "party")
-            : _partyID(partyID)
-        {
-        }
-
-        /*! creates instance of this component type
-         */
-        static iEntityComponent *createInstance()
-        {
-            return new iPartyComponent();
-        }
-
-        /*! \returns type name of component
-         */
-        static const iaString &getTypeName()
-        {
-            static const iaString name("igor_party_component");
-            return name;
-        }
-
-        /*! party id
-         */
-        uint32 _partyID = 0;
-
-    private:
-        /*! \returns a copy of this component
-         */
-        iEntityComponentPtr getCopy() override
-        {
-            iPartyComponent *component = new iPartyComponent();
-            component->_partyID = _partyID;
-            return component;
-        }
-    };
+    
 
     /*! animation component
      */

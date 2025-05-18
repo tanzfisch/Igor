@@ -76,7 +76,7 @@ public:
 
     /*! \returns entity scene id
      */
-    const iEntityID &getEntitySceneID() const;
+    const iEntityID &getSceneID() const;
 
     /*! sets node overlay active
 

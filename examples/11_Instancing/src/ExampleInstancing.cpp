@@ -23,7 +23,7 @@ void ExampleInstancing::onInit()
     // _entityScene = iEntitySystemModule::getInstance().createScene();
     // setup octree for culling iOctreeComponents
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
-    getView().setEntityScene(_entityScene);
+    getView().setScene(_entityScene);
 
     // setup camera
     // we want a camera which can be rotated around the origin

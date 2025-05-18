@@ -65,7 +65,7 @@ const iEntityID &EntityOverlay::getEntityID() const
     return _entityID;
 }
 
-const iEntityID &EntityOverlay::getEntitySceneID() const
+const iEntityID &EntityOverlay::getSceneID() const
 {
     return _entitySceneID;
 }

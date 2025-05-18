@@ -48,8 +48,7 @@ namespace igor
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
         registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, iBehaviourComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
-        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
-        registerComponentType<iPartyComponent>(iPartyComponent::createInstance, iPartyComponent::getTypeName());
+        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());        
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());
         registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, iMeshRenderComponent::getTypeName());
         registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, iMeshReferenceComponent::getTypeName());

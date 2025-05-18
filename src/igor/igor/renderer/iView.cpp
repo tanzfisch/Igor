@@ -438,17 +438,21 @@ namespace igor
         _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
-    void iView::setEntityScene(const iEntitySceneID &entitySceneID)
+    void iView::setScene(iEntityScenePtr entityScene)
     {
-        _entitySceneID = entitySceneID;
-        auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-        if (scene != nullptr)
+        if (entityScene != nullptr)
         {
-            scene->setRenderEngine(&_renderEngine);
+            _entitySceneID = entityScene->getID();
+            entityScene->setRenderEngine(&_renderEngine);
         }
     }
 
-    const iEntitySceneID &iView::getEntitySceneID() const
+    void iView::setScene(const iEntitySceneID &entitySceneID)
+    {
+        setScene(iEntitySystemModule::getInstance().getScene(_entitySceneID));
+    }
+
+    const iEntitySceneID &iView::getSceneID() const
     {
         return _entitySceneID;
     }

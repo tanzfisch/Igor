@@ -16,7 +16,7 @@ void Example3D::onInit()
     iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
-    getView().setEntityScene(_entityScene);
+    getView().setScene(_entityScene);
 
     iEntityPtr cameraHeading = _entityScene->createEntity("cameraHeading");
     _cameraHeading = cameraHeading->getID();
@@ -48,7 +48,7 @@ void Example3D::onInit()
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    getView().setEntityScene(iProject::getInstance().getProjectScene());
+    getView().setScene(iProject::getInstance().getProjectScene());
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);
@@ -62,7 +62,7 @@ void Example3D::onEvent(iEvent &event)
 
     if(getView().getEntityScene() != scene)
     {
-        getView().setEntityScene(scene);
+        getView().setScene(scene);
     }
 
     // first call example base

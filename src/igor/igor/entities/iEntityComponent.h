@@ -161,6 +161,14 @@ namespace igor
          */
         virtual std::vector<iaString> getInfo() const;
 
+        /*! sets component dirty by increasing version
+        */
+        void setDirty();
+
+        /*! \returns version
+        */
+        uint16 getVersion() const;
+
     protected:
         /*! callback for loading component
 
@@ -198,6 +206,10 @@ namespace igor
         /*! reference to entity
          */
         iEntityPtr _entity = nullptr;
+
+        /*! version of this component
+        */
+        uint16 _version = 0;
     };
 }
 

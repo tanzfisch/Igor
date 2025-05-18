@@ -118,7 +118,7 @@ void TransformOverlay::onInit()
     iMeshPtr ringMesh2D = create2DRingMesh();
     iMeshPtr cylinder = createCylinder();
 
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
     auto root = entityScene->createEntity("overlay.root");
@@ -147,7 +147,7 @@ void TransformOverlay::update()
         return;
     }
 
-    auto entityScene = iEntitySystemModule::getInstance().getScene(getEntitySceneID());
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
     if (entityScene == nullptr)
     {
         return;
@@ -187,7 +187,7 @@ void TransformOverlay::update()
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
 {
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     _rotateModifier = entityScene->createEntity("overlay.rotate");
     _rotateModifier->setParent(_rootTransform);
@@ -256,7 +256,7 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
 
 void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
 {
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     _locatorRepresentation = entityScene->createEntity("overlay.locator");
     _locatorRepresentation->setParent(_rootTransform);
@@ -288,7 +288,7 @@ void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
 
 void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     _translateModifier = entityScene->createEntity("overlay.translate");
     _translateModifier->setParent(_rootTransform);
@@ -324,7 +324,7 @@ void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 
 void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 {
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     _scaleModifier = entityScene->createEntity("overlay.scale");
     _scaleModifier->setParent(_rootTransform);
@@ -401,7 +401,7 @@ void TransformOverlay::onRender()
 
 void TransformOverlay::renderHighlight()
 {
-    const auto &entitySceneID = getView()->getEntitySceneID();
+    const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
 
@@ -492,7 +492,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
         return false;
     }
 
-    auto entityScene = iEntitySystemModule::getInstance().getScene(getEntitySceneID());
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
     con_assert(entityScene != nullptr, "no scene");
 
     auto entity = entityScene->getEntity(getEntityID());

@@ -79,11 +79,17 @@ namespace igor
 
         \param entitySceneID entity scene ID to render
         */
-        void setEntityScene(const iEntitySceneID &entitySceneID);
+        void setScene(const iEntitySceneID &entitySceneID);
+
+        /*! sets the entity scene to render with this view
+
+        \param entityScene entity scene to render
+        */
+        void setScene(iEntityScenePtr entityScene);
 
         /*! \returns scene ID
          */
-        const iEntitySceneID &getEntitySceneID() const;
+        const iEntitySceneID &getSceneID() const;
 
         /*! specifies a camera to override the active cam of the scene
 
@@ -282,7 +288,7 @@ namespace igor
         \param cameraMatrix the camera matrix
         \returns projected screen position
         */
-        iaVector3d project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix);        
+        iaVector3d project(const iaVector3d &worldSpacePos, const iaMatrixd &cameraMatrix);
 
         /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point.
 

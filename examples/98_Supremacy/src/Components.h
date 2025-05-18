@@ -32,6 +32,42 @@
 #include <igor/igor.h>
 using namespace igor;
 
+/*! I love parties <3
+ */
+class PartyComponent : public iEntityComponent
+{
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    PartyComponent(uint32 partyID = 0, const iaString &name = "party")
+        : _partyID(partyID)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new PartyComponent();
+    }
+
+    /*! party id
+     */
+    uint32 _partyID = 0;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        PartyComponent *component = new PartyComponent();
+        component->_partyID = _partyID;
+        return component;
+    }
+};
+
 class RangeComponent : public iEntityComponent
 {
 public:
@@ -234,7 +270,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new DamageComponent();
-    }    
+    }
 
     float32 _damage;
 
@@ -268,7 +304,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new ExperienceComponent();
-    }    
+    }
 
     float32 _experience = 0;
     float32 _level = 0;
@@ -304,8 +340,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new CoinsComponent();
-    }    
-
+    }
 
     float32 _coins = 0.0;
 
@@ -339,8 +374,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new ExperienceGainComponent();
-    }    
-
+    }
 
     float32 _experience;
 
@@ -374,8 +408,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new CoinGainComponent();
-    }    
-
+    }
 
     float32 _coins;
 
@@ -409,7 +442,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new TargetComponent();
-    }    
+    }
 
     iEntityID _targetID;
     bool _inRange = false;
@@ -440,7 +473,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new MovementControlComponent();
-    }    
+    }
 
     bool _up = false;
     bool _down = false;
@@ -473,7 +506,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new ViewportComponent();
-    }    
+    }
 
     iaRectanglef _viewport;
     iaVector2f _targetOffset;
@@ -558,7 +591,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new WeaponComponent();
-    }        
+    }
 
     WeaponConfiguration _config;
 
@@ -616,7 +649,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new ModifierComponent();
-    }     
+    }
 
     ModifierConfiguration _config;
 
@@ -658,7 +691,7 @@ public:
     static iEntityComponent *createInstance()
     {
         return new BuildingComponent();
-    }    
+    }
 
     BuildingType _type;
 

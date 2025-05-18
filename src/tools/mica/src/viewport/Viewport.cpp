@@ -44,7 +44,7 @@ Viewport::Viewport()
     overlayScene->initializeOctree(iAACubed(iaVector3d(), 1000000000));
     _overlaySceneID = overlayScene->getID();
     iEntitySystemModule::getInstance().activateScene(overlayScene);
-    _viewportOverlay->getView().setEntityScene(_overlaySceneID);
+    _viewportOverlay->getView().setScene(_overlaySceneID);
     _viewportOverlay->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
 
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
@@ -108,7 +108,7 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         return;
     }
 
-    const auto &entitySceneID = _viewportScene->getView().getEntitySceneID();
+    const auto &entitySceneID = _viewportScene->getView().getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     if (entityScene == nullptr)
     {
@@ -135,7 +135,7 @@ void Viewport::onContextMenu(iWidgetPtr source)
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
 
-    const auto &entitySceneID = _viewportScene->getView().getEntitySceneID();
+    const auto &entitySceneID = _viewportScene->getView().getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     if (entityScene == nullptr)
     {
@@ -158,7 +158,7 @@ void Viewport::onContextMenu(iWidgetPtr source)
                 continue;
             }
             std::vector<iEntityID> cameraID = {camera->getID()};
-            const auto &entitySceneID = _viewportScene->getView().getEntitySceneID();
+            const auto &entitySceneID = _viewportScene->getView().getSceneID();
             iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(entitySceneID, cameraID);
             iaString description = iaString("Switch to ") + camera->getName() + " camera";
             camMenu->addCallback(iClickDelegate(this, &Viewport::onChangeCamera), camera->getName(), description, "", true, actionContext);
@@ -194,7 +194,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 
     projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Viewport::onSelectionChanged));
 
-    _viewportScene->getView().setEntityScene(projectScene->getID());
+    _viewportScene->getView().setScene(projectScene->getID());
     _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
 
     if (projectScene->getActiveCamera() != nullptr)
@@ -226,7 +226,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 
 bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
 {
-    _viewportScene->getView().setEntityScene(iEntitySceneID::getInvalid());
+    _viewportScene->getView().setScene(iEntitySceneID::getInvalid());
     _cameraArc = nullptr;
 
     setOverlayMode(OverlayMode::None);
@@ -499,7 +499,7 @@ bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
     case iKeyCode::MouseLeft:
         if (!iKeyboard::getInstance().keyPressed(iKeyCode::Alt))
         {
-            const auto &entitySceneID = _viewportScene->getView().getEntitySceneID();
+            const auto &entitySceneID = _viewportScene->getView().getSceneID();
             auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
             if (entityScene != nullptr)
             {

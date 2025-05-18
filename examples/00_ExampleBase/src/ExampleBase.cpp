@@ -27,11 +27,6 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _view.setClipPlanes(0.1f, 10000.f);
         getWindow()->addView(&_view, getZIndex());
 
-        // init scene
-        _scene = iSceneFactory::getInstance().createScene();
-        // bind scene to perspective view
-        _view.setScene(_scene);
-
         // setup orthogonal view
         _viewOrtho.setName("Logo View");
         _viewOrtho.setClearColorActive(false);
