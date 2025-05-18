@@ -166,13 +166,14 @@ void TransformOverlay::update()
     }
 
     auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
-    auto camWorldMatrix = camTransformComp->getWorldMatrix();
+    auto camWorldPosition = camTransformComp->getWorldPosition();
+    auto camWorldOrientation = camTransformComp->getWorldOrientation();
 
     auto entityWorldMatrix = transformComp->getWorldMatrix();
     const auto &entityPos = entityWorldMatrix._pos;
     const auto &entityOrientation = transformComp->getOrientation();
 
-    float64 distanceToCam = camWorldMatrix._pos.distance(entityPos) * 0.1;
+    float64 distanceToCam = camWorldPosition.distance(entityPos) * 0.1;
 
     // update transform
     auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
@@ -181,7 +182,7 @@ void TransformOverlay::update()
     rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
 
     auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
-    // billboardTransformComp->setOrientation(camOrientation); // TODO
+    billboardTransformComp->setOrientation(camWorldOrientation * iaQuaterniond::fromEuler(90 * IGOR_GRAD2RAD,0,0));
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
@@ -645,7 +646,7 @@ iMeshPtr TransformOverlay::createRingMesh()
 iMeshPtr TransformOverlay::create2DRingMesh()
 {
     iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addRing(meshBuilder, 0.99, 1, 64);
+    iMeshBuilderUtils::addRing(meshBuilder, 2.1, 2.15, 64);
     meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }
