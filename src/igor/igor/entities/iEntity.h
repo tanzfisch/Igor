@@ -29,12 +29,13 @@
 #ifndef IGOR_ENTITY_H
 #define IGOR_ENTITY_H
 
-#include <igor/entities/components/iComponents.h>
 #include <igor/entities/components/iBehaviourComponent.h>
 #include <igor/entities/iEntityIDPath.h>
 
 #include <unordered_map>
 #include <typeindex>
+
+#include <atomic>
 
 namespace igor
 {

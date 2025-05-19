@@ -30,6 +30,7 @@
 #define IGOR_SPRITE_RENDER_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
+#include <igor/resources/sprite/iSprite.h>
 
 namespace igor
 {

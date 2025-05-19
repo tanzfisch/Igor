@@ -6,6 +6,7 @@
 
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
 #include <igor/system/iTimer.h>
 
 namespace igor

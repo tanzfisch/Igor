@@ -117,7 +117,7 @@
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/components/iComponents.h> // more cponents
+#include <igor/entities/components/iAnimationComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>

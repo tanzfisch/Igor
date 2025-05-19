@@ -26,36 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_COMPONENTS_H
-#define IGOR_COMPONENTS_H
+#ifndef IGOR_ANIMATION_COMPONENT_H
+#define IGOR_ANIMATION_COMPONENT_H
 
-#include <igor/entities/iEntityComponent.h>
-
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/sprite/iSprite.h>
+#include <igor/entities/iEntity.h>
 #include <igor/resources/animation/iAnimationController.h>
-
-#include <iaux/data/iaString.h>
-#include <iaux/data/iaColor4.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-#include <array>
-#include <functional>
-#include <any>
 
 namespace igor
 {
-
-    /*! entity pointer definition
-     */
-    class iEntity;
-    typedef iEntity *iEntityPtr;
-
-    // TODO introduce a render layer component so we only have to order by zIndex within a layer and not across all
-
-    
-
     /*! animation component
      */
     class iAnimationComponent : public iEntityComponent
@@ -65,25 +43,15 @@ namespace igor
 
         \param name the name of this component
         */
-        iAnimationComponent(iAnimationControllerPtr animationController = nullptr, const iaString &name = "animation")
-            : _animationController(animationController)
-        {
-        }
+        iAnimationComponent(iAnimationControllerPtr animationController = nullptr, const iaString &name = "animation");
 
         /*! creates instance of this component type
          */
-        static iEntityComponent *createInstance()
-        {
-            return new iAnimationComponent();
-        }
+        static iEntityComponent *createInstance();
 
         /*! \returns type name of component
          */
-        static const iaString &getTypeName()
-        {
-            static const iaString name("igor_animation_component");
-            return name;
-        }
+        static const iaString &getTypeName();
 
         /*! animation controller
          */
@@ -92,34 +60,8 @@ namespace igor
     private:
         /*! \returns a copy of this component
          */
-        iEntityComponentPtr getCopy() override
-        {
-            iAnimationComponent *component = new iAnimationComponent();
-            component->_animationController = _animationController;
-            return component;
-        }
+        iEntityComponentPtr getCopy() override;
     };
-
-    // iTextComponent
-    // iPhysicsBodyComponent or specialized colliders and group colliders
-
-    // iCharacterControllerComponent
-
-    // iAudioSourceComponent
-    // iAudioListenerComponent
-    // iAudio remix reverb zone component
-    // audio high/low pass filter
-
-    // iParticleSystemComponent2D
-    // iParticleSystemComponent3D
-    // trail renderer
-    // sky box
-    // UI elements as component
-
-    // constraints
-    // aim at / look at / transform / rotate / scale
-    // struct iMeshRenderComponent
-
 }
 
-#endif //  __IGOR_COMPONENTS__
+#endif // IGOR_ANIMATION_COMPONENT_H

@@ -26,6 +26,7 @@
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 

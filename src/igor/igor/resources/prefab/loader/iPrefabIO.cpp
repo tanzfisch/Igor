@@ -18,8 +18,6 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 
-#include <igor/entities/components/iComponents.h>
-
 #include <fstream>
 
 namespace igor
