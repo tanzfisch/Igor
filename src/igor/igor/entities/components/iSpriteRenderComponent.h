@@ -42,16 +42,16 @@ namespace igor
 
     public:
         /*! default ctor
-        */
+         */
         iSpriteRenderComponent() = default;
 
         /*! creates instance of this component type
-        */
-        static iEntityComponent* createInstance();
+         */
+        static iEntityComponent *createInstance();
 
         /*! \returns type name of component
-        */
-        static const iaString& getTypeName();
+         */
+        static const iaString &getTypeName();
 
         /*! sprite render mode
          */
@@ -65,6 +65,89 @@ namespace igor
          */
         iSpriteRenderComponent(iSpritePtr sprite, const iaVector2d &size = iaVector2d(1.0, 1.0), const iaColor4f &color = iaColor4f::white, int32 zIndex = 0, iRenderMode renderMode = iRenderMode::Simple);
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
+        /*! sets the sprite
+
+        \param sprite the sprite to use
+        */
+        void setSprite(iSpritePtr sprite);
+
+        /*! \returns the sprite
+         */
+        IGOR_INLINE iSpritePtr getSprite() const
+        {
+            return _sprite;
+        }
+
+        /*! sets the size
+
+        \param size the new size
+        */
+        void setSize(const iaVector2d &size);
+
+        /*! \returns the size
+         */
+        IGOR_INLINE const iaVector2d &getSize() const
+        {
+            return _size;
+        }
+
+        /*! sets the color
+
+        \param color the new color
+        */
+        void setColor(const iaColor4f &color);
+
+        /*! \returns the color
+         */
+        IGOR_INLINE const iaColor4f &getColor() const
+        {
+            return _color;
+        }
+
+        /*! sets z index
+
+        \param zIndex the z index
+        */
+        void setZIndex(int32 zIndex);
+
+        /*! \returns the z index
+         */
+        IGOR_INLINE int32 getZIndex() const
+        {
+            return _zIndex;
+        }
+
+        /*! sets render mode
+
+        \param mode the render mode to set
+        */
+        void setRenderMode(iSpriteRenderComponent::iRenderMode mode);
+
+        /*! \returns the render mode
+         */
+        IGOR_INLINE iSpriteRenderComponent::iRenderMode getRenderMode() const
+        {
+            return _renderMode;
+        }
+
+        /*! sets frame index
+
+        \param frameIndex the frame index
+        */
+        void setFrameIndex(int32 frameIndex);
+
+        /*! \returns the frame index
+         */
+        IGOR_INLINE int32 getFrameIndex() const
+        {
+            return _frameIndex;
+        }
+
+    private:
         /*! sprite to render
          */
         iSpritePtr _sprite;
@@ -89,11 +172,6 @@ namespace igor
          */
         uint32 _frameIndex = 0;
 
-        /*! \returns a set of info strings
-         */
-        std::vector<iaString> getInfo() const override;        
-
-    private:
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;

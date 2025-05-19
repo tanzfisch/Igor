@@ -290,7 +290,7 @@ namespace igor
         return _name;
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name)
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
     {
         iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
         if (behaviourComponent == nullptr)
@@ -298,7 +298,7 @@ namespace igor
             behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
         }
 
-        behaviourComponent->_behaviors.push_back({delegate, userData, name});
+        behaviourComponent->addBehaviour(delegate, userData, name, priority);
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)
@@ -311,20 +311,9 @@ namespace igor
             return;
         }
 
-        auto &behaviors = behaviourComponent->_behaviors;
+        behaviourComponent->removeBehaviour(delegate);
 
-        auto iter = std::find_if(behaviors.begin(), behaviors.end(), [delegate](const iBehaviourData &behaviourData)
-                                 { return behaviourData._delegate == delegate; });
-
-        if (iter == behaviors.end())
-        {
-            con_err("can't remove given behavior");
-            return;
-        }
-
-        behaviors.erase(iter);
-
-        if (!behaviors.empty())
+        if (!behaviourComponent->getBehaviors().empty())
         {
             return;
         }

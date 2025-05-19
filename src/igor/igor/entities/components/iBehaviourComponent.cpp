@@ -15,7 +15,7 @@ namespace igor
         return new iBehaviourComponent();
     }
 
-    const iaString& iBehaviourComponent::getTypeName()
+    const iaString &iBehaviourComponent::getTypeName()
     {
         static const iaString name("igor_behaviour_component");
         return name;
@@ -32,11 +32,48 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        for(const auto &behaviour : _behaviors)
+        for (const auto &behaviour : _behaviors)
         {
             result.push_back(behaviour._name);
         }
 
         return result;
+    }
+
+    const std::vector<iBehaviourData> &iBehaviourComponent::getBehaviors() const
+    {
+        return _behaviors;
+    }
+
+    void iBehaviourComponent::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
+    {
+        _behaviors.push_back({delegate, userData, name, priority});
+    }
+
+    void iBehaviourComponent::removeBehaviour(const iBehaviourDelegate &delegate)
+    {
+        auto iter = std::find_if(_behaviors.begin(), _behaviors.end(), [delegate](const iBehaviourData &behaviourData)
+                                 { return behaviourData._delegate == delegate; });
+
+        if (iter == _behaviors.end())
+        {
+            con_err("can't remove behavior");
+            return;
+        }
+
+        _behaviors.erase(iter);
+    }
+
+    void iBehaviourComponent::execute()
+    {
+        for (auto &behaviourData : _behaviors)
+        {
+            if (!behaviourData._delegate.isValid())
+            {
+                continue;
+            }
+
+            behaviourData._delegate(getEntity(), behaviourData._userData);
+        }
     }
 }

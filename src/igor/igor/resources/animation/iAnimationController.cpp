@@ -96,7 +96,7 @@ namespace igor
             if (spriteRender &&
                 animation->hasFrameIndexAnimation())
             {
-                spriteRender->_frameIndex = animation->getFrameIndex(t);
+                spriteRender->setFrameIndex(animation->getFrameIndex(t));
             }
         }
 

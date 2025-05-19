@@ -57,7 +57,10 @@ namespace igor
 
         /*! \returns velocity
          */
-        const iaVector3d &getVelocity() const;
+        IGOR_INLINE const iaVector3d &getVelocity() const
+        {
+            return _velocity;
+        }
 
         /*! sets velocity
 
@@ -67,7 +70,10 @@ namespace igor
 
         /*! \returns angular velocity
          */
-        const iaVector3d &getAngularVelocity() const;
+        IGOR_INLINE const iaVector3d &getAngularVelocity() const
+        {
+            return _angularVelocity;
+        }
 
         /*! sets angular velocity
 
@@ -77,7 +83,7 @@ namespace igor
 
         /*! \returns a set of info strings
          */
-        std::vector<iaString> getInfo() const override;        
+        std::vector<iaString> getInfo() const override;
 
     private:
         /*! vector to describe the velocity

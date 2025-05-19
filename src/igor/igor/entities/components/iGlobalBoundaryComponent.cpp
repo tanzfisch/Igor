@@ -16,11 +16,11 @@ namespace igor
         return new iGlobalBoundaryComponent();
     }
 
-    const iaString& iGlobalBoundaryComponent::getTypeName()
+    const iaString &iGlobalBoundaryComponent::getTypeName()
     {
         static const iaString name("igor_global_boundary_component");
         return name;
-    }        
+    }
 
     iEntityComponentPtr iGlobalBoundaryComponent::getCopy()
     {
@@ -37,14 +37,28 @@ namespace igor
     void iGlobalBoundaryComponent::setType(iGlobalBoundaryType type)
     {
         _type = type;
+        setDirty();
     }
 
     std::vector<iaString> iGlobalBoundaryComponent::getInfo() const
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        // TODO
+        iaString type("Type: ");
+        switch (_type)
+        {
+        case iGlobalBoundaryType::None:
+            type += "None";
+            break;
+        case iGlobalBoundaryType::Normal:
+            type += "Normal";
+            break;
+        case iGlobalBoundaryType::Repeat:
+            type += "Repeat";
+            break;
+        }
+        result.push_back(type);
 
         return result;
-    }    
+    }
 }

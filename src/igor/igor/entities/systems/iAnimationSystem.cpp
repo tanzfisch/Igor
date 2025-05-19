@@ -40,7 +40,7 @@ namespace igor
         for (auto entity : _view->getEntities())
         {
             auto animation = entity->getComponent<iAnimationComponent>();
-            animation->_animationController->update(time, entity);
+            animation->getAnimationController()->update(time, entity);
         }
     }
 

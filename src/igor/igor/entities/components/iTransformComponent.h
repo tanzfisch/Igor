@@ -123,13 +123,12 @@ namespace igor
         std::vector<iaString> getInfo() const override;
 
     private:
-
         /*! local transform information
-        */
+         */
         iaTransformd _transform;
 
         /*! world transform information
-        */
+         */
         iaTransformd _worldTransform;
 
         /*! the world matrix of this transform

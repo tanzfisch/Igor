@@ -19,16 +19,16 @@ namespace igor
 		_view = createView<iTransformComponent, iSpriteRenderComponent>();
 	}
 
-    iEntitySystemPtr iSpriteRenderSystem::createInstance()
-    {
-        return new iSpriteRenderSystem();
-    }
+	iEntitySystemPtr iSpriteRenderSystem::createInstance()
+	{
+		return new iSpriteRenderSystem();
+	}
 
-    const iaString &iSpriteRenderSystem::getTypeName()
-    {
-        static const iaString typeName("igor_sprite_render_system");
-        return typeName;
-    }	
+	const iaString &iSpriteRenderSystem::getTypeName()
+	{
+		static const iaString typeName("igor_sprite_render_system");
+		return typeName;
+	}
 
 	iEntitySystemStage iSpriteRenderSystem::getStage() const
 	{
@@ -43,33 +43,31 @@ namespace igor
 				  {
 			auto spriteA = a->getComponent<iSpriteRenderComponent>();
 			auto spriteB = b->getComponent<iSpriteRenderComponent>();
-			return spriteA->_zIndex < spriteB->_zIndex; });
+			return spriteA->getZIndex() < spriteB->getZIndex(); });
 
 		for (auto entity : entities)
 		{
-			if(entity->getName() == "shop")
-			{
-				con_endl("shop");
-			}
 			auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
 			auto transformComponent = entity->getComponent<iTransformComponent>();
 
 			const auto &worldMatrix = transformComponent->getWorldMatrix();
 
-			switch (spriteRender->_renderMode)
+			switch (spriteRender->getRenderMode())
 			{
 			case iSpriteRenderComponent::iRenderMode::Tiled:
+			{
+				const auto &size = spriteRender->getSize();
 				iRenderer::getInstance().drawTexturedQuad(worldMatrix._pos,
-														  worldMatrix._right * spriteRender->_size._x * 0.5,
-														  worldMatrix._top * -spriteRender->_size._y * 0.5,
-														  spriteRender->_sprite->getTexture(), spriteRender->_color, true, spriteRender->_size);
+														  worldMatrix._right * size._x * 0.5,
+														  worldMatrix._top * -size._y * 0.5,
+														  spriteRender->getSprite()->getTexture(), spriteRender->getColor(), true, size);
 				break;
+			}
 
 			case iSpriteRenderComponent::iRenderMode::Simple:
 			default:
 				iRenderer::getInstance().drawSprite(worldMatrix,
-													spriteRender->_sprite, spriteRender->_frameIndex, spriteRender->_size,
-													spriteRender->_color, true);
+													spriteRender->getSprite(), spriteRender->getFrameIndex(), spriteRender->getSize(), spriteRender->getColor(), true);
 				break;
 			}
 		}

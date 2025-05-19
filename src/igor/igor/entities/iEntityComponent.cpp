@@ -60,14 +60,14 @@ namespace igor
         return result;
     }
 
-    void iEntityComponent::setDirty()
-    {
-        _version++;
-    }
-
     uint16 iEntityComponent::getVersion() const
     {
         return _version;
+    }
+
+    iEntityPtr iEntityComponent::getEntity() const
+    {
+        return _entity;
     }
 
 } // igor

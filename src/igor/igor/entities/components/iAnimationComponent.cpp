@@ -10,6 +10,7 @@ namespace igor
     iAnimationComponent::iAnimationComponent(iAnimationControllerPtr animationController, const iaString &name)
         : _animationController(animationController)
     {
+        con_assert(_animationController != nullptr, "zero pointer");
     }
 
     iEntityComponent *iAnimationComponent::createInstance()
@@ -28,5 +29,10 @@ namespace igor
         iAnimationComponent *component = new iAnimationComponent();
         component->_animationController = _animationController;
         return component;
+    }
+
+    iAnimationControllerPtr iAnimationComponent::getAnimationController() const
+    {
+        return _animationController;
     }
 }

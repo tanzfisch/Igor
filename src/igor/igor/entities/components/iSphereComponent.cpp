@@ -38,18 +38,20 @@ namespace igor
     void iSphereComponent::setRadius(float64 radius)
     {
         _radius = radius;
+        setDirty();
     }
 
     void iSphereComponent::setOffset(const iaVector3d &offset)
     {
         _offset = offset;
+        setDirty();
     }
 
     std::vector<iaString> iSphereComponent::getInfo() const
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
 
-        result.push_back(iaString("Rad: ") + iaString::toString(_radius) + iaString("Ofs: ") + iaString::toString(_offset));
+        result.push_back(iaString("Radius: ") + iaString::toString(_radius) + iaString(" Offset: ") + iaString::toString(_offset));
 
         return result;
     }

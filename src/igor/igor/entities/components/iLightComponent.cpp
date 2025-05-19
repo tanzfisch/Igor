@@ -46,6 +46,7 @@ namespace igor
     void iLightComponent::setType(iLightType type)
     {
         _type = type;
+        setDirty();
     }
 
     iLightType iLightComponent::getType() const
@@ -76,6 +77,7 @@ namespace igor
     void iLightComponent::setAmbient(const iaColor3f &color)
     {
         _ambient = color;
+        setDirty();
     }
 
     iaColor3f &iLightComponent::getDiffuse()
@@ -86,6 +88,7 @@ namespace igor
     void iLightComponent::setDiffuse(const iaColor3f &color)
     {
         _diffuse = color;
+        setDirty();
     }
 
     iaColor3f &iLightComponent::getSpecular()
@@ -96,6 +99,7 @@ namespace igor
     void iLightComponent::setSpecular(const iaColor3f &color)
     {
         _specular = color;
+        setDirty();
     }
 
     std::vector<iaString> iLightComponent::getInfo() const
@@ -104,7 +108,7 @@ namespace igor
 
         std::wstringstream stream;
         stream << getType();
-        result.push_back(iaString("Typ: ") + stream.str().c_str());
+        result.push_back(iaString("Type: ") + stream.str().c_str());
 
         return result;
     }        

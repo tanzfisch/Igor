@@ -53,11 +53,15 @@ namespace igor
          */
         static const iaString &getTypeName();
 
+        /*! \returns animation controller
+        */
+        iAnimationControllerPtr getAnimationController() const;
+
+    private:
         /*! animation controller
          */
         iAnimationControllerPtr _animationController;
 
-    private:
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
