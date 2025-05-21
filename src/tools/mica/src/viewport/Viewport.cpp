@@ -573,7 +573,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     const auto to = event.getPosition();
 
     // TODO this needs to move in to camera arc
-    if (_cameraArc)
+    if (_cameraArc != nullptr)
     {
         if (iMouse::getInstance().getLeftButton())
         {
@@ -620,16 +620,13 @@ bool Viewport::onMouseWheel(iEventMouseWheel &event)
         return true;
     }
 
-    if (event.getWheelDelta() < 0)
+    if (_cameraArc != nullptr)
     {
-        if (_cameraArc)
+        if (event.getWheelDelta() < 0)
         {
             _cameraArc->setDistance(_cameraArc->getDistance() * s_wheelSensitivity);
         }
-    }
-    else
-    {
-        if (_cameraArc)
+        else
         {
             _cameraArc->setDistance(_cameraArc->getDistance() * (1.0 / s_wheelSensitivity));
         }

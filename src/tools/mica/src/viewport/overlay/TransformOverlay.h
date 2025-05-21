@@ -195,6 +195,10 @@ private:
      */
     void onRender();
 
+    /*! on pre render callback
+     */
+    void onPreRender();
+
     /*! create translate mesh
      */
     iMeshPtr createTranslateMesh();

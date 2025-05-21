@@ -32,11 +32,6 @@ namespace igor
 
     iView::~iView()
     {
-        if (_renderEvent.hasDelegates())
-        {
-            con_warn("not all delegates unregistered from view \"" << getName() << "\"");
-            _renderEvent.clear();
-        }
     }
 
     void iView::setZIndex(int32 zindex)
@@ -290,6 +285,7 @@ namespace igor
             // a system is setting viewport, perspective etc.
             iEntitySystemModule::getInstance().onPreRender(scene);
             setupCamera();
+            _preRenderEvent();
             _renderEngine.render();
             iEntitySystemModule::getInstance().onRender(scene);
         }
@@ -457,6 +453,11 @@ namespace igor
         return _entitySceneID;
     }
 
+    iPreRenderEvent &iView::getPreRenderEvent()
+    {
+        return _preRenderEvent;
+    }
+
     iRenderEvent &iView::getRenderEvent()
     {
         return _renderEvent;
@@ -484,10 +485,10 @@ namespace igor
         {
             con_err("no camera found");
             return iaVector3d();
-        }        
+        }
 
         auto camTransformComp = camera->getComponent<iTransformComponent>();
-        if(camTransformComp == nullptr)
+        if (camTransformComp == nullptr)
         {
             con_err("no transform component found");
             return iaVector3d();
@@ -505,7 +506,7 @@ namespace igor
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
         return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
-    }    
+    }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos)
     {
@@ -524,16 +525,16 @@ namespace igor
         {
             con_err("no camera found");
             return iaVector3d();
-        }        
+        }
 
         auto camTransformComp = camera->getComponent<iTransformComponent>();
-        if(camTransformComp == nullptr)
+        if (camTransformComp == nullptr)
         {
             con_err("no transform component found");
             return iaVector3d();
         }
 
-        return unProject(screenpos, camTransformComp->getWorldMatrix());        
+        return unProject(screenpos, camTransformComp->getWorldMatrix());
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix)

@@ -50,16 +50,23 @@ namespace igor
     class iOctreeObject;
     class iSkyBox;
 
-    /*! draw event triggered for every frame a view is rendered
+    /*! render event triggered for every frame a view is rendered
+
+    This is called after render of the entity system
      */
     IGOR_EVENT_DEFINITION_NO_ARGS(iRender);
+
+    /*! pre render event triggered for every frame a view is rendered
+
+    This is called after pre render of the entity system
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iPreRender);
 
     /*! represents a view rectangle within a window and projection of the scene
 
     similar to what the combination of glViewport and glFrustum do
 
     \todo would be nice to have that again -> iPixmap* makeScreenshot(bool alphachannel=false);
-    \todo pre and post render event
     */
     class IGOR_API iView
     {
@@ -71,7 +78,7 @@ namespace igor
          */
         iView();
 
-        /*! checks consistency
+        /*! does nothing
          */
         virtual ~iView();
 
@@ -122,6 +129,10 @@ namespace igor
         /*! \returns render event
          */
         iRenderEvent &getRenderEvent();
+
+        /*! \returns pre render event
+         */
+        iPreRenderEvent &getPreRenderEvent();
 
         /*! sets the view port within a window.
 
@@ -406,9 +417,13 @@ namespace igor
          */
         float64 _farPlaneDistance = 10000.0;
 
-        /*! event called one per render frame
+        /*! event called last per render frame
          */
         iRenderEvent _renderEvent;
+
+        /*! event called before render
+         */
+        iPreRenderEvent _preRenderEvent;
 
         /*! render engine
          */

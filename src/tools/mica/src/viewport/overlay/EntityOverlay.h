@@ -137,9 +137,8 @@ public:
     iViewPtr getView() const;
 
 private:
-
     /*! entity scene this overlay if for
-    */
+     */
     iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
 
     /*! the entity this overlay is used on

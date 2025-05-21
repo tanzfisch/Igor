@@ -18,8 +18,6 @@ TransformOverlay::~TransformOverlay()
 void TransformOverlay::setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
 {
     EntityOverlay::setEntity(entitySceneID, entityID);
-
-    update();
 }
 
 bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
@@ -41,6 +39,7 @@ bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 void TransformOverlay::onDeinit()
 {
     getView()->getRenderEvent().remove(iRenderDelegate(this, &TransformOverlay::onRender));
+    getView()->getRenderEvent().remove(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
     _red = nullptr;
     _green = nullptr;
@@ -52,6 +51,7 @@ void TransformOverlay::onDeinit()
 void TransformOverlay::onInit()
 {
     getView()->getRenderEvent().add(iRenderDelegate(this, &TransformOverlay::onRender));
+    getView()->getRenderEvent().add(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
     iParameters paramMaterial({
@@ -390,7 +390,10 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
         _rotateModifier->setActiveExclusive(true);
         break;
     }
+}
 
+void TransformOverlay::onPreRender()
+{
     update();
 }
 
@@ -547,8 +550,6 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
         translate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
         break;
     }
-
-    update();
 
     return false;
 }
