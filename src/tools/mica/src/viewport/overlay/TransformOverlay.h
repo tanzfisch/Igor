@@ -142,14 +142,14 @@ private:
     \param vec vector to translate
     \param transformComp the transform component to manipulate
     */
-    void translate(const iaVector3d &vec, iTransformComponentPtr transformComp);
+    void translate(const iaVector3d &vec, iTransformComponentPtr transform);
 
     /*! scele given matrix by vector on selected axis
 
     \param vec scale vector
     \param matrix the matrix to manipulate
     */
-    void scale(const iaVector3d &vec, iaMatrixd &matrix);
+    void scale(const iaVector3d &vec, iTransformComponentPtr transform);
 
     /*! roate matrix based screen space movement
 
@@ -157,7 +157,7 @@ private:
     \param to to in screen space
     \param matrix the matrix to manipulate
     */
-    void rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix);
+    void rotate(const iaVector2d &from, const iaVector2d &to, iTransformComponentPtr transform);
 
     /*! update internal structure
      */

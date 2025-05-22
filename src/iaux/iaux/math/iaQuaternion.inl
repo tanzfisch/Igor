@@ -421,6 +421,26 @@ const iaQuaternion<T> iaQuaternion<T>::conjugate() const
 }
 
 template <class T>
+T iaQuaternion<T>::magnitude2() const
+{
+    return _w * _w + _x * _x + _y * _y + _z * _z;
+}
+
+template <class T>
+const iaQuaternion<T> iaQuaternion<T>::inverse() const
+{
+    T mag = magnitude2();
+    if (mag == 0.0)
+    {
+        con_err("Cannot invert a zero-magnitude quaternion.");
+        return iaQuaternion<T>();
+    }
+
+    iaQuaternion<T> conj = conjugate();
+    return {conj._w / mag, conj._x / mag, conj._y / mag, conj._z / mag};
+}
+
+template <class T>
 const iaVector3<T> iaQuaternion<T>::rotate(const iaVector3<T> &vec) const
 {
     /*iaQuaternion<T> p(0, vec._x, vec._y, vec._z);

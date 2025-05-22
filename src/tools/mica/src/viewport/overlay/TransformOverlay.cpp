@@ -182,7 +182,7 @@ void TransformOverlay::update()
     rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
 
     auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
-    billboardTransformComp->setOrientation(camWorldOrientation * iaQuaterniond::fromEuler(90 * IGOR_GRAD2RAD,0,0));
+    billboardTransformComp->setOrientation(camWorldOrientation * iaQuaterniond::fromEuler(90 * IGOR_GRAD2RAD, 0, 0));
 }
 
 void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
@@ -490,7 +490,7 @@ bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 
 bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
 {
-    if(!_selectionID.isValid())
+    if (!_selectionID.isValid())
     {
         return false;
     }
@@ -499,25 +499,25 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     con_assert(entityScene != nullptr, "no scene");
 
     auto entity = entityScene->getEntity(getEntityID());
-    if(entity == nullptr)
+    if (entity == nullptr)
     {
         return false;
     }
 
     auto entityTransformComp = entity->getComponent<iTransformComponent>();
-    if(entityTransformComp == nullptr)
+    if (entityTransformComp == nullptr)
     {
         return false;
     }
 
     auto camera = entityScene->getActiveCamera();
-    if(camera == nullptr)
+    if (camera == nullptr)
     {
         return false;
     }
 
     auto camTransformComp = camera->getComponent<iTransformComponent>();
-    if(camTransformComp == nullptr)
+    if (camTransformComp == nullptr)
     {
         return false;
     }
@@ -525,7 +525,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     const iaMatrixd &camWorldMatrix = camTransformComp->getWorldMatrix();
     iaVector2d fromd = event.getLastPosition().convert<float64>();
     iaVector2d tod = event.getPosition().convert<float64>();
-    
+
     iaVector3d fromWorld = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
     iaVector3d toWorld = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
 
@@ -541,10 +541,10 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     case OverlayMode::None:
         break;
     case OverlayMode::Rotate:
-        //rotate(fromd, tod, nodeMatrix);
+        rotate(fromd, tod, entityTransformComp);
         break;
     case OverlayMode::Scale:
-        //scale((toWorld - fromWorld) * distanceToCam * 2, nodeMatrix);
+        scale((toWorld - fromWorld) * distanceToCam * 2, entityTransformComp);
         break;
     case OverlayMode::Translate:
         translate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
@@ -554,20 +554,21 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     return false;
 }
 
-void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
+void TransformOverlay::scale(const iaVector3d &vec, iTransformComponentPtr transform)
 {
-    /*const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
     iaVector3d scale;
 
     for (int i = 0; i < 4; ++i)
     {
-        if (_selectedManipulatorNodeID == _scaleIDs[i])
+        if (_selectionID == _scaleIDs[i])
         {
             scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
-            matrix.scale(scale);
+            scale = transform->getScale() * scale;
+            transform->setScale(scale);
             return;
         }
-    }*/
+    }
 }
 
 void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr transform)
@@ -579,61 +580,55 @@ void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr t
     {
         if (_selectionID == _translateIDs[i])
         {
-            translate = vec.project(dir[i]);
+            translate = transform->getOrientation().rotate(vec.project(dir[i]));
             transform->setPosition(transform->getPosition() + translate);
             return;
         }
     }
 }
 
-void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
+void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iTransformComponentPtr transform)
 {
-    /*  iNode *node = iNodeManager::getInstance().getNode(getNodeID());
-      iaMatrixd transformWorldMatrix;
-      node->calcWorldTransformation(transformWorldMatrix);
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if (entityScene == nullptr)
+    {
+        return;
+    }
 
-      iaMatrixd camWorldMatrix;
-      getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-      iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
+    int axisIndex = 0;
+    while (_selectionID != _rotateIDs[axisIndex])
+    {
+        axisIndex++;
+    }
 
-      iaVector2d center2D(center._x, center._y);
+    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
+    iaMatrixd camWorldMatrix = camTransformComp->getWorldMatrix();
+    const iaVector3d fromWorld = getView()->project(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+    const iaVector3d toWorld = getView()->project(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+    iaVector3d mouseDir = toWorld - fromWorld; 
+    mouseDir.normalize();
 
-      iaVector2d a = from - center2D;
-      iaVector2d b = to - center2D;
+    iaVector3d localMouseDir = transform->getOrientation().inverse().rotate(mouseDir);
+    float64 angle;
 
-      float64 angle = b.angle(a);
+    switch(axisIndex)
+    {
+        case 0:
+        angle = localMouseDir[1];
+        break;
+        case 1:
+        angle = localMouseDir[0];
+        break;
+        case 2:
+        angle = localMouseDir[2];
+        break;
+    }
 
-      for (int i = 0; i < 3; ++i)
-      {
-          if (_selectedManipulatorNodeID == _rotateIDs[i])
-          {
-              iaAxis axis = static_cast<iaAxis>(i);
-              float64 scalar = 0;
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    iaVector3d worldAxis = transform->getOrientation().rotate(axis[axisIndex]);
 
-              iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
-
-              switch (axis)
-              {
-              case iaAxis::X:
-                  scalar = toCam * matrix._right;
-                  break;
-              case iaAxis::Y:
-                  scalar = toCam * matrix._top;
-                  break;
-              case iaAxis::Z:
-                  scalar = toCam * matrix._depth;
-                  break;
-              }
-
-              if (scalar < 0)
-              {
-                  angle = -angle;
-              }
-
-              matrix.rotate(angle, static_cast<iaAxis>(i));
-              return;
-          }
-      }*/
+    const iaQuaterniond q = iaQuaterniond::fromAxisAngle(worldAxis, angle);
+    transform->setOrientation(q * transform->getOrientation());
 }
 
 iMeshPtr TransformOverlay::createRingMesh()

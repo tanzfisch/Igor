@@ -221,6 +221,7 @@ namespace iaux
 
         // TODO inverse
         // https://stackoverflow.com/questions/6689967/calculate-quaternion-inverse
+        const iaQuaternion<T> inverse() const;
 
         /*! rotates a given vector
 
@@ -242,6 +243,10 @@ namespace iaux
         /*! \returns conjugate
          */
         const iaQuaternion<T> conjugate() const;
+
+        /*! \returns squared magnitude
+        */
+        T magnitude2() const;
 
         /*! \returns pointer to the data
          */

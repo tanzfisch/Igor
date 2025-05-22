@@ -222,7 +222,7 @@ namespace iaux
 
         \param vec second vector to calculate the angle with
         */
-        T angle(iaVector2<T> &vec) const;
+        T angle(const iaVector2<T> &vec) const;
 
         /*! rotates a vector in XY plane
 

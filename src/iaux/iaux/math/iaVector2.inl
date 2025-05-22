@@ -194,7 +194,7 @@ IGOR_INLINE T iaVector2<T>::distance2(const iaVector2<T> &vec) const
 }
 
 template <class T>
-IGOR_INLINE T iaVector2<T>::angle(iaVector2<T> &vec) const
+IGOR_INLINE T iaVector2<T>::angle(const iaVector2<T> &vec) const
 {
     return (T)(acos(((*this).dot(vec)) / (length() * vec.length())));
 }
