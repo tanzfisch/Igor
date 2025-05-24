@@ -21,9 +21,9 @@ IAUX_TEST(TransformTests, Compare)
 {
 	iaTransformd transA;
 	iaTransformd transB;
-	transB._orientation.fromEuler(1, 2, 3);
+	transB._orientation = iaQuaterniond::fromEuler(1, 2, 3);
 	iaTransformd transC;
-	transC._orientation.fromEuler(1, 2, 3);
+	transC._orientation = iaQuaterniond::fromEuler(1, 2, 3);
 
 	IAUX_EXPECT_NOT_EQUAL(transA, transB);
 	IAUX_EXPECT_EQUAL(transC, transB);
@@ -43,7 +43,7 @@ IAUX_TEST(TransformTests, getMatrix)
 	matrixB.rotate(rotate);
 	matrixB.scale(scale);
 
-	IAUX_EXPECT_EQUAL(matrixA, matrixB);
+	IAUX_EXPECT_NEAR_MATRIX(matrixA, matrixB, 0.00001);
 }
 
 IAUX_TEST(TransformTests, Multiply)

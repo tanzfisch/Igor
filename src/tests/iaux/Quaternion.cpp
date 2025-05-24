@@ -30,9 +30,9 @@ IAUX_TEST(QuaternionTests, InitialEuler)
 
 	iaVector3d vec = quat.toEuler();
 
-	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.01);
-	IAUX_EXPECT_NEAR(vec._y, 0.3, 0.01);
-	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.01);
+	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.00000001);
+	IAUX_EXPECT_NEAR(vec._y, 0.3, 0.00000001);
+	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.00000001);
 }
 
 IAUX_TEST(QuaternionTests, InitialEuler2)

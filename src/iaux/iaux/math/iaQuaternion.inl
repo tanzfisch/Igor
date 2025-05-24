@@ -210,19 +210,19 @@ iaQuaternion<T> &iaQuaternion<T>::operator=(const iaQuaternion<T> &other)
 template <class T>
 bool iaQuaternion<T>::operator==(const iaQuaternion<T> &other) const
 {
-    return ((_w == other._w) &&
-            (_x == other._x) &&
-            (_y == other._y) &&
-            (_z == other._z));
+    return (fabs(_w - other._w) <= 0.00001 &&
+            fabs(_x - other._x) <= 0.00001 &&
+            fabs(_y - other._y) <= 0.00001 &&
+            fabs(_z - other._z) <= 0.00001);
 }
 
 template <class T>
 bool iaQuaternion<T>::operator!=(const iaQuaternion<T> &other) const
 {
-    return ((_w != other._w) ||
-            (_x != other._x) ||
-            (_y != other._y) ||
-            (_z != other._z));
+    return (fabs(_w - other._w) > 0.00001 ||
+            fabs(_x - other._x) > 0.00001 ||
+            fabs(_y - other._y) > 0.00001 ||
+            fabs(_z - other._z) > 0.00001);
 }
 
 template <class T>
@@ -292,17 +292,17 @@ iaQuaternion<T> &iaQuaternion<T>::operator*=(const iaQuaternion<T> &other)
 template <class T>
 const iaQuaternion<T> iaQuaternion<T>::fromEuler(T pitch, T yaw, T roll)
 {
-    double cx = cos(pitch * 0.5);
-    double sx = sin(pitch * 0.5);
-    double cy = cos(yaw * 0.5);
-    double sy = sin(yaw * 0.5);
-    double cz = cos(roll * 0.5);
-    double sz = sin(roll * 0.5);
+    T cr = cos(roll * 0.5);
+    T sr = sin(roll * 0.5);
+    T cp = cos(pitch * 0.5);
+    T sp = sin(pitch * 0.5);
+    T cy = cos(yaw * 0.5);
+    T sy = sin(yaw * 0.5);
 
-    return {cx * cy * cz - sx * sy * sz,
-            sx * cy * cz + sy * sz * cx,
-            sy * cx * cz - sx * sz * cy,
-            sx * sy * cz + sz * cx * cy};
+    return {cr * cp * cy + sr * sp * sy,
+            sr * cp * cy - cr * sp * sy,
+            cr * sp * cy + sr * cp * sy,
+            cr * cp * sy - sr * sp * cy};
 }
 
 template <class T>
@@ -310,27 +310,23 @@ const iaVector3<T> iaQuaternion<T>::toEuler() const
 {
     iaVector3<T> result;
 
-    T unit = (_x * _x) + (_y * _y) + (_z * _z) + (_w * _w);
-    T test = _x * _w - _y * _z;
+    T sr = (_w * _x + _y * _z) * 2.0;
+    T cr = 1.0 - ((_x * _x + _y * _y) * 2.0);
+    result[2] = atan2(sr, cr);
 
-    if (test > 0.4999995 * unit)
+    T sp = (_w * _y - _z * _x) * 2.0;
+    if (fabs(sp) >= 1)
     {
-        result._x = M_PI / 2.0;
-        result._y = 2.0 * atan2(_y, _x);
-        result._z = 0;
-    }
-    else if (test < -0.4999995 * unit)
-    {
-        result._x = -M_PI / 2.0;
-        result._y = -2.0 * atan2(_y, _x);
-        result._z = 0;
+        result[0] = copysign(M_PI * 0.5, sp);
     }
     else
     {
-        result._x = asin(2.0 * (_w * _x - _y * _z));
-        result._y = atan2(2.0 * _w * _y + 2.0 * _z * _x, 1.0 - 2.0 * (_x * _x + _y * _y));
-        result._z = atan2(2.0 * _w * _z + 2.0 * _x * _y, 1.0 - 2.0 * (_z * _z + _x * _x));
+        result[0] = asin(sp);
     }
+
+    T sy = (_w * _z + _x * _y) * 2.0;
+    T cy = 1.0 - ((_y * _y + _z * _z) * 2.0);
+    result[1] = atan2(sy, cy);
 
     return result;
 }

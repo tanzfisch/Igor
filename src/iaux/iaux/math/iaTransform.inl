@@ -93,20 +93,20 @@ IGOR_INLINE bool iaTransform<T>::operator==(const iaTransform<T> &other) const
 template <class T>
 IGOR_INLINE bool iaTransform<T>::operator!=(const iaTransform<T> &other) const
 {
-    if (_position != other._position)
+    if (_position == other._position)
     {
-        return true;
+        return false;
     }
-    if (_orientation != other._orientation)
+    if (_orientation == other._orientation)
     {
-        return true;
+        return false;
     }
-    if (_scale != other._scale)
+    if (_scale == other._scale)
     {
-        return true;
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 template <class T>

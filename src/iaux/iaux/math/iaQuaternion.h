@@ -38,6 +38,10 @@ namespace iaux
 {
 
     /*! quaternion class
+
+    x-axis -> pitch
+    y-axis -> yaw
+    z-axis -> roll
      */
     template <class T>
     class IAUX_API_EXPORT_ONLY iaQuaternion
