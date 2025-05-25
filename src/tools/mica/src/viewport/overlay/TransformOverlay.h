@@ -153,11 +153,10 @@ private:
 
     /*! roate matrix based screen space movement
 
-    \param from from in screen space
-    \param to to in screen space
+    \param worldMousedir move movement in 3d
     \param matrix the matrix to manipulate
     */
-    void rotate(const iaVector2d &from, const iaVector2d &to, iTransformComponentPtr transform);
+    void rotate(const iaVector3d &worldMousedir, iTransformComponentPtr transform);
 
     /*! update internal structure
      */

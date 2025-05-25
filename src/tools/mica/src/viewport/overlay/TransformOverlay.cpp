@@ -541,7 +541,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     case OverlayMode::None:
         break;
     case OverlayMode::Rotate:
-        rotate(fromd, tod, entityTransformComp);
+        rotate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
         break;
     case OverlayMode::Scale:
         scale((toWorld - fromWorld) * distanceToCam * 2, entityTransformComp);
@@ -587,7 +587,7 @@ void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr t
     }
 }
 
-void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iTransformComponentPtr transform)
+void TransformOverlay::rotate(const iaVector3d &worldMouseDir, iTransformComponentPtr transform)
 {
     auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
     if (entityScene == nullptr)
@@ -601,16 +601,14 @@ void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iTra
         axisIndex++;
     }
 
-    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
-    iaMatrixd camWorldMatrix = camTransformComp->getWorldMatrix();
-    const iaVector3d fromWorld = getView()->project(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-    const iaVector3d toWorld = getView()->project(iaVector3d(to._x, to._y, 0), camWorldMatrix);
-    iaVector3d worldMouseDir = toWorld - fromWorld; 
-    worldMouseDir.normalize();
+    con_endl(worldMouseDir);
 
     iaVector3d localMouseDir = transform->getWorldOrientation().inverse().rotate(worldMouseDir);
-    float64 angle;
 
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    iaVector3d localAxis = transform->getWorldOrientation().inverse().rotate(axis[axisIndex]);
+
+    float64 angle;
     switch(axisIndex)
     {
         case 0:
@@ -623,10 +621,6 @@ void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iTra
         angle = localMouseDir[2];
         break;
     }
-
-    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    iaVector3d localAxis = transform->getWorldOrientation().inverse().rotate(axis[axisIndex]);
-
     const iaQuaterniond q = iaQuaterniond::fromAxisAngle(localAxis, angle);
     transform->setOrientation(q * transform->getOrientation());
 }
