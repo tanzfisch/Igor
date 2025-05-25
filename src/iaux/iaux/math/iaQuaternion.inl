@@ -210,19 +210,19 @@ iaQuaternion<T> &iaQuaternion<T>::operator=(const iaQuaternion<T> &other)
 template <class T>
 bool iaQuaternion<T>::operator==(const iaQuaternion<T> &other) const
 {
-    return (fabs(_w - other._w) <= 0.00001 &&
-            fabs(_x - other._x) <= 0.00001 &&
-            fabs(_y - other._y) <= 0.00001 &&
-            fabs(_z - other._z) <= 0.00001);
+    return (fabs(_w - other._w) <= 0.0000001 &&
+            fabs(_x - other._x) <= 0.0000001 &&
+            fabs(_y - other._y) <= 0.0000001 &&
+            fabs(_z - other._z) <= 0.0000001);
 }
 
 template <class T>
 bool iaQuaternion<T>::operator!=(const iaQuaternion<T> &other) const
 {
-    return (fabs(_w - other._w) > 0.00001 ||
-            fabs(_x - other._x) > 0.00001 ||
-            fabs(_y - other._y) > 0.00001 ||
-            fabs(_z - other._z) > 0.00001);
+    return (fabs(_w - other._w) > 0.0000001 ||
+            fabs(_x - other._x) > 0.0000001 ||
+            fabs(_y - other._y) > 0.0000001 ||
+            fabs(_z - other._z) > 0.0000001);
 }
 
 template <class T>
@@ -292,7 +292,7 @@ iaQuaternion<T> &iaQuaternion<T>::operator*=(const iaQuaternion<T> &other)
 template <class T>
 const iaQuaternion<T> iaQuaternion<T>::fromEuler(T pitch, T yaw, T roll)
 {
-    T cr = cos(roll * 0.5);
+    /*T cr = cos(roll * 0.5);
     T sr = sin(roll * 0.5);
     T cp = cos(pitch * 0.5);
     T sp = sin(pitch * 0.5);
@@ -302,7 +302,23 @@ const iaQuaternion<T> iaQuaternion<T>::fromEuler(T pitch, T yaw, T roll)
     return {cr * cp * cy + sr * sp * sy,
             sr * cp * cy - cr * sp * sy,
             cr * sp * cy + sr * cp * sy,
-            cr * cp * sy - sr * sp * cy};
+            cr * cp * sy - sr * sp * cy};*/
+
+    double halfPitch = pitch * 0.5;
+    double halfYaw = yaw * 0.5;
+    double halfRoll = roll * 0.5;
+
+    double cx = cos(halfPitch);
+    double sx = sin(halfPitch);
+    double cy = cos(halfYaw);
+    double sy = sin(halfYaw);
+    double cz = cos(halfRoll);
+    double sz = sin(halfRoll);
+
+    return {cx * cy * cz + sx * sy * sz,
+            sx * cy * cz - cx * sy * sz,
+            cx * sy * cz + sx * cy * sz,
+            cx * cy * sz - sx * sy * cz};
 }
 
 template <class T>
@@ -312,21 +328,21 @@ const iaVector3<T> iaQuaternion<T>::toEuler() const
 
     T sr = (_w * _x + _y * _z) * 2.0;
     T cr = 1.0 - ((_x * _x + _y * _y) * 2.0);
-    result[2] = atan2(sr, cr);
+    result[0] = atan2(sr, cr);
 
     T sp = (_w * _y - _z * _x) * 2.0;
     if (fabs(sp) >= 1)
     {
-        result[0] = copysign(M_PI * 0.5, sp);
+        result[1] = copysign(M_PI * 0.5, sp);
     }
     else
     {
-        result[0] = asin(sp);
+        result[1] = asin(sp);
     }
 
     T sy = (_w * _z + _x * _y) * 2.0;
     T cy = 1.0 - ((_y * _y + _z * _z) * 2.0);
-    result[1] = atan2(sy, cy);
+    result[2] = atan2(sy, cy);
 
     return result;
 }
@@ -350,14 +366,10 @@ IGOR_INLINE T *iaQuaternion<T>::getData()
 }
 
 template <class T>
-IGOR_INLINE iaQuaternion<T> &iaQuaternion<T>::normalize()
+IGOR_INLINE const iaQuaternion<T> iaQuaternion<T>::normalize() const
 {
     const T d = 1.0 / norm();
-    _x *= d;
-    _y *= d;
-    _z *= d;
-    _w *= d;
-    return *this;
+    return {_w * d, _x * d, _y * d, _z * d};
 }
 
 template <class T>
@@ -465,7 +477,7 @@ T iaQuaternion<T>::dot(const iaQuaternion<T> &other) const
 }
 
 template <class T>
-T iaQuaternion<T>::norm() const
+IGOR_INLINE T iaQuaternion<T>::norm() const
 {
     return sqrt(_w * _w + _x * _x + _y * _y + _z * _z);
 }
@@ -479,16 +491,15 @@ T iaQuaternion<T>::normSquared() const
 template <class T>
 const iaMatrix<T> iaQuaternion<T>::toMatrix() const
 {
-
-    T xx = _x * _x;
-    T yy = _y * _y;
-    T zz = _z * _z;
-    T xy = _x * _y;
-    T xz = _x * _z;
-    T yz = _y * _z;
-    T wx = _w * _x;
-    T wy = _w * _y;
-    T wz = _w * _z;
+    const T xx = _x * _x;
+    const T yy = _y * _y;
+    const T zz = _z * _z;
+    const T xy = _x * _y;
+    const T xz = _x * _z;
+    const T yz = _y * _z;
+    const T wx = _w * _x;
+    const T wy = _w * _y;
+    const T wz = _w * _z;
 
     iaMatrix<T> result;
     result[0] = 1.0 - 2.0 * (yy + zz);

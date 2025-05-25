@@ -5,10 +5,7 @@
 template <class T>
 IGOR_INLINE std::wostream &operator<<(std::wostream &stream, const iaMatrix<T> &m)
 {
-    stream << "(" << std::setprecision(2) << m._right._x << ", " << m._top._x << ", " << m._depth._x << ", " << m._pos._x << " | ";
-    stream << m._right._y << ", " << m._top._y << ", " << m._depth._y << ", " << m._pos._y << " | ";
-    stream << m._right._z << ", " << m._top._z << ", " << m._depth._z << ", " << m._pos._z << " | ";
-    stream << m._w0 << ", " << m._w1 << ", " << m._w2 << ", " << m._w3 << ")";
+    stream << "{" << m._right << ", " << m._top << ", " << m._depth << ", " << m._pos << "}";
     return stream;
 }
 

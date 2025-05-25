@@ -234,9 +234,9 @@ namespace iaux
         */
         const iaVector3<T> rotate(const iaVector3<T> &vec) const;
 
-        /*! normalize the quaternion to unit length
+        /*! \returns a normalized quaternion
          */
-        iaQuaternion<T> &normalize();
+        const iaQuaternion<T> normalize() const;
 
         /*! dot product 
         */

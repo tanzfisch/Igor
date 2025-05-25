@@ -32,9 +32,15 @@ IAUX_TEST(TransformTests, Compare)
 IAUX_TEST(TransformTests, getMatrix)
 {
 	iaVector3d translate(1, 2, 3);
-	iaVector3d rotate(0.5, -0.2, 0.1);
+	iaVector3d rotate(1.0, -0.4, 0.3);
 	iaVector3d scale(1, 0.5, 1);
 	iaTransformd transA(translate, iaQuaterniond::fromEuler(rotate), scale);
+
+	iaMatrixd foo;
+	foo.rotate(rotate);
+	auto bar = iaQuaterniond::fromEuler(rotate).toMatrix();
+
+	IAUX_EXPECT_NEAR_MATRIX(foo, bar, 0.00001);
 
 	iaMatrixd matrixA = transA.getMatrix();
 
@@ -43,7 +49,7 @@ IAUX_TEST(TransformTests, getMatrix)
 	matrixB.rotate(rotate);
 	matrixB.scale(scale);
 
-	IAUX_EXPECT_NEAR_MATRIX(matrixA, matrixB, 0.00001);
+ 	IAUX_EXPECT_NEAR_MATRIX(matrixA, matrixB, 0.0000001);
 }
 
 IAUX_TEST(TransformTests, Multiply)
@@ -63,5 +69,5 @@ IAUX_TEST(TransformTests, Multiply)
 	iaTransformd transC = transA * transB;
 	iaMatrixd matrixC = matrixA * matrixB;
 
-	IAUX_EXPECT_NEAR_MATRIX(matrixC, transC.getMatrix(), 0.001);
+	IAUX_EXPECT_NEAR_MATRIX(matrixC, transC.getMatrix(), 0.00001);
 }

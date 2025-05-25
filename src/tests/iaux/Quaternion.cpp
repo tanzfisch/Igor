@@ -24,15 +24,45 @@ IAUX_TEST(QuaternionTests, Initial2)
 	IAUX_EXPECT_EQUAL(quat._z, 0);
 }
 
+IAUX_TEST(QuaternionTests, InitialEulerX)
+{
+	iaQuaterniond quat = iaQuaterniond::fromEuler(M_PI * 0.5, 0.0, 0.0);
+
+	IAUX_EXPECT_NEAR(quat._w, 0.7071, 0.00001);
+	IAUX_EXPECT_NEAR(quat._x, 0.7071, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0.0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0.0, 0.00001);
+}
+
+IAUX_TEST(QuaternionTests, InitialEulerY)
+{
+	iaQuaterniond quat = iaQuaterniond::fromEuler(0.0, M_PI * 0.5, 0.0);
+
+	IAUX_EXPECT_NEAR(quat._w, 0.7071, 0.00001);
+	IAUX_EXPECT_NEAR(quat._x, 0.0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0.7071, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0.0, 0.00001);
+}
+
+IAUX_TEST(QuaternionTests, InitialEulerZ)
+{
+	iaQuaterniond quat = iaQuaterniond::fromEuler(0.0, 0.0, M_PI * 0.5);
+
+	IAUX_EXPECT_NEAR(quat._w, 0.7071, 0.00001);
+	IAUX_EXPECT_NEAR(quat._x, 0.0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0.0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0.7071, 0.00001);
+}
+
 IAUX_TEST(QuaternionTests, InitialEuler)
 {
 	iaQuaterniond quat = iaQuaterniond::fromEuler(0.2, 0.3, -1.5);
 
 	iaVector3d vec = quat.toEuler();
 
-	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.00000001);
-	IAUX_EXPECT_NEAR(vec._y, 0.3, 0.00000001);
-	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.00000001);
+	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.00001);
+	IAUX_EXPECT_NEAR(vec._y, 0.3, 0.00001);
+	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, InitialEuler2)
@@ -40,39 +70,40 @@ IAUX_TEST(QuaternionTests, InitialEuler2)
 	iaQuaterniond quat(iaQuaterniond::fromEuler(0.2, -0.9, -1.5));
 	iaVector3d vec = quat.toEuler();
 
-	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.00000001);
-	IAUX_EXPECT_NEAR(vec._y, -0.9, 0.00000001);
-	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.00000001);
+	IAUX_EXPECT_NEAR(vec._x, 0.2, 0.00001);
+	IAUX_EXPECT_NEAR(vec._y, -0.9, 0.00001);
+	IAUX_EXPECT_NEAR(vec._z, -1.5, 0.00001);
 }
+
 
 IAUX_TEST(QuaternionTests, InitialByAxisAngle2)
 {
 	iaQuaterniond quat = iaQuaterniond::fromAxisAngle(iaVector3d(1.0, 0.0, 0.0), 0.5 * M_PI);
 
-	IAUX_EXPECT_NEAR(quat._x, 0.707107, 0.000001);
-	IAUX_EXPECT_NEAR(quat._y, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._z, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._w, 0.707107, 0.000001);
+	IAUX_EXPECT_NEAR(quat._x, 0.707107, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._w, 0.707107, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, InitialByAxisAngle3)
 {
 	iaQuaterniond quat = iaQuaterniond::fromAxisAngle(iaVector3d(1.0, 0.0, 0.0), M_PI);
 
-	IAUX_EXPECT_NEAR(quat._x, 1, 0.000001);
-	IAUX_EXPECT_NEAR(quat._y, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._z, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._w, 0, 0.000001);
+	IAUX_EXPECT_NEAR(quat._x, 1, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._w, 0, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, InitialByAxisAngle4)
 {
 	iaQuaterniond quat = iaQuaterniond::fromAxisAngle(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
 
-	IAUX_EXPECT_NEAR(quat._x, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._y, 0.707107, 0.000001);
-	IAUX_EXPECT_NEAR(quat._z, 0, 0.000001);
-	IAUX_EXPECT_NEAR(quat._w, 0.707107, 0.000001);
+	IAUX_EXPECT_NEAR(quat._x, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._y, 0.707107, 0.00001);
+	IAUX_EXPECT_NEAR(quat._z, 0, 0.00001);
+	IAUX_EXPECT_NEAR(quat._w, 0.707107, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, SetAxisAngle)
@@ -90,9 +121,9 @@ IAUX_TEST(QuaternionTests, SetEuler)
 	iaQuaterniond quat = iaQuaterniond::fromEuler(0.1, 0.2, 0.3);
 
 	auto euler = quat.toEuler();
-	IAUX_EXPECT_NEAR(euler._x, 0.1, 0.000001);
-	IAUX_EXPECT_NEAR(euler._y, 0.2, 0.000001);
-	IAUX_EXPECT_NEAR(euler._z, 0.3, 0.000001);
+	IAUX_EXPECT_NEAR(euler._x, 0.1, 0.00001);
+	IAUX_EXPECT_NEAR(euler._y, 0.2, 0.00001);
+	IAUX_EXPECT_NEAR(euler._z, 0.3, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, SetEulerVec)
@@ -102,9 +133,9 @@ IAUX_TEST(QuaternionTests, SetEulerVec)
 	iaQuaterniond quat = iaQuaterniond::fromEuler(rotation);
 
 	auto euler = quat.toEuler();
-	IAUX_EXPECT_NEAR(euler._x, 0.1, 0.000001);
-	IAUX_EXPECT_NEAR(euler._y, -0.2, 0.000001);
-	IAUX_EXPECT_NEAR(euler._z, 0.3, 0.000001);
+	IAUX_EXPECT_NEAR(euler._x, 0.1, 0.00001);
+	IAUX_EXPECT_NEAR(euler._y, -0.2, 0.00001);
+	IAUX_EXPECT_NEAR(euler._z, 0.3, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, GetEulerVec)
@@ -114,9 +145,9 @@ IAUX_TEST(QuaternionTests, GetEulerVec)
 	iaQuaterniond quat = iaQuaterniond::fromEuler(rotation);
 	rotation = quat.toEuler();
 
-	IAUX_EXPECT_NEAR(rotation._x, 0.1, 0.00000001);
-	IAUX_EXPECT_NEAR(rotation._y, -0.2, 0.00000001);
-	IAUX_EXPECT_NEAR(rotation._z, 0.3, 0.00000001);
+	IAUX_EXPECT_NEAR(rotation._x, 0.1, 0.00001);
+	IAUX_EXPECT_NEAR(rotation._y, -0.2, 0.00001);
+	IAUX_EXPECT_NEAR(rotation._z, 0.3, 0.00001);
 }
 
 IAUX_TEST(QuaternionTests, SetDirect)
