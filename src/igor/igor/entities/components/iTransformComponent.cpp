@@ -123,4 +123,14 @@ namespace igor
     {
         entity->setDirtyHierarchyDown();
     }
+
+    const iaTransformd &iTransformComponent::getTransform() const
+    {
+        return _transform;
+    }
+
+    const iaTransformd &iTransformComponent::getWorldTransform() const
+    {
+        return _worldTransform;
+    }
 }

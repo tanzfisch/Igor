@@ -114,10 +114,6 @@ IGOR_INLINE iaTransform<T> iaTransform<T>::operator*(const iaTransform<T> &other
 {
     iaTransform<T> transform;
 
-    /*result.scale = B.scale * A.scale
-    result.rotation = B.rotation * A.rotation
-    result.position = B.rotation * (B.scale * A.position) + B.position*/
-
     transform._scale = _scale * other._scale;
     transform._orientation = _orientation * other._orientation;
     transform._position = _orientation.rotate(_scale * other._position) + _position;
@@ -139,4 +135,27 @@ void iaTransform<T>::identity()
     _position.set(0.0, 0.0, 0.0);
     _orientation.set(1.0, 0.0, 0.0, 0.0);
     _scale.set(1.0, 1.0, 1.0);
+}
+
+template <class T>
+iaVector3<T> iaTransform<T>::applyTo(const iaVector3<T> &vec) const
+{
+    iaVector3<T> result = vec * _scale;
+    result = _orientation.rotate(result);
+    return result + _position;
+}
+
+template <class T>
+iaTransform<T> iaTransform<T>::inverse() const
+{
+    iaTransform<T> result;
+    result._scale.set(1.0 / _scale._x, 1.0 / _scale._y, 1.0 / _scale._z);
+    result._orientation = _orientation.inverse();
+
+    auto negPos = _position;
+    negPos.negate();
+    const auto unrotated = result._orientation.rotate(negPos);
+    result._position = unrotated * result._scale;
+
+    return result;
 }

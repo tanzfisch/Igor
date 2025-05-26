@@ -137,15 +137,7 @@ namespace iaux
 
 		/*! matrix vector3 multiplication
 		 */
-		iaVector3<T> operator*(iaVector3<T> &vec) const;
-
-		/*! matrix vector3 multiplication
-		 */
 		iaVector3<T> operator*(const iaVector3<T> &vec) const;
-
-		/*! matrix vector4 multiplication
-		 */
-		iaVector4<T> operator*(iaVector4<T> &vec) const;
 
 		/*! matrix vector4 multiplication
 		 */

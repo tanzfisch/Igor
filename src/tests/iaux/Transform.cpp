@@ -71,3 +71,19 @@ IAUX_TEST(TransformTests, Multiply)
 
 	IAUX_EXPECT_NEAR_MATRIX(matrixC, transC.getMatrix(), 0.00001);
 }
+
+IAUX_TEST(TransformTests, MultiplyVector)
+{
+	iaTransformd trans(iaVector3d(10,10,0), iaQuaterniond::fromEuler(0.1, -0.2, 0.4), iaVector3d(1,1,1));
+	iaVector3d vec(-3,5,10);
+
+	iaVector3d transformed = trans.applyTo(vec);
+
+	iaTransformd inv = trans.inverse();
+
+	iaVector3d untransformed = inv.applyTo(transformed);
+
+	IAUX_EXPECT_NEAR(untransformed._x, vec._x, 0.00000001);
+	IAUX_EXPECT_NEAR(untransformed._y, vec._y, 0.00000001);
+	IAUX_EXPECT_NEAR(untransformed._z, vec._z, 0.00000001);
+}

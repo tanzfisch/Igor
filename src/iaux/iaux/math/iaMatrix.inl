@@ -56,32 +56,10 @@ IGOR_INLINE bool iaMatrix<T>::operator!=(const iaMatrix<T> &other) const
 }
 
 template <class T>
-IGOR_INLINE iaVector3<T> iaMatrix<T>::operator*(iaVector3<T> &a) const
-{
-    iaVector3<T> result;
-    result = _right * a._x + _top * a._y + _depth * a._z + _pos;
-
-    return result;
-}
-
-template <class T>
 IGOR_INLINE iaVector3<T> iaMatrix<T>::operator*(const iaVector3<T> &a) const
 {
     iaVector3<T> result;
     result = _right * a._x + _top * a._y + _depth * a._z + _pos;
-
-    return result;
-}
-
-template <class T>
-IGOR_INLINE iaVector4<T> iaMatrix<T>::operator*(iaVector4<T> &a) const
-{
-    iaVector4<T> result;
-
-    result._x = _right._x * a._x + _top._x * a._y + _depth._x * a._z + _pos._x * a._w;
-    result._y = _right._y * a._x + _top._y * a._y + _depth._y * a._z + _pos._y * a._w;
-    result._z = _right._z * a._x + _top._z * a._y + _depth._z * a._z + _pos._z * a._w;
-    result._w = _w0 * a._x + _w1 * a._y + _w2 * a._z + _w3 * a._w;
 
     return result;
 }

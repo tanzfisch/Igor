@@ -541,7 +541,7 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     case OverlayMode::None:
         break;
     case OverlayMode::Rotate:
-        rotate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
+        rotate(fromWorld, toWorld, entityTransformComp);
         break;
     case OverlayMode::Scale:
         scale((toWorld - fromWorld) * distanceToCam * 2, entityTransformComp);
@@ -587,42 +587,31 @@ void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr t
     }
 }
 
-void TransformOverlay::rotate(const iaVector3d &worldMouseDir, iTransformComponentPtr transform)
+void TransformOverlay::rotate(const iaVector3d &from, const iaVector3d &to, iTransformComponentPtr transform)
 {
-    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
-    if (entityScene == nullptr)
-    {
-        return;
-    }
-
     int axisIndex = 0;
     while (_selectionID != _rotateIDs[axisIndex])
     {
         axisIndex++;
     }
 
-    con_endl(worldMouseDir);
-
-    iaVector3d localMouseDir = transform->getWorldOrientation().inverse().rotate(worldMouseDir);
-
     static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    iaVector3d localAxis = transform->getWorldOrientation().inverse().rotate(axis[axisIndex]);
+    const iaVector3d localAxis = axis[axisIndex];
 
-    float64 angle;
-    switch(axisIndex)
-    {
-        case 0:
-        angle = localMouseDir[1];
-        break;
-        case 1:
-        angle = localMouseDir[0];
-        break;
-        case 2:
-        angle = localMouseDir[2];
-        break;
-    }
+    const auto &invWorldTransform = transform->getWorldTransform().inverse();
+
+    const auto localFrom = invWorldTransform.applyTo(from);
+    const auto localTo = invWorldTransform.applyTo(to);
+
+    const auto projectedFrom = localFrom - (localAxis * localFrom.dot(localAxis));
+    const auto projectedTo = localTo - (localAxis * localTo.dot(localAxis));
+
+    float64 angle = projectedFrom.angle(projectedTo) * 10;
+
+    angle = ((projectedFrom % projectedTo).dot(localAxis) < 0) ? -angle : angle;
+
     const iaQuaterniond q = iaQuaterniond::fromAxisAngle(localAxis, angle);
-    transform->setOrientation(q * transform->getOrientation());
+    transform->setOrientation(transform->getOrientation() * q);
 }
 
 iMeshPtr TransformOverlay::createRingMesh()

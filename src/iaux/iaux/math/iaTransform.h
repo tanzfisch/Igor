@@ -75,6 +75,19 @@ namespace iaux
          */
         iaTransform<T> operator*(const iaTransform<T> &other);
 
+        /*! inverse transform
+
+        \returns inverse of transform
+         */
+        iaTransform<T> inverse() const;
+
+        /*! multiply transform with vector
+
+        \param vec the given vector
+        \returns transformed vector
+         */
+        iaVector3<T> applyTo(const iaVector3<T> &vec) const;
+
         /*! transform multiplication stored in this transform
 
         equivalent of a matrix multiplication
@@ -108,7 +121,7 @@ namespace iaux
         const iaMatrix<T> getMatrix() const;
 
         /*! the equivalent of setting an identity matrix
-        */
+         */
         void identity();
 
         /*! initializes the transform effectively with the id matrix

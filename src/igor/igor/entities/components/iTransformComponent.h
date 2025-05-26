@@ -122,6 +122,14 @@ namespace igor
          */
         std::vector<iaString> getInfo() const override;
 
+        /*! \returns local transform
+         */
+        const iaTransformd& getTransform() const;
+
+        /*! \returns world transform
+         */
+        const iaTransformd& getWorldTransform() const;
+
     private:
         /*! local transform information
          */
