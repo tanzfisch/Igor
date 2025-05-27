@@ -129,10 +129,6 @@ private:
      */
     iEntityPtr _locatorRepresentation = nullptr;
 
-    /*! rotate modifier billboard
-     */
-    iEntityPtr _rotateBillboardTransform = nullptr;
-
     /*! selected entity ID
      */
     iEntityID _selectionID = iEntityID::getInvalid();
@@ -191,10 +187,6 @@ private:
      */
     void onDeinit();
 
-    /*! on render callback
-     */
-    void onRender();
-
     /*! on pre render callback
      */
     void onPreRender();
@@ -215,10 +207,6 @@ private:
      */
     iMeshPtr createRingMesh();
 
-    /*! create 2d ring mesh
-     */
-    iMeshPtr create2DRingMesh();
-
     /*! create cylinder mesh
      */
     iMeshPtr createCylinder();
@@ -238,20 +226,15 @@ private:
     /*! create rotate manipulator
 
     \param ringMesh ring mesh
-    \param ringMesh2D ring mesh 2d
     \param cylinder cylinder mesh
     */
-    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder);
+    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
 
     /*! create locator representation
 
     \param cylinder cylinder mesh
     */
     void createLocatorRepresentation(iMeshPtr &cylinder);
-
-    /*! highlight selected manipulator mesh
-     */
-    void renderHighlight();
 };
 
 #endif // MICA_TRANSFORM_OVERLAY_H

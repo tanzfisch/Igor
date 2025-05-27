@@ -38,7 +38,6 @@ bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 
 void TransformOverlay::onDeinit()
 {
-    getView()->getRenderEvent().remove(iRenderDelegate(this, &TransformOverlay::onRender));
     getView()->getRenderEvent().remove(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
     _red = nullptr;
@@ -50,7 +49,6 @@ void TransformOverlay::onDeinit()
 
 void TransformOverlay::onInit()
 {
-    getView()->getRenderEvent().add(iRenderDelegate(this, &TransformOverlay::onRender));
     getView()->getRenderEvent().add(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
@@ -115,7 +113,6 @@ void TransformOverlay::onInit()
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();
     iMeshPtr ringMesh = createRingMesh();
-    iMeshPtr ringMesh2D = create2DRingMesh();
     iMeshPtr cylinder = createCylinder();
 
     const auto &entitySceneID = getView()->getSceneID();
@@ -128,7 +125,7 @@ void TransformOverlay::onInit()
 
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
-    createRotateModifier(ringMesh, ringMesh2D, cylinder);
+    createRotateModifier(ringMesh, cylinder);
     createLocatorRepresentation(cylinder);
 
     _rootTransform->setActive(false);
@@ -180,12 +177,9 @@ void TransformOverlay::update()
     rootTransformComp->setPosition(entityPos);
     rootTransformComp->setOrientation(entityOrientation);
     rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
-
-    auto billboardTransformComp = _rotateBillboardTransform->getComponent<iTransformComponent>();
-    billboardTransformComp->setOrientation(camWorldOrientation * iaQuaterniond::fromEuler(90 * IGOR_GRAD2RAD, 0, 0));
 }
 
-void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinderMesh)
+void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMesh)
 {
     const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
@@ -215,14 +209,6 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMe
     auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
     zMeshRenderComponent->addMesh(ringMesh, _blue);
     zRingTransform->setParent(_rotateModifier);
-
-    _rotateBillboardTransform = entityScene->createEntity("overlay.rotate.billboard");
-    _rotateBillboardTransform->addComponent(new iTransformComponent());
-    _rotateBillboardTransform->addComponent(new iSphereComponent(1.0));
-    _rotateBillboardTransform->addComponent(new iOctreeComponent());
-    auto billboardMeshRenderComponent = _rotateBillboardTransform->addComponent(new iMeshRenderComponent());
-    billboardMeshRenderComponent->addMesh(ringMesh2D, _cyan);
-    _rotateBillboardTransform->setParent(_rotateModifier);
 
     _rotateIDs.push_back(xRingTransform->getID());
     _rotateIDs.push_back(yRingTransform->getID());
@@ -355,7 +341,7 @@ void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 
     iMeshPtr cube = createCube();
     iEntityPtr xyzCube = entityScene->createEntity("overlay.scale.cube");
-    xyzCube->addComponent(new iTransformComponent(iaVector3d(0.125, 0, 0.125)));
+    xyzCube->addComponent(new iTransformComponent(iaVector3d(0.1, 0, 0.1)));
     xyzCube->addComponent(new iSphereComponent(1.0));
     xyzCube->addComponent(new iOctreeComponent());
     auto cubeRenderComponent = xyzCube->addComponent(new iMeshRenderComponent());
@@ -395,48 +381,6 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 void TransformOverlay::onPreRender()
 {
     update();
-}
-
-void TransformOverlay::onRender()
-{
-    renderHighlight();
-}
-
-void TransformOverlay::renderHighlight()
-{
-    const auto &entitySceneID = getView()->getSceneID();
-    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
-    con_assert(entityScene != nullptr, "no scene");
-
-    auto entity = entityScene->getEntity(_selectionID);
-    if (entity == nullptr)
-    {
-        return;
-    }
-
-    const auto transformComponent = entity->getComponent<iTransformComponent>();
-    if (transformComponent == nullptr)
-    {
-        return;
-    }
-
-    const auto meshRenderComponent = entity->getComponent<iMeshRenderComponent>();
-    if (meshRenderComponent == nullptr)
-    {
-        return;
-    }
-
-    iRenderer::getInstance().setShader(_materialCelShading);
-    iRenderer::getInstance().setLineWidth(4);
-
-    for (const auto &meshRef : meshRenderComponent->getMeshReferences())
-    {
-        auto matrix = transformComponent->getWorldMatrix();
-        matrix *= meshRef._offset;
-
-        iRenderer::getInstance().setModelMatrix(matrix);
-        iRenderer::getInstance().drawMesh(meshRef._mesh, nullptr);
-    }
 }
 
 bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
@@ -526,13 +470,13 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     iaVector2d fromd = event.getLastPosition().convert<float64>();
     iaVector2d tod = event.getPosition().convert<float64>();
 
-    iaVector3d fromWorld = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
-    iaVector3d toWorld = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
+    iaVector3d from = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
+    iaVector3d to = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
 
     iaMatrixd transformWorldMatrix = entityTransformComp->getWorldMatrix();
     transformWorldMatrix.invert();
-    fromWorld = transformWorldMatrix * fromWorld;
-    toWorld = transformWorldMatrix * toWorld;
+    from = transformWorldMatrix * from;
+    to = transformWorldMatrix * to;
 
     float64 distanceToCam = camWorldMatrix._pos.distance(entityTransformComp->getPosition());
 
@@ -541,13 +485,13 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
     case OverlayMode::None:
         break;
     case OverlayMode::Rotate:
-        rotate(fromWorld, toWorld, entityTransformComp);
+        rotate(from, to, entityTransformComp);
         break;
     case OverlayMode::Scale:
-        scale((toWorld - fromWorld) * distanceToCam * 2, entityTransformComp);
+        scale((to - from) * distanceToCam * 2, entityTransformComp);
         break;
     case OverlayMode::Translate:
-        translate((toWorld - fromWorld) * distanceToCam, entityTransformComp);
+        translate((to - from) * distanceToCam, entityTransformComp);
         break;
     }
 
@@ -587,7 +531,7 @@ void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr t
     }
 }
 
-void TransformOverlay::rotate(const iaVector3d &from, const iaVector3d &to, iTransformComponentPtr transform)
+void TransformOverlay::rotate(const iaVector3d &localFrom, const iaVector3d &localTo, iTransformComponentPtr transform)
 {
     int axisIndex = 0;
     while (_selectionID != _rotateIDs[axisIndex])
@@ -598,15 +542,10 @@ void TransformOverlay::rotate(const iaVector3d &from, const iaVector3d &to, iTra
     static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     const iaVector3d localAxis = axis[axisIndex];
 
-    const auto &invWorldTransform = transform->getWorldTransform().inverse();
-
-    const auto localFrom = invWorldTransform.applyTo(from);
-    const auto localTo = invWorldTransform.applyTo(to);
-
     const auto projectedFrom = localFrom - (localAxis * localFrom.dot(localAxis));
     const auto projectedTo = localTo - (localAxis * localTo.dot(localAxis));
 
-    float64 angle = projectedFrom.angle(projectedTo) * 10;
+    float64 angle = projectedFrom.angle(projectedTo) * 20;
 
     angle = ((projectedFrom % projectedTo).dot(localAxis) < 0) ? -angle : angle;
 
@@ -617,15 +556,7 @@ void TransformOverlay::rotate(const iaVector3d &from, const iaVector3d &to, iTra
 iMeshPtr TransformOverlay::createRingMesh()
 {
     iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addCylinder(meshBuilder, 2.0, 0.1, 64, false);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
-iMeshPtr TransformOverlay::create2DRingMesh()
-{
-    iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addRing(meshBuilder, 2.1, 2.15, 64);
+    iMeshBuilderUtils::addCylinder(meshBuilder, 2.0, 0.13, 64, false);
     meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }
@@ -641,7 +572,7 @@ iMeshPtr TransformOverlay::createScaleMesh()
 
     matrix.identity();
     matrix.translate(0, 1.5, 0);
-    matrix.scale(0.25, 0.25, 0.25);
+    matrix.scale(0.2, 0.2, 0.2);
     meshBuilder.setMatrix(matrix);
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
 
@@ -654,7 +585,7 @@ iMeshPtr TransformOverlay::createCube()
     iMeshBuilder meshBuilder;
 
     iaMatrixf matrix;
-    matrix.scale(0.25, 0.25, 0.25);
+    matrix.scale(0.2, 0.2, 0.2);
     meshBuilder.setMatrix(matrix);
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
 
