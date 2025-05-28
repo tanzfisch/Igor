@@ -98,29 +98,37 @@ private:
     */
     iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
 
-    /*! anchor entity
+    /*! anchor entity. this is where camera arc attaches it's own entities
     */
     iEntityID _entityID = iEntityID::getInvalid();
 
     /*! center of interest node
      */
-    iEntityID _cameraCOI = iEntityID::getInvalid();
+    iEntityID _cameraCOIID = iEntityID::getInvalid();
 
     /*! camera heading node
      */
-    iEntityID _cameraHeading = iEntityID::getInvalid();
+    iEntityID _cameraHeadingID = iEntityID::getInvalid();
 
     /*! camera pitch node
      */
-    iEntityID _cameraPitch = iEntityID::getInvalid();
+    iEntityID _cameraPitchID = iEntityID::getInvalid();
 
     /*! camera distance to center of interest node
      */
-    iEntityID _cameraDistance = iEntityID::getInvalid();
+    iEntityID _cameraDistanceID = iEntityID::getInvalid();
 
     /*! camera node
      */
-    iEntityID _camera = iEntityID::getInvalid();
+    iEntityID _cameraID = iEntityID::getInvalid();
+
+    /*! heading in rad
+    */
+    float64 _cameraHeading = 0;
+
+    /*! pitch in rad
+    */
+    float64 _cameraPitch = 0;
 };
 
 /*! camera arc pointer definition

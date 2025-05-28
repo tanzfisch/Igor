@@ -153,6 +153,7 @@ void TransformOverlay::update()
     auto entity = entityScene->getEntity(getEntityID());
     if (entity == nullptr)
     {
+        setActive(false);
         return;
     }
 
@@ -500,45 +501,44 @@ bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
 
 void TransformOverlay::scale(const iaVector3d &vec, iTransformComponentPtr transform)
 {
-    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
-    iaVector3d scale;
-
-    for (int i = 0; i < 4; ++i)
+    auto iter = std::find(_scaleIDs.begin(), _scaleIDs.end(), _selectionID);
+    if (iter == _scaleIDs.end())
     {
-        if (_selectionID == _scaleIDs[i])
-        {
-            scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
-            scale = transform->getScale() * scale;
-            transform->setScale(scale);
-            return;
-        }
+        return;
     }
+
+    int axisIndex = std::distance(_scaleIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+    
+    iaVector3d scale = vec.project(axis[axisIndex]) + iaVector3d(1, 1, 1);
+    scale = transform->getScale() * scale;
+    transform->setScale(scale);
 }
 
 void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr transform)
 {
-    static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    iaVector3d translate;
-
-    for (int i = 0; i < 3; ++i)
+    auto iter = std::find(_translateIDs.begin(), _translateIDs.end(), _selectionID);
+    if (iter == _translateIDs.end())
     {
-        if (_selectionID == _translateIDs[i])
-        {
-            translate = transform->getOrientation().rotate(vec.project(dir[i]));
-            transform->setPosition(transform->getPosition() + translate);
-            return;
-        }
+        return;
     }
+
+    int axisIndex = std::distance(_translateIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+
+    iaVector3d translate = transform->getOrientation().rotate(vec.project(axis[axisIndex])) * transform->getScale();
+    transform->setPosition(transform->getPosition() + translate);
 }
 
 void TransformOverlay::rotate(const iaVector3d &localFrom, const iaVector3d &localTo, iTransformComponentPtr transform)
 {
-    int axisIndex = 0;
-    while (_selectionID != _rotateIDs[axisIndex])
+    auto iter = std::find(_rotateIDs.begin(), _rotateIDs.end(), _selectionID);
+    if (iter == _rotateIDs.end())
     {
-        axisIndex++;
+        return;
     }
 
+    int axisIndex = std::distance(_rotateIDs.begin(), iter);
     static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
     const iaVector3d localAxis = axis[axisIndex];
 

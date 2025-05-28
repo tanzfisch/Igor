@@ -15,19 +15,19 @@ CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entit
 
     auto coi = scene->createEntity("mica_camera_arc_coi");
     coi->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
-    _cameraCOI = coi->getID();
+    _cameraCOIID = coi->getID();
 
     auto heading = scene->createEntity("mica_camera_arc_heading");
     heading->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
-    _cameraHeading = heading->getID();
+    _cameraHeadingID = heading->getID();
 
     auto pitch = scene->createEntity("mica_camera_arc_pitch");
     pitch->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
-    _cameraPitch = pitch->getID();
+    _cameraPitchID = pitch->getID();
 
     auto distance = scene->createEntity("mica_camera_arc_distance");
     distance->addComponent(new iTransformComponent(iaVector3d(0, 0, 10)));
-    _cameraDistance = distance->getID();
+    _cameraDistanceID = distance->getID();
 
     auto camera = scene->createEntity("mica_camera_arc_camera");
     camera->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
@@ -36,7 +36,7 @@ CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entit
     cameraComponent->setClipPlanes(0.01, 100.0);
     cameraComponent->setClearColorActive(true);
     cameraComponent->setClearDepthActive(true);
-    _camera = camera->getID();
+    _cameraID = camera->getID();
 
     coi->setParent(anchor);
     heading->setParent(coi);
@@ -53,14 +53,14 @@ CameraArc::~CameraArc()
         return;
     }
     
-    scene->destroyEntity(_cameraCOI);
+    scene->destroyEntity(_cameraCOIID);
 }
 
 void CameraArc::getWorldTransformation(iaMatrixd &matrix) const
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto camera = scene->getEntity(_camera);
+    auto camera = scene->getEntity(_cameraID);
     con_assert(camera != nullptr, "no cam found");
     iTransformComponentPtr transform = camera->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
@@ -70,57 +70,47 @@ void CameraArc::getWorldTransformation(iaMatrixd &matrix) const
 
 float64 CameraArc::getHeading() const
 {
-    auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-    con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraHeading);
-    con_assert(entity != nullptr, "no heading found");
-    iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
-    con_assert(transform != nullptr, "no transform found");
-
-    return transform->getOrientation().toEuler()._y;
+    return _cameraHeading;
 }
 
 void CameraArc::setHeading(float64 heading)
 {
+    _cameraHeading = heading;
+
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraHeading);
+    auto entity = scene->getEntity(_cameraHeadingID);
     con_assert(entity != nullptr, "no heading found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    transform->setOrientation(iaQuaterniond::fromEuler(0, heading, 0));
+    transform->setOrientation(iaQuaterniond::fromEuler(0, _cameraHeading, 0));
 }
 
 float64 CameraArc::getPitch() const
 {
-    auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-    con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraPitch);
-    con_assert(entity != nullptr, "no heading found");
-    iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
-    con_assert(transform != nullptr, "no transform found");
-
-    return transform->getOrientation().toEuler()._x;
+    return _cameraPitch;
 }
 
 void CameraArc::setPitch(float64 pitch)
 {
+    _cameraPitch = pitch;
+    
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraPitch);
+    auto entity = scene->getEntity(_cameraPitchID);
     con_assert(entity != nullptr, "no heading found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
-    transform->setOrientation(iaQuaterniond::fromEuler(pitch, 0, 0));
+    transform->setOrientation(iaQuaterniond::fromEuler(_cameraPitch, 0, 0));
 }
 
 float64 CameraArc::getDistance() const
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraDistance);
+    auto entity = scene->getEntity(_cameraDistanceID);
     con_assert(entity != nullptr, "no heading found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
@@ -132,7 +122,7 @@ void CameraArc::setDistance(float64 distance)
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraDistance);
+    auto entity = scene->getEntity(_cameraDistanceID);
     con_assert(entity != nullptr, "no heading found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
@@ -144,7 +134,7 @@ void CameraArc::setCenterOfInterest(const iaVector3d &coi)
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraCOI);
+    auto entity = scene->getEntity(_cameraCOIID);
     con_assert(entity != nullptr, "no coi found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
@@ -156,7 +146,7 @@ iaVector3d CameraArc::getCenterOfInterest() const
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraCOI);
+    auto entity = scene->getEntity(_cameraCOIID);
     con_assert(entity != nullptr, "no coi found");
     iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
