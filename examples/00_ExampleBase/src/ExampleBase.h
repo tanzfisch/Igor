@@ -54,10 +54,6 @@ public:
     */
     iView &getViewOrtho();
 
-    /*! \returns the examples scene
-    */
-    iScenePtr getScene();
-
     /*! \returns font
     */
     iTextureFontPtr getFont() const;
@@ -117,10 +113,6 @@ private:
     /*! the view we render 3D to
     */
     iView _view;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScenePtr _scene = nullptr;
 
     /*! igor logo
     */

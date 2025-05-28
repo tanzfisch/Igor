@@ -58,12 +58,7 @@ void Example3D::onInit()
 
 void Example3D::onEvent(iEvent &event)
 {
-    auto scene = iProject::getInstance().getProjectScene();
-
-    if(getView().getEntityScene() != scene)
-    {
-        getView().setScene(scene);
-    }
+    // TODO getView().setScene(iProject::getInstance().getProjectScene());
 
     // first call example base
     ExampleBase::onEvent(event);
@@ -101,8 +96,8 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
         auto pitch = scene->getEntity(_cameraPitch)->getComponent<iTransformComponent>();
         auto heading = scene->getEntity(_cameraHeading)->getComponent<iTransformComponent>();
 
-        pitch->rotate(iaVector3d((to._y - from._y) * 0.005f, 0.0, 0.0));
-        heading->rotate(iaVector3d(0.0, (to._x - from._x) * 0.005f, 0.0));
+        pitch->rotate(iaQuaterniond::fromEuler(iaVector3d((to._y - from._y) * 0.005f, 0.0, 0.0)));
+        heading->rotate(iaQuaterniond::fromEuler(iaVector3d(0.0, (to._x - from._x) * 0.005f, 0.0)));
 
         iMouse::getInstance().setCenter();
     }

@@ -27,7 +27,7 @@
                         "componentType": "transform",
                         "orientation": {
                             "x": 0.0,
-                            "y": 0.0,
+                            "y": -0.46938429830549694,
                             "z": 0.0
                         },
                         "position": {
@@ -70,9 +70,9 @@
                     {
                         "componentType": "transform",
                         "orientation": {
-                            "x": 0.0,
-                            "y": 0.0,
-                            "z": 0.0
+                            "x": 3.141592653589793,
+                            "y": -1.0853143898748285,
+                            "z": 3.141592653589793
                         },
                         "position": {
                             "x": 1.0,
