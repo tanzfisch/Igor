@@ -146,7 +146,7 @@ namespace igor
 
         /*! \returns viewport in pixels
          */
-        iaRectanglei getViewport() const;
+        const iaRectanglei& getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
 

@@ -50,7 +50,7 @@ Viewport::Viewport()
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
 
-    _materialOrientationPlane = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
+    _materialOrientationOverlay = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
 
@@ -64,7 +64,7 @@ Viewport::Viewport()
     _buttonGrid->setMinSize(24, 24);
     _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
     _buttonGrid->setCheckable(true);
-    _buttonGrid->setChecked(_renderOrientationPlane);
+    _buttonGrid->setChecked(_renderOrientationOverlay);
     buttonLayout->addWidget(_buttonGrid);
 
     _buttonBounds = new iWidgetButton();
@@ -89,8 +89,8 @@ Viewport::~Viewport()
 
 void Viewport::onGridClick(iWidgetPtr source)
 {
-    _renderOrientationPlane = !_renderOrientationPlane;
-    _buttonGrid->setChecked(_renderOrientationPlane);
+    _renderOrientationOverlay = !_renderOrientationOverlay;
+    _buttonGrid->setChecked(_renderOrientationOverlay);
 }
 
 void Viewport::onBoundsClick(iWidgetPtr source)
@@ -355,18 +355,18 @@ void Viewport::renderSelection()
 
 void Viewport::renderOverlay()
 {
-    if (_renderOrientationPlane)
+    if (_renderOrientationOverlay)
     {
-        renderOrientationPlane();
+        renderOrientationOverlay();
     }
 }
 
-void Viewport::renderOrientationPlane()
+void Viewport::renderOrientationOverlay()
 {
-    iaMatrixd identity;
-    iRenderer::getInstance().setModelMatrix(identity);
+    iaMatrixd modelMatrix;
+    iRenderer::getInstance().setModelMatrix(modelMatrix);    
 
-    iRenderer::getInstance().setShader(_materialOrientationPlane);
+    iRenderer::getInstance().setShader(_materialOrientationOverlay);
     iRenderer::getInstance().setLineWidth(1);
 
     const iaColor4f color1(1.0f, 1.0f, 1.0f, 0.08f);
@@ -378,7 +378,23 @@ void Viewport::renderOrientationPlane()
         iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f), i % 2 == 0 ? color1 : color2);
     }
 
-    // TODO put this in top right corner of view
+    auto scene = iEntitySystemModule::getInstance().getScene(_viewportScene->getView().getSceneID());
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    auto camera = scene->getActiveCamera();
+    auto cameraTransformComp = camera->getComponent<iTransformComponent>();
+    const auto &camWorldMatrix = cameraTransformComp->getWorldMatrix();
+
+    const auto &rect = _viewportScene->getView().getViewport();
+    const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0);
+    modelMatrix._pos = camWorldMatrix * _viewportScene->getView().unProject(screenPos, camWorldMatrix);
+    modelMatrix.scale(0.03,0.03,0.03);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);    
+
+    iRenderer::getInstance().setLineWidth(2);
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(1.0f, 0.0f, 0.0f), iaColor4f::red);
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 1.0f, 0.0f), iaColor4f::green);
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 1.0f), iaColor4f::blue);
@@ -427,8 +443,8 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F9:
-        _renderOrientationPlane = !_renderOrientationPlane;
-        _buttonGrid->setChecked(_renderOrientationPlane);
+        _renderOrientationOverlay = !_renderOrientationOverlay;
+        _buttonGrid->setChecked(_renderOrientationOverlay);
         return true;
 
     case iKeyCode::F10:

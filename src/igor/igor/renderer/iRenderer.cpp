@@ -1493,7 +1493,7 @@ namespace igor
     {
         con_assert(width >= 0 && height >= 0, "invalid view port");
 
-        if(width < 0 || height < 0)
+        if (width < 0 || height < 0)
         {
             con_err("invalid view port");
             return;
@@ -1548,16 +1548,17 @@ namespace igor
         iaVector3d result;
 
         in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
-        in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
+        in[1] = ((float32)viewport.getHeight() - (screenpos[1] - (float32)viewport.getY())) / (float32)viewport.getHeight() * 2.0f - 1.0f;
         in[2] = screenpos[2] * 2.0f - 1.0f;
         in[3] = 1.0f;
 
         iaMatrixd modelViewProjection = projection;
         modelViewProjection *= modelview;
-        modelViewProjection.invert();
+        bool success = modelViewProjection.invert();
+        con_assert(success, "Matrix inversion failed");
         out = modelViewProjection * in;
 
-        con_assert(out[3] != 0.0f, "out of range");
+        con_assert(out[3] != 0.0f, "Invalid perspective divide");
 
         if (out[3] != 0.0f)
         {
@@ -1809,7 +1810,7 @@ namespace igor
     void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material)
     {
         const uint32 instanceCount = instancingBuffer->getInstanceCount();
-        if(instanceCount == 0)
+        if (instanceCount == 0)
         {
             return;
         }
@@ -1841,7 +1842,7 @@ namespace igor
         }
         vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
         vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
-        vertexArray->bind();        
+        vertexArray->bind();
 
         glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
         GL_CHECK_ERROR();

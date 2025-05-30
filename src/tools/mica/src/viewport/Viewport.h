@@ -80,7 +80,7 @@ private:
 
     /*! material for orientation plane
      */
-    iShaderPtr _materialOrientationPlane;
+    iShaderPtr _materialOrientationOverlay;
 
     /*! entity overlays
      */
@@ -102,9 +102,9 @@ private:
      */
     std::unique_ptr<CameraArc> _cameraArc;
 
-    /*! if true render orientation plane
+    /*! if true render orientation overlay
      */
-    bool _renderOrientationPlane = true;
+    bool _renderOrientationOverlay = true;
 
     /*! grid button
      */
@@ -185,9 +185,9 @@ private:
      */
     void renderSelection();
 
-    /*! render the orientation plane
+    /*! render the orientation overlay
      */
-    void renderOrientationPlane();
+    void renderOrientationOverlay();
 
     /*! checks overlays for candidates that accept current mode-entity combination
      */

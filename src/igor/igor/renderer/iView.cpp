@@ -120,7 +120,7 @@ namespace igor
         _viewportConfig = rect;
     }
 
-    iaRectanglei iView::getViewport() const
+    const iaRectanglei& iView::getViewport() const
     {
         return _viewport;
     }
