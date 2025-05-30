@@ -56,7 +56,7 @@ namespace igor
 
 		/*! does nothing
 		 */
-		iEntityView() = default;
+		iEntityView(const iaString &name = "");
 
 		/*! does nothing
 		 */
@@ -85,7 +85,16 @@ namespace igor
 		 */
 		std::vector<iEntityPtr> &getInactiveEntities();
 
+		/*! \returns name of view
+		*/
+		const iaString& getName() const;
+
 	private:
+
+		/*! name of this view
+		*/
+		iaString _name;
+
 		/*! supported types
 		 */
 		std::vector<std::type_index> _supportedTypes;

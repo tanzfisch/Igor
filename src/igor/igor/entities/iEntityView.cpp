@@ -9,6 +9,17 @@ using namespace iaux;
 
 namespace igor
 {
+
+	iEntityView::iEntityView(const iaString &name)
+		: _name(name)
+	{
+	}
+
+	const iaString& iEntityView::getName() const
+	{
+		return _name;
+	}
+
 	void iEntityView::removeEntity(iEntityPtr entity)
 	{
 		auto iter = std::find(_entities.begin(), _entities.end(), entity);
@@ -38,7 +49,7 @@ namespace igor
 
 		const bool isActive = entity->isActive();
 
-		if(isActive)
+		if (isActive)
 		{
 			auto activeIter = std::find(_entities.begin(), _entities.end(), entity);
 			if (activeIter != _entities.end())
@@ -70,7 +81,6 @@ namespace igor
 
 			_inactiveEntities.emplace_back(entity);
 		}
-
 	}
 
 	iEntityComponentMask iEntityView::calcComponentMask(const std::vector<std::type_index> &types)

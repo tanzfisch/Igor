@@ -176,9 +176,9 @@ namespace igor
 		\returns entity view
 		*/
 		template <typename... Args>
-		iEntityViewPtr createView()
+		iEntityViewPtr createView(const iaString& name = "")
 		{
-			iEntityViewPtr view = new iEntityView();
+			iEntityViewPtr view = new iEntityView(name);
 			(view->registerType<Args>(), ...);
 			_views.push_back(view);
 			return view;

@@ -562,7 +562,8 @@ namespace igor
         for (const auto &pair : _components)
         {
             iEntityComponentPtr component = pair.second;
-            if (component->_state == iEntityComponentState::Active)
+            if (component->_state == iEntityComponentState::Active ||
+                component->_state == iEntityComponentState::Inactive)
             {
                 result |= esm.getComponentMask(pair.first);
             }

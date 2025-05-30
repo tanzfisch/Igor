@@ -13,7 +13,7 @@ namespace igor
 {
 	iCameraSystem::iCameraSystem()
 	{
-		_cameraView = createView<iCameraComponent, iTransformComponent>();
+		_cameraView = createView<iCameraComponent, iTransformComponent>("igor_camera_system_view");
 	}
 
     iEntitySystemPtr iCameraSystem::createInstance()
