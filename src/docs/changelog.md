@@ -31,6 +31,7 @@ Changelog                           {#changelog}
 - #436 made callstack more readable
 - added iEntityPrintTraverser for logging entity hierarchies in human readable format
 - #445 introduced iaTransform
+- added recursive watch to iTaskWatchFilesystem
 
 0.44.0
 ------

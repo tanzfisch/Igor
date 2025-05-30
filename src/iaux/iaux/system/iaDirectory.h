@@ -166,6 +166,14 @@ namespace iaux
         iaString _directoryName;
     };
 
+    /*! stream operator
+
+    \param stream the destination
+    \param dir the directory to stream
+    \returns the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDirectory &dir);    
+
 } // namespace iaux
 
 #endif // IAUX_DIRECTORY_H

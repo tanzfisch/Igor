@@ -16,7 +16,7 @@ namespace igor
     {
     }
 
-    void iFilesystem::listenToChanges(const iaString &path)
+    void iFilesystem::listenToChanges(const iaString &path, bool recursive)
     {
         if(!iaDirectory::exists(path))
         {
@@ -29,7 +29,7 @@ namespace igor
             return;
         }
 
-        _watchers[path] = iTaskManager::getInstance().addTask(new iTaskWatchFilesystem(path));
+        _watchers[path] = iTaskManager::getInstance().addTask(new iTaskWatchFilesystem(path, recursive));
     }
 
     void iFilesystem::stopListenToChanges(const iaString& path)

@@ -31,6 +31,10 @@
 
 #include <igor/threading/tasks/iTask.h>
 
+#include <iaux/system/iaDirectory.h>
+
+#include <unordered_map>
+
 namespace igor
 {
 
@@ -43,8 +47,9 @@ namespace igor
         /*! initializes member variables
 
         \param path the path to watch recursively
+        \param recursive if true watch recursively
         */
-        iTaskWatchFilesystem(const iaString &path);
+        iTaskWatchFilesystem(const iaString &path, bool recursive);
 
         /*! does nothing
          */
@@ -55,17 +60,42 @@ namespace igor
         void abort() override;
 
     protected:
-        /*! runs the task
-         */
-        void run() override;
-
         /*! path to watch
         */
         iaString _path;
 
+        /*! if true watch path recursively
+        */
+        bool _recursive;
+
+        /*! subdirectories to watch
+        */
+        std::unordered_map<int, iaString> _subdirs;
+
         /*! if true this task keeps running
         */
         bool _running;
+
+        /*! inotify handle
+        */
+        int _inotify;
+
+        /*! runs the task
+         */
+        void run() override;
+
+        /*! watch given directory for changes
+
+        \param dir the given directory
+        */
+        int watchDir(const iaDirectory &dir);
+
+        /*! handle created directory event
+
+        \param dir the created directory
+        \returns true if successful
+        */
+        bool onWatchDir(const iaString &dir);
     };
 
 }; // namespace igor

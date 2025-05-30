@@ -362,4 +362,15 @@ namespace iaux
         }
     }
 
+    std::wostream &operator<<(std::wostream &stream, const iaDirectory &dir)
+    {
+        const auto path = dir.getAbsoluteDirectoryName();
+        if (!path.isEmpty())
+        {
+            stream << path.getData();
+        }
+
+        return stream;
+    }
+
 } // namespace iaux
