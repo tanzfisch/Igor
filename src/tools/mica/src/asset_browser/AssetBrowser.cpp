@@ -171,6 +171,13 @@ void AssetBrowser::onUpdateGridView()
 
     const iaDirectory projectDir(_projectFolder);
     const auto newPath = iaDirectory::fixPath(projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path);
+
+    if(!iaDirectory::exists(newPath))
+    {
+        iFilesystem::getInstance().stopListenToChanges(_currentPath);
+        return;
+    }
+
     if (_currentPath != newPath)
     {
         iFilesystem::getInstance().stopListenToChanges(_currentPath);

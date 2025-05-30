@@ -210,10 +210,6 @@ namespace igor
             }
         }
 
-
-        con_endl("_selectedItemPaths " << _selectedItemPaths.size());
-
-
         _selectionChanged(this); // TODO for now just always trigger it
     }
 

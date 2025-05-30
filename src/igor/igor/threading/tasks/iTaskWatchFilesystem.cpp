@@ -30,7 +30,7 @@ namespace igor
 
         const size_t bufSize = 4096;
         char buffer[bufSize];
-        _path.getData(buffer, bufSize);
+        _path.getData(buffer, bufSize);        
 
         int watch = inotify_add_watch(inotify, buffer, IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
         if (watch == -1)
