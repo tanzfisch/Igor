@@ -44,7 +44,6 @@ void TransformOverlay::onDeinit()
     _green = nullptr;
     _blue = nullptr;
     _cyan = nullptr;
-    _materialCelShading = nullptr;
 }
 
 void TransformOverlay::onInit()
@@ -108,8 +107,6 @@ void TransformOverlay::onInit()
     });
     _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
 
-    _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
-
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();
     iMeshPtr ringMesh = createRingMesh();
@@ -126,7 +123,6 @@ void TransformOverlay::onInit()
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
     createRotateModifier(ringMesh, cylinder);
-    createLocatorRepresentation(cylinder);
 
     _rootTransform->setActive(false);
 }
@@ -241,38 +237,6 @@ void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylind
     zCylinderTransform->setParent(_rotateModifier);
 }
 
-void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinderMesh)
-{
-    const auto &entitySceneID = getView()->getSceneID();
-    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
-    _locatorRepresentation = entityScene->createEntity("overlay.locator");
-    _locatorRepresentation->setParent(_rootTransform);
-
-    iEntityPtr xCylinderTransform = entityScene->createEntity("overlay.locator.x");
-    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
-    xCylinderTransform->addComponent(new iSphereComponent(1.0));
-    xCylinderTransform->addComponent(new iOctreeComponent());
-    auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
-    xCylinderMeshRenderComponent->addMesh(cylinderMesh, _red);
-    xCylinderTransform->setParent(_locatorRepresentation);
-
-    iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.locator.y");
-    yCylinderTransform->addComponent(new iTransformComponent());
-    yCylinderTransform->addComponent(new iSphereComponent(1.0));
-    yCylinderTransform->addComponent(new iOctreeComponent());
-    auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
-    yCylinderMeshRenderComponent->addMesh(cylinderMesh, _green);
-    yCylinderTransform->setParent(_locatorRepresentation);
-
-    iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.locator.z");
-    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
-    zCylinderTransform->addComponent(new iSphereComponent(1.0));
-    zCylinderTransform->addComponent(new iOctreeComponent());
-    auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
-    zCylinderMeshRenderComponent->addMesh(cylinderMesh, _blue);
-    zCylinderTransform->setParent(_locatorRepresentation);
-}
-
 void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
     const auto &entitySceneID = getView()->getSceneID();
@@ -362,7 +326,6 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
     switch (overlayMode)
     {
     case OverlayMode::None:
-        _locatorRepresentation->setActiveExclusive(true);
         break;
 
     case OverlayMode::Translate:

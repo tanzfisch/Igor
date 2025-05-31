@@ -93,10 +93,6 @@ private:
      */
     iMaterialPtr _cyan;
 
-    /*! cel shading shader
-     */
-    iShaderPtr _materialCelShading;
-
     /*! translate ids
      */
     std::vector<iEntityID> _translateIDs;
@@ -124,10 +120,6 @@ private:
     /*! scale modifier
      */
     iEntityPtr _scaleModifier = nullptr;
-
-    /*! locator representation
-     */
-    iEntityPtr _locatorRepresentation = nullptr;
 
     /*! selected entity ID
      */
@@ -229,12 +221,6 @@ private:
     \param cylinder cylinder mesh
     */
     void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
-
-    /*! create locator representation
-
-    \param cylinder cylinder mesh
-    */
-    void createLocatorRepresentation(iMeshPtr &cylinder);
 };
 
 #endif // MICA_TRANSFORM_OVERLAY_H

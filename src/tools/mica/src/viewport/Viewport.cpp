@@ -5,6 +5,7 @@
 #include "Viewport.h"
 
 #include "overlay/TransformOverlay.h"
+#include "overlay/LightOverlay.h"
 #include "overlay/EmitterOverlay.h"
 
 static const float64 s_wheelSensitivity = 1.2;
@@ -48,6 +49,7 @@ Viewport::Viewport()
     _viewportOverlay->getContextMenuEvent().add(iContextMenuDelegate(this, &Viewport::onContextMenu));
 
     _entityOverlays.push_back(std::make_unique<TransformOverlay>(&_viewportOverlay->getView()));
+    _entityOverlays.push_back(std::make_unique<LightOverlay>(&_viewportOverlay->getView()));
     _entityOverlays.push_back(std::make_unique<EmitterOverlay>(&_viewportOverlay->getView()));
 
     _materialOrientationOverlay = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
