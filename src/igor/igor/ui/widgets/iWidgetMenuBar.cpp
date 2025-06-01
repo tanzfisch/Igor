@@ -22,6 +22,7 @@ namespace igor
         _grid = new iWidgetGridLayout(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::Column);
+        _grid->setCellSpacing(0);
     }
 
     void iWidgetMenuBar::unselect()

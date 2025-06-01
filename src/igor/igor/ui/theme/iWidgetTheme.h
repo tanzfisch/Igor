@@ -32,6 +32,7 @@
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetButton.h>
+#include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -53,6 +54,7 @@ namespace igor
         virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
         virtual void drawWidgetButton(iWidgetButtonPtr widget) = 0;
+        virtual void drawWidgetLabel(iWidgetLabelPtr widget) = 0;
         virtual void drawSelection(const iaRectanglef &rect) = 0;
         virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
 

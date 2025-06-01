@@ -159,6 +159,18 @@ namespace igor
         iRenderer::getInstance().drawFilledRectangle(widget->getActualRect(), widget->isEnabled() ? widget->getBackground() : COLOR_DIFFUSE_LIGHT);
     }
 
+    void iWidgetDefaultTheme::drawWidgetLabel(iWidgetLabelPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto &text = widget->getText();
+        const auto maxTextWidth = widget->getMaxTextWidth();
+        const auto state = widget->getState();
+
+        drawText(rect, text, maxTextWidth);
+
+        DRAW_DEBUG_OUTPUT_OLD(rect, state);
+    }
+
     void iWidgetDefaultTheme::drawWidgetButton(iWidgetButtonPtr widget)
     {
         const auto rect = widget->getActualRect();

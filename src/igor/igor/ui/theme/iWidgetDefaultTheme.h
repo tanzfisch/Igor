@@ -50,6 +50,7 @@ namespace igor
         void drawWidgetPicture(iWidgetPicturePtr widget) override;
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
         void drawWidgetButton(iWidgetButtonPtr widget) override;
+        void drawWidgetLabel(iWidgetLabelPtr widget) override;
         void drawSelection(const iaRectanglef &rect) override;
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
 

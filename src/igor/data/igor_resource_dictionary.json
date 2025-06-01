@@ -120,6 +120,30 @@
         "source": "icons/right.png"
     },
     {
+        "alias": "igor_icon_right_small",
+        "id": "0xae5b9bdaf567133",
+        "internal": true,
+        "source": "icons/right_small.png"
+    },
+    {
+        "alias": "igor_icon_left_small",
+        "id": "0xae248adaf567133",
+        "internal": true,
+        "source": "icons/left_small.png"
+    },
+    {
+        "alias": "igor_icon_up_small",
+        "id": "0xae5afd14f567133",
+        "internal": true,
+        "source": "icons/up_small.png"
+    },
+    {
+        "alias": "igor_icon_down_small",
+        "id": "0xae53952ad2ce733",
+        "internal": true,
+        "source": "icons/down_small.png"
+    },
+    {
         "alias": "igor_voxel_terrain_directional_light",
         "id": "0x1fcd4acfd132de45",
         "internal": true,

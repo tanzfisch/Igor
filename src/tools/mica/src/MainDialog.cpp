@@ -56,8 +56,6 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     recentMenu->getPreMenuOpenEvent().add(iPreMenuOpenDelegate(this, &MainDialog::onRecentProjectOpen));
     fileMenu->addMenu(recentMenu);
 
-
-
     fileMenu->addSeparator();
     fileMenu->addAction("igor:exit");
     menuBar->addMenu(fileMenu);

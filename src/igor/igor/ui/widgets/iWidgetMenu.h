@@ -32,9 +32,7 @@
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
 
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 
 namespace igor
 {
@@ -125,17 +123,9 @@ namespace igor
         void clear() override;        
 
     private:
-        /*! menu title
+        /*! menu button
         */
-        iWidgetLabelPtr _title = nullptr;
-
-        /*! spacer
-        */
-        iWidgetSpacerPtr _spacer = nullptr;
-
-        /*! picture
-        */
-        iWidgetPicturePtr _picture = nullptr;
+        iWidgetButtonPtr _button;
 
         /*! menu body
         */
