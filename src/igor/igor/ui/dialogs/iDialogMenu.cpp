@@ -103,6 +103,7 @@ namespace igor
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
 
@@ -122,6 +123,7 @@ namespace igor
         button->getClickEvent().add(delegate);
         button->setActionContext(context);
         button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
 

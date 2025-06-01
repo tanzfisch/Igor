@@ -30,6 +30,7 @@ namespace igor
         _button->setMinHeight(25);
         _button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         _button->getClickEvent().add(iClickDelegate(this, &iWidgetMenu::onClick));
+        _button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _dialogMenu = new iDialogMenu();
     }
@@ -46,10 +47,13 @@ namespace igor
         if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
         {
             _button->setIcon("");
+            _button->setBackground(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f)); // TODO this needs to go in to the Theme
+            _button->setBackgroundTexture("igor_texture_white");
         }
         else
         {
             _button->setIcon("igor_icon_right_small");
+            _button->setBackgroundTexture("");
         }
     }
 

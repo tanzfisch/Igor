@@ -37,6 +37,11 @@
 
 namespace igor
 {
+    enum class iWidgetButtonBorderStyle
+    {
+        None,
+        Line
+    };
 
     /*! button widget
      */
@@ -76,7 +81,7 @@ namespace igor
 
         \param context the action context to set
         */
-       void setActionContext(iActionContextPtr context);        
+        void setActionContext(iActionContextPtr context);
 
         /*! \returns action context
          */
@@ -172,6 +177,16 @@ namespace igor
          */
         bool isChecked() const;
 
+        /*! set button border style
+
+        \param borderStyle the style to set
+        */
+        void setBorderStyle(iWidgetButtonBorderStyle borderStyle);
+
+        /*! \returns button border style
+         */
+        iWidgetButtonBorderStyle getBorderStyle() const;
+
     protected:
         /*! the horizontal alignment
          */
@@ -209,6 +224,10 @@ namespace igor
          */
         bool _checked = false;
 
+        /*! the button border style
+        */
+        iWidgetButtonBorderStyle _borderStyle = iWidgetButtonBorderStyle::Line;
+
         /*! internal click handler
          */
         void onInternalClick(const iWidgetPtr source);
@@ -220,7 +239,6 @@ namespace igor
         /*! draws the widget
          */
         void draw() override;
-
     };
 
     /*! widget button pointer definition

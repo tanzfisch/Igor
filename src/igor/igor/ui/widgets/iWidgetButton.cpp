@@ -222,4 +222,14 @@ namespace igor
         return _checked;
     }
 
+    void iWidgetButton::setBorderStyle(iWidgetButtonBorderStyle borderStyle)
+    {
+        _borderStyle = borderStyle;
+    }
+
+    iWidgetButtonBorderStyle iWidgetButton::getBorderStyle() const
+    {
+        return _borderStyle;
+    }
+
 } // namespace igor

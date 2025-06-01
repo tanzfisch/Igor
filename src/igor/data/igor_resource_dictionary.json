@@ -492,12 +492,6 @@
         "source": "shaders/emitter_overlay_flat.shader"
     },
     {
-        "alias": "igor_texture_white",
-        "id": "0xb9610a7a2e4d939e",
-        "internal": true,
-        "source": "textures/white.png"
-    },
-    {
         "alias": "igor_icon_root",
         "id": "0xc0412d93f192a93b",
         "internal": true,

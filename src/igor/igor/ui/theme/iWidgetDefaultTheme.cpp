@@ -186,6 +186,7 @@ namespace igor
         const auto halign = widget->getHorizontalTextAlignment();
         const auto valign = widget->getVerticalTextAlignment();
         const bool selected = widget->isSelectable() && widget->isSelected();
+        const auto borderStyle = widget->getBorderStyle();
 
         if (texture == nullptr)
         {
@@ -193,8 +194,9 @@ namespace igor
         }
         else
         {
-            if (state == iWidgetState::Highlighted ||
-                state == iWidgetState::Pressed)
+            if (borderStyle == iWidgetButtonBorderStyle::Line &&
+                (state == iWidgetState::Highlighted ||
+                 state == iWidgetState::Pressed))
             {
                 iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
             }
@@ -273,10 +275,10 @@ namespace igor
             iRenderer::getInstance().drawFilledRectangle(rect, COLOR_CHECKED_FILL);
             iRenderer::getInstance().drawRectangle(rect, COLOR_CHECKED_BORDER);
         }
-        else if(selected)
+        else if (selected)
         {
             iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SELECTED_FILL);
-            iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTED_BORDER);            
+            iRenderer::getInstance().drawRectangle(rect, COLOR_SELECTED_BORDER);
         }
 
         DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);

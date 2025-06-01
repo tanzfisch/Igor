@@ -551,8 +551,8 @@ namespace igor
         _data->_currentShader.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000001)},
-                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_fallback_texture"},
+        iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_fallback"},
                                    {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                    {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                    {IGOR_RESOURCE_PARAM_GENERATE, true},
@@ -563,18 +563,35 @@ namespace igor
                                    {"height", 128}});
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
+        iResourceManager::getInstance().addToDictionary("", "igor_texture_fallback", _data->_fallbackTexture->getID());
 
-        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000002)},
-                                {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_white"},
+        createSolidColorTexture("igor_texture_white", iaColor4f::white);
+        createSolidColorTexture("igor_texture_black", iaColor4f::black);
+        createSolidColorTexture("igor_texture_red", iaColor4f::red);
+        createSolidColorTexture("igor_texture_blue", iaColor4f::blue);
+        createSolidColorTexture("igor_texture_green", iaColor4f::green);
+        createSolidColorTexture("igor_texture_cyan", iaColor4f::cyan);
+        createSolidColorTexture("igor_texture_magenta", iaColor4f::magenta);
+        createSolidColorTexture("igor_texture_yellow", iaColor4f::yellow);
+        createSolidColorTexture("igor_texture_transparent", iaColor4f::transparent);
+    }
+
+    iResourcePtr iRenderer::createSolidColorTexture(const iaString& alias, const iaColor4f& color)
+    {
+        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                {IGOR_RESOURCE_PARAM_ALIAS, alias},
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                 {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                 {IGOR_RESOURCE_PARAM_GENERATE, true},
                                 {"pattern", iTexturePattern::SolidColor},
-                                {"primary", iaColor4f::white},
+                                {"primary", color},
                                 {"width", 1},
                                 {"height", 1}});
 
-        iResourceManager::getInstance().loadResource(paramWhite);
+        auto resource = iResourceManager::getInstance().loadResource(paramWhite);
+        iResourceManager::getInstance().addToDictionary("", alias, resource->getID());
+
+        return resource;
     }
 
     void iRenderer::deinit()
