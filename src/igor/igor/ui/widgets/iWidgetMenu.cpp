@@ -83,6 +83,8 @@ namespace igor
 
     void iWidgetMenu::onClick(const iWidgetPtr source)
     {
+        _preMenuOpenEvent(this);
+
         iWidgetPtr parent = iWidgetManager::getInstance().getWidget(_menuParent);
 
         if (parent != nullptr)
@@ -109,6 +111,11 @@ namespace igor
         }
 
         _dialogMenu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
+    }
+
+    iPreMenuOpenEvent& iWidgetMenu::getPreMenuOpenEvent()
+    {
+        return _preMenuOpenEvent;
     }
 
     void iWidgetMenu::setMenuParent(iWidgetPtr menuParent)
@@ -147,7 +154,7 @@ namespace igor
 
     void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _dialogMenu->addAction(action, context);        
+        _dialogMenu->addAction(action, context);
     }
 
     void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOG__
-#define __IGOR_DIALOG__
+#ifndef IGOR_DIALOG_H
+#define IGOR_DIALOG_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -41,7 +41,7 @@ namespace igor
 
     /*! dialog close event
      */
-    typedef iaDelegate<void, iDialogPtr> iDialogCloseDelegate;
+    IGOR_DELEGATE_DEFINITION(iDialogClose, iDialogPtr);
 
     /*! dialog return states
      */
@@ -321,4 +321,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_DIALOG__
+#endif // IGOR_DIALOG_H

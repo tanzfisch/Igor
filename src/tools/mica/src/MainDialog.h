@@ -122,6 +122,12 @@ private:
     \param source the event source
      */
     void onPrintProjectTree(const iWidgetPtr source);      
+
+    /*! on pre recent project menu open
+
+    \param menu the recent project menu
+    */
+    void onRecentProjectOpen(iWidgetMenuPtr menu);
 };
 
 #endif // MICA_MAIN_LAYOUT_H

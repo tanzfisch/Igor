@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETMENU__
-#define __IGOR_WIDGETMENU__
+#ifndef IGOR_WIDGET_MENU_H
+#define IGOR_WIDGET_MENU_H
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
@@ -43,6 +43,10 @@ namespace igor
     */
     class iWidgetMenu;
     typedef iWidgetMenu *iWidgetMenuPtr;
+
+    /*! pre menu open event definition
+     */
+    IGOR_EVENT_DEFINITION(iPreMenuOpen, iWidgetMenuPtr);    
 
     /*! menu widget
     */
@@ -112,6 +116,10 @@ namespace igor
         */
         void addSeparator();
 
+        /*! \returns pre menu open event
+        */
+        iPreMenuOpenEvent& getPreMenuOpenEvent();
+
     private:
         /*! menu title
         */
@@ -132,6 +140,10 @@ namespace igor
         /*! ID of parent in menu hierarchy
         */
         iWidgetID _menuParent = IGOR_INVALID_ID;
+
+        /*! pre menu open event
+        */
+        iPreMenuOpenEvent _preMenuOpenEvent;
 
         /*! defines the menu parent
 
@@ -171,4 +183,4 @@ namespace igor
     typedef iWidgetMenu *iMenuPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETMENU__
+#endif // IGOR_WIDGET_MENU_H
