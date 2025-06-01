@@ -24,7 +24,7 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfig::getInstance().hasSetting("igor.maxThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxThreads"))
         {
             const iaString max = iConfig::getInstance().getValue("igor.maxThreads");
 
@@ -34,7 +34,7 @@ namespace igor
             }
         }
 
-        if (iConfig::getInstance().hasSetting("igor.minThreads"))
+        if (iConfig::getInstance().hasValue("igor.minThreads"))
         {
             minThreads = iConfig::getInstance().getValueAsInt("igor.minThreads");
         }
@@ -199,7 +199,7 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfig::getInstance().hasSetting("igor.maxRenderContextThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxRenderContextThreads"))
         {
             const iaString max = iConfig::getInstance().getValue("igor.maxRenderContextThreads");
 
@@ -209,7 +209,7 @@ namespace igor
             }
         }
 
-        if (iConfig::getInstance().hasSetting("igor.minRenderContextThreads"))
+        if (iConfig::getInstance().hasValue("igor.minRenderContextThreads"))
         {
             minThreads = iConfig::getInstance().getValueAsInt("igor.minRenderContextThreads");
         }

@@ -36,6 +36,20 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Load Project", "Loading an existing project", "igor_icon_load");
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save Project", "Saving the current project", "igor_icon_save");
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCloseProject), "Close Project", "Closing the current project");
+
+    if(iConfig::getInstance().hasValue("mica.recentProjects"))
+    {
+        iWidgetMenuPtr recentMenu = new iWidgetMenu("Open Recent");  
+        const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+
+        for(const auto &project : recent)
+        {
+            recentMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), project, "Load previous project");
+        }
+
+        fileMenu->addMenu(recentMenu);
+    }
+
     fileMenu->addSeparator();
     fileMenu->addAction("igor:exit");
     menuBar->addMenu(fileMenu);

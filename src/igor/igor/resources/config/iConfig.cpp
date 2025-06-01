@@ -31,8 +31,19 @@ namespace igor
 
     bool iConfig::write(const iaString &filename)
     {
+        if(!filename.isEmpty())
+        {
+            _filename = filename;
+        }
+
+        if(_filename.isEmpty())
+        {
+            con_err("no filename specified");
+            return false;
+        }
+
         char temp[2048];
-        filename.getData(temp, 2048);
+        _filename.getData(temp, 2048);
 
         std::ofstream stream;
         stream.open(temp);
@@ -55,13 +66,15 @@ namespace igor
 
         stream << configJson.dump(4);
 
-        con_info("written igor configuration " << filename);
+        con_info("written igor configuration " << _filename);
         return true;
     }
 
     void iConfig::read(const iaString &filename)
     {
-        json data = iJson::parse(filename);
+        _filename = filename;
+
+        json data = iJson::parse(_filename);
 
         for (const auto &element : data.items())
         {
@@ -75,7 +88,7 @@ namespace igor
             setValue(element.key().c_str(), element.value().get<iaString>());
         }
 
-        con_info("loaded configuration \"" << filename << "\"");
+        con_info("loaded configuration \"" << _filename << "\"");
     }
 
     const iaString iConfig::getValue(const iaString &setting) const
@@ -83,7 +96,6 @@ namespace igor
         auto iter = _settings.find(setting);
         if (iter == _settings.end())
         {
-            con_err("setting \"" << setting << "\" not found ");
             return "";
         }
 
@@ -97,7 +109,6 @@ namespace igor
         auto iter = _settings.find(setting);
         if (iter == _settings.end())
         {
-            con_err("setting \"" << setting << "\" not found ");
             return 0;
         }
 
@@ -111,7 +122,6 @@ namespace igor
         auto iter = _settings.find(setting);
         if (iter == _settings.end())
         {
-            con_err("setting \"" << setting << "\" not found ");
             return 0.0;
         }
 
@@ -125,7 +135,6 @@ namespace igor
         auto iter = _settings.find(setting);
         if (iter == _settings.end())
         {
-            con_err("setting \"" << setting << "\" not found ");
             return std::vector<iaString>();
         }
 
@@ -134,7 +143,7 @@ namespace igor
         return iter->second;
     }
 
-    bool iConfig::hasSetting(const iaString &setting) const
+    bool iConfig::hasValue(const iaString &setting) const
     {
         return (_settings.find(setting) != _settings.end());
     }

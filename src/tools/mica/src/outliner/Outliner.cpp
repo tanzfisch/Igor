@@ -430,6 +430,18 @@ bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
     iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
 
     refresh();
+
+    auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+    const auto &projectPath = iProject::getInstance().getProjectPath();
+
+    auto iter = std::find(recent.begin(), recent.end(), projectPath);
+    if(iter == recent.end())
+    {
+        recent.insert(recent.begin(), projectPath);
+        iConfig::getInstance().setValue("mica.recentProjects", recent);
+        iConfig::getInstance().write();
+    }
+    
     return false;
 }
 

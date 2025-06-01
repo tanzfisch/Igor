@@ -370,7 +370,7 @@ namespace igor
             iConfig::getInstance().read(configurationFilepath);
         }
 
-        if (iConfig::getInstance().hasSetting("igor.logLevel"))
+        if (iConfig::getInstance().hasValue("igor.logLevel"))
         {
             const iaString level = iConfig::getInstance().getValue("igor.logLevel");
 

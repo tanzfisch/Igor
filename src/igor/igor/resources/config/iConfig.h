@@ -45,7 +45,7 @@ namespace igor
 
 	usually located at config/Igor.xml
 	*/
-	class iConfig : public iModule<iConfig>
+	class IGOR_API iConfig : public iModule<iConfig>
 	{
 
 		friend class iModule<iConfig>;
@@ -64,7 +64,7 @@ namespace igor
 		\param filename the given filename
 		\returns true if successful
 		*/
-		bool write(const iaString &filename);
+		bool write(const iaString &filename = "");
 
 		/*! \returns value for given setting as string
 
@@ -94,7 +94,7 @@ namespace igor
 
 		\param setting the given setting
 		*/
-		bool hasSetting(const iaString &setting) const;
+		bool hasValue(const iaString &setting) const;
 
 		/*! sets value on setting and overrides all values that been there before
 
@@ -114,6 +114,10 @@ namespace igor
 		/*! the key value data
 		 */
 		std::unordered_map<iaString, std::vector<iaString>> _settings;
+
+		/*! last used filename
+		*/
+		iaString _filename;
 
 		/*! does nothing
 		 */

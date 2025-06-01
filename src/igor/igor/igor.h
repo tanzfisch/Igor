@@ -74,6 +74,7 @@
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/project/iProject.h>
 #include <igor/resources/prefab/iPrefab.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
