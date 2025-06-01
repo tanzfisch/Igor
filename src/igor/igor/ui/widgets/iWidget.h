@@ -520,6 +520,8 @@ namespace igor
         const std::vector<iWidgetPtr> &getChildren() const;
 
         /*! clears the widget back to default
+
+        This can mean different things for different derivatives of iWidget
          */
         virtual void clear();
 

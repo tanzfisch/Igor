@@ -120,6 +120,10 @@ namespace igor
         */
         iPreMenuOpenEvent& getPreMenuOpenEvent();
 
+        /*! clears the widget back to default
+        */
+        void clear() override;        
+
     private:
         /*! menu title
         */

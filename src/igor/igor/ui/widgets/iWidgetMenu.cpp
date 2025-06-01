@@ -172,4 +172,9 @@ namespace igor
         _dialogMenu->close();
     }
 
+    void iWidgetMenu::clear()
+    {
+        _dialogMenu->clear();
+    }          
+
 } // namespace igor

@@ -29,6 +29,7 @@ void MainDialog::initGUI()
 
 void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
 {
+    menu->clear();
     if(iConfig::getInstance().hasValue("mica.recentProjects"))
     {
         const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
