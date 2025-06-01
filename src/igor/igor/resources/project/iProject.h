@@ -90,6 +90,10 @@ namespace igor
          */
         const iaString &getProjectPath() const;
 
+        /*! \returns project file path
+         */
+        const iaString getProjectFilepath() const;
+
         /*! \returns scenes folder
         */
         const iaString getScenesPath() const;

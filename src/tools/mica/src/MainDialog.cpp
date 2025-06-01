@@ -36,7 +36,8 @@ void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
 
         for(const auto &project : recent)
         {
-            menu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), project, "Load previous project");
+            iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(project);
+            menu->addAction("igor:load_project", actionContext);
         }
     }
 }

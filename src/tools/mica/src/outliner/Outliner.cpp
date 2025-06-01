@@ -432,7 +432,7 @@ bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
     refresh();
 
     auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
-    const auto &projectPath = iProject::getInstance().getProjectPath();
+    const auto &projectPath = iProject::getInstance().getProjectFilepath();
 
     auto iter = std::find(recent.begin(), recent.end(), projectPath);
     if(iter == recent.end())

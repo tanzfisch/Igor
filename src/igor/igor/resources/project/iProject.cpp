@@ -31,12 +31,12 @@ namespace igor
 
         if (iaDirectory::isDirectory(path))
         {
-            _projectFolder = path;
+            _projectFolder = iaDirectory::fixPath(path);
             _projectFile = s_defaultProjectFilename;
         }
         else
         {
-            iaFile projectFile(path);
+            iaFile projectFile(iaDirectory::fixPath(path));
             _projectFolder = projectFile.getPath();
             _projectFile = projectFile.getFileName();
         }
@@ -303,9 +303,14 @@ namespace igor
         return _projectFolder;
     }
 
+    const iaString iProject::getProjectFilepath() const
+    {
+        return _projectFolder + _projectFile;
+    }
+
     const iaString iProject::getScenesPath() const
     {
-        return _projectFolder + IGOR_PATHSEPARATOR + "scenes";
+        return _projectFolder + "scenes";
     }
 
     const iaString &iProject::getName() const

@@ -138,8 +138,6 @@ namespace igor
             return std::vector<iaString>();
         }
 
-        con_assert(!iter->second.empty(), "invalid data");
-
         return iter->second;
     }
 

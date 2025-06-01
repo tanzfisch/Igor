@@ -101,4 +101,29 @@ namespace igor
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        
 
+    iActionLoadProject::iActionLoadProject()
+        : iAction("igor:load_project")
+    {
+        setDescription("...");
+    }
+
+    bool iActionLoadProject::isCompatible(const iActionContext &context)
+    {
+        const iFilesystemActionContext *actionContext = dynamic_cast<const iFilesystemActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        setDescription(actionContext->getPath());
+
+        return true;
+    }
+
+    void iActionLoadProject::execute(const iActionContext &context)
+    {
+        const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
+        iProject::getInstance().load(actionContext->getPath());
+    }   
+
 } // namespace igor
