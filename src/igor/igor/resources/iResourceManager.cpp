@@ -180,9 +180,9 @@ namespace igor
 
     void iResourceManager::configure()
     {
-        if (iConfig::getInstance().hasSetting("loadMode"))
+        if (iConfig::getInstance().hasSetting("igor.loadMode"))
         {
-            const iaString loadMode = iConfig::getInstance().getValue("loadMode");
+            const iaString loadMode = iConfig::getInstance().getValue("igor.loadMode");
 
             if (loadMode == "Sync")
             {
@@ -190,9 +190,9 @@ namespace igor
             }
         }
 
-        if (iConfig::getInstance().hasSetting("searchPaths"))
+        if (iConfig::getInstance().hasSetting("igor.searchPaths"))
         {
-            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("searchPaths");
+            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("igor.searchPaths");
 
             for (const auto &path : searchPaths)
             {

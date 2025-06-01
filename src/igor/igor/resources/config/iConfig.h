@@ -51,7 +51,6 @@ namespace igor
 		friend class iModule<iConfig>;
 
 	public:
-
 		/*! opens and reads configuration file from filesystem.
 
 		using tinyXML API
@@ -68,7 +67,7 @@ namespace igor
 		bool write(const iaString &filename);
 
 		/*! \returns value for given setting as string
-		
+
 		\param key the given setting
 		*/
 		const iaString getValue(const iaString &setting) const;
@@ -97,37 +96,24 @@ namespace igor
 		*/
 		bool hasSetting(const iaString &setting) const;
 
-	private:
-
-		/*! the key value data
-		*/
-		std::unordered_map<iaString, std::vector<iaString>> _settings;
-
-		/*! read configuration
-
-		\param config config xml element
-		*/
-		void readConfigElement(TiXmlElement *config);
-
 		/*! sets value on setting and overrides all values that been there before
 
 		\param setting the setting to set
 		\param value the value to set
 		*/
-		void set(const iaString &setting, const iaString &value);
+		void setValue(const iaString &setting, const iaString &value);
 
 		/*! sets multiple values on setting and overrides all values that been there before
 
 		\param setting the setting to set
 		\param values the values to set
 		*/
-		void set(const iaString &setting, const std::vector<iaString> &values);
+		void setValue(const iaString &setting, const std::vector<iaString> &values);
 
-		/*! removes given setting
-
-		\param setting the setting to remove
-		*/
-		void reset(const iaString &setting);
+	private:
+		/*! the key value data
+		 */
+		std::unordered_map<iaString, std::vector<iaString>> _settings;
 
 		/*! does nothing
 		 */
@@ -135,7 +121,7 @@ namespace igor
 
 		/*! does nothing
 		 */
-		virtual ~iConfig();		
+		virtual ~iConfig();
 	};
 
 } // namespace igor
