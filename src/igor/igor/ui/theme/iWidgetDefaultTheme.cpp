@@ -156,7 +156,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)
     {
-        iRenderer::getInstance().drawFilledRectangle(widget->getActualRect(), widget->isEnabled() ? widget->getBackground() : COLOR_DIFFUSE_LIGHT);
+        iRenderer::getInstance().drawFilledRectangle(widget->getActualRect(), widget->isEnabled() ? widget->getBackground() : COLOR_SPECULAR);
     }
 
     void iWidgetDefaultTheme::drawWidgetLabel(iWidgetLabelPtr widget)

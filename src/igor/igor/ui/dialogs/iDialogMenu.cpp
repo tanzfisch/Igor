@@ -42,12 +42,14 @@ namespace igor
         setResizeable(false);
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
     }
 
     void iDialogMenu::clear()
     {
         iWidget::clear();
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
         
         _hasEntries = false;
     }       
@@ -66,7 +68,7 @@ namespace igor
 
     void iDialogMenu::addSeparator()
     {
-        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
+        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 1, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _vboxLayout->addWidget(spacer);
     }

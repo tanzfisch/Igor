@@ -90,6 +90,16 @@ namespace igor
         */
         int32 getStretchIndex() const;
 
+        /*! sets spacing between children
+
+        \param spacing the spacing in pixels
+        */
+        void setSpacing(uint32 spacing);
+
+        /*! \returns the spacing
+        */
+        uint32 getSpacing() const;
+
     private:
         /*! layout type
          */
@@ -97,7 +107,7 @@ namespace igor
 
         /*! spacing in pixels
         */
-        int32 _spacing = 1; // TODO
+        uint32 _spacing = 1;
  
         /*! the stretch index
         */
