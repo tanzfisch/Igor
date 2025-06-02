@@ -39,4 +39,9 @@ namespace igor
 		// nothing to do
 	}
 
+	iEntityScenePtr iEntitySystem::getScene() const
+	{
+		return _scene;
+	}
+
 }

@@ -57,7 +57,7 @@ namespace igor
 
         \param sceneID id of scene to render
          */
-        void setSceneID(const iEntitySceneID &sceneID);
+        void setSceneID(const iEntitySceneID &sceneID);        
 
         /*! \returns scene id
          */
@@ -72,6 +72,17 @@ namespace igor
         /*! \returns camera id
          */
         const iEntityID &getCameraID() const;
+
+        /*! sets an override for scene and camera which allows to render with the camera of an other scene
+
+        \param sceneID the scene to override with
+        \param cameraID the camera to override with
+        */
+        void setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID);
+
+        /*! \returns effective camera respecting override
+        */
+        iEntityPtr getCamera() const;
 
         /*! add mesh for render queue
 
@@ -119,6 +130,14 @@ namespace igor
         /*! camera ID
          */
         iEntityID _cameraID = iEntityID::getInvalid();
+
+        /*! override camera id
+         */
+        iEntityID _overrideCameraID = iEntityID::getInvalid();
+
+        /*! override camera scene id
+         */
+        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();        
 
         /*! current frustum
          */

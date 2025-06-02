@@ -106,12 +106,6 @@ namespace igor
         */
         void setOverrideCamera(iEntityPtr camera);
 
-        /*! \returns override camera
-
-        returns zero pointer if not set or invalid
-        */
-        iEntityPtr getOverrideCamera() const;
-
         /*! sets name of view
 
         \param name name of the view
@@ -440,14 +434,6 @@ namespace igor
         /*! if true view behaves as it was embedded in a widget
          */
         bool _embedded = false;
-
-        /*! override camera id
-         */
-        iEntityID _overrideCameraID = iEntityID::getInvalid();
-
-        /*! override scene id
-         */
-        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();
 
         /*! sets the z index of this view. will be used by window to determine the render order
 

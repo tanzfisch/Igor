@@ -26,6 +26,27 @@ namespace igor
         _cameraID = cameraID;
     }
 
+    void iRenderEngine::setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID)
+    {
+        _overrideSceneID = sceneID;
+        _overrideCameraID = cameraID;
+    }
+
+    iEntityPtr iRenderEngine::getCamera() const
+    {
+        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _sceneID;
+        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _cameraID;
+
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            con_err("no valid scene defined");
+            return nullptr;
+        }
+
+        return scene->getEntity(cameraID);
+    }
+
     void iRenderEngine::addMesh(iEntityPtr meshEntity)
     {
         con_assert(meshEntity != nullptr, "zero pointer");
@@ -108,7 +129,7 @@ namespace igor
             }
             else
             {
-                for(const auto &regular :  materialGroup._regular)
+                for (const auto &regular : materialGroup._regular)
                 {
                     iRenderer::getInstance().setModelMatrix(regular._matrix);
                     iRenderer::getInstance().drawMesh(regular._mesh, regular._material);

@@ -82,10 +82,6 @@ private:
     /*! on pre render callback
      */
     void onPreRender();    
-
-    /*! \returns a lightbulb shaped mesh
-    */
-    iMeshPtr createLightbulb();
 };
 
 #endif // MICA_LIGHT_OVERLAY_H

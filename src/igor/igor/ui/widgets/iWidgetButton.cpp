@@ -119,7 +119,14 @@ namespace igor
 
     void iWidgetButton::setBackgroundTexture(const iaString &textureAlias)
     {
-        setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        if (textureAlias.isEmpty())
+        {
+            setBackgroundTexture(iTexturePtr());
+        }
+        else
+        {
+            setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        }
     }
 
     void iWidgetButton::setBackgroundTexture(iTexturePtr texture)
