@@ -63,7 +63,8 @@ namespace igor
             const auto material = reference._material;
 
             iShaderPtr shader = material->getShader();
-            if (!shader->isValid())
+            if (shader == nullptr ||
+                !shader->isValid())
             {
                 continue;
             }

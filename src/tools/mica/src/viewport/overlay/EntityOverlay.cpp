@@ -104,3 +104,48 @@ const iEntityID &EntityOverlay::getSceneID() const
 {
     return _entitySceneID;
 }
+
+iMeshPtr EntityOverlay::createTranslateMesh()
+{
+    iMeshBuilder meshBuilder;
+    meshBuilder.setJoinVertices(false);
+
+    iaMatrixf matrix;
+
+    matrix.translate(0, 1.5, 0);
+    matrix.scale(0.1, 0.5, 0.1);
+    meshBuilder.setMatrix(matrix);
+    iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 6);
+
+    matrix.identity();
+    matrix.scale(0.025, 1.5, 0.025);
+    meshBuilder.setMatrix(matrix);
+    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
+
+    meshBuilder.calcNormals(true);
+
+    return meshBuilder.createMesh();
+}
+
+iMeshPtr EntityOverlay::createCylinder()
+{
+    iMeshBuilder meshBuilder;
+    meshBuilder.setJoinVertices(true);
+
+    iaMatrixf matrix;
+    matrix.scale(0.025, 1.5, 0.025);
+    meshBuilder.setMatrix(matrix);
+    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
+
+    meshBuilder.calcNormals(true);
+
+    return meshBuilder.createMesh();
+}
+
+iMeshPtr EntityOverlay::createRingMesh()
+{
+    iMeshBuilder meshBuilder;
+    iMeshBuilderUtils::addCylinder(meshBuilder, 2.0, 0.13, 64, false);
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
+}

@@ -45,22 +45,64 @@ public:
      */
     ~LightOverlay();
 
+    /*! sets overlay mode
+
+    \param mode the new overlay mode
+    */
+    void setOverlayMode(OverlayMode mode) override;    
+
 private:
+    /*! red material
+     */
+    iMaterialPtr _red;
+
+    /*! green material
+     */
+    iMaterialPtr _green;
+
+    /*! blue material
+     */
+    iMaterialPtr _blue;
+
     /*! cyan material
      */
     iMaterialPtr _cyan;
 
-    /*! light overlay
+    /*! light root
      */
     iEntityPtr _lightRoot = nullptr;
+
+    /*! light modifier
+     */
+    iEntityPtr _lightModifier = nullptr;
+
+    /*! light icon
+     */
+    iEntityPtr _lightIcon = nullptr;
+
+    /*! light rays
+     */
+    iEntityPtr _lightRays = nullptr;
+
+    /*! translate modifier
+     */
+    iEntityPtr _translateModifier = nullptr;
+
+    /*! rotate modifier
+     */
+    iEntityPtr _rotateModifier = nullptr;
+
+    /*! translate ids
+     */
+    std::vector<iEntityID> _translateIDs;
+
+    /*! rotate ids
+     */
+    std::vector<iEntityID> _rotateIDs;
 
     /*! initialisation
      */
     void onInit();
-
-    /*! clean up
-     */
-    void onDeinit();
 
     /*! update internal structure
      */
@@ -74,6 +116,10 @@ private:
      */
     iMeshPtr createSun();
 
+    /*! \returns a rays shaped mesh
+     */
+    iMeshPtr createRays();
+
     /*! \returns true if mode in combination with a given entity can be handled by this node overlay
 
     \param mode the overlay mod
@@ -86,6 +132,19 @@ private:
     \param active true to set node overlay active
     */
     void setActive(bool active) override;
+
+    /*! create translate manipulator
+
+    \param translateMesh translate mesh
+    */
+    void createTranslateModifier(iMeshPtr &translateMesh);
+
+    /*! create rotate manipulator
+
+    \param ringMesh ring mesh
+    \param cylinder cylinder mesh
+    */
+    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
 };
 
 #endif // MICA_LIGHT_OVERLAY_H

@@ -162,6 +162,18 @@ protected:
     \param active true to set node overlay active
     */
     virtual void setActive(bool active);    
+
+    /*! create translate mesh
+     */
+    iMeshPtr createTranslateMesh();
+    
+    /*! create ring mesh
+     */
+    iMeshPtr createRingMesh();
+
+    /*! create cylinder mesh
+     */
+    iMeshPtr createCylinder();    
 };
 
 /*! node overlay pointer definition

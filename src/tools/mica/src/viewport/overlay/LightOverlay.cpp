@@ -12,17 +12,18 @@ LightOverlay::LightOverlay(iViewPtr view)
 
 LightOverlay::~LightOverlay()
 {
-    onDeinit();
 }
 
 bool LightOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
-    return entity->getComponent<iLightComponent>() != nullptr;
-}
 
-void LightOverlay::onDeinit()
-{
+    if (mode == OverlayMode::Scale)
+    {
+        return false;
+    }
+
+    return entity->getComponent<iLightComponent>() != nullptr;
 }
 
 void LightOverlay::onInit()
@@ -36,6 +37,44 @@ void LightOverlay::onInit()
 
     });
 
+    const float32 alpha = 1.0f;
+
+    iParameters paramRed({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.8f, 0.0f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
+    });
+    _red = iResourceManager::getInstance().loadResource<iMaterial>(paramRed);
+
+    iParameters paramGreen({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.0f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
+    });
+    _green = iResourceManager::getInstance().loadResource<iMaterial>(paramGreen);
+
+    iParameters paramBlue({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.8f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
+    });
+    _blue = iResourceManager::getInstance().loadResource<iMaterial>(paramBlue);
+
     iParameters paramCyan({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
@@ -44,7 +83,7 @@ void LightOverlay::onInit()
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.8f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
     _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
 
@@ -52,24 +91,69 @@ void LightOverlay::onInit()
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
 
-    _lightRoot = entityScene->createEntity("overlay.light.root");
-    _lightRoot->addComponent(new iTransformComponent());
-    _lightRoot->addComponent(new iSphereComponent(1.0));
-    _lightRoot->addComponent(new iOctreeComponent());
-    auto meshRenderComponent = _lightRoot->addComponent(new iMeshRenderComponent());
-    iMeshPtr sun = createSun();
-    meshRenderComponent->addMesh(sun, _cyan);
+    // adding this is a workaround so components get initialized
+    // correctly when deactivating _lightRoot right after creation
+    auto root = entityScene->createEntity("overlay.light");
 
-    auto root = entityScene->createEntity("overlay.root");
+    _lightRoot = entityScene->createEntity("overlay.light.root");
     _lightRoot->setParent(root);
 
+    _lightModifier = entityScene->createEntity("overlay.light.modifier");
+    _lightModifier->addComponent(new iTransformComponent());
+    _lightModifier->setParent(_lightRoot);
+
+    _lightIcon = entityScene->createEntity("overlay.light.icon");
+    _lightIcon->addComponent(new iTransformComponent());
+    _lightIcon->addComponent(new iSphereComponent(1.0));
+    _lightIcon->addComponent(new iOctreeComponent());
+    auto meshRenderComponent = _lightIcon->addComponent(new iMeshRenderComponent());
+    meshRenderComponent->addMesh(createSun(), _cyan);
+    _lightIcon->setParent(_lightRoot);
+
+    _lightRays = entityScene->createEntity("overlay.light.rays");
+    _lightRays->addComponent(new iTransformComponent());
+    _lightRays->addComponent(new iSphereComponent(1.0));
+    _lightRays->addComponent(new iOctreeComponent());
+    meshRenderComponent = _lightRays->addComponent(new iMeshRenderComponent());
+    meshRenderComponent->addMesh(createRays(), _cyan);
+    _lightRays->setParent(_lightRoot);
+
+    iMeshPtr translateMesh = createTranslateMesh();
+    iMeshPtr ringMesh = createRingMesh();
+    iMeshPtr cylinder = createCylinder();
+
+    createTranslateModifier(translateMesh);
+   //  createRotateModifier(ringMesh, cylinder);
+
     _lightRoot->setActive(false);
+}
+
+iMeshPtr LightOverlay::createRays()
+{
+    iMeshBuilder meshBuilder;
+
+    iaMatrixf matrix;
+
+    iaRandom::setSeed(2);
+
+    for (int i = 0; i < 6; ++i)
+    {
+        matrix.identity();
+        matrix.rotate(-M_PI * 0.5, iaAxis::Z);
+        matrix.translate(iaRandom::getNextFloatRange(-0.7, 0.7),
+                         iaRandom::getNextFloatRange(-4.0, -2.0),
+                         iaRandom::getNextFloatRange(-0.7, 0.7));
+        meshBuilder.setMatrix(matrix);
+        iMeshBuilderUtils::addCylinder(meshBuilder, 0.02, iaRandom::getNextFloatRange(1.0, 1.6), 3);
+    }
+
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
 }
 
 iMeshPtr LightOverlay::createSun()
 {
     iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertices(false);
 
     iMeshBuilderUtils::addSphere(meshBuilder, 0.2, 16);
 
@@ -79,7 +163,7 @@ iMeshPtr LightOverlay::createSun()
     {
         matrix.identity();
         matrix.rotate(i * 0.7854, iaAxis::Z);
-        matrix.translate(0,0.3,0);
+        matrix.translate(0, 0.3, 0);
         meshBuilder.setMatrix(matrix);
         iMeshBuilderUtils::addCylinder(meshBuilder, 0.02, 0.2, 3);
     }
@@ -92,6 +176,30 @@ void LightOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
     _lightRoot->setActive(active);
+
+    if (active)
+    {
+        switch (getOverlayMode())
+        {
+        case OverlayMode::None:
+            _translateModifier->setActive(false);
+            _rotateModifier->setActive(false);
+            break;
+
+        case OverlayMode::Translate:
+            _translateModifier->setActiveExclusive(true);
+            break;
+
+        case OverlayMode::Scale:
+            _translateModifier->setActive(false);
+            _rotateModifier->setActive(false);
+            break;
+
+        case OverlayMode::Rotate:
+            _rotateModifier->setActiveExclusive(true);
+            break;
+        }
+    }
 }
 
 void LightOverlay::onUpdate()
@@ -114,6 +222,12 @@ void LightOverlay::onUpdate()
         return;
     }
 
+    auto lightComp = entity->getComponent<iLightComponent>();
+    if (lightComp == nullptr)
+    {
+        return;
+    }
+
     auto transformComp = entity->getComponent<iTransformComponent>();
     if (transformComp == nullptr)
     {
@@ -121,17 +235,177 @@ void LightOverlay::onUpdate()
     }
 
     auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
-    const auto &entityPos = transformComp->getWorldPosition();
+    auto lightIconTransformComp = _lightIcon->getComponent<iTransformComponent>();
+    auto lightRaysTransformComp = _lightRays->getComponent<iTransformComponent>();
+    auto modifierTransformComp = _lightModifier->getComponent<iTransformComponent>();
 
-    float64 distanceToCam = camTransformComp->getWorldPosition().distance(entityPos) * 0.1;
+    switch (lightComp->getType())
+    {
+    case iLightType::Directional:
+    {
+        auto camMatrix = camTransformComp->getWorldMatrix();
+        const auto lightToCamPos = camMatrix._pos + camMatrix._depth * -10.0;
+        lightIconTransformComp->setPosition(lightToCamPos);
+        lightIconTransformComp->setOrientation(camTransformComp->getWorldOrientation());
+        lightIconTransformComp->setScale(iaVector3d(1.0, 1.0, 1.0));
 
-    auto lightTransformComp = _lightRoot->getComponent<iTransformComponent>();
-    lightTransformComp->setPosition(entityPos);
-    lightTransformComp->setOrientation(camTransformComp->getWorldOrientation());
-    lightTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+        _lightRays->setActive(true);
+        lightRaysTransformComp->setPosition(lightToCamPos);
+        lightRaysTransformComp->setOrientation(transformComp->getWorldOrientation());
+        lightRaysTransformComp->setScale(iaVector3d(1.0, 1.0, 1.0));
+
+        modifierTransformComp->setPosition(lightToCamPos);
+        modifierTransformComp->setOrientation(transformComp->getWorldOrientation());
+        modifierTransformComp->setScale(iaVector3d(1.0, 1.0, 1.0));
+    }
+    break;
+
+    case iLightType::Point:
+    {
+        const auto &entityPos = transformComp->getWorldPosition();
+        const float64 distanceToCam = camTransformComp->getWorldPosition().distance(entityPos) * 0.1;
+
+        lightIconTransformComp->setPosition(entityPos);
+        lightIconTransformComp->setOrientation(camTransformComp->getWorldOrientation());
+        lightIconTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+
+        _lightRays->setActive(false);
+
+        modifierTransformComp->setPosition(entityPos);
+        modifierTransformComp->setOrientation(transformComp->getWorldOrientation());
+        modifierTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+    }
+    break;
+    };
 }
 
 void LightOverlay::onPreRender()
 {
     onUpdate();
+}
+
+void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMesh)
+{
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    _rotateModifier = entityScene->createEntity("overlay.light.modifier.rotate");
+    _rotateModifier->setParent(_lightModifier);    
+
+    iEntityPtr xRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.x");
+    xRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xRingTransform->addComponent(new iSphereComponent(1.0));
+    xRingTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xRingTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(ringMesh, _red);
+    xRingTransform->setParent(_rotateModifier);
+
+    return;    
+
+    iEntityPtr yRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.y");
+    yRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond(), iaVector3d(0.99, 1.0, 0.99)));
+    yRingTransform->addComponent(new iSphereComponent(1.0));
+    yRingTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
+    //yMeshRenderComponent->addMesh(ringMesh, _green);
+    yRingTransform->setParent(_rotateModifier);
+
+    iEntityPtr zRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.z");
+    zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
+    zRingTransform->addComponent(new iSphereComponent(1.0));
+    zRingTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
+    //zMeshRenderComponent->addMesh(ringMesh, _blue);
+    zRingTransform->setParent(_rotateModifier);
+
+    _rotateIDs.push_back(xRingTransform->getID());
+    _rotateIDs.push_back(yRingTransform->getID());
+    _rotateIDs.push_back(zRingTransform->getID());
+
+    // add a locator in the middle for better orientation
+    iEntityPtr xCylinderTransform = entityScene->createEntity("overlay.light.modifier.rotate.cylinder.x");
+    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xCylinderTransform->addComponent(new iSphereComponent(1.0));
+    xCylinderTransform->addComponent(new iOctreeComponent());
+    auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
+  //  xCylinderMeshRenderComponent->addMesh(cylinderMesh, _red);
+    xCylinderTransform->setParent(_rotateModifier);
+
+    iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.light.modifier.rotate.cylinder.y");
+    yCylinderTransform->addComponent(new iTransformComponent());
+    yCylinderTransform->addComponent(new iSphereComponent(1.0));
+    yCylinderTransform->addComponent(new iOctreeComponent());
+    auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
+    //yCylinderMeshRenderComponent->addMesh(cylinderMesh, _green);
+    yCylinderTransform->setParent(_rotateModifier);
+
+    iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.light.modifier.rotate.cylinder.z");
+    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
+    zCylinderTransform->addComponent(new iSphereComponent(1.0));
+    zCylinderTransform->addComponent(new iOctreeComponent());
+    auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
+    //zCylinderMeshRenderComponent->addMesh(cylinderMesh, _blue);
+    zCylinderTransform->setParent(_rotateModifier);
+}
+
+void LightOverlay::createTranslateModifier(iMeshPtr &translateMesh)
+{
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    _translateModifier = entityScene->createEntity("overlay.light.modifier.translate");
+    _translateModifier->setParent(_lightModifier);
+
+    iEntityPtr xTransform = entityScene->createEntity("overlay.light.modifier.translate.x");
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iSphereComponent(1.0));
+    xTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(translateMesh, _red);
+    xTransform->setParent(_translateModifier);
+
+    iEntityPtr yTransform = entityScene->createEntity("overlay.light.modifier.translate.y");
+    yTransform->addComponent(new iTransformComponent());
+    yTransform->addComponent(new iSphereComponent(1.0));
+    yTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(translateMesh, _green);
+    yTransform->setParent(_translateModifier);
+
+    iEntityPtr zTransform = entityScene->createEntity("overlay.light.modifier.translate.z");
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iSphereComponent(1.0));
+    zTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(translateMesh, _blue);
+    zTransform->setParent(_translateModifier);
+
+    _translateIDs.push_back(xTransform->getID());
+    _translateIDs.push_back(yTransform->getID());
+    _translateIDs.push_back(zTransform->getID());
+}
+
+void LightOverlay::setOverlayMode(OverlayMode overlayMode)
+{
+    EntityOverlay::setOverlayMode(overlayMode);
+
+    if (!isActive())
+    {
+        return;
+    }
+
+    switch (overlayMode)
+    {
+    case OverlayMode::None:
+        break;
+
+    case OverlayMode::Translate:
+        _translateModifier->setActiveExclusive(true);
+        break;
+
+    case OverlayMode::Scale:
+        break;
+
+    case OverlayMode::Rotate:
+        _rotateModifier->setActiveExclusive(true);
+        break;
+    }
 }

@@ -155,17 +155,9 @@ private:
      */
     void onInit();
 
-    /*! clean up
-     */
-    void onDeinit();
-
     /*! on pre render callback
      */
     void onPreRender();
-
-    /*! create translate mesh
-     */
-    iMeshPtr createTranslateMesh();
 
     /*! create scale mesh
      */
@@ -174,14 +166,6 @@ private:
     /*! create cube mesh
      */
     iMeshPtr createCube();
-
-    /*! create ring mesh
-     */
-    iMeshPtr createRingMesh();
-
-    /*! create cylinder mesh
-     */
-    iMeshPtr createCylinder();
 
     /*! create translate manipulator
 

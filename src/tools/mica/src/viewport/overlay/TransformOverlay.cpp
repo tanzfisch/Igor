@@ -12,7 +12,6 @@ TransformOverlay::TransformOverlay(iViewPtr view)
 
 TransformOverlay::~TransformOverlay()
 {
-    onDeinit();
 }
 
 bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
@@ -24,17 +23,12 @@ bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
         return false;
     }
 
+    if (entity->getComponent<iLightComponent>() != nullptr)
+    {
+        return false;
+    }
+
     return entity->getComponent<iTransformComponent>() != nullptr;
-}
-
-void TransformOverlay::onDeinit()
-{
-    getView()->getRenderEvent().remove(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
-
-    _red = nullptr;
-    _green = nullptr;
-    _blue = nullptr;
-    _cyan = nullptr;
 }
 
 void TransformOverlay::onInit()
@@ -128,6 +122,9 @@ void TransformOverlay::setActive(bool active)
         switch (getOverlayMode())
         {
         case OverlayMode::None:
+            _translateModifier->setActive(false);
+            _scaleModifier->setActive(false);
+            _rotateModifier->setActive(false);
             break;
 
         case OverlayMode::Translate:
@@ -177,11 +174,11 @@ void TransformOverlay::onUpdate()
 
     auto entityWorldMatrix = transformComp->getWorldMatrix();
     const auto &entityPos = entityWorldMatrix._pos;
-    const auto &entityOrientation = transformComp->getOrientation();
+    const auto &entityOrientation = transformComp->getWorldOrientation();
 
     float64 distanceToCam = camWorldPosition.distance(entityPos) * 0.1;
 
-    // update transform
+    // update modifier transform
     auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
     rootTransformComp->setPosition(entityPos);
     rootTransformComp->setOrientation(entityOrientation);
@@ -335,11 +332,11 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 {
     EntityOverlay::setOverlayMode(overlayMode);
 
-    if(!isActive())
+    if (!isActive())
     {
         return;
     }
-    
+
     switch (overlayMode)
     {
     case OverlayMode::None:
@@ -533,14 +530,6 @@ void TransformOverlay::rotate(const iaVector3d &localFrom, const iaVector3d &loc
     transform->setOrientation(transform->getOrientation() * q);
 }
 
-iMeshPtr TransformOverlay::createRingMesh()
-{
-    iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addCylinder(meshBuilder, 2.0, 0.13, 64, false);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
 iMeshPtr TransformOverlay::createScaleMesh()
 {
     iMeshBuilder meshBuilder;
@@ -570,42 +559,5 @@ iMeshPtr TransformOverlay::createCube()
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
 
     meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
-iMeshPtr TransformOverlay::createCylinder()
-{
-    iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertices(true);
-
-    iaMatrixf matrix;
-    matrix.scale(0.025, 1.5, 0.025);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
-
-    meshBuilder.calcNormals(true);
-
-    return meshBuilder.createMesh();
-}
-
-iMeshPtr TransformOverlay::createTranslateMesh()
-{
-    iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertices(false);
-
-    iaMatrixf matrix;
-
-    matrix.translate(0, 1.5, 0);
-    matrix.scale(0.1, 0.5, 0.1);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 6);
-
-    matrix.identity();
-    matrix.scale(0.025, 1.5, 0.025);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
-
-    meshBuilder.calcNormals(true);
-
     return meshBuilder.createMesh();
 }
