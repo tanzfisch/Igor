@@ -15,25 +15,16 @@ TransformOverlay::~TransformOverlay()
     onDeinit();
 }
 
-void TransformOverlay::setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
-{
-    EntityOverlay::setEntity(entitySceneID, entityID);
-}
-
 bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
 
-    if (mode != OverlayMode::Rotate &&
-        mode != OverlayMode::Translate &&
-        mode != OverlayMode::Scale)
+    if (mode == OverlayMode::None)
     {
         return false;
     }
 
-    auto transform = entity->getComponent<iTransformComponent>();
-
-    return transform != nullptr;
+    return entity->getComponent<iTransformComponent>() != nullptr;
 }
 
 void TransformOverlay::onDeinit()
@@ -131,6 +122,24 @@ void TransformOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
     _rootTransform->setActive(active);
+
+    switch (getOverlayMode())
+    {
+    case OverlayMode::None:
+        break;
+
+    case OverlayMode::Translate:
+        _translateModifier->setActiveExclusive(true);
+        break;
+
+    case OverlayMode::Scale:
+        _scaleModifier->setActiveExclusive(true);
+        break;
+
+    case OverlayMode::Rotate:
+        _rotateModifier->setActiveExclusive(true);
+        break;
+    }    
 }
 
 void TransformOverlay::onUpdate()

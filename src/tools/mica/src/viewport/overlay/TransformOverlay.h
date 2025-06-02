@@ -50,26 +50,6 @@ public:
      */
     ~TransformOverlay();
 
-    /*! set entity used in this overlay
-
-    \param entitySceneID the entity scene id
-    \param entityID the entity id
-     */
-    void setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID) override;
-
-    /*! sets node overlay active
-
-    \param active true to set node overlay active
-    */
-    void setActive(bool active) override;
-
-    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
-
-    \param mode the overlay mod
-    \param entity the given entity
-    */
-    bool accepts(OverlayMode mode, iEntityPtr entity) override;
-
     /*! sets overlay mode
 
     \param mode the new overlay mode
@@ -221,6 +201,19 @@ private:
     \param cylinder cylinder mesh
     */
     void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
+
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
+
+    \param mode the overlay mod
+    \param entity the given entity
+    */
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
+
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    void setActive(bool active) override;
 };
 
 #endif // MICA_TRANSFORM_OVERLAY_H

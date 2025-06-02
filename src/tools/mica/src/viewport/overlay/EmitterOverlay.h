@@ -32,7 +32,7 @@
 #include "EntityOverlay.h"
 
 /*! makes emitter nodes visible when selected
-*/
+ */
 class EmitterOverlay : public EntityOverlay
 {
 
@@ -47,24 +47,11 @@ public:
      */
     ~EmitterOverlay();
 
-    /*! sets node overlay active
-
-    \param active true to set node overlay active
-    */
-    void setActive(bool active) override;
-
-    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
-
-    \param mode the overlay mod
-    \param entity the given entity
-    */
-    bool accepts(OverlayMode mode, iEntityPtr entity) override;
-
     /*! sets overlay mode
 
     \param mode the new overlay mode
     */
-    void setOverlayMode(OverlayMode mode) override;    
+    void setOverlayMode(OverlayMode mode) override;
 
 private:
     /*! flat material
@@ -92,24 +79,37 @@ private:
     void onRender();
 
     /*! creates a disc mesh
-    */
+     */
     iMeshPtr createDisc();
 
     /*! creates a circle mesh
-    */
+     */
     iMeshPtr createCircle();
 
     /*! creates a cube mesh
-    */
+     */
     iMeshPtr createCube();
 
     /*! creates a sphere mesh
-    */
+     */
     iMeshPtr createSphere();
 
     /*! creates a square mesh
-    */
+     */
     iMeshPtr createSquare();
+
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
+
+    \param mode the overlay mod
+    \param entity the given entity
+    */
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
+
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    void setActive(bool active) override;
 };
 
 /*! emitter overlay pointer definition

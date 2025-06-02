@@ -189,14 +189,6 @@ private:
      */
     void renderOrientationOverlay();
 
-    /*! checks overlays for candidates that accept current mode-entity combination
-     */
-    void updateOverlay();
-
-    /*! deactivates all overlays
-     */
-    void clearOverlay();
-
     /*! drag move handle
 
     \param drag the drag data

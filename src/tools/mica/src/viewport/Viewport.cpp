@@ -175,14 +175,16 @@ void Viewport::onContextMenu(iWidgetPtr source)
 
 void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
 {
-    if (entities.size() != 1)
-    {
-        return;
-    }
-
     for (auto overlay : _entityOverlays)
     {
-        overlay->setEntity(sceneID, entities[0]);
+        if (entities.size() != 1)
+        {
+            overlay->resetEntity();
+        }
+        else
+        {
+            overlay->setEntity(sceneID, entities[0]);
+        }
     }
 }
 
@@ -244,15 +246,9 @@ void Viewport::onResourceLoaded(const iResourceID resourceID)
 void Viewport::setOverlayMode(OverlayMode overlayMode)
 {
     _overlayMode = overlayMode;
-    updateOverlay();
 
     for (auto overlay : _entityOverlays)
     {
-        if (!overlay->isActive())
-        {
-            continue;
-        }
-
         overlay->setOverlayMode(_overlayMode);
     }
 }
@@ -366,7 +362,7 @@ void Viewport::renderOverlay()
 void Viewport::renderOrientationOverlay()
 {
     iaMatrixd modelMatrix;
-    iRenderer::getInstance().setModelMatrix(modelMatrix);    
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     iRenderer::getInstance().setShader(_materialOrientationOverlay);
     iRenderer::getInstance().setLineWidth(1);
@@ -381,7 +377,7 @@ void Viewport::renderOrientationOverlay()
     }
 
     auto scene = iEntitySystemModule::getInstance().getScene(_viewportScene->getView().getSceneID());
-    if(scene == nullptr)
+    if (scene == nullptr)
     {
         return;
     }
@@ -393,8 +389,8 @@ void Viewport::renderOrientationOverlay()
     const auto &rect = _viewportScene->getView().getViewport();
     const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0);
     modelMatrix._pos = camWorldMatrix * _viewportScene->getView().unProject(screenPos, camWorldMatrix);
-    modelMatrix.scale(0.03,0.03,0.03);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);    
+    modelMatrix.scale(0.03, 0.03, 0.03);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     iRenderer::getInstance().setLineWidth(2);
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(1.0f, 0.0f, 0.0f), iaColor4f::red);
@@ -676,44 +672,6 @@ bool Viewport::onEvent(iEvent &event)
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectUnloaded));
 
     return false;
-}
-
-void Viewport::clearOverlay()
-{
-    for (auto overlay : _entityOverlays)
-    {
-        overlay->setActive(false);
-    }
-}
-
-void Viewport::updateOverlay()
-{
-    auto projectScene = iProject::getInstance().getProjectScene();
-    if (projectScene == nullptr)
-    {
-        clearOverlay();
-        return;
-    }
-
-    const auto &selection = projectScene->getSelection();
-    if (selection.size() != 1)
-    {
-        clearOverlay();
-        return;
-    }
-
-    auto entity = projectScene->getEntity(selection[0]);
-    if (entity == nullptr)
-    {
-        clearOverlay();
-        return;
-    }
-
-    for (auto overlay : _entityOverlays)
-    {
-        const bool active = overlay->accepts(_overlayMode, entity);
-        overlay->setActive(active);
-    }
 }
 
 void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)

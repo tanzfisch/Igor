@@ -12,6 +12,20 @@ EntityOverlay::EntityOverlay(iViewPtr view)
 void EntityOverlay::setOverlayMode(OverlayMode mode)
 {
     _overlayMode = mode;
+
+    auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    auto entity = scene->getEntity(_entityID);
+    if(entity == nullptr)
+    {
+        return;
+    }
+
+    setActive(accepts(_overlayMode, entity));
 }
 
 OverlayMode EntityOverlay::getOverlayMode() const
@@ -58,6 +72,27 @@ void EntityOverlay::setEntity(const iEntitySceneID &entitySceneID, const iEntity
 {
     _entityID = entityID;
     _entitySceneID = entitySceneID;
+
+    auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
+    if(scene == nullptr)
+    {
+        return;
+    }
+
+    auto entity = scene->getEntity(_entityID);
+    if(entity == nullptr)
+    {
+        return;
+    }
+
+    setActive(accepts(_overlayMode, entity));
+}
+
+void EntityOverlay::resetEntity()
+{
+    _entityID = iEntityID::getInvalid();
+    _entitySceneID = iEntitySceneID::getInvalid();
+    setActive(false);
 }
 
 const iEntityID &EntityOverlay::getEntityID() const

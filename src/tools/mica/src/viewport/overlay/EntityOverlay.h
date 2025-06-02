@@ -70,6 +70,10 @@ public:
      */
     virtual void setEntity(const iEntitySceneID &entitySceneID, const iEntityID &entityID);
 
+    /*! reset entity
+    */
+    void resetEntity();
+
     /*! \returns entity id
      */
     const iEntityID &getEntityID() const;
@@ -77,12 +81,6 @@ public:
     /*! \returns entity scene id
      */
     const iEntityID &getSceneID() const;
-
-    /*! sets node overlay active
-
-    \param active true to set node overlay active
-    */
-    virtual void setActive(bool active);
 
     /*! \returns true id overlay is active
      */
@@ -93,13 +91,6 @@ public:
     \param mode the new overlay mode
     */
     virtual void setOverlayMode(OverlayMode mode);
-
-    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
-
-    \param mode the overlay mod
-    \param entity the given entity
-    */
-    virtual bool accepts(OverlayMode mode, iEntityPtr entity) = 0;
 
     /*! handles mouse key down event
 
@@ -134,7 +125,7 @@ public:
 
     /*! \returns the view
      */
-    iViewPtr getView() const;
+    iViewPtr getView() const;    
 
 private:
     /*! entity scene this overlay if for
@@ -156,6 +147,21 @@ private:
     /*! if overlay is active or not
      */
     bool _active = false;
+
+protected:    
+
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
+
+    \param mode the overlay mod
+    \param entity the given entity
+    */
+    virtual bool accepts(OverlayMode mode, iEntityPtr entity) = 0;    
+
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    virtual void setActive(bool active);    
 };
 
 /*! node overlay pointer definition

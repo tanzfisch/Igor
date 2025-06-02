@@ -45,19 +45,6 @@ public:
      */
     ~LightOverlay();
 
-    /*! sets node overlay active
-
-    \param active true to set node overlay active
-    */
-    void setActive(bool active) override;
-
-    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
-
-    \param mode the overlay mod
-    \param entity the given entity
-    */
-    bool accepts(OverlayMode mode, iEntityPtr entity) override;
-
 private:
     /*! cyan material
      */
@@ -81,11 +68,24 @@ private:
 
     /*! on pre render callback
      */
-    void onPreRender();    
+    void onPreRender();
 
     /*! \returns a sun shaped mesh
-    */
+     */
     iMeshPtr createSun();
+
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
+
+    \param mode the overlay mod
+    \param entity the given entity
+    */
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
+
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    void setActive(bool active) override;
 };
 
 #endif // MICA_LIGHT_OVERLAY_H
