@@ -46,16 +46,24 @@ namespace igor
 			auto lightComponent = entity->getComponent<iLightComponent>();
 			auto transformComponent = entity->getComponent<iTransformComponent>();
 
-			const auto &worldMatrix = transformComponent->getWorldMatrix();
-
 			iRenderer::getInstance().setLightAmbient(lightIndex, lightComponent->getAmbient());
 			iRenderer::getInstance().setLightDiffuse(lightIndex, lightComponent->getDiffuse());
 			iRenderer::getInstance().setLightSpecular(lightIndex, lightComponent->getSpecular());
-			iRenderer::getInstance().setLightPosition(lightIndex, worldMatrix._pos);
+
+			switch(lightComponent->getType())
+			{
+				case iLightType::Directional:
+				iRenderer::getInstance().setDirectionalLight(lightIndex, transformComponent->getWorldOrientation().rotate(iaVector3d(1,0,0)));
+				break;
+
+				case iLightType::Point:
+				iRenderer::getInstance().setPointLight(lightIndex, transformComponent->getWorldMatrix()._pos);
+				break;
+			}
 
 			lightIndex++;
 
-			break; // currently only one light supported
+			break; // currently only one directional light supported
 		}
 	}
 

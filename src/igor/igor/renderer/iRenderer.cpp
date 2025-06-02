@@ -242,9 +242,9 @@ namespace igor
     struct iRendererLight
     {
     public:
-        /*! the light world position
+        /*! can be interpreted as position or orientation
          */
-        iaVector3f _position;
+        iaVector3f _vector;
 
         /*! ambient color
          */
@@ -257,6 +257,10 @@ namespace igor
         /*! specular color
          */
         iaColor3f _specular = {0.8f, 0.8f, 0.8f};
+
+        /*! light type
+         */
+        iLightType _type = iLightType::Directional;
     };
 
     /*! all the data needed
@@ -576,7 +580,7 @@ namespace igor
         createSolidColorTexture("igor_texture_transparent", iaColor4f::transparent);
     }
 
-    iResourcePtr iRenderer::createSolidColorTexture(const iaString& alias, const iaColor4f& color)
+    iResourcePtr iRenderer::createSolidColorTexture(const iaString &alias, const iaColor4f &color)
     {
         iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
                                 {IGOR_RESOURCE_PARAM_ALIAS, alias},
@@ -1921,7 +1925,7 @@ namespace igor
 
         if (_data->_currentShader->hasDirectionalLight())
         {
-            _data->_currentShader->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._vector);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_AMBIENT, _data->_lights[0]._ambient);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_DIFFUSE, _data->_lights[0]._diffuse);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_SPECULAR, _data->_lights[0]._specular);
@@ -1976,9 +1980,16 @@ namespace igor
         }
     }
 
-    void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
+    void iRenderer::setDirectionalLight(int32 lightnum, const iaVector3d &orientation)
     {
-        _data->_lights[lightnum]._position.set(pos._x, pos._y, pos._z);
+        _data->_lights[lightnum]._vector.set(orientation._x, orientation._y, orientation._z);
+        _data->_lights[lightnum]._type = iLightType::Directional;
+    }
+
+    void iRenderer::setPointLight(int32 lightnum, const iaVector3d &position)
+    {
+        _data->_lights[lightnum]._vector.set(position._x, position._y, position._z);
+        _data->_lights[lightnum]._type = iLightType::Point;
     }
 
     void iRenderer::setLightAmbient(int32 lightnum, const iaColor3f &ambient)

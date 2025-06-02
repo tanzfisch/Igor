@@ -531,9 +531,24 @@ namespace igor
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
-        void setLightPosition(int32 lightnum, const iaVector3d &pos);
+        /*! set directional light
+        */
+        void setDirectionalLight(int32 lightnum, const iaVector3d &orientation);
+
+        /*! set omni directional point light
+        */
+        void setPointLight(int32 lightnum, const iaVector3d &position);
+
+        /*! sets ambient of given light
+        */
         void setLightAmbient(int32 lightnum, const iaColor3f &ambient);
+
+        /*! sets diffuse of given light
+        */
         void setLightDiffuse(int32 lightnum, const iaColor3f &diffuse);
+
+        /*! sets specular of given light
+        */
         void setLightSpecular(int32 lightnum, const iaColor3f &specular);
 
         /*! sets line render width
