@@ -149,7 +149,7 @@ private:
 
     /*! update internal structure
      */
-    void update();
+    void onUpdate();
 
     /*! handles mouse move event
 

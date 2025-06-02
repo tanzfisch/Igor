@@ -82,6 +82,10 @@ private:
     /*! on pre render callback
      */
     void onPreRender();    
+
+    /*! \returns a sun shaped mesh
+    */
+    iMeshPtr createSun();
 };
 
 #endif // MICA_LIGHT_OVERLAY_H

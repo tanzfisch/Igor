@@ -29,6 +29,25 @@ void LightOverlay::onInit()
 {
     getView()->getRenderEvent().add(iPreRenderDelegate(this, &LightOverlay::onPreRender));
 
+    iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
+    iParameters paramMaterial({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+
+    });
+
+    iParameters paramCyan({
+        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
+        {IGOR_RESOURCE_PARAM_GENERATE, true},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
+        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
+        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
+        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
+        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.8f)},
+        {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
+    });
+    _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
+
     const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     con_assert(entityScene != nullptr, "no scene");
@@ -37,12 +56,36 @@ void LightOverlay::onInit()
     _lightRoot->addComponent(new iTransformComponent());
     _lightRoot->addComponent(new iSphereComponent(1.0));
     _lightRoot->addComponent(new iOctreeComponent());
+    auto meshRenderComponent = _lightRoot->addComponent(new iMeshRenderComponent());
+    iMeshPtr sun = createSun();
+    meshRenderComponent->addMesh(sun, _cyan);
 
-    iSpritePtr wagiu = iResourceManager::getInstance().createResource<iSprite>();
-    wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_wagiu_a5"));
-    // _lightRoot->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(3, 3), iaColor4f::white, 0, iSpriteRenderComponent::iRenderMode::Billboard));
+    auto root = entityScene->createEntity("overlay.root");
+    _lightRoot->setParent(root);
 
     _lightRoot->setActive(false);
+}
+
+iMeshPtr LightOverlay::createSun()
+{
+    iMeshBuilder meshBuilder;
+    meshBuilder.setJoinVertices(false);
+
+    iMeshBuilderUtils::addSphere(meshBuilder, 0.2, 16);
+
+    iaMatrixf matrix;
+
+    for (int i = 0; i < 8; ++i)
+    {
+        matrix.identity();
+        matrix.rotate(i * 0.7854, iaAxis::Z);
+        matrix.translate(0,0.3,0);
+        meshBuilder.setMatrix(matrix);
+        iMeshBuilderUtils::addCylinder(meshBuilder, 0.02, 0.2, 3);
+    }
+
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
 }
 
 void LightOverlay::setActive(bool active)
@@ -75,10 +118,17 @@ void LightOverlay::onUpdate()
     if (transformComp == nullptr)
     {
         return;
-    }    
+    }
+
+    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
+    const auto &entityPos = transformComp->getWorldPosition();
+
+    float64 distanceToCam = camTransformComp->getWorldPosition().distance(entityPos) * 0.1;
 
     auto lightTransformComp = _lightRoot->getComponent<iTransformComponent>();
-    lightTransformComp->setPosition(transformComp->getWorldPosition());
+    lightTransformComp->setPosition(entityPos);
+    lightTransformComp->setOrientation(camTransformComp->getWorldOrientation());
+    lightTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
 }
 
 void LightOverlay::onPreRender()

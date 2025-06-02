@@ -133,7 +133,7 @@ void TransformOverlay::setActive(bool active)
     _rootTransform->setActive(active);
 }
 
-void TransformOverlay::update()
+void TransformOverlay::onUpdate()
 {
     if (!isActive())
     {
@@ -344,7 +344,7 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 
 void TransformOverlay::onPreRender()
 {
-    update();
+    onUpdate();
 }
 
 bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)

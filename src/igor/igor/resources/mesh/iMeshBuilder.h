@@ -245,8 +245,9 @@ namespace igor
         /*! calculates normals for mesh
 
         \param sharpEdges if true sharp edges will cause plit of neighbor triangles for more realistic representation
+        \returns true if successful
         */
-        void calcNormals(bool sharpEdges = false);
+        bool calcNormals(bool sharpEdges = false);
 
         /*! creates and returns a mesh based on current data
 
