@@ -123,23 +123,26 @@ void TransformOverlay::setActive(bool active)
     EntityOverlay::setActive(active);
     _rootTransform->setActive(active);
 
-    switch (getOverlayMode())
+    if (active)
     {
-    case OverlayMode::None:
-        break;
+        switch (getOverlayMode())
+        {
+        case OverlayMode::None:
+            break;
 
-    case OverlayMode::Translate:
-        _translateModifier->setActiveExclusive(true);
-        break;
+        case OverlayMode::Translate:
+            _translateModifier->setActiveExclusive(true);
+            break;
 
-    case OverlayMode::Scale:
-        _scaleModifier->setActiveExclusive(true);
-        break;
+        case OverlayMode::Scale:
+            _scaleModifier->setActiveExclusive(true);
+            break;
 
-    case OverlayMode::Rotate:
-        _rotateModifier->setActiveExclusive(true);
-        break;
-    }    
+        case OverlayMode::Rotate:
+            _rotateModifier->setActiveExclusive(true);
+            break;
+        }
+    }
 }
 
 void TransformOverlay::onUpdate()
@@ -332,6 +335,11 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 {
     EntityOverlay::setOverlayMode(overlayMode);
 
+    if(!isActive())
+    {
+        return;
+    }
+    
     switch (overlayMode)
     {
     case OverlayMode::None:
@@ -481,7 +489,7 @@ void TransformOverlay::scale(const iaVector3d &vec, iTransformComponentPtr trans
 
     int axisIndex = std::distance(_scaleIDs.begin(), iter);
     static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
-    
+
     iaVector3d scale = vec.project(axis[axisIndex]) + iaVector3d(1, 1, 1);
     scale = transform->getScale() * scale;
     transform->setScale(scale);
