@@ -40,6 +40,8 @@ namespace iaux
     {
     public:
         /*! init valid random value
+
+        \param mark if true this id gets an 0xFF mark so we can recognize it later
          */
         iaUUID();
 
@@ -58,6 +60,10 @@ namespace iaux
         /*! \returns invalid uuid
          */
         static iaUUID getInvalid();
+
+        /*! \returns an id with a mark on it
+        */
+        static iaUUID getMarked();
 
         /*! import from string
 

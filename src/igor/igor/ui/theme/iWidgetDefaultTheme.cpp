@@ -106,11 +106,11 @@ namespace igor
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
                            {IGOR_RESOURCE_PARAM_GENERATE, true},
-                           {"pattern", iTexturePattern::CheckerBoard},
-                           {"primary", iaColor4f::gray},
-                           {"secondary", iaColor4f::lightGray},
-                           {"width", 128},
-                           {"height", 128}});
+                           {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::CheckerBoard},
+                           {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::gray},
+                           {IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::lightGray},
+                           {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 128},
+                           {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 128}});
 
         _checkerBoardTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
     }

@@ -123,7 +123,7 @@ void LightOverlay::onInit()
     iMeshPtr cylinder = createCylinder();
 
     createTranslateModifier(translateMesh);
-   //  createRotateModifier(ringMesh, cylinder);
+    createRotateModifier(ringMesh, cylinder);
 
     _lightRoot->setActive(false);
 }
@@ -289,7 +289,7 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     const auto &entitySceneID = getView()->getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
     _rotateModifier = entityScene->createEntity("overlay.light.modifier.rotate");
-    _rotateModifier->setParent(_lightModifier);    
+    _rotateModifier->setParent(_lightModifier);
 
     iEntityPtr xRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.x");
     xRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
@@ -299,22 +299,22 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     xMeshRenderComponent->addMesh(ringMesh, _red);
     xRingTransform->setParent(_rotateModifier);
 
-    return;    
-
     iEntityPtr yRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.y");
     yRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond(), iaVector3d(0.99, 1.0, 0.99)));
     yRingTransform->addComponent(new iSphereComponent(1.0));
     yRingTransform->addComponent(new iOctreeComponent());
     auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
-    //yMeshRenderComponent->addMesh(ringMesh, _green);
+    yMeshRenderComponent->addMesh(ringMesh, _green);
     yRingTransform->setParent(_rotateModifier);
+
+    return;
 
     iEntityPtr zRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.z");
     zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
     zRingTransform->addComponent(new iSphereComponent(1.0));
     zRingTransform->addComponent(new iOctreeComponent());
     auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
-    //zMeshRenderComponent->addMesh(ringMesh, _blue);
+    zMeshRenderComponent->addMesh(ringMesh, _blue);
     zRingTransform->setParent(_rotateModifier);
 
     _rotateIDs.push_back(xRingTransform->getID());
@@ -327,7 +327,7 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     xCylinderTransform->addComponent(new iSphereComponent(1.0));
     xCylinderTransform->addComponent(new iOctreeComponent());
     auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
-  //  xCylinderMeshRenderComponent->addMesh(cylinderMesh, _red);
+    xCylinderMeshRenderComponent->addMesh(cylinderMesh, _red);
     xCylinderTransform->setParent(_rotateModifier);
 
     iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.light.modifier.rotate.cylinder.y");
@@ -335,7 +335,7 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     yCylinderTransform->addComponent(new iSphereComponent(1.0));
     yCylinderTransform->addComponent(new iOctreeComponent());
     auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
-    //yCylinderMeshRenderComponent->addMesh(cylinderMesh, _green);
+    yCylinderMeshRenderComponent->addMesh(cylinderMesh, _green);
     yCylinderTransform->setParent(_rotateModifier);
 
     iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.light.modifier.rotate.cylinder.z");
@@ -343,7 +343,7 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     zCylinderTransform->addComponent(new iSphereComponent(1.0));
     zCylinderTransform->addComponent(new iOctreeComponent());
     auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
-    //zCylinderMeshRenderComponent->addMesh(cylinderMesh, _blue);
+    zCylinderMeshRenderComponent->addMesh(cylinderMesh, _blue);
     zCylinderTransform->setParent(_rotateModifier);
 }
 

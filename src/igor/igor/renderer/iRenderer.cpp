@@ -560,11 +560,11 @@ namespace igor
                                    {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                    {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                    {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                   {"pattern", iTexturePattern::CheckerBoard},
-                                   {"primary", iaColor4f::black},
-                                   {"secondary", iaColor4f::magenta},
-                                   {"width", 128},
-                                   {"height", 128}});
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::CheckerBoard},
+                                   {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::black},
+                                   {IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::magenta},
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 128},
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 128}});
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
         iResourceManager::getInstance().addToDictionary("", "igor_texture_fallback", _data->_fallbackTexture->getID());
@@ -587,10 +587,10 @@ namespace igor
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                 {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                 {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                {"pattern", iTexturePattern::SolidColor},
-                                {"primary", color},
-                                {"width", 1},
-                                {"height", 1}});
+                                {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor},
+                                {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, color},
+                                {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1},
+                                {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1}});
 
         auto resource = iResourceManager::getInstance().loadResource(paramWhite);
         iResourceManager::getInstance().addToDictionary("", alias, resource->getID());

@@ -416,8 +416,8 @@ namespace igor
         {
             const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
             const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
-            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
+            const iaString source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << source << "\"");
             return nullptr;
         }
 
@@ -441,6 +441,12 @@ namespace igor
             else
             {
                 con_trace("cache hit " << result->getType() << " " << result->getInfo());
+
+                const iaString type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
+                if(result->getType() != type)
+                {
+                    con_err("resource id collision " << result->getID() << " " << type << " vs " << result->getType());
+                }
             }
         }
         else

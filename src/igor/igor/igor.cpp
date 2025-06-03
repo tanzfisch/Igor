@@ -57,6 +57,11 @@ const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
 const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
 const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
 const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_PATTERN = "texture_pattern";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH = "texture_width";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT = "texture_height";
+const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR = "primary_color";
+const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR = "secondary_color";
 
 const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
@@ -242,7 +247,7 @@ namespace igor
         if (iResourceManager::isInstantiated())
         {
             iResourceManager::destroyInstance();
-        }        
+        }
 
         if (iEntitySystemModule::isInstantiated())
         {
@@ -303,7 +308,7 @@ namespace igor
         {
             iAudio::destroyInstance();
         }
-        
+
         if (iFilesystem::isInstantiated())
         {
             iFilesystem::destroyInstance();

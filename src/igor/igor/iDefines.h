@@ -110,6 +110,11 @@ extern const iaString IGOR_RESOURCE_PARAM_SHININESS;          //! resource param
 extern const iaString IGOR_RESOURCE_PARAM_ALPHA;              //! resource parameter alpha
 extern const iaString IGOR_RESOURCE_PARAM_TILING;             //! resource parameter tiling
 extern const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID;    //! resource parameter entity scene
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_PATTERN;    //! resource parameter texture pattern
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH;      //! resource parameter texture width
+extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT;     //! resource parameter texture height
+extern const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR;      //! resource parameter primary color
+extern const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR;    //! resource parameter secondary color
 
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameter texture unit 0
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameter texture unit 1
