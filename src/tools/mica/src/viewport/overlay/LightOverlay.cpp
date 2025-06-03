@@ -18,11 +18,6 @@ bool LightOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
 
-    if (mode == OverlayMode::Scale)
-    {
-        return false;
-    }
-
     return entity->getComponent<iLightComponent>() != nullptr;
 }
 
@@ -172,34 +167,61 @@ iMeshPtr LightOverlay::createSun()
     return meshBuilder.createMesh();
 }
 
+void LightOverlay::onUpdateOverlayMode()
+{
+    iLightType lightType = iLightType::Undefined;
+
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if (entityScene != nullptr)
+    {
+        auto entity = entityScene->getEntity(getEntityID());
+        if (entity != nullptr)
+        {
+            auto lightComp = entity->getComponent<iLightComponent>();
+            if (lightComp != nullptr)
+            {
+                lightType = lightComp->getType();
+            }
+        }
+    }
+
+    switch (getOverlayMode())
+    {
+    case OverlayMode::None:
+    case OverlayMode::Scale:
+        _translateModifier->setActive(false);
+        _rotateModifier->setActive(false);
+        break;
+
+    case OverlayMode::Translate:
+        if (lightType == iLightType::Directional)
+        {
+            _translateModifier->setActive(false);
+            _rotateModifier->setActive(false);
+        }
+        else
+        {
+            _translateModifier->setActiveExclusive(true);
+        }
+        break;
+
+    case OverlayMode::Rotate:
+        _rotateModifier->setActiveExclusive(true);
+        break;
+    }
+}
+
 void LightOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
     _lightRoot->setActive(active);
 
-    if (active)
+    if (!isActive())
     {
-        switch (getOverlayMode())
-        {
-        case OverlayMode::None:
-            _translateModifier->setActive(false);
-            _rotateModifier->setActive(false);
-            break;
-
-        case OverlayMode::Translate:
-            _translateModifier->setActiveExclusive(true);
-            break;
-
-        case OverlayMode::Scale:
-            _translateModifier->setActive(false);
-            _rotateModifier->setActive(false);
-            break;
-
-        case OverlayMode::Rotate:
-            _rotateModifier->setActiveExclusive(true);
-            break;
-        }
+        return;
     }
+
+    onUpdateOverlayMode();
 }
 
 void LightOverlay::onUpdate()
@@ -307,8 +329,6 @@ void LightOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMe
     yMeshRenderComponent->addMesh(ringMesh, _green);
     yRingTransform->setParent(_rotateModifier);
 
-    return;
-
     iEntityPtr zRingTransform = entityScene->createEntity("overlay.light.modifier.rotate.z");
     zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
     zRingTransform->addComponent(new iSphereComponent(1.0));
@@ -392,20 +412,148 @@ void LightOverlay::setOverlayMode(OverlayMode overlayMode)
         return;
     }
 
-    switch (overlayMode)
+    onUpdateOverlayMode();
+}
+
+bool LightOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
+{
+    if (!_selectionID.isValid())
+    {
+        return false;
+    }
+
+    _selectionID = iEntityID::getInvalid();
+    return true;
+}
+
+bool LightOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+{
+    auto rect = getView()->getViewport();
+    auto window = iApplication::getInstance().getWindow();
+
+    auto top = window->getClientHeight() - rect._height - rect._y;
+
+    iEntityID selectionID = getView()->pickEntityID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
+
+    _selectionID = iEntityID::getInvalid();
+
+    for (int i = 0; i < 3; ++i)
+    {
+        if (selectionID == _translateIDs[i])
+        {
+            _selectionID = selectionID;
+            return true;
+        }
+
+        if (selectionID == _rotateIDs[i])
+        {
+            _selectionID = selectionID;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool LightOverlay::onMouseMoveEvent(iEventMouseMove &event)
+{
+    if (!_selectionID.isValid())
+    {
+        return false;
+    }
+
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    con_assert(entityScene != nullptr, "no scene");
+
+    auto entity = entityScene->getEntity(getEntityID());
+    if (entity == nullptr)
+    {
+        return false;
+    }
+
+    auto entityTransformComp = entity->getComponent<iTransformComponent>();
+    if (entityTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    auto camera = entityScene->getActiveCamera();
+    if (camera == nullptr)
+    {
+        return false;
+    }
+
+    auto camTransformComp = camera->getComponent<iTransformComponent>();
+    if (camTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    const iaMatrixd &camWorldMatrix = camTransformComp->getWorldMatrix();
+    iaVector2d fromd = event.getLastPosition().convert<float64>();
+    iaVector2d tod = event.getPosition().convert<float64>();
+
+    iaVector3d from = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
+    iaVector3d to = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
+
+    iaMatrixd transformWorldMatrix = entityTransformComp->getWorldMatrix();
+    transformWorldMatrix.invert();
+    from = transformWorldMatrix * from;
+    to = transformWorldMatrix * to;
+
+    float64 distanceToCam = camWorldMatrix._pos.distance(entityTransformComp->getPosition());
+
+    switch (getOverlayMode())
     {
     case OverlayMode::None:
         break;
-
-    case OverlayMode::Translate:
-        _translateModifier->setActiveExclusive(true);
+    case OverlayMode::Rotate:
+        rotate(from, to, entityTransformComp);
         break;
-
     case OverlayMode::Scale:
         break;
-
-    case OverlayMode::Rotate:
-        _rotateModifier->setActiveExclusive(true);
+    case OverlayMode::Translate:
+        translate((to - from) * distanceToCam, entityTransformComp);
         break;
     }
+
+    return false;
+}
+
+void LightOverlay::translate(const iaVector3d &vec, iTransformComponentPtr transform)
+{
+    auto iter = std::find(_translateIDs.begin(), _translateIDs.end(), _selectionID);
+    if (iter == _translateIDs.end())
+    {
+        return;
+    }
+
+    int axisIndex = std::distance(_translateIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+
+    iaVector3d translate = transform->getOrientation().rotate(vec.project(axis[axisIndex])) * transform->getScale();
+    transform->setPosition(transform->getPosition() + translate);
+}
+
+void LightOverlay::rotate(const iaVector3d &localFrom, const iaVector3d &localTo, iTransformComponentPtr transform)
+{
+    auto iter = std::find(_rotateIDs.begin(), _rotateIDs.end(), _selectionID);
+    if (iter == _rotateIDs.end())
+    {
+        return;
+    }
+
+    int axisIndex = std::distance(_rotateIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    const iaVector3d localAxis = axis[axisIndex];
+
+    const auto projectedFrom = localFrom - (localAxis * localFrom.dot(localAxis));
+    const auto projectedTo = localTo - (localAxis * localTo.dot(localAxis));
+
+    float64 angle = projectedFrom.angle(projectedTo) * 20;
+
+    angle = ((projectedFrom % projectedTo).dot(localAxis) < 0) ? -angle : angle;
+
+    const iaQuaterniond q = iaQuaterniond::fromAxisAngle(localAxis, angle);
+    transform->setOrientation(transform->getOrientation() * q);
 }

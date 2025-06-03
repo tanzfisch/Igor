@@ -112,34 +112,41 @@ void TransformOverlay::onInit()
     _rootTransform->setActive(false);
 }
 
+void TransformOverlay::onUpdateOverlayMode()
+{
+    switch (getOverlayMode())
+    {
+    case OverlayMode::None:
+        _translateModifier->setActive(false);
+        _scaleModifier->setActive(false);
+        _rotateModifier->setActive(false);
+        break;
+
+    case OverlayMode::Translate:
+        _translateModifier->setActiveExclusive(true);
+        break;
+
+    case OverlayMode::Scale:
+        _scaleModifier->setActiveExclusive(true);
+        break;
+
+    case OverlayMode::Rotate:
+        _rotateModifier->setActiveExclusive(true);
+        break;
+    }
+}
+
 void TransformOverlay::setActive(bool active)
 {
     EntityOverlay::setActive(active);
     _rootTransform->setActive(active);
 
-    if (active)
+    if (!isActive())
     {
-        switch (getOverlayMode())
-        {
-        case OverlayMode::None:
-            _translateModifier->setActive(false);
-            _scaleModifier->setActive(false);
-            _rotateModifier->setActive(false);
-            break;
-
-        case OverlayMode::Translate:
-            _translateModifier->setActiveExclusive(true);
-            break;
-
-        case OverlayMode::Scale:
-            _scaleModifier->setActiveExclusive(true);
-            break;
-
-        case OverlayMode::Rotate:
-            _rotateModifier->setActiveExclusive(true);
-            break;
-        }
+        return;
     }
+
+    onUpdateOverlayMode();
 }
 
 void TransformOverlay::onUpdate()
@@ -337,23 +344,7 @@ void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
         return;
     }
 
-    switch (overlayMode)
-    {
-    case OverlayMode::None:
-        break;
-
-    case OverlayMode::Translate:
-        _translateModifier->setActiveExclusive(true);
-        break;
-
-    case OverlayMode::Scale:
-        _scaleModifier->setActiveExclusive(true);
-        break;
-
-    case OverlayMode::Rotate:
-        _rotateModifier->setActiveExclusive(true);
-        break;
-    }
+    onUpdateOverlayMode();
 }
 
 void TransformOverlay::onPreRender()

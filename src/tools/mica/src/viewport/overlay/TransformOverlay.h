@@ -112,14 +112,14 @@ private:
     */
     void translate(const iaVector3d &vec, iTransformComponentPtr transform);
 
-    /*! scele given matrix by vector on selected axis
+    /*! scale given matrix by vector on selected axis
 
     \param vec scale vector
     \param matrix the matrix to manipulate
     */
     void scale(const iaVector3d &vec, iTransformComponentPtr transform);
 
-    /*! roate matrix based screen space movement
+    /*! rotate matrix based screen space movement
 
     \param from from mouse position in world coordinates
     \param to to mouse position in world coordinates
@@ -149,7 +149,7 @@ private:
     \param event the mouse key up event
     \returns true if consumed
     */
-    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event) override;
 
     /*! initialisation
      */
@@ -198,6 +198,11 @@ private:
     \param active true to set node overlay active
     */
     void setActive(bool active) override;
+
+    /*! updates overlay mode settings
+    */
+    void onUpdateOverlayMode();
+
 };
 
 #endif // MICA_TRANSFORM_OVERLAY_H

@@ -49,7 +49,7 @@ public:
 
     \param mode the new overlay mode
     */
-    void setOverlayMode(OverlayMode mode) override;    
+    void setOverlayMode(OverlayMode mode) override;
 
 private:
     /*! red material
@@ -100,6 +100,10 @@ private:
      */
     std::vector<iEntityID> _rotateIDs;
 
+    /*! selected entity ID
+     */
+    iEntityID _selectionID = iEntityID::getInvalid();
+
     /*! initialisation
      */
     void onInit();
@@ -145,6 +149,45 @@ private:
     \param cylinder cylinder mesh
     */
     void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
+
+    /*! translate given matrix by vector projected on selected axis
+
+    \param vec vector to translate
+    \param transformComp the transform component to manipulate
+    */
+    void translate(const iaVector3d &vec, iTransformComponentPtr transform);
+
+    /*! rotate matrix based screen space movement
+
+    \param from from mouse position in world coordinates
+    \param to to mouse position in world coordinates
+    \param transform the transform to manipulate
+    */
+    void rotate(const iaVector3d &from, const iaVector3d &to, iTransformComponentPtr transform);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event) override;
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event) override;
+
+    /*! updates overlay mode settings
+    */
+    void onUpdateOverlayMode();
 };
 
 #endif // MICA_LIGHT_OVERLAY_H
