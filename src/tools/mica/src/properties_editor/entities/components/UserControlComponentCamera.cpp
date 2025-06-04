@@ -11,9 +11,9 @@ UserControlComponentCamera::UserControlComponentCamera(const iEntitySceneID &sce
 {
 }
 
-void UserControlComponentCamera::init()
+void UserControlComponentCamera::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -147,7 +147,7 @@ void UserControlComponentCamera::init()
 
 void UserControlComponentCamera::onProjectionChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 
     if (_perspective->isChecked())
     {
@@ -163,10 +163,10 @@ void UserControlComponentCamera::onProjectionChanged(iWidgetPtr source)
 
 void UserControlComponentCamera::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentCamera::update()
+void UserControlComponentCamera::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -226,7 +226,7 @@ void UserControlComponentCamera::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentCamera::updateComponent()
+void UserControlComponentCamera::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

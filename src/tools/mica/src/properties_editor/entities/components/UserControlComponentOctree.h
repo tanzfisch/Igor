@@ -48,7 +48,7 @@ public:
 
     /*! init ui
      */
-    void init() override;
+    void onInit() override;
 
 private:
     /*! called when component is supposed to be destroyed

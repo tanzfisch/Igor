@@ -11,9 +11,9 @@ UserControlComponentOctree::UserControlComponentOctree(const iEntitySceneID &sce
 {
 }
 
-void UserControlComponentOctree::init()
+void UserControlComponentOctree::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     iWidgetLabelPtr label = new iWidgetLabel(_layout);
     label->setText("There is a reference to this entity in the Octree");

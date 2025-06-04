@@ -11,9 +11,9 @@ UserControlComponentCircle::UserControlComponentCircle(const iEntitySceneID &sce
 {
 }
 
-void UserControlComponentCircle::init()
+void UserControlComponentCircle::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -44,10 +44,10 @@ void UserControlComponentCircle::init()
 
 void UserControlComponentCircle::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentCircle::update()
+void UserControlComponentCircle::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -76,7 +76,7 @@ void UserControlComponentCircle::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentCircle::updateComponent()
+void UserControlComponentCircle::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

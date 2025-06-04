@@ -11,9 +11,9 @@ UserControlComponentLight::UserControlComponentLight(const iEntitySceneID &scene
 {    
 }
 
-void UserControlComponentLight::init()
+void UserControlComponentLight::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -70,10 +70,10 @@ void UserControlComponentLight::init()
 
 void UserControlComponentLight::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentLight::update()
+void UserControlComponentLight::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -103,7 +103,7 @@ void UserControlComponentLight::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentLight::updateComponent()
+void UserControlComponentLight::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

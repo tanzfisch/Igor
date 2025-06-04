@@ -11,9 +11,9 @@ UserControlComponentQuadtree::UserControlComponentQuadtree(const iEntitySceneID 
 {
 }
 
-void UserControlComponentQuadtree::init()
+void UserControlComponentQuadtree::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     iWidgetLabelPtr label = new iWidgetLabel(_layout);
     label->setText("There is a reference to this entity in the Quadtree");

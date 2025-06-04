@@ -12,9 +12,9 @@ UserControlComponentMeshReference::UserControlComponentMeshReference(const iEnti
 {
 }
 
-void UserControlComponentMeshReference::init()
+void UserControlComponentMeshReference::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -34,10 +34,10 @@ void UserControlComponentMeshReference::init()
 
 void UserControlComponentMeshReference::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentMeshReference::update()
+void UserControlComponentMeshReference::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -71,7 +71,7 @@ void UserControlComponentMeshReference::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentMeshReference::updateComponent()
+void UserControlComponentMeshReference::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

@@ -12,9 +12,9 @@ UserControlComponentPrefab::UserControlComponentPrefab(const iEntitySceneID &sce
     setAcceptDrop(true);
 }
 
-void UserControlComponentPrefab::init()
+void UserControlComponentPrefab::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     iWidgetBoxLayoutPtr prefabRefLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     prefabRefLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -39,7 +39,7 @@ void UserControlComponentPrefab::init()
     _labelSource->setVerticalAlignment(iVerticalAlignment::Top);
 }
 
-void UserControlComponentPrefab::update()
+void UserControlComponentPrefab::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -77,7 +77,7 @@ void UserControlComponentPrefab::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentPrefab::updateComponent()
+void UserControlComponentPrefab::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

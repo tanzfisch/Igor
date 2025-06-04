@@ -5,6 +5,7 @@
 #include "UserControlEntity.h"
 
 #include "components/UserControlComponentTransform.h"
+#include "components/UserControlComponentAnimation.h"
 #include "components/UserControlComponentCamera.h"
 #include "components/UserControlComponentCircle.h"
 #include "components/UserControlComponentSphere.h"
@@ -174,80 +175,88 @@ void UserControlEntity::update()
     if (transform != nullptr)
     {
         UserControlComponentTransform *userControl = new UserControlComponentTransform(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
+
+    auto animation = entity->getComponent<iAnimationComponent>();
+    if (animation != nullptr)
+    {
+        UserControlComponentAnimation *userControl = new UserControlComponentAnimation(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }    
 
     auto camera = entity->getComponent<iCameraComponent>();
     if (camera != nullptr)
     {
         UserControlComponentCamera *userControl = new UserControlComponentCamera(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto circle = entity->getComponent<iCircleComponent>();
     if (circle != nullptr)
     {
         UserControlComponentCircle *userControl = new UserControlComponentCircle(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto sphere = entity->getComponent<iSphereComponent>();
     if (sphere != nullptr)
     {
         UserControlComponentSphere *userControl = new UserControlComponentSphere(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto light = entity->getComponent<iLightComponent>();
     if (light != nullptr)
     {
         UserControlComponentLight *userControl = new UserControlComponentLight(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto meshReference = entity->getComponent<iMeshReferenceComponent>();
     if (meshReference != nullptr)
     {
         UserControlComponentMeshReference *userControl = new UserControlComponentMeshReference(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto meshRender = entity->getComponent<iMeshRenderComponent>();
     if (meshRender != nullptr)
     {
         UserControlComponentMeshRender *userControl = new UserControlComponentMeshRender(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto octree = entity->getComponent<iOctreeComponent>();
     if (octree != nullptr)
     {
         UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto prefab = entity->getComponent<iPrefabComponent>();
     if (prefab != nullptr)
     {
         UserControlComponentPrefab *userControl = new UserControlComponentPrefab(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto quadtree = entity->getComponent<iQuadtreeComponent>();
     if (quadtree != nullptr)
     {
         UserControlComponentQuadtree *userControl = new UserControlComponentQuadtree(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     _ignoreUpdate = false;

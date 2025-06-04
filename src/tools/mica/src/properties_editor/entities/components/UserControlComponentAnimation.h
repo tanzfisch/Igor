@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_COMPONENT_LIGHT_H
-#define USERCONTROL_COMPONENT_LIGHT_H
+#ifndef USERCONTROL_COMPONENT_ANIMATION_H
+#define USERCONTROL_COMPONENT_ANIMATION_H
 
 #include "UserControlComponent.h"
 
-class UserControlComponentLight : public UserControlComponent
+class UserControlComponentAnimation : public UserControlComponent
 {
 public:
     /*! init user control
@@ -40,11 +40,11 @@ public:
     \param entity the given entity
     \param parent the optional parent widget
     */
-    UserControlComponentLight(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+    UserControlComponentAnimation(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlComponentLight() = default;
+    virtual ~UserControlComponentAnimation() = default;
 
     /*! init ui
      */
@@ -59,31 +59,16 @@ public:
     void onUpdateComponent() override;
 
 private:
-    /*! ambient color selector
-     */
-    iUserControlColorPtr _ambient;
-
-    /*! diffuse color selector
-     */
-    iUserControlColorPtr _diffuse;
-
-    /*! specular color selector
-     */
-    iUserControlColorPtr _specular;
-
-    /*! light type select box
-     */
-    iWidgetSelectBoxPtr _lightType;
 
     /*! called after values changed
-     */
+    */
     void onValueChanged(iWidgetPtr source);
 
     /*! called when component is supposed to be destroyed
 
     \param entity the entity to destroy the component from
      */
-    void onDestroyComponent(iEntityPtr entity) override;
+    void onDestroyComponent(iEntityPtr entity) override;    
 };
 
-#endif // USERCONTROL_COMPONENT_LIGHT_H
+#endif // USERCONTROL_COMPONENT_ANIMATION_H

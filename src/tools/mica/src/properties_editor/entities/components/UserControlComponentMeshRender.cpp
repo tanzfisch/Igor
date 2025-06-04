@@ -11,9 +11,9 @@ UserControlComponentMeshRender::UserControlComponentMeshRender(const iEntityScen
 {
 }
 
-void UserControlComponentMeshRender::init()
+void UserControlComponentMeshRender::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -53,10 +53,10 @@ void UserControlComponentMeshRender::init()
 
 void UserControlComponentMeshRender::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentMeshRender::update()
+void UserControlComponentMeshRender::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -95,7 +95,7 @@ void UserControlComponentMeshRender::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentMeshRender::updateComponent()
+void UserControlComponentMeshRender::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

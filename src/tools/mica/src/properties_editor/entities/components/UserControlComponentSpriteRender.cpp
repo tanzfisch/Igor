@@ -11,9 +11,9 @@ UserControlComponentSpriteRender::UserControlComponentSpriteRender(const iEntity
 {
 }
 
-void UserControlComponentSpriteRender::init()
+void UserControlComponentSpriteRender::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -31,10 +31,10 @@ void UserControlComponentSpriteRender::init()
 
 void UserControlComponentSpriteRender::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentSpriteRender::update()
+void UserControlComponentSpriteRender::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -61,7 +61,7 @@ void UserControlComponentSpriteRender::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentSpriteRender::updateComponent()
+void UserControlComponentSpriteRender::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

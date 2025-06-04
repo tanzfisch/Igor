@@ -2,16 +2,14 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include "UserControlComponentSphere.h"
+#include "UserControlComponentAnimation.h"
 
-#include <igor/entities/components/iSphereComponent.h>
-
-UserControlComponentSphere::UserControlComponentSphere(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
-    : UserControlComponent(scene, entity, "Sphere", parent)
+UserControlComponentAnimation::UserControlComponentAnimation(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
+    : UserControlComponent(scene, entity, "Animation", parent)
 {
 }
 
-void UserControlComponentSphere::onInit()
+void UserControlComponentAnimation::onInit()
 {
     UserControlComponent::onInit();
 
@@ -25,9 +23,9 @@ void UserControlComponentSphere::onInit()
     labelRadius->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelRadius->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _radius = new iWidgetLineTextEdit(radiusLayout);
+    /*_radius = new iWidgetLineTextEdit(radiusLayout);
     _radius->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _radius->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentSphere::onValueChanged));
+    _radius->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentAnimation::onValueChanged));
 
     iWidgetBoxLayoutPtr offsetLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     offsetLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -37,17 +35,17 @@ void UserControlComponentSphere::onInit()
     labelOffset->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelOffset->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _offset = new iUserControlVector(3, offsetLayout);
+    _offset = new iUserControlVector(2, offsetLayout);
     _offset->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _offset->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentSphere::onValueChanged));
+    _offset->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentAnimation::onValueChanged));*/
 }
 
-void UserControlComponentSphere::onValueChanged(iWidgetPtr source)
+void UserControlComponentAnimation::onValueChanged(iWidgetPtr source)
 {
     onUpdateComponent();
 }
 
-void UserControlComponentSphere::onUpdateUI()
+void UserControlComponentAnimation::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -61,7 +59,7 @@ void UserControlComponentSphere::onUpdateUI()
         return;
     }
 
-    iSphereComponent *component = entity->getComponent<iSphereComponent>();
+    iAnimationComponent *component = entity->getComponent<iAnimationComponent>();
     if (component == nullptr)
     {
         return;
@@ -69,15 +67,14 @@ void UserControlComponentSphere::onUpdateUI()
 
     _ignoreUpdate = true;
 
-    _radius->setText(iaString::toString(component->getRadius(), 4));
+    /*_radius->setText(iaString::toString(component->getRadius(), 4));
     _offset->setValue(0, component->getOffset()._x);
-    _offset->setValue(1, component->getOffset()._y);
-    _offset->setValue(2, component->getOffset()._z);
+    _offset->setValue(1, component->getOffset()._y);*/
 
     _ignoreUpdate = false;
 }
 
-void UserControlComponentSphere::onUpdateComponent()
+void UserControlComponentAnimation::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {
@@ -96,20 +93,20 @@ void UserControlComponentSphere::onUpdateComponent()
         return;
     }
 
-    iSphereComponent *component = entity->getComponent<iSphereComponent>();
+    iAnimationComponent *component = entity->getComponent<iAnimationComponent>();
     if (component == nullptr)
     {
         return;
     }
 
-    component->setRadius(iaString::toFloat(_radius->getText()));
-    const iaVector3d offset(_offset->getValue(0), _offset->getValue(1), _offset->getValue(2));
-    component->setOffset(offset);
+    /*component->setRadius(iaString::toFloat(_radius->getText()));
+    iaVector2d offset(_offset->getValue(0), _offset->getValue(1));
+    component->setOffset(offset);*/
 }
 
-void UserControlComponentSphere::onDestroyComponent(iEntityPtr entity)
+void UserControlComponentAnimation::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iSphereComponent>();
+    entity->destroyComponent<iCircleComponent>();
 }
