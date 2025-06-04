@@ -7,10 +7,8 @@
 namespace igor
 {
 
-    iAnimationComponent::iAnimationComponent(iAnimationControllerPtr animationController, const iaString &name)
-        : _animationController(animationController)
+    iAnimationComponent::iAnimationComponent()
     {
-        con_assert(_animationController != nullptr, "zero pointer");
     }
 
     iEntityComponent *iAnimationComponent::createInstance()
@@ -27,12 +25,26 @@ namespace igor
     iEntityComponentPtr iAnimationComponent::getCopy()
     {
         iAnimationComponent *component = new iAnimationComponent();
-        component->_animationController = _animationController;
+        component->_begin = _begin;
+        component->_clips = _clips;
+        component->_offsetTime = _offsetTime;
+        component->_startTime = _startTime;
+        component->_stateMachine = _stateMachine;
         return component;
     }
 
-    iAnimationControllerPtr iAnimationComponent::getAnimationController() const
+    void iAnimationComponent::addClip(iClipPtr clip)
     {
-        return _animationController;
+        const iaString stateName = clip->getAnimations().empty() ? "no name" : clip->getAnimations().front()->getInfo();
+        iaStateID state = _stateMachine.addState(stateName);
+        _clips[state] = clip;
+
+        if (_begin == IGOR_INVALID_ID)
+        {
+            _begin = state;
+            _stateMachine.setInitialState(_begin);
+            _stateMachine.start();
+        }
     }
+
 }

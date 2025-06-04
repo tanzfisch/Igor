@@ -177,6 +177,10 @@ namespace igor
         iEntityComponentPtr getCopy() override;
     };
 
+    /*! sprite render component pointer definition
+    */
+    typedef iSpriteRenderComponent* iSpriteRenderComponentPtr;
+
 }
 
 #endif //  IGOR_2D_BODY_COMPONENT_H

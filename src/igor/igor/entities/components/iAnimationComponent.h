@@ -30,20 +30,27 @@
 #define IGOR_ANIMATION_COMPONENT_H
 
 #include <igor/entities/iEntity.h>
-#include <igor/resources/animation/iAnimationController.h>
+#include <igor/resources/animation/iClip.h>
+
+#include <iaux/statemachine/iaStateMachine.h>
+using namespace iaux;
+
+#include <unordered_map>
 
 namespace igor
 {
     /*! animation component
      */
-    class iAnimationComponent : public iEntityComponent
+    class IGOR_API iAnimationComponent : public iEntityComponent
     {
+        friend class iAnimationSystem;
+
     public:
         /*! ctor
 
         \param name the name of this component
         */
-        iAnimationComponent(iAnimationControllerPtr animationController = nullptr, const iaString &name = "animation");
+        iAnimationComponent();
 
         /*! creates instance of this component type
          */
@@ -53,19 +60,39 @@ namespace igor
          */
         static const iaString &getTypeName();
 
-        /*! \returns animation controller
+        /*! adds clip to animation
         */
-        iAnimationControllerPtr getAnimationController() const;
+        void addClip(iClipPtr clip);
 
     private:
-        /*! animation controller
+        /*! state machine
          */
-        iAnimationControllerPtr _animationController;
+        iaStateMachine _stateMachine;
+
+        /*! begin state
+         */
+        iaStateID _begin = IGOR_INVALID_ID;
+
+        /*! start time of all animation contained in this component
+        */
+        iaTime _startTime;
+
+        /*! offset time used for making animations look more random
+        */
+        iaTime _offsetTime;
+
+        /*! state animation map
+         */
+        std::unordered_map<iaStateID, iClipPtr> _clips;
 
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! animation component pointer definition
+    */
+    typedef iAnimationComponent* iAnimationComponentPtr;
 }
 
 #endif // IGOR_ANIMATION_COMPONENT_H
