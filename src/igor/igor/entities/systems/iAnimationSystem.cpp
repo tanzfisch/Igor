@@ -51,6 +51,11 @@ namespace igor
         for (auto entity : _viewTransform->getEntities())
         {
             auto animationComp = entity->getComponent<iAnimationComponent>();
+            if(!animationComp->_stateMachine.isValid())
+            {
+                continue;
+            }
+
             auto transformComp = entity->getComponent<iTransformComponent>();
             onUpdateTransform(time, animationComp, transformComp);
         }
@@ -58,6 +63,11 @@ namespace igor
         for (auto entity : _viewSprite->getEntities())
         {
             auto animationComp = entity->getComponent<iAnimationComponent>();
+            if(!animationComp->_stateMachine.isValid())
+            {
+                continue;
+            }
+
             auto spriteRenderComp = entity->getComponent<iSpriteRenderComponent>();
             onUpdateSprite(time, animationComp, spriteRenderComp);
         }

@@ -44,11 +44,13 @@ namespace iaux
     {
 
     public:
+        /*! event type definition
+        */
         enum class iaEvent
         {
-            Enter,
-            ReEnter,
-            NoChange
+            Enter,      // entered state during update
+            ReEnter,    // re entered the same state during update
+            NoChange    // no change in state
         };
 
         /*! does nothing
@@ -138,6 +140,10 @@ namespace iaux
         after this you can not manipulate the state machine anymore
         */
         void start();
+
+        /*! \returns true if state machine is well defined and ready to use
+        */
+        bool isValid() const;
 
     private:
         /*! pointer to initial state

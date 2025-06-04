@@ -37,6 +37,16 @@ namespace iaux
         enterCurrentState();
     }
 
+    bool iaStateMachine::isValid() const
+    {
+        if(_states.empty() || _initState == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     iaStateMachine::iaEvent iaStateMachine::update()
     {
         _lastEvent = iaStateMachine::iaEvent::NoChange;
