@@ -19,25 +19,17 @@ void UserControlComponentAnimation::onInit()
     radiusLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     radiusLayout->setStretchIndex(1);
     iWidgetLabelPtr labelRadius = new iWidgetLabel(radiusLayout);
-    labelRadius->setText("Radius");
+    labelRadius->setText("Clips");
     labelRadius->setMinWidth(MICA_REGULARBUTTON_SIZE);
     labelRadius->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    /*_radius = new iWidgetLineTextEdit(radiusLayout);
-    _radius->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _radius->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentAnimation::onValueChanged));
+    // TODO for now just add one clip
 
-    iWidgetBoxLayoutPtr offsetLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    offsetLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    offsetLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelOffset = new iWidgetLabel(offsetLayout);
-    labelOffset->setText("Offset");
-    labelOffset->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelOffset->setHorizontalAlignment(iHorizontalAlignment::Left);
+    // TODO add a list of clips
 
-    _offset = new iUserControlVector(2, offsetLayout);
-    _offset->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _offset->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentAnimation::onValueChanged));*/
+    // define start clip
+
+    // add list of valid clip to clip transitions
 }
 
 void UserControlComponentAnimation::onValueChanged(iWidgetPtr source)
@@ -67,9 +59,7 @@ void UserControlComponentAnimation::onUpdateUI()
 
     _ignoreUpdate = true;
 
-    /*_radius->setText(iaString::toString(component->getRadius(), 4));
-    _offset->setValue(0, component->getOffset()._x);
-    _offset->setValue(1, component->getOffset()._y);*/
+    // TODO update ui
 
     _ignoreUpdate = false;
 }
@@ -99,9 +89,7 @@ void UserControlComponentAnimation::onUpdateComponent()
         return;
     }
 
-    /*component->setRadius(iaString::toFloat(_radius->getText()));
-    iaVector2d offset(_offset->getValue(0), _offset->getValue(1));
-    component->setOffset(offset);*/
+    // TODO
 }
 
 void UserControlComponentAnimation::onDestroyComponent(iEntityPtr entity)

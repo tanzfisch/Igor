@@ -135,9 +135,7 @@ namespace iaux
          */
         iaStateMachine::iaEvent update();
 
-        /*! finalizes the state machine.
-
-        after this you can not manipulate the state machine anymore
+        /*! starts the state machine at it initial state
         */
         void start();
 
