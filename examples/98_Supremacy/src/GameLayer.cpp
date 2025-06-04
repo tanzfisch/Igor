@@ -315,9 +315,8 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
     entity->addComponent(new iQuadtreeComponent());
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
-    entity->addComponent(new iAnimationComponent(animationController));
+    auto animationComponent = entity->addComponent(new iAnimationComponent());
+    animationComponent->addClip(iClip::createClip({_bounceAnimation}, true, true));
     entity->addComponent(new HealthComponent(100.0f));
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
@@ -613,9 +612,8 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity->addComponent(new DamageComponent(0.0f));
     entity->addComponent(new HealComponent(0.0f));
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_coinSpinAnimation}, true, true));
-    entity->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = entity->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_coinSpinAnimation}, true, true));
 }
 
 void GameLayer::onLiftShop()
@@ -676,9 +674,8 @@ void GameLayer::createShop()
     shop->addBehaviour({this, &GameLayer::onAquireTarget});
     shop->addBehaviour({this, &GameLayer::onUpdateWeapon});
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
-    shop->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = shop->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
 
     // add shadow
     iEntityPtr shadow = _entityScene->createEntity("shop shadow");
@@ -785,9 +782,8 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit->addComponent(new iCircleComponent(enemyClass._size * 0.5));
     unit->addComponent(new iQuadtreeComponent());
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
-    unit->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = unit->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_bounceAnimation}, true, true));
     unit->addComponent(new HealthComponent(enemyClass._health));
     unit->addComponent(new TargetComponent(target));
     unit->addComponent(new ExperienceGainComponent(enemyClass._xpDrop));
