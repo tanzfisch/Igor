@@ -66,14 +66,18 @@ namespace igor
     void iUserControlSprite::setID(iResourceID spriteID)
     {
         _spriteID = spriteID;
+        _picture->setTexture(iTexturePtr());
+        _labelID->setText("");
+        _labelAlias->setText("");
 
-        auto sprite = iResourceManager::getInstance().getResource<iSprite>(_spriteID);
+        if (!_spriteID.isValid())
+        {
+            return;
+        }
 
+        auto sprite = iResourceManager::getInstance().loadResource<iSprite>(_spriteID);
         if (sprite == nullptr)
         {
-            _picture->setTexture(iTexturePtr());
-            _labelID->setText("");
-            _labelAlias->setText("");
             return;
         }
 
@@ -141,17 +145,15 @@ namespace igor
         }
         else if (resourceType == IGOR_RESOURCE_TEXTURE)
         {
-            auto texture = iResourceManager::getInstance().loadResource<iTexture>(id);
-            if (texture != nullptr)
+            auto sprite = iResourceManager::getInstance().getResource<iSprite>(_spriteID);
+            if (sprite != nullptr)
             {
-                auto sprite = iResourceManager::getInstance().getResource<iSprite>(_spriteID);
-                if (sprite == nullptr)
+                auto texture = iResourceManager::getInstance().loadResource<iTexture>(id);
+                if (texture != nullptr)
                 {
-                    sprite = iResourceManager::getInstance().createResource<iSprite>();
+                    sprite->setTexture(texture);
+                    _change(this);
                 }
-
-                sprite->setTexture(texture);
-                setID(sprite->getID());
             }
         }
     }

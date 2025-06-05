@@ -64,6 +64,26 @@ private:
     */
     iUserControlSpritePtr _sprite;
 
+    /*! size of sprite
+    */
+    iUserControlVectorPtr _size;
+
+    /*! color of sprite
+    */
+    iUserControlColorPtr _color;
+
+    /*! z index of sprite
+    */
+    iWidgetLineTextEditPtr _zIndex;
+
+    /*! render mode of sprite
+    */
+    iWidgetSelectBoxPtr _mode;
+
+    /*! current frame index of sprite
+    */
+    iWidgetLineTextEditPtr _frameIndex;
+
     /*! called after values changed
      */
     void onValueChanged(iWidgetPtr source);
