@@ -48,8 +48,13 @@ namespace igor
 		for (auto entity : entities)
 		{
 			auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
-			auto transformComponent = entity->getComponent<iTransformComponent>();
+			auto sprite = spriteRender->getSprite();
+			if (sprite == nullptr)
+			{
+				continue;
+			}
 
+			auto transformComponent = entity->getComponent<iTransformComponent>();
 			const auto &worldMatrix = transformComponent->getWorldMatrix();
 
 			switch (spriteRender->getRenderMode())
@@ -60,14 +65,13 @@ namespace igor
 				iRenderer::getInstance().drawTexturedQuad(worldMatrix._pos,
 														  worldMatrix._right * size._x * 0.5,
 														  worldMatrix._top * -size._y * 0.5,
-														  spriteRender->getSprite()->getTexture(), spriteRender->getColor(), true, size);
+														  sprite->getTexture(), spriteRender->getColor(), true, size);
 				break;
 			}
 
 			case iSpriteRenderComponent::iRenderMode::Simple:
 			default:
-				iRenderer::getInstance().drawSprite(worldMatrix,
-													spriteRender->getSprite(), spriteRender->getFrameIndex(), spriteRender->getSize(), spriteRender->getColor(), true);
+				iRenderer::getInstance().drawSprite(worldMatrix, sprite, spriteRender->getFrameIndex(), spriteRender->getSize(), spriteRender->getColor(), true);
 				break;
 			}
 		}

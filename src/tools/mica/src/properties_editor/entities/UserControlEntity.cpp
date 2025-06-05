@@ -5,6 +5,7 @@
 #include "UserControlEntity.h"
 
 #include "components/UserControlComponentTransform.h"
+#include "components/UserControlComponentSpriteRender.h"
 #include "components/UserControlComponentAnimation.h"
 #include "components/UserControlComponentCamera.h"
 #include "components/UserControlComponentCircle.h"
@@ -179,6 +180,14 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
+    auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
+    if (spriteRender != nullptr)
+    {
+        UserControlComponentSpriteRender *userControl = new UserControlComponentSpriteRender(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
     auto animation = entity->getComponent<iAnimationComponent>();
     if (animation != nullptr)
     {
@@ -306,3 +315,4 @@ void UserControlEntity::onNameChanged(iWidgetPtr source)
 {
     updateEntity();
 }
+

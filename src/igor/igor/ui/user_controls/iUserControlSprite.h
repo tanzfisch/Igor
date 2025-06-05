@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_TEXTURE_H
-#define IGOR_USERCONTROL_TEXTURE_H
+#ifndef IGOR_USERCONTROL_SPRITE_H
+#define IGOR_USERCONTROL_SPRITE_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -37,9 +37,9 @@
 namespace igor
 {
 
-    /*! User control texture chooser
+    /*! User control sprite
      */
-    class IGOR_API iUserControlTexture : public iUserControl
+    class IGOR_API iUserControlSprite : public iUserControl
     {
 
     public:
@@ -47,34 +47,42 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlTexture(const iWidgetPtr parent = nullptr);
+        iUserControlSprite(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlTexture();
+        ~iUserControlSprite();
 
-        /*! sets the texture id
+        /*! sets the sprite id
 
-        \param textureID the given texture id
+        \param spriteID the given sprite id
         */
-        void setID(iResourceID textureID);
+        void setID(iResourceID spriteID);
 
-        /*! \returns texture id
+        /*! \returns sprite id
          */
         iResourceID getID() const;
 
     private:
-        /*! texture id
+        /*! sprite id
          */
-        iResourceID _textureID;
+        iResourceID _spriteID;
 
-        /*! label texture id
+        /*! label sprite id
          */
         iWidgetLabelPtr _labelID;
 
-        /*! texture alias
+        /*! sprite alias
          */
         iWidgetLabelPtr _labelAlias;
+
+        /*! label texture id
+         */
+        iWidgetLabelPtr _labelTextureID;
+
+        /*! texture alias
+         */
+        iWidgetLabelPtr _labelTextureAlias;
 
         /*! displays the texture
          */
@@ -99,10 +107,10 @@ namespace igor
         void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
-    /*! user control texture chooser pointer definition
+    /*! user control sprite pointer definition
      */
-    typedef iUserControlTexture *iUserControlTexturePtr;
+    typedef iUserControlSprite *iUserControlSpritePtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_TEXTURE_H
+#endif // IGOR_USERCONTROL_SPRITE_H

@@ -17,16 +17,21 @@ void UserControlComponentSpriteRender::onInit()
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
- /*   iWidgetBoxLayoutPtr meshCountLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    meshCountLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    meshCountLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelMesh = new iWidgetLabel(meshCountLayout);
-    labelMesh->setText("Meshes");
-    labelMesh->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelMesh->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr spriteLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    spriteLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    spriteLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelSprite = new iWidgetLabel(spriteLayout);
+    labelSprite->setText("Sprite");
+    labelSprite->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSprite->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _labelMeshCount = new iWidgetLabel(meshCountLayout);
-    _labelMeshCount->setHorizontalAlignment(iHorizontalAlignment::Left);    */
+    _sprite = new iUserControlSprite(spriteLayout);
+
+    // size
+    // color
+    // zindex
+    // render mode
+    // frame index
 }
 
 void UserControlComponentSpriteRender::onValueChanged(iWidgetPtr source)
@@ -56,7 +61,14 @@ void UserControlComponentSpriteRender::onUpdateUI()
 
     _ignoreUpdate = true;
 
-    // TODO
+    if (component->getSprite() != nullptr)
+    {
+        _sprite->setID(component->getSprite()->getID());
+    }
+    else
+    {
+        _sprite->setID(iResourceID::getInvalid());
+    }
 
     _ignoreUpdate = false;
 }
@@ -86,12 +98,12 @@ void UserControlComponentSpriteRender::onUpdateComponent()
         return;
     }
 
-    // TODO 
+    component->setSprite(iResourceManager::getInstance().getResource<iSprite>(_sprite->getID()));
 }
 
 void UserControlComponentSpriteRender::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
-    
+
     entity->destroyComponent<iSpriteRenderComponent>();
 }

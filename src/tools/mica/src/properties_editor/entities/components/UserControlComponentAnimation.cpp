@@ -15,21 +15,19 @@ void UserControlComponentAnimation::onInit()
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr radiusLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    radiusLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    radiusLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelRadius = new iWidgetLabel(radiusLayout);
-    labelRadius->setText("Clips");
-    labelRadius->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    labelRadius->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr clipsLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    clipsLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    clipsLayout->setStretchIndex(1);
+    iWidgetLabelPtr labelClips = new iWidgetLabel(clipsLayout);
+    labelClips->setText("Clips");
+    labelClips->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelClips->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     // TODO for now just add one clip
 
     // TODO add a list of clips
-
     // define start clip
-
-    // add list of valid clip to clip transitions
+    // add list of clip-to-clip transitions
 }
 
 void UserControlComponentAnimation::onValueChanged(iWidgetPtr source)

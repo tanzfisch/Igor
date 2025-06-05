@@ -163,6 +163,7 @@ namespace igor
         iUserControlColor,
         iUserControlFile,
         iUserControlTexture,
+        iUserControlSprite,
         iUserControlMaterial,
         iUserControlShaderMaterial,
         iUserControlTreeView,

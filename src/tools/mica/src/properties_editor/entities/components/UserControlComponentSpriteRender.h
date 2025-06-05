@@ -59,6 +59,11 @@ public:
     void onUpdateComponent() override;
 
 private:
+
+    /*! represents a sprite
+    */
+    iUserControlSpritePtr _sprite;
+
     /*! called after values changed
      */
     void onValueChanged(iWidgetPtr source);

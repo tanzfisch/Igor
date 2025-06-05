@@ -760,6 +760,7 @@ namespace igor
 
     void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
+        con_assert(sprite != nullptr, "zero pointer");
         if (!sprite->isValid())
         {
             return;

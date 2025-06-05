@@ -7,11 +7,9 @@
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iThumbnailCache.h>
+#include <igor/resources/texture/iTexture.h>
 #include <igor/data/iMimeData.h>
 #include <igor/ui/iDrag.h>
-
-#include <iaux/system/iaFile.h>
-using namespace iaux;
 
 namespace igor
 {

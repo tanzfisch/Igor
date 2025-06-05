@@ -61,8 +61,6 @@ namespace igor
             iaRectanglef _rect;
 
             /*! pivot or pivot of frame in texture coordinates 0.0-1.0
-
-            can be used to position on screen
             */
             iaVector2f _pivot;
         };

@@ -79,6 +79,12 @@ void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
     if (_ignoreSelectionChange)
     {
         return;
@@ -111,9 +117,6 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
         selection.push_back(item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID));
     }
 
-    iEntitySceneID sceneID = iProject::getInstance().getProjectScene()->getID();
-    iEntityScenePtr projectScene = iEntitySystemModule::getInstance().getScene(sceneID);
-
     projectScene->setSelection(selection);
 
     _ignoreSelectionChange = false;
@@ -121,13 +124,17 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
     if (!source->getUserData().has_value())
     {
         return;
     }
 
-    iEntitySceneID sceneID = iProject::getInstance().getProjectScene()->getID();
-    iEntityScenePtr projectScene = iEntitySystemModule::getInstance().getScene(sceneID);
     std::vector<iEntityID> entities;
     bool isRoot = false;
     bool isScene = false;
@@ -180,7 +187,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         }
     }
 
-    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(sceneID, entities);
+    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(projectScene->getID(), entities);
 
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
@@ -421,13 +428,13 @@ bool Outliner::onEvent(iEvent &event)
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getProjectScene();
-    if(projectScene == nullptr)
+    if (projectScene == nullptr)
     {
         refresh();
-        return false;    
+        return false;
     }
 
-    iProject::getInstance().getProjectScene()->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
 
     refresh();
 
@@ -435,13 +442,13 @@ bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
     const auto &projectPath = iProject::getInstance().getProjectFilepath();
 
     auto iter = std::find(recent.begin(), recent.end(), projectPath);
-    if(iter == recent.end())
+    if (iter == recent.end())
     {
         recent.insert(recent.begin(), projectPath);
         iConfig::getInstance().setValue("mica.recentProjects", recent);
         iConfig::getInstance().write();
     }
-    
+
     return false;
 }
 
