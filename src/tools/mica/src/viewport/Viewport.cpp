@@ -383,15 +383,15 @@ void Viewport::renderOrientationOverlay()
     }
 
     const auto &rect = _viewportScene->getView().getViewport();
-    const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0);
+    const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0.5);
     modelMatrix._pos = _viewportScene->getView().unProject(screenPos);
-    modelMatrix.scale(0.03, 0.03, 0.03);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
+    float32 lineLength = 0.0005;
     iRenderer::getInstance().setLineWidth(2);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(1.0f, 0.0f, 0.0f), iaColor4f::red);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 1.0f, 0.0f), iaColor4f::green);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 1.0f), iaColor4f::blue);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(lineLength, 0.0f, 0.0f), iaColor4f::red);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, lineLength, 0.0f), iaColor4f::green);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, lineLength), iaColor4f::blue);
 }
 
 bool Viewport::onKeyDown(iEventKeyDown &event)
