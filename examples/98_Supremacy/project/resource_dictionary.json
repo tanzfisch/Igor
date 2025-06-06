@@ -115,6 +115,10 @@
         "source": "textures/shop_item_sniper.png"
     },
     {
+        "id": "0x5068d3c988afbf8a",
+        "source": "scenes/main_scene.scene"
+    },
+    {
         "alias": "example_texture_supremacy_projectile_speed_1",
         "id": "0x5d7585c9679b5aea",
         "source": "textures/projectile_speed_1.png"

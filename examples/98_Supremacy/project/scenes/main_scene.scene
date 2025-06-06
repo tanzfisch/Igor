@@ -1,0 +1,59 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "clearColor": {
+                            "a": 1.0,
+                            "b": 0.5,
+                            "g": 0.5,
+                            "r": 0.5
+                        },
+                        "clearColorActive": false,
+                        "clearDepth": 1.0,
+                        "clearDepthActive": false,
+                        "clipFar": 10000.0,
+                        "clipNear": 1.0,
+                        "componentType": "camera",
+                        "fov": 45.0,
+                        "orthoBottom": 300.0,
+                        "orthoLeft": -300.0,
+                        "orthoRight": 300.0,
+                        "orthoTop": -300.0,
+                        "perspective": false,
+                        "viewport": {
+                            "height": 1.0,
+                            "width": 1.0,
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xce15ebf856e4b05e",
+                "name": "camera"
+            }
+        ],
+        "id": "0xab4790ba8fa5f29d",
+        "name": ""
+    }
+}
