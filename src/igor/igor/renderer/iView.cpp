@@ -26,8 +26,6 @@ namespace igor
 
     iView::iView()
     {
-        _skyBox = std::make_unique<iSkyBox>();
-        _skyBox->setTexture(iResourceManager::getInstance().requestResource<iTexture>("igor_skybox_clearsky"));
     }
 
     iView::~iView()
@@ -120,7 +118,7 @@ namespace igor
         _viewportConfig = rect;
     }
 
-    const iaRectanglei& iView::getViewport() const
+    const iaRectanglei &iView::getViewport() const
     {
         return _viewport;
     }
@@ -154,8 +152,8 @@ namespace igor
 
     void iView::setClipPlanes(float32 nearPlain, float32 farPlain)
     {
-        _nearPlaneDistance = nearPlain;
-        _farPlaneDistance = farPlain;
+        _nearPlane = nearPlain;
+        _farPlane = farPlain;
     }
 
     void iView::setClearColorActive(bool active)
@@ -236,12 +234,12 @@ namespace igor
 
         if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
         {
-            float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
+            const float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
 
             iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
                                                     aspect,
-                                                    cameraComponent->getNearClipPlane(),
-                                                    cameraComponent->getFarClipPlane());
+                                                    cameraComponent->getNearPlane(),
+                                                    cameraComponent->getFarPlane());
         }
         else
         {
@@ -249,8 +247,8 @@ namespace igor
                                               cameraComponent->getRightOrtho(),
                                               cameraComponent->getBottomOrtho(),
                                               cameraComponent->getTopOrtho(),
-                                              cameraComponent->getNearClipPlane(),
-                                              cameraComponent->getFarClipPlane());
+                                              cameraComponent->getNearPlane(),
+                                              cameraComponent->getFarPlane());
         }
 
         iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
@@ -301,11 +299,11 @@ namespace igor
 
             if (_perspective)
             {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
             }
             else
             {
-                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
             }
         }
 
@@ -361,11 +359,11 @@ namespace igor
 
         if (_perspective)
         {
-            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
         }
         else
         {
-            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
         }
 
         iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
@@ -475,28 +473,58 @@ namespace igor
         viewMatrix.lookAt(cameraMatrix._pos, cameraMatrix._pos - cameraMatrix._depth, cameraMatrix._top);
 
         iaMatrixd projectionMatrix;
-        projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+        if (_perspective)
+        {
+            projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+        }
+        else
+        {
+            projectionMatrix.ortho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
+        }
 
         return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos)
     {
-        iEntityPtr camera = _renderEngine.getCamera();
-        if (camera == nullptr)
+        return unProject(screenpos, _renderEngine.getCamera());
+    }
+
+    iaVector3d iView::unProject(const iaVector3d &screenpos, iEntityPtr camera)
+    {
+        auto transformComp = camera->getComponent<iTransformComponent>();
+        auto cameraComp = camera->getComponent<iCameraComponent>();
+
+        con_assert(transformComp != nullptr && cameraComp != nullptr, "not a camera");
+
+        const auto &cameraMatrix = transformComp->getWorldMatrix();
+
+        iaMatrixd viewMatrix;
+        viewMatrix.lookAt(cameraMatrix._pos, cameraMatrix._pos - cameraMatrix._depth, cameraMatrix._top);
+
+        iaMatrixd modelViewMatrix = viewMatrix;
+        modelViewMatrix *= cameraMatrix;
+
+        iaMatrixd projectionMatrix;
+
+        if (cameraComp->getProjectionType() == iProjectionType::Perspective)
         {
-            con_err("no camera found");
-            return iaVector3d();
+            projectionMatrix.perspective(cameraComp->getFieldOfView(),
+                                         getAspectRatio(),
+                                         cameraComp->getNearPlane(),
+                                         cameraComp->getFarPlane());
+        }
+        else
+        {
+            projectionMatrix.ortho(cameraComp->getLeftOrtho(),
+                                   cameraComp->getRightOrtho(),
+                                   cameraComp->getBottomOrtho(),
+                                   cameraComp->getTopOrtho(),
+                                   cameraComp->getNearPlane(),
+                                   cameraComp->getFarPlane());
         }
 
-        auto camTransformComp = camera->getComponent<iTransformComponent>();
-        if (camTransformComp == nullptr)
-        {
-            con_err("no transform component found");
-            return iaVector3d();
-        }
-
-        return unProject(screenpos, camTransformComp->getWorldMatrix());
+        return cameraMatrix * iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix)
@@ -508,7 +536,15 @@ namespace igor
         modelViewMatrix *= cameraMatrix;
 
         iaMatrixd projectionMatrix;
-        projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+
+        if (_perspective)
+        {
+            projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+        }
+        else
+        {
+            projectionMatrix.ortho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
+        }
 
         return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }

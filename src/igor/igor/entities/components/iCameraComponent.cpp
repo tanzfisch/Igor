@@ -84,11 +84,11 @@ namespace igor
         setDirty();
     }
 
-    float64 iCameraComponent::getNearClipPlane() const
+    float64 iCameraComponent::getNearPlane() const
     {
         return _clipNear;
     }
-    float64 iCameraComponent::getFarClipPlane() const
+    float64 iCameraComponent::getFarPlane() const
     {
         return _clipFar;
     }

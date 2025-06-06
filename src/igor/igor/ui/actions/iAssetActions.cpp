@@ -16,7 +16,7 @@ namespace igor
         : iAction("igor:create_scene")
     {
         setIcon("igor_icon_scene");
-        setDescription("Create new scene");
+        setDescription("Create Scene", "Create a new scene");
     }
 
     bool iActionCreateScene::isCompatible(const iActionContext &context)
@@ -36,7 +36,7 @@ namespace igor
 
         iPrefabPtr resource = iResourceManager::getInstance().createResource<iPrefab>();
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_scene.scene";
-        path = iaFile::generateUniqueFilename(path);
+        path = iaFile::generateUniqueFilename(path);        
         iResourceManager::getInstance().saveResource(resource, path);
 
         path = iaDirectory::getRelativePath(iProject::getInstance().getProjectPath(), path);
@@ -47,7 +47,7 @@ namespace igor
         : iAction("igor:create_material")
     {
         setIcon("igor_icon_material");
-        setDescription("Create new material");
+        setDescription("Create material", "Create a new material");
     }
 
     bool iActionCreateMaterial::isCompatible(const iActionContext &context)
@@ -76,7 +76,7 @@ namespace igor
         : iAction("igor:create_shader")
     {
         setIcon("igor_icon_shader");
-        setDescription("Create new shader");
+        setDescription("Create shader", "Create a new shader");
     }
 
     bool iActionCreateShader::isCompatible(const iActionContext &context)
@@ -104,7 +104,7 @@ namespace igor
     iActionLoadProject::iActionLoadProject()
         : iAction("igor:load_project")
     {
-        setDescription("...");
+        setDescription("...", "Loads given project");
     }
 
     bool iActionLoadProject::isCompatible(const iActionContext &context)

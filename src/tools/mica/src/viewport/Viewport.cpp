@@ -382,13 +382,9 @@ void Viewport::renderOrientationOverlay()
         return;
     }
 
-    auto camera = scene->getActiveCamera();
-    auto cameraTransformComp = camera->getComponent<iTransformComponent>();
-    const auto &camWorldMatrix = cameraTransformComp->getWorldMatrix();
-
     const auto &rect = _viewportScene->getView().getViewport();
     const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0);
-    modelMatrix._pos = camWorldMatrix * _viewportScene->getView().unProject(screenPos, camWorldMatrix);
+    modelMatrix._pos = _viewportScene->getView().unProject(screenPos);
     modelMatrix.scale(0.03, 0.03, 0.03);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
@@ -602,11 +598,8 @@ void Viewport::onMouseMove(iEventMouseMove &event)
         {
             if (iKeyboard::getInstance().keyPressed(iKeyCode::Alt))
             {
-                iaMatrixd camWorldMatrix;
-                _cameraArc->getWorldTransformation(camWorldMatrix);
-
-                iaVector3d fromWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-                iaVector3d toWorld = camWorldMatrix * _viewportScene->getView().unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+                iaVector3d fromWorld = _viewportScene->getView().unProject(iaVector3d(from._x, from._y, 0));
+                iaVector3d toWorld = _viewportScene->getView().unProject(iaVector3d(to._x, to._y, 0));
 
                 float64 translateFactor = _cameraArc->getDistance() * translateSensitivity;
 

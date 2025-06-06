@@ -74,8 +74,8 @@ namespace igor
         componentJson["viewport"] = component->getViewport();
         componentJson["perspective"] = component->getProjectionType() == iProjectionType::Perspective;
         componentJson["fov"] = component->getFieldOfView();
-        componentJson["clipNear"] = component->getNearClipPlane();
-        componentJson["clipFar"] = component->getFarClipPlane();
+        componentJson["clipNear"] = component->getNearPlane();
+        componentJson["clipFar"] = component->getFarPlane();
         componentJson["orthoLeft"] = component->getLeftOrtho();
         componentJson["orthoRight"] = component->getRightOrtho();
         componentJson["orthoTop"] = component->getTopOrtho();
@@ -162,6 +162,32 @@ namespace igor
         componentJson["type"] = (int)component->getType();
     }
 
+    static void readSpriteRender(iEntityPtr entity, const json &componentJson)
+    {
+        iSpriteRenderComponentPtr component = new iSpriteRenderComponent();
+        entity->addComponent(component);
+
+        component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        component->setSize(componentJson["size"].get<iaVector2d>());
+        component->setColor(componentJson["color"].get<iaColor4f>());
+        component->setZIndex(componentJson["zIndex"].get<int>());
+        component->setRenderMode(static_cast<iSpriteRenderComponent::iRenderMode>(componentJson["mode"].get<int>()));
+        component->setFrameIndex(componentJson["frame"].get<int>());
+    }
+
+    static void writeSpriteRender(json &componentJson, iSpriteRenderComponentPtr component)
+    {
+        if (component->getSprite() != nullptr)
+        {
+            componentJson["sprite"] = component->getSprite()->getID();
+        }
+        componentJson["size"] = component->getSize();
+        componentJson["color"] = component->getColor();
+        componentJson["zIndex"] = (int)component->getZIndex();
+        componentJson["mode"] = (int)component->getRenderMode();
+        componentJson["frame"] = (int)component->getFrameIndex();
+    }
+
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
         if (!entityJson.contains("parent"))
@@ -186,6 +212,7 @@ namespace igor
             {"octree", readOctree},
             {"meshRender", readMeshRender},
             {"light", readLight},
+            {"spriteRender", readSpriteRender},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -228,7 +255,11 @@ namespace igor
         json entityScene = data["entityScene"];
         const iaString sceneName = entityScene["name"].get<iaString>();
         const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
-        auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+        }
 
         prefab->_sceneID = scene->getID();
 
@@ -257,9 +288,8 @@ namespace igor
 
         json componentsJson = json::array();
         auto componentTypes = entity->getComponentTypes();
-        std::sort(componentTypes.begin(), componentTypes.end(), [](const std::type_index& a, const std::type_index& b) {
-            return a.name() < b.name();
-        });
+        std::sort(componentTypes.begin(), componentTypes.end(), [](const std::type_index &a, const std::type_index &b)
+                  { return a.name() < b.name(); });
 
         for (const auto &typeIndex : componentTypes)
         {
@@ -331,6 +361,16 @@ namespace igor
                 json componentJson;
                 componentJson["componentType"] = "light";
                 writeLight(componentJson, light);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iSpriteRenderComponentPtr spriteRender = dynamic_cast<iSpriteRenderComponentPtr>(component);
+            if (spriteRender != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "spriteRender";
+                writeSpriteRender(componentJson, spriteRender);
                 componentsJson.push_back(componentJson);
                 continue;
             }

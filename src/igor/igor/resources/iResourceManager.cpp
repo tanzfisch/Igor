@@ -126,6 +126,11 @@ namespace igor
 
         bool result = factory->saveResource(resource, filename);
 
+        if(!filename.isEmpty() && resource->getSource() == "")
+        {
+            resource->setSource(filename);
+        }
+
         if (result)
         {
             con_info("saved " << resource->getType() << " " << resource->getInfo());
@@ -818,6 +823,12 @@ namespace igor
     void iResourceManager::removeFromDictionary(const iResourceID &resourceID)
     {
         _resourceDictionary.removeResource(resourceID);
+
+        auto resource = getResource(resourceID);
+        if(resource != nullptr)
+        {
+            con_warn("resource removed form dictionary is still allocated " << resource->getInfo());
+        }
     }
 
     void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)

@@ -214,8 +214,8 @@ void UserControlComponentCamera::onUpdateUI()
         _orthogonalLayout->setVisible(true);
     }
 
-    _clipNearFar->setValue(0, component->getNearClipPlane());
-    _clipNearFar->setValue(1, component->getFarClipPlane());
+    _clipNearFar->setValue(0, component->getNearPlane());
+    _clipNearFar->setValue(1, component->getFarPlane());
 
     _activeClearColor->setChecked(component->isClearColorActive());
     _clearColor->setColor(component->getClearColor());

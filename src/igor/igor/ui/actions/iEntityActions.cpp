@@ -13,7 +13,7 @@ namespace igor
     iActionSetEntityActive::iActionSetEntityActive()
         : iAction("igor:set_entity_active")
     {
-        setDescription("Activate entity");
+        setDescription("Activate", "Activates selected entities");
     }
 
     void iActionSetEntityActive::execute(const iActionContext &context)
@@ -53,7 +53,7 @@ namespace igor
     iActionSetEntityInactive::iActionSetEntityInactive()
         : iAction("igor:set_entity_inactive")
     {
-        setDescription("Deactivate entity");
+        setDescription("Deactivate", "Deactivates selected entities");
     }
 
     void iActionSetEntityInactive::execute(const iActionContext &context)
@@ -94,7 +94,7 @@ namespace igor
         : iAction("igor:delete_entity")
     {
         setIcon("igor_icon_delete");
-        setDescription("Delete entity");
+        setDescription("Delete", "Deletes selected entities");
     }
 
     void iActionDeleteEntity::execute(const iActionContext &context)
@@ -134,7 +134,7 @@ namespace igor
         : iAction("igor:copy_entity")
     {
         setIcon("igor_icon_copy");
-        setDescription("Copy entities");
+        setDescription("Copy", "Copies selected entities");
     }
 
     void iActionCopyEntity::execute(const iActionContext &context)
@@ -172,7 +172,7 @@ namespace igor
         : iAction("igor:cut_entity")
     {
         setIcon("igor_icon_cut");
-        setDescription("Cut entities");
+        setDescription("Cut", "Cut selected entities");
     }
 
     void iActionCutEntity::execute(const iActionContext &context)
@@ -210,7 +210,7 @@ namespace igor
         : iAction("igor:paste_entity")
     {
         setIcon("igor_icon_paste");
-        setDescription("Paste entities");
+        setDescription("Paste", "Paste selected entities");
     }
 
     void iActionPasteEntity::execute(const iActionContext &context)
@@ -263,7 +263,7 @@ namespace igor
     iActionCreateEntity::iActionCreateEntity()
         : iAction("igor:create_new_entity")
     {
-        setDescription("Create new entity");
+        setDescription("Create entity", "Creates a new entity");
     }
 
     bool iActionCreateEntity::isCompatible(const iActionContext &context)

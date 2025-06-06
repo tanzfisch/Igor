@@ -287,6 +287,8 @@ namespace igor
         */
         iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix);
 
+        iaVector3d unProject(const iaVector3d &screenpos, iEntityPtr camera);
+
         /*! project world position to screen coordinates
 
         \param worldSpacePos the position in world space to project
@@ -405,11 +407,11 @@ namespace igor
 
         /*! distance from camera to near clipping plane
          */
-        float64 _nearPlaneDistance = 1.0;
+        float64 _nearPlane = 1.0;
 
         /*! distance from camera to far clipping plane
          */
-        float64 _farPlaneDistance = 10000.0;
+        float64 _farPlane = 10000.0;
 
         /*! event called last per render frame
          */
@@ -422,10 +424,6 @@ namespace igor
         /*! render engine
          */
         iRenderEngine _renderEngine;
-
-        /*! sky box // TODO not sure if this belongs here
-         */
-        std::unique_ptr<iSkyBox> _skyBox;
 
         /*! entity scene to render
          */

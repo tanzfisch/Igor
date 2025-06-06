@@ -98,11 +98,11 @@ namespace igor
 
         /*! \returns near clipping plane
          */
-        float64 getNearClipPlane() const;
+        float64 getNearPlane() const;
 
         /*! \returns far clipping plane
          */
-        float64 getFarClipPlane() const;
+        float64 getFarPlane() const;
 
         /*! sets the clear color bit.
 
