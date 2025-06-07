@@ -61,13 +61,7 @@ namespace igor
 
 	void iCameraSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		auto camera = getActiveCamera();
-		if (camera == nullptr)
-		{
-			return;
-		}
-
-		context._renderEngine->setCameraID(camera->getID());
+		// does nothing
 	}
 
 } // igor

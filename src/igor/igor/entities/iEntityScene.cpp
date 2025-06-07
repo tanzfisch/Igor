@@ -113,11 +113,6 @@ namespace igor
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
         _renderEngine = renderEngine;
-
-        if (_renderEngine != nullptr)
-        {
-            _renderEngine->setSceneID(getID());
-        }
     }
 
     void iEntityScene::flushQueues()

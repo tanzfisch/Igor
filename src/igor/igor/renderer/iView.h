@@ -433,6 +433,14 @@ namespace igor
          */
         bool _embedded = false;
 
+        /*! override camera id
+         */
+        iEntityID _overrideCameraID = iEntityID::getInvalid();
+
+        /*! override camera scene id
+         */
+        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();  
+
         /*! sets the z index of this view. will be used by window to determine the render order
 
         \param zindex the z index to be set
@@ -458,6 +466,10 @@ namespace igor
         /*! setup camera for render
          */
         void setupCamera();
+
+        /*! \returns effective camera
+        */
+        const iEntityPtr getCamera() const;
     };
 
     /*! view pointer definition

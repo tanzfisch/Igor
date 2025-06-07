@@ -6,7 +6,6 @@
 
 #include <igor/renderer/iRenderer.h>
 #include <igor/entities/components/iTransformComponent.h>
-#include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/resources/iResourceManager.h>
@@ -15,38 +14,6 @@
 
 namespace igor
 {
-
-    void iRenderEngine::setSceneID(const iEntitySceneID &sceneID)
-    {
-        _sceneID = sceneID;
-    }
-
-    void iRenderEngine::setCameraID(const iEntityID &cameraID)
-    {
-        _cameraID = cameraID;
-    }
-
-    void iRenderEngine::setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID)
-    {
-        _overrideSceneID = sceneID;
-        _overrideCameraID = cameraID;
-    }
-
-    iEntityPtr iRenderEngine::getCamera() const
-    {
-        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _sceneID;
-        auto cameraID = _overrideCameraID.isValid() ? _overrideCameraID : _cameraID;
-
-        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if (scene == nullptr)
-        {
-            con_err("no valid scene defined");
-            return nullptr;
-        }
-
-        return scene->getEntity(cameraID);
-    }
-
     void iRenderEngine::addMesh(iEntityPtr meshEntity)
     {
         con_assert(meshEntity != nullptr, "zero pointer");
@@ -198,16 +165,6 @@ namespace igor
     void iRenderEngine::setFrustum(const iaMatrixd &matrix)
     {
         _frustum.set(matrix);
-    }
-
-    const iEntitySceneID &iRenderEngine::getSceneID() const
-    {
-        return _sceneID;
-    }
-
-    const iEntityID &iRenderEngine::getCameraID() const
-    {
-        return _cameraID;
     }
 
     void iRenderEngine::setBoundingBoxVisible(bool boundingBox)

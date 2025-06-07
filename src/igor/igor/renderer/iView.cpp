@@ -191,9 +191,26 @@ namespace igor
         return _updateViewport;
     }
 
+    const iEntityPtr iView::getCamera() const
+    {
+        auto sceneID = _overrideSceneID.isValid() ? _overrideSceneID : _entitySceneID;
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
+        {
+            return nullptr;
+        }
+
+        if(_overrideCameraID.isValid())
+        {
+            return scene->getEntity(_overrideCameraID);
+        }
+
+        return scene->getActiveCamera();
+    }
+
     void iView::setupCamera()
     {
-        iEntityPtr camera = _renderEngine.getCamera();
+        const iEntityPtr camera = getCamera();
         if (camera == nullptr)
         {
             return;
@@ -338,7 +355,7 @@ namespace igor
             return;
         }
 
-        iEntityPtr camera = _renderEngine.getCamera();
+        const iEntityPtr camera = getCamera();
         if (camera == nullptr)
         {
             return;
@@ -450,7 +467,7 @@ namespace igor
 
     iaVector3d iView::project(const iaVector3d &worldSpacePos)
     {
-        iEntityPtr camera = _renderEngine.getCamera();
+        const iEntityPtr camera = getCamera();
         if (camera == nullptr)
         {
             con_err("no camera found");
@@ -487,7 +504,7 @@ namespace igor
 
     iaVector3d iView::unProject(const iaVector3d &screenpos)
     {
-        return unProject(screenpos, _renderEngine.getCamera());
+        return unProject(screenpos, getCamera());
     }
 
     iaVector3d iView::unProject(const iaVector3d &screenpos, iEntityPtr camera)
@@ -564,7 +581,8 @@ namespace igor
         con_assert(camera != nullptr, "zero pointer");
         con_assert(camera->getComponent<iCameraComponent>() != nullptr, "no camera component");
 
-        _renderEngine.setOverrideCamera(camera->getScene()->getID(), camera->getID());
+        _overrideSceneID = camera->getScene()->getID();
+        _overrideCameraID = camera->getID();
     }
 
 }; // namespace igor

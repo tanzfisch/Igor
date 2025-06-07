@@ -53,37 +53,6 @@ namespace igor
          */
         virtual ~iRenderEngine() = default;
 
-        /*! sets the scene to render
-
-        \param sceneID id of scene to render
-         */
-        void setSceneID(const iEntitySceneID &sceneID);        
-
-        /*! \returns scene id
-         */
-        const iEntitySceneID &getSceneID() const;
-
-        /*! sets the current camera
-
-        \param cameraID ID of entity that contains iCameraComponent and iTransformComponent
-        */
-        void setCameraID(const iEntityID &cameraID);
-
-        /*! \returns camera id
-         */
-        const iEntityID &getCameraID() const;
-
-        /*! sets an override for scene and camera which allows to render with the camera of an other scene
-
-        \param sceneID the scene to override with
-        \param cameraID the camera to override with
-        */
-        void setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID);
-
-        /*! \returns effective camera respecting override
-        */
-        iEntityPtr getCamera() const;
-
         /*! add mesh for render queue
 
         \param mesh entity that contains iTransformComponent and iMeshRenderComponent
@@ -122,22 +91,7 @@ namespace igor
          */
         bool isBoundingBoxVisible() const;
 
-    private:
-        /*! the scene to render
-         */
-        iEntitySceneID _sceneID = iEntitySceneID::getInvalid();
-
-        /*! camera ID
-         */
-        iEntityID _cameraID = iEntityID::getInvalid();
-
-        /*! override camera id
-         */
-        iEntityID _overrideCameraID = iEntityID::getInvalid();
-
-        /*! override camera scene id
-         */
-        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();        
+    private: 
 
         /*! current frustum
          */
