@@ -285,15 +285,15 @@ namespace igor
             return;
         }
 
-        auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
-        if (scene != nullptr)
+        const auto camera = getCamera();
+        if (camera != nullptr)
         {
             // a system is setting viewport, perspective etc.
-            iEntitySystemModule::getInstance().onPreRender(scene);
+            iEntitySystemModule::getInstance().onPreRender(camera->getScene());
             setupCamera();
             _preRenderEvent();
             _renderEngine.render();
-            iEntitySystemModule::getInstance().onRender(scene);
+            iEntitySystemModule::getInstance().onRender(camera->getScene());
         }
         else
         {
@@ -322,6 +322,8 @@ namespace igor
             {
                 iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
             }
+
+            iRenderer::getInstance().setViewMatrixFromCam(iaMatrixd());
         }
 
         _renderEvent();
