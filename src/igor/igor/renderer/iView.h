@@ -403,7 +403,7 @@ namespace igor
 
         /*! field of view
          */
-        float64 _viewAngel = 45.0;
+        float64 _fieldOfView = 45.0;
 
         /*! distance from camera to near clipping plane
          */

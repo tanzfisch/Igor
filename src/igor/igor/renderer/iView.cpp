@@ -132,7 +132,7 @@ namespace igor
     {
         if (viewAngel > 0.0f && viewAngel < 180.0f)
         {
-            _viewAngel = viewAngel;
+            _fieldOfView = viewAngel;
             _perspective = true;
         }
         else
@@ -200,7 +200,7 @@ namespace igor
             return nullptr;
         }
 
-        if(_overrideCameraID.isValid())
+        if (_overrideCameraID.isValid())
         {
             return scene->getEntity(_overrideCameraID);
         }
@@ -251,10 +251,7 @@ namespace igor
 
         if (cameraComponent->getProjectionType() == iProjectionType::Perspective)
         {
-            const float64 aspect = static_cast<float64>(rect.getWidth()) / static_cast<float64>(rect.getHeight());
-
             iRenderer::getInstance().setPerspective(cameraComponent->getFieldOfView(),
-                                                    aspect,
                                                     cameraComponent->getNearPlane(),
                                                     cameraComponent->getFarPlane());
         }
@@ -316,7 +313,7 @@ namespace igor
 
             if (_perspective)
             {
-                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+                iRenderer::getInstance().setPerspective(_fieldOfView, _nearPlane, _farPlane);
             }
             else
             {
@@ -365,8 +362,9 @@ namespace igor
 
         iRenderEngine tempRenderEngine;
 
-        auto transformComponent = camera->getComponent<iTransformComponent>();
-        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+        auto transformComp = camera->getComponent<iTransformComponent>();
+        auto cameraComp = camera->getComponent<iCameraComponent>();
+        const auto &camWorldMatrix = transformComp->getWorldMatrix();
 
         const iRenderTargetID renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
         iRenderer::getInstance().setRenderTarget(renderTarget);
@@ -376,13 +374,20 @@ namespace igor
         iRenderer::getInstance().clearColorBuffer(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
         iRenderer::getInstance().clearDepthBuffer();
 
-        if (_perspective)
+        if (cameraComp->getProjectionType() == iProjectionType::Perspective)
         {
-            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+            iRenderer::getInstance().setPerspective(cameraComp->getFieldOfView(),
+                                                    cameraComp->getNearPlane(),
+                                                    cameraComp->getFarPlane());
         }
         else
         {
-            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlane, _farPlane);
+            iRenderer::getInstance().setOrtho(cameraComp->getLeftOrtho(),
+                                              cameraComp->getRightOrtho(),
+                                              cameraComp->getBottomOrtho(),
+                                              cameraComp->getTopOrtho(),
+                                              cameraComp->getNearPlane(),
+                                              cameraComp->getFarPlane());
         }
 
         iRenderer::getInstance().setViewMatrixFromCam(camWorldMatrix);
@@ -494,7 +499,7 @@ namespace igor
         iaMatrixd projectionMatrix;
         if (_perspective)
         {
-            projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+            projectionMatrix.perspective(_fieldOfView, getAspectRatio(), _nearPlane, _farPlane);
         }
         else
         {
@@ -558,7 +563,7 @@ namespace igor
 
         if (_perspective)
         {
-            projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlane, _farPlane);
+            projectionMatrix.perspective(_fieldOfView, getAspectRatio(), _nearPlane, _farPlane);
         }
         else
         {

@@ -85,11 +85,11 @@ namespace igor
         /*! set projection matrix with perspective projection
 
         \param fov field of view in degrees
-        \param aspect aspect ratio of screen
         \param nearPlain near plane distance
         \param farPlain far plane distance
+        \param aspect aspect ratio of screen (if zero it's calculated from current viewport)
         */
-        void setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain);
+        void setPerspective(float64 fov, float64 nearPlain, float64 farPlain, float64 aspect = 0);
 
         /*! set projection matrix with orthogonal projection
 
@@ -636,6 +636,12 @@ namespace igor
         \param height height
         */
         void setViewport(int32 x, int32 y, int32 width, int32 height);
+
+        /*! \returns aspect ratio of current viewport
+
+        only valid after calling setViewport
+        */
+        float64 getAspectRatio() const;
 
         /*! clears swtencil buffer with clear depth
          */

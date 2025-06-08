@@ -38,7 +38,7 @@ void UserControlShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
     iRenderer::getInstance().clearColorBuffer(iaColor4f::transparent);
 
     iRenderer::getInstance().setViewport(0, 0, width, height);
-    iRenderer::getInstance().setPerspective(45.0, 1.0, 0.00001, 10.0);
+    iRenderer::getInstance().setPerspective(45.0, 0.00001, 10.0);
 
     iParameters param({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},

@@ -1176,10 +1176,11 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer::setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain)
+    void iRenderer::setPerspective(float64 fov, float64 nearPlain, float64 farPlain, float64 aspect)
     {
+        const float64 a = (aspect == 0) ? getAspectRatio() : aspect;
         iaMatrixd matrix;
-        matrix.perspective(fov, aspect, nearPlain, farPlain);
+        matrix.perspective(fov, a, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;
@@ -1509,6 +1510,11 @@ namespace igor
 
         _data->_viewport = viewport;
         glViewport(viewport._x, viewport._y, viewport._width, viewport._height);
+    }
+
+    float64 iRenderer::getAspectRatio() const
+    {
+        return static_cast<float64>(_data->_viewport._width) / static_cast<float64>(_data->_viewport._height);
     }
 
     void iRenderer::setViewport(int32 x, int32 y, int32 width, int32 height)
