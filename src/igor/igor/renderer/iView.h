@@ -106,6 +106,12 @@ namespace igor
         */
         void setOverrideCamera(iEntityPtr camera);
 
+        /*! \returns effective camera
+
+        either the scene's active camera or the override camera if set
+        */
+        const iEntityPtr getCamera() const;        
+
         /*! sets name of view
 
         \param name name of the view
@@ -466,10 +472,6 @@ namespace igor
         /*! setup camera for render
          */
         void setupCamera();
-
-        /*! \returns effective camera
-        */
-        const iEntityPtr getCamera() const;
     };
 
     /*! view pointer definition

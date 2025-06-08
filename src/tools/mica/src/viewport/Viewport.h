@@ -185,9 +185,13 @@ private:
      */
     void renderSelection();
 
-    /*! render the orientation overlay
+    /*! render the orientation overlay grid
      */
-    void renderOrientationOverlay();
+    void renderOverlayGrid();
+
+    /*! render the orientation overlay XYZ
+     */
+    void renderOverlayXYZ();
 
     /*! drag move handle
 

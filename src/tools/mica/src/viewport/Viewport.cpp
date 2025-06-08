@@ -355,11 +355,41 @@ void Viewport::renderOverlay()
 {
     if (_renderOrientationOverlay)
     {
-        renderOrientationOverlay();
+        renderOverlayGrid();
+        renderOverlayXYZ();
     }
 }
 
-void Viewport::renderOrientationOverlay()
+void Viewport::renderOverlayXYZ()
+{
+    const auto camera = _viewportScene->getView().getCamera();
+    if (camera == nullptr)
+    {
+        return;
+    }
+    const auto transformComp = camera->getComponent<iTransformComponent>();
+
+    const auto &rect = _viewportScene->getView().getViewport();
+    const auto screenPos = iaVector2f(rect._x + rect._width - 100, rect._y);
+
+    iRenderer::getInstance().setViewport(iaRectanglei(screenPos._x, screenPos._y, 100, 100));
+    iRenderer::getInstance().setViewMatrixFromCam(iaMatrixd());
+    iRenderer::getInstance().setLineWidth(2);
+
+    float32 lineLength = 1;
+    iRenderer::getInstance().setOrtho(-lineLength * 2, lineLength * 2, -lineLength * 2, lineLength * 2, 0.0, 100.0);
+
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -lineLength);
+    modelMatrix *= transformComp->getWorldOrientation().inverse().toMatrix();
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(lineLength, 0.0f, 0.0f), iaColor4f::red);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, lineLength, 0.0f), iaColor4f::green);
+    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, lineLength), iaColor4f::blue);
+}
+
+void Viewport::renderOverlayGrid()
 {
     iaMatrixd modelMatrix;
     iRenderer::getInstance().setModelMatrix(modelMatrix);
@@ -375,23 +405,6 @@ void Viewport::renderOrientationOverlay()
         iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i), i % 2 == 0 ? color1 : color2);
         iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f), i % 2 == 0 ? color1 : color2);
     }
-
-    auto scene = iEntitySystemModule::getInstance().getScene(_viewportScene->getView().getSceneID());
-    if (scene == nullptr)
-    {
-        return;
-    }
-
-    const auto &rect = _viewportScene->getView().getViewport();
-    const auto screenPos = iaVector3d(rect.getRight() - 45, rect.getBottom() - 45, 0.5);
-    modelMatrix._pos = _viewportScene->getView().unProject(screenPos);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    float32 lineLength = 0.0005;
-    iRenderer::getInstance().setLineWidth(2);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(lineLength, 0.0f, 0.0f), iaColor4f::red);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, lineLength, 0.0f), iaColor4f::green);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, lineLength), iaColor4f::blue);
 }
 
 bool Viewport::onKeyDown(iEventKeyDown &event)
