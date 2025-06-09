@@ -93,13 +93,12 @@ public:
     void getWorldTransformation(iaMatrixd &matrix) const;
 
 private:
-
     /*! entity scene to use
-    */
+     */
     iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
 
     /*! anchor entity. this is where camera arc attaches it's own entities
-    */
+     */
     iEntityID _entityID = iEntityID::getInvalid();
 
     /*! center of interest node
@@ -123,11 +122,11 @@ private:
     iEntityID _cameraID = iEntityID::getInvalid();
 
     /*! heading in rad
-    */
+     */
     float64 _cameraHeading = 0;
 
     /*! pitch in rad
-    */
+     */
     float64 _cameraPitch = 0;
 };
 

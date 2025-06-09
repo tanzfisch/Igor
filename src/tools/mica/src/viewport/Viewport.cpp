@@ -591,8 +591,8 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     }
 
     const float64 rotateSensitivity = 0.0075;
-    const float64 translateSensitivity = 1.0;
-    const auto from = _lastMousePos;
+    const float64 translateSensitivity = 100.0;
+    const auto from = event.getLastPosition();
     const auto to = event.getPosition();
 
     // TODO this needs to move in to camera arc
@@ -622,8 +622,6 @@ void Viewport::onMouseMove(iEventMouseMove &event)
             }
         }
     }
-
-    _lastMousePos = to;
 }
 
 bool Viewport::onMouseWheel(iEventMouseWheel &event)

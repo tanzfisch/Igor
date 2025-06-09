@@ -86,10 +86,6 @@ private:
      */
     std::vector<EntityOverlayPtr> _entityOverlays;
 
-    /*! last mouse position
-     */
-    iaVector2f _lastMousePos;
-
     /*! overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;

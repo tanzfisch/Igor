@@ -33,7 +33,7 @@ bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 
 void TransformOverlay::onInit()
 {
-    getView()->getRenderEvent().add(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
+    getView()->getPreRenderEvent().add(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
     iParameters paramMaterial({
