@@ -176,7 +176,7 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
+	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
 	buyButton->setMinSize(50, 20);

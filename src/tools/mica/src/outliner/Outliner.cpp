@@ -147,6 +147,10 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     for (const auto &selectedItemPath : selectedItemPaths)
     {
         iItemPtr item = _itemData->getItem(selectedItemPath);
+        if(item == nullptr)
+        {
+            continue;
+        }
 
         if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
         {

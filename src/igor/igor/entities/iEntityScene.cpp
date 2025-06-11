@@ -48,7 +48,13 @@ namespace igor
         _deleteQueue.clear();
         _deleteQueueMutex.unlock();
 
+        _processQueueMutex.lock();
+        _processQueue.clear();
+        _processQueueMutex.unlock();
+
         delete _root;
+
+        flushQueues();
 
         _root = new iEntity("root");
         _root->_scene = this;

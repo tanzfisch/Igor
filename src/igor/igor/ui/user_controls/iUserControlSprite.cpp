@@ -143,19 +143,6 @@ namespace igor
         {
             setID(id);
         }
-        else if (resourceType == IGOR_RESOURCE_TEXTURE)
-        {
-            auto sprite = iResourceManager::getInstance().getResource<iSprite>(_spriteID);
-            if (sprite != nullptr)
-            {
-                auto texture = iResourceManager::getInstance().loadResource<iTexture>(id);
-                if (texture != nullptr)
-                {
-                    sprite->setTexture(texture);
-                    _change(this);
-                }
-            }
-        }
     }
 
 } // namespace igor

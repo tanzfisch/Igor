@@ -495,7 +495,15 @@ bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
 
 bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 {
-    iWidget::onMouseKeyUp(event);
+    if(iWidget::onMouseKeyUp(event))
+    {
+        return true;
+    }
+    
+    if(!isMouseOver())
+    {
+        return false;
+    }
 
     bool result = false;
     for (auto &overlay : _entityOverlays)

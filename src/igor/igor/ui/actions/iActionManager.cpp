@@ -44,6 +44,8 @@ namespace igor
         registerAction(new iActionCreateScene());
         registerAction(new iActionCreateMaterial());
         registerAction(new iActionCreateShader());
+        registerAction(new iActionCreateSprite());
+
         registerAction(new iActionLoadProject());
     }
 
