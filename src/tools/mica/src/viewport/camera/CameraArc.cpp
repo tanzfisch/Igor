@@ -122,12 +122,18 @@ void CameraArc::setDistance(float64 distance)
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
-    auto entity = scene->getEntity(_cameraDistanceID);
-    con_assert(entity != nullptr, "no heading found");
-    iTransformComponentPtr transform = entity->getComponent<iTransformComponent>();
+    auto entityTransform = scene->getEntity(_cameraDistanceID);
+    con_assert(entityTransform != nullptr, "no heading found");
+    iTransformComponentPtr transform = entityTransform->getComponent<iTransformComponent>();
     con_assert(transform != nullptr, "no transform found");
 
     transform->setPosition(iaVector3d(0, 0, distance));
+
+    auto entityCamera = scene->getEntity(_cameraID);
+    iCameraComponentPtr cameraComp = entityCamera->getComponent<iCameraComponent>();
+    con_assert(cameraComp != nullptr, "no transform found");
+
+    cameraComp->setClipPlanes(distance / 100.0, distance * 2);
 }
 
 void CameraArc::setCenterOfInterest(const iaVector3d &coi)

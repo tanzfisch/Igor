@@ -98,13 +98,21 @@ private:
      */
     std::unique_ptr<CameraArc> _cameraArc;
 
-    /*! if true render orientation overlay
+    /*! if true render grid overlay
      */
-    bool _renderOrientationOverlay = true;
+    bool _renderOverlayGrid = true;
+
+    /*! if true render XYZ overlay
+     */
+    bool _renderOverlayXYZ = true;
 
     /*! grid button
      */
     iWidgetButtonPtr _buttonGrid = nullptr;
+
+    /*! xyz button
+     */
+    iWidgetButtonPtr _buttonXYZ = nullptr;
 
     /*! bounds button
      */
@@ -228,6 +236,10 @@ private:
     /*! on grid button click
      */
     void onGridClick(iWidgetPtr source);
+
+    /*! on xyz button click
+     */
+    void onXYZClick(iWidgetPtr source);
 
     /*! on bounds button click
      */

@@ -60,6 +60,12 @@
         "source": "icons/grid.png"
     },
     {
+        "alias": "igor_icon_xyz",
+        "id": "0x1c6dface360345ae",
+        "internal": true,
+        "source": "icons/xyz.png"
+    },    
+    {
         "alias": "igor_icon_bounds",
         "id": "0x5464d7d8aa0c9412",
         "internal": true,

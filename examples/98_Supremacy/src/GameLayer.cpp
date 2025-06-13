@@ -70,7 +70,7 @@ void GameLayer::onInit()
     _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("animation_shop_idle");
     _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("animation_coin");
 
-    _player = createPlayer();
+    _playerID = createPlayer();
     _camera = createCamera();
     createBackground();
 
@@ -523,7 +523,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
 
 void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -568,10 +568,15 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
 
 iEntityID GameLayer::createCamera()
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
+    //iEntityPrintTraverser print;
+    //print.traverse(_entityScene);
+
+
+    // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
     iEntityPtr entity = _entityScene->createEntity("camera");
 
     entity->addComponent(new iTransformComponent(playerTransform->getPosition()));
@@ -581,7 +586,7 @@ iEntityID GameLayer::createCamera()
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
-    cameraComponent->setClearDepthActive(false);
+    cameraComponent->setClearDepthActive(false);    
 
     return entity->getID();
 }
@@ -630,7 +635,7 @@ void GameLayer::onLiftShop()
 void GameLayer::onLandShop(const iaTime &time)
 {
     iEntityPtr shop = _entityScene->getEntity(_shop);
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
     if (shop == nullptr ||
         player == nullptr)
     {
@@ -663,7 +668,7 @@ void GameLayer::createShop()
     shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
-    shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
+    shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("sprite_shop")));
     shop->addComponent(new PartyComponent(FRIEND));
     shop->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
@@ -801,7 +806,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
 void GameLayer::onSpawnStuff(const iaTime &time)
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -860,7 +865,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
         uint32 enemyLevel = iaRandom::getNextRangeExponentialDecrease(minEnemyLevel, maxEnemyLevel, 0.6);
         // con_endl("create enemy level: " << enemyLevel);
-        createUnit(pos, FOE, _player, _enemies[enemyLevel - 1]);
+        createUnit(pos, FOE, _playerID, _enemies[enemyLevel - 1]);
     }
 
     // con_endl("minEnemyLevel " << minEnemyLevel);
@@ -1125,7 +1130,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
     iQuadtreed::Objects objects;
     _entityScene->getQuadtree().query(body->getObjectBounds(), objects);
 
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -1329,12 +1334,12 @@ float32 GameLayer::calcLevel(uint32 experience)
 
 void GameLayer::onRenderPlayerHUD()
 {
-    /*    if (!_player.isValid())
+    /*    if (!_playerID.isValid())
         {
             return;
         }
 
-        auto &playerTransform = _player.getComponent<iTransformComponent>();
+        auto &playerTransform = _playerID.getComponent<iTransformComponent>();
         auto &shopTransform = shop->getComponent<iTransformComponent>();
         if (shop->isActive())
         {
@@ -1355,7 +1360,7 @@ void GameLayer::onRenderPlayerHUD()
 
 void GameLayer::onRenderHUD()
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -1458,12 +1463,12 @@ void GameLayer::onCloseShopDialog(iDialogPtr dialog)
     _spawnShopTimerHandle->start();
 
     if (!_shopDialog->bought() ||
-        !_player.isValid())
+        !_playerID.isValid())
     {
         return;
     }
 
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     const ShopItem &shopItem = _shopDialog->getSelection();
     auto coins = player->getComponent<CoinsComponent>();
@@ -1500,7 +1505,7 @@ void GameLayer::upgrade(iEntityPtr entity, const UpgradeConfiguration &upgradeCo
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 {
-    upgrade(_entityScene->getEntity(_player), _levelUpDialog->getSelection());
+    upgrade(_entityScene->getEntity(_playerID), _levelUpDialog->getSelection());
     iApplication::getInstance().pause(false);
 }
 

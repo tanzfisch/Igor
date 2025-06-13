@@ -235,6 +235,10 @@ namespace igor
         iEntityComponentPtr getCopy() override;
     };
 
+    /*! camera component pointer definition
+    */
+    typedef iCameraComponent* iCameraComponentPtr;
+
 }
 
 #endif // IGOR_CAMERA_COMPONENT_H

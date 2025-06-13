@@ -74,10 +74,10 @@ void UserControlComponentCamera::onInit()
             labelOrtho->setText("Right");
             break;
         case 2:
-            labelOrtho->setText("Top");
+            labelOrtho->setText("Bottom");
             break;
         case 3:
-            labelOrtho->setText("Bottom");
+            labelOrtho->setText("Top");
             break;
         }
         labelOrtho->setMinWidth(MICA_REGULARBUTTON_SIZE);
@@ -200,8 +200,8 @@ void UserControlComponentCamera::onUpdateUI()
 
     _ortho[0]->setText(iaString::toString(component->getLeftOrtho(), 4));
     _ortho[1]->setText(iaString::toString(component->getRightOrtho(), 4));
-    _ortho[2]->setText(iaString::toString(component->getTopOrtho(), 4));
-    _ortho[3]->setText(iaString::toString(component->getBottomOrtho(), 4));
+    _ortho[2]->setText(iaString::toString(component->getBottomOrtho(), 4));
+    _ortho[3]->setText(iaString::toString(component->getTopOrtho(), 4));
 
     if (_perspective->isChecked())
     {

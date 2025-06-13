@@ -62,12 +62,22 @@ Viewport::Viewport()
     auto buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, boxLayout);
     _buttonGrid = new iWidgetButton();
     _buttonGrid->setIcon("igor_icon_grid");
-    _buttonGrid->setTooltip("On/Off orientation grid [F9]");
+    _buttonGrid->setTooltip("On/Off grid");
     _buttonGrid->setMinSize(24, 24);
     _buttonGrid->getClickEvent().add(iClickDelegate(this, &Viewport::onGridClick));
     _buttonGrid->setCheckable(true);
-    _buttonGrid->setChecked(_renderOrientationOverlay);
+    _buttonGrid->setChecked(_renderOverlayGrid);
     buttonLayout->addWidget(_buttonGrid);
+
+    _buttonXYZ = new iWidgetButton();
+    _buttonXYZ->setIcon("igor_icon_xyz");
+    _buttonXYZ->setTooltip("On/Off orientation cross");
+    _buttonXYZ->setMinSize(24, 24);
+    _buttonXYZ->getClickEvent().add(iClickDelegate(this, &Viewport::onXYZClick));
+    _buttonXYZ->setCheckable(true);
+    _buttonXYZ->setChecked(_renderOverlayGrid);
+    buttonLayout->addWidget(_buttonXYZ);
+
 
     _buttonBounds = new iWidgetButton();
     _buttonBounds->setIcon("igor_icon_bounds");
@@ -91,8 +101,14 @@ Viewport::~Viewport()
 
 void Viewport::onGridClick(iWidgetPtr source)
 {
-    _renderOrientationOverlay = !_renderOrientationOverlay;
-    _buttonGrid->setChecked(_renderOrientationOverlay);
+    _renderOverlayGrid = !_renderOverlayGrid;
+    _buttonGrid->setChecked(_renderOverlayGrid);
+}
+
+void Viewport::onXYZClick(iWidgetPtr source)
+{
+    _renderOverlayXYZ = !_renderOverlayXYZ;
+    _buttonXYZ->setChecked(_renderOverlayXYZ);
 }
 
 void Viewport::onBoundsClick(iWidgetPtr source)
@@ -353,9 +369,13 @@ void Viewport::renderSelection()
 
 void Viewport::renderOverlay()
 {
-    if (_renderOrientationOverlay)
+    if (_renderOverlayGrid)
     {
         renderOverlayGrid();
+    }
+
+    if (_renderOverlayXYZ)
+    {
         renderOverlayXYZ();
     }
 }
@@ -450,8 +470,6 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F9:
-        _renderOrientationOverlay = !_renderOrientationOverlay;
-        _buttonGrid->setChecked(_renderOrientationOverlay);
         return true;
 
     case iKeyCode::F10:
@@ -495,12 +513,12 @@ bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
 
 bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 {
-    if(iWidget::onMouseKeyUp(event))
+    if (iWidget::onMouseKeyUp(event))
     {
         return true;
     }
-    
-    if(!isMouseOver())
+
+    if (!isMouseOver())
     {
         return false;
     }

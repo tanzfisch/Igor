@@ -18,10 +18,10 @@
                         "clipNear": 0.0,
                         "componentType": "camera",
                         "fov": 45.0,
-                        "orthoBottom": 300.0,
+                        "orthoBottom": -300.0,
                         "orthoLeft": -300.0,
                         "orthoRight": 300.0,
-                        "orthoTop": -300.0,
+                        "orthoTop": 300.0,
                         "perspective": false,
                         "viewport": {
                             "height": 1.0,
@@ -58,16 +58,16 @@
                     {
                         "color": {
                             "a": 1.0,
-                            "b": 1.0,
-                            "g": 1.0,
-                            "r": 1.0
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
                         },
                         "componentType": "spriteRender",
                         "frame": 0,
                         "mode": 0,
                         "size": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929
+                            "x": 0.8,
+                            "y": 0.8
                         },
                         "sprite": "0x7ab21bce99b17988",
                         "zIndex": -1

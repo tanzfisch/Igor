@@ -231,21 +231,20 @@ namespace igor
     {
         iEntityPtr result = nullptr;
 
-        _mutex.lock();
+        iaMutex::iaScopedLock lock(_mutex);
+
         auto iter = _entities.find(entityID);
         if (iter != _entities.end())
         {
-            result = iter->second;
+            return iter->second;
         }
-        _mutex.unlock();
 
-        if (result == nullptr &&
-            _root->getID() == entityID)
+        if (_root->getID() == entityID)
         {
-            result = _root;
+            return _root;
         }
 
-        return result;
+        return nullptr;
     }
 
     void iEntityScene::destroyEntity(iEntityPtr entity)

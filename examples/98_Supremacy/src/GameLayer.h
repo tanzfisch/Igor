@@ -73,7 +73,7 @@ private:
 
     /*! handle to player entity
      */
-    iEntityID _player;
+    iEntityID _playerID;
 
     /*! handle to player entity
      */
