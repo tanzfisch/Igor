@@ -570,8 +570,36 @@ namespace igor
         paste(getID(), _selection[0]);
     }
 
+    void iEntityScene::duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(scene == nullptr)
+        {
+            return;
+        }
+
+        for(const auto &entityID : entities)
+        {
+            auto entity = scene->getEntity(entityID);
+            if(entity == nullptr)
+            {
+                continue;
+            }
+
+            auto parent = entity->getParent();
+            if(parent == nullptr)
+            {
+                continue;
+            }
+
+            iEntitySystemModule::getInstance().insert(entity, parent);
+        }
+    }
+
     void iEntityScene::duplicate()
     {
+        duplicate(getID(), _selection);
     }
 
 } // igor
+

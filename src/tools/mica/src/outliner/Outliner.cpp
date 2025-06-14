@@ -216,6 +216,8 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
                 _contextMenu.addAction("igor:paste_entity", actionContext);
             }
 
+            _contextMenu.addAction("igor:duplicate_entity", actionContext);
+
             _contextMenu.addSeparator();
             if (inactive)
             {

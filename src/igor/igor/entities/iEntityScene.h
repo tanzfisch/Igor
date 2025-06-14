@@ -46,10 +46,10 @@ namespace igor
 
 	/*! entity scene id
 	 */
-	typedef iaUUID iEntitySceneID;	
+	typedef iaUUID iEntitySceneID;
 
 	/*! entity selection change event
-	*/
+	 */
 	IGOR_EVENT_DEFINITION(iEntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
 
 	/*! entity scene
@@ -186,7 +186,7 @@ namespace igor
 		const std::vector<iaString> getSystems();
 
 		/*! empty out scene
-		*/
+		 */
 		void clear();
 
 		/*! \returns all entities ordered by name
@@ -202,31 +202,31 @@ namespace igor
 		void setSelection(const std::vector<iEntityID> &selection);
 
 		/*! \returns selected entities
-		*/
+		 */
 		const std::vector<iEntityID> &getSelection() const;
 
 		/*! clears current selection
-		*/
+		 */
 		void clearSelection();
 
 		/*! \returns entity selection change event
-		*/
+		 */
 		iEntitySelectionChangedEvent &getEntitySelectionChangedEvent();
 
 		/*! cut selected entities
-		*/
+		 */
 		void cut();
 
 		/*! copy selected entities
-		*/
+		 */
 		void copy();
 
 		/*! copy selected entities
-		*/
+		 */
 		void paste();
 
 		/*! duplicate selected entities
-		*/
+		 */
 		void duplicate();
 
 		/*! cut given entities
@@ -245,7 +245,7 @@ namespace igor
 		\param sceneID the given scene
 		\param entities the given entities
 		*/
-		static void copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);		
+		static void copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 
 		/*! paste clipboard to given scene and entity
 
@@ -254,7 +254,16 @@ namespace igor
 		\param sceneID the given scene
 		\param entityID the given entity
 		*/
-		static void paste(const iEntitySceneID &sceneID, const iEntityID &entityID);			
+		static void paste(const iEntitySceneID &sceneID, const iEntityID &entityID);
+
+		/*! duplicate given entities from given scene
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 
 	private:
 		/*! entity scene id
@@ -318,11 +327,11 @@ namespace igor
 		iaMutex _mutex;
 
 		/*! list of selected entities
-		*/
+		 */
 		std::vector<iEntityID> _selection;
 
 		/*! the entity selection changed event
-		*/
+		 */
 		iEntitySelectionChangedEvent _entitySelectionChangedEvent;
 
 		/*! sets render engine

@@ -218,7 +218,7 @@ namespace igor
         if (actionContext->getEntities().empty())
         {
             return false;
-        }        
+        }
 
         auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
         if (scene == nullptr)
@@ -273,6 +273,41 @@ namespace igor
         iEntityPtr entity = projectScene->createEntity("entity");
         entity->setActive(true);
         entity->setParent(dstEntity);
+    }
+
+    iActionDuplicateEntity::iActionDuplicateEntity()
+        : iAction("igor:duplicate_entity")
+    {
+        setDescription("Duplicate entity", "Creates a duplicate of given entity");
+    }
+
+    bool iActionDuplicateEntity::isCompatible(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = dynamic_cast<const iEntityActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        if (actionContext->getEntities().empty())
+        {
+            return false;
+        }
+
+        auto scene = iEntitySystemModule::getInstance().getScene(actionContext->getSceneID());
+        if (scene == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    void iActionDuplicateEntity::execute(const iActionContext &context)
+    {
+        const iEntityActionContext *actionContext = static_cast<const iEntityActionContext *>(&context);
+
+        iEntityScene::duplicate(actionContext->getSceneID(), actionContext->getEntities());
     }
 
 } // namespace igor
