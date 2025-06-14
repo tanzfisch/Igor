@@ -74,7 +74,7 @@ namespace igor
 
     void iProject::load()
     {
-        if(_isLoaded)
+        if (_isLoaded)
         {
             return;
         }
@@ -96,7 +96,7 @@ namespace igor
 
     void iProject::unload()
     {
-        if(!_isLoaded)
+        if (!_isLoaded)
         {
             return;
         }
@@ -149,7 +149,7 @@ namespace igor
             iEntitySystemModule::getInstance().activateScene(_projectScene);
             return true;
         }
-        
+
         json projectSceneJson = projectJson["projectScene"];
         const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
 
@@ -205,6 +205,11 @@ namespace igor
         return _projectScene;
     }
 
+    bool iProject::hasProjectScene() const
+    {
+        return _projectScene != nullptr;
+    }
+
     static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
     {
         for (auto entity : entities)
@@ -255,7 +260,7 @@ namespace igor
         for (const auto &system : _projectScene->getSystems())
         {
             systemsJson.push_back(system);
-        }        
+        }
 
         json projectSceneJson =
             {

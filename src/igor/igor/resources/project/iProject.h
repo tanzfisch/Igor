@@ -136,6 +136,10 @@ namespace igor
          */
         iEntityScenePtr getProjectScene() const;
 
+        /*! \returns true if project has a scene
+        */
+        bool hasProjectScene() const;
+
         /*! \returns project scene added event
          */
         iProjectSceneAddedEvent &getProjectSceneAddedEvent();

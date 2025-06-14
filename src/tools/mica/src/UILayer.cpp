@@ -149,61 +149,63 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         }
 
     case iKeyCode::D:
-        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
+            iProject::getInstance().hasProjectScene())
         {
-            // _workspace->duplicateSelected();
+            iProject::getInstance().getProjectScene()->duplicate();
             return true;
         }
-        
-    case iKeyCode::X:
-        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
-        {
-            auto projectScene = iProject::getInstance().getProjectScene();
-            if(projectScene == nullptr)
-            {                
-                return false;
-            }
 
-            projectScene->getSelection();
-            // _workspace->cutSelected();
+    case iKeyCode::X:
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
+            iProject::getInstance().hasProjectScene())
+        {
+            iProject::getInstance().getProjectScene()->cut();
             return true;
         }
-        
+
     case iKeyCode::C:
-        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
+            iProject::getInstance().hasProjectScene())
         {
-            // _workspace->copySelected();
+            iProject::getInstance().getProjectScene()->copy();
             return true;
         }
 
     case iKeyCode::V:
-        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
+        if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
+            iProject::getInstance().hasProjectScene())
         {
-            // _workspace->pasteSelected();
+            iProject::getInstance().getProjectScene()->paste();
             return true;
         }
 
     case iKeyCode::O:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
-            // TODO open project
+            onLoadProject();
             return true;
         }
 
     case iKeyCode::S:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
-            // TODO save project
+            iProject::getInstance().save();
             return true;
         }
 
     case iKeyCode::Delete:
-        // TODO _workspace->deleteSelected();
-        return true;
+        if (iProject::getInstance().hasProjectScene())
+        {
+            const auto &selection = iProject::getInstance().getProjectScene()->getSelection();
+            for (const auto &entityID : selection)
+            {
+                iProject::getInstance().getProjectScene()->destroyEntity(entityID);
+            }
+            return true;
+        }
 
-        /* TODO hide _outliner, _propertiesDialog, _assetBrowser
-            and make full screen _viewport
-            and vice versa
+        /* TODO cycle through layouts ie maximal viewport size or even full screen
     case iKeyCode::Space:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
@@ -212,5 +214,4 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     }
 
     return false;
-}       
-
+}
