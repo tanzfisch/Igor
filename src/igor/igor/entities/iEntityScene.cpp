@@ -544,18 +544,17 @@ namespace igor
         {
             return;
         }         
-        bool makeCopy = !IDs[0].isValid(); // else cut
+        bool move = IDs[0].isValid();
         auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
         for (int i = 2; i < IDs.size(); ++i)
         {
-            if (makeCopy)
+            auto srcEntity = srcScene->getEntity(IDs[i]);
+
+            iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
+
+            if(move)
             {
-                auto srcEntity = srcScene->getEntity(IDs[i]);
-                iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
-            }
-            else
-            {
-                // TODO iEntitySystemModule::getInstance().move from srcScene:entity to dstScene:entity
+                srcScene->destroyEntity(srcEntity);
             }
         }
     }
