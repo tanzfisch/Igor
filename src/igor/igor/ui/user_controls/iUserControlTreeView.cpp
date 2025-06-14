@@ -216,6 +216,7 @@ namespace igor
     void iUserControlTreeView::onContextMenu(const iWidgetPtr source)
     {
         _contextMenuTreeViewEvent(source);
+        onClick(source);
     }
 
     void iUserControlTreeView::clear()

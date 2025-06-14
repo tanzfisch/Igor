@@ -232,7 +232,7 @@ namespace igor
 
         if (!text.isEmpty())
         {
-            float32 textwidth = _font->measureWidth(text, _fontSize);
+            float32 textwidth = _font->measureWidth(text, getFontSize());
             int32 textX = rect._x;
             int32 textY = rect._y;
             switch (halign)
@@ -257,11 +257,11 @@ namespace igor
                 break;
 
             case iVerticalAlignment::Center:
-                textY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
+                textY += static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f);
                 break;
 
             case iVerticalAlignment::Bottom:
-                textY += rect._height - 2 - static_cast<int32>(_fontSize);
+                textY += rect._height - 2 - static_cast<int32>(getFontSize());
                 break;
             };
 
@@ -345,8 +345,8 @@ namespace igor
 
     void iWidgetDefaultTheme::drawTooltip(const iaVector2f &pos, const iaString &text)
     {
-        float32 textWidth = std::min(300.0f, _font->measureWidth(text, _fontSize));
-        float32 textHeight = _font->measureHeight(text, _fontSize, textWidth);
+        float32 textWidth = std::min(300.0f, _font->measureWidth(text, getFontSize()));
+        float32 textHeight = _font->measureHeight(text, getFontSize(), textWidth);
 
         iaRectanglef rect(pos._x, pos._y, textWidth + 10, textHeight + 10);
         drawFilledRectangle(rect, COLOR_WHITE);
@@ -499,7 +499,7 @@ namespace igor
 
         if (!text.isEmpty())
         {
-            float32 textwidth = _font->measureWidth(text, _fontSize);
+            float32 textwidth = _font->measureWidth(text, getFontSize());
             int32 textX = rect._x;
             int32 textY = rect._y;
             switch (align)
@@ -524,11 +524,11 @@ namespace igor
                 break;
 
             case iVerticalAlignment::Center:
-                textY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
+                textY += static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f);
                 break;
 
             case iVerticalAlignment::Bottom:
-                textY += rect._height - 2 - static_cast<int32>(_fontSize);
+                textY += rect._height - 2 - static_cast<int32>(getFontSize());
                 break;
             };
 
@@ -595,7 +595,7 @@ namespace igor
 
         // render text
         iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(_fontSize);
+        iRenderer::getInstance().setFontSize(getFontSize());
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 
         iRenderer::getInstance().drawString(rect._x, rect._y, text, enabled ? COLOR_TEXT_DARK : COLOR_AMBIENT, maxwidth);
@@ -610,7 +610,7 @@ namespace igor
     {
         iaString modText = text;
 
-        float32 textwidth = _font->measureWidth(modText, _fontSize);
+        float32 textwidth = _font->measureWidth(modText, getFontSize());
 
         // force draw call before changing the stencil settings
         iRenderer::getInstance().flush();
@@ -644,7 +644,7 @@ namespace igor
         switch (valign)
         {
         case iVerticalAlignment::Top:
-            relatoveTextPosY += rect._height - 2 - static_cast<int32>(_fontSize);
+            relatoveTextPosY += rect._height - 2 - static_cast<int32>(getFontSize());
             break;
 
         case iVerticalAlignment::Bottom:
@@ -652,7 +652,7 @@ namespace igor
             break;
 
         case iVerticalAlignment::Center:
-            relatoveTextPosY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
+            relatoveTextPosY += static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f);
             break;
         };
 
@@ -677,12 +677,12 @@ namespace igor
 
             relativeTextPosX += scrollOffset;
 
-            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, _fontSize, COLOR_TEXT_DARK);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, getFontSize(), COLOR_TEXT_DARK);
         }
 
         // render text
         iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(_fontSize);
+        iRenderer::getInstance().setFontSize(getFontSize());
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 
         iRenderer::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText, keyboardFocus ? COLOR_TEXT_DARK : COLOR_AMBIENT);
@@ -705,8 +705,8 @@ namespace igor
     void iWidgetDefaultTheme::drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool enabled)
     {
         drawNumberChooserFrame(rect, button_up_state, button_down_state, enabled);
-        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f), 0, 0);
+        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
+                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f), 0, 0);
         drawText(textRect, text, 0);
 
         DRAW_DEBUG_OUTPUT_OLD(rect, button_up_state);
@@ -730,8 +730,8 @@ namespace igor
     void iWidgetDefaultTheme::drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled)
     {
         drawSelectBoxFrame(rect, buttonAppearance, enabled);
-        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f) + 1, 0, 0);
+        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
+                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f) + 1, 0, 0);
         drawText(textRect, text, 0);
 
         DRAW_DEBUG_OUTPUT_OLD(rect, buttonAppearance);
@@ -774,7 +774,8 @@ namespace igor
 
     float32 iWidgetDefaultTheme::getFontSize() const
     {
-        return _fontSize;
+        static auto fontSizeScale = getFontSizeScale(); // enough to ask once for it
+        return _fontSize * fontSizeScale;
     }
 
     iTextureFontPtr iWidgetDefaultTheme::getFont() const
@@ -817,8 +818,8 @@ namespace igor
     {
         drawCheckBoxFrame(rect, state, enabled);
         drawCheckBox(iaRectanglef(rect._x, rect._y, rect._height, rect._height), state, enabled, checked);
-        drawText(iaRectanglef(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f) + static_cast<int32>(_fontSize) * 2,
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f), 0, 0),
+        drawText(iaRectanglef(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f) + static_cast<int32>(getFontSize()) * 2,
+                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f), 0, 0),
                  text, 0);
 
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
@@ -834,7 +835,7 @@ namespace igor
     void iWidgetDefaultTheme::drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth)
     {
         iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(_fontSize);
+        iRenderer::getInstance().setFontSize(getFontSize());
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
         iRenderer::getInstance().drawString(rect._x, rect._y, text, COLOR_AMBIENT, textwidth);
 
@@ -865,7 +866,7 @@ namespace igor
     {
 
         const iaColor4f &color = enabled ? COLOR_AMBIENT : COLOR_DIFFUSE_DARK;
-        const float32 fontSize = _fontSize * 0.75f;
+        const float32 fontSize = getFontSize() * 0.75f;
 
         iRenderer::getInstance().setFont(_font);
         iRenderer::getInstance().setFontSize(fontSize);
@@ -950,8 +951,8 @@ namespace igor
 
         if (text != "")
         {
-            y += _fontSize * 0.5f;
-            h -= _fontSize * 0.5f;
+            y += getFontSize() * 0.5f;
+            h -= getFontSize() * 0.5f;
         }
 
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);
@@ -962,8 +963,8 @@ namespace igor
         }
         else
         {
-            iRenderer::getInstance().drawLine(x, y, x + _fontSize, y, COLOR_AMBIENT);
-            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + _fontSize * 2.0f, y, x + w, y, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(x, y, x + getFontSize(), y, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, getFontSize()) + getFontSize() * 2.0f, y, x + w, y, COLOR_AMBIENT);
         }
 
         if (!headerOnly)
@@ -973,7 +974,7 @@ namespace igor
             iRenderer::getInstance().drawLine(x + w, y, x + w, y + h, COLOR_AMBIENT);
         }
 
-        drawText(iaRectanglef(static_cast<int32>(rect._x + _fontSize * 1.5f), static_cast<int32>(rect._y + _fontSize * 0.1f)), text, 0);
+        drawText(iaRectanglef(static_cast<int32>(rect._x + getFontSize() * 1.5f), static_cast<int32>(rect._y + getFontSize() * 0.1f)), text, 0);
 
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
@@ -996,7 +997,7 @@ namespace igor
     void iWidgetDefaultTheme::drawButtonText(const iaRectanglef &rect, const iaString &text)
     {
         iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(_fontSize);
+        iRenderer::getInstance().setFontSize(getFontSize());
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
         iRenderer::getInstance().drawString(rect._x, rect._y, text, COLOR_TEXT);
     }

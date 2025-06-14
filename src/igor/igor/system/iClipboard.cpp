@@ -35,13 +35,19 @@ namespace igor
     void iClipboard::copyText(const iaString &text)
     {
         clip::set_text(wstringToUtf8(text.getData()));
+
+        con_trace("copy text \"" << text << "\"");
     }
 
     const iaString iClipboard::pasteText() const
     {
         std::string value;
         clip::get_text(value);
-        return iaString(utf8ToWstring(value).c_str());
+        const iaString result(utf8ToWstring(value).c_str());
+
+        con_trace("paste text \"" << result << "\"");
+
+        return result;
     }
 
     void iClipboard::copyEntityIDs(const std::vector<iEntityID> &entityIDs)
@@ -57,6 +63,8 @@ namespace igor
         clip::lock l;
         l.clear();
         l.set_data(s_entityIDFormat, (const char*)data.getData(), data.getSize());
+
+        con_trace("copy entity IDs: " << data);
     }
 
     const std::vector<iEntityID> iClipboard::pasteEntityIDs() const
@@ -72,6 +80,8 @@ namespace igor
         }
 
         iaString data((wchar_t*)text.data());
+
+        con_trace("paste entity IDs: " << data);
 
         std::vector<iaString> tokens;
         data.split(",", tokens);

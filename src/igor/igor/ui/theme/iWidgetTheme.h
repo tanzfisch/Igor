@@ -100,7 +100,13 @@ namespace igor
         virtual iTextureFontPtr getFont() const = 0;
 
         virtual float32 getDialogTitleWidth() const = 0;
-        virtual float32 getDialogFrameWidth() const = 0;
+        virtual float32 getDialogFrameWidth() const = 0;        
+
+        /*! \returns system font size scale
+
+        tested only with gnome
+        */
+        float32 getFontSizeScale() const;
 
         iWidgetTheme() = default;
         virtual ~iWidgetTheme() = default;

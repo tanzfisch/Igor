@@ -8,6 +8,7 @@
 #include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderEngine.h>
+#include <igor/system/iClipboard.h>
 
 namespace igor
 {
@@ -483,6 +484,94 @@ namespace igor
     iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
     {
         return _entitySelectionChangedEvent;
+    }
+
+    void iEntityScene::cut(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = {1};                               // 1 means this is a cut operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = {0};                               // 0 means this is a copy operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::cut()
+    {
+        cut(getID(), _selection);
+    }
+
+    void iEntityScene::copy()
+    {
+        copy(getID(), _selection);
+    }
+
+    void iEntityScene::paste(const iEntitySceneID &sceneID, const iEntityID &entityID)
+    {            
+        auto dstScene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(dstScene == nullptr)
+        {
+            return;
+        }
+        auto dstEntity = dstScene->getEntity(entityID);
+        if(dstEntity == nullptr)
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
+        if(IDs.size() < 3)
+        {
+            return;
+        }         
+        bool makeCopy = !IDs[0].isValid(); // else cut
+        auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
+        for (int i = 2; i < IDs.size(); ++i)
+        {
+            if (makeCopy)
+            {
+                auto srcEntity = srcScene->getEntity(IDs[i]);
+                iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
+            }
+            else
+            {
+                // TODO iEntitySystemModule::getInstance().move from srcScene:entity to dstScene:entity
+            }
+        }
+    }
+
+    void iEntityScene::paste()
+    {
+        if(_selection.size() != 1)
+        {
+            return;
+        }
+
+        paste(getID(), _selection[0]);
+    }
+
+    void iEntityScene::duplicate()
+    {
     }
 
 } // igor

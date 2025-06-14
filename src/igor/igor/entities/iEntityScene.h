@@ -213,6 +213,49 @@ namespace igor
 		*/
 		iEntitySelectionChangedEvent &getEntitySelectionChangedEvent();
 
+		/*! cut selected entities
+		*/
+		void cut();
+
+		/*! copy selected entities
+		*/
+		void copy();
+
+		/*! copy selected entities
+		*/
+		void paste();
+
+		/*! duplicate selected entities
+		*/
+		void duplicate();
+
+		/*! cut given entities
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void cut(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
+
+		/*! copy given entities
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);		
+
+		/*! paste clipboard to given scene and entity
+
+		assumes entity matches given scene
+
+		\param sceneID the given scene
+		\param entityID the given entity
+		*/
+		static void paste(const iEntitySceneID &sceneID, const iEntityID &entityID);			
+
 	private:
 		/*! entity scene id
 		 */

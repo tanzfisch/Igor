@@ -349,6 +349,12 @@ namespace igor
 
     void iEntitySystemModule::insert(iEntityPtr srcEntity, iEntityPtr dstEntity)
     {
+        if(srcEntity == dstEntity)
+        {
+            con_err("Can't copy on it self");
+            return;
+        }
+
         iEntityCopyTraverser traverser(dstEntity, false);
         traverser.traverse(srcEntity);
     }

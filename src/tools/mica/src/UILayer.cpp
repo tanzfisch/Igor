@@ -158,6 +158,13 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::X:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl))
         {
+            auto projectScene = iProject::getInstance().getProjectScene();
+            if(projectScene == nullptr)
+            {                
+                return false;
+            }
+
+            projectScene->getSelection();
             // _workspace->cutSelected();
             return true;
         }
