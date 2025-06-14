@@ -513,10 +513,7 @@ bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
 
 bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
 {
-    if (iWidget::onMouseKeyUp(event))
-    {
-        return true;
-    }
+    iDialog::onMouseKeyUp(event);
 
     if (!isMouseOver())
     {

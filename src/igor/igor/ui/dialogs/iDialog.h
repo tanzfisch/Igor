@@ -210,8 +210,16 @@ namespace igor
         void setAcceptESCToClose(bool acceptESC);
 
         /*! \returns true if dialog accepts ESC to close
-        */
+         */
         bool isAcceptingESCToClose() const;
+
+    protected:
+        /*! handles mouse key up events
+
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
     private:
         /*! if true dialog is open
@@ -219,7 +227,7 @@ namespace igor
         bool _isOpen = false;
 
         /*! if true dialog accepts ESC to close
-        */
+         */
         bool _acceptsESC = false;
 
         /*! the return state of the this dialog
@@ -272,13 +280,6 @@ namespace igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool onMouseKeyDown(iEventMouseKeyDown &event) override;
-
-        /*! handles mouse key up events
-
-        \param event the mouse key up event
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 

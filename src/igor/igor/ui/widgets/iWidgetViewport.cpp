@@ -51,25 +51,25 @@ namespace igor
 		}
 
 		// store current render states
-        const iaRectanglei viewport = iRenderer::getInstance().getViewport();
-        const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
+		const iaRectanglei viewport = iRenderer::getInstance().getViewport();
+		const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
 		const iaMatrixd viewMatrix = iRenderer::getInstance().getViewMatrix();
 		const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
 		bool wireframeEnabled = iRenderer::getInstance().isWireframeEnabled();
 
-	 	_view.onRender();
+		_view.onRender();
 
-        // restore everything
+		// restore everything
 		iRenderer::getInstance().setWireframeEnabled(wireframeEnabled);
-        iRenderer::getInstance().setModelMatrix(modelMatrix);
+		iRenderer::getInstance().setModelMatrix(modelMatrix);
 		iRenderer::getInstance().setViewMatrix(viewMatrix);
-        iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-        iRenderer::getInstance().setViewport(viewport);
-		
-        for (const auto child : _children)
-        {
-            child->draw();
-        }
+		iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+		iRenderer::getInstance().setViewport(viewport);
+
+		for (const auto child : _children)
+		{
+			child->draw();
+		}
 	}
 
 	iView &iWidgetViewport::getView()

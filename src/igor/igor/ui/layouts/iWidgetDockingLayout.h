@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_DOCKING_LAYOUT__
-#define __IGOR_WIDGET_DOCKING_LAYOUT__
+#ifndef IGOR_WIDGET_DOCKING_LAYOUT_H
+#define IGOR_WIDGET_DOCKING_LAYOUT_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -71,4 +71,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_BOX_LAYOUT__
+#endif // IGOR_WIDGET_DOCKING_LAYOUT_H
