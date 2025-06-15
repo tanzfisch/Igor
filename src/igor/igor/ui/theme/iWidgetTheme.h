@@ -52,15 +52,53 @@ namespace igor
     {
 
     public:
-        // working on new interface using the widgets them selves as input
+        /*! draw widget picture
+
+        \param widget the widget to draw
+        */
         virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
+
+        /*! draw widget spacer
+
+        \param widget the widget to draw
+        */
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
+
+        /*! draw widget button
+
+        \param widget the widget to draw
+        */
         virtual void drawWidgetButton(iWidgetButtonPtr widget) = 0;
+
+        /*! draw widget label
+
+        \param widget the widget to draw
+        */
         virtual void drawWidgetLabel(iWidgetLabelPtr widget) = 0;
+
+        /*! draw widget check box
+
+        \param widget the widget to draw
+        */
         virtual void drawCheckBox(iWidgetCheckBoxPtr widget) = 0;
+
+        /*! draw widget text edit
+
+        \param widget the widget to draw
+        */
         virtual void drawTextEdit(iWidgetTextEditPtr widget) = 0;
 
+        /*! draw selection box
+
+        \param rect the selection rectangle
+        */
         virtual void drawSelection(const iaRectanglef &rect) = 0;
+
+        /*! draw drag icon
+
+        \param pos the position of the drag icon
+        \param drag the drag information to draw
+        */
         virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
 
         // TODO
@@ -99,7 +137,12 @@ namespace igor
 
         virtual void drawShadowRect(const iaRectanglef &rect) = 0;
 
+        /*! \returns scaled font size
+         */
         virtual float32 getFontSize() const = 0;
+
+        /*! \returns primary font used in this theme
+         */
         virtual iTextureFontPtr getFont() const = 0;
 
         virtual float32 getDialogTitleWidth() const = 0;
