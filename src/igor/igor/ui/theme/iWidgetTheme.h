@@ -33,6 +33,7 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
+#include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -57,6 +58,7 @@ namespace igor
         virtual void drawWidgetLabel(iWidgetLabelPtr widget) = 0;
         virtual void drawSelection(const iaRectanglef &rect) = 0;
         virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
+        virtual void drawCheckBox(iWidgetCheckBoxPtr widget) = 0;
 
         // TODO
 
@@ -78,8 +80,7 @@ namespace igor
         virtual void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) = 0;
-        virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;
-        virtual void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool enabled) = 0;
+        virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;        
         virtual void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool enabled) = 0;
         virtual void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState buttonUp, iWidgetState buttonDown, bool enabled) = 0;
         virtual void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) = 0;
@@ -102,11 +103,11 @@ namespace igor
         virtual float32 getDialogTitleWidth() const = 0;
         virtual float32 getDialogFrameWidth() const = 0;        
 
-        /*! \returns system font size scale
+        /*! \returns system ui scale
 
         tested only with gnome
         */
-        float32 getFontSizeScale() const;
+        float32 getScale() const;
 
         iWidgetTheme() = default;
         virtual ~iWidgetTheme() = default;

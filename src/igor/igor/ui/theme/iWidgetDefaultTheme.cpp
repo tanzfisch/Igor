@@ -179,7 +179,7 @@ namespace igor
         const auto &background = widget->getBackground();
         const auto &foreground = widget->getForeground();
         const bool checked = widget->isCheckable() && widget->isChecked();
-        const int32 offset = state == iWidgetState::Pressed ? 1 : 0;
+        const float32 offset = state == iWidgetState::Pressed ? getScale() : 0;
         iTexturePtr texture = widget->getBackgroundTexture();
         iTexturePtr icon = widget->getIcon();
         const auto &text = widget->getText();
@@ -238,7 +238,7 @@ namespace igor
             switch (halign)
             {
             case iHorizontalAlignment::Left:
-                textX += 2;
+                textX += 2 * getScale();
                 break;
 
             case iHorizontalAlignment::Center:
@@ -246,14 +246,14 @@ namespace igor
                 break;
 
             case iHorizontalAlignment::Right:
-                textX += rect._width - 2 - textwidth;
+                textX += rect._width - 2 * getScale() - textwidth;
                 break;
             };
 
             switch (valign)
             {
             case iVerticalAlignment::Top:
-                textY += 2;
+                textY += 2 * getScale();
                 break;
 
             case iVerticalAlignment::Center:
@@ -261,7 +261,7 @@ namespace igor
                 break;
 
             case iVerticalAlignment::Bottom:
-                textY += rect._height - 2 - static_cast<int32>(getFontSize());
+                textY += rect._height - 2 * getScale() - static_cast<int32>(getFontSize());
                 break;
             };
 
@@ -302,8 +302,8 @@ namespace igor
         const float32 srcWidth = texture->getWidth();
         const float32 aspect = srcHeight / srcWidth;
 
-        float32 newHeight = 64;
-        float32 newWidth = 64;
+        float32 newHeight = 64 * getScale();
+        float32 newWidth = 64 * getScale();
 
         if (srcWidth > srcHeight)
         {
@@ -339,6 +339,41 @@ namespace igor
         }
 
         iRenderer::getInstance().setLineWidth(1);
+    }
+
+    void iWidgetDefaultTheme::drawCheckBox(iWidgetCheckBoxPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto enabled = widget->isEnabled();
+        const bool checked = widget->isChecked();
+
+        if (state != iWidgetState::Standby)
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SPECULAR);
+        }
+
+        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_WHITE : COLOR_DIFFUSE);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+
+        if (checked)
+        {
+            const iaColor4f &color = enabled ? COLOR_BLACK : COLOR_DIFFUSE_DARK;
+
+            iRenderer::getInstance().drawLine(rect._x + 4, rect._y + 8, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
+            iRenderer::getInstance().drawLine(rect._x + 5, rect._y + 8, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
+
+            iRenderer::getInstance().drawLine(rect._x + rect._width - 5, rect._y + 4, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
+            iRenderer::getInstance().drawLine(rect._x + rect._width - 4, rect._y + 4, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
+        }
+
+        DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
     // TODO create new interfaces like the one above
@@ -774,55 +809,12 @@ namespace igor
 
     float32 iWidgetDefaultTheme::getFontSize() const
     {
-        static auto fontSizeScale = getFontSizeScale(); // enough to ask once for it
-        return _fontSize * fontSizeScale;
+        return _fontSize * getScale();
     }
 
     iTextureFontPtr iWidgetDefaultTheme::getFont() const
     {
         return _font;
-    }
-
-    void iWidgetDefaultTheme::drawCheckBoxFrame(const iaRectanglef &rect, iWidgetState state, bool enabled)
-    {
-        if (state != iWidgetState::Standby)
-        {
-            iRenderer::getInstance().drawFilledRectangle(rect, COLOR_SPECULAR);
-        }
-    }
-
-    void iWidgetDefaultTheme::drawCheckBox(const iaRectanglef &rect, iWidgetState state, bool enabled, bool checked)
-    {
-        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_WHITE : COLOR_DIFFUSE);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
-
-        if (checked)
-        {
-            const iaColor4f &color = enabled ? COLOR_BLACK : COLOR_DIFFUSE_DARK;
-
-            iRenderer::getInstance().drawLine(rect._x + 4, rect._y + 8, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
-            iRenderer::getInstance().drawLine(rect._x + 5, rect._y + 8, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
-
-            iRenderer::getInstance().drawLine(rect._x + rect._width - 5, rect._y + 4, rect._x + rect._width / 2, rect._y + rect._height - 5, color);
-            iRenderer::getInstance().drawLine(rect._x + rect._width - 4, rect._y + 4, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
-        }
-    }
-
-    void iWidgetDefaultTheme::drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool enabled)
-    {
-        drawCheckBoxFrame(rect, state, enabled);
-        drawCheckBox(iaRectanglef(rect._x, rect._y, rect._height, rect._height), state, enabled, checked);
-        drawText(iaRectanglef(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f) + static_cast<int32>(getFontSize()) * 2,
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f), 0, 0),
-                 text, 0);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
     void iWidgetDefaultTheme::drawLabel(const iaRectanglef &rect, const iaString &text, int32 textwidth, iWidgetState state, bool enabled)

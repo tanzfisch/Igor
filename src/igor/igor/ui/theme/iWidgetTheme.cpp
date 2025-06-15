@@ -20,14 +20,14 @@ namespace igor
         Display *display = XOpenDisplay(nullptr);
         if (!display)
         {
-            std::cerr << "Unable to open X display" << std::endl;
+            con_err("Unable to open X display");
             return 1.0f;
         }
 
         char *res_man_str = XResourceManagerString(display);
         if (!res_man_str)
         {
-            std::cerr << "XResourceManagerString is null" << std::endl;
+            con_err("XResourceManagerString is null");
             XCloseDisplay(display);
             return 1.0f;
         }
@@ -36,7 +36,7 @@ namespace igor
         XrmDatabase db = XrmGetStringDatabase(res_man_str);
         if (!db)
         {
-            std::cerr << "Failed to get X resource database" << std::endl;
+            con_err("Failed to get X resource database");
             XCloseDisplay(display);
             return 1.0f;
         }
@@ -55,10 +55,11 @@ namespace igor
     }
 #endif
 
-    float32 iWidgetTheme::getFontSizeScale() const
+    float32 iWidgetTheme::getScale() const
     {
 #ifdef IGOR_LINUX
-        return getFontScaleFromXft();
+        static auto scale = getFontScaleFromXft();
+        return scale;
 #else
         return 1.0f;
 #endif

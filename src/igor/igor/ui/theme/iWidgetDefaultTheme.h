@@ -53,6 +53,7 @@ namespace igor
         void drawWidgetLabel(iWidgetLabelPtr widget) override;
         void drawSelection(const iaRectanglef &rect) override;
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
+        void drawCheckBox(iWidgetCheckBoxPtr widget) override;
 
         // TODO
 
@@ -76,7 +77,6 @@ namespace igor
         void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) override;
         void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) override;
         void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) override;
-        void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool enabled) override;
         void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool enabled) override;
         void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool enabled) override;
         void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) override;
@@ -150,8 +150,6 @@ namespace igor
 
         void drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool enabled, const std::vector<iaColor4f> &colors);
         void drawButtonText(const iaRectanglef &rect, const iaString &text);
-        void drawCheckBoxFrame(const iaRectanglef &rect, iWidgetState state, bool enabled);
-        void drawCheckBox(const iaRectanglef &rect, iWidgetState state, bool enabled, bool checked);
         void drawNumberChooserFrame(const iaRectanglef &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool enabled);
         void drawSelectBoxFrame(const iaRectanglef &rect, iWidgetState buttonState, bool enabled);
     };
