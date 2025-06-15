@@ -868,7 +868,6 @@ namespace igor
                         break;
 
                     case ClientMessage:
-                        _window->close();
                         closeEvent();
                         return;
                     default:;

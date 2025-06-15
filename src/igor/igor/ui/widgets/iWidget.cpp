@@ -27,7 +27,7 @@ namespace igor
         if (parent != nullptr)
         {
             parent->addWidget(this);
-        }
+        }        
     }
 
     iWidget::~iWidget()
@@ -35,6 +35,11 @@ namespace igor
         if (hasKeyboardFocus())
         {
             resetKeyboardFocus();
+        }
+
+        if(hasParent())
+        {
+            getParent()->removeWidget(this);
         }
 
         clearChildren();

@@ -65,17 +65,20 @@ void UILayer::onInit()
 
 void UILayer::onDeinit()
 {
-    if (_propertiesDialog != nullptr)
-    {
-        delete _propertiesDialog;
-        _propertiesDialog = nullptr;
-    }
+    delete _propertiesDialog;
+    _propertiesDialog = nullptr;
 
-    if (_outliner != nullptr)
-    {
-        delete _outliner;
-        _outliner = nullptr;
-    }
+    delete _assetBrowser;
+    _assetBrowser = nullptr;
+
+    delete _viewport;
+    _viewport = nullptr;
+
+    delete _outliner;
+    _outliner = nullptr;
+
+    delete _mainDialog;
+    _mainDialog = nullptr;
 
     // call base class
     iLayerWidgets::onDeinit();
