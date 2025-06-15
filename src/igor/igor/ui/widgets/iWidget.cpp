@@ -16,6 +16,7 @@ namespace igor
 {
     iaIDGenerator64 iWidget::_idGenerator;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
+    float32 iWidget::s_scale = 1.0f;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
         : _type(type), _kind(kind)

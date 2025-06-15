@@ -31,7 +31,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
+		iWidgetManager::getInstance().getTheme()->drawTextEdit(this);
 	}
 
 	const iaString &iWidgetTextEdit::getText() const

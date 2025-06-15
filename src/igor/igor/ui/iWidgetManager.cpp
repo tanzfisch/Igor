@@ -10,6 +10,8 @@
 
 #include <cstdlib>
 
+#include <igor/system/iDefinesLinux.h>
+
 namespace igor
 {
 
@@ -164,7 +166,7 @@ namespace igor
         {
             return nullptr;
         }
-        
+
         return _modalStack.back();
     }
 
@@ -380,6 +382,7 @@ namespace igor
     void iWidgetManager::draw()
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
+        iWidget::s_scale = getSystemScale(); // TODO don't do this every frame
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
@@ -682,6 +685,49 @@ namespace igor
 
         _lastCursorType = _cursorType;
         iMouse::getInstance().setCursor(_lastCursorType);
+    }
+
+    float32 iWidgetManager::getSystemScale() const
+    {
+#ifdef IGOR_LINUX
+        Display *display = XOpenDisplay(nullptr);
+        if (!display)
+        {
+            con_err("Unable to open X display");
+            return 1.0f;
+        }
+
+        char *res_man_str = XResourceManagerString(display);
+        if (!res_man_str)
+        {
+            con_err("XResourceManagerString is null");
+            XCloseDisplay(display);
+            return 1.0f;
+        }
+
+        XrmInitialize();
+        XrmDatabase db = XrmGetStringDatabase(res_man_str);
+        if (!db)
+        {
+            con_err("Failed to get X resource database");
+            XCloseDisplay(display);
+            return 1.0f;
+        }
+
+        XrmValue value;
+        char *type;
+        if (XrmGetResource(db, "Xft.dpi", "Xft.Dpi", &type, &value) && value.addr)
+        {
+            float dpi = std::atof(value.addr);
+            XCloseDisplay(display);
+            return dpi / 96.0f; // Assuming 96 DPI is 1.0 scale
+        }
+
+        XCloseDisplay(display);
+        return 1.0f;
+#else
+        return 1.0f;
+#endif
     }
 
 } // namespace igor

@@ -320,12 +320,12 @@ namespace igor
         iWheelDownEvent &getWheelDownEvent();
 
         /*! \returns context menu event
-        */
-        iContextMenuEvent& getContextMenuEvent();
+         */
+        iContextMenuEvent &getContextMenuEvent();
 
         /*! \returns selection changed events
-        */
-        iSelectionChangedEvent& getSelectionChangedEvent();
+         */
+        iSelectionChangedEvent &getSelectionChangedEvent();
 
         /*! \returns actual absolute position
          */
@@ -623,7 +623,7 @@ namespace igor
         bool isMultiSelectionEnabled() const;
 
         /*! selects or unselects widget
-        */
+         */
         void setSelect(bool select);
 
         /*! \returns true if widget is selected
@@ -647,6 +647,13 @@ namespace igor
         /*! queue this widget for refresh in next frame
          */
         void refresh();
+
+        /*! \returns system wide UI scale
+         */
+        IGOR_INLINE static float32 getScale()
+        {
+            return s_scale;
+        }
 
     protected:
         /*! if true widget is selected
@@ -1062,6 +1069,10 @@ namespace igor
         /*! user data
          */
         std::any _userData;
+
+        /*! the system wide ui scale
+         */
+        static float32 s_scale;
 
         /*! called when parent of this widget changes
          */

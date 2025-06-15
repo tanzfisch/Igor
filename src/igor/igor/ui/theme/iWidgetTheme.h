@@ -34,6 +34,7 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
+#include <igor/ui/widgets/iWidgetTextEdit.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -56,9 +57,11 @@ namespace igor
         virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
         virtual void drawWidgetButton(iWidgetButtonPtr widget) = 0;
         virtual void drawWidgetLabel(iWidgetLabelPtr widget) = 0;
+        virtual void drawCheckBox(iWidgetCheckBoxPtr widget) = 0;
+        virtual void drawTextEdit(iWidgetTextEditPtr widget) = 0;
+
         virtual void drawSelection(const iaRectanglef &rect) = 0;
         virtual void drawDrag(const iaVector2f &pos, const iDrag &drag) = 0;
-        virtual void drawCheckBox(iWidgetCheckBoxPtr widget) = 0;
 
         // TODO
 
@@ -80,13 +83,12 @@ namespace igor
         virtual void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) = 0;
-        virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;        
+        virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;
         virtual void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool enabled) = 0;
         virtual void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState buttonUp, iWidgetState buttonDown, bool enabled) = 0;
         virtual void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) = 0;
         virtual void drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool enabled) = 0;
         virtual void drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled) = 0;
-        virtual void drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool enabled) = 0;
         virtual void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) = 0;
         virtual void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) = 0;
         virtual void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) = 0;
@@ -101,13 +103,9 @@ namespace igor
         virtual iTextureFontPtr getFont() const = 0;
 
         virtual float32 getDialogTitleWidth() const = 0;
-        virtual float32 getDialogFrameWidth() const = 0;        
+        virtual float32 getDialogFrameWidth() const = 0;
 
-        /*! \returns system ui scale
-
-        tested only with gnome
-        */
-        float32 getScale() const;
+        void beginFrame();
 
         iWidgetTheme() = default;
         virtual ~iWidgetTheme() = default;

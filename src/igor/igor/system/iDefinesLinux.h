@@ -44,6 +44,7 @@
 #include <X11/extensions/xf86vmode.h>
 #endif
 #include <X11/cursorfont.h>
+#include <X11/Xresource.h>
 
 namespace igor
 {

@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <sstream>
 
-// have to include this after GLee
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 

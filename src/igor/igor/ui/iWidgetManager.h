@@ -147,7 +147,7 @@ namespace igor
 
         \param widget the widget to be deleted
         */
-        void deleteWidget(iWidgetPtr widget);           
+        void deleteWidget(iWidgetPtr widget);
 
     private:
         /*! modal stack (using vector so we can search in it)
@@ -199,15 +199,15 @@ namespace igor
         std::set<iWidgetPtr> _forDeletion;
 
         /*! holds the cursor type that is the current one
-        */
+         */
         iMouseCursorType _cursorType = iMouseCursorType::Arrow;
 
         /*! the last cursor that was applied
-        */
+         */
         iMouseCursorType _lastCursorType = iMouseCursorType::Arrow;
 
         /*! if true there was no cursor set this frame yet
-        */
+         */
         bool _firstCursor = true;
 
         /*! closes the dialog and queues a close event in to be called after the update handle
@@ -343,10 +343,10 @@ namespace igor
 
         /*! resets the drag object
          */
-        void endDrag();     
+        void endDrag();
 
         /*! delete widgets in delete queue
-        */ 
+         */
         void flushDeleteQueue();
 
         /*! sets cursor type
@@ -356,7 +356,7 @@ namespace igor
         void setCursor(iMouseCursorType cursorType);
 
         /*! applies cursor that was set before
-        */
+         */
         void applyCursor();
 
         /*! set this widget exclusively modal
@@ -376,6 +376,12 @@ namespace igor
         \param dialog the dialog to check if it is modal
         */
         bool isModal(iDialogPtr dialog);
+
+        /*! \returns system ui system scale
+
+        (tested only with gnome)
+        */
+        float32 getSystemScale() const;
 
         /*! init
          */

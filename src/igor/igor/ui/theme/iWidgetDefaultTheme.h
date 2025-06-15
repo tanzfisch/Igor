@@ -51,9 +51,11 @@ namespace igor
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
         void drawWidgetButton(iWidgetButtonPtr widget) override;
         void drawWidgetLabel(iWidgetLabelPtr widget) override;
+        void drawCheckBox(iWidgetCheckBoxPtr widget) override;
+        void drawTextEdit(iWidgetTextEditPtr widget) override;
+
         void drawSelection(const iaRectanglef &rect) override;
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
-        void drawCheckBox(iWidgetCheckBoxPtr widget) override;
 
         // TODO
 
@@ -82,7 +84,6 @@ namespace igor
         void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) override;
         void drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool enabled) override;
         void drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled) override;
-        void drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool enabled) override;
         void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) override;
         void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) override;
         void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) override;

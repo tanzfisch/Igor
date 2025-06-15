@@ -173,13 +173,14 @@ namespace igor
 
     void iWidgetDefaultTheme::drawWidgetButton(iWidgetButtonPtr widget)
     {
+        const auto scale = iWidget::getScale();
         const auto rect = widget->getActualRect();
         const auto state = widget->getState();
         const auto enabled = widget->isEnabled();
         const auto &background = widget->getBackground();
         const auto &foreground = widget->getForeground();
         const bool checked = widget->isCheckable() && widget->isChecked();
-        const float32 offset = state == iWidgetState::Pressed ? getScale() : 0;
+        const float32 offset = state == iWidgetState::Pressed ? scale : 0;
         iTexturePtr texture = widget->getBackgroundTexture();
         iTexturePtr icon = widget->getIcon();
         const auto &text = widget->getText();
@@ -238,7 +239,7 @@ namespace igor
             switch (halign)
             {
             case iHorizontalAlignment::Left:
-                textX += 2 * getScale();
+                textX += 2 * scale;
                 break;
 
             case iHorizontalAlignment::Center:
@@ -246,14 +247,14 @@ namespace igor
                 break;
 
             case iHorizontalAlignment::Right:
-                textX += rect._width - 2 * getScale() - textwidth;
+                textX += rect._width - 2 * scale - textwidth;
                 break;
             };
 
             switch (valign)
             {
             case iVerticalAlignment::Top:
-                textY += 2 * getScale();
+                textY += 2 * scale;
                 break;
 
             case iVerticalAlignment::Center:
@@ -261,7 +262,7 @@ namespace igor
                 break;
 
             case iVerticalAlignment::Bottom:
-                textY += rect._height - 2 * getScale() - static_cast<int32>(getFontSize());
+                textY += rect._height - 2 * scale - static_cast<int32>(getFontSize());
                 break;
             };
 
@@ -302,8 +303,8 @@ namespace igor
         const float32 srcWidth = texture->getWidth();
         const float32 aspect = srcHeight / srcWidth;
 
-        float32 newHeight = 64 * getScale();
-        float32 newWidth = 64 * getScale();
+        float32 newHeight = 64 * iWidget::getScale();
+        float32 newWidth = 64 * iWidget::getScale();
 
         if (srcWidth > srcHeight)
         {
@@ -374,6 +375,43 @@ namespace igor
         }
 
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
+    }
+
+    void iWidgetDefaultTheme::drawTextEdit(iWidgetTextEditPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto enabled = widget->isEnabled();
+        const auto &text = widget->getText();
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        // draw stencil pattern
+        iRenderer::getInstance().setStencilTestActive(true);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
+        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
+        iRenderer::getInstance().setStencilMask(0xff);
+
+        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_SPECULAR : COLOR_DIFFUSE);
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        iRenderer::getInstance().setStencilMask(0xff);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
+
+        // render text
+        iRenderer::getInstance().setFont(_font);
+        iRenderer::getInstance().setFontSize(getFontSize());
+        iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
+
+        iRenderer::getInstance().drawString(rect._x, rect._y, text, enabled ? COLOR_TEXT_DARK : COLOR_AMBIENT);
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        iRenderer::getInstance().setStencilTestActive(false);
     }
 
     // TODO create new interfaces like the one above
@@ -609,38 +647,6 @@ namespace igor
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool enabled)
-    {
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        // draw stencil pattern
-        iRenderer::getInstance().setStencilTestActive(true);
-        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
-        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
-        iRenderer::getInstance().setStencilMask(0xff);
-
-        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_SPECULAR : COLOR_DIFFUSE);
-
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        iRenderer::getInstance().setStencilMask(0xff);
-        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
-
-        // render text
-        iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(getFontSize());
-        iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
-
-        iRenderer::getInstance().drawString(rect._x, rect._y, text, enabled ? COLOR_TEXT_DARK : COLOR_AMBIENT, maxwidth);
-
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        iRenderer::getInstance().setStencilTestActive(false);
-    }
-
     void iWidgetDefaultTheme::drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled)
     {
         iaString modText = text;
@@ -809,7 +815,7 @@ namespace igor
 
     float32 iWidgetDefaultTheme::getFontSize() const
     {
-        return _fontSize * getScale();
+        return _fontSize * iWidget::getScale();
     }
 
     iTextureFontPtr iWidgetDefaultTheme::getFont() const
