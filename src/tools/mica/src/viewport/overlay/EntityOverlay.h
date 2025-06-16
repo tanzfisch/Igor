@@ -97,27 +97,27 @@ public:
     \param event the mouse key down event
     \returns true if consumed
     */
-    virtual bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+    virtual bool onMouseKeyDownEvent(const iEventMouseKeyDown &event);
 
     /*! handles mouse key up event
 
     \param event the mouse key up event
     \returns true if consumed
     */
-    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+    virtual bool onMouseKeyUpEvent(const iEventMouseKeyUp &event);
 
     /*! handles mouse move event
 
     \param event the mouse move event
     \returns true if consumed
     */
-    virtual bool onMouseMoveEvent(iEventMouseMove &event);
+    virtual bool onMouseMoveEvent(const iEventMouseMove &event);
 
     /*! called when key was pressed
 
     \param event the event to handle
     */
-    virtual bool onKeyDown(iEventKeyDown &event);
+    virtual bool onKeyDown(const iEventKeyDown &event);
 
     /*! \returns current overlay mode
      */

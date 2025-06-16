@@ -22,7 +22,7 @@ void UserControlComponentSpriteRender::onInit()
     spriteLayout->setStretchIndex(1);
     iWidgetLabelPtr labelSprite = new iWidgetLabel(spriteLayout);
     labelSprite->setText("Sprite");
-    labelSprite->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSprite->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelSprite->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelSprite->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -34,7 +34,7 @@ void UserControlComponentSpriteRender::onInit()
     sizeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelSize = new iWidgetLabel(sizeLayout);
     labelSize->setText("Size");
-    labelSize->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSize->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _size = new iUserControlVector(2, sizeLayout);
@@ -46,7 +46,7 @@ void UserControlComponentSpriteRender::onInit()
     colorLayout->setStretchIndex(1);
     iWidgetLabelPtr labelColor = new iWidgetLabel(colorLayout);
     labelColor->setText("Color");
-    labelColor->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelColor->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelColor->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _color = new iUserControlColor(colorLayout);
@@ -58,7 +58,7 @@ void UserControlComponentSpriteRender::onInit()
     zIndexLayout->setStretchIndex(1);
     iWidgetLabelPtr labelZIndex = new iWidgetLabel(zIndexLayout);
     labelZIndex->setText("zIndex");
-    labelZIndex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelZIndex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelZIndex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _zIndex = new iWidgetLineTextEdit(zIndexLayout);
@@ -70,7 +70,7 @@ void UserControlComponentSpriteRender::onInit()
     renderModeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelRenderMode = new iWidgetLabel(renderModeLayout);
     labelRenderMode->setText("Mode");
-    labelRenderMode->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelRenderMode->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelRenderMode->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _mode = new iWidgetSelectBox(renderModeLayout);
@@ -84,7 +84,7 @@ void UserControlComponentSpriteRender::onInit()
     frameIndexLayout->setStretchIndex(1);
     iWidgetLabelPtr labelFrameIndex = new iWidgetLabel(frameIndexLayout);
     labelFrameIndex->setText("Frame");
-    labelFrameIndex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelFrameIndex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelFrameIndex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _frameIndex = new iWidgetLineTextEdit(frameIndexLayout);

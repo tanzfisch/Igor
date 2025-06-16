@@ -35,6 +35,8 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/dialogs/iDialog.h>
+
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaString.h>
@@ -88,6 +90,12 @@ namespace igor
         */
         virtual void drawTextEdit(iWidgetTextEditPtr widget) = 0;
 
+        /*! draw dialog
+
+        \param widget the widget to draw
+        */
+        virtual void drawDialog(iDialogPtr dialog) = 0;
+
         /*! draw selection box
 
         \param rect the selection rectangle
@@ -118,7 +126,6 @@ namespace igor
         virtual void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
         virtual void drawFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
         virtual void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) = 0;
-        virtual void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) = 0;
         virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) = 0;
         virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;
@@ -145,7 +152,7 @@ namespace igor
          */
         virtual iTextureFontPtr getFont() const = 0;
 
-        virtual float32 getDialogTitleWidth() const = 0;
+        virtual float32 getDialogTitleHeight() const = 0;
         virtual float32 getDialogFrameWidth() const = 0;
 
         void beginFrame();

@@ -50,7 +50,7 @@ namespace igor
                 minHeight += child->getMinHeight();
                 if (!first)
                 {
-                    minHeight += _spacing;
+                    minHeight += _spacing * getScale();
                 }
             }
             else
@@ -60,7 +60,7 @@ namespace igor
 
                 if (!first)
                 {
-                    minWidth += _spacing;
+                    minWidth += _spacing * getScale();
                 }
             }
 

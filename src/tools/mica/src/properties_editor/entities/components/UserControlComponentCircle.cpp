@@ -22,7 +22,7 @@ void UserControlComponentCircle::onInit()
     radiusLayout->setStretchIndex(1);
     iWidgetLabelPtr labelRadius = new iWidgetLabel(radiusLayout);
     labelRadius->setText("Radius");
-    labelRadius->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelRadius->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelRadius->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _radius = new iWidgetLineTextEdit(radiusLayout);
@@ -34,7 +34,7 @@ void UserControlComponentCircle::onInit()
     offsetLayout->setStretchIndex(1);
     iWidgetLabelPtr labelOffset = new iWidgetLabel(offsetLayout);
     labelOffset->setText("Offset");
-    labelOffset->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelOffset->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelOffset->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _offset = new iUserControlVector(2, offsetLayout);

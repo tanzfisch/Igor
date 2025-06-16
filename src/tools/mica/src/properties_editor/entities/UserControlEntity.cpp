@@ -32,7 +32,7 @@ void UserControlEntity::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);    
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetGroupBoxPtr entityGroupBox = new iWidgetGroupBox(mainLayout);
@@ -41,6 +41,7 @@ void UserControlEntity::init()
     entityGroupBox->setHeaderOnly();
 
     iWidgetBoxLayoutPtr entityLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, entityGroupBox);
+    entityLayout->setSpacing(5);
     entityLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     entityLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -49,7 +50,7 @@ void UserControlEntity::init()
     nameLayout->setStretchIndex(1);
     iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
     labelName->setText("Name");
-    labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelName->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = new iWidgetLineTextEdit(nameLayout);
@@ -63,7 +64,7 @@ void UserControlEntity::init()
     idLayout->setStretchIndex(1);
     iWidgetLabelPtr labelID = new iWidgetLabel(idLayout);
     labelID->setText("ID");
-    labelID->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelID->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textID = new iWidgetLineTextEdit(idLayout);
@@ -76,7 +77,7 @@ void UserControlEntity::init()
     activeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelActive = new iWidgetLabel(activeLayout);
     labelActive->setText("Active");
-    labelActive->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActive->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = new iWidgetCheckBox(activeLayout);
@@ -86,7 +87,7 @@ void UserControlEntity::init()
     _addComponent = new iWidgetButton(entityLayout);
     _addComponent->setHorizontalAlignment(iHorizontalAlignment::Left);
     _addComponent->setText("Add Component");
-    _addComponent->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    _addComponent->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     _addComponent->getClickEvent().add(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));
 
     iWidgetGroupBoxPtr componentsGroupBox = new iWidgetGroupBox(mainLayout);

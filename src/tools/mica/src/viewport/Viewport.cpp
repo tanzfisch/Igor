@@ -427,7 +427,7 @@ void Viewport::renderOverlayGrid()
     }
 }
 
-bool Viewport::onKeyDown(iEventKeyDown &event)
+bool Viewport::onKeyDown(const iEventKeyDown &event)
 {
     if (iWidget::onKeyDown(event))
     {
@@ -489,9 +489,9 @@ bool Viewport::onKeyDown(iEventKeyDown &event)
     return false;
 }
 
-bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
+bool Viewport::onMouseKeyDown(const iEventMouseKeyDown &event)
 {
-    iWidget::onMouseKeyDown(event);
+    iDialog::onMouseKeyDown(event);
 
     bool result = false;
     for (auto &overlay : _entityOverlays)
@@ -511,7 +511,7 @@ bool Viewport::onMouseKeyDown(iEventMouseKeyDown &event)
     return result;
 }
 
-bool Viewport::onMouseKeyUp(iEventMouseKeyUp &event)
+bool Viewport::onMouseKeyUp(const iEventMouseKeyUp &event)
 {
     iDialog::onMouseKeyUp(event);
 
@@ -589,7 +589,7 @@ iEntityID Viewport::getEntityIDAt(int32 x, int32 y)
     return iEntityID(view.pickEntityID(x - rect._x, y - rect._y));
 }
 
-void Viewport::onMouseMove(iEventMouseMove &event)
+void Viewport::onMouseMove(const iEventMouseMove &event)
 {
     iWidget::onMouseMove(event);
 
@@ -647,7 +647,7 @@ void Viewport::onMouseMove(iEventMouseMove &event)
     }
 }
 
-bool Viewport::onMouseWheel(iEventMouseWheel &event)
+bool Viewport::onMouseWheel(const iEventMouseWheel &event)
 {
     if (!isEnabled() ||
         !isMouseOver())

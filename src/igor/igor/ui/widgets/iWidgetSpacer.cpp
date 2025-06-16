@@ -34,10 +34,10 @@ namespace igor
 
 		iWidgetManager::getInstance().getTheme()->drawWidgetSpacer(this);
 
-        for (const auto child : _children)
-        {
-            child->draw();
-        }				
+		for (const auto child : _children)
+		{
+			child->draw();
+		}
 	}
 
 } // namespace igor

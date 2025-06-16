@@ -21,7 +21,7 @@ void UserControlComponentPrefab::onInit()
     prefabRefLayout->setStretchIndex(1);
     iWidgetLabelPtr labelPrefab = new iWidgetLabel(prefabRefLayout);
     labelPrefab->setText("Prefab");
-    labelPrefab->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelPrefab->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelPrefab->setVerticalAlignment(iVerticalAlignment::Top);
     labelPrefab->setHorizontalAlignment(iHorizontalAlignment::Left);
 

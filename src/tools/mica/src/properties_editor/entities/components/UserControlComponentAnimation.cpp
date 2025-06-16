@@ -20,7 +20,7 @@ void UserControlComponentAnimation::onInit()
     clipsLayout->setStretchIndex(1);
     iWidgetLabelPtr labelClips = new iWidgetLabel(clipsLayout);
     labelClips->setText("Clips");
-    labelClips->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelClips->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelClips->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     // TODO for now just add one clip

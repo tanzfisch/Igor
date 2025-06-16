@@ -24,7 +24,7 @@ void UserControlComponentTransform::onInit()
     positionLayout->setStretchIndex(1);
     iWidgetLabelPtr labelPosition = new iWidgetLabel(positionLayout);
     labelPosition->setText("Position");
-    labelPosition->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelPosition->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelPosition->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _position = new iUserControlVector(3, positionLayout);
@@ -37,7 +37,7 @@ void UserControlComponentTransform::onInit()
     orientationLayout->setStretchIndex(1);
     iWidgetLabelPtr labelOrientation = new iWidgetLabel(orientationLayout);
     labelOrientation->setText("Rotation");
-    labelOrientation->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelOrientation->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelOrientation->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _orientation = new iUserControlVector(3, orientationLayout);
@@ -50,7 +50,7 @@ void UserControlComponentTransform::onInit()
     scaleLayout->setStretchIndex(1);
     iWidgetLabelPtr labelScale = new iWidgetLabel(scaleLayout);
     labelScale->setText("Scale");
-    labelScale->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelScale->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelScale->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _scale = new iUserControlVector(3, scaleLayout);

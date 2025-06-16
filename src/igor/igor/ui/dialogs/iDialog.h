@@ -219,7 +219,26 @@ namespace igor
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        virtual bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
+
+        /*! handles incoming mouse key down events
+
+        \param event mouse key down event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        virtual bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
+
+        /*! handles incoming mouse move events
+
+        \param event mouse move event
+        */
+        virtual void onMouseMove(const iEventMouseMove &event) override;
+
+        /*! handles pressed key event
+
+        \param event the key down event
+        */
+        virtual bool onKeyDown(const iEventKeyDown &event) override;
 
     private:
         /*! if true dialog is open
@@ -273,25 +292,6 @@ namespace igor
         /*! the delegate to call after the dialog was closed
          */
         iDialogCloseDelegate _dialogCloseDelegate;
-
-        /*! handles incoming mouse key down events
-
-        \param event mouse key down event
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
-
-        /*! handles incoming mouse move events
-
-        \param event mouse move event
-        */
-        void onMouseMove(iEventMouseMove &event) override;
-
-        /*! handles pressed key event
-
-        \param event the key down event
-        */
-        virtual bool onKeyDown(iEventKeyDown &event) override;
 
         /*! updates size based on it's content
          */

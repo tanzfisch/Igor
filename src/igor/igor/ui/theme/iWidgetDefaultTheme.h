@@ -47,14 +47,59 @@ namespace igor
     {
 
     public:
+/*! draw widget picture
+
+        \param widget the widget to draw
+        */
         void drawWidgetPicture(iWidgetPicturePtr widget) override;
+
+        /*! draw widget spacer
+
+        \param widget the widget to draw
+        */
         void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
+
+        /*! draw widget button
+
+        \param widget the widget to draw
+        */
         void drawWidgetButton(iWidgetButtonPtr widget) override;
+
+        /*! draw widget label
+
+        \param widget the widget to draw
+        */
         void drawWidgetLabel(iWidgetLabelPtr widget) override;
+
+        /*! draw widget check box
+
+        \param widget the widget to draw
+        */
         void drawCheckBox(iWidgetCheckBoxPtr widget) override;
+
+        /*! draw widget text edit
+
+        \param widget the widget to draw
+        */
         void drawTextEdit(iWidgetTextEditPtr widget) override;
 
+        /*! draw dialog
+
+        \param widget the widget to draw
+        */
+        void drawDialog(iDialogPtr dialog) override;
+
+        /*! draw selection box
+
+        \param rect the selection rectangle
+        */
         void drawSelection(const iaRectanglef &rect) override;
+
+        /*! draw drag icon
+
+        \param pos the position of the drag icon
+        \param drag the drag information to draw
+        */
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
 
         // TODO
@@ -74,7 +119,6 @@ namespace igor
         void drawFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
         void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
         void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool enabled) override;
-        void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled) override;
         
         void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) override;
         void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) override;
@@ -97,7 +141,7 @@ namespace igor
         float32 getFontSize() const override;
         iTextureFontPtr getFont() const override;
 
-        float32 getDialogTitleWidth() const override;
+        float32 getDialogTitleHeight() const override;
         float32 getDialogFrameWidth() const override;
 
         iWidgetDefaultTheme(iTexturePtr fontTexture, iTexturePtr backgroundTexture);
@@ -120,13 +164,9 @@ namespace igor
          */
         float32 _fontLineHeight = 1.1f;
 
-        /*! title width
-         */
-        float32 _titleWidth = 28;
-
         /*! frame width
          */
-        float32 _frameWidth = 10;
+        float32 _frameWidth = 5;
 
         /*! background texture
          */

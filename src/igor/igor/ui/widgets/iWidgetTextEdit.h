@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETTEXTEDIT__
-#define __IGOR_WIDGETTEXTEDIT__
+#ifndef IGOR_WIDGETTEXTEDIT_H
+#define IGOR_WIDGETTEXTEDIT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -37,38 +37,38 @@ namespace igor
     /*! text edit widget
 
     for now non interactive
-	*/
+    */
     class IGOR_API iWidgetTextEdit : public iWidget
     {
 
     public:
         /*! initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetTextEdit(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetTextEdit() = default;
 
         /*! sets the text
 
-		\param text the text to be set
-		*/
+        \param text the text to be set
+        */
         void setText(const iaString &text);
 
         /*! \returns the text
-		*/
+         */
         const iaString &getText() const;
 
     private:
         /*! the text
-		*/
+         */
         iaString _text;
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
 
         /*! draws the widget
@@ -77,9 +77,9 @@ namespace igor
     };
 
     /*! text widget pointer definition
-    */
-    typedef iWidgetTextEdit* iWidgetTextEditPtr;
+     */
+    typedef iWidgetTextEdit *iWidgetTextEditPtr;
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETTEXTEDIT__
+#endif // IGOR_WIDGETTEXTEDIT_H

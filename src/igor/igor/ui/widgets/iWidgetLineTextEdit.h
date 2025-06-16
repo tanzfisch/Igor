@@ -153,19 +153,19 @@ namespace igor
 
         \param event the key ascii event
         */
-        bool onASCII(iEventKeyASCII &event) override;
+        bool onASCII(const iEventKeyASCII &event) override;
 
         /*! handles incoming released key events
 
 		\param event the key down event
 		*/
-        virtual bool onKeyDown(iEventKeyDown &event) override;
+        virtual bool onKeyDown(const iEventKeyDown &event) override;
 
         /*! handles incoming released key events
 
 		\param event the key up event
 		*/
-        virtual bool onKeyUp(iEventKeyUp &event) override;
+        virtual bool onKeyUp(const iEventKeyUp &event) override;
 
         /*! handles gained kayboard focus
 		*/

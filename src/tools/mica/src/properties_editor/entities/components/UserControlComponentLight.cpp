@@ -22,7 +22,7 @@ void UserControlComponentLight::onInit()
     lightTypeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelType = new iWidgetLabel(lightTypeLayout);
     labelType->setText("Type");
-    labelType->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelType->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _lightType = new iWidgetSelectBox(lightTypeLayout);
@@ -36,7 +36,7 @@ void UserControlComponentLight::onInit()
     ambientLayout->setStretchIndex(1);
     iWidgetLabelPtr labelAmbient = new iWidgetLabel(ambientLayout);
     labelAmbient->setText("Ambient");
-    labelAmbient->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelAmbient->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelAmbient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _ambient = new iUserControlColor(ambientLayout);
@@ -48,7 +48,7 @@ void UserControlComponentLight::onInit()
     diffuseLayout->setStretchIndex(1);
     iWidgetLabelPtr labelDiffuse = new iWidgetLabel(diffuseLayout);
     labelDiffuse->setText("Diffuse");
-    labelDiffuse->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelDiffuse->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelDiffuse->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _diffuse = new iUserControlColor(diffuseLayout);
@@ -60,7 +60,7 @@ void UserControlComponentLight::onInit()
     specularLayout->setStretchIndex(1);
     iWidgetLabelPtr labelSpecular = new iWidgetLabel(specularLayout);
     labelSpecular->setText("Diffuse");
-    labelSpecular->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSpecular->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelSpecular->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _specular = new iUserControlColor(specularLayout);

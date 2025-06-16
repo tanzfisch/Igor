@@ -43,22 +43,22 @@ bool EntityOverlay::isActive() const
     return _active;
 }
 
-bool EntityOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+bool EntityOverlay::onMouseKeyDownEvent(const iEventMouseKeyDown &event)
 {
     return false;
 }
 
-bool EntityOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
+bool EntityOverlay::onMouseKeyUpEvent(const iEventMouseKeyUp &event)
 {
     return false;
 }
 
-bool EntityOverlay::onMouseMoveEvent(iEventMouseMove &event)
+bool EntityOverlay::onMouseMoveEvent(const iEventMouseMove &event)
 {
     return false;
 }
 
-bool EntityOverlay::onKeyDown(iEventKeyDown &event)
+bool EntityOverlay::onKeyDown(const iEventKeyDown &event)
 {
     return false;
 }

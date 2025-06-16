@@ -61,7 +61,7 @@ namespace igor
         updateMinSize(minWidth, minHeight);
     }
 
-    bool iWidgetSelectBox::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetSelectBox::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -74,7 +74,7 @@ namespace igor
         return iWidget::onMouseKeyDown(event);
     }
 
-    void iWidgetSelectBox::onMouseMove(iEventMouseMove &event)
+    void iWidgetSelectBox::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -98,7 +98,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSelectBox::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetSelectBox::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled() ||
             !isMouseOver())

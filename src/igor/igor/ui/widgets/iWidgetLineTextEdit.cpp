@@ -24,7 +24,7 @@ namespace igor
 
 	void iWidgetLineTextEdit::calcMinSize()
 	{
-		updateMinSize(0, 0);
+		updateMinSize(0, iWidgetManager::getInstance().getTheme()->getFontSize() * 1.2f);
 	}
 
 	void iWidgetLineTextEdit::setWriteProtected(bool writeProtected)
@@ -37,7 +37,7 @@ namespace igor
 		return _writeProtected;
 	}
 
-	bool iWidgetLineTextEdit::onASCII(iEventKeyASCII &event)
+	bool iWidgetLineTextEdit::onASCII(const iEventKeyASCII &event)
 	{
 		if (!isEnabled() ||
 			isWriteProtected() ||
@@ -69,7 +69,7 @@ namespace igor
 		return true;
 	}
 
-	bool iWidgetLineTextEdit::onKeyUp(iEventKeyUp &event)
+	bool iWidgetLineTextEdit::onKeyUp(const iEventKeyUp &event)
 	{
 		if (!isEnabled() ||
 			isWriteProtected() ||
@@ -82,7 +82,7 @@ namespace igor
 		return true;
 	}
 
-	bool iWidgetLineTextEdit::onKeyDown(iEventKeyDown &event)
+	bool iWidgetLineTextEdit::onKeyDown(const iEventKeyDown &event)
 	{
 		if (!isEnabled() ||
 			isWriteProtected() ||

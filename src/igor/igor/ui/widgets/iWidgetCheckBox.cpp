@@ -44,7 +44,7 @@ namespace igor
 		_currentRadioButtons.clear();
 	}
 
-	bool iWidgetCheckBox::onMouseKeyUp(iEventMouseKeyUp &event)
+	bool iWidgetCheckBox::onMouseKeyUp(const iEventMouseKeyUp &event)
 	{
 		if (!isEnabled())
 		{

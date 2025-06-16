@@ -415,7 +415,7 @@ void LightOverlay::setOverlayMode(OverlayMode overlayMode)
     onUpdateOverlayMode();
 }
 
-bool LightOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
+bool LightOverlay::onMouseKeyUpEvent(const iEventMouseKeyUp &event)
 {
     if (!_selectionID.isValid())
     {
@@ -426,7 +426,7 @@ bool LightOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     return true;
 }
 
-bool LightOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+bool LightOverlay::onMouseKeyDownEvent(const iEventMouseKeyDown &event)
 {
     auto rect = getView()->getViewport();
     auto window = iApplication::getInstance().getWindow();
@@ -455,7 +455,7 @@ bool LightOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool LightOverlay::onMouseMoveEvent(iEventMouseMove &event)
+bool LightOverlay::onMouseMoveEvent(const iEventMouseMove &event)
 {
     if (!_selectionID.isValid())
     {

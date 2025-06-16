@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSPACER__
-#define __IGOR_WIDGETSPACER__
+#ifndef IGOR_WIDGETSPACER_H
+#define IGOR_WIDGETSPACER_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -47,7 +47,7 @@ namespace igor
 
         \param parent optional parent
         */
-        iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
+        iWidgetSpacer(int32 width = 0, int32 height = 0, bool visible = false, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
          */
@@ -65,4 +65,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETSPACER__
+#endif // IGOR_WIDGETSPACER_H

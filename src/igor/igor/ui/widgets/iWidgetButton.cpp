@@ -142,14 +142,8 @@ namespace igor
 
         if (isGrowingByContent())
         {
-            if (_texture != nullptr)
-            {
-                // we don't actually want it to scale with the texture size since the texture is considered a background
-                minWidth = fontSize * 1.2f;
-                minHeight = fontSize * 1.2f;
-            }
-
-            if (_iconTexture != nullptr)
+            if (_texture != nullptr ||
+                _iconTexture != nullptr)
             {
                 // we don't actually want it to scale with the texture size since the texture is considered a background
                 minWidth = fontSize * 1.5f;

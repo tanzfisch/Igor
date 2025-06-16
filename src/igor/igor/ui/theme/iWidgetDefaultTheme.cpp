@@ -414,6 +414,35 @@ namespace igor
         iRenderer::getInstance().setStencilTestActive(false);
     }
 
+    void iWidgetDefaultTheme::drawDialog(iDialogPtr dialog)
+    {
+        const auto rect = dialog->getActualRect();
+        const auto clientRect = dialog->getActualClientRect();
+        const auto &title = dialog->getTitle();
+        const auto state = dialog->getState();
+
+        if (!dialog->isDocked())
+        {
+            drawShadowRect(rect);
+        }
+
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
+
+        if (dialog->hasHeader())
+        {
+            iRenderer::getInstance().drawFilledRectangle(rect._x, rect._y, rect._width, getDialogTitleHeight(), COLOR_DIFFUSE_DARK);
+
+            if (!title.isEmpty())
+            {
+                iaRectanglef titleRect = rect;
+                titleRect.adjust(5 * iWidget::getScale(), (getDialogTitleHeight() - getFontSize()) * 0.5, 0, 0);
+                drawText(titleRect, title, 0.0f);
+            }
+        }
+
+        iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);
+    }
+
     // TODO create new interfaces like the one above
 
     void iWidgetDefaultTheme::drawTooltip(const iaVector2f &pos, const iaString &text)
@@ -803,14 +832,14 @@ namespace igor
         iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), rect._x + rect._width - rect._height, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), COLOR_AMBIENT);
     }
 
-    float32 iWidgetDefaultTheme::getDialogTitleWidth() const
+    float32 iWidgetDefaultTheme::getDialogTitleHeight() const
     {
-        return _titleWidth;
+        return _fontSize * 1.5 * iWidget::getScale();
     }
 
     float32 iWidgetDefaultTheme::getDialogFrameWidth() const
     {
-        return _frameWidth;
+        return _frameWidth * iWidget::getScale();
     }
 
     float32 iWidgetDefaultTheme::getFontSize() const
@@ -1078,27 +1107,6 @@ namespace igor
             iRenderer::getInstance().drawRectangle(shadowRect, color);
             color._a -= 0.009;
         }
-    }
-
-    void iWidgetDefaultTheme::drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled)
-    {
-        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
-
-        if (headerEnabled)
-        {
-            iRenderer::getInstance().drawFilledRectangle(rect._x, rect._y, rect._width, _titleWidth, COLOR_DIFFUSE_DARK);
-
-            if (!title.isEmpty())
-            {
-                iaRectanglef titleRect = rect;
-                titleRect.adjust(5, 8, 0, 0);
-                drawText(titleRect, title, 0.0f);
-            }
-        }
-
-        iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
     IGOR_ENABLE_WARNING(4100)

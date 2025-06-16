@@ -352,7 +352,7 @@ void TransformOverlay::onPreRender()
     onUpdate();
 }
 
-bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
+bool TransformOverlay::onMouseKeyUpEvent(const iEventMouseKeyUp &event)
 {
     if (!_selectionID.isValid())
     {
@@ -363,7 +363,7 @@ bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     return true;
 }
 
-bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+bool TransformOverlay::onMouseKeyDownEvent(const iEventMouseKeyDown &event)
 {
     auto rect = getView()->getViewport();
     auto window = iApplication::getInstance().getWindow();
@@ -401,7 +401,7 @@ bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
+bool TransformOverlay::onMouseMoveEvent(const iEventMouseMove &event)
 {
     if (!_selectionID.isValid())
     {

@@ -58,13 +58,13 @@ namespace igor
         return _selectedColorIndex;
     }
 
-    bool iWidgetColorGradient::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetColorGradient::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         _selectedColorIndex = -1;
         return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetColorGradient::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetColorGradient::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         const iaVector2f &mousePos = getLastMousePos();
 

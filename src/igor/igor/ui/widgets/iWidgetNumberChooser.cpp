@@ -81,7 +81,7 @@ namespace igor
 		_change(this);
 	}
 
-	bool iWidgetNumberChooser::onMouseKeyDown(iEventMouseKeyDown &event)
+	bool iWidgetNumberChooser::onMouseKeyDown(const iEventMouseKeyDown &event)
 	{
 		if (!isEnabled())
 		{
@@ -101,7 +101,7 @@ namespace igor
 		return iWidget::onMouseKeyDown(event);
 	}
 
-	void iWidgetNumberChooser::onMouseMove(iEventMouseMove &event)
+	void iWidgetNumberChooser::onMouseMove(const iEventMouseMove &event)
 	{
 		if (!isEnabled())
 		{
@@ -146,7 +146,7 @@ namespace igor
 		}
 	}
 
-	bool iWidgetNumberChooser::onMouseKeyUp(iEventMouseKeyUp &event)
+	bool iWidgetNumberChooser::onMouseKeyUp(const iEventMouseKeyUp &event)
 	{
 		if (!isEnabled())
 		{
@@ -180,7 +180,7 @@ namespace igor
 		return iWidget::onMouseKeyUp(event);
 	}
 
-	bool iWidgetNumberChooser::onMouseWheel(iEventMouseWheel &event)
+	bool iWidgetNumberChooser::onMouseWheel(const iEventMouseWheel &event)
 	{
 		if (!isEnabled() ||
 			!isMouseOver())

@@ -38,7 +38,7 @@ namespace igor
         _rightTexture = iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right");
     }
 
-    bool iWidgetScroll::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetScroll::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -93,7 +93,7 @@ namespace igor
         return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetScroll::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
+    bool iWidgetScroll::onMouseDoubleClick(const iEventMouseKeyDoubleClick &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -112,7 +112,7 @@ namespace igor
         return iWidget::onMouseDoubleClick(event);
     }
 
-    bool iWidgetScroll::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetScroll::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled())
         {
@@ -204,7 +204,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetScroll::onMouseMove(iEventMouseMove &event)
+    void iWidgetScroll::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled() || _children.empty())
         {
@@ -354,7 +354,7 @@ namespace igor
         _vscroll = std::max(0.0f, std::min(1.0f, value));
     }
 
-    bool iWidgetScroll::onMouseWheel(iEventMouseWheel &event)
+    bool iWidgetScroll::onMouseWheel(const iEventMouseWheel &event)
     {
         if (!isEnabled() ||
             !isMouseOver() ||

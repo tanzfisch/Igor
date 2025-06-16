@@ -273,20 +273,20 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! simulates drop of widget id
 

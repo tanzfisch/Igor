@@ -32,6 +32,6 @@
 #include <igor/igor.h>
 using namespace igor;
 
-#define MICA_REGULARBUTTON_SIZE 80
+#define MICA_REGULAR_LABEL_SIZE 100
 
 #endif // MICA_DEFINES_H

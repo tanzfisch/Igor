@@ -162,7 +162,7 @@ void UserControlMaterial::init()
         iWidgetBoxLayoutPtr textureLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
         labelTextureUnit[i] = new iWidgetLabel(textureLayout);
         labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
-        labelTextureUnit[i]->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelTextureUnit[i]->setMinWidth(MICA_REGULAR_LABEL_SIZE);
         labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
         labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -175,7 +175,7 @@ void UserControlMaterial::init()
     shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
     shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
     shaderMaterialLabel->setText("Shader");
-    shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    shaderMaterialLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     _shaderMaterialChooser = new iUserControlShaderMaterial(shaderMaterialLayout);
 
     _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));

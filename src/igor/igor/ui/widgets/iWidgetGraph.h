@@ -319,7 +319,7 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
     };
 
     /*! widget graph pointer definition

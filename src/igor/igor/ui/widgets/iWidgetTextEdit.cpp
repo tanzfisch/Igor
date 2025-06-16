@@ -21,7 +21,7 @@ namespace igor
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-		updateMinSize(0, 0);
+		updateMinSize(0, iWidgetManager::getInstance().getTheme()->getFontSize() * 1.2f);
 	}
 
 	void iWidgetTextEdit::draw()

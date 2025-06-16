@@ -99,7 +99,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::onMouseWheel(iEventMouseWheel &event)
+    bool iWidgetSlider::onMouseWheel(const iEventMouseWheel &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -135,7 +135,7 @@ namespace igor
         updateMinSize(0, 0);
     }
 
-    void iWidgetSlider::onMouseMove(iEventMouseMove &event)
+    void iWidgetSlider::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -201,7 +201,7 @@ namespace igor
         }
     }
 
-    bool iWidgetSlider::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetSlider::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -219,7 +219,7 @@ namespace igor
         return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetSlider::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetSlider::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())

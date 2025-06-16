@@ -372,7 +372,7 @@ namespace igor
         // implement in derived class if needed
     }
 
-    bool iWidget::onMouseWheel(iEventMouseWheel &event)
+    bool iWidget::onMouseWheel(const iEventMouseWheel &event)
     {
         if (!isEnabled() ||
             !_reactOnMouseWheel ||
@@ -410,7 +410,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
+    bool iWidget::onMouseDoubleClick(const iEventMouseKeyDoubleClick &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -478,7 +478,7 @@ namespace igor
         return _acceptOutOfBoundsClicks;
     }
 
-    bool iWidget::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidget::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -514,7 +514,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidget::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -588,7 +588,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onASCII(iEventKeyASCII &event)
+    bool iWidget::onASCII(const iEventKeyASCII &event)
     {
         if (!isEnabled())
         {
@@ -630,7 +630,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onKeyDown(iEventKeyDown &event)
+    bool iWidget::onKeyDown(const iEventKeyDown &event)
     {
         if (!isEnabled())
         {
@@ -651,7 +651,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onKeyUp(iEventKeyUp &event)
+    bool iWidget::onKeyUp(const iEventKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -679,7 +679,7 @@ namespace igor
         return false;
     }
 
-    void iWidget::onMouseMove(iEventMouseMove &event)
+    void iWidget::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -957,14 +957,14 @@ namespace igor
         int32 minWidth = width + _clientAreaLeft + _clientAreaRight;
         int32 minHeight = height + _clientAreaTop + _clientAreaBottom;
 
-        if (minWidth < _configuredMinWidth)
+        if (minWidth < _configuredMinWidth * getScale())
         {
-            minWidth = _configuredMinWidth;
+            minWidth = _configuredMinWidth * getScale();
         }
 
-        if (minHeight < _configuredMinHeight)
+        if (minHeight < _configuredMinHeight * getScale())
         {
-            minHeight = _configuredMinHeight;
+            minHeight = _configuredMinHeight * getScale();
         }
 
         _minWidth = minWidth;
@@ -1177,6 +1177,13 @@ namespace igor
     iaRectanglef iWidget::getActualRect() const
     {
         return iaRectanglef(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+    }
+
+    iaRectanglef iWidget::getActualClientRect() const
+    {
+        iaRectanglef result(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+        result.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
+        return result;
     }
 
     int32 iWidget::getRelativePosX() const

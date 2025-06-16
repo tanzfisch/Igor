@@ -351,6 +351,10 @@ namespace igor
          */
         iaRectanglef getActualRect() const;
 
+        /*! \returns actual client rectangle (absolute and in pixel)
+         */
+        iaRectanglef getActualClientRect() const;
+
         /*! \returns actual relative to it's parent horizontal position
          */
         int32 getRelativePosX() const;
@@ -833,6 +837,8 @@ namespace igor
 
         /*! handles incoming generic event
 
+        the only place where an entity can directly consume an event
+
         \param event the event
         */
         virtual bool onEvent(iEvent &event);
@@ -842,53 +848,53 @@ namespace igor
         \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseWheel(iEventMouseWheel &event);
+        virtual bool onMouseWheel(const iEventMouseWheel &event);
 
         /*! handles incoming mouse key down events
 
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyDown(iEventMouseKeyDown &event);
+        virtual bool onMouseKeyDown(const iEventMouseKeyDown &event);
 
         /*! handles incoming double click
 
         \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event);
+        virtual bool onMouseDoubleClick(const iEventMouseKeyDoubleClick &event);
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyUp(iEventMouseKeyUp &event);
+        virtual bool onMouseKeyUp(const iEventMouseKeyUp &event);
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         \param consumed if true mouse move was already consumed
         */
-        virtual void onMouseMove(iEventMouseMove &event);
+        virtual void onMouseMove(const iEventMouseMove &event);
 
         /*! handles incoming acsii codes from keyboard
 
         \param event the key ascii event
         */
-        virtual bool onASCII(iEventKeyASCII &event);
+        virtual bool onASCII(const iEventKeyASCII &event);
 
         /*! handles pressed key event
 
         \param event the key down event
         */
-        virtual bool onKeyDown(iEventKeyDown &event);
+        virtual bool onKeyDown(const iEventKeyDown &event);
 
         /*! handles released key event
 
         \param event the key up event
         */
-        virtual bool onKeyUp(iEventKeyUp &event);
+        virtual bool onKeyUp(const iEventKeyUp &event);
 
         /*! handles lost keyboard focus
          */

@@ -22,7 +22,7 @@ void UserControlComponentMeshRender::onInit()
     meshCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelMesh = new iWidgetLabel(meshCountLayout);
     labelMesh->setText("Meshes");
-    labelMesh->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelMesh->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelMesh->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelMeshCount = new iWidgetLabel(meshCountLayout);
@@ -33,7 +33,7 @@ void UserControlComponentMeshRender::onInit()
     trianglesCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelIndex = new iWidgetLabel(trianglesCountLayout);
     labelIndex->setText("Triangles");
-    labelIndex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelIndex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelIndex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelTrianglesCount = new iWidgetLabel(trianglesCountLayout);
@@ -44,7 +44,7 @@ void UserControlComponentMeshRender::onInit()
     vertexCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelVertex = new iWidgetLabel(vertexCountLayout);
     labelVertex->setText("Vertices");
-    labelVertex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelVertex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelVertex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelVertexCount = new iWidgetLabel(vertexCountLayout);

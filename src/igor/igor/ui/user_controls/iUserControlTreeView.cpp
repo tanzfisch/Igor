@@ -29,6 +29,7 @@ namespace igor
         _scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
+        _vboxLayout->setSpacing(0);
         _scroll->addWidget(_vboxLayout);
     }
 

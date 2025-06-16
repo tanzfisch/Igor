@@ -550,7 +550,7 @@ namespace igor
         return _mouseOverColumn;
     }
 
-    bool iWidgetGridLayout::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
+    bool iWidgetGridLayout::onMouseDoubleClick(const iEventMouseKeyDoubleClick &event)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -601,7 +601,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetGridLayout::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetGridLayout::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -630,7 +630,7 @@ namespace igor
         return _emptyCellsSelectable;
     }
 
-    bool iWidgetGridLayout::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetGridLayout::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -699,7 +699,7 @@ namespace igor
         return false;
     }
 
-    void iWidgetGridLayout::onMouseMove(iEventMouseMove &event)
+    void iWidgetGridLayout::onMouseMove(const iEventMouseMove &event)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -771,7 +771,7 @@ namespace igor
         }
     }
 
-    bool iWidgetGridLayout::onMouseWheel(iEventMouseWheel &event)
+    bool iWidgetGridLayout::onMouseWheel(const iEventMouseWheel &event)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 

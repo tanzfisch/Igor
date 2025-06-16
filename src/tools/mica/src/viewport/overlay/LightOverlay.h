@@ -169,21 +169,21 @@ private:
 
     \param event the mouse move event
     */
-    bool onMouseMoveEvent(iEventMouseMove &event) override;
+    bool onMouseMoveEvent(const iEventMouseMove &event) override;
 
     /*! handles mouse key down event
 
     \param event the mouse key down event
     \returns true if consumed
     */
-    bool onMouseKeyDownEvent(iEventMouseKeyDown &event) override;
+    bool onMouseKeyDownEvent(const iEventMouseKeyDown &event) override;
 
     /*! handles mouse key up event
 
     \param event the mouse key up event
     \returns true if consumed
     */
-    bool onMouseKeyUpEvent(iEventMouseKeyUp &event) override;
+    bool onMouseKeyUpEvent(const iEventMouseKeyUp &event) override;
 
     /*! updates overlay mode settings
     */

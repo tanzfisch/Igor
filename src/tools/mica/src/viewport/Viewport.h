@@ -128,34 +128,34 @@ private:
 
     \param key the pressed key
     */
-    bool onKeyDown(iEventKeyDown &event) override;
+    bool onKeyDown(const iEventKeyDown &event) override;
 
     /*! handles mouse key up events
 
     \param event the mouse key up event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+    bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
     /*! handles incoming mouse key down events
 
     \param event mouse key down event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    virtual bool onMouseKeyDown(iEventMouseKeyDown &event);
+    virtual bool onMouseKeyDown(const iEventMouseKeyDown &event);
 
     /*! handles incoming mouse move events
 
     \param event mouse move event
     */
-    void onMouseMove(iEventMouseMove &event) override;
+    void onMouseMove(const iEventMouseMove &event) override;
 
     /*! handles incoming mouse wheel event
 
     \param event mouse wheel event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    bool onMouseWheel(iEventMouseWheel &event) override;
+    bool onMouseWheel(const iEventMouseWheel &event) override;
 
     /*! draws the widget
      */

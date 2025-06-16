@@ -258,7 +258,7 @@ namespace igor
         return iSplitterState::Inactive;
     }
 
-    bool iWidgetSplitter::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetSplitter::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         _splitterState = iSplitterState::Inactive;
         _activeOverlay = false;
@@ -276,7 +276,7 @@ namespace igor
         return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetSplitter::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetSplitter::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -469,7 +469,7 @@ namespace igor
         setCursor(cursorType);
     }
 
-    void iWidgetSplitter::onMouseMove(iEventMouseMove &event)
+    void iWidgetSplitter::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {

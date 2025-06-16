@@ -21,6 +21,7 @@ void UserControlComponent::onInit()
     groupBox->setHeaderOnly();
 
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, groupBox);
+    _layout->setSpacing(5);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _layout->setVerticalAlignment(iVerticalAlignment::Top);
 

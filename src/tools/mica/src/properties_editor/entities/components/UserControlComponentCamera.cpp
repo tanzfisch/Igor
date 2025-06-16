@@ -22,7 +22,7 @@ void UserControlComponentCamera::onInit()
     viewportLayout->setStretchIndex(1);
     iWidgetLabelPtr labelViewport = new iWidgetLabel(viewportLayout);
     labelViewport->setText("Viewport");
-    labelViewport->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelViewport->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelViewport->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _viewport = new iUserControlVector(4, viewportLayout);
@@ -34,7 +34,7 @@ void UserControlComponentCamera::onInit()
     projectionLayout->setStretchIndex(1);
     iWidgetLabelPtr labelPerspective = new iWidgetLabel(projectionLayout);
     labelPerspective->setText("Perspec.");
-    labelPerspective->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelPerspective->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelPerspective->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _perspective = new iWidgetCheckBox(projectionLayout);
@@ -49,7 +49,7 @@ void UserControlComponentCamera::onInit()
     fovLayout->setStretchIndex(1);
     iWidgetLabelPtr labelFOV = new iWidgetLabel(fovLayout);
     labelFOV->setText("FOV");
-    labelFOV->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelFOV->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelFOV->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _fov = new iWidgetLineTextEdit(fovLayout);
@@ -80,7 +80,7 @@ void UserControlComponentCamera::onInit()
             labelOrtho->setText("Top");
             break;
         }
-        labelOrtho->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelOrtho->setMinWidth(MICA_REGULAR_LABEL_SIZE);
         labelOrtho->setHorizontalAlignment(iHorizontalAlignment::Left);
 
         _ortho[i] = new iWidgetLineTextEdit(orthoLayout);
@@ -93,7 +93,7 @@ void UserControlComponentCamera::onInit()
     clipPlanesLayout->setStretchIndex(1);
     iWidgetLabelPtr labelClipPlanes = new iWidgetLabel(clipPlanesLayout);
     labelClipPlanes->setText("Near/Far");
-    labelClipPlanes->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelClipPlanes->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelClipPlanes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _clipNearFar = new iUserControlVector(2, clipPlanesLayout);
@@ -106,7 +106,7 @@ void UserControlComponentCamera::onInit()
     iWidgetLabelPtr labelActiveClearColor = new iWidgetLabel(activeClearColorLayout);
     labelActiveClearColor->setText("Cl. Color");
     labelActiveClearColor->setTooltip("Clear color");
-    labelActiveClearColor->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActiveClearColor->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActiveClearColor->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _activeClearColor = new iWidgetCheckBox(activeClearColorLayout);
@@ -116,7 +116,7 @@ void UserControlComponentCamera::onInit()
     iWidgetBoxLayoutPtr clearColorLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearColorLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     clearColorLayout->setStretchIndex(1);
-    new iWidgetSpacer(MICA_REGULARBUTTON_SIZE, 0, false, clearColorLayout);
+    new iWidgetSpacer(MICA_REGULAR_LABEL_SIZE, 0, false, clearColorLayout);
 
     _clearColor = new iUserControlColor(clearColorLayout);
     _clearColor->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -128,7 +128,7 @@ void UserControlComponentCamera::onInit()
     iWidgetLabelPtr labelActiveClearDepth = new iWidgetLabel(activeClearDepthLayout);
     labelActiveClearDepth->setText("Cl. Depth");
     labelActiveClearDepth->setTooltip("Clear depth");
-    labelActiveClearDepth->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActiveClearDepth->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActiveClearDepth->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _activeClearDepth = new iWidgetCheckBox(activeClearDepthLayout);
@@ -138,7 +138,7 @@ void UserControlComponentCamera::onInit()
     iWidgetBoxLayoutPtr clearDepthLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearDepthLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     clearDepthLayout->setStretchIndex(1);
-    new iWidgetSpacer(MICA_REGULARBUTTON_SIZE, 0, false, clearDepthLayout);
+    new iWidgetSpacer(MICA_REGULAR_LABEL_SIZE, 0, false, clearDepthLayout);
 
     _clearDepth = new iWidgetLineTextEdit(clearDepthLayout);
     _clearDepth->setHorizontalAlignment(iHorizontalAlignment::Stretch);

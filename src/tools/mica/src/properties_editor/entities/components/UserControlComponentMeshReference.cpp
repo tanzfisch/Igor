@@ -23,7 +23,7 @@ void UserControlComponentMeshReference::onInit()
     meshRefLayout->setStretchIndex(1);
     iWidgetLabelPtr labelMeshRef = new iWidgetLabel(meshRefLayout);
     labelMeshRef->setText("Mesh Ref.");
-    labelMeshRef->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelMeshRef->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelMeshRef->setVerticalAlignment(iVerticalAlignment::Top);
     labelMeshRef->setHorizontalAlignment(iHorizontalAlignment::Left);
 
