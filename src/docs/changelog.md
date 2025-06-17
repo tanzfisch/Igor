@@ -32,6 +32,7 @@ Changelog                           {#changelog}
 - added iEntityPrintTraverser for logging entity hierarchies in human readable format
 - #445 introduced iaTransform
 - added recursive watch to iTaskWatchFilesystem
+- fixed iWidgetScroll which was scrolling by the wrong amount
 
 0.44.0
 ------
