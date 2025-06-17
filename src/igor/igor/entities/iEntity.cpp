@@ -196,11 +196,26 @@ namespace igor
             component->onDeactivate(this);
             component->_state == iEntityComponentState::Inactive;
         }
-
-        if (component->_state == iEntityComponentState::Inactive)
+        else if (component->_state == iEntityComponentState::Inactive)
         {
             component->onUnLoad(this);
             component->_state = iEntityComponentState::Unloaded;
+        }
+        else if (component->_state == iEntityComponentState::Unloaded ||
+                 component->_state == iEntityComponentState::UnloadedInactive)
+        {
+            _mutex.lock();
+            auto iter = std::find_if(_unloadedComponents.begin(), _unloadedComponents.end(),
+                                     [component](const std::pair<std::type_index, iEntityComponentPtr> &element)
+                                     {
+                                         return component == element.second;
+                                     });
+
+            if (iter != _unloadedComponents.end())
+            {
+                _unloadedComponents.erase(iter);
+            }
+            _mutex.unlock();
         }
 
         delete component;
