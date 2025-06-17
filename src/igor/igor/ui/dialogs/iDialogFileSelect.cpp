@@ -26,6 +26,11 @@ namespace igor
     iDialogFileSelect::iDialogFileSelect(const iWidgetPtr parent)
         : iDialog(iWidgetType::iDialogFileSelect, parent)
     {
+        setMinWidth(600);
+        setMinHeight(370);
+
+        setResizeable(false);
+        setMoveable(true);
         setAcceptESCToClose(true);
     }
 
@@ -84,9 +89,6 @@ namespace igor
     void iDialogFileSelect::initGUI()
     {
         clearChildren();
-
-        setMinWidth(700);
-        setMinHeight(500);
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
@@ -222,7 +224,7 @@ namespace igor
 
     bool iDialogFileSelect::filterExtension(const iaString &filename)
     {
-        if(_extensions.empty())
+        if (_extensions.empty())
         {
             return true;
         }
@@ -230,9 +232,9 @@ namespace igor
         const iaFile file(filename);
         const iaString fileExt = file.getExtension();
 
-        for(const auto &extension : _extensions)
+        for (const auto &extension : _extensions)
         {
-            if(fileExt == extension)
+            if (fileExt == extension)
             {
                 return true;
             }
@@ -243,9 +245,11 @@ namespace igor
 
     void iDialogFileSelect::updateFileGrid()
     {
+        const uint32 rowCount = 12;
+
         clearFileGrid();
 
-        _fileGrid->appendRows(9);
+        _fileGrid->appendRows(rowCount - 1);
 
         int32 index = 0;
         iaDirectory directory(_directory);
@@ -260,18 +264,18 @@ namespace igor
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / 10, index % 10, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
             index++;
         }
 
         for (auto iter : files)
         {
-            if(!filterExtension(iter.getFileName()))
+            if (!filterExtension(iter.getFileName()))
             {
                 continue;
             }
 
-            addToFileGrid(index / 10, index % 10, iter.getFullFileName(), iter.getFileName(), false);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getFileName(), false);
             index++;
         }
 

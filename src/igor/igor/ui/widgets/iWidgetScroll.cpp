@@ -531,12 +531,12 @@ namespace igor
 
         if (_hscrollActive)
         {
-            offsetX = _hscroll * (child->getConfiguredMinWidth() - getActualWidth() + 4);
+            offsetX = -_hscroll * (child->getActualWidth() - getActualWidth() + 4);
         }
 
         if (_vscrollActive)
         {
-            offsetY = _vscroll * (child->getConfiguredMinHeight() - getActualHeight() + 4);
+            offsetY = -_vscroll * (child->getActualHeight() - getActualHeight() + 4);
         }
 
         clientRect.setX(offsetX);
