@@ -173,6 +173,11 @@ namespace igor
 		return _cursorPos;
 	}
 
+	uint64 iWidgetLineTextEdit::getCursorPosPix() const
+	{
+		return _cursorPosPix;
+	}
+
 	iHorizontalAlignment iWidgetLineTextEdit::getHorizontalTextAlignment() const
 	{
 		return _horizontalTextAlignment;

@@ -120,6 +120,10 @@ namespace igor
 		*/
         uint64 getCursorPos() const;
 
+        /* \returns current cursor pos in pixel
+		*/
+        uint64 getCursorPosPix() const;
+
         /*! increase cursor pos by one
 		*/
         void incCursorPos();

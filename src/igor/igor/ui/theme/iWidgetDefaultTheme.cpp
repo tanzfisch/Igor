@@ -520,7 +520,7 @@ namespace igor
         const auto enabled = widget->isEnabled();
         const auto hTextAlign = widget->getHorizontalTextAlignment();
         const auto vTextAlign = widget->getVerticalTextAlignment();
-        const auto cursorPos = widget->getCursorPos();
+        const auto cursorPos = widget->getCursorPosPix();
         const auto keyboardFocus = widget->hasKeyboardFocus();
 
         // force draw call before changing the stencil settings
