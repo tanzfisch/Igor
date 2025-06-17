@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETMENUBAR__
-#define __IGOR_WIDGETMENUBAR__
+#ifndef IGOR_WIDGET_MENU_BAR_H
+#define IGOR_WIDGET_MENU_BAR_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/ui/actions/iAction.h>
@@ -41,17 +41,17 @@ namespace igor
 {
 
     /*! menu bar widget
-    */
+     */
     class IGOR_API iWidgetMenuBar : public iWidget
     {
 
     public:
         /*! init gui
-        */
+         */
         iWidgetMenuBar(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-        */
+         */
         virtual ~iWidgetMenuBar() = default;
 
         /*! adds action to menu
@@ -78,23 +78,23 @@ namespace igor
         void addMenu(const iWidgetMenuPtr menu);
 
         /*! unselects the menu bar
-        */
+         */
         void unselect();
 
     private:
         /*! menu grid
-        */
+         */
         iWidgetGridLayoutPtr _grid;
 
         /*! initializes ui elements
-        */
+         */
         void init();
     };
 
     /*! menu widget pointer definition
-	*/
+     */
     typedef iWidgetMenuBar *iWidgetMenuBarPtr;
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETMENUBAR__
+#endif // IGOR_WIDGET_MENU_BAR_H

@@ -128,7 +128,7 @@ namespace igor
 
     void iWidgetGridLayout::initGrid()
     {
-        GridColumn gridColumn;
+        iGridColumn gridColumn;
         gridColumn._widgetColumn.resize(1);
         _widgetRows.push_back(gridColumn);
         unselect();
@@ -147,7 +147,7 @@ namespace igor
 
         for (uint32 i = 0; i < count; ++i)
         {
-            GridColumn gridColumn;
+            iGridColumn gridColumn;
             gridColumn._widgetColumn.resize(columnCount);
             _widgetRows.push_back(gridColumn);
         }
@@ -236,7 +236,7 @@ namespace igor
         else
         {
             uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetColumn.size());
-            GridColumn gridColumn;
+            iGridColumn gridColumn;
             gridColumn._widgetColumn.resize(columnCount);
 
             auto iter = _widgetRows.begin();
@@ -271,7 +271,7 @@ namespace igor
                     iterColumn++;
                 }
 
-                Cell gridWidget;
+                iGridCell gridWidget;
                 (*iterRow)._widgetColumn.insert(iterColumn, gridWidget);
 
                 iterRow++;

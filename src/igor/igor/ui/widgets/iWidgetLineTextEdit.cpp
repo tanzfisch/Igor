@@ -200,7 +200,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawLineTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isEnabled() && !_writeProtected);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 	const iaString &iWidgetLineTextEdit::getText() const

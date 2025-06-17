@@ -21,53 +21,53 @@ iaColor4f MOUSEDOUBLECLICKED(1, 1, 1, 1);
 iaColor4f MOUSECONTEXT(0, 1, 0, 1);
 iaColor4f STANDBY(0, 0, 1, 0.5f);
 
-#define DRAW_DEBUG_OUTPUT_OLD(rect, state)       \
-    switch (state)                               \
-    {                                            \
-    case iWidgetState::Highlighted:              \
-        drawRectangle(rect, MOUSEOVER);          \
-        break;                                   \
-                                                 \
-    case iWidgetState::Pressed:                  \
-        drawRectangle(rect, MOUSEPRESSED);       \
-        break;                                   \
-                                                 \
-    case iWidgetState::Clicked:                  \
-        drawRectangle(rect, MOUSECLICKED);       \
-        break;                                   \
-                                                 \
-    case iWidgetState::DoubleClicked:            \
-        drawRectangle(rect, MOUSEDOUBLECLICKED); \
-        break;                                   \
-                                                 \
-    case iWidgetState::Standby:                  \
-        drawRectangle(rect, STANDBY);            \
-        break;                                   \
+#define DRAW_DEBUG_OUTPUT_OLD(rect, state)                                \
+    switch (state)                                                        \
+    {                                                                     \
+    case iWidgetState::Highlighted:                                       \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEOVER);          \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Pressed:                                           \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEPRESSED);       \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Clicked:                                           \
+        iRenderer::getInstance().drawRectangle(rect, MOUSECLICKED);       \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::DoubleClicked:                                     \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEDOUBLECLICKED); \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Standby:                                           \
+        iRenderer::getInstance().drawRectangle(rect, STANDBY);            \
+        break;                                                            \
     }
 
-#define DRAW_DEBUG_OUTPUT(rect, id, state)         \
-    switch (state)                                 \
-    {                                              \
-    case iWidgetState::Highlighted:                \
-        drawRectangle(rect, MOUSEOVER);            \
-        drawText(rect, iaString::toString(id), 0); \
-        break;                                     \
-                                                   \
-    case iWidgetState::Pressed:                    \
-        drawRectangle(rect, MOUSEPRESSED);         \
-        break;                                     \
-                                                   \
-    case iWidgetState::Clicked:                    \
-        drawRectangle(rect, MOUSECLICKED);         \
-        break;                                     \
-                                                   \
-    case iWidgetState::DoubleClicked:              \
-        drawRectangle(rect, MOUSEDOUBLECLICKED);   \
-        break;                                     \
-                                                   \
-    case iWidgetState::Standby:                    \
-        drawRectangle(rect, STANDBY);              \
-        break;                                     \
+#define DRAW_DEBUG_OUTPUT(rect, id, state)                                \
+    switch (state)                                                        \
+    {                                                                     \
+    case iWidgetState::Highlighted:                                       \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEOVER);          \
+        drawText(rect, iaString::toString(id), 0);                        \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Pressed:                                           \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEPRESSED);       \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Clicked:                                           \
+        iRenderer::getInstance().drawRectangle(rect, MOUSECLICKED);       \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::DoubleClicked:                                     \
+        iRenderer::getInstance().drawRectangle(rect, MOUSEDOUBLECLICKED); \
+        break;                                                            \
+                                                                          \
+    case iWidgetState::Standby:                                           \
+        iRenderer::getInstance().drawRectangle(rect, STANDBY);            \
+        break;                                                            \
     }
 
 #else
@@ -87,10 +87,10 @@ static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
 static const iaColor4f COLOR_CHECKED_BORDER = {0.3f, 0.9f, 0.3f, 0.9f};
-static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.9f, 0.3f, 0.3f};
+static const iaColor4f COLOR_CHECKED_FILL = {0.3f, 0.9f, 0.3f, 0.2f};
 
 static const iaColor4f COLOR_SELECTED_BORDER = {0.3f, 0.3f, 0.9f, 0.9f};
-static const iaColor4f COLOR_SELECTED_FILL = {0.3f, 0.3f, 0.9f, 0.3f};
+static const iaColor4f COLOR_SELECTED_FILL = {0.3f, 0.3f, 0.9f, 0.2f};
 
 static const iaColor4f COLOR_BUTTON_DEFAULT = {0.42f, 0.42f, 0.42f, 1.0f};
 
@@ -98,10 +98,9 @@ namespace igor
 {
     IGOR_DISABLE_WARNING(4100)
 
-    iWidgetDefaultTheme::iWidgetDefaultTheme(iTexturePtr fontTexture, iTexturePtr backgroundTexture)
+    iWidgetDefaultTheme::iWidgetDefaultTheme(iTexturePtr fontTexture)
     {
         _font = iTextureFont::create(fontTexture);
-        _backgroundTexture = backgroundTexture;
 
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                            {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
@@ -115,7 +114,7 @@ namespace igor
         _checkerBoardTexture = iResourceManager::getInstance().loadResource<iTexture>(param);
     }
 
-    void iWidgetDefaultTheme::drawWidgetPicture(iWidgetPicturePtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetPicturePtr widget)
     {
         const auto &background = widget->getBackground();
         const auto &foreground = widget->getForeground();
@@ -154,12 +153,12 @@ namespace igor
         DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }
 
-    void iWidgetDefaultTheme::drawWidgetSpacer(iWidgetSpacerPtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetSpacerPtr widget)
     {
         iRenderer::getInstance().drawFilledRectangle(widget->getActualRect(), widget->isEnabled() ? widget->getBackground() : COLOR_SPECULAR);
     }
 
-    void iWidgetDefaultTheme::drawWidgetLabel(iWidgetLabelPtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetLabelPtr widget)
     {
         const auto rect = widget->getActualRect();
         const auto &text = widget->getText();
@@ -171,7 +170,7 @@ namespace igor
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawWidgetButton(iWidgetButtonPtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetButtonPtr widget)
     {
         const auto scale = iWidget::getScale();
         const auto rect = widget->getActualRect();
@@ -342,7 +341,7 @@ namespace igor
         iRenderer::getInstance().setLineWidth(1);
     }
 
-    void iWidgetDefaultTheme::drawCheckBox(iWidgetCheckBoxPtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetCheckBoxPtr widget)
     {
         const auto rect = widget->getActualRect();
         const auto state = widget->getState();
@@ -374,10 +373,10 @@ namespace igor
             iRenderer::getInstance().drawLine(rect._x + rect._width - 4, rect._y + 4, rect._x + rect._width / 2 + 1, rect._y + rect._height - 5, color);
         }
 
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }
 
-    void iWidgetDefaultTheme::drawTextEdit(iWidgetTextEditPtr widget)
+    void iWidgetDefaultTheme::draw(iWidgetTextEditPtr widget)
     {
         const auto rect = widget->getActualRect();
         const auto state = widget->getState();
@@ -412,9 +411,11 @@ namespace igor
         iRenderer::getInstance().flush();
 
         iRenderer::getInstance().setStencilTestActive(false);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
     }
 
-    void iWidgetDefaultTheme::drawDialog(iDialogPtr dialog)
+    void iWidgetDefaultTheme::draw(iDialogPtr dialog)
     {
         const auto rect = dialog->getActualRect();
         const auto clientRect = dialog->getActualClientRect();
@@ -441,9 +442,272 @@ namespace igor
         }
 
         iRenderer::getInstance().drawFilledRectangle(clientRect, COLOR_DIFFUSE);
+
+        DRAW_DEBUG_OUTPUT(rect, dialog->getID(), state);
     }
 
+    void iWidgetDefaultTheme::draw(iWidgetColorPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto &color = widget->getColor();
+
+        const iaVector2f tiling(rect._width / _checkerBoardTexture->getWidth() * 4,
+                                rect._height / _checkerBoardTexture->getHeight() * 4);
+        iRenderer::getInstance().drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, _checkerBoardTexture, iaColor4f::white, false, tiling);
+
+        iaRectanglef rectLeft = rect;
+        rectLeft._width = rect._width * 0.5;
+        iRenderer::getInstance().drawFilledRectangle(rectLeft, color);
+
+        iaColor4f colorNoAlpha = color;
+        colorNoAlpha._a = 1.0f;
+        rectLeft._x += rectLeft._width;
+        iRenderer::getInstance().drawFilledRectangle(rectLeft, colorNoAlpha);
+
+        iRenderer::getInstance().drawRectangle(rect, COLOR_AMBIENT);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
+    }
+
+    void iWidgetDefaultTheme::draw(iWidgetGroupBoxPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto &text = widget->getText();
+
+        float32 x = static_cast<float32>(rect._x);
+        float32 y = static_cast<float32>(rect._y);
+        float32 w = static_cast<float32>(rect._width);
+        float32 h = static_cast<float32>(rect._height);
+
+        if (!text.isEmpty())
+        {
+            y += getFontSize() * 0.5f;
+            h -= getFontSize() * 0.5f;
+        }
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+
+        if (text == "")
+        {
+            iRenderer::getInstance().drawLine(x, y, x + w, y, COLOR_AMBIENT);
+        }
+        else
+        {
+            iRenderer::getInstance().drawLine(x, y, x + getFontSize(), y, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, getFontSize()) + getFontSize() * 2.0f, y, x + w, y, COLOR_AMBIENT);
+        }
+
+        if (!widget->isHeaderOnly())
+        {
+            iRenderer::getInstance().drawLine(x, y, x, y + h, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(x, y + h, x + w, y + h, COLOR_AMBIENT);
+            iRenderer::getInstance().drawLine(x + w, y, x + w, y + h, COLOR_AMBIENT);
+        }
+
+        drawText(iaRectanglef(static_cast<int32>(rect._x + getFontSize() * 1.5f), static_cast<int32>(rect._y + getFontSize() * 0.1f)), text, 0);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
+    }
+
+    void iWidgetDefaultTheme::draw(iWidgetLineTextEditPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto &text = widget->getText();
+        const auto textwidth = _font->measureWidth(text, getFontSize());
+        const auto enabled = widget->isEnabled();
+        const auto hTextAlign = widget->getHorizontalTextAlignment();
+        const auto vTextAlign = widget->getVerticalTextAlignment();
+        const auto cursorPos = widget->getCursorPos();
+        const auto keyboardFocus = widget->hasKeyboardFocus();
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        // draw stencil pattern
+        iRenderer::getInstance().setStencilTestActive(true);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
+        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
+        iRenderer::getInstance().setStencilMask(0xff);
+
+        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_SPECULAR : COLOR_DIFFUSE);
+
+        int32 relativeTextPosX = 0;
+        int32 relatoveTextPosY = 0;
+
+        switch (hTextAlign)
+        {
+        case iHorizontalAlignment::Left:
+            relativeTextPosX += 2;
+            break;
+
+        case iHorizontalAlignment::Right:
+            relativeTextPosX += rect._width - 2 - static_cast<int32>(textwidth);
+            break;
+
+        case iHorizontalAlignment::Center:
+            relativeTextPosX += static_cast<int32>((static_cast<float32>(rect._width) - textwidth) * 0.5f);
+            break;
+        };
+
+        switch (vTextAlign)
+        {
+        case iVerticalAlignment::Top:
+            relatoveTextPosY += rect._height - 2 - static_cast<int32>(getFontSize());
+            break;
+
+        case iVerticalAlignment::Bottom:
+            relatoveTextPosY += 2;
+            break;
+
+        case iVerticalAlignment::Center:
+            relatoveTextPosY += static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f);
+            break;
+        };
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        iRenderer::getInstance().setStencilMask(0xff);
+        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
+
+        if (keyboardFocus)
+        {
+            int scrollOffset = 0;
+
+            if (relativeTextPosX + cursorPos > rect._width)
+            {
+                scrollOffset = rect._width - (relativeTextPosX + cursorPos) - 5;
+            }
+            else if (relativeTextPosX + cursorPos < 0)
+            {
+                scrollOffset = 5 - relativeTextPosX;
+            }
+
+            relativeTextPosX += scrollOffset;
+
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, getFontSize(), COLOR_TEXT_DARK);
+        }
+
+        // render text
+        iRenderer::getInstance().setFont(_font);
+        iRenderer::getInstance().setFontSize(getFontSize());
+        iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
+
+        iRenderer::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, text, keyboardFocus ? COLOR_TEXT_DARK : COLOR_AMBIENT);
+
+        // force draw call before changing the stencil settings
+        iRenderer::getInstance().flush();
+
+        iRenderer::getInstance().setStencilTestActive(false);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
+    }
+
+    void iWidgetDefaultTheme::draw(iWidgetNumberChooserPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto enabled = widget->isEnabled();
+        const auto buttonUpState = widget->getButtonUpState();
+        const auto buttonDownState = widget->getButtonDownState();
+
+        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_SPECULAR : COLOR_DIFFUSE);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1),
+                   "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonUpState, enabled, false);
+        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1),
+                   "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonDownState, enabled, false);
+
+        const auto text = iaString::toString(widget->getValue(), widget->getAfterPoint()) + widget->getPostFix();
+        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
+                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f), 0, 0);
+        drawText(textRect, text, 0);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
+    }
+
+    void iWidgetDefaultTheme::draw(iWidgetSelectBoxPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto enabled = widget->isEnabled();
+
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
+
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
+
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
+        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
+
+        const iaRectanglef buttonRect(rect._x + rect._width - rect._height, rect._y + 1, rect._height - 1, rect._height - 2);
+        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, widget->getButtonState(), enabled, false);
+
+        iaString text = widget->getSelectedValue();
+        const iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
+                                    rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f) + 1, 0, 0);
+        drawText(textRect, text, 0);
+
+        DRAW_DEBUG_OUTPUT(rect, widget->getID(), state);
+    }
+
+    void iWidgetDefaultTheme::draw(iWidgetSliderPtr widget)
+    {
+        const auto rect = widget->getActualRect();
+        const auto state = widget->getState();
+        const auto enabled = widget->isEnabled();
+        const auto max = widget->getMaxValue();
+        const auto min = widget->getMinValue();
+        const auto value = widget->getValue();
+        const auto backgroundTexture = widget->getBackgroundTexture();
+        const auto texture = widget->getTexture();
+
+        if (texture != nullptr)
+        {
+            drawPicture(iaRectanglef(rect._x, rect._y + rect._height / 4, rect._width, rect._height / 2), texture, state, enabled);
+        }
+
+        if (backgroundTexture == nullptr &&
+            texture == nullptr)
+        {
+            iRenderer::getInstance().drawFilledRectangle(iaRectanglef(rect._x, rect._y + rect._height / 2 - 2, rect._width, 4));
+            iRenderer::getInstance().drawRectangle(iaRectanglef(rect._x, rect._y + rect._height / 2 - 2, rect._width, 4));
+        }
+
+        const float32 factor = value / (max - min);
+        const float32 offset = (rect._width - 9) * factor;
+
+        iaRectanglef buttonRect;
+
+        buttonRect.setHeight(rect._height);
+        buttonRect.setWidth(9);
+        buttonRect.setY(rect._y);
+        buttonRect.setX(rect._x + static_cast<int32>(offset));
+
+        drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, iWidgetState::Highlighted, enabled, false);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO create new interfaces like the one above
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void iWidgetDefaultTheme::drawTooltip(const iaVector2f &pos, const iaString &text)
     {
@@ -451,21 +715,11 @@ namespace igor
         float32 textHeight = _font->measureHeight(text, getFontSize(), textWidth);
 
         iaRectanglef rect(pos._x, pos._y, textWidth + 10, textHeight + 10);
-        drawFilledRectangle(rect, COLOR_WHITE);
-        drawRectangle(rect, COLOR_BLACK);
+        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_WHITE);
+        iRenderer::getInstance().drawRectangle(rect, COLOR_BLACK);
 
         rect.adjust(5, 5, 0, 0);
         drawText(rect, text, textWidth);
-    }
-
-    void iWidgetDefaultTheme::drawRectangle(const iaRectanglef &rect)
-    {
-        drawRectangle(rect, COLOR_AMBIENT);
-    }
-
-    void iWidgetDefaultTheme::drawFilledRectangle(const iaRectanglef &rect)
-    {
-        drawFilledRectangle(rect, COLOR_DIFFUSE);
     }
 
     void iWidgetDefaultTheme::drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient)
@@ -486,27 +740,6 @@ namespace igor
             color._a = 1.0;
             iRenderer::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + 0.5f, indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, color);
         }
-    }
-
-    void iWidgetDefaultTheme::drawRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, color);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, color);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, color);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, color);
-    }
-
-    void iWidgetDefaultTheme::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
-    {
-        if (color._a != 1.0f)
-        {
-            // TODO iRenderer::getInstance().setMaterial TODO(true);
-        }
-
-        iRenderer::getInstance().drawFilledRectangle(rect, color);
-        // TODO iRenderer::getInstance().setMaterial TODO(false);
     }
 
     void iWidgetDefaultTheme::drawGridHighlight(const iaRectanglef &rect)
@@ -568,8 +801,6 @@ namespace igor
         {
             drawChecked(rect);
         }
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
     void iWidgetDefaultTheme::drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked)
@@ -676,162 +907,6 @@ namespace igor
         DRAW_DEBUG_OUTPUT_OLD(rect, state);
     }
 
-    void iWidgetDefaultTheme::drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled)
-    {
-        iaString modText = text;
-
-        float32 textwidth = _font->measureWidth(modText, getFontSize());
-
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        // draw stencil pattern
-        iRenderer::getInstance().setStencilTestActive(true);
-        iRenderer::getInstance().setStencilFunction(iStencilFunction::Always, 1, 0xff);
-        iRenderer::getInstance().setStencilOperation(iStencilOperation::Keep, iStencilOperation::Keep, iStencilOperation::Replace);
-        iRenderer::getInstance().setStencilMask(0xff);
-
-        iRenderer::getInstance().drawFilledRectangle(rect, enabled ? COLOR_SPECULAR : COLOR_DIFFUSE);
-
-        int32 relativeTextPosX = 0;
-        int32 relatoveTextPosY = 0;
-
-        switch (align)
-        {
-        case iHorizontalAlignment::Left:
-            relativeTextPosX += 2;
-            break;
-
-        case iHorizontalAlignment::Right:
-            relativeTextPosX += rect._width - 2 - static_cast<int32>(textwidth);
-            break;
-
-        case iHorizontalAlignment::Center:
-            relativeTextPosX += static_cast<int32>((static_cast<float32>(rect._width) - textwidth) * 0.5f);
-            break;
-        };
-
-        switch (valign)
-        {
-        case iVerticalAlignment::Top:
-            relatoveTextPosY += rect._height - 2 - static_cast<int32>(getFontSize());
-            break;
-
-        case iVerticalAlignment::Bottom:
-            relatoveTextPosY += 2;
-            break;
-
-        case iVerticalAlignment::Center:
-            relatoveTextPosY += static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f);
-            break;
-        };
-
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        iRenderer::getInstance().setStencilMask(0xff);
-        iRenderer::getInstance().setStencilFunction(iStencilFunction::Equal, 1, 0xff);
-
-        if (keyboardFocus)
-        {
-            int scrollOffset = 0;
-
-            if (relativeTextPosX + cursorPos > rect._width)
-            {
-                scrollOffset = rect._width - (relativeTextPosX + cursorPos) - 5;
-            }
-            else if (relativeTextPosX + cursorPos < 0)
-            {
-                scrollOffset = 5 - relativeTextPosX;
-            }
-
-            relativeTextPosX += scrollOffset;
-
-            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2.0f, getFontSize(), COLOR_TEXT_DARK);
-        }
-
-        // render text
-        iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(getFontSize());
-        iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
-
-        iRenderer::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText, keyboardFocus ? COLOR_TEXT_DARK : COLOR_AMBIENT);
-
-        // force draw call before changing the stencil settings
-        iRenderer::getInstance().flush();
-
-        iRenderer::getInstance().setStencilTestActive(false);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
-    }
-
-    void iWidgetDefaultTheme::drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool enabled)
-    {
-        drawNumberChooserFrame(rect, button_up_state, button_down_state, enabled);
-        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f), 0, 0);
-        drawText(textRect, text, 0);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, button_up_state);
-    }
-
-    void iWidgetDefaultTheme::drawNumberChooserFrame(const iaRectanglef &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool enabled)
-    {
-        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
-
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + 1, rect._height, rect._height / 2 - 1), "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_up, enabled, false);
-        drawButton(iaRectanglef(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, state_button_down, enabled, false);
-    }
-
-    void iWidgetDefaultTheme::drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled)
-    {
-        drawSelectBoxFrame(rect, buttonAppearance, enabled);
-        iaRectanglef textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f),
-                              rect._y + static_cast<int32>((static_cast<float32>(rect._height) - getFontSize()) * 0.5f) + 1, 0, 0);
-        drawText(textRect, text, 0);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, buttonAppearance);
-    }
-
-    void iWidgetDefaultTheme::drawSelectBoxFrame(const iaRectanglef &rect, iWidgetState buttonState, bool enabled)
-    {
-        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-        iRenderer::getInstance().drawLine(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height, COLOR_SPECULAR);
-
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x + rect._width, rect._y, COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._y + rect._height, COLOR_AMBIENT);
-
-        iaRectanglef buttonRect(rect._x + rect._width - rect._height, rect._y + 1, rect._height - 1, rect._height - 2);
-        drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, nullptr, buttonState, enabled, false);
-    }
-
-    void iWidgetDefaultTheme::drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool enabled)
-    {
-        iRenderer::getInstance().drawFilledRectangle(iaRectanglef(rect._x, rect._y + rect._height - 1, rect._width - rect._height, rect._height * static_cast<int32>(text.size())), COLOR_DIFFUSE_LIGHT);
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height - 1, rect._x, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x + rect._width - rect._height, rect._y + rect._height - 1, rect._x + rect._width - rect._height, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), COLOR_AMBIENT);
-        iRenderer::getInstance().drawLine(rect._x, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), rect._x + rect._width - rect._height, rect._y + rect._height * (static_cast<int32>(text.size()) + 1), COLOR_AMBIENT);
-    }
-
     float32 iWidgetDefaultTheme::getDialogTitleHeight() const
     {
         return _fontSize * 1.5 * iWidget::getScale();
@@ -852,21 +927,12 @@ namespace igor
         return _font;
     }
 
-    void iWidgetDefaultTheme::drawLabel(const iaRectanglef &rect, const iaString &text, int32 textwidth, iWidgetState state, bool enabled)
-    {
-        drawText(rect, text, textwidth);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
-    }
-
     void iWidgetDefaultTheme::drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth)
     {
         iRenderer::getInstance().setFont(_font);
         iRenderer::getInstance().setFontSize(getFontSize());
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
         iRenderer::getInstance().drawString(rect._x, rect._y, text, COLOR_AMBIENT, textwidth);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, iWidgetState::Pressed);
     }
 
     void iWidgetDefaultTheme::drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled)
@@ -969,50 +1035,6 @@ namespace igor
         DRAW_DEBUG_OUTPUT_OLD(rect, iWidgetState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled)
-    {
-        float32 x = static_cast<float32>(rect._x);
-        float32 y = static_cast<float32>(rect._y);
-        float32 w = static_cast<float32>(rect._width);
-        float32 h = static_cast<float32>(rect._height);
-
-        if (text != "")
-        {
-            y += getFontSize() * 0.5f;
-            h -= getFontSize() * 0.5f;
-        }
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-
-        if (text == "")
-        {
-            iRenderer::getInstance().drawLine(x, y, x + w, y, COLOR_AMBIENT);
-        }
-        else
-        {
-            iRenderer::getInstance().drawLine(x, y, x + getFontSize(), y, COLOR_AMBIENT);
-            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, getFontSize()) + getFontSize() * 2.0f, y, x + w, y, COLOR_AMBIENT);
-        }
-
-        if (!headerOnly)
-        {
-            iRenderer::getInstance().drawLine(x, y, x, y + h, COLOR_AMBIENT);
-            iRenderer::getInstance().drawLine(x, y + h, x + w, y + h, COLOR_AMBIENT);
-            iRenderer::getInstance().drawLine(x + w, y, x + w, y + h, COLOR_AMBIENT);
-        }
-
-        drawText(iaRectanglef(static_cast<int32>(rect._x + getFontSize() * 1.5f), static_cast<int32>(rect._y + getFontSize() * 0.1f)), text, 0);
-
-        DRAW_DEBUG_OUTPUT_OLD(rect, state);
-    }
-
-    void iWidgetDefaultTheme::drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture)
-    {
-        const iaVector2f tiling(rect._width / texture->getWidth(),
-                                rect._height / texture->getHeight());
-        iRenderer::getInstance().drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, iaColor4f::white, false, tiling);
-    }
-
     void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool enabled)
     {
         const iaColor4f &color = enabled ? COLOR_WHITE : COLOR_AMBIENT;
@@ -1082,17 +1104,6 @@ namespace igor
                 iRenderer::getInstance().drawRectangle(rect, colors[1]);
             }
         };
-    }
-
-    void iWidgetDefaultTheme::drawFrame(const iaRectanglef &rect, iWidgetState state, bool enabled)
-    {
-        const iaColor4f &color = enabled ? COLOR_AMBIENT : COLOR_DIFFUSE_DARK;
-
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._width + rect._x, rect._y, color);
-        iRenderer::getInstance().drawLine(rect._x, rect._y, rect._x, rect._height + rect._y, color);
-        iRenderer::getInstance().drawLine(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y, color);
-        iRenderer::getInstance().drawLine(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y, color);
     }
 
     void iWidgetDefaultTheme::drawShadowRect(const iaRectanglef &rect)

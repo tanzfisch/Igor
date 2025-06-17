@@ -213,7 +213,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawDialog(this);
+        iWidgetManager::getInstance().getTheme()->draw(this);
 
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
@@ -368,26 +368,24 @@ namespace igor
                 return true;
             }
 
-            if (event.getKey() == iKeyCode::MouseLeft ||
-                event.getKey() == iKeyCode::MouseRight)
+            if ((event.getKey() == iKeyCode::MouseLeft ||
+                 event.getKey() == iKeyCode::MouseRight) &&
+                _widgetState == iWidgetState::Pressed)
             {
-                if (_widgetState == iWidgetState::Pressed)
+                _widgetState = iWidgetState::Clicked;
+                setKeyboardFocus();
+
+                if (event.getKey() == iKeyCode::MouseLeft)
                 {
-                    _widgetState = iWidgetState::Clicked;
-                    setKeyboardFocus();
-
-                    if (event.getKey() == iKeyCode::MouseLeft)
-                    {
-                        _click(this);
-                    }
-
-                    if (event.getKey() == iKeyCode::MouseRight)
-                    {
-                        _contextMenu(this);
-                    }
-
-                    return true;
+                    _click(this);
                 }
+
+                if (event.getKey() == iKeyCode::MouseRight)
+                {
+                    _contextMenu(this);
+                }
+
+                return true;
             }
         }
 

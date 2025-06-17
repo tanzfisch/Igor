@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETNUMBERCHOOSER__
-#define __IGOR_WIDGETNUMBERCHOOSER__
+#ifndef IGOR_WIDGET_NUMBER_CHOOSER_H
+#define IGOR_WIDGET_NUMBER_CHOOSER_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -104,6 +104,14 @@ namespace igor
         */
         void setStepping(float32 up, float32 down);
 
+        /*! \returns stage of button up
+        */
+        iWidgetState getButtonUpState() const;
+
+        /*! \returns stage of button down
+        */
+        iWidgetState getButtonDownState() const;
+
     private:
         /*! defines how many digits are displayed after the point
          */
@@ -151,11 +159,11 @@ namespace igor
 
         /*! appearance state of button up
          */
-        iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonUpState = iWidgetState::Standby;
 
         /*! appearance state of button down
          */
-        iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonDownState = iWidgetState::Standby;
 
         /*! button up rectangle
          */
@@ -230,4 +238,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETNUMBERCHOOSER__
+#endif // IGOR_WIDGET_NUMBER_CHOOSER_H

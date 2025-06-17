@@ -126,7 +126,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawCheckBox(this);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 } // namespace igor

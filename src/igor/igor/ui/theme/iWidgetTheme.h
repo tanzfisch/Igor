@@ -35,6 +35,12 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetColor.h>
+#include <igor/ui/widgets/iWidgetGroupBox.h>
+#include <igor/ui/widgets/iWidgetLineTextEdit.h>
+#include <igor/ui/widgets/iWidgetNumberChooser.h>
+#include <igor/ui/widgets/iWidgetSelectBox.h>
+#include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/dialogs/iDialog.h>
 
 #include <igor/resources/texture/iTextureFont.h>
@@ -54,47 +60,91 @@ namespace igor
     {
 
     public:
+        /*! does nothing
+         */
+        iWidgetTheme() = default;
+
+        /*! does nothing
+         */
+        virtual ~iWidgetTheme() = default;
+
         /*! draw widget picture
 
         \param widget the widget to draw
         */
-        virtual void drawWidgetPicture(iWidgetPicturePtr widget) = 0;
+        virtual void draw(iWidgetPicturePtr widget) = 0;
 
         /*! draw widget spacer
 
         \param widget the widget to draw
         */
-        virtual void drawWidgetSpacer(iWidgetSpacerPtr widget) = 0;
+        virtual void draw(iWidgetSpacerPtr widget) = 0;
 
         /*! draw widget button
 
         \param widget the widget to draw
         */
-        virtual void drawWidgetButton(iWidgetButtonPtr widget) = 0;
+        virtual void draw(iWidgetButtonPtr widget) = 0;
 
         /*! draw widget label
 
         \param widget the widget to draw
         */
-        virtual void drawWidgetLabel(iWidgetLabelPtr widget) = 0;
+        virtual void draw(iWidgetLabelPtr widget) = 0;
 
         /*! draw widget check box
 
         \param widget the widget to draw
         */
-        virtual void drawCheckBox(iWidgetCheckBoxPtr widget) = 0;
+        virtual void draw(iWidgetCheckBoxPtr widget) = 0;
 
         /*! draw widget text edit
 
         \param widget the widget to draw
         */
-        virtual void drawTextEdit(iWidgetTextEditPtr widget) = 0;
+        virtual void draw(iWidgetTextEditPtr widget) = 0;
 
         /*! draw dialog
 
         \param widget the widget to draw
         */
-        virtual void drawDialog(iDialogPtr dialog) = 0;
+        virtual void draw(iDialogPtr dialog) = 0;
+
+        /*! draw color widget
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetColorPtr widget) = 0;
+
+        /*! draw widget group box
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetGroupBoxPtr widget) = 0;
+
+        /*! draw widget line text edit
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetLineTextEditPtr widget) = 0;
+
+        /*! draw widget number chooser
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetNumberChooserPtr widget) = 0;
+
+        /*! draw widget select box
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetSelectBoxPtr widget) = 0;
+
+        /*! draw widget slider
+
+        \param widget the widget to draw
+        */
+        virtual void draw(iWidgetSliderPtr widget) = 0;
 
         /*! draw selection box
 
@@ -111,38 +161,13 @@ namespace igor
 
         // TODO
 
-        virtual void drawRectangle(const iaRectanglef &rect, const iaColor4f &color) = 0;
-        virtual void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color) = 0;
+        /*! \returns dialog title height
+         */
+        virtual float32 getDialogTitleHeight() const = 0;
 
-        virtual void drawRectangle(const iaRectanglef &rect) = 0;
-        virtual void drawFilledRectangle(const iaRectanglef &rect) = 0;
-        virtual void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient) = 0;
-
-        virtual void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture) = 0;
-
-        virtual void drawGridCell(const iaRectanglef &rect, iWidgetState state) = 0;
-        virtual void drawGridHighlight(const iaRectanglef &rect) = 0;
-        virtual void drawGridSelection(const iaRectanglef &rect) = 0;
-        virtual void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
-        virtual void drawFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
-        virtual void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) = 0;
-        virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) = 0;
-        virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) = 0;
-        virtual void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) = 0;
-        virtual void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool enabled) = 0;
-        virtual void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState buttonUp, iWidgetState buttonDown, bool enabled) = 0;
-        virtual void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) = 0;
-        virtual void drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool enabled) = 0;
-        virtual void drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled) = 0;
-        virtual void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) = 0;
-        virtual void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) = 0;
-        virtual void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) = 0;
-        virtual void drawGraphLabels(const iaRectanglef &rect, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) = 0;
-        virtual void drawGraphFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
-
-        virtual void drawTooltip(const iaVector2f &pos, const iaString &text) = 0;
-
-        virtual void drawShadowRect(const iaRectanglef &rect) = 0;
+        /*! \returns dialog frame width
+         */
+        virtual float32 getDialogFrameWidth() const = 0;
 
         /*! \returns scaled font size
          */
@@ -152,13 +177,35 @@ namespace igor
          */
         virtual iTextureFontPtr getFont() const = 0;
 
-        virtual float32 getDialogTitleHeight() const = 0;
-        virtual float32 getDialogFrameWidth() const = 0;
+        /*! draw tooltip at given position
 
-        void beginFrame();
+        \param pos the given position
+        \param text the given tool tip
+        */
+        virtual void drawTooltip(const iaVector2f &pos, const iaString &text) = 0;
 
-        iWidgetTheme() = default;
-        virtual ~iWidgetTheme() = default;
+        virtual void drawGridCell(const iaRectanglef &rect, iWidgetState state) = 0;
+        virtual void drawGridHighlight(const iaRectanglef &rect) = 0;
+        virtual void drawGridSelection(const iaRectanglef &rect) = 0;
+
+        virtual void drawGraphFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
+        virtual void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) = 0;
+        virtual void drawGraphLabels(const iaRectanglef &rect, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) = 0;
+        virtual void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) = 0;
+
+        virtual void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) = 0;
+        virtual void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) = 0;
+
+        virtual void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient) = 0;
+
+        virtual void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) = 0;
+
+    private: // TODO
+        virtual void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active) = 0;
+
+        virtual void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) = 0;
+
+        virtual void drawShadowRect(const iaRectanglef &rect) = 0;
     };
 
     /*! widget theme pointer definition

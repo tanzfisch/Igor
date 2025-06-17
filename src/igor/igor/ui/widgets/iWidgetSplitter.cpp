@@ -23,8 +23,8 @@ namespace igor
     static const iaColor4f s_areaButtonColorHighlight(1.0, 1.0, 1.0, 1.0);
     static const iaColor4f s_splitterColor(0.4, 0.4, 0.4, 1.0);
     static const iaColor4f s_splitterColorMoving(0.7, 0.7, 0.7, 1.0); // (0.0, 0.5, 0.85, 1.0);
-    static const int32 s_sectionSelectorSize = 32;
-    static const int32 s_sectionSelectorSpacing = 4;
+    static const float32 s_sectionSelectorSize = 32;
+    static const float32 s_sectionSelectorSpacing = 4;
     static const float32 s_splitterAccessWidth = 10;
     static const float32 s_splitterWidth = 1;
     static const float32 s_splitterMoveWidth = 3;
@@ -723,8 +723,8 @@ namespace igor
             if (childCount < 2)
             {
                 childRect = rect;
-                _centerSectionButton.set(rect.getCenter()._x - (s_sectionSelectorSize >> 1),
-                                         rect.getCenter()._y - (s_sectionSelectorSize >> 1),
+                _centerSectionButton.set(rect.getCenter()._x - s_sectionSelectorSize * 0.5f,
+                                         rect.getCenter()._y - s_sectionSelectorSize * 0.5f,
                                          s_sectionSelectorSize, s_sectionSelectorSize);
             }
             else
@@ -732,8 +732,8 @@ namespace igor
                 if (iIntersection::intersects(pos, children[0]->getActualRect()))
                 {
                     childRect = children[0]->getActualRect();
-                    _centerSectionButton.set(childRect.getCenter()._x - (s_sectionSelectorSize >> 1),
-                                             childRect.getCenter()._y - (s_sectionSelectorSize >> 1),
+                    _centerSectionButton.set(childRect.getCenter()._x - s_sectionSelectorSize * 0.5f,
+                                             childRect.getCenter()._y - s_sectionSelectorSize * 0.5f,
                                              s_sectionSelectorSize, s_sectionSelectorSize);
 
                     _dockSubSectionIndex = 0;
@@ -741,8 +741,8 @@ namespace igor
                 else
                 {
                     childRect = children[1]->getActualRect();
-                    _centerSectionButton.set(childRect.getCenter()._x - (s_sectionSelectorSize >> 1),
-                                             childRect.getCenter()._y - (s_sectionSelectorSize >> 1),
+                    _centerSectionButton.set(childRect.getCenter()._x - s_sectionSelectorSize *0.5f,
+                                             childRect.getCenter()._y - s_sectionSelectorSize *0.5f,
                                              s_sectionSelectorSize, s_sectionSelectorSize);
 
                     _dockSubSectionIndex = 1;

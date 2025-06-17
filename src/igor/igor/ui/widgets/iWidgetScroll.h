@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSCROLL__
-#define __IGOR_WIDGETSCROLL__
+#ifndef IGOR_WIDGET_SCROLL_H
+#define IGOR_WIDGET_SCROLL_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -254,4 +254,4 @@ namespace igor
     typedef iWidgetScroll *iWidgetScrollPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETSCROLL__
+#endif // IGOR_WIDGET_SCROLL_H

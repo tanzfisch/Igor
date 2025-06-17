@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGCOLORGRADIENT__
-#define __IGOR_DIALOGCOLORGRADIENT__
+#ifndef IGOR_DIALOG_COLOR_GRADIENT_H
+#define IGOR_DIALOG_COLOR_GRADIENT_H
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -179,4 +179,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGCOLORGRADIENT__
+#endif // IGOR_DIALOG_COLOR_GRADIENT_H

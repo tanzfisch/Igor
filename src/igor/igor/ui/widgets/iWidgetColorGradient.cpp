@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -172,9 +173,11 @@ namespace igor
             gradientRect._height -= s_buttonHeight;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect, _texture);
+        const iaVector2f tiling(gradientRect._width / _texture->getWidth(), gradientRect._height / _texture->getHeight());
+        iRenderer::getInstance().drawTexturedRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture, iaColor4f::white, false, tiling);
+
         iWidgetManager::getInstance().getTheme()->drawGradient(gradientRect, _gradient);
-        iWidgetManager::getInstance().getTheme()->drawRectangle(gradientRect);
+        iRenderer::getInstance().drawRectangle(gradientRect);
 
         if (_interactive)
         {

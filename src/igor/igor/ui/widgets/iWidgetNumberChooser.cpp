@@ -90,12 +90,12 @@ namespace igor
 
 		if (_mouseOverButtonUp)
 		{
-			_buttonUpAppearanceState = iWidgetState::Pressed;
+			_buttonUpState = iWidgetState::Pressed;
 		}
 
 		if (_mouseOverButtonDown)
 		{
-			_buttonDownAppearanceState = iWidgetState::Pressed;
+			_buttonDownState = iWidgetState::Pressed;
 		}
 
 		return iWidget::onMouseKeyDown(event);
@@ -122,12 +122,12 @@ namespace igor
 		{
 
 			_mouseOverButtonUp = true;
-			_buttonUpAppearanceState = iWidgetState::Highlighted;
+			_buttonUpState = iWidgetState::Highlighted;
 		}
 		else
 		{
 			_mouseOverButtonUp = false;
-			_buttonUpAppearanceState = iWidgetState::Standby;
+			_buttonUpState = iWidgetState::Standby;
 		}
 
 		if (mx >= _buttonDownRectangle.getX() &&
@@ -137,12 +137,12 @@ namespace igor
 			!event.isConsumed())
 		{
 			_mouseOverButtonDown = true;
-			_buttonDownAppearanceState = iWidgetState::Highlighted;
+			_buttonDownState = iWidgetState::Highlighted;
 		}
 		else
 		{
 			_mouseOverButtonDown = false;
-			_buttonDownAppearanceState = iWidgetState::Standby;
+			_buttonDownState = iWidgetState::Standby;
 		}
 	}
 
@@ -157,7 +157,7 @@ namespace igor
 		{
 			if (event.getKey() == iKeyCode::MouseLeft)
 			{
-				_buttonUpAppearanceState = iWidgetState::Standby;
+				_buttonUpState = iWidgetState::Standby;
 				increaseNumber(_stepUp);
 			}
 
@@ -169,7 +169,7 @@ namespace igor
 		{
 			if (event.getKey() == iKeyCode::MouseLeft)
 			{
-				_buttonDownAppearanceState = iWidgetState::Standby;
+				_buttonDownState = iWidgetState::Standby;
 				decreaseNumber(_stepDown);
 			}
 
@@ -188,11 +188,11 @@ namespace igor
 			return false;
 		}
 
-        if (iWidget::onMouseWheel(event) &&
-            !_ignoreChildEventConsumption)
-        {
-            return true;
-        }
+		if (iWidget::onMouseWheel(event) &&
+			!_ignoreChildEventConsumption)
+		{
+			return true;
+		}
 
 		if (event.getWheelDelta() < 0)
 		{
@@ -265,10 +265,17 @@ namespace igor
 			return;
 		}
 
-		iaString displayString = iaString::toString(_value, _afterPoint);
-		displayString += _postFix;
+		iWidgetManager::getInstance().getTheme()->draw(this);
+	}
 
-		iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isEnabled());
+	iWidgetState iWidgetNumberChooser::getButtonUpState() const
+	{
+		return _buttonUpState;
+	}
+
+	iWidgetState iWidgetNumberChooser::getButtonDownState() const
+	{
+		return _buttonDownState;
 	}
 
 } // namespace igor

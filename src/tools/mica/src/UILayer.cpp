@@ -6,9 +6,7 @@
 #include "UILayer.h"
 
 UILayer::UILayer(iWindowPtr window, int32 zIndex)
-    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"),
-                                                            iResourceManager::getInstance().loadResource<iTexture>("igor_widget_theme_pattern"))),
-                    window, "Widgets", zIndex)
+    : iLayerWidgets(iWidgetThemePtr(new iWidgetDefaultTheme(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"))), window, "Widgets", zIndex)
 {
 }
 

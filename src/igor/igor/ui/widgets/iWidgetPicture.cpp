@@ -102,7 +102,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawWidgetPicture(this);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 
 		for (const auto child : _children)
 		{

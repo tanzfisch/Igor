@@ -120,7 +120,7 @@ const T iaRectangle<T>::getHeight() const
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getCenter() const
 {
-    return {_x + _width * 0.5, _y + _height * 0.5};
+    return {_x + _width * (T)0.5, _y + _height * (T)0.5};
 }
 
 template <typename T>

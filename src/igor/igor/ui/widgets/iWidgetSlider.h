@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSLIDER__
-#define __IGOR_WIDGETSLIDER__
+#ifndef IGOR_WIDGET_SLIDER_H
+#define IGOR_WIDGET_SLIDER_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -62,9 +62,9 @@ namespace igor
 		*/
         void setTexture(const iaString &texturePath);
 
-        /*! \returns texture path
+        /*! \returns texture
 		*/
-        const iaString &getTexture() const;
+        iTexturePtr getTexture() const;
 
         /*! sets the texture to use for the button
 
@@ -72,9 +72,9 @@ namespace igor
 		*/
         void setBackgroundTexture(const iaString &texturePath);
 
-        /*! \returns texture path
+        /*! \returns texture
 		*/
-        const iaString &getBackgroundTexture() const;
+        iTexturePtr getBackgroundTexture() const;
 
         /*! sets value
 
@@ -223,6 +223,10 @@ namespace igor
         /*! draws the widget
          */
         void draw() override;
+
+        /*! updates button position
+        */
+        void updateButton();
     };
 
     /*! widget slider pointer definition
@@ -231,4 +235,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETSLIDER__
+#endif // IGOR_WIDGET_SLIDER_H

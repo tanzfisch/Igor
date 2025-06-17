@@ -69,7 +69,7 @@ namespace igor
             return false;
         }
 
-        _buttonAppearanceState = iWidgetState::Pressed;
+        _buttonState = iWidgetState::Pressed;
 
         return iWidget::onMouseKeyDown(event);
     }
@@ -90,11 +90,11 @@ namespace igor
 
         if (!event.isConsumed())
         {
-            _buttonAppearanceState = iWidgetState::Highlighted;
+            _buttonState = iWidgetState::Highlighted;
         }
         else
         {
-            _buttonAppearanceState = iWidgetState::Standby;
+            _buttonState = iWidgetState::Standby;
         }
     }
 
@@ -108,7 +108,7 @@ namespace igor
 
         if (event.getKey() == iKeyCode::MouseLeft)
         {
-            _buttonAppearanceState = iWidgetState::Standby;
+            _buttonState = iWidgetState::Standby;
 
             if (_selectBox == nullptr)
             {
@@ -208,7 +208,17 @@ namespace igor
 
     iaString iWidgetSelectBox::getSelectedValue() const
     {
+        if(_currentSelection >= _entries.size())
+        {
+            return iaString();
+        }
+
         return _entries[_currentSelection].first;
+    }
+
+    iWidgetState iWidgetSelectBox::getButtonState() const
+    {
+        return _buttonState;
     }
 
     void iWidgetSelectBox::draw()
@@ -218,14 +228,7 @@ namespace igor
             return;
         }
 
-        iaString displayString;
-
-        if (_currentSelection >= 0 && _currentSelection < _entries.size())
-        {
-            displayString = _entries[_currentSelection].first;
-        }
-
-        iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
+        iWidgetManager::getInstance().getTheme()->draw(this);
     }
 
 } // namespace igor

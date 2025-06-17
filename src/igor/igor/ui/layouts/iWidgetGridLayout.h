@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_GRID_LAYOUT__
-#define __IGOR_WIDGET_GRID_LAYOUT__
+#ifndef IGOR_WIDGET_GRID_LAYOUT_H
+#define IGOR_WIDGET_GRID_LAYOUT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -254,7 +254,7 @@ namespace igor
 
         /*! internal helper struct that represents a child widget and it's position
          */
-        struct Cell
+        struct iGridCell
         {
             /*! pointer to child widget
              */
@@ -291,16 +291,16 @@ namespace igor
 
         /*! internal struct that represents a column of widgets
          */
-        struct GridColumn
+        struct iGridColumn
         {
             /*! list of widgets within one column
              */
-            std::vector<Cell> _widgetColumn;
+            std::vector<iGridCell> _widgetColumn;
         };
 
         /*! the child widgets
          */
-        std::vector<GridColumn> _widgetRows;
+        std::vector<iGridColumn> _widgetRows;
 
         /*! cellspacing within the grid
          */
@@ -347,7 +347,7 @@ namespace igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
- 
+
         /*! handles incoming double click
 
         \param event the mouse double click event
@@ -400,4 +400,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_GRID_LAYOUT__
+#endif // IGOR_WIDGET_GRID_LAYOUT_H

@@ -130,7 +130,10 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         return;
     }
 
-    if (!source->getUserData().has_value())
+    const auto userData = source->getUserData();
+
+    if (!userData.has_value() ||
+        userData.type() != typeid(iItemPath))
     {
         return;
     }
@@ -147,7 +150,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     for (const auto &selectedItemPath : selectedItemPaths)
     {
         iItemPtr item = _itemData->getItem(selectedItemPath);
-        if(item == nullptr)
+        if (item == nullptr)
         {
             continue;
         }

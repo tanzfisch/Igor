@@ -200,7 +200,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);
+        iWidgetManager::getInstance().getTheme()->draw(this);
     }
 
     void iWidgetButton::setCheckable(bool checkable)

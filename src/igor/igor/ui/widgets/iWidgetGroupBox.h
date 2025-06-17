@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGROUPBOX__
-#define __IGOR_WIDGETGROUPBOX__
+#ifndef IGOR_WIDGET_GROUP_BOX_H
+#define IGOR_WIDGET_GROUP_BOX_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -41,63 +41,63 @@ namespace igor
 
     /*! group box widget
 
-	\todo collapsable group box would be nice/interessting
-	*/
+    \todo collapsable group box would be nice/interessting
+    */
     class IGOR_API iWidgetGroupBox : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetGroupBox(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         ~iWidgetGroupBox() = default;
 
         /*! sets text of widget
 
-		\param text new text
-		*/
+        \param text new text
+        */
         void setText(const iaString &text);
 
         /*! \returns text of widget
-		*/
+         */
         const iaString &getText() const;
 
         /*! sets border size
 
-		\param border size of border
-		*/
+        \param border size of border
+        */
         void setBorder(int32 border);
 
         /*! \returns border size of widget
-		*/
+         */
         int32 getBorder();
 
         /*! setter for header only mode
 
-		\param headerOnly if true there will only the header be visible
-		*/
+        \param headerOnly if true there will only the header be visible
+        */
         void setHeaderOnly(bool headerOnly = true);
 
         /*! \returns if true: header only mode is on
-		*/
-        bool getHeaderOnly() const;
+         */
+        bool isHeaderOnly() const;
 
     private:
         /*! if true only the header of the group box will be drawn
-		*/
+         */
         bool _headerOnly = false;
 
         /*! border size
-		*/
+         */
         int32 _border = 5;
 
         /*! group box text
-		*/
+         */
         iaString _text;
 
         /*! draws the widget
@@ -105,13 +105,13 @@ namespace igor
         void draw() override;
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
     };
 
     /*! widget group box pointer definition
-	*/
+     */
     typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETGROUPBOX__
+#endif // IGOR_WIDGET_GROUP_BOX_H

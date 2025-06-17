@@ -101,6 +101,10 @@ namespace igor
 		*/
         const std::any getSelectedUserData() const;
 
+        /*! \returns state of button
+        */
+        iWidgetState getButtonState() const;
+
     private:
         /*! list of select box entries
 		*/
@@ -122,7 +126,7 @@ namespace igor
 
         /*! appearance state of the button
 		*/
-        iWidgetState _buttonAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonState = iWidgetState::Standby;
 
         /*! triggered when selection box closed
 

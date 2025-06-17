@@ -25,13 +25,7 @@ namespace igor
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
 
-		_texture = iResourceManager::getInstance().loadResource<iTexture>("igor_texture_checker");
 		_color.set(1.0f, 0.0f, 1.0f, 0.5f);
-	}
-
-	iWidgetColor::~iWidgetColor()
-	{
-		_texture = nullptr;
 	}
 
 	void iWidgetColor::setColor(const iaColor4f &color)
@@ -56,16 +50,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
-
-		int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
-
-		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
-		iaColor4f colorNoAlpha = _color;
-		colorNoAlpha._a = 1.0f;
-		iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglef(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
-
-		iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 } // namespace igor
