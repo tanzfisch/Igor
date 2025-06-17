@@ -63,7 +63,14 @@ std::type_index DialogComponentTypeSelection::getSelectedTypeIndex() const
 
 void DialogComponentTypeSelection::onTypeChanged(iWidgetPtr source)
 {
-	_selectedTypeIndex = std::any_cast<std::type_index>(_selectBoxComponentType->getSelectedUserData());
+	const auto data = _selectBoxComponentType->getSelectedUserData();
+	if (!data.has_value() ||
+		data.type() != typeid(std::type_index))
+	{
+		return;
+	}
+
+	_selectedTypeIndex = std::any_cast<std::type_index>(data);
 }
 
 void DialogComponentTypeSelection::onCancel(iWidgetPtr source)
