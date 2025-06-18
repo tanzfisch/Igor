@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -92,14 +92,18 @@ $(document).ready(function(){initNavTree('structigor_1_1i_behaviour_data.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;iComponents.h&gt;</code></p>
+<p><code>#include &lt;iBehaviourComponent.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a41be0cf26ad6559076cd6de315e7dd6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ac0c574aeea68c194bab856c908c1af0f">iBehaviourDelegate</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_behaviour_data.html#a41be0cf26ad6559076cd6de315e7dd6a">_delegate</a></td></tr>
+<tr class="memitem:a41be0cf26ad6559076cd6de315e7dd6a"><td class="memItemLeft" align="right" valign="top">iBehaviourDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_behaviour_data.html#a41be0cf26ad6559076cd6de315e7dd6a">_delegate</a></td></tr>
 <tr class="separator:a41be0cf26ad6559076cd6de315e7dd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28eccb9364abb911fd7d6906d113c9b9"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_behaviour_data.html#a28eccb9364abb911fd7d6906d113c9b9">_userData</a></td></tr>
 <tr class="separator:a28eccb9364abb911fd7d6906d113c9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93bdd311b1364273b1280d5790710c66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_behaviour_data.html#a93bdd311b1364273b1280d5790710c66">_name</a></td></tr>
+<tr class="separator:a93bdd311b1364273b1280d5790710c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714ed1e3b8c85282cf109f5dddc24fc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#a33a5e996e7a90acefb8b1c0bea47e365">uint8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_behaviour_data.html#a714ed1e3b8c85282cf109f5dddc24fc5">_priority</a></td></tr>
+<tr class="separator:a714ed1e3b8c85282cf109f5dddc24fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >behaviour data </p>
@@ -111,11 +115,41 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#ac0c574aeea68c194bab856c908c1af0f">iBehaviourDelegate</a> igor::iBehaviourData::_delegate</td>
+          <td class="memname">iBehaviourDelegate igor::iBehaviourData::_delegate</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p >delegate to be executed with given entity and user data </p>
+
+</div>
+</div>
+<a id="a93bdd311b1364273b1280d5790710c66" name="a93bdd311b1364273b1280d5790710c66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93bdd311b1364273b1280d5790710c66">&#9670;&nbsp;</a></span>_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iBehaviourData::_name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >optional name of behaviour </p>
+
+</div>
+</div>
+<a id="a714ed1e3b8c85282cf109f5dddc24fc5" name="a714ed1e3b8c85282cf109f5dddc24fc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a714ed1e3b8c85282cf109f5dddc24fc5">&#9670;&nbsp;</a></span>_priority</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#a33a5e996e7a90acefb8b1c0bea47e365">uint8</a> igor::iBehaviourData::_priority</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >execution priority </p>
 
 </div>
 </div>
@@ -130,12 +164,12 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >user data</p>
+<p >user data </p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/maddin/dev/Igor/src/igor/igor/entities/components/<a class="el" href="i_components_8h.html">iComponents.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/entities/components/<a class="el" href="i_behaviour_component_8h.html">iBehaviourComponent.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

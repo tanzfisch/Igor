@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_quaternion.html',''); 
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classiaux_1_1ia_quaternion-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">iaux::iaQuaternion&lt; T &gt; Class Template Reference</div></div>
@@ -99,76 +100,94 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_quaternion.html',''); 
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adadcd8ddb8a7b8075ea0ea24484b364b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#adadcd8ddb8a7b8075ea0ea24484b364b">iaQuaternion</a> ()</td></tr>
 <tr class="separator:adadcd8ddb8a7b8075ea0ea24484b364b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcdd33517598035dd8ed57e7da1b18f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#adcdd33517598035dd8ed57e7da1b18f6">iaQuaternion</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;axis, T angle)</td></tr>
-<tr class="separator:adcdd33517598035dd8ed57e7da1b18f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6310f69b074a3ff4da5d08817d718e2c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a6310f69b074a3ff4da5d08817d718e2c">iaQuaternion</a> (T x, T y, T z, T w)</td></tr>
-<tr class="separator:a6310f69b074a3ff4da5d08817d718e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade4f4852f017ea9bc3f0f55dc5c711ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ade4f4852f017ea9bc3f0f55dc5c711ac">iaQuaternion</a> (T w, T x, T y, T z)</td></tr>
+<tr class="separator:ade4f4852f017ea9bc3f0f55dc5c711ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea746b14dbcdbd8d86506a52acb63b75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#aea746b14dbcdbd8d86506a52acb63b75">iaQuaternion</a> (T x, T y, T z)</td></tr>
 <tr class="separator:aea746b14dbcdbd8d86506a52acb63b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16b97404c131fbd1d3c93b4701e7f7c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a16b97404c131fbd1d3c93b4701e7f7c3">iaQuaternion</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;vec)</td></tr>
-<tr class="separator:a16b97404c131fbd1d3c93b4701e7f7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18af19acf7a451377d0ff4d9178ca860"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a18af19acf7a451377d0ff4d9178ca860">setAxisAngle</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;axis, T angle)</td></tr>
-<tr class="separator:a18af19acf7a451377d0ff4d9178ca860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f889f0d120edeb2bad3b63e5a5e8916"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8f889f0d120edeb2bad3b63e5a5e8916">getAxisAngle</a> (<a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;axis, T &amp;angle) const</td></tr>
-<tr class="separator:a8f889f0d120edeb2bad3b63e5a5e8916"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2349a2160f187be227f663b6ef799d45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a2349a2160f187be227f663b6ef799d45">set</a> (T x, T y, T z, T w)</td></tr>
-<tr class="separator:a2349a2160f187be227f663b6ef799d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a010fe12438fe65eb30008b9aaf553bf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a010fe12438fe65eb30008b9aaf553bf8">iaQuaternion</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a010fe12438fe65eb30008b9aaf553bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e1d18a294de2e6bd0c31d4fad65afc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#aa2e1d18a294de2e6bd0c31d4fad65afc">toAxisAngle</a> (<a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;axis, T &amp;angle) const</td></tr>
+<tr class="separator:aa2e1d18a294de2e6bd0c31d4fad65afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bf7f8326bc82bccec84a38197e3d213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a4bf7f8326bc82bccec84a38197e3d213">set</a> (T w, T x, T y, T z)</td></tr>
+<tr class="separator:a4bf7f8326bc82bccec84a38197e3d213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4ce26a50b5b85303bf008c98a879f23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ac4ce26a50b5b85303bf008c98a879f23">identity</a> ()</td></tr>
 <tr class="separator:ac4ce26a50b5b85303bf008c98a879f23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7279e6ee4b61bf3592509e0005e69719"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a7279e6ee4b61bf3592509e0005e69719">negate</a> ()</td></tr>
 <tr class="separator:a7279e6ee4b61bf3592509e0005e69719"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fdd4920be245b576bd36917b2699b52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8fdd4920be245b576bd36917b2699b52">setEuler</a> (T x, T y, T z)</td></tr>
-<tr class="separator:a8fdd4920be245b576bd36917b2699b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a405b97513e91d5e7b600e1cd6ac39de1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a405b97513e91d5e7b600e1cd6ac39de1">setEuler</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;vec)</td></tr>
-<tr class="separator:a405b97513e91d5e7b600e1cd6ac39de1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd276fe2bdd2b3e981b314c2c187ebe4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#acd276fe2bdd2b3e981b314c2c187ebe4">getEuler</a> (T &amp;x, T &amp;y, T &amp;z) const</td></tr>
-<tr class="separator:acd276fe2bdd2b3e981b314c2c187ebe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a200382315e0e92e4713227d3b61ef7fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a200382315e0e92e4713227d3b61ef7fa">getEuler</a> (<a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;vec) const</td></tr>
-<tr class="separator:a200382315e0e92e4713227d3b61ef7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c7258908348491755e59a0259bd2d56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8c7258908348491755e59a0259bd2d56">operator==</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs) const</td></tr>
-<tr class="separator:a8c7258908348491755e59a0259bd2d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b5522c237a13afadcfba4ce4bee1b6b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a1b5522c237a13afadcfba4ce4bee1b6b">operator!=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs) const</td></tr>
-<tr class="separator:a1b5522c237a13afadcfba4ce4bee1b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a83938c9da0d17db784ef4c9aea3432"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a4a83938c9da0d17db784ef4c9aea3432">operator+</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:a4a83938c9da0d17db784ef4c9aea3432"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44f1ec055c5dbae82722c04c0b8402b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a44f1ec055c5dbae82722c04c0b8402b4">operator+=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:a44f1ec055c5dbae82722c04c0b8402b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ccc6a37780216bd7205cdff5682025c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a1ccc6a37780216bd7205cdff5682025c">operator-</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:a1ccc6a37780216bd7205cdff5682025c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae45b2117dd40fe973d457079458a4d36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ae45b2117dd40fe973d457079458a4d36">operator-=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:ae45b2117dd40fe973d457079458a4d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e86d45e6ed86c490098d411b9018f50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a2e86d45e6ed86c490098d411b9018f50">operator*</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:a2e86d45e6ed86c490098d411b9018f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a190f515c764fd0a4cc8b047086b81d60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a190f515c764fd0a4cc8b047086b81d60">operator*=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;rhs)</td></tr>
-<tr class="separator:a190f515c764fd0a4cc8b047086b81d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a615563ae90e8d9a74087361de5f5d93d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a615563ae90e8d9a74087361de5f5d93d">operator*</a> (T rhs)</td></tr>
-<tr class="separator:a615563ae90e8d9a74087361de5f5d93d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc3d43676cc0d62cf2ad91464a3abaa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#adc3d43676cc0d62cf2ad91464a3abaa7">operator*=</a> (T rhs)</td></tr>
-<tr class="separator:adc3d43676cc0d62cf2ad91464a3abaa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b95ef44d9a8526153d0827257293154"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a1b95ef44d9a8526153d0827257293154">normalize</a> ()</td></tr>
-<tr class="separator:a1b95ef44d9a8526153d0827257293154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09deed71273b50e0635911f51c4dbd72"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a09deed71273b50e0635911f51c4dbd72">toEuler</a> () const</td></tr>
+<tr class="separator:a09deed71273b50e0635911f51c4dbd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a527a4577a1a0a6b51d2d6b2034c9f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a2a527a4577a1a0a6b51d2d6b2034c9f2">toMatrix</a> () const</td></tr>
+<tr class="separator:a2a527a4577a1a0a6b51d2d6b2034c9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ef491fe3de528e6cba655dae6d839a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ae2ef491fe3de528e6cba655dae6d839a">operator=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:ae2ef491fe3de528e6cba655dae6d839a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9590cfd89335ef58cb8ee6c5bcc48c9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ab9590cfd89335ef58cb8ee6c5bcc48c9">operator==</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:ab9590cfd89335ef58cb8ee6c5bcc48c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48087786a8cc153d316a79ecb75eded"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ad48087786a8cc153d316a79ecb75eded">operator!=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:ad48087786a8cc153d316a79ecb75eded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a147d3e9dd47d88fcc174c2b8ebc2b3f7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a147d3e9dd47d88fcc174c2b8ebc2b3f7">operator+</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a147d3e9dd47d88fcc174c2b8ebc2b3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9771ce01272eb0f8a376b865bad97ae6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a9771ce01272eb0f8a376b865bad97ae6">operator+=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a9771ce01272eb0f8a376b865bad97ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aaf562f7c8d6877cb97d2a1675525e6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8aaf562f7c8d6877cb97d2a1675525e6">operator-</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a8aaf562f7c8d6877cb97d2a1675525e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ea44683b819f2de6a107abbbb78898"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a18ea44683b819f2de6a107abbbb78898">operator-=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a18ea44683b819f2de6a107abbbb78898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fdcdaf713a98d71510ff7081786d734"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a5fdcdaf713a98d71510ff7081786d734">operator*</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a5fdcdaf713a98d71510ff7081786d734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3781537e785c9080e8b3b44bc37c2cae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a3781537e785c9080e8b3b44bc37c2cae">operator*=</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="separator:a3781537e785c9080e8b3b44bc37c2cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad242fa3f4eca77975e50f5e9db86ddbd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ad242fa3f4eca77975e50f5e9db86ddbd">operator*</a> (T scalar)</td></tr>
+<tr class="separator:ad242fa3f4eca77975e50f5e9db86ddbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bf1d0aec17eedd895aefad4719ce4bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8bf1d0aec17eedd895aefad4719ce4bc">operator*=</a> (T scalar)</td></tr>
+<tr class="separator:a8bf1d0aec17eedd895aefad4719ce4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17d5739a914b30812ac1658581c03ac0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a17d5739a914b30812ac1658581c03ac0">inverse</a> () const</td></tr>
+<tr class="separator:a17d5739a914b30812ac1658581c03ac0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b790077503e32176c748858926aa59"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ac6b790077503e32176c748858926aa59">rotate</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;vec) const</td></tr>
+<tr class="separator:ac6b790077503e32176c748858926aa59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227a8dff35633dc6d431c4bf112e6b14"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a227a8dff35633dc6d431c4bf112e6b14">normalize</a> () const</td></tr>
+<tr class="separator:a227a8dff35633dc6d431c4bf112e6b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5ed4848d417aa01ebda55f0232fe2b8"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ae5ed4848d417aa01ebda55f0232fe2b8">dot</a> (const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:ae5ed4848d417aa01ebda55f0232fe2b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c4850bb29e7e4cbe0b7340bdd0aa17"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a14c4850bb29e7e4cbe0b7340bdd0aa17">norm</a> () const</td></tr>
+<tr class="separator:a14c4850bb29e7e4cbe0b7340bdd0aa17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac820583daa29cc938451769a47678128"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ac820583daa29cc938451769a47678128">normSquared</a> () const</td></tr>
+<tr class="separator:ac820583daa29cc938451769a47678128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab005af4640407c24ccf6c7565bb9d9d1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ab005af4640407c24ccf6c7565bb9d9d1">conjugate</a> () const</td></tr>
+<tr class="separator:ab005af4640407c24ccf6c7565bb9d9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f073f9ff1845517315d3304bc2663ee"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a3f073f9ff1845517315d3304bc2663ee">magnitude2</a> () const</td></tr>
+<tr class="separator:a3f073f9ff1845517315d3304bc2663ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a985fd7ee1e83d7a7465d1665fa3e71ca"><td class="memItemLeft" align="right" valign="top">const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a985fd7ee1e83d7a7465d1665fa3e71ca">getData</a> () const</td></tr>
 <tr class="separator:a985fd7ee1e83d7a7465d1665fa3e71ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf6efd04d9a902a9dd7cfedb503768eb"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#aaf6efd04d9a902a9dd7cfedb503768eb">getData</a> ()</td></tr>
 <tr class="separator:aaf6efd04d9a902a9dd7cfedb503768eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a14a6513fd2d4ac09c3765ad6621fd71a"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a14a6513fd2d4ac09c3765ad6621fd71a">fromAxisAngle</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;axis, T angle)</td></tr>
+<tr class="separator:a14a6513fd2d4ac09c3765ad6621fd71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9918fe55eed9c6d3e9f4d29a30dc8925"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a9918fe55eed9c6d3e9f4d29a30dc8925">fromEuler</a> (T pitch, T yaw, T roll)</td></tr>
+<tr class="separator:a9918fe55eed9c6d3e9f4d29a30dc8925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65fc7196bfe3ef52823cb7038dda1c0"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#aa65fc7196bfe3ef52823cb7038dda1c0">fromEuler</a> (const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;vec)</td></tr>
+<tr class="separator:aa65fc7196bfe3ef52823cb7038dda1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:acee5276685fc80692413df21dde586a7"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#acee5276685fc80692413df21dde586a7">_w</a> = 1.0</td></tr>
+<tr class="separator:acee5276685fc80692413df21dde586a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9fd6c27bbee4d109b6704a2eb48219c"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#ac9fd6c27bbee4d109b6704a2eb48219c">_x</a> = 0.0</td></tr>
 <tr class="separator:ac9fd6c27bbee4d109b6704a2eb48219c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa468096df566ef21c8e55aaf3af6d26a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#aa468096df566ef21c8e55aaf3af6d26a">_y</a> = 0.0</td></tr>
 <tr class="separator:aa468096df566ef21c8e55aaf3af6d26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fde577e72f759487f09930014c79d33"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#a8fde577e72f759487f09930014c79d33">_z</a> = 0.0</td></tr>
 <tr class="separator:a8fde577e72f759487f09930014c79d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acee5276685fc80692413df21dde586a7"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html#acee5276685fc80692413df21dde586a7">_w</a> = 1.0</td></tr>
-<tr class="separator:acee5276685fc80692413df21dde586a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
-class iaux::iaQuaternion&lt; T &gt;</div><p >quaternion class </p>
+class iaux::iaQuaternion&lt; T &gt;</div><p >quaternion class</p>
+<p >x-axis -&gt; pitch y-axis -&gt; yaw z-axis -&gt; roll </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adadcd8ddb8a7b8075ea0ea24484b364b" name="adadcd8ddb8a7b8075ea0ea24484b364b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adadcd8ddb8a7b8075ea0ea24484b364b">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adadcd8ddb8a7b8075ea0ea24484b364b">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,8 +205,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="adcdd33517598035dd8ed57e7da1b18f6" name="adcdd33517598035dd8ed57e7da1b18f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcdd33517598035dd8ed57e7da1b18f6">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[2/5]</span></h2>
+<a id="ade4f4852f017ea9bc3f0f55dc5c711ac" name="ade4f4852f017ea9bc3f0f55dc5c711ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4f4852f017ea9bc3f0f55dc5c711ac">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,44 +216,12 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">iaQuaternion::iaQuaternion </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>axis</em>, </td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>angle</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >ctor by axis angle</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">axis</td><td>the axis to rotate around </td></tr>
-    <tr><td class="paramname">angle</td><td>the angle to rotate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a6310f69b074a3ff4da5d08817d718e2c" name="a6310f69b074a3ff4da5d08817d718e2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6310f69b074a3ff4da5d08817d718e2c">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">iaQuaternion::iaQuaternion </td>
-          <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
@@ -248,13 +235,7 @@ template&lt;class T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>z</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>w</em>&#160;</td>
+          <td class="paramname"><em>z</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -266,10 +247,10 @@ template&lt;class T &gt; </div>
 <p >ctor by direct values</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">w</td><td>the w component </td></tr>
     <tr><td class="paramname">x</td><td>the x component </td></tr>
     <tr><td class="paramname">y</td><td>the y component </td></tr>
     <tr><td class="paramname">z</td><td>the z component </td></tr>
-    <tr><td class="paramname">w</td><td>the w component </td></tr>
   </table>
   </dd>
 </dl>
@@ -277,7 +258,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <a id="aea746b14dbcdbd8d86506a52acb63b75" name="aea746b14dbcdbd8d86506a52acb63b75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea746b14dbcdbd8d86506a52acb63b75">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aea746b14dbcdbd8d86506a52acb63b75">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,20 +290,20 @@ template&lt;class T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >ctor by euler angles</p>
+<p >ctor by direct values</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>rotation around x axis in rad </td></tr>
-    <tr><td class="paramname">y</td><td>rotation around y axis in rad </td></tr>
-    <tr><td class="paramname">z</td><td>rotation around z axis in rad </td></tr>
+    <tr><td class="paramname">x</td><td>the x component </td></tr>
+    <tr><td class="paramname">y</td><td>the y component </td></tr>
+    <tr><td class="paramname">z</td><td>the z component </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a16b97404c131fbd1d3c93b4701e7f7c3" name="a16b97404c131fbd1d3c93b4701e7f7c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16b97404c131fbd1d3c93b4701e7f7c3">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[5/5]</span></h2>
+<a id="a010fe12438fe65eb30008b9aaf553bf8" name="a010fe12438fe65eb30008b9aaf553bf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a010fe12438fe65eb30008b9aaf553bf8">&#9670;&nbsp;</a></span>iaQuaternion() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,13 +313,138 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">iaQuaternion::iaQuaternion </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >init with other quaternion</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other quaternion </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab005af4640407c24ccf6c7565bb9d9d1" name="ab005af4640407c24ccf6c7565bb9d9d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab005af4640407c24ccf6c7565bb9d9d1">&#9670;&nbsp;</a></span>conjugate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::conjugate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>conjugate </dd></dl>
+
+</div>
+</div>
+<a id="ae5ed4848d417aa01ebda55f0232fe2b8" name="ae5ed4848d417aa01ebda55f0232fe2b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ed4848d417aa01ebda55f0232fe2b8">&#9670;&nbsp;</a></span>dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T iaQuaternion::dot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >dot product </p>
+
+</div>
+</div>
+<a id="a14a6513fd2d4ac09c3765ad6621fd71a" name="a14a6513fd2d4ac09c3765ad6621fd71a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a6513fd2d4ac09c3765ad6621fd71a">&#9670;&nbsp;</a></span>fromAxisAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::fromAxisAngle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >set by axis angle</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">axis</td><td>the axis to rotate around </td></tr>
+    <tr><td class="paramname">angle</td><td>the angle to rotate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa65fc7196bfe3ef52823cb7038dda1c0" name="aa65fc7196bfe3ef52823cb7038dda1c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65fc7196bfe3ef52823cb7038dda1c0">&#9670;&nbsp;</a></span>fromEuler() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::fromEuler </td>
+          <td>(</td>
           <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>vec</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p >ctor by euler angles</p>
+<p >set by euler angles</p>
+<p >vector will be interpreted as pitch, yaw, roll</p>
+<p >using order XYZ or pitch,yaw,roll</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vec</td><td>vector that contains euler angles </td></tr>
@@ -348,38 +454,54 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8f889f0d120edeb2bad3b63e5a5e8916" name="a8f889f0d120edeb2bad3b63e5a5e8916"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f889f0d120edeb2bad3b63e5a5e8916">&#9670;&nbsp;</a></span>getAxisAngle()</h2>
+<a id="a9918fe55eed9c6d3e9f4d29a30dc8925" name="a9918fe55eed9c6d3e9f4d29a30dc8925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9918fe55eed9c6d3e9f4d29a30dc8925">&#9670;&nbsp;</a></span>fromEuler() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void iaQuaternion::getAxisAngle </td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::fromEuler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>axis</em>, </td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>pitch</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>angle</em>&#160;</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>yaw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>roll</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p >returns axis angle from quaternion</p>
+<p >set by euler angles</p>
+<p >using order XYZ or pitch,yaw,roll</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">axis[out]</td><td>the rotation axis \parma angle[out] the rotation angle </td></tr>
+    <tr><td class="paramname">pitch</td><td>rotation around x axis in rad </td></tr>
+    <tr><td class="paramname">yaw</td><td>rotation around y axis in rad </td></tr>
+    <tr><td class="paramname">roll</td><td>rotation around z axis in rad </td></tr>
   </table>
   </dd>
 </dl>
@@ -426,78 +548,6 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a200382315e0e92e4713227d3b61ef7fa" name="a200382315e0e92e4713227d3b61ef7fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a200382315e0e92e4713227d3b61ef7fa">&#9670;&nbsp;</a></span>getEuler() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaQuaternion::getEuler </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >returns euler angles</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vec[out]</td><td>euler angles in a vector </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="acd276fe2bdd2b3e981b314c2c187ebe4" name="acd276fe2bdd2b3e981b314c2c187ebe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd276fe2bdd2b3e981b314c2c187ebe4">&#9670;&nbsp;</a></span>getEuler() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaQuaternion::getEuler </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >returns euler angles</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x[out]</td><td>the rotation arround the x axis </td></tr>
-    <tr><td class="paramname">y[out]</td><td>the rotation arround the y axis </td></tr>
-    <tr><td class="paramname">z[out]</td><td>the rotation arround the z axis </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="ac4ce26a50b5b85303bf008c98a879f23" name="ac4ce26a50b5b85303bf008c98a879f23"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac4ce26a50b5b85303bf008c98a879f23">&#9670;&nbsp;</a></span>identity()</h2>
 
@@ -515,6 +565,45 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 <p >reset quaternion to identity </p>
+
+</div>
+</div>
+<a id="a17d5739a914b30812ac1658581c03ac0" name="a17d5739a914b30812ac1658581c03ac0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d5739a914b30812ac1658581c03ac0">&#9670;&nbsp;</a></span>inverse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::inverse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f073f9ff1845517315d3304bc2663ee" name="a3f073f9ff1845517315d3304bc2663ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f073f9ff1845517315d3304bc2663ee">&#9670;&nbsp;</a></span>magnitude2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T iaQuaternion::magnitude2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>squared magnitude </dd></dl>
 
 </div>
 </div>
@@ -538,8 +627,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a1b95ef44d9a8526153d0827257293154" name="a1b95ef44d9a8526153d0827257293154"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b95ef44d9a8526153d0827257293154">&#9670;&nbsp;</a></span>normalize()</h2>
+<a id="a14c4850bb29e7e4cbe0b7340bdd0aa17" name="a14c4850bb29e7e4cbe0b7340bdd0aa17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c4850bb29e7e4cbe0b7340bdd0aa17">&#9670;&nbsp;</a></span>norm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -547,19 +636,57 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">IGOR_INLINE void iaQuaternion::normalize </td>
+          <td class="memname">IGOR_INLINE T iaQuaternion::norm </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >normalize the quaternion to unit length </p>
 
 </div>
 </div>
-<a id="a1b5522c237a13afadcfba4ce4bee1b6b" name="a1b5522c237a13afadcfba4ce4bee1b6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b5522c237a13afadcfba4ce4bee1b6b">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a227a8dff35633dc6d431c4bf112e6b14" name="a227a8dff35633dc6d431c4bf112e6b14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a227a8dff35633dc6d431c4bf112e6b14">&#9670;&nbsp;</a></span>normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">IGOR_INLINE const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::normalize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>a normalized quaternion </dd></dl>
+
+</div>
+</div>
+<a id="ac820583daa29cc938451769a47678128" name="ac820583daa29cc938451769a47678128"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac820583daa29cc938451769a47678128">&#9670;&nbsp;</a></span>normSquared()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T iaQuaternion::normSquared </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad48087786a8cc153d316a79ecb75eded" name="ad48087786a8cc153d316a79ecb75eded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad48087786a8cc153d316a79ecb75eded">&#9670;&nbsp;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,7 +697,7 @@ template&lt;class T &gt; </div>
           <td class="memname">bool iaQuaternion::operator!= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -578,15 +705,15 @@ template&lt;class T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if both quaternions are not equal</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2e86d45e6ed86c490098d411b9018f50" name="a2e86d45e6ed86c490098d411b9018f50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e86d45e6ed86c490098d411b9018f50">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+<a id="a5fdcdaf713a98d71510ff7081786d734" name="a5fdcdaf713a98d71510ff7081786d734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fdcdaf713a98d71510ff7081786d734">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -594,18 +721,18 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator* </td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator* </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p >multiply one quaternion to this quaternion</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
@@ -613,8 +740,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a615563ae90e8d9a74087361de5f5d93d" name="a615563ae90e8d9a74087361de5f5d93d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a615563ae90e8d9a74087361de5f5d93d">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+<a id="ad242fa3f4eca77975e50f5e9db86ddbd" name="ad242fa3f4eca77975e50f5e9db86ddbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad242fa3f4eca77975e50f5e9db86ddbd">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -622,10 +749,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator* </td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator* </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>scalar</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -633,7 +760,7 @@ template&lt;class T &gt; </div>
 <p >multiply quaternion with scalar</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>right hand side the scalar value </td></tr>
+    <tr><td class="paramname">scalar</td><td>right hand side the scalar value </td></tr>
   </table>
   </dd>
 </dl>
@@ -641,8 +768,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a190f515c764fd0a4cc8b047086b81d60" name="a190f515c764fd0a4cc8b047086b81d60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a190f515c764fd0a4cc8b047086b81d60">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[1/2]</span></h2>
+<a id="a3781537e785c9080e8b3b44bc37c2cae" name="a3781537e785c9080e8b3b44bc37c2cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3781537e785c9080e8b3b44bc37c2cae">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -650,10 +777,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaQuaternion::operator*= </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp; iaQuaternion::operator*= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -661,15 +788,16 @@ template&lt;class T &gt; </div>
 <p >multiply one quaternion with an other one</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>resulting quaternion </dd></dl>
 
 </div>
 </div>
-<a id="adc3d43676cc0d62cf2ad91464a3abaa7" name="adc3d43676cc0d62cf2ad91464a3abaa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc3d43676cc0d62cf2ad91464a3abaa7">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[2/2]</span></h2>
+<a id="a8bf1d0aec17eedd895aefad4719ce4bc" name="a8bf1d0aec17eedd895aefad4719ce4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bf1d0aec17eedd895aefad4719ce4bc">&#9670;&nbsp;</a></span>operator*=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -677,10 +805,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaQuaternion::operator*= </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp; iaQuaternion::operator*= </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>scalar</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -688,15 +816,15 @@ template&lt;class T &gt; </div>
 <p >multiplies quaternion with scalar</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>right hand side scalar value </td></tr>
+    <tr><td class="paramname">scalar</td><td>right hand side scalar value </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a4a83938c9da0d17db784ef4c9aea3432" name="a4a83938c9da0d17db784ef4c9aea3432"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a83938c9da0d17db784ef4c9aea3432">&#9670;&nbsp;</a></span>operator+()</h2>
+<a id="a147d3e9dd47d88fcc174c2b8ebc2b3f7" name="a147d3e9dd47d88fcc174c2b8ebc2b3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a147d3e9dd47d88fcc174c2b8ebc2b3f7">&#9670;&nbsp;</a></span>operator+()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -704,10 +832,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator+ </td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator+ </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -716,15 +844,15 @@ template&lt;class T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>the resulting quaternion </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a44f1ec055c5dbae82722c04c0b8402b4" name="a44f1ec055c5dbae82722c04c0b8402b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44f1ec055c5dbae82722c04c0b8402b4">&#9670;&nbsp;</a></span>operator+=()</h2>
+<a id="a9771ce01272eb0f8a376b865bad97ae6" name="a9771ce01272eb0f8a376b865bad97ae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9771ce01272eb0f8a376b865bad97ae6">&#9670;&nbsp;</a></span>operator+=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -732,10 +860,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaQuaternion::operator+= </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp; iaQuaternion::operator+= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -743,15 +871,16 @@ template&lt;class T &gt; </div>
 <p >add one quaternion to this quaternion</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>resulting quaternion </dd></dl>
 
 </div>
 </div>
-<a id="a1ccc6a37780216bd7205cdff5682025c" name="a1ccc6a37780216bd7205cdff5682025c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ccc6a37780216bd7205cdff5682025c">&#9670;&nbsp;</a></span>operator-()</h2>
+<a id="a8aaf562f7c8d6877cb97d2a1675525e6" name="a8aaf562f7c8d6877cb97d2a1675525e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aaf562f7c8d6877cb97d2a1675525e6">&#9670;&nbsp;</a></span>operator-()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -759,10 +888,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator- </td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; iaQuaternion::operator- </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -771,15 +900,15 @@ template&lt;class T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>the resulting quaternion </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ae45b2117dd40fe973d457079458a4d36" name="ae45b2117dd40fe973d457079458a4d36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae45b2117dd40fe973d457079458a4d36">&#9670;&nbsp;</a></span>operator-=()</h2>
+<a id="a18ea44683b819f2de6a107abbbb78898" name="a18ea44683b819f2de6a107abbbb78898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ea44683b819f2de6a107abbbb78898">&#9670;&nbsp;</a></span>operator-=()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -787,10 +916,10 @@ template&lt;class T &gt; </div>
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaQuaternion::operator-= </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp; iaQuaternion::operator-= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -798,15 +927,43 @@ template&lt;class T &gt; </div>
 <p >subtracts one quaternion from the other</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>resulting quaternion </dd></dl>
+
+</div>
+</div>
+<a id="ae2ef491fe3de528e6cba655dae6d839a" name="ae2ef491fe3de528e6cba655dae6d839a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ef491fe3de528e6cba655dae6d839a">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp; iaQuaternion::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if both quaternions are equal</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a8c7258908348491755e59a0259bd2d56" name="a8c7258908348491755e59a0259bd2d56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c7258908348491755e59a0259bd2d56">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="ab9590cfd89335ef58cb8ee6c5bcc48c9" name="ab9590cfd89335ef58cb8ee6c5bcc48c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9590cfd89335ef58cb8ee6c5bcc48c9">&#9670;&nbsp;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -817,7 +974,7 @@ template&lt;class T &gt; </div>
           <td class="memname">bool iaQuaternion::operator== </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -825,15 +982,43 @@ template&lt;class T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>true if both quaternions are equal</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rhs</td><td>the right hand side quaternion </td></tr>
+    <tr><td class="paramname">other</td><td>the right hand side quaternion </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2349a2160f187be227f663b6ef799d45" name="a2349a2160f187be227f663b6ef799d45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2349a2160f187be227f663b6ef799d45">&#9670;&nbsp;</a></span>set()</h2>
+<a id="ac6b790077503e32176c748858926aa59" name="ac6b790077503e32176c748858926aa59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6b790077503e32176c748858926aa59">&#9670;&nbsp;</a></span>rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; iaQuaternion::rotate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >rotates a given vector</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>the given vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>rotated vector </dd></dl>
+
+</div>
+</div>
+<a id="a4bf7f8326bc82bccec84a38197e3d213" name="a4bf7f8326bc82bccec84a38197e3d213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bf7f8326bc82bccec84a38197e3d213">&#9670;&nbsp;</a></span>set()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -844,122 +1029,11 @@ template&lt;class T &gt; </div>
           <td class="memname">void iaQuaternion::set </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>w</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>z</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>w</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >set by direct value</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>the x component </td></tr>
-    <tr><td class="paramname">y</td><td>the y component </td></tr>
-    <tr><td class="paramname">z</td><td>the z component </td></tr>
-    <tr><td class="paramname">w</td><td>the w component </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a18af19acf7a451377d0ff4d9178ca860" name="a18af19acf7a451377d0ff4d9178ca860"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18af19acf7a451377d0ff4d9178ca860">&#9670;&nbsp;</a></span>setAxisAngle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaQuaternion::setAxisAngle </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>axis</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>angle</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >set by axis angle</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">axis</td><td>the axis to rotate arround </td></tr>
-    <tr><td class="paramname">angle</td><td>the angle to rotate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a405b97513e91d5e7b600e1cd6ac39de1" name="a405b97513e91d5e7b600e1cd6ac39de1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a405b97513e91d5e7b600e1cd6ac39de1">&#9670;&nbsp;</a></span>setEuler() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaQuaternion::setEuler </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>vec</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >set by euler angles</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vec</td><td>vector that contains euler angles </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a8fdd4920be245b576bd36917b2699b52" name="a8fdd4920be245b576bd36917b2699b52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fdd4920be245b576bd36917b2699b52">&#9670;&nbsp;</a></span>setEuler() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaQuaternion::setEuler </td>
-          <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>x</em>, </td>
         </tr>
@@ -982,15 +1056,95 @@ template&lt;class T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >set by euler angles</p>
+<p >set by direct value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>rotation arround x axis in rad </td></tr>
-    <tr><td class="paramname">y</td><td>rotation arround y axis in rad </td></tr>
-    <tr><td class="paramname">z</td><td>rotation arround z axis in rad </td></tr>
+    <tr><td class="paramname">x</td><td>the x component </td></tr>
+    <tr><td class="paramname">y</td><td>the y component </td></tr>
+    <tr><td class="paramname">z</td><td>the z component </td></tr>
+    <tr><td class="paramname">w</td><td>the w component </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aa2e1d18a294de2e6bd0c31d4fad65afc" name="aa2e1d18a294de2e6bd0c31d4fad65afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e1d18a294de2e6bd0c31d4fad65afc">&#9670;&nbsp;</a></span>toAxisAngle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void iaQuaternion::toAxisAngle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >returns axis angle from quaternion</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">axis[out]</td><td>the rotation axis </td></tr>
+    <tr><td class="paramname">angle[out]</td><td>the rotation angle </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a09deed71273b50e0635911f51c4dbd72" name="a09deed71273b50e0635911f51c4dbd72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09deed71273b50e0635911f51c4dbd72">&#9670;&nbsp;</a></span>toEuler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; iaQuaternion::toEuler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>euler angles</dd></dl>
+<p>!!! terrible percision don't use unless you have to !!! </p>
+
+</div>
+</div>
+<a id="a2a527a4577a1a0a6b51d2d6b2034c9f2" name="a2a527a4577a1a0a6b51d2d6b2034c9f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a527a4577a1a0a6b51d2d6b2034c9f2">&#9670;&nbsp;</a></span>toMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; iaQuaternion::toMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>a matrix withthe orientation of this quaternion </dd></dl>
 
 </div>
 </div>
@@ -1064,8 +1218,8 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/math/<a class="el" href="ia_quaternion_8h.html">iaQuaternion.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/math/<a class="el" href="ia_quaternion_8inl.html">iaQuaternion.inl</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/math/<a class="el" href="ia_quaternion_8h.html">iaQuaternion.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/math/<a class="el" href="ia_quaternion_8inl.html">iaQuaternion.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

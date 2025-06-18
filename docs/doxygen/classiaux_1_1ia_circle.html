@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -127,6 +127,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1b39b87ee01e7802d657ec56e4d6f50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bf34b0dcd406c7e03f7bd6491d93e33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a0bf34b0dcd406c7e03f7bd6491d93e33">operator=</a> (const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;circle)</td></tr>
 <tr class="separator:a0bf34b0dcd406c7e03f7bd6491d93e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362870b03f4a336d0091e78e6b4f73ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a362870b03f4a336d0091e78e6b4f73ea">operator==</a> (const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;circle) const</td></tr>
+<tr class="separator:a362870b03f4a336d0091e78e6b4f73ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63018f9f4217642c2284347bbff34863"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_circle.html#a63018f9f4217642c2284347bbff34863">operator!=</a> (const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;circle) const</td></tr>
+<tr class="separator:a63018f9f4217642c2284347bbff34863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -382,6 +386,33 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a id="a63018f9f4217642c2284347bbff34863" name="a63018f9f4217642c2284347bbff34863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63018f9f4217642c2284347bbff34863">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaCircle::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>circle</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if circle are not equal</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">circle</td><td>the circle to compare with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0bf34b0dcd406c7e03f7bd6491d93e33" name="a0bf34b0dcd406c7e03f7bd6491d93e33"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0bf34b0dcd406c7e03f7bd6491d93e33">&#9670;&nbsp;</a></span>operator=()</h2>
 
@@ -407,6 +438,33 @@ template&lt;class T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>resulting circle </dd></dl>
+
+</div>
+</div>
+<a id="a362870b03f4a336d0091e78e6b4f73ea" name="a362870b03f4a336d0091e78e6b4f73ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362870b03f4a336d0091e78e6b4f73ea">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaCircle::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_circle.html">iaCircle</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>circle</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if two circles are equal</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">circle</td><td>the circle to compare with </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -637,8 +695,8 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_circle_8h.html">iaCircle.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_circle_8inl.html">iaCircle.inl</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_circle_8h.html">iaCircle.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_circle_8inl.html">iaCircle.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

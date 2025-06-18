@@ -5,6 +5,6 @@ var searchData=
   ['keepexternals_2',['KeepExternals',['../namespaceigor.html#afff40a867ba63c16063db64d393a436aa41ee1226da7962355f25cb673bf3d124',1,'igor']]],
   ['keyboard_3',['Keyboard',['../namespaceigor.html#a9697e69323a1af894851b0201dbcbdeca6ce4d85a628a88bbdb3ac24a8e5a9c2e',1,'igor']]],
   ['keycodecount_4',['KeyCodeCount',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdaced062d73467a68e564a18ade96c0dd6',1,'igor']]],
-  ['keypressed_5',['keyPressed',['../classigor_1_1i_keyboard.html#a07dbd82bdeb3b989917fb45188fa0c98',1,'igor::iKeyboard']]],
-  ['kill_5frogue_6',['KILL_ROGUE',['../i_user_control_color_chooser_8cpp.html#a26d9aa6c825e46e1d52ae1eb50c15860',1,'iUserControlColorChooser.cpp']]]
+  ['keypressed_5',['keyPressed',['../classigor_1_1i_keyboard.html#a75d0170fb9a2ca432995fa223df59a8d',1,'igor::iKeyboard::keyPressed(iKeyCode keyCode)'],['../classigor_1_1i_keyboard.html#a07dbd82bdeb3b989917fb45188fa0c98',1,'igor::iKeyboard::keyPressed()']]],
+  ['kill_5frogue_6',['KILL_ROGUE',['../i_user_control_color_8cpp.html#a26d9aa6c825e46e1d52ae1eb50c15860',1,'iUserControlColor.cpp']]]
 ];

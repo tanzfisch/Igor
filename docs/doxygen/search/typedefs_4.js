@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['returnhandler_0',['ReturnHandler',['../classiaux_1_1ia_event.html#a8c7cf89dea2924cc35dc941621f9bf21',1,'iaux::iaEvent']]],
-  ['returntype_1',['ReturnType',['../classiaux_1_1ia_event_return_handler.html#ab61ffeee6ec957108cc6e2ebf54cc01b',1,'iaux::iaEventReturnHandler::ReturnType()'],['../classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4.html#a6271bca2235a05ba19dd016cc755ed62',1,'iaux::iaEventReturnHandler&lt; void, Args... &gt;::ReturnType()'],['../classiaux_1_1ia_event.html#a478b09a7492b4f26640f7c392a796054',1,'iaux::iaEvent::ReturnType()']]]
+  ['object_0',['Object',['../classigor_1_1i_octree.html#a45fca80510187da1e7ae189fcf229ccc',1,'igor::iOctree::Object()'],['../classigor_1_1i_quadtree.html#a820a6ea8ae123b3ae6307e4e744e61c5',1,'igor::iQuadtree::Object()']]],
+  ['objectptr_1',['ObjectPtr',['../classigor_1_1i_octree.html#a5b174b304c2156b143ff6f3a6a76e999',1,'igor::iOctree::ObjectPtr()'],['../classigor_1_1i_quadtree.html#af912f62dd37e22227ba93e62748ba4e3',1,'igor::iQuadtree::ObjectPtr()']]],
+  ['objects_2',['Objects',['../classigor_1_1i_octree.html#a77a9a276b5661dfa4ec74765d3a20032',1,'igor::iOctree::Objects()'],['../classigor_1_1i_quadtree.html#add971d25ecc7a8e7c291d6c6c199c88b',1,'igor::iQuadtree::Objects()']]]
 ];

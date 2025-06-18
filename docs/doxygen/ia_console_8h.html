@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/iaux/iaux/system/iaConsole.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/iaux/iaux/system/iaConsole.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -116,7 +116,7 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a9b487d736f1ff95216577b03f57f1b2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_console_8h.html#a9b487d736f1ff95216577b03f57f1b2d">__IGOR_LOGGING_TAB__</a>&#160;&#160;&#160;L&quot;                               &quot;</td></tr>
+<tr class="memitem:a9b487d736f1ff95216577b03f57f1b2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_console_8h.html#a9b487d736f1ff95216577b03f57f1b2d">__IGOR_LOGGING_TAB__</a>&#160;&#160;&#160;L&quot;                                &quot;</td></tr>
 <tr class="separator:a9b487d736f1ff95216577b03f57f1b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eebaa67b0bd67ba43d04abc729897c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_console_8h.html#a6eebaa67b0bd67ba43d04abc729897c1">con_assert</a>(Condition,  Message)</td></tr>
 <tr class="separator:a6eebaa67b0bd67ba43d04abc729897c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,7 +213,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define __IGOR_LOGGING_TAB__&#160;&#160;&#160;L&quot;                               &quot;</td>
+          <td class="memname">#define __IGOR_LOGGING_TAB__&#160;&#160;&#160;L&quot;                                &quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,8 +277,8 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Fatal &amp;&amp; !(Condition))                                      \</div>
 <div class="line">    {                                                                                                                     \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                                                                 \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Fatal);                                                            \</div>
-<div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::Red &lt;&lt; Message &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> #Condition <span class="stringliteral">&quot;)&quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;              \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Fatal);                                                          \</div>
+<div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::Red &lt;&lt; Message &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> #Condition <span class="stringliteral">&quot;)&quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                  \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_define" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                                        \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; IGOR_FUNCTION &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                                             \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;-----------------------------------------------------------------------&quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>; \</div>
@@ -286,12 +286,12 @@ Variables</h2></td></tr>
 <div class="line">        iaConsole::getInstance().exit();                                                                                  \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                                                               \</div>
 <div class="line">    }</div>
-<div class="ttc" id="aclassiaux_1_1ia_console_html_a32e95a8e3ac354a4f5089fb49aea2b7b"><div class="ttname"><a href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">iaux::iaConsole::printHeader</a></div><div class="ttdeci">void printHeader(iaLogLevel logLevel)</div><div class="ttdef"><b>Definition:</b> iaConsole.cpp:232</div></div>
-<div class="ttc" id="aclassiaux_1_1ia_console_html_ad25b84bea579d56683c1616242b5f8e7"><div class="ttname"><a href="classiaux_1_1ia_console.html#ad25b84bea579d56683c1616242b5f8e7">iaux::iaConsole::printCallStack</a></div><div class="ttdeci">void printCallStack(uint32 maxDepth=1000)</div><div class="ttdef"><b>Definition:</b> iaConsole.cpp:217</div></div>
-<div class="ttc" id="aia_defines_8h_html_a697e3f8d08a488719c8168bad998393f"><div class="ttname"><a href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a></div><div class="ttdeci">#define __IGOR_FILE_LINE__</div><div class="ttdef"><b>Definition:</b> iaDefines.h:67</div></div>
-<div class="ttc" id="anamespaceiaux_html_a31391d2049f7bd6ca12df77fc5a9633e"><div class="ttname"><a href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">iaux::LOCK</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; LOCK(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:557</div></div>
-<div class="ttc" id="anamespaceiaux_html_a537772c19246c600d776999b1e0e0291"><div class="ttname"><a href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">iaux::endlTab</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; endlTab(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:502</div></div>
-<div class="ttc" id="anamespaceiaux_html_a85493f7208d5ae4ec01d6227d4b3626f"><div class="ttname"><a href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">iaux::UNLOCK</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; UNLOCK(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:568</div></div>
+<div class="ttc" id="aclassiaux_1_1ia_console_html_a32e95a8e3ac354a4f5089fb49aea2b7b"><div class="ttname"><a href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">iaux::iaConsole::printHeader</a></div><div class="ttdeci">void printHeader(iaLogLevel logLevel)</div><div class="ttdef"><b>Definition:</b> iaConsole.cpp:219</div></div>
+<div class="ttc" id="aclassiaux_1_1ia_console_html_ad25b84bea579d56683c1616242b5f8e7"><div class="ttname"><a href="classiaux_1_1ia_console.html#ad25b84bea579d56683c1616242b5f8e7">iaux::iaConsole::printCallStack</a></div><div class="ttdeci">void printCallStack(uint32 maxDepth=1000)</div><div class="ttdef"><b>Definition:</b> iaConsole.cpp:205</div></div>
+<div class="ttc" id="aia_defines_8h_html_a697e3f8d08a488719c8168bad998393f"><div class="ttname"><a href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a></div><div class="ttdeci">#define __IGOR_FILE_LINE__</div><div class="ttdef"><b>Definition:</b> iaDefines.h:68</div></div>
+<div class="ttc" id="anamespaceiaux_html_a31391d2049f7bd6ca12df77fc5a9633e"><div class="ttname"><a href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">iaux::LOCK</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; LOCK(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:553</div></div>
+<div class="ttc" id="anamespaceiaux_html_a537772c19246c600d776999b1e0e0291"><div class="ttname"><a href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">iaux::endlTab</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; endlTab(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:498</div></div>
+<div class="ttc" id="anamespaceiaux_html_a85493f7208d5ae4ec01d6227d4b3626f"><div class="ttname"><a href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">iaux::UNLOCK</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; UNLOCK(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:564</div></div>
 </div><!-- fragment --><p >same as assert but it is not removed in release builds</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -321,8 +321,8 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Fatal)                                                      \</div>
 <div class="line">    {                                                                                                                     \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                                                                 \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Fatal);                                                            \</div>
-<div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::Red &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                     \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Fatal);                                                          \</div>
+<div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::Red &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                         \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_define" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                                        \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; IGOR_FUNCTION &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                                             \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;-----------------------------------------------------------------------&quot;</span> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>; \</div>
@@ -366,14 +366,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::User)             \</div>
-<div class="line">    {                                                                           \</div>
-<div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                       \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::User);                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::User)            \</div>
+<div class="line">    {                                                                          \</div>
+<div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                      \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::User);                \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::Gray &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a97645d31a5b80a9883a26279044e0ab4">endl</a> \</div>
-<div class="line">                                 &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                     \</div>
+<div class="line">                                 &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                    \</div>
 <div class="line">    }</div>
-<div class="ttc" id="anamespaceiaux_html_a97645d31a5b80a9883a26279044e0ab4"><div class="ttname"><a href="namespaceiaux.html#a97645d31a5b80a9883a26279044e0ab4">iaux::endl</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; endl(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:486</div></div>
+<div class="ttc" id="anamespaceiaux_html_a97645d31a5b80a9883a26279044e0ab4"><div class="ttname"><a href="namespaceiaux.html#a97645d31a5b80a9883a26279044e0ab4">iaux::endl</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; endl(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:482</div></div>
 </div><!-- fragment --><p >prints an message to console and optionally to the log file. In addition it prints an end line at the end.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -402,7 +402,7 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Error)                            \</div>
 <div class="line">    {                                                                                           \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                                       \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Error);                                  \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Error);                                \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a6de6cea40e7ecc995588e7e6bddee889">incerr</a> &lt;&lt; iaForegroundColor::DarkRed &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>; \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_define" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                              \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; IGOR_FUNCTION &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                   \</div>
@@ -410,7 +410,7 @@ Variables</h2></td></tr>
 <div class="line">                                 &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                                     \</div>
 <div class="line">        con_assert_sticky(iaConsole::getInstance().getErrors() &lt; 100, <span class="stringliteral">&quot;too many errors&quot;</span>);       \</div>
 <div class="line">    }</div>
-<div class="ttc" id="anamespaceiaux_html_a6de6cea40e7ecc995588e7e6bddee889"><div class="ttname"><a href="namespaceiaux.html#a6de6cea40e7ecc995588e7e6bddee889">iaux::incerr</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; incerr(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:535</div></div>
+<div class="ttc" id="anamespaceiaux_html_a6de6cea40e7ecc995588e7e6bddee889"><div class="ttname"><a href="namespaceiaux.html#a6de6cea40e7ecc995588e7e6bddee889">iaux::incerr</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; incerr(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:531</div></div>
 </div><!-- fragment --><p >prints an error message to console and optionally to the log file</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -436,12 +436,12 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Info)             \</div>
-<div class="line">    {                                                                           \</div>
-<div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                       \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Info);                   \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Info)                \</div>
+<div class="line">    {                                                                              \</div>
+<div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                          \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Info);                    \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; iaForegroundColor::DarkBlue &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a97645d31a5b80a9883a26279044e0ab4">endl</a> \</div>
-<div class="line">                                 &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                     \</div>
+<div class="line">                                 &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                        \</div>
 <div class="line">    }</div>
 </div><!-- fragment --><p >prints an info message to console and optionally to the log file</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -506,14 +506,14 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> (iaConsole::getInstance().getLogLevel() &gt;= iaLogLevel::Warning)                              \</div>
 <div class="line">    {                                                                                               \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a31391d2049f7bd6ca12df77fc5a9633e">LOCK</a>;                                                           \</div>
-<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Warning);                                    \</div>
+<div class="line">        iaConsole::getInstance().<a class="code hl_function" href="classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b">printHeader</a>(iaLogLevel::Warning);                                  \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#ae32ed17ecf34076cefaba70a25e2e8bc">incwarn</a> &lt;&lt; iaForegroundColor::DarkYellow &lt;&lt; Message &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>; \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_define" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a537772c19246c600d776999b1e0e0291">endlTab</a>;                                  \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; IGOR_FUNCTION &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a97645d31a5b80a9883a26279044e0ab4">endl</a>;                                          \</div>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code hl_function" href="namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f">UNLOCK</a>;                                                         \</div>
 <div class="line">        con_assert_sticky(iaConsole::getInstance().getWarnings() &lt; 200, <span class="stringliteral">&quot;too many warnings&quot;</span>);       \</div>
 <div class="line">    }</div>
-<div class="ttc" id="anamespaceiaux_html_ae32ed17ecf34076cefaba70a25e2e8bc"><div class="ttname"><a href="namespaceiaux.html#ae32ed17ecf34076cefaba70a25e2e8bc">iaux::incwarn</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; incwarn(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:546</div></div>
+<div class="ttc" id="anamespaceiaux_html_ae32ed17ecf34076cefaba70a25e2e8bc"><div class="ttname"><a href="namespaceiaux.html#ae32ed17ecf34076cefaba70a25e2e8bc">iaux::incwarn</a></div><div class="ttdeci">IGOR_INLINE iaConsole &amp; incwarn(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:542</div></div>
 </div><!-- fragment --><p >prints an warning message to console and optionally to the log file</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

@@ -1,9 +1,11 @@
 var ia_event_8h =
 [
     [ "iaux::iaDelegate< R, Args >", "classiaux_1_1ia_delegate.html", "classiaux_1_1ia_delegate" ],
-    [ "iaux::iaEventReturnHandler< R, Args >", "classiaux_1_1ia_event_return_handler.html", "classiaux_1_1ia_event_return_handler" ],
-    [ "iaux::iaEventReturnHandler< void, Args... >", "classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4.html", "classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4" ],
+    [ "iaux::iaEventPool", "classiaux_1_1ia_event_pool.html", "classiaux_1_1ia_event_pool" ],
     [ "iaux::iaEvent< R, Args >", "classiaux_1_1ia_event.html", "classiaux_1_1ia_event" ],
+    [ "IGOR_DELEGATE_DEFINITION", "ia_event_8h.html#a457d00af94937301a443ac4b7957ab73", null ],
     [ "IGOR_EVENT_DEFINITION", "ia_event_8h.html#ad3bc2bf930f3a10e2eb42f53921aecda", null ],
+    [ "IGOR_EVENT_DEFINITION_NO_ARGS", "ia_event_8h.html#a0eb9b5097cdbb0f113a4e91883ad8811", null ],
+    [ "iaEventPoolDelegate", "ia_event_8h.html#a4ba25cc6e4de039d1bde494f3d653232", null ],
     [ "operator<<", "ia_event_8h.html#ac2868399805db6aa51c9700d850e3ef0", null ]
 ];

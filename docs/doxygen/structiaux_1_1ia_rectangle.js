@@ -12,6 +12,7 @@ var structiaux_1_1ia_rectangle =
     [ "getHeight", "structiaux_1_1ia_rectangle.html#a997c36aac217b63d691c111cce0007c4", null ],
     [ "getLeft", "structiaux_1_1ia_rectangle.html#ac7e90ff44273e0f24b24f2c28c466bbc", null ],
     [ "getRight", "structiaux_1_1ia_rectangle.html#a730e501f6f17f8c491cdc0d232e15e51", null ],
+    [ "getSize", "structiaux_1_1ia_rectangle.html#af685988254240123d76970526e67b4f5", null ],
     [ "getTop", "structiaux_1_1ia_rectangle.html#abbbfbb60871c7e6a114095555e243fa6", null ],
     [ "getTopLeft", "structiaux_1_1ia_rectangle.html#a07a7479ffc287ac112a7901e8bef8ab1", null ],
     [ "getTopRight", "structiaux_1_1ia_rectangle.html#abdcdfe414be347fc04fdd7b8a20b1cdf", null ],

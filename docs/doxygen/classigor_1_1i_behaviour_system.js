@@ -1,6 +1,8 @@
 var classigor_1_1i_behaviour_system =
 [
-    [ "iBehaviourSystem", "classigor_1_1i_behaviour_system.html#a007c61437cd555b8f5abf80c18e63db4", null ],
-    [ "~iBehaviourSystem", "classigor_1_1i_behaviour_system.html#aef05707cfd410bc964805d8fdf268311", null ],
-    [ "update", "classigor_1_1i_behaviour_system.html#ad64c27b8fd20f4cec1b909f3ad40010f", null ]
+    [ "iBehaviourSystem", "classigor_1_1i_behaviour_system.html#a80bcf537934970e387922930e5810f1e", null ],
+    [ "createInstance", "classigor_1_1i_behaviour_system.html#a60cc9676c12e19d2f376ca9df4b58a6a", null ],
+    [ "getStage", "classigor_1_1i_behaviour_system.html#aabb6079b9779713bff235414087c65e1", null ],
+    [ "getTypeName", "classigor_1_1i_behaviour_system.html#ae01b6e022a09f946e75aeb901e197ea8", null ],
+    [ "onUpdate", "classigor_1_1i_behaviour_system.html#ae293e60967541696908a930a00e07b64", null ]
 ];

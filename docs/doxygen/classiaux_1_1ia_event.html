@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,9 +86,7 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_event.html',''); initR
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classiaux_1_1ia_event-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">iaux::iaEvent&lt; R, Args &gt; Class Template Reference</div></div>
 </div><!--header-->
@@ -96,17 +94,12 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_event.html',''); initR
 
 <p><code>#include &lt;iaEvent.h&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a8c7cf89dea2924cc35dc941621f9bf21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a8c7cf89dea2924cc35dc941621f9bf21">ReturnHandler</a> = <a class="el" href="classiaux_1_1ia_event_return_handler.html">iaEventReturnHandler</a>&lt; R, Args... &gt;</td></tr>
-<tr class="separator:a8c7cf89dea2924cc35dc941621f9bf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a478b09a7492b4f26640f7c392a796054"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a478b09a7492b4f26640f7c392a796054">ReturnType</a> = typename <a class="el" href="classiaux_1_1ia_event_return_handler.html#ab61ffeee6ec957108cc6e2ebf54cc01b">ReturnHandler::ReturnType</a></td></tr>
-<tr class="separator:a478b09a7492b4f26640f7c392a796054"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adf3a28ffdb042fe806639ddd8b1b14ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#adf3a28ffdb042fe806639ddd8b1b14ff">add</a> (const <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; R, Args... &gt; &amp;delegate)</td></tr>
-<tr class="separator:adf3a28ffdb042fe806639ddd8b1b14ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e64f8995cc5fdce485b695d5d4ffda1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a6e64f8995cc5fdce485b695d5d4ffda1">~iaEvent</a> ()</td></tr>
+<tr class="separator:a6e64f8995cc5fdce485b695d5d4ffda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d0bc85d93710dc7f1106eefd720b15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a00d0bc85d93710dc7f1106eefd720b15">add</a> (const <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; R, Args... &gt; &amp;delegate, bool fireOnce=false, bool mainThread=false)</td></tr>
+<tr class="separator:a00d0bc85d93710dc7f1106eefd720b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a28f8e93c47fb3b7bf451f3c8937193"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a8a28f8e93c47fb3b7bf451f3c8937193">remove</a> (const <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; R, Args... &gt; &amp;delegate)</td></tr>
 <tr class="separator:a8a28f8e93c47fb3b7bf451f3c8937193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8753aa06b1e0f2e579c767fcf6c6857c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a8753aa06b1e0f2e579c767fcf6c6857c">block</a> (bool blockEvent=true)</td></tr>
@@ -115,61 +108,48 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a409752ac1c8cde325f630f3e6d88a81c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a496e45a50d4596dbf2850304c3714a62"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a496e45a50d4596dbf2850304c3714a62">isBlocked</a> ()</td></tr>
 <tr class="separator:a496e45a50d4596dbf2850304c3714a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8761a58ae1254250cacd9289223de116"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_event.html#a478b09a7492b4f26640f7c392a796054">ReturnType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a8761a58ae1254250cacd9289223de116">operator()</a> (Args... args)</td></tr>
-<tr class="separator:a8761a58ae1254250cacd9289223de116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f5e793b30b8398dedbda6a3ad07b15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a22f5e793b30b8398dedbda6a3ad07b15">operator()</a> (Args... args)</td></tr>
+<tr class="separator:a22f5e793b30b8398dedbda6a3ad07b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90f0075c1a5a0037cd8738715ba7befa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a90f0075c1a5a0037cd8738715ba7befa">clear</a> ()</td></tr>
 <tr class="separator:a90f0075c1a5a0037cd8738715ba7befa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a382b60bf5a79da9784dfd0fce385a620"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a382b60bf5a79da9784dfd0fce385a620">hasDelegates</a> ()</td></tr>
 <tr class="separator:a382b60bf5a79da9784dfd0fce385a620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae44655bd836f6f6a33e5370098682ae0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#ae44655bd836f6f6a33e5370098682ae0">_mutex</a></td></tr>
-<tr class="separator:ae44655bd836f6f6a33e5370098682ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9af183d58f2d591b764ecb31f3879d9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; R, Args... &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#ad9af183d58f2d591b764ecb31f3879d9">_delegates</a></td></tr>
-<tr class="separator:ad9af183d58f2d591b764ecb31f3879d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381243fd08db62b244f1f408797044fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html#a381243fd08db62b244f1f408797044fb">_blocked</a> = false</td></tr>
-<tr class="separator:a381243fd08db62b244f1f408797044fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename R, typename... Args&gt;<br />
 class iaux::iaEvent&lt; R, Args &gt;</div><p >event container for delegates that executes delegates when triggered </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a8c7cf89dea2924cc35dc941621f9bf21" name="a8c7cf89dea2924cc35dc941621f9bf21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c7cf89dea2924cc35dc941621f9bf21">&#9670;&nbsp;</a></span>ReturnHandler</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6e64f8995cc5fdce485b695d5d4ffda1" name="a6e64f8995cc5fdce485b695d5d4ffda1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e64f8995cc5fdce485b695d5d4ffda1">&#9670;&nbsp;</a></span>~iaEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename R , typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::ReturnHandler =  <a class="el" href="classiaux_1_1ia_event_return_handler.html">iaEventReturnHandler</a>&lt;R, Args...&gt;</td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::~<a class="el" href="classiaux_1_1ia_event.html">iaEvent</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a478b09a7492b4f26640f7c392a796054" name="a478b09a7492b4f26640f7c392a796054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a478b09a7492b4f26640f7c392a796054">&#9670;&nbsp;</a></span>ReturnType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename R , typename... Args&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::ReturnType =  typename <a class="el" href="classiaux_1_1ia_event_return_handler.html#ab61ffeee6ec957108cc6e2ebf54cc01b">ReturnHandler::ReturnType</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p >unregister from pool in case it is needed </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="adf3a28ffdb042fe806639ddd8b1b14ff" name="adf3a28ffdb042fe806639ddd8b1b14ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf3a28ffdb042fe806639ddd8b1b14ff">&#9670;&nbsp;</a></span>add()</h2>
+<a id="a00d0bc85d93710dc7f1106eefd720b15" name="a00d0bc85d93710dc7f1106eefd720b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d0bc85d93710dc7f1106eefd720b15">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,8 +163,24 @@ template&lt;typename R , typename... Args&gt; </div>
           <td class="memname">void <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::add </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; R, Args... &gt; &amp;&#160;</td>
-          <td class="paramname"><em>delegate</em></td><td>)</td>
+          <td class="paramname"><em>delegate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fireOnce</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>mainThread</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -197,6 +193,8 @@ template&lt;typename R , typename... Args&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delegate</td><td>the delegate to add </td></tr>
+    <tr><td class="paramname">fireOnce</td><td>if true delegate will be fired once and then removed </td></tr>
+    <tr><td class="paramname">mainThread</td><td>fire only on main thread </td></tr>
   </table>
   </dd>
 </dl>
@@ -322,8 +320,8 @@ template&lt;typename R , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a8761a58ae1254250cacd9289223de116" name="a8761a58ae1254250cacd9289223de116"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8761a58ae1254250cacd9289223de116">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="a22f5e793b30b8398dedbda6a3ad07b15" name="a22f5e793b30b8398dedbda6a3ad07b15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f5e793b30b8398dedbda6a3ad07b15">&#9670;&nbsp;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,7 +332,7 @@ template&lt;typename R , typename... Args&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_event.html#a478b09a7492b4f26640f7c392a796054">ReturnType</a> <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::operator() </td>
+          <td class="memname">void <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype">Args...&#160;</td>
           <td class="paramname"><em>args</em></td><td>)</td>
@@ -414,81 +412,8 @@ template&lt;typename R , typename... Args&gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a381243fd08db62b244f1f408797044fb" name="a381243fd08db62b244f1f408797044fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a381243fd08db62b244f1f408797044fb">&#9670;&nbsp;</a></span>_blocked</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename R , typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::_blocked = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad9af183d58f2d591b764ecb31f3879d9" name="ad9af183d58f2d591b764ecb31f3879d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9af183d58f2d591b764ecb31f3879d9">&#9670;&nbsp;</a></span>_delegates</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename R , typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt;R, Args...&gt; &gt; <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::_delegates</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae44655bd836f6f6a33e5370098682ae0" name="ae44655bd836f6f6a33e5370098682ae0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae44655bd836f6f6a33e5370098682ae0">&#9670;&nbsp;</a></span>_mutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename R , typename... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_mutex.html">iaMutex</a> <a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent</a>&lt; R, Args &gt;::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_event_8h.html">iaEvent.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_event_8h.html">iaEvent.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

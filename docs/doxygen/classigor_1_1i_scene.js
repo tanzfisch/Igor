@@ -19,6 +19,6 @@ var classigor_1_1i_scene =
     [ "iNodeRender", "classigor_1_1i_scene.html#a7a93b519d2b7912bb6497908df89bccb", null ],
     [ "iNodeVisitorUpdateTransform", "classigor_1_1i_scene.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ],
     [ "iNodeVolume", "classigor_1_1i_scene.html#aa97646632199f6632b7f8aa7cba2bebe", null ],
-    [ "iRenderEngine", "classigor_1_1i_scene.html#a7c82113aca1030bef77055fa5793cd6d", null ],
+    [ "iRenderEngineOld", "classigor_1_1i_scene.html#acf1deb2429713c7c24a3b071580444d8", null ],
     [ "iSceneFactory", "classigor_1_1i_scene.html#a4d18a3a171c8df882723043fdfcf18d7", null ]
 ];

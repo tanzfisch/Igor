@@ -14,8 +14,8 @@ var classigor_1_1i_node_render =
     [ "setVisible", "classigor_1_1i_node_render.html#a18689701ea47f24c2547664a0a7c7410", null ],
     [ "iNodeManager", "classigor_1_1i_node_render.html#a90c36aa3a19c099cd083a002d56f9c47", null ],
     [ "iNodeVisitorUpdateTransform", "classigor_1_1i_node_render.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ],
-    [ "iOctree", "classigor_1_1i_node_render.html#a5df428abc78ed8fc1b6fcc52949c164c", null ],
-    [ "iRenderEngine", "classigor_1_1i_node_render.html#a7c82113aca1030bef77055fa5793cd6d", null ],
+    [ "iOctreeOld", "classigor_1_1i_node_render.html#a4a2657b40ffb8058b7c271527cdd6ef6", null ],
+    [ "iRenderEngineOld", "classigor_1_1i_node_render.html#acf1deb2429713c7c24a3b071580444d8", null ],
     [ "_visible", "classigor_1_1i_node_render.html#aaeba8f5f22613d15c793bed9d5fc5405", null ],
     [ "_worldMatrix", "classigor_1_1i_node_render.html#a2e6a1b658fb56dd15280b31349611619", null ]
 ];

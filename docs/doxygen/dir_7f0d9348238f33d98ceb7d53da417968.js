@@ -24,6 +24,7 @@ var dir_7f0d9348238f33d98ceb7d53da417968 =
     [ "iaSphere.inl", "ia_sphere_8inl.html", null ],
     [ "iaString.cpp", "ia_string_8cpp.html", "ia_string_8cpp" ],
     [ "iaString.h", "ia_string_8h.html", "ia_string_8h" ],
+    [ "iaString.inl", "ia_string_8inl.html", null ],
     [ "iaUUID.cpp", "ia_u_u_i_d_8cpp.html", "ia_u_u_i_d_8cpp" ],
     [ "iaUUID.h", "ia_u_u_i_d_8h.html", "ia_u_u_i_d_8h" ]
 ];

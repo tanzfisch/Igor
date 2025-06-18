@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,6 +87,8 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_system.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_entity_system-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">igor::iEntitySystem Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
@@ -94,7 +96,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_system.html','')
 
 <p><code>#include &lt;iEntitySystem.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_animation_system.html">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html">igor::iQuadtreeSystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html">igor::iTransformHierarchySystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html">igor::iVelocitySystem</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation_system.html">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_camera_system.html">igor::iCameraSystem</a>, <a class="el" href="classigor_1_1i_light_system.html">igor::iLightSystem</a>, <a class="el" href="classigor_1_1i_mesh_render_system.html">igor::iMeshRenderSystem</a>, <a class="el" href="classigor_1_1i_sprite_render_system.html">igor::iSpriteRenderSystem</a>, <a class="el" href="classigor_1_1i_transform_system.html">igor::iTransformSystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html">igor::iVelocitySystem</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,10 +104,37 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9e71b4722ad24c1812f9db2605da5906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80597626c79d8a61e128477dceaa46af"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a80597626c79d8a61e128477dceaa46af">~iEntitySystem</a> ()=default</td></tr>
 <tr class="separator:a80597626c79d8a61e128477dceaa46af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55c7563744ab1ae9927dc2dfe55289b3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a55c7563744ab1ae9927dc2dfe55289b3">update</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time, <a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a> scene)=0</td></tr>
-<tr class="separator:a55c7563744ab1ae9927dc2dfe55289b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ec6984fc2c46f5431b94d09a6a980c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#ab0ec6984fc2c46f5431b94d09a6a980c">onUpdate</a> (const <a class="el" href="structigor_1_1i_entity_scene_update_context.html">iEntitySceneUpdateContext</a> &amp;context)=0</td></tr>
+<tr class="separator:ab0ec6984fc2c46f5431b94d09a6a980c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b87e48b2262fffd3c027daa5837bf77"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">iEntitySystemStage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a3b87e48b2262fffd3c027daa5837bf77">getStage</a> () const =0</td></tr>
+<tr class="separator:a3b87e48b2262fffd3c027daa5837bf77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a352c33038b229408017a9e6ada2baa84"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a352c33038b229408017a9e6ada2baa84">getScene</a> () const</td></tr>
+<tr class="separator:a352c33038b229408017a9e6ada2baa84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:af8c77fea7cbdfee5e8f420fc9c0c358d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#af8c77fea7cbdfee5e8f420fc9c0c358d">onComponentAdded</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:af8c77fea7cbdfee5e8f420fc9c0c358d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74773a0bcb035b974a748044dd545654"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a74773a0bcb035b974a748044dd545654">onComponentRemoved</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:a74773a0bcb035b974a748044dd545654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bc8bb72c26b3787b7983e2a0922127a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a5bc8bb72c26b3787b7983e2a0922127a">onComponentToRemove</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:a5bc8bb72c26b3787b7983e2a0922127a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ce88877da2fccc1b12bc4f0d062c3e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a2ce88877da2fccc1b12bc4f0d062c3e8">onEntityStructureChanged</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity)</td></tr>
+<tr class="separator:a2ce88877da2fccc1b12bc4f0d062c3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a6cab55572098fb575e90720fd1b36"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:ad0a6cab55572098fb575e90720fd1b36"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a8f058cc5bcdb959158bcc29a523ba2c8">iEntityViewPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#ad0a6cab55572098fb575e90720fd1b36">createView</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;&quot;)</td></tr>
+<tr class="separator:ad0a6cab55572098fb575e90720fd1b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a021b8fb3624ee7fa31246cd91dfac21c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a021b8fb3624ee7fa31246cd91dfac21c">iEntity</a></td></tr>
+<tr class="separator:a021b8fb3624ee7fa31246cd91dfac21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e47ddda69509484b9402a46d6584bc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a29e47ddda69509484b9402a46d6584bc">iEntityScene</a></td></tr>
+<tr class="separator:a29e47ddda69509484b9402a46d6584bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >entity system base class </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9e71b4722ad24c1812f9db2605da5906" name="a9e71b4722ad24c1812f9db2605da5906"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e71b4722ad24c1812f9db2605da5906">&#9670;&nbsp;</a></span>iEntitySystem()</h2>
 
@@ -159,8 +188,56 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a55c7563744ab1ae9927dc2dfe55289b3" name="a55c7563744ab1ae9927dc2dfe55289b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55c7563744ab1ae9927dc2dfe55289b3">&#9670;&nbsp;</a></span>update()</h2>
+<a id="ad0a6cab55572098fb575e90720fd1b36" name="ad0a6cab55572098fb575e90720fd1b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0a6cab55572098fb575e90720fd1b36">&#9670;&nbsp;</a></span>createView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a8f058cc5bcdb959158bcc29a523ba2c8">iEntityViewPtr</a> igor::iEntitySystem::createView </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >create an entity view for given component types</p>
+<dl class="section return"><dt>Returns</dt><dd>entity view </dd></dl>
+
+</div>
+</div>
+<a id="a352c33038b229408017a9e6ada2baa84" name="a352c33038b229408017a9e6ada2baa84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a352c33038b229408017a9e6ada2baa84">&#9670;&nbsp;</a></span>getScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> igor::iEntitySystem::getScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>scene this system operates in </dd></dl>
+
+</div>
+</div>
+<a id="a3b87e48b2262fffd3c027daa5837bf77" name="a3b87e48b2262fffd3c027daa5837bf77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b87e48b2262fffd3c027daa5837bf77">&#9670;&nbsp;</a></span>getStage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,16 +246,44 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void igor::iEntitySystem::update </td>
+          <td class="memname">virtual <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">iEntitySystemStage</a> igor::iEntitySystem::getStage </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>processing stage this system want's to run in </dd></dl>
+
+<p>Implemented in <a class="el" href="classigor_1_1i_animation_system.html#ab819531fa9888f3a6dc3a9ec171996ed">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html#aabb6079b9779713bff235414087c65e1">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_camera_system.html#acb0aa4afa013b71c52fcdb6f30366ac1">igor::iCameraSystem</a>, <a class="el" href="classigor_1_1i_light_system.html#a0146537a57c9a3febb0a06315aead66b">igor::iLightSystem</a>, <a class="el" href="classigor_1_1i_mesh_render_system.html#a84adefecc81f344ea067cf487bb91ef3">igor::iMeshRenderSystem</a>, <a class="el" href="classigor_1_1i_sprite_render_system.html#a50d14f3cebc68e6bf92ef922d435dbc6">igor::iSpriteRenderSystem</a>, <a class="el" href="classigor_1_1i_transform_system.html#a599b73466e124020634ce3ffb4ce76c4">igor::iTransformSystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html#ae773bbff4fa9369d785e0dc69b0d94cc">igor::iVelocitySystem</a>.</p>
+
+</div>
+</div>
+<a id="af8c77fea7cbdfee5e8f420fc9c0c358d" name="af8c77fea7cbdfee5e8f420fc9c0c358d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8c77fea7cbdfee5e8f420fc9c0c358d">&#9670;&nbsp;</a></span>onComponentAdded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntitySystem::onComponentAdded </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a>&#160;</td>
-          <td class="paramname"><em>scene</em>&#160;</td>
+          <td class="paramtype">const std::type_index &amp;&#160;</td>
+          <td class="paramname"><em>typeID</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -188,18 +293,225 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >callback to handle added component on entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>pointer of entity </td></tr>
+    <tr><td class="paramname">typeID</td><td>type of component that has been added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a74773a0bcb035b974a748044dd545654" name="a74773a0bcb035b974a748044dd545654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74773a0bcb035b974a748044dd545654">&#9670;&nbsp;</a></span>onComponentRemoved()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntitySystem::onComponentRemoved </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::type_index &amp;&#160;</td>
+          <td class="paramname"><em>typeID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >callback to handle removed component on entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>pointer of entity </td></tr>
+    <tr><td class="paramname">typeID</td><td>type of component that has been removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5bc8bb72c26b3787b7983e2a0922127a" name="a5bc8bb72c26b3787b7983e2a0922127a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc8bb72c26b3787b7983e2a0922127a">&#9670;&nbsp;</a></span>onComponentToRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntitySystem::onComponentToRemove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::type_index &amp;&#160;</td>
+          <td class="paramname"><em>typeID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >callback to handle component to be removed</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>pointer of entity </td></tr>
+    <tr><td class="paramname">typeID</td><td>type of component to be removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2ce88877da2fccc1b12bc4f0d062c3e8" name="a2ce88877da2fccc1b12bc4f0d062c3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ce88877da2fccc1b12bc4f0d062c3e8">&#9670;&nbsp;</a></span>onEntityStructureChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntitySystem::onEntityStructureChanged </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >update when entity changed in a way that is relevant to views</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>the entity to update with this system </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab0ec6984fc2c46f5431b94d09a6a980c" name="ab0ec6984fc2c46f5431b94d09a6a980c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0ec6984fc2c46f5431b94d09a6a980c">&#9670;&nbsp;</a></span>onUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntitySystem::onUpdate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structigor_1_1i_entity_scene_update_context.html">iEntitySceneUpdateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p >updates system </p>
+<p >updates system</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">context</td><td>the update context </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="classigor_1_1i_animation_system.html#abb0500d3aa7ba9901c81da91316611a7">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html#ad64c27b8fd20f4cec1b909f3ad40010f">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_quadtree_system.html#a1e70003072dab7c839569ec01c4a542b">igor::iQuadtreeSystem</a>, <a class="el" href="classigor_1_1i_transform_hierarchy_system.html#a065d2595d20617ccd0395a2ea5a6946c">igor::iTransformHierarchySystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html#a429492b5bab60f487168774fd3967bd7">igor::iVelocitySystem</a>.</p>
+<p>Implemented in <a class="el" href="classigor_1_1i_animation_system.html#a4da5e7bf4996be800b875ee0ba7b40e3">igor::iAnimationSystem</a>, <a class="el" href="classigor_1_1i_behaviour_system.html#ae293e60967541696908a930a00e07b64">igor::iBehaviourSystem</a>, <a class="el" href="classigor_1_1i_camera_system.html#ace45d87c25b929dd436ec15dd041bfa1">igor::iCameraSystem</a>, <a class="el" href="classigor_1_1i_light_system.html#ab99d7bf5ea904e78fdfaae382734d51b">igor::iLightSystem</a>, <a class="el" href="classigor_1_1i_mesh_render_system.html#afb698176e224b4f042dd384f73351eb0">igor::iMeshRenderSystem</a>, <a class="el" href="classigor_1_1i_sprite_render_system.html#abc5d3b8e10e69dcc74f01a40d963f91d">igor::iSpriteRenderSystem</a>, <a class="el" href="classigor_1_1i_transform_system.html#a89dbadf1c62981df32d2ffc4f70cc3f7">igor::iTransformSystem</a>, and <a class="el" href="classigor_1_1i_velocity_system.html#a717e80d49cfac14a0bd07f1ed6cd21b8">igor::iVelocitySystem</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/maddin/dev/Igor/src/igor/igor/entities/<a class="el" href="i_entity_system_8h.html">iEntitySystem.h</a></li>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a021b8fb3624ee7fa31246cd91dfac21c" name="a021b8fb3624ee7fa31246cd91dfac21c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021b8fb3624ee7fa31246cd91dfac21c">&#9670;&nbsp;</a></span>iEntity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_entity.html">iEntity</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29e47ddda69509484b9402a46d6584bc" name="a29e47ddda69509484b9402a46d6584bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e47ddda69509484b9402a46d6584bc">&#9670;&nbsp;</a></span>iEntityScene</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classigor_1_1i_entity_scene.html">iEntityScene</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/martin/dev/Igor/src/igor/igor/entities/<a class="el" href="i_entity_system_8h.html">iEntitySystem.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/entities/<a class="el" href="i_entity_system_8cpp.html">iEntitySystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

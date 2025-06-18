@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/igor/igor/entities/iEntitySystemModule.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/entities/iEntitySystemModule.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,15 +87,16 @@ $(document).ready(function(){initNavTree('i_entity_system_module_8h.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">iEntitySystemModule.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_module_8h.html">igor/resources/module/iModule.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_entity_scene_8h.html">igor/entities/iEntityScene.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_time_8h.html">iaux/system/iaTime.h</a>&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_prefab_8h.html">igor/resources/prefab/iPrefab.h</a>&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_entity_system_module_8inl.html">igor/entities/iEntitySystemModule.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -105,8 +106,21 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
-<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture unit 3 <br /></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">item data entity id <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4f8cec2dacf1bd78c1c2b06314165886"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a4f8cec2dacf1bd78c1c2b06314165886">igor::IGOR_EVENT_DEFINITION</a> (iCreatedEntity, iEntityPtr)</td></tr>
+<tr class="separator:a4f8cec2dacf1bd78c1c2b06314165886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab316d3d16abac1e2bbccc48dcd86abce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ab316d3d16abac1e2bbccc48dcd86abce">igor::IGOR_EVENT_DEFINITION</a> (iDestroyEntity, iEntityPtr)</td></tr>
+<tr class="separator:ab316d3d16abac1e2bbccc48dcd86abce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3547fb98487ee6306698527c7ef3a465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a3547fb98487ee6306698527c7ef3a465">igor::IGOR_EVENT_DEFINITION</a> (iEntityChanged, iEntityPtr)</td></tr>
+<tr class="separator:a3547fb98487ee6306698527c7ef3a465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed214a2294d8e51b157a1dbc665e3879"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aed214a2294d8e51b157a1dbc665e3879">igor::IGOR_EVENT_DEFINITION</a> (iHierarchyChanged, iEntityScenePtr)</td></tr>
+<tr class="separator:aed214a2294d8e51b157a1dbc665e3879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4385f764261804b4ce8c108b8a0fb50f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a4385f764261804b4ce8c108b8a0fb50f">igor::IGOR_EVENT_DEFINITION</a> (iEntityNameChanged, iEntityPtr)</td></tr>
+<tr class="separator:a4385f764261804b4ce8c108b8a0fb50f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

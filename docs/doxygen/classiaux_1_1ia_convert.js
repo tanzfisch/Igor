@@ -4,6 +4,8 @@ var classiaux_1_1ia_convert =
     [ "convert", "classiaux_1_1ia_convert.html#a113e4b6229d6ed33879815d99548dbad", null ],
     [ "convert", "classiaux_1_1ia_convert.html#a3cecb9d5b311229c65246307506c6038", null ],
     [ "convert", "classiaux_1_1ia_convert.html#add2fd6ffc76f8d732e4c5b43ee8b58f2", null ],
+    [ "convert", "classiaux_1_1ia_convert.html#ab14d9491457676a658ed1526ee3e3281", null ],
+    [ "convert", "classiaux_1_1ia_convert.html#af41ee5b6b4ab68f257d5a1253cd14631", null ],
     [ "convertHSVtoRGB", "classiaux_1_1ia_convert.html#a1e93a23d095cd3ca6538d564f338ced9", null ],
     [ "convertHSVtoRGB", "classiaux_1_1ia_convert.html#a18680a8fbd6188e26687fb74f5d2f37b", null ],
     [ "convertHSVtoRGB", "classiaux_1_1ia_convert.html#a9e53a35ead218c7dd2e2c0de8ffc1fb7", null ],

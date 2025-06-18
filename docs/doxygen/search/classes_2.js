@@ -10,7 +10,6 @@ var searchData=
   ['ompfmaterialreferencechunk_7',['ompfMaterialReferenceChunk',['../class_o_m_p_f_1_1ompf_material_reference_chunk.html',1,'OMPF']]],
   ['ompfmeshchunk_8',['ompfMeshChunk',['../class_o_m_p_f_1_1ompf_mesh_chunk.html',1,'OMPF']]],
   ['ompfparticlesystemchunk_9',['ompfParticleSystemChunk',['../class_o_m_p_f_1_1ompf_particle_system_chunk.html',1,'OMPF']]],
-  ['ompfresourcesearchpathchunk_10',['ompfResourceSearchPathChunk',['../class_o_m_p_f_1_1ompf_resource_search_path_chunk.html',1,'OMPF']]],
-  ['ompfsettings_11',['ompfSettings',['../class_o_m_p_f_1_1ompf_settings.html',1,'OMPF']]],
-  ['ompftransformchunk_12',['ompfTransformChunk',['../class_o_m_p_f_1_1ompf_transform_chunk.html',1,'OMPF']]]
+  ['ompfsettings_10',['ompfSettings',['../class_o_m_p_f_1_1ompf_settings.html',1,'OMPF']]],
+  ['ompftransformchunk_11',['ompfTransformChunk',['../class_o_m_p_f_1_1ompf_transform_chunk.html',1,'OMPF']]]
 ];

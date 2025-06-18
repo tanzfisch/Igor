@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/igor/igor/entities/iEntitySystem.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/entities/iEntitySystem.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -88,34 +88,46 @@ $(document).ready(function(){initNavTree('i_entity_system_8h.html',''); initResi
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle"><div class="title">iEntitySystem.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_component_map_8h.html">igor/entities/components/iComponentMap.h</a>&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_entity_view_8h.html">igor/entities/iEntityView.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_time_8h.html">iaux/system/iaTime.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html">igor::iEntitySystem</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_entity_system_type_info.html">igor::iEntitySystemTypeInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_render_system.html">igor::iEntityRenderSystem</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_entity_scene_update_context.html">igor::iEntitySceneUpdateContext</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html">igor::iEntitySystem</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
-<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture unit 3 <br /></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">item data entity id <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a50418646744bae54d4b34c9b9e95be52"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iEntityScene &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">igor::iEntityScenePtr</a></td></tr>
-<tr class="separator:a50418646744bae54d4b34c9b9e95be52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a795ff0f797e6025a481867fc0993174a"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iEntitySystem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a795ff0f797e6025a481867fc0993174a">igor::iEntitySystemPtr</a></td></tr>
-<tr class="separator:a795ff0f797e6025a481867fc0993174a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa820698fb27490bcb5d24b28806c98dd"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; iEntityRenderSystem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa820698fb27490bcb5d24b28806c98dd">igor::iEntityRenderSystemPtr</a></td></tr>
-<tr class="separator:aa820698fb27490bcb5d24b28806c98dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377d95cbc0905ad07d2e9c80a36d2d63"><td class="memItemLeft" align="right" valign="top">typedef iRenderEngine *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a377d95cbc0905ad07d2e9c80a36d2d63">igor::iRenderEnginePtr</a></td></tr>
+<tr class="separator:a377d95cbc0905ad07d2e9c80a36d2d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bf81629552b916beccffc303ffd3a09"><td class="memItemLeft" align="right" valign="top">typedef iEntitySystem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a9bf81629552b916beccffc303ffd3a09">igor::iEntitySystemPtr</a></td></tr>
+<tr class="separator:a9bf81629552b916beccffc303ffd3a09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6924c13ff142364ce1b3a943065f3b01"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6924c13ff142364ce1b3a943065f3b01">igor::iEntitySystemFactory</a> = std::function&lt; iEntitySystemPtr()&gt;</td></tr>
+<tr class="separator:a6924c13ff142364ce1b3a943065f3b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a49f0f6a3a2e9b4a7a4a4c57752f82851"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">igor::iEntitySystemStage</a> { <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a06933067aafd48425d67bcb01bba5cb6">igor::Update</a>
+, <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a9f8f53680b26c10da3b993add473b9e0">igor::PreRender</a>
+, <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a5e520da5341f2fec6d3bbfe7ef357922">igor::Render</a>
+, <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a2c6024adc4e3d644f5771cc5712272fb">igor::StageCount</a>
+ }</td></tr>
+<tr class="separator:a49f0f6a3a2e9b4a7a4a4c57752f82851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

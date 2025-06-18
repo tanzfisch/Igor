@@ -4,6 +4,7 @@ var classigor_1_1i_timer =
     [ "getAverageTimeDelta", "classigor_1_1i_timer.html#ac15445b0ba42a3e99d236225613dfa12", null ],
     [ "getFPS", "classigor_1_1i_timer.html#a901da7cb9a554b53ee79659ec464be01", null ],
     [ "getPeakTimeDelta", "classigor_1_1i_timer.html#aafa14498c2768683143186261ea698fe", null ],
+    [ "getRealTime", "classigor_1_1i_timer.html#a795bef076b586aafff713da400baa27f", null ],
     [ "getTime", "classigor_1_1i_timer.html#aed8e9bf08211ad8c8e020060f66da093", null ],
     [ "getTimeDelta", "classigor_1_1i_timer.html#a65a749177d13dee6830fe3944f56f946", null ],
     [ "start", "classigor_1_1i_timer.html#a5673e77a802b323239542e35239788b5", null ],
