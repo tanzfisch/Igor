@@ -14,8 +14,6 @@ Outliner::Outliner()
     iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
     iProject::getInstance().getProjectSceneAddedEvent().add(iProjectSceneAddedDelegate(this, &Outliner::onSceneAdded));
     iProject::getInstance().getProjectSceneRemovedEvent().add(iProjectSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
-    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
-    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
@@ -39,55 +37,123 @@ void Outliner::initGUI()
     _treeView->setMinWidth(150);
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _treeView->getClickEvent().add(iClickDelegate(this, &Outliner::onClickTreeView));
+    _treeView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &Outliner::onTreeViewSelectionChanged));
     _treeView->getContextMenuTreeViewEvent().add(iContextMenuTreeViewDelegate(this, &Outliner::onContextMenuTreeView));
+    _treeView->setMultiSelection(true);
 
     refresh();
 }
 
-void Outliner::onClickTreeView(const iWidgetPtr source)
+void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
 {
-    iaString itemPath = std::any_cast<iaString>(source->getUserData());
-    iItemPtr item = _itemData->getItem(itemPath);
-
-    if (item->hasValue(IGOR_ITEM_DATA_SCENE_ID) &&
-        item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
-    {
-        iEntitySceneID sceneID = item->getValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID);
-        iEntityID entityID = item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID);
-        _entitySelectionChangedEvent(sceneID, entityID);
-    }
-    else
-    {
-        con_err("unexpected item");
-    }
-}
-
-void Outliner::onContextMenuTreeView(const iWidgetPtr source)
-{
-    if (!source->getUserData().has_value())
+    if (_ignoreSelectionChange)
     {
         return;
     }
 
-    iEntitySceneID sceneID = iProject::getInstance().getProjectScene()->getID();
-    iEntityScenePtr projectScene = iEntitySystemModule::getInstance().getScene(sceneID);
+    _ignoreSelectionChange = true;
+
+    auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+    if (scene == nullptr)
+    {
+        return;
+    }
+
+    std::vector<iItemPath> itemPaths;
+
+    for (const auto &entityID : entities)
+    {
+        auto entity = scene->getEntity(entityID);
+        if (entity == nullptr)
+        {
+            continue;
+        }
+
+        itemPaths.push_back(entity->getIDPath().toString());
+    }
+
+    _treeView->setSelectedItemPaths(itemPaths);
+
+    _ignoreSelectionChange = false;
+}
+
+void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
+    if (_ignoreSelectionChange)
+    {
+        return;
+    }
+
+    _ignoreSelectionChange = true;
+
+    if (_treeView != source)
+    {
+        return;
+    }
+
+    // collect selection changes for each scene
+    std::vector<iEntityID> selection;
+
+    for (const auto widget : _treeView->getSelection())
+    {
+        iItemPath itemPath = std::any_cast<iItemPath>(widget->getUserData());
+        iItemPtr item = _itemData->getItem(itemPath);
+        if (item == nullptr)
+        {
+            continue;
+        }
+
+        if (!item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
+        {
+            continue;
+        }
+
+        selection.push_back(item->getValue<iEntityID>(IGOR_ITEM_DATA_ENTITY_ID));
+    }
+
+    projectScene->setSelection(selection);
+
+    _ignoreSelectionChange = false;
+}
+
+void Outliner::onContextMenuTreeView(const iWidgetPtr source)
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        return;
+    }
+
+    const auto userData = source->getUserData();
+
+    if (!userData.has_value() ||
+        userData.type() != typeid(iItemPath))
+    {
+        return;
+    }
+
     std::vector<iEntityID> entities;
     bool isRoot = false;
     bool isScene = false;
 
-    std::vector<iaString> selectedItemPaths;
-    if (!_treeView->getSelectedItemPath().isEmpty())
-    {
-        selectedItemPaths.push_back(_treeView->getSelectedItemPath());
-    }
-    const iaString itemPath = std::any_cast<iaString>(source->getUserData());
+    std::vector<iItemPath> selectedItemPaths = _treeView->getSelectedItemPaths();
+    const iItemPath itemPath = std::any_cast<iItemPath>(source->getUserData());
     selectedItemPaths.erase(std::remove(selectedItemPaths.begin(), selectedItemPaths.end(), itemPath), selectedItemPaths.end());
     selectedItemPaths.insert(selectedItemPaths.begin(), itemPath);
 
     for (const auto &selectedItemPath : selectedItemPaths)
     {
         iItemPtr item = _itemData->getItem(selectedItemPath);
+        if (item == nullptr)
+        {
+            continue;
+        }
 
         if (item->hasValue(IGOR_ITEM_DATA_ENTITY_ID))
         {
@@ -128,7 +194,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         }
     }
 
-    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(sceneID, entities);
+    iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(projectScene->getID(), entities);
 
     _contextMenu.clear();
     _contextMenu.setPos(iMouse::getInstance().getPos());
@@ -153,6 +219,8 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
                 _contextMenu.addAction("igor:paste_entity", actionContext);
             }
 
+            _contextMenu.addAction("igor:duplicate_entity", actionContext);
+
             _contextMenu.addSeparator();
             if (inactive)
             {
@@ -163,17 +231,45 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
                 _contextMenu.addAction("igor:set_entity_active", actionContext);
             }
 
-            if (isScene)
+            if (isScene && entities.size() == 1)
             {
-                // TODO unload scene? activate/deactivate? remove/delete
-            }              
+                _contextMenu.addCallback(iClickDelegate(this, &Outliner::onSavePrefab), "save prefab", "Save the prefab scene.", "", true, actionContext);
+            }
         }
     }
 
-    if (_contextMenu.hasActions())
+    if (_contextMenu.hasEntries())
     {
         _contextMenu.open();
     }
+}
+
+void Outliner::onSavePrefab(const iWidgetPtr source)
+{
+    iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
+    iEntityActionContext *context = static_cast<iEntityActionContext *>(&*button->getActionContext());
+    auto scene = iEntitySystemModule::getInstance().getScene(context->getSceneID());
+
+    auto prefabEntity = scene->getEntity(context->getEntities()[0]);
+
+    auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
+    auto prefab = prefabComp->getPrefab();
+    auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+    prefabScene->clear();
+
+    iEntityCopyTraverser traverser(prefabScene->getRootEntity(), true);
+
+    for (const auto entity : prefabEntity->getChildren())
+    {
+        traverser.traverse(entity);
+    }
+
+    for (const auto entity : prefabEntity->getInactiveChildren())
+    {
+        traverser.traverse(entity);
+    }
+
+    iResourceManager::getInstance().saveResource(prefab->getID());
 }
 
 void Outliner::onLoadScene(const iWidgetPtr source)
@@ -223,6 +319,11 @@ void Outliner::populateSubScenes(const std::vector<iEntityPtr> &children, bool a
 {
     for (const auto &child : children)
     {
+        if (child->getName().find("mica_") != iaString::INVALID_POSITION)
+        {
+            continue;
+        }
+
         auto scene = child->getScene();
         iItemPtr item = _itemData->addItem(child->getID().toString());
 
@@ -251,15 +352,15 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    if (!project.isLoaded())
+    auto projectScene = project.getProjectScene();
+    if (!project.isLoaded() || projectScene == nullptr)
     {
         return;
     }
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
-    auto projectScene = project.getProjectScene();
-    auto rootItem = _itemData->getItem("");
+    auto rootItem = _itemData->getItem(iItemPath(""));
     rootItem->setValue<iEntitySceneID>(IGOR_ITEM_DATA_SCENE_ID, projectScene->getID());
     rootItem->setValue<iaString>(IGOR_ITEM_DATA_NAME, iaString("root"));
     rootItem->setValue<iResourceID>(IGOR_ITEM_DATA_ENABLED, false);
@@ -323,14 +424,47 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
     refresh();
 }
 
-void Outliner::onProjectLoaded()
+bool Outliner::onEvent(iEvent &event)
 {
-    refresh();
+    iWidget::onEvent(event);
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
+
+    return false;
 }
 
-void Outliner::onProjectUnloaded()
+bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if (projectScene == nullptr)
+    {
+        refresh();
+        return false;
+    }
+
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
+
+    refresh();
+
+    auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+    const auto &projectPath = iProject::getInstance().getProjectFilepath();
+
+    auto iter = std::find(recent.begin(), recent.end(), projectPath);
+    if (iter == recent.end())
+    {
+        recent.insert(recent.begin(), projectPath);
+        iConfig::getInstance().setValue("mica.recentProjects", recent);
+        iConfig::getInstance().write();
+    }
+
+    return false;
+}
+
+bool Outliner::onProjectUnloaded(iEventProjectUnloaded &event)
 {
     refresh();
+    return false;
 }
 
 void Outliner::onEntityNameChanged(iEntityPtr entity)
@@ -351,9 +485,4 @@ void Outliner::onEntityDestroyed(iEntityPtr entity)
 void Outliner::onHierarchyChanged(iEntityScenePtr scene)
 {
     refresh();
-}
-
-EntitySelectionChangedEvent &Outliner::getEntitySelectionChangedEvent()
-{
-    return _entitySelectionChangedEvent;
 }

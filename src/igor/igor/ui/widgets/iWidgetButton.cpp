@@ -55,6 +55,11 @@ namespace igor
         setIcon(_action->getIcon());
     }
 
+    void iWidgetButton::setActionContext(iActionContextPtr context)
+    {
+        _actionContext = context;
+    }
+
     void iWidgetButton::onInternalClick(const iWidgetPtr source)
     {
         if (_action == nullptr)
@@ -114,7 +119,14 @@ namespace igor
 
     void iWidgetButton::setBackgroundTexture(const iaString &textureAlias)
     {
-        setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        if (textureAlias.isEmpty())
+        {
+            setBackgroundTexture(iTexturePtr());
+        }
+        else
+        {
+            setBackgroundTexture(iResourceManager::getInstance().loadResource<iTexture>(textureAlias));
+        }
     }
 
     void iWidgetButton::setBackgroundTexture(iTexturePtr texture)
@@ -130,14 +142,8 @@ namespace igor
 
         if (isGrowingByContent())
         {
-            if (_texture != nullptr)
-            {
-                // we don't actually want it to scale with the texture size since the texture is considered a background
-                minWidth = fontSize * 1.2f;
-                minHeight = fontSize * 1.2f;
-            }
-
-            if (_iconTexture != nullptr)
+            if (_texture != nullptr ||
+                _iconTexture != nullptr)
             {
                 // we don't actually want it to scale with the texture size since the texture is considered a background
                 minWidth = fontSize * 1.5f;
@@ -194,7 +200,7 @@ namespace igor
             return;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawWidgetButton(this);
+        iWidgetManager::getInstance().getTheme()->draw(this);
     }
 
     void iWidgetButton::setCheckable(bool checkable)
@@ -215,6 +221,16 @@ namespace igor
     bool iWidgetButton::isChecked() const
     {
         return _checked;
+    }
+
+    void iWidgetButton::setBorderStyle(iWidgetButtonBorderStyle borderStyle)
+    {
+        _borderStyle = borderStyle;
+    }
+
+    iWidgetButtonBorderStyle iWidgetButton::getBorderStyle() const
+    {
+        return _borderStyle;
     }
 
 } // namespace igor

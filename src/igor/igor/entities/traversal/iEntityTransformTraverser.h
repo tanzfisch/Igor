@@ -31,41 +31,40 @@
 
 #include <igor/entities/traversal/iEntityTraverser.h>
 
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
+#include <igor/entities/components/iTransformComponent.h>
 
 namespace igor
 {
 
     /*! base class for traversing an entity tree
-    */
+     */
     class IGOR_API iEntityTransformTraverser : public iEntityTraverser
     {
 
     public:
         /*! does nothing
-        */
+         */
         iEntityTransformTraverser() = default;
 
         /*! does nothing
-        */
+         */
         ~iEntityTransformTraverser() = default;
 
     private:
         /*! holds a stack of matrices while traversal tree
          */
-        std::vector<iaMatrixd> _matrixStack;
+        std::vector<iaTransformd> _transformStack;
 
-        /*! current matrix that eventually gets pushed on stack or came popped from stack
+        /*! cached current matrix
          */
-        iaMatrixd _currentMatrix;
+        iaTransformd _currentTransform;
 
         /*! if true scene has quadtree
-        */
+         */
         bool _hasQuadtree = false;
 
         /*! if true scene has octree
-        */
+         */
         bool _hasOctree = false;
 
         /*! is called before traversal
@@ -90,7 +89,7 @@ namespace igor
 
         has to be implemented by deriving class
         */
-        void postTraverse() override;      
+        void postTraverse() override;
 
         /*! updates quadtree for given entity
 
@@ -103,6 +102,13 @@ namespace igor
         \param the given entity
         */
         void updateOctree(iEntityPtr entity);
+
+        /*! update the transform component
+
+        \param transformComponent the component to update
+        \param[in/out] transform the transform used for traversal
+        */
+        bool updateTransformComponent(iTransformComponentPtr transformComponent, iaTransformd &transform);
     };
 
 }; // namespace igor

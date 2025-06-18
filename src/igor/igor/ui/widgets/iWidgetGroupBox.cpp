@@ -36,7 +36,7 @@ namespace igor
 		_headerOnly = headerOnly;
 	}
 
-	bool iWidgetGroupBox::getHeaderOnly() const
+	bool iWidgetGroupBox::isHeaderOnly() const
 	{
 		return _headerOnly;
 	}
@@ -115,7 +115,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getState(), isEnabled());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 
 		for (const auto child : _children)
 		{

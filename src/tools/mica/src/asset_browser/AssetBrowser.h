@@ -153,11 +153,18 @@ private:
     */
     void onUpdateGridView();
 
-    /*! triggered by selection changed event
+    /*! triggered by selection changed event on grid
 
     \param source the source widget of this event
     */
-    void onSelectionChanged(const iWidgetPtr source);
+    void onSelectionChangedGrid(const iWidgetPtr source);
+
+    /*! triggered by selection changed event on tree
+
+    \param source the source widget of this event
+    */
+   void onSelectionChangedTree(const iWidgetPtr source);
+
 
     /*! handle context menu event
 

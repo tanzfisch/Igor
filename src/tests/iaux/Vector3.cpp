@@ -15,7 +15,7 @@ IAUX_TEST(Vector3Tests, Initial)
 
 IAUX_TEST(Vector3Tests, Convert)
 {
-	iaVector3d vec(1,2,3);
+	iaVector3d vec(1, 2, 3);
 	iaVector3f vec2 = vec.convert<float32>();
 
 	IAUX_EXPECT_EQUAL(vec2._x, 1.0f);
@@ -91,7 +91,7 @@ IAUX_TEST(Vector3Tests, Vector3dSet)
 
 IAUX_TEST(Vector3Tests, Vector3dGetData)
 {
-	float64* data = 0;
+	float64 *data = 0;
 	iaVector3d vec(2.0, 3.0, 17.5);
 	data = vec.getData();
 
@@ -104,5 +104,25 @@ IAUX_TEST(Vector3Tests, Vector3dNormalize)
 	vec.normalize();
 
 	IAUX_EXPECT_TRUE(fabs(vec._x) > 0.9999999999 && fabs(vec._x) <= 1.0 &&
-		vec._y == 0 && vec._z == 0);
+					 vec._y == 0 && vec._z == 0);
+}
+
+IAUX_TEST(Vector3Tests, DotProduct)
+{
+	iaVector3d vecA(1.0, 0.0, 0.0);
+	iaVector3d vecB(0.0, 1.0, 0.0);
+	iaVector3d vecC(0.25, 0.1, 3.0);
+
+	IAUX_EXPECT_EQUAL(vecA.dot(vecB), 0);
+	IAUX_EXPECT_EQUAL(vecA.dot(vecA), 1);
+	IAUX_EXPECT_EQUAL(vecA.dot(vecC), 0.25);
+}
+
+IAUX_TEST(Vector3Tests, Product)
+{
+	IAUX_EXPECT_EQUAL(iaVector3d(0.5, 0, 1.0) * iaVector3d(10, 2, 0.2), iaVector3d(5, 0, 0.2));
+
+	iaVector3d a(0.5, 0, 0.25);
+	a *= iaVector3d(10, 2, 4);
+	IAUX_EXPECT_EQUAL(a, iaVector3d(5, 0, 1));
 }

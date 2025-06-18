@@ -34,9 +34,16 @@ namespace igor
         return component;
     }
 
+    void iMeshRenderComponent::addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
+    {
+        _meshReferences.emplace_back(mesh, material, offset);
+        setDirty();
+    }
+
     void iMeshRenderComponent::onUnLoad(iEntityPtr entity)
     {
         _meshReferences.clear();
+        setDirty();
     }
 
     void iMeshRenderComponent::findAndAddMeshs(iNodePtr node)
@@ -52,6 +59,8 @@ namespace igor
         {
             findAndAddMeshs(child);
         }
+
+        setDirty();
     }
 
     bool iMeshRenderComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
@@ -132,4 +141,23 @@ namespace igor
     {
         return _meshReferences;
     }
+
+    std::vector<iaString> iMeshRenderComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        if(_meshReferences.empty())
+        {
+            result.push_back(iaString("no references"));
+        }
+        else
+        {
+            for(const auto &ref : _meshReferences)
+            {
+                result.push_back(iaString("Mat: ") + ref._material->getID().toString() + " Tri:" + iaString::toString(ref._mesh->getTrianglesCount()));
+            }
+        }
+
+        return result;
+    }         
 }

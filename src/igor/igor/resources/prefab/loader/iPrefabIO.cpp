@@ -18,8 +18,6 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 
-#include <igor/entities/components/iComponents.h>
-
 #include <fstream>
 
 namespace igor
@@ -30,14 +28,14 @@ namespace igor
         entity->addComponent(component);
 
         component->setPosition(componentJson["position"].get<iaVector3d>());
-        component->setOrientation(componentJson["orientation"].get<iaVector3d>());
+        component->setOrientation(iaQuaterniond::fromEuler(componentJson["orientation"].get<iaVector3d>()));
         component->setScale(componentJson["scale"].get<iaVector3d>());
     }
 
     static void writeTransform(json &componentJson, iTransformComponent *component)
     {
         componentJson["position"] = component->getPosition();
-        componentJson["orientation"] = component->getOrientation();
+        componentJson["orientation"] = component->getOrientation().toEuler();
         componentJson["scale"] = component->getScale();
     }
 
@@ -76,8 +74,8 @@ namespace igor
         componentJson["viewport"] = component->getViewport();
         componentJson["perspective"] = component->getProjectionType() == iProjectionType::Perspective;
         componentJson["fov"] = component->getFieldOfView();
-        componentJson["clipNear"] = component->getNearClipPlane();
-        componentJson["clipFar"] = component->getFarClipPlane();
+        componentJson["clipNear"] = component->getNearPlane();
+        componentJson["clipFar"] = component->getFarPlane();
         componentJson["orthoLeft"] = component->getLeftOrtho();
         componentJson["orthoRight"] = component->getRightOrtho();
         componentJson["orthoTop"] = component->getTopOrtho();
@@ -164,6 +162,32 @@ namespace igor
         componentJson["type"] = (int)component->getType();
     }
 
+    static void readSpriteRender(iEntityPtr entity, const json &componentJson)
+    {
+        iSpriteRenderComponentPtr component = new iSpriteRenderComponent();
+        entity->addComponent(component);
+
+        component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        component->setSize(componentJson["size"].get<iaVector2d>());
+        component->setColor(componentJson["color"].get<iaColor4f>());
+        component->setZIndex(componentJson["zIndex"].get<int>());
+        component->setRenderMode(static_cast<iSpriteRenderComponent::iRenderMode>(componentJson["mode"].get<int>()));
+        component->setFrameIndex(componentJson["frame"].get<int>());
+    }
+
+    static void writeSpriteRender(json &componentJson, iSpriteRenderComponentPtr component)
+    {
+        if (component->getSprite() != nullptr)
+        {
+            componentJson["sprite"] = component->getSprite()->getID();
+        }
+        componentJson["size"] = component->getSize();
+        componentJson["color"] = component->getColor();
+        componentJson["zIndex"] = (int)component->getZIndex();
+        componentJson["mode"] = (int)component->getRenderMode();
+        componentJson["frame"] = (int)component->getFrameIndex();
+    }
+
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
         if (!entityJson.contains("parent"))
@@ -188,6 +212,7 @@ namespace igor
             {"octree", readOctree},
             {"meshRender", readMeshRender},
             {"light", readLight},
+            {"spriteRender", readSpriteRender},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -219,46 +244,33 @@ namespace igor
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
     {
-        try // for catching json exceptions
+        json data = iJson::parse(filename);
+
+        if (!data.contains("entityScene"))
         {
-            char temp[2048];
-            filename.getData(temp, 2048);
-
-            std::ifstream file(temp);
-            json data = json::parse(file);
-
-            if (!data.contains("entityScene"))
-            {
-                con_err("unexpected data format");
-                return false;
-            }
-
-            json entityScene = data["entityScene"];
-            const iaString sceneName = entityScene["name"].get<iaString>();
-            const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
-            auto scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
-
-            prefab->_sceneID = scene->getID();
-
-            json entitiesJson = entityScene["entities"];
-            for (const auto &entityJson : entitiesJson)
-            {
-                readEntity(scene, entityJson);
-            }
-            for (const auto &entityJson : entitiesJson)
-            {
-                connectEntity(scene, entityJson);
-            }
-        }
-        catch (const std::exception &e)
-        {
-            con_err("Caught an exception: " << e.what());
+            con_err("unexpected data format");
             return false;
         }
-        catch (...)
+
+        json entityScene = data["entityScene"];
+        const iaString sceneName = entityScene["name"].get<iaString>();
+        const iEntitySceneID sceneID = entityScene["id"].get<iaUUID>();
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if (scene == nullptr)
         {
-            con_err("Caught an unknown exception.");
-            return false;
+            scene = iEntitySystemModule::getInstance().createScene(sceneName, sceneID, true);
+        }
+
+        prefab->_sceneID = scene->getID();
+
+        json entitiesJson = entityScene["entities"];
+        for (const auto &entityJson : entitiesJson)
+        {
+            readEntity(scene, entityJson);
+        }
+        for (const auto &entityJson : entitiesJson)
+        {
+            connectEntity(scene, entityJson);
         }
 
         return true;
@@ -275,7 +287,10 @@ namespace igor
         }
 
         json componentsJson = json::array();
-        const auto componentTypes = entity->getComponentTypes();
+        auto componentTypes = entity->getComponentTypes();
+        std::sort(componentTypes.begin(), componentTypes.end(), [](const std::type_index &a, const std::type_index &b)
+                  { return a.name() < b.name(); });
+
         for (const auto &typeIndex : componentTypes)
         {
             const auto component = entity->getComponent(typeIndex);
@@ -350,6 +365,16 @@ namespace igor
                 continue;
             }
 
+            iSpriteRenderComponentPtr spriteRender = dynamic_cast<iSpriteRenderComponentPtr>(component);
+            if (spriteRender != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "spriteRender";
+                writeSpriteRender(componentJson, spriteRender);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
             con_err("unknown component type for id: " << component->getID());
         }
 
@@ -372,10 +397,10 @@ namespace igor
             auto scene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
 
             json entitiesJson = json::array();
-            for (const auto &pair : scene->_entities)
+            for (const auto entity : scene->getEntities())
             {
                 json entityJson;
-                writeEntity(entityJson, pair.second);
+                writeEntity(entityJson, entity);
                 entitiesJson.push_back(entityJson);
             }
 

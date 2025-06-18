@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_VECTOR3__
-#define __IAUX_VECTOR3__
+#ifndef IAUX_VECTOR3_H
+#define IAUX_VECTOR3_H
 
 #include <iaux/iaDefines.h>
 
@@ -139,7 +139,22 @@ namespace iaux
         \param a second vector to calculate the scalar product with
         \returns the resulting scalar product
         */
-        T operator*(const iaVector3<T> &a) const;
+        T dot(const iaVector3<T> &a) const;
+
+        /*! multiplication of two vectors
+
+        \param vec vector to multiply this vector with
+        \returns the product of the mutiplication
+        */
+        iaVector3<T> operator*(const iaVector3<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        the product is stored in this vector
+
+        \param vec vector to multiply this vector with
+        */
+        void operator*=(const iaVector3<T> &vec);        
 
         /*! comparison of two vectors
 
@@ -274,4 +289,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_VECTOR3__
+#endif // IAUX_VECTOR3_H

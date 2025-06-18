@@ -3,78 +3,54 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-IGOR_INLINE std::wostream& operator<<(std::wostream& ostr, const iaTransform<T>& t)
+IGOR_INLINE std::wostream &operator<<(std::wostream &ostr, const iaTransform<T> &transform)
 {
-    iaVector3d rotate;
-    t._orientation.getEuler(rotate);
-
-    ostr << "t" << t._translate << "\n";
-    ostr << "r" << rotate << "\n";
-    ostr << "s" << t._scale << "\n";
+    ostr << "t" << transform._position << " r" << transform._orientation << " s" << transform._scale;
     return ostr;
 }
 
 template <class T>
-iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, T t)
+iaTransform<T>::iaTransform(const iaVector3<T> &position, const iaQuaternion<T> orientation, const iaVector3<T> &scale)
 {
-    iaTransform<T> result;
-
-    result._translate = lerp(a._translate, b._translate, t);
-    result._scale = lerp(a._scale, b._scale, t);
-    result._shear = lerp(a._shear, b._shear, t);
-    result._orientation = slerp(a._orientation, b._orientation, t);
-
-    return result;
+    _position = position;
+    _orientation = orientation;
+    _scale = scale;
 }
 
 template <class T>
-iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale)
+void iaTransform<T>::set(const iaVector3<T> &position, const iaQuaternion<T> orientation, const iaVector3<T> &scale)
 {
-    _translate = translate;
+    _position = position;
     _orientation = orientation;
     _scale = scale;
-    _shear.set(0.0, 0.0, 0.0);
-}
-
-template <class T>
-iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale, const iaVector3<T>& shear)
-{
-    _translate = translate;
-    _orientation = orientation;
-    _scale = scale;
-    _shear = shear;
 }
 
 template <class T>
 iaTransform<T>::iaTransform()
 {
-    _translate.set(0.0, 0.0, 0.0);
-    _orientation.set(0.0, 0.0, 0.0, 1.0);
-    _scale.set(1.0, 1.0, 1.0);
-    _shear.set(0.0, 0.0, 0.0);
+    identity();
 }
 
 template <class T>
-iaTransform<T>::iaTransform(const iaMatrix<T>& matrix)
+iaTransform<T> lerp(const iaTransform<T> &a, const iaTransform<T> &b, T t)
 {
-    setMatrix(matrix);
+    iaTransform<T> result;
+
+    result._position = lerp(a._position, b._position, t);
+    result._scale = lerp(a._scale, b._scale, t);
+    result._orientation = lerp(a._orientation, b._orientation, t);
+
+    return result;
 }
 
 template <class T>
-IGOR_INLINE iaTransform<T>::~iaTransform()
+IGOR_INLINE const iaMatrix<T> iaTransform<T>::getMatrix() const
 {
-}
-
-template <class T>
-IGOR_INLINE void iaTransform<T>::getMatrix(iaMatrix<T>& matrix) const
-{
-    matrix.recompose(_scale, _orientation, _translate, _shear, iaVector4<T>(0, 0, 0, 1));
-}
-
-template <class T>
-IGOR_INLINE bool iaTransform<T>::hasShear() const
-{
-    return _shear != iaVector3d();
+    iaMatrix<T> matrix;
+    matrix.translate(_position);
+    matrix *= _orientation.toMatrix();
+    matrix.scale(_scale);
+    return matrix;
 }
 
 template <class T>
@@ -86,11 +62,100 @@ IGOR_INLINE bool iaTransform<T>::hasScale() const
 template <class T>
 IGOR_INLINE bool iaTransform<T>::hasTranslation() const
 {
-    return _translate != iaVector3d();
+    return _position != iaVector3d();
 }
 
 template <class T>
 IGOR_INLINE bool iaTransform<T>::hasRotation() const
 {
     return _orientation != iaQuaterniond();
+}
+
+template <class T>
+IGOR_INLINE bool iaTransform<T>::operator==(const iaTransform<T> &other) const
+{
+    if (_position != other._position)
+    {
+        return false;
+    }
+    if (_orientation != other._orientation)
+    {
+        return false;
+    }
+    if (_scale != other._scale)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+template <class T>
+IGOR_INLINE bool iaTransform<T>::operator!=(const iaTransform<T> &other) const
+{
+    if (_position == other._position)
+    {
+        return false;
+    }
+    if (_orientation == other._orientation)
+    {
+        return false;
+    }
+    if (_scale == other._scale)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+template <class T>
+IGOR_INLINE iaTransform<T> iaTransform<T>::operator*(const iaTransform<T> &other)
+{
+    iaTransform<T> transform;
+
+    transform._scale = _scale * other._scale;
+    transform._orientation = _orientation * other._orientation;
+    transform._position = _orientation.rotate(_scale * other._position) + _position;
+
+    return transform;
+}
+
+template <class T>
+IGOR_INLINE void iaTransform<T>::operator*=(const iaTransform<T> &other)
+{
+    iaTransform<T> transform;
+
+    (*this) = transform;
+}
+
+template <class T>
+void iaTransform<T>::identity()
+{
+    _position.set(0.0, 0.0, 0.0);
+    _orientation.set(1.0, 0.0, 0.0, 0.0);
+    _scale.set(1.0, 1.0, 1.0);
+}
+
+template <class T>
+iaVector3<T> iaTransform<T>::applyTo(const iaVector3<T> &vec) const
+{
+    iaVector3<T> result = vec * _scale;
+    result = _orientation.rotate(result);
+    return result + _position;
+}
+
+template <class T>
+iaTransform<T> iaTransform<T>::inverse() const
+{
+    iaTransform<T> result;
+    result._scale.set(1.0 / _scale._x, 1.0 / _scale._y, 1.0 / _scale._z);
+    result._orientation = _orientation.inverse();
+
+    auto negPos = _position;
+    negPos.negate();
+    const auto unrotated = result._orientation.rotate(negPos);
+    result._position = unrotated * result._scale;
+
+    return result;
 }

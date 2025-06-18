@@ -53,28 +53,11 @@ namespace igor
          */
         virtual ~iRenderEngine() = default;
 
-        /*! sets the scene to render
-         */
-        void setScene(iEntityScenePtr scene);
-
-        /*! sets the current camera
-
-        \param camera entity that contains iCameraComponent and iTransformComponent
-        */
-        void setCamera(iEntityPtr camera);
-
         /*! add mesh for render queue
 
         \param mesh entity that contains iTransformComponent and iMeshRenderComponent
         */
         void addMesh(iEntityPtr mesh);
-
-        /*! setup camera for render
-
-        \param viewport the viewport given by the parent view
-        \param embedded if true frame buffer will not be cleared. This is used when running the render engine inside a widget
-        */
-        void setupCamera(const iaRectanglei &viewport, bool embedded = false);
 
         /*! renders given data
 
@@ -83,19 +66,32 @@ namespace igor
         void render();
 
         /*! \returns current frustum
-
-        valid after render/setupCamera
-        */
+         */
         const iFrustumd &getFrustum() const;
 
-    private:
-        /*! the scene to render
-         */
-        iEntityScenePtr _scene = nullptr;
+        /*! set frustum
 
-        /*! camera ID
+        \param frustum the frustum to set
+        */
+        void setFrustum(const iFrustumd &frustum);
+
+        /*! set frustum by matrix
+
+        \param matrix the matrix for the frustum
+        */
+        void setFrustum(const iaMatrixd &matrix);
+
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
          */
-        iEntityID _cameraID = iEntityID::getInvalid();
+        bool isBoundingBoxVisible() const;
+
+    private: 
 
         /*! current frustum
          */
@@ -103,8 +99,21 @@ namespace igor
 
         struct iInstaningPackage
         {
-            iInstancingBufferPtr _buffer;
-            iMaterialPtr _material; // TODO needs to be part of the buffer so individual instances can have different colors etc
+            iInstancingBufferPtr _buffer = nullptr;
+            iMaterialPtr _material = nullptr; // TODO needs to be part of the buffer so individual instances can have different colors etc
+        };
+
+        struct iRegularPackage
+        {
+            iMeshPtr _mesh;
+            iaMatrixd _matrix;
+            iMaterialPtr _material;
+
+            iRegularPackage(iMeshPtr mesh, const iaMatrixd &matrix, iMaterialPtr material)
+            : _mesh(mesh), _matrix(matrix), _material(material)
+            {
+
+            }
         };
 
         /*! bringing all nodes using the same material together for more efficient rendering
@@ -115,6 +124,10 @@ namespace igor
              */
             iShaderPtr _shader;
 
+            /*! non instanced data
+            */
+            std::vector<iRegularPackage> _regular;
+
             /*! optional instancing buffers per mesh that is using the same material
              */
             std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
@@ -124,9 +137,17 @@ namespace igor
          */
         std::vector<iMaterialGroup> _materialGroups;
 
-        /*! renders all mesh instances
+        /*! flag if bounding boxes are drawn
          */
-        void renderInstances();
+        bool _showBoundingBoxes = false;        
+
+        /*! renders all mesh material groups
+         */
+        void renderMaterialGroups();
+
+        /*! renders bounding boxes
+        */
+        void renderBoundingBoxes();
     };
 } // namespace igor
 

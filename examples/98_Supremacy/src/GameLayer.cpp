@@ -29,6 +29,7 @@ void GameLayer::onInit()
     iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>(WeaponComponent::createInstance, "SupremacyComponentWeapon");
     iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>(ModifierComponent::createInstance, "SupremacyComponentModifier");
     iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
+    iEntitySystemModule::getInstance().registerComponentType<PartyComponent>(PartyComponent::createInstance, "SupremacyComponentParty");
 
     _entityScene = iProject::getInstance().getProjectScene();
 
@@ -38,38 +39,38 @@ void GameLayer::onInit()
     loadSpecs("project/supremacy.xml");
 
     _viewOrtho.setName("view ortho");
-    _viewOrtho.registerRenderDelegate({this, &GameLayer::onRenderOrtho});
-    _viewOrtho.setEntityScene(_entityScene);
+    _viewOrtho.getRenderEvent().add({this, &GameLayer::onRenderOrtho});
+    _viewOrtho.setScene(_entityScene);
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
     // init font for render profiler
     _font = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
 
-    _coin = iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin");
+    _coin = iResourceManager::getInstance().requestResource<iSprite>("sprite_coin");
 
     _damage = iResourceManager::getInstance().createResource<iSprite>();
-    _damage->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_fist"));
+    _damage->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_fist"));
 
     _attackSpeed = iResourceManager::getInstance().createResource<iSprite>();
-    _attackSpeed->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_bullets"));
+    _attackSpeed->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_bullets"));
 
     _walkSpeed = iResourceManager::getInstance().createResource<iSprite>();
-    _walkSpeed->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_run"));
+    _walkSpeed->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_run"));
 
     _shadow = iResourceManager::getInstance().createResource<iSprite>();
-    _shadow->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_shadow"));
+    _shadow->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_shadow"));
 
     _shield = iResourceManager::getInstance().createResource<iSprite>();
-    _shield->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_shield"));
+    _shield->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_shield"));
 
     _rage = iResourceManager::getInstance().createResource<iSprite>();
-    _rage->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_rage"));
+    _rage->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_rage"));
 
-    _bounceAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_bounce");
-    _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_shop_idle");
-    _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("example_animation_coin");
+    _bounceAnimation = iResourceManager::getInstance().requestResource<iAnimation>("animation_bounce");
+    _shopIdleAnimation = iResourceManager::getInstance().requestResource<iAnimation>("animation_shop_idle");
+    _coinSpinAnimation = iResourceManager::getInstance().requestResource<iAnimation>("animation_coin");
 
-    _player = createPlayer();
+    _playerID = createPlayer();
     _camera = createCamera();
     createBackground();
 
@@ -308,15 +309,14 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new iVelocityComponent(iaVector3d(0, 0, 0)));
 
     iSpritePtr wagiu = iResourceManager::getInstance().createResource<iSprite>();
-    wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_wagiu_a5"));
+    wagiu->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_wagiu_a5"));
     entity->addComponent(new iSpriteRenderComponent(wagiu, iaVector2d(STANDARD_UNIT_SIZE * 1.5, STANDARD_UNIT_SIZE * 1.5)));
-    entity->addComponent(new iPartyComponent(FRIEND));
+    entity->addComponent(new PartyComponent(FRIEND));
     entity->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 1.5 * 0.5));
     entity->addComponent(new iQuadtreeComponent());
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
-    entity->addComponent(new iAnimationComponent(animationController));
+    auto animationComponent = entity->addComponent(new iAnimationComponent());
+    animationComponent->addClip(iClip::createClip({_bounceAnimation}, true, true));
     entity->addComponent(new HealthComponent(100.0f));
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
@@ -347,22 +347,22 @@ void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
 
     iaVector3d velocity;
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::W))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::W))
     {
         velocity._y -= 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::A))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::A))
     {
         velocity._x -= 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::S))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::S))
     {
         velocity._y += 1.0;
     }
 
-    if (iKeyboard::getInstance().getKey(iKeyCode::D))
+    if (iKeyboard::getInstance().keyPressed(iKeyCode::D))
     {
         velocity._x += 1.0;
     }
@@ -376,7 +376,7 @@ void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
 void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
 {
     const auto transformComponent = entity->getComponent<iTransformComponent>();
-    const auto entityParty = entity->getComponent<iPartyComponent>();
+    const auto entityParty = entity->getComponent<PartyComponent>();
     const auto weapon = entity->getComponent<WeaponComponent>();
     const auto modifier = entity->getComponent<ModifierComponent>();
     auto target = entity->getComponent<TargetComponent>();
@@ -399,7 +399,7 @@ void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
 
         iEntityPtr entityHit = _entityScene->getEntity(hit.first);
 
-        auto entParty = entityHit->getComponent<iPartyComponent>();
+        auto entParty = entityHit->getComponent<PartyComponent>();
         if (entParty == nullptr ||
             entParty->_partyID == NEUTRAL ||
             entParty->_partyID == entityParty->_partyID)
@@ -426,7 +426,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
     auto coins = entity->getComponent<CoinsComponent>();
     auto health = entity->getComponent<HealthComponent>();
 
-    iaCircled circle = body->_object->_circle;
+    iaCircled circle = body->getObjectBounds();
     circle._radius = 70.0;
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
@@ -467,7 +467,7 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
         if (buildingComponent != nullptr)
         {
             auto otherBody = otherEntity->getComponent<iQuadtreeComponent>();
-            if (iIntersection::intersects(otherBody->_object->_circle, body->_object->_circle))
+            if (iIntersection::intersects(otherBody->getObjectBounds(), body->getObjectBounds()))
             {
                 buildingType = buildingComponent->_type;
             }
@@ -523,7 +523,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
 
 void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -568,10 +568,15 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
 
 iEntityID GameLayer::createCamera()
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
+    //iEntityPrintTraverser print;
+    //print.traverse(_entityScene);
+
+
+    // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
     iEntityPtr entity = _entityScene->createEntity("camera");
 
     entity->addComponent(new iTransformComponent(playerTransform->getPosition()));
@@ -581,7 +586,7 @@ iEntityID GameLayer::createCamera()
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
-    cameraComponent->setClearDepthActive(false);
+    cameraComponent->setClearDepthActive(false);    
 
     return entity->getID();
 }
@@ -590,19 +595,19 @@ void GameLayer::createBackground()
 {
     iEntityPtr entity = _entityScene->createEntity("background");
 
-    entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaVector3d(), iaVector3d(200.0, 150.0, 1.0)));
+    entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0), iaQuaterniond(), iaVector3d(200.0, 150.0, 1.0)));
 
     iSpritePtr background = iResourceManager::getInstance().createResource<iSprite>();
-    background->setTexture(iResourceManager::getInstance().requestResource<iTexture>("example_texture_supremacy_background"));
+    background->setTexture(iResourceManager::getInstance().requestResource<iTexture>("texture_supremacy_background"));
     entity->addComponent(new iSpriteRenderComponent(background, iaVector2d(10.0, 15.0), iaColor4f::white, -100, iSpriteRenderComponent::iRenderMode::Tiled));
 }
 
 void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objectType)
 {
     iEntityPtr entity = _entityScene->createEntity("object");
-    const auto &transform = entity->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)));
-    entity->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
-    entity->addComponent(new iPartyComponent(party));
+    const auto &transform = entity->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaQuaterniond(), iaVector3d(COIN_SIZE, COIN_SIZE, 1.0)));
+    entity->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("sprite_coin"), iaVector2d(1.0, 1.0), iaColor4f::white, -10));
+    entity->addComponent(new PartyComponent(party));
     entity->addComponent(new iCircleComponent(COIN_SIZE * 0.5));
     entity->addComponent(new iQuadtreeComponent());
 
@@ -612,9 +617,8 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
     entity->addComponent(new DamageComponent(0.0f));
     entity->addComponent(new HealComponent(0.0f));
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_coinSpinAnimation}, true, true));
-    entity->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = entity->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_coinSpinAnimation}, true, true));
 }
 
 void GameLayer::onLiftShop()
@@ -631,7 +635,7 @@ void GameLayer::onLiftShop()
 void GameLayer::onLandShop(const iaTime &time)
 {
     iEntityPtr shop = _entityScene->getEntity(_shop);
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
     if (shop == nullptr ||
         player == nullptr)
     {
@@ -661,11 +665,11 @@ void GameLayer::createShop()
     shop->setActive(false); // TODO need to figure out why we can't deactivate after adding iSpriteRenderComponent
 
     _shop = shop->getID();
-    shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaVector3d(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
+    shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
-    shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("example_sprite_shop")));
-    shop->addComponent(new iPartyComponent(FRIEND));
+    shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("sprite_shop")));
+    shop->addComponent(new PartyComponent(FRIEND));
     shop->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
     shop->addComponent(new ModifierComponent({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f}));
@@ -675,9 +679,8 @@ void GameLayer::createShop()
     shop->addBehaviour({this, &GameLayer::onAquireTarget});
     shop->addBehaviour({this, &GameLayer::onUpdateWeapon});
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
-    shop->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = shop->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
 
     // add shadow
     iEntityPtr shadow = _entityScene->createEntity("shop shadow");
@@ -739,7 +742,7 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
     }
 
     auto quadComp = entity->getComponent<iQuadtreeComponent>();
-    iaCircled circle = quadComp->_object->_circle;
+    iaCircled circle = quadComp->getObjectBounds();
     circle._radius *= 1.1;
     iQuadtreed::Objects objects;
     _entityScene->getQuadtree().query(circle, objects);
@@ -773,20 +776,19 @@ void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
 void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass)
 {
     iEntityPtr unit = _entityScene->createEntity("unit");
-    unit->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0), iaVector3d()));
+    unit->addComponent(new iTransformComponent(iaVector3d(pos._x, pos._y, 0.0)));
     unit->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     unit->addComponent(new iVelocityComponent(getRandomDir() * enemyClass._speed));
 
     iSpritePtr sprite = iResourceManager::getInstance().createResource<iSprite>();
     sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(enemyClass._texture));
     unit->addComponent(new iSpriteRenderComponent(sprite, iaVector2d(enemyClass._size, enemyClass._size)));
-    unit->addComponent(new iPartyComponent(party));
+    unit->addComponent(new PartyComponent(party));
     unit->addComponent(new iCircleComponent(enemyClass._size * 0.5));
     unit->addComponent(new iQuadtreeComponent());
 
-    iAnimationControllerPtr animationController(new iAnimationController());
-    animationController->addClip(iClip::createClip({_bounceAnimation}, true, true));
-    unit->addComponent(new iAnimationComponent(animationController));
+    auto animationComp = unit->addComponent(new iAnimationComponent());
+    animationComp->addClip(iClip::createClip({_bounceAnimation}, true, true));
     unit->addComponent(new HealthComponent(enemyClass._health));
     unit->addComponent(new TargetComponent(target));
     unit->addComponent(new ExperienceGainComponent(enemyClass._xpDrop));
@@ -804,7 +806,7 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
 
 void GameLayer::onSpawnStuff(const iaTime &time)
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -863,7 +865,7 @@ void GameLayer::onSpawnStuff(const iaTime &time)
 
         uint32 enemyLevel = iaRandom::getNextRangeExponentialDecrease(minEnemyLevel, maxEnemyLevel, 0.6);
         // con_endl("create enemy level: " << enemyLevel);
-        createUnit(pos, FOE, _player, _enemies[enemyLevel - 1]);
+        createUnit(pos, FOE, _playerID, _enemies[enemyLevel - 1]);
     }
 
     // con_endl("minEnemyLevel " << minEnemyLevel);
@@ -1114,21 +1116,21 @@ void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userD
     auto transform = entity->getComponent<iTransformComponent>();
 
     iaVector2d vel2D(velocity._x, velocity._y);
-    transform->rotate(iaVector3d(0.0, 0.0, vel2D.angle() + (M_PI * 0.5)));
+    transform->rotate(iaQuaterniond::fromEuler(0.0, 0.0, vel2D.angle() + (M_PI * 0.5)));
 }
 
 void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
 {
     auto transform = entity->getComponent<iTransformComponent>();
-    auto party = entity->getComponent<iPartyComponent>();
+    auto party = entity->getComponent<PartyComponent>();
     auto damage = entity->getComponent<DamageComponent>();
     auto health = entity->getComponent<HealthComponent>();
     auto body = entity->getComponent<iQuadtreeComponent>();
 
     iQuadtreed::Objects objects;
-    _entityScene->getQuadtree().query(body->_object->_circle, objects);
+    _entityScene->getQuadtree().query(body->getObjectBounds(), objects);
 
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -1153,7 +1155,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
         }
 
         // check if we do damage to other entity
-        auto otherEntityParty = otherEntity->getComponent<iPartyComponent>();
+        auto otherEntityParty = otherEntity->getComponent<PartyComponent>();
         if (otherEntityParty != nullptr)
         {
             if (otherEntityParty->_partyID != party->_partyID)
@@ -1221,7 +1223,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         float32 angle = dir.angle() + (90 * IGOR_GRAD2RAD);
         iaVector2d firePosition(from + dir * weapon->_config._size * 0.5);
         iaVector3d bulletSpawnPosition(firePosition._x, firePosition._y, 0.0);
-        bullet->addComponent(new iTransformComponent({bulletSpawnPosition, iaVector3d(0.0, 0.0, angle), iaVector3d(weapon->_config._size, weapon->_config._size, 1.0)}));
+        bullet->addComponent(new iTransformComponent({bulletSpawnPosition, iaQuaterniond::fromEuler(0.0, 0.0, angle), iaVector3d(weapon->_config._size, weapon->_config._size, 1.0)}));
 
         float64 angularVelocity = weapon->_config._angularVelocity;
 
@@ -1238,7 +1240,7 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         float32 s = (weapon->_config._speed * modifier->_config._projectileSpeedFactor) + (weapon->_config._accuracy * (iaRandom::getNextFloat() - 0.5));
         d *= s;
         bullet->addComponent(new iVelocityComponent({d, iaVector3d(0.0, 0.0, angularVelocity)}));
-        bullet->addComponent(new iPartyComponent({party}));
+        bullet->addComponent(new PartyComponent({party}));
 
         iSpritePtr sprite = iResourceManager::getInstance().createResource<iSprite>();
         sprite->setTexture(iResourceManager::getInstance().requestResource<iTexture>(weapon->_config._texture));
@@ -1289,7 +1291,7 @@ void GameLayer::onDeinit()
 
     // clean up window
     getWindow()->removeView(&_viewOrtho);
-    _viewOrtho.unregisterRenderDelegate({this, &GameLayer::onRenderOrtho});
+    _viewOrtho.getRenderEvent().remove({this, &GameLayer::onRenderOrtho});
 }
 
 void GameLayer::onUpdate()
@@ -1332,12 +1334,12 @@ float32 GameLayer::calcLevel(uint32 experience)
 
 void GameLayer::onRenderPlayerHUD()
 {
-    /*    if (!_player.isValid())
+    /*    if (!_playerID.isValid())
         {
             return;
         }
 
-        auto &playerTransform = _player.getComponent<iTransformComponent>();
+        auto &playerTransform = _playerID.getComponent<iTransformComponent>();
         auto &shopTransform = shop->getComponent<iTransformComponent>();
         if (shop->isActive())
         {
@@ -1358,7 +1360,7 @@ void GameLayer::onRenderPlayerHUD()
 
 void GameLayer::onRenderHUD()
 {
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     if (player == nullptr)
     {
@@ -1461,12 +1463,12 @@ void GameLayer::onCloseShopDialog(iDialogPtr dialog)
     _spawnShopTimerHandle->start();
 
     if (!_shopDialog->bought() ||
-        !_player.isValid())
+        !_playerID.isValid())
     {
         return;
     }
 
-    iEntityPtr player = _entityScene->getEntity(_player);
+    iEntityPtr player = _entityScene->getEntity(_playerID);
 
     const ShopItem &shopItem = _shopDialog->getSelection();
     auto coins = player->getComponent<CoinsComponent>();
@@ -1503,7 +1505,7 @@ void GameLayer::upgrade(iEntityPtr entity, const UpgradeConfiguration &upgradeCo
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
 {
-    upgrade(_entityScene->getEntity(_player), _levelUpDialog->getSelection());
+    upgrade(_entityScene->getEntity(_playerID), _levelUpDialog->getSelection());
     iApplication::getInstance().pause(false);
 }
 

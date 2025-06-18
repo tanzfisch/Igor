@@ -7,21 +7,18 @@
 namespace igor
 {
 
-    iItemPtr iItemData::getItem(const iaString &itemPath)
+    iItemPtr iItemData::getItem(const iItemPath &itemPath)
     {
-        std::vector<iaString> tokens;
-        itemPath.split('/', tokens);
-
         iItemPtr current = &_root;
         iItemPtr next = nullptr;
 
-        for(const auto &token : tokens)
+        for(const auto &itemID : itemPath.getPath())
         {
             next = nullptr;
 
             for(const auto item : current->getItems())
             {
-                if(item->getID() == token)
+                if(item->getID() == itemID)
                 {
                     next = item;
                     break;

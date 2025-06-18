@@ -8,7 +8,82 @@ IAUX_TEST(TransformTests, Initial)
 {
 	iaTransformd trans;
 
-	IAUX_EXPECT_EQUAL(trans._translate, iaVector3d());
-	IAUX_EXPECT_EQUAL(trans._scale, iaVector3d(1,1,1));
-	IAUX_EXPECT_EQUAL(trans._orientation, iaQuaterniond(0,0,0,1));
+	IAUX_EXPECT_EQUAL(trans._position, iaVector3d());
+	IAUX_EXPECT_EQUAL(trans._scale, iaVector3d(1, 1, 1));
+	IAUX_EXPECT_EQUAL(trans._orientation, iaQuaterniond(1, 0, 0, 0));
+
+	IAUX_EXPECT_FALSE(trans.hasRotation());
+	IAUX_EXPECT_FALSE(trans.hasScale());
+	IAUX_EXPECT_FALSE(trans.hasTranslation());
+}
+
+IAUX_TEST(TransformTests, Compare)
+{
+	iaTransformd transA;
+	iaTransformd transB;
+	transB._orientation = iaQuaterniond::fromEuler(1, 2, 3);
+	iaTransformd transC;
+	transC._orientation = iaQuaterniond::fromEuler(1, 2, 3);
+
+	IAUX_EXPECT_NOT_EQUAL(transA, transB);
+	IAUX_EXPECT_EQUAL(transC, transB);
+}
+
+IAUX_TEST(TransformTests, getMatrix)
+{
+	iaVector3d translate(1, 2, 3);
+	iaVector3d rotate(1.0, -0.4, 0.3);
+	iaVector3d scale(1, 0.5, 1);
+	iaTransformd transA(translate, iaQuaterniond::fromEuler(rotate), scale);
+
+	iaMatrixd foo;
+	foo.rotate(rotate);
+	auto bar = iaQuaterniond::fromEuler(rotate).toMatrix();
+
+	IAUX_EXPECT_NEAR_MATRIX(foo, bar, 0.00001);
+
+	iaMatrixd matrixA = transA.getMatrix();
+
+	iaMatrixd matrixB;
+	matrixB.translate(translate);
+	matrixB.rotate(rotate);
+	matrixB.scale(scale);
+
+ 	IAUX_EXPECT_NEAR_MATRIX(matrixA, matrixB, 0.0000001);
+}
+
+IAUX_TEST(TransformTests, Multiply)
+{
+	iaVector3d translateA(1.0, 2.0, -3.0);
+	iaVector3d rotateA(0.0, 0.2, 0.2);
+	iaVector3d scaleA(1.0, 1.0, 0.1);
+	iaTransformd transA(translateA, iaQuaterniond::fromEuler(rotateA), scaleA);
+	iaMatrixd matrixA = transA.getMatrix();
+
+	iaVector3d translateB(-5.0, 4.0, -10.0);
+	iaVector3d rotateB(0.0, 0.0, 0.0);
+	iaVector3d scaleB(1.0, 0.1, 1.0);
+	iaTransformd transB(translateB, iaQuaterniond::fromEuler(rotateB), scaleB);
+	iaMatrixd matrixB = transB.getMatrix();
+
+	iaTransformd transC = transA * transB;
+	iaMatrixd matrixC = matrixA * matrixB;
+
+	IAUX_EXPECT_NEAR_MATRIX(matrixC, transC.getMatrix(), 0.00001);
+}
+
+IAUX_TEST(TransformTests, MultiplyVector)
+{
+	iaTransformd trans(iaVector3d(10,10,0), iaQuaterniond::fromEuler(0.1, -0.2, 0.4), iaVector3d(1,1,1));
+	iaVector3d vec(-3,5,10);
+
+	iaVector3d transformed = trans.applyTo(vec);
+
+	iaTransformd inv = trans.inverse();
+
+	iaVector3d untransformed = inv.applyTo(transformed);
+
+	IAUX_EXPECT_NEAR(untransformed._x, vec._x, 0.00000001);
+	IAUX_EXPECT_NEAR(untransformed._y, vec._y, 0.00000001);
+	IAUX_EXPECT_NEAR(untransformed._z, vec._z, 0.00000001);
 }

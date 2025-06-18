@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONVERT__
-#define __IAUX_CONVERT__
+#ifndef IAUX_CONVERT_H
+#define IAUX_CONVERT_H
 
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
@@ -38,8 +38,8 @@
 namespace iaux
 {
 
-    /*! contains some simple converters    
-    */
+    /*! contains some simple converters
+     */
     class IAUX_API iaConvert
     {
 
@@ -72,7 +72,7 @@ namespace iaux
         */
         static void convert(const iaColor4c &src, iaColor4f &dst);
 
-        /*! converts RGB to HSV        
+        /*! converts RGB to HSV
 
         \param rgb the rgb color
         \param[out] hsv the hsv color
@@ -127,7 +127,21 @@ namespace iaux
         \param[out] rgb the rgb color
         */
         static void convertHSVtoRGB(const iaColor4c &hsv, iaColor4c &rgb);
+
+        /*! converts float based matrix to double
+
+        \param src src matrix
+        \param[out] dst destination matrix
+        */
+        static void convert(const iaMatrixf &src, iaMatrixd &dst);
+
+        /*! converts double based matrix to float
+
+        \param src src matrix
+        \param[out] dst destination matrix
+        */
+        static void convert(const iaMatrixd &src, iaMatrixf &dst);
     };
 } // namespace iaux
 
-#endif
+#endif // IAUX_CONVERT_H

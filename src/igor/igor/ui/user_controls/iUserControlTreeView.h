@@ -73,7 +73,13 @@ namespace igor
 
         /*! \returns selected item path
          */
-        const iaString &getSelectedItemPath() const;
+        const std::vector<iItemPath> &getSelectedItemPaths() const;
+
+        /*! sets selection from item paths
+
+        \param itemPaths the item paths to select
+         */
+        void setSelectedItemPaths(const std::vector<iItemPath> &itemPaths);
 
         /*! \returns the click event
          */
@@ -84,7 +90,7 @@ namespace igor
         iContextMenuTreeViewEvent &getContextMenuTreeViewEvent();
 
         /*! clears filter
-        */
+         */
         void clearFilter();
 
         /*! filter for given key and value (iaString type only)
@@ -117,13 +123,17 @@ namespace igor
          */
         iContextMenuTreeViewEvent _contextMenuTreeViewEvent;
 
-        /*! selected item path
+        /*! selected item paths
          */
-        iaString _selectedItemPath;
+        std::vector<iItemPath> _selectedItemPaths;
 
         /*! hold on to all widgets
          */
         std::vector<iWidgetButtonPtr> _allInteractiveWidgets;
+
+        /*! button layout holding all buttons
+         */
+        iWidgetBoxLayoutPtr _buttonLayout;
 
         /*! only display what matches the filter
          */
@@ -151,8 +161,7 @@ namespace igor
         \param itemPath the path of the current item
         \param indentation indentation of given item
          */
-        virtual void updateUI(iItem *item, const iaString &itemPath, int indentation = 0);
-
+        virtual void updateUI(iItem *item, const iItemPath &itemPath, int indentation = 0);
     };
 
     /*! widget tree view pointer definition

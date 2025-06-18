@@ -605,6 +605,9 @@ namespace iaux
     typedef iaEvent<void, __VA_ARGS__> NAME##Event; \
     typedef iaDelegate<void, __VA_ARGS__> NAME##Delegate;
 
+#define IGOR_DELEGATE_DEFINITION(NAME, ...)            \
+    typedef iaDelegate<void, __VA_ARGS__> NAME##Delegate;
+
 #define IGOR_EVENT_DEFINITION_NO_ARGS(NAME) \
     typedef iaEvent<void> NAME##Event;      \
     typedef iaDelegate<void> NAME##Delegate;

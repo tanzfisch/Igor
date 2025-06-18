@@ -50,6 +50,7 @@ namespace igor
     {
 
         friend class iSpriteFactory;
+        friend class iSpriteIO;
 
     public:
         /*! a frame defines an area within the texture that later can be rendered
@@ -61,10 +62,12 @@ namespace igor
             iaRectanglef _rect;
 
             /*! pivot or pivot of frame in texture coordinates 0.0-1.0
-
-            can be used to position on screen
             */
             iaVector2f _pivot;
+
+            /*! if true values are pixels else values are relative
+            */
+            bool _pixel;
         };
 
         /*! \returns the amount of frames

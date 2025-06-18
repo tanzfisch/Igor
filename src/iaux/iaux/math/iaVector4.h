@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_VECTOR4__
-#define __IAUX_VECTOR4__
+#ifndef IAUX_VECTOR4_H
+#define IAUX_VECTOR4_H
 
 #include <iaux/math/iaVector3.h>
 
@@ -43,7 +43,7 @@ namespace iaux
         */
         iaVector4() = default;
 
-        /*! param ctor
+        /*! init by 4 components
 
         \pram x x component
         \pram y y component
@@ -51,6 +51,26 @@ namespace iaux
         \pram w w component
         */
         iaVector4(T x, T y, T z, T w);
+
+        /*! init by 3 components
+
+        \pram x x component
+        \pram y y component
+        \pram z z component
+        */
+        iaVector4(T x, T y, T z);
+
+        /*! init by 4d vector
+
+        \pram vec 4d vector
+        */
+        iaVector4(const iaVector4<T> &vec);
+
+        /*! init by 3d vector
+
+        \pram vec 3d vector
+        */
+        iaVector4(const iaVector3<T> &vec);
 
         /*! x component
 		*/
@@ -168,4 +188,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_VECTOR4__
+#endif // IAUX_VECTOR4_H

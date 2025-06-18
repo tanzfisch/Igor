@@ -16,6 +16,7 @@ namespace igor
 {
     iaIDGenerator64 iWidget::_idGenerator;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
+    float32 iWidget::s_scale = 1.0f;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
         : _type(type), _kind(kind)
@@ -27,7 +28,7 @@ namespace igor
         if (parent != nullptr)
         {
             parent->addWidget(this);
-        }
+        }        
     }
 
     iWidget::~iWidget()
@@ -35,6 +36,11 @@ namespace igor
         if (hasKeyboardFocus())
         {
             resetKeyboardFocus();
+        }
+
+        if(hasParent())
+        {
+            getParent()->removeWidget(this);
         }
 
         clearChildren();
@@ -249,79 +255,59 @@ namespace igor
         onParentChanged();
     }
 
-    void iWidget::unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
-    {
-        _mouseOffClick.remove(clickDelegate);
-    }
-
-    void iWidget::unregisterOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
-    {
-        _mouseOver.remove(iMouseOverDelegate);
-    }
-
-    void iWidget::unregisterOnMouseOffEvent(iMouseOffDelegate iMouseOffDelegate)
-    {
-        _mouseOff.remove(iMouseOffDelegate);
-    }
-
-    void iWidget::unregisterOnChangeEvent(iChangeDelegate iChangeDelegate)
-    {
-        _change.remove(iChangeDelegate);
-    }
-
-    void iWidget::unregisterOnFocusEvent(iFocusDelegate iFocusDelegate)
-    {
-        _focus.remove(iFocusDelegate);
-    }
-
-    iClickEvent& iWidget::getClickEvent()
+    iClickEvent &iWidget::getClickEvent()
     {
         return _click;
     }
 
-    void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
+    iMouseOffClickEvent &iWidget::getMouseOffClickEvent()
     {
-        _mouseOffClick.add(clickDelegate);
+        return _mouseOffClick;
     }
 
-    void iWidget::registerOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
+    iDoubleClickEvent &iWidget::getDoubleClickEvent()
     {
-        _mouseOver.add(iMouseOverDelegate);
+        return _doubleClick;
     }
 
-    void iWidget::registerOnMouseOffEvent(iMouseOffDelegate iMouseOffDelegate)
+    iMouseOverEvent &iWidget::getMouseOverEvent()
     {
-        _mouseOff.add(iMouseOffDelegate);
+        return _mouseOver;
     }
 
-    void iWidget::registerOnChangeEvent(iChangeDelegate iChangeDelegate)
+    iMouseOffEvent &iWidget::getMouseOffEvent()
     {
-        _change.add(iChangeDelegate);
+        return _mouseOff;
     }
 
-    void iWidget::registerOnFocusEvent(iFocusDelegate iFocusDelegate)
+    iChangeEvent &iWidget::getChangeEvent()
     {
-        _focus.add(iFocusDelegate);
+        return _change;
     }
 
-    void iWidget::registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
+    iFocusEvent &iWidget::getFocusEvent()
     {
-        _doubleClick.add(doubleClickDelegate);
+        return _focus;
     }
 
-    void iWidget::unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate)
+    iWheelUpEvent &iWidget::getWheelUpEvent()
     {
-        _doubleClick.remove(doubleClickDelegate);
+        return _wheelUp;
     }
 
-    void iWidget::registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    iWheelDownEvent &iWidget::getWheelDownEvent()
     {
-        _contextMenu.add(contextMenuDelegate);
+        return _wheelDown;
     }
 
-    void iWidget::unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    iContextMenuEvent &iWidget::getContextMenuEvent()
     {
-        _contextMenu.remove(contextMenuDelegate);
+        return _contextMenu;
+    }
+
+    iSelectionChangedEvent &iWidget::getSelectionChangedEvent()
+    {
+        return _selectionChanged;
     }
 
     void iWidget::setKeyboardFocus()
@@ -376,26 +362,6 @@ namespace igor
         return _isMouseOver;
     }
 
-    void iWidget::registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
-    {
-        _wheelUp.add(wheelUpDelegate);
-    }
-
-    void iWidget::unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate)
-    {
-        _wheelUp.remove(wheelUpDelegate);
-    }
-
-    void iWidget::registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
-    {
-        _wheelDown.add(wheelDownDelegate);
-    }
-
-    void iWidget::unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate)
-    {
-        _wheelDown.remove(wheelDownDelegate);
-    }
-
     void iWidget::onLostKeyboardFocus()
     {
         // implement in derived class if needed
@@ -406,7 +372,7 @@ namespace igor
         // implement in derived class if needed
     }
 
-    bool iWidget::onMouseWheel(iEventMouseWheel &event)
+    bool iWidget::onMouseWheel(const iEventMouseWheel &event)
     {
         if (!isEnabled() ||
             !_reactOnMouseWheel ||
@@ -444,7 +410,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onMouseDoubleClick(iEventMouseKeyDoubleClick &event)
+    bool iWidget::onMouseDoubleClick(const iEventMouseKeyDoubleClick &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -512,17 +478,7 @@ namespace igor
         return _acceptOutOfBoundsClicks;
     }
 
-    void iWidget::registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.add(delegate);
-    }
-
-    void iWidget::unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.remove(delegate);
-    }
-
-    bool iWidget::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidget::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -558,7 +514,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidget::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -600,12 +556,18 @@ namespace igor
                         _widgetState = iWidgetState::Clicked;
                         setKeyboardFocus();
 
+                        bool wasSelected = isSelected();
+
                         if (event.getKey() == iKeyCode::MouseLeft)
                         {
                             _click(this);
                         }
 
-                        select();
+                        // unly change selection if it was not touched by click callback already
+                        if (wasSelected == isSelected())
+                        {
+                            setSelect(true);
+                        }
 
                         if (event.getKey() == iKeyCode::MouseRight)
                         {
@@ -626,7 +588,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onASCII(iEventKeyASCII &event)
+    bool iWidget::onASCII(const iEventKeyASCII &event)
     {
         if (!isEnabled())
         {
@@ -668,7 +630,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onKeyDown(iEventKeyDown &event)
+    bool iWidget::onKeyDown(const iEventKeyDown &event)
     {
         if (!isEnabled())
         {
@@ -689,7 +651,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onKeyUp(iEventKeyUp &event)
+    bool iWidget::onKeyUp(const iEventKeyUp &event)
     {
         if (!isEnabled())
         {
@@ -717,7 +679,7 @@ namespace igor
         return false;
     }
 
-    void iWidget::onMouseMove(iEventMouseMove &event)
+    void iWidget::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -995,14 +957,14 @@ namespace igor
         int32 minWidth = width + _clientAreaLeft + _clientAreaRight;
         int32 minHeight = height + _clientAreaTop + _clientAreaBottom;
 
-        if (minWidth < _configuredMinWidth)
+        if (minWidth < _configuredMinWidth * getScale())
         {
-            minWidth = _configuredMinWidth;
+            minWidth = _configuredMinWidth * getScale();
         }
 
-        if (minHeight < _configuredMinHeight)
+        if (minHeight < _configuredMinHeight * getScale())
         {
-            minHeight = _configuredMinHeight;
+            minHeight = _configuredMinHeight * getScale();
         }
 
         _minWidth = minWidth;
@@ -1217,6 +1179,13 @@ namespace igor
         return iaRectanglef(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
     }
 
+    iaRectanglef iWidget::getActualClientRect() const
+    {
+        iaRectanglef result(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+        result.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
+        return result;
+    }
+
     int32 iWidget::getRelativePosX() const
     {
         return _relativeX;
@@ -1250,42 +1219,39 @@ namespace igor
         return _isMultiSelectionEnabled;
     }
 
-    void iWidget::select()
+    void iWidget::setSelect(bool select)
     {
         if (!isSelectable())
         {
             return;
         }
 
-        auto parent = getParent();
-
-        if (parent != nullptr &&
-            !parent->isMultiSelectionEnabled())
+        if (select)
         {
-            parent->clearSelection();
+            auto parent = getParent();
+
+            if (parent != nullptr &&
+                !parent->isMultiSelectionEnabled())
+            {
+                parent->clearSelection();
+            }
+
+            _selected = true;
+
+            if (parent != nullptr)
+            {
+                parent->_selectionChanged(parent);
+            }
         }
-
-        _selected = true;
-
-        if (parent != nullptr)
+        else
         {
-            parent->_selectionChanged(parent);
-        }
-    }
+            _selected = false;
 
-    void iWidget::unselect()
-    {
-        if (!isSelectable())
-        {
-            return;
-        }
-
-        _selected = false;
-
-        auto parent = getParent();
-        if (parent != nullptr)
-        {
-            parent->_selectionChanged(parent);
+            auto parent = getParent();
+            if (parent != nullptr)
+            {
+                parent->_selectionChanged(parent);
+            }
         }
     }
 
@@ -1304,17 +1270,23 @@ namespace igor
         _selectionChanged(this);
     }
 
-    const std::vector<iWidgetPtr> iWidget::getSelection() const
+    static void getSelectionRecursive(const iWidget *widget, std::vector<iWidgetPtr> &selection)
     {
-        std::vector<iWidgetPtr> selection;
-
-        for (auto child : getChildren())
+        for (const auto child : widget->getChildren())
         {
             if (child->isSelected())
             {
                 selection.push_back(child);
             }
+
+            getSelectionRecursive(child, selection);
         }
+    }
+
+    const std::vector<iWidgetPtr> iWidget::getSelection() const
+    {
+        std::vector<iWidgetPtr> selection;
+        getSelectionRecursive(this, selection);
 
         return selection;
     }

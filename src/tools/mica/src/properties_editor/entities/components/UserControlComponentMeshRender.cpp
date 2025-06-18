@@ -11,9 +11,9 @@ UserControlComponentMeshRender::UserControlComponentMeshRender(const iEntityScen
 {
 }
 
-void UserControlComponentMeshRender::init()
+void UserControlComponentMeshRender::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -22,7 +22,7 @@ void UserControlComponentMeshRender::init()
     meshCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelMesh = new iWidgetLabel(meshCountLayout);
     labelMesh->setText("Meshes");
-    labelMesh->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelMesh->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelMesh->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelMeshCount = new iWidgetLabel(meshCountLayout);
@@ -33,7 +33,7 @@ void UserControlComponentMeshRender::init()
     trianglesCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelIndex = new iWidgetLabel(trianglesCountLayout);
     labelIndex->setText("Triangles");
-    labelIndex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelIndex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelIndex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelTrianglesCount = new iWidgetLabel(trianglesCountLayout);
@@ -44,7 +44,7 @@ void UserControlComponentMeshRender::init()
     vertexCountLayout->setStretchIndex(1);
     iWidgetLabelPtr labelVertex = new iWidgetLabel(vertexCountLayout);
     labelVertex->setText("Vertices");
-    labelVertex->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelVertex->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelVertex->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _labelVertexCount = new iWidgetLabel(vertexCountLayout);
@@ -53,10 +53,10 @@ void UserControlComponentMeshRender::init()
 
 void UserControlComponentMeshRender::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentMeshRender::update()
+void UserControlComponentMeshRender::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -95,7 +95,7 @@ void UserControlComponentMeshRender::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentMeshRender::updateComponent()
+void UserControlComponentMeshRender::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

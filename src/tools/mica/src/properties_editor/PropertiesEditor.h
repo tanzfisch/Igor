@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PROPERTIES_EDITOR__
-#define __PROPERTIES_EDITOR__
+#ifndef MICA_PROPERTIES_EDITOR_H
+#define MICA_PROPERTIES_EDITOR_H
 
 #include "UserControlProperties.h"
 
@@ -47,33 +47,19 @@ public:
      */
     ~PropertiesEditor() = default;
 
-    /*! sets selection of a node id
-
-    \param nodeID the node id to be selected
-    */
-    void setSelection(iNodeID nodeID);
-
     /*! sets selection of a resource id
 
     \param resourceID the id to be selected
     */
     void setSelectionResource(const iResourceID &resourceID);
 
-    /*! sets selection for entity scene and entity
-
-    \param sceneID the scene id
-    \param entityID the entity id in the same scene
-    */
-    void setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID);
-
 private:
-
     /*! scroll widget
-    */
+     */
     iWidgetScrollPtr _scroll = nullptr;
 
     /*! user control properties
-    */
+     */
     UserControlProperties *_userControlProperties = nullptr;
 
     /*! init UI
@@ -81,8 +67,26 @@ private:
     void initGUI();
 
     /*! delete current properties UI
-    */
+     */
     void deinitProperties();
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
+    /*! called when project was loaded
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! called when project was unloaded
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
-#endif // __PROPERTIES_EDITOR__
+#endif // MICA_PROPERTIES_EDITOR_H

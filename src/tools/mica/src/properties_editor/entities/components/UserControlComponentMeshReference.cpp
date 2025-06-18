@@ -12,9 +12,9 @@ UserControlComponentMeshReference::UserControlComponentMeshReference(const iEnti
 {
 }
 
-void UserControlComponentMeshReference::init()
+void UserControlComponentMeshReference::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -23,21 +23,21 @@ void UserControlComponentMeshReference::init()
     meshRefLayout->setStretchIndex(1);
     iWidgetLabelPtr labelMeshRef = new iWidgetLabel(meshRefLayout);
     labelMeshRef->setText("Mesh Ref.");
-    labelMeshRef->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelMeshRef->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelMeshRef->setVerticalAlignment(iVerticalAlignment::Top);
     labelMeshRef->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _meshReference = new iUserControlMeshReference(meshRefLayout);
     _meshReference->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _meshReference->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentMeshReference::onValueChanged));
+    _meshReference->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentMeshReference::onValueChanged));
 }
 
 void UserControlComponentMeshReference::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentMeshReference::update()
+void UserControlComponentMeshReference::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -71,7 +71,7 @@ void UserControlComponentMeshReference::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentMeshReference::updateComponent()
+void UserControlComponentMeshReference::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

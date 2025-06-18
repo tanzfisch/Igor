@@ -56,7 +56,7 @@ namespace igor
 			auto entityID = std::any_cast<iEntityID>(object->_userData);
 			auto entity = scene->getEntity(entityID);
 			
-			if ((_componentMask & entity->getComponentMask()).any())
+			if ((_componentMask & entity->getComponentMask()) == _componentMask)
 			{
 				renderEngine->addMesh(entity);
 			}

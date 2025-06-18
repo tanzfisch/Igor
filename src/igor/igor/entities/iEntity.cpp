@@ -42,7 +42,7 @@ namespace igor
     {
         std::vector<std::type_index> result;
         _mutex.lock();
-        for(const auto &pair : _components)
+        for (const auto &pair : _components)
         {
             result.push_back(pair.first);
         }
@@ -103,11 +103,6 @@ namespace igor
 
     bool iEntity::processComponents()
     {
-        if (getName() == "shop")
-        {
-            int x = 0;
-        }
-
         _mutex.lock();
         auto componentsToProcess = std::move(_unloadedComponents);
         _mutex.unlock();
@@ -123,24 +118,25 @@ namespace igor
 
         for (const auto &pair : componentsToProcess)
         {
-            con_assert(pair.second->_state == iEntityComponentState::Unloaded || pair.second->_state == iEntityComponentState::UnloadedInactive, "invalid state");
+            iEntityComponentPtr component = pair.second;
+            con_assert(component->_state == iEntityComponentState::Unloaded || component->_state == iEntityComponentState::UnloadedInactive, "invalid state");
 
             bool asyncLoad = false;
-            bool active = pair.second->_state == iEntityComponentState::Unloaded;
+            bool active = component->_state == iEntityComponentState::Unloaded;
 
-            bool success = pair.second->onLoad(this, asyncLoad);
+            bool success = component->onLoad(this, asyncLoad);
             if (success)
             {
                 if (active)
                 {
-                    pair.second->onActivate(this);
-                    pair.second->_state = iEntityComponentState::Active;
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
                 }
                 else
                 {
-                    pair.second->onActivate(this);
-                    pair.second->onDeactivate(this);
-                    pair.second->_state = iEntityComponentState::Inactive;
+                    component->onActivate(this);
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
                 }
 
                 changed = true;
@@ -150,7 +146,7 @@ namespace igor
             {
                 if (!asyncLoad)
                 {
-                    pair.second->_state = iEntityComponentState::LoadFailed;
+                    component->_state = iEntityComponentState::LoadFailed;
                     con_err("load of component " << pair.first.name() << " failed");
                 }
                 else
@@ -173,7 +169,7 @@ namespace igor
         if (changed)
         {
             _componentMask = calcComponentMask();
-            onEntityChanged();
+            onEntityStructureChanged();
         }
 
         return !processAgain;
@@ -188,7 +184,6 @@ namespace igor
         if (iter == _components.end())
         {
             _mutex.unlock();
-            con_err("trying to remove component that does not exist");
             return;
         }
 
@@ -201,11 +196,26 @@ namespace igor
             component->onDeactivate(this);
             component->_state == iEntityComponentState::Inactive;
         }
-
-        if (component->_state == iEntityComponentState::Inactive)
+        else if (component->_state == iEntityComponentState::Inactive)
         {
             component->onUnLoad(this);
             component->_state = iEntityComponentState::Unloaded;
+        }
+        else if (component->_state == iEntityComponentState::Unloaded ||
+                 component->_state == iEntityComponentState::UnloadedInactive)
+        {
+            _mutex.lock();
+            auto iter = std::find_if(_unloadedComponents.begin(), _unloadedComponents.end(),
+                                     [component](const std::pair<std::type_index, iEntityComponentPtr> &element)
+                                     {
+                                         return component == element.second;
+                                     });
+
+            if (iter != _unloadedComponents.end())
+            {
+                _unloadedComponents.erase(iter);
+            }
+            _mutex.unlock();
         }
 
         delete component;
@@ -248,9 +258,9 @@ namespace igor
         componentToProcess(typeID);
     }
 
-    void iEntity::onEntityChanged()
+    void iEntity::onEntityStructureChanged()
     {
-        _scene->onEntityChanged(this);
+        _scene->onEntityStructureChanged(this);
 
         iEntitySystemModule::getInstance().getEntityChangedEvent()(this);
     }
@@ -265,7 +275,24 @@ namespace igor
             destroyComponent(pair.first);
         }
 
-        onEntityChanged();
+        onEntityStructureChanged();
+    }
+
+    iEntityIDPath iEntity::getIDPath() const
+    {
+        iEntityIDPath result;
+
+        result += _id;
+
+        iEntityPtr parent = getParent();
+        while (parent != nullptr)
+        {
+            result += parent->getID();
+            parent = parent->getParent();
+        }
+        result.reverse();
+
+        return result;
     }
 
     const iEntityID &iEntity::getID() const
@@ -278,7 +305,7 @@ namespace igor
         return _name;
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name)
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
     {
         iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
         if (behaviourComponent == nullptr)
@@ -286,7 +313,7 @@ namespace igor
             behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
         }
 
-        behaviourComponent->_behaviors.push_back({delegate, userData, name});
+        behaviourComponent->addBehaviour(delegate, userData, name, priority);
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)
@@ -299,20 +326,9 @@ namespace igor
             return;
         }
 
-        auto &behaviors = behaviourComponent->_behaviors;
+        behaviourComponent->removeBehaviour(delegate);
 
-        auto iter = std::find_if(behaviors.begin(), behaviors.end(), [delegate](const iBehaviourData &behaviourData)
-                                 { return behaviourData._delegate == delegate; });
-
-        if (iter == behaviors.end())
-        {
-            con_err("can't remove given behavior");
-            return;
-        }
-
-        behaviors.erase(iter);
-
-        if (!behaviors.empty())
+        if (!behaviourComponent->getBehaviors().empty())
         {
             return;
         }
@@ -396,28 +412,51 @@ namespace igor
         return _inactiveChildren;
     }
 
-    void iEntity::setActive(bool active)
+    void iEntity::setActiveExclusive(bool active)
     {
-        if (_active == active)
+        setActive(active);
+
+        if (!hasParent())
         {
             return;
         }
 
-        _active = active;
+        if (!active)
+        {
+            auto inactiveChildren = _parent->_inactiveChildren;
+            for (const auto &sibling : inactiveChildren)
+            {
+                if (sibling == this)
+                {
+                    continue;
+                }
+                sibling->setActive(true);
+            }
+        }
+        else
+        {
+            auto children = _parent->_children;
+            for (const auto &sibling : children)
+            {
+                if (sibling == this)
+                {
+                    continue;
+                }
+                sibling->setActive(false);
+            }
+        }
+    }
+
+    void iEntity::setActive(bool active)
+    {
+        if (isActive() == active)
+        {
+            return;
+        }
 
         if (hasParent())
         {
-            if (!_active)
-            {
-                auto &children = _parent->_children;
-                auto iter = std::find(children.begin(), children.end(), this);
-                if (iter != children.end())
-                {
-                    children.erase(iter);
-                    _parent->_inactiveChildren.push_back(this);
-                }
-            }
-            else
+            if (active)
             {
                 auto &inactiveChildren = _parent->_inactiveChildren;
                 auto iter = std::find(inactiveChildren.begin(), inactiveChildren.end(), this);
@@ -427,21 +466,36 @@ namespace igor
                     _parent->_children.push_back(this);
                 }
             }
+            else
+            {
+                auto &children = _parent->_children;
+                auto iter = std::find(children.begin(), children.end(), this);
+                if (iter != children.end())
+                {
+                    children.erase(iter);
+                    _parent->_inactiveChildren.push_back(this);
+                }
+            }
         }
 
-        if (_active)
+        bool componentsChanged = false;
+
+        if (active)
         {
             // activate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Inactive)
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Inactive)
                 {
-                    pair.second->onActivate(this);
-                    pair.second->_state = iEntityComponentState::Active;
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
+                    componentsChanged = true;
                 }
-                else if (pair.second->_state == iEntityComponentState::UnloadedInactive)
+                else if (component->_state == iEntityComponentState::UnloadedInactive)
                 {
-                    pair.second->_state = iEntityComponentState::Unloaded;
+                    component->_state = iEntityComponentState::Unloaded;
+                    componentsChanged = true;
                 }
             }
 
@@ -449,7 +503,7 @@ namespace igor
             auto children = getInactiveChildren(); // make copy
             for (auto child : children)
             {
-                child->setActive(_active);
+                child->setActive(active);
             }
         }
         else
@@ -457,14 +511,17 @@ namespace igor
             // deactivate components
             for (const auto &pair : _components)
             {
-                if (pair.second->_state == iEntityComponentState::Active)
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Active)
                 {
-                    pair.second->onDeactivate(this);
-                    pair.second->_state = iEntityComponentState::Inactive;
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
+                    componentsChanged = true;
                 }
-                else if (pair.second->_state == iEntityComponentState::Unloaded)
+                else if (component->_state == iEntityComponentState::Unloaded)
                 {
-                    pair.second->_state = iEntityComponentState::UnloadedInactive;
+                    component->_state = iEntityComponentState::UnloadedInactive;
+                    componentsChanged = true;
                 }
             }
 
@@ -472,16 +529,30 @@ namespace igor
             auto children = getChildren(); // make copy
             for (auto child : children)
             {
-                child->setActive(_active);
+                child->setActive(active);
             }
         }
 
-        onEntityChanged();
+        if (componentsChanged)
+        {
+            _componentMask = calcComponentMask();
+        }
+
+        onEntityStructureChanged();
+
+        setDirtyHierarchy();
     }
 
     bool iEntity::isActive() const
     {
-        return _active;
+        const auto parent = getParent();
+        if (parent == nullptr)
+        {
+            return true;
+        }
+
+        const auto &siblings = parent->getChildren();
+        return std::find(siblings.begin(), siblings.end(), this) != siblings.end();
     }
 
     iEntityComponentMask iEntity::calcComponentMask(const std::vector<std::type_index> &types)
@@ -505,7 +576,9 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _components)
         {
-            if (pair.second->_state == iEntityComponentState::Active)
+            iEntityComponentPtr component = pair.second;
+            if (component->_state == iEntityComponentState::Active ||
+                component->_state == iEntityComponentState::Inactive)
             {
                 result |= esm.getComponentMask(pair.first);
             }
@@ -525,39 +598,48 @@ namespace igor
         return _dirtyHierarchy;
     }
 
-    void iEntity::setDirtyHierarchy(bool dirty)
+    void iEntity::resetDirtyHierarchy()
     {
-        _dirtyHierarchy = dirty;
+        _dirtyHierarchy = false;
+    }
 
-        if (_dirtyHierarchy)
+    void iEntity::setDirtyHierarchy()
+    {
+        _dirtyHierarchy = true;
+
+        if (hasParent())
         {
-            if (hasParent())
-            {
-                getParent()->setDirtyHierarchyUp();
-            }
+            getParent()->setDirtyHierarchyUp();
+        }
 
-            for (uint32 i = 0; i < _children.size(); ++i)
-            {
-                _children[i]->setDirtyHierarchyDown();
-            }
+        for (uint32 i = 0; i < _children.size(); ++i)
+        {
+            _children[i]->setDirtyHierarchyDown();
         }
     }
 
     void iEntity::setDirtyHierarchyUp()
     {
-        if (!_dirtyHierarchy)
+        if (_dirtyHierarchy)
         {
-            _dirtyHierarchy = true;
+            return;
+        }
 
-            if (hasParent())
-            {
-                getParent()->setDirtyHierarchyUp();
-            }
+        _dirtyHierarchy = true;
+
+        if (hasParent())
+        {
+            getParent()->setDirtyHierarchyUp();
         }
     }
 
     void iEntity::setDirtyHierarchyDown()
     {
+        if (_dirtyHierarchy)
+        {
+            return;
+        }
+
         _dirtyHierarchy = true;
 
         for (auto child : _children)

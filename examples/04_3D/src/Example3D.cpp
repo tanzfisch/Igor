@@ -16,7 +16,7 @@ void Example3D::onInit()
     iPrefabPtr scenePrefab = iResourceManager::getInstance().createResource<iPrefab>();
     _entityScene = iEntitySystemModule::getInstance().getScene(scenePrefab->getSceneID());
     _entityScene->initializeOctree(iAACubed(iaVector3d(), 10000));
-    getView().setEntityScene(_entityScene);
+    getView().setScene(_entityScene);
 
     iEntityPtr cameraHeading = _entityScene->createEntity("cameraHeading");
     _cameraHeading = cameraHeading->getID();
@@ -48,7 +48,7 @@ void Example3D::onInit()
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    getView().setEntityScene(iProject::getInstance().getProjectScene());
+    getView().setScene(iProject::getInstance().getProjectScene());
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);
@@ -58,12 +58,7 @@ void Example3D::onInit()
 
 void Example3D::onEvent(iEvent &event)
 {
-    auto scene = iProject::getInstance().getProjectScene();
-
-    if(getView().getEntityScene() != scene)
-    {
-        getView().setEntityScene(scene);
-    }
+    // TODO getView().setScene(iProject::getInstance().getProjectScene());
 
     // first call example base
     ExampleBase::onEvent(event);
@@ -101,8 +96,8 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
         auto pitch = scene->getEntity(_cameraPitch)->getComponent<iTransformComponent>();
         auto heading = scene->getEntity(_cameraHeading)->getComponent<iTransformComponent>();
 
-        pitch->rotate(iaVector3d((to._y - from._y) * 0.005f, 0.0, 0.0));
-        heading->rotate(iaVector3d(0.0, (to._x - from._x) * 0.005f, 0.0));
+        pitch->rotate(iaQuaterniond::fromEuler(iaVector3d((to._y - from._y) * 0.005f, 0.0, 0.0)));
+        heading->rotate(iaQuaterniond::fromEuler(iaVector3d(0.0, (to._x - from._x) * 0.005f, 0.0)));
 
         iMouse::getInstance().setCenter();
     }

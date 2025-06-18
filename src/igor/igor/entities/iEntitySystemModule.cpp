@@ -26,15 +26,7 @@
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
-
-#include <igor/entities/systems/iAnimationSystem.h>
-#include <igor/entities/systems/iBehaviourSystem.h>
-#include <igor/entities/systems/iCameraSystem.h>
-#include <igor/entities/systems/iLightSystem.h>
-#include <igor/entities/systems/iMeshRenderSystem.h>
-#include <igor/entities/systems/iSpriteRenderSystem.h>
-#include <igor/entities/systems/iTransformSystem.h>
-#include <igor/entities/systems/iVelocitySystem.h>
+#include <igor/entities/components/iAnimationComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
@@ -57,8 +49,7 @@ namespace igor
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
         registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, iBehaviourComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
-        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
-        registerComponentType<iPartyComponent>(iPartyComponent::createInstance, iPartyComponent::getTypeName());
+        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());        
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());
         registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, iMeshRenderComponent::getTypeName());
         registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, iMeshReferenceComponent::getTypeName());
@@ -164,17 +155,13 @@ namespace igor
 
     iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
     {
-        iEntityScenePtr result = nullptr;
+        iEntityScenePtr result = nullptr;        
 
         _mutex.lock();
         auto iter = _scenes.find(sceneID);
         if (iter != _scenes.end())
         {
             result = iter->second;
-        }
-        else
-        {
-            con_err("scene with id " << sceneID << " not found");
         }
         _mutex.unlock();
 
@@ -362,6 +349,12 @@ namespace igor
 
     void iEntitySystemModule::insert(iEntityPtr srcEntity, iEntityPtr dstEntity)
     {
+        if(srcEntity == dstEntity)
+        {
+            con_err("Can't copy on it self");
+            return;
+        }
+
         iEntityCopyTraverser traverser(dstEntity, false);
         traverser.traverse(srcEntity);
     }

@@ -30,6 +30,7 @@
 #define IGOR_ITEM_DATA_H
 
 #include <igor/data/iItem.h>
+#include <igor/data/iItemPath.h>
 
 namespace igor
 {
@@ -65,7 +66,7 @@ namespace igor
 
         \param itemPath the given item path
         */
-        iItemPtr getItem(const iaString &itemPath);
+        iItemPtr getItem(const iItemPath &itemPath);
 
         /*! compare two item data sets for equality
 

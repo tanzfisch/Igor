@@ -38,22 +38,22 @@ namespace igor
 {
 
     /*! Axis aligned box
-	*/
+     */
     template <class T>
     class IGOR_API_EXPORT_ONLY iAABox
     {
 
     public:
         /*! center of of box
-        */
+         */
         iaVector3<T> _center;
 
         /*! half widths for all axis
-        */
+         */
         iaVector3<T> _halfWidths;
 
         /*! does nothing
-        */
+         */
         iAABox() = default;
 
         /*! init members constructor
@@ -87,20 +87,28 @@ namespace igor
 
 #include <igor/data/iAABox.inl>
 
-    /*! float32 specialization of iAABox
+    /*! stream operator e.g. for console output
+
+    \param ostr the out stream handle
+    \param box the box to print in stream
     */
+    template <class T>
+    std::wostream &operator<<(std::wostream &ostr, const iAABox<T> &box);
+
+    /*! float32 specialization of iAABox
+     */
     typedef iAABox<float32> iAABoxf;
 
     /*! float32 specialization of iAABox
-    */
+     */
     typedef iAABox<float64> iAABoxd;
 
     /*! int32 specialization of iAABox
-    */
+     */
     typedef iAABox<int32> iAABoxi;
 
     /*! int64 specialization of iAABox
-    */
+     */
     typedef iAABox<int64> iAABoxI;
 
 } // namespace igor

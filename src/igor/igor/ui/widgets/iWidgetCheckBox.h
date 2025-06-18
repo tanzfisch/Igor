@@ -96,7 +96,7 @@ namespace igor
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! if check box is part of a radio button group. this is the group
 		*/

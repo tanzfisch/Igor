@@ -27,7 +27,7 @@ void iEntity::destroyComponent()
 {
     const std::type_index typeID = typeid(T);
     destroyComponent(typeID);
-    onEntityChanged();
+    onEntityStructureChanged();
 }
 
 template <typename T>

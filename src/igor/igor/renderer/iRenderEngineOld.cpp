@@ -235,11 +235,11 @@ namespace igor
 
             if (iLightType::Directional == light->getType())
             {
-                iRenderer::getInstance().setLightPosition(lightNum, light->getDirection());
+                iRenderer::getInstance().setDirectionalLight(lightNum, light->getDirection());
             }
             else
             {
-                iRenderer::getInstance().setLightPosition(lightNum, light->getPosition());
+                iRenderer::getInstance().setPointLight(lightNum, light->getPosition());
             }
 
             ++lightNum;

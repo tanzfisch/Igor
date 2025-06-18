@@ -14,13 +14,13 @@ namespace igor
     iEntityComponent *iSpriteRenderComponent::createInstance()
     {
         return new iSpriteRenderComponent();
-    }      
+    }
 
-    const iaString& iSpriteRenderComponent::getTypeName()
+    const iaString &iSpriteRenderComponent::getTypeName()
     {
         static const iaString name("igor_sprite_render_component");
         return name;
-    }       
+    }
 
     iEntityComponentPtr iSpriteRenderComponent::getCopy()
     {
@@ -34,4 +34,57 @@ namespace igor
         return component;
     }
 
+    std::vector<iaString> iSpriteRenderComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        if (_sprite)
+        {
+            result.push_back(iaString("Spt: ") + _sprite->getID());
+        }
+        else
+        {
+            result.push_back(iaString("no sprite"));
+        }
+
+        result.push_back(iaString("ZIx: ") + iaString::toString(_zIndex));
+
+        return result;
+    }
+
+    void iSpriteRenderComponent::setSprite(iSpritePtr sprite)
+    {
+        _sprite = sprite;
+        setDirty();
+    }
+
+    void iSpriteRenderComponent::setSize(const iaVector2d &size)
+    {
+        _size = size;
+        setDirty();
+    }
+
+    void iSpriteRenderComponent::setColor(const iaColor4f &color)
+    {
+        _color = color;
+        setDirty();
+    }
+
+    void iSpriteRenderComponent::setZIndex(int32 zIndex)
+    {
+        _zIndex = zIndex;
+        setDirty();
+    }
+
+    void iSpriteRenderComponent::setRenderMode(iSpriteRenderComponent::iRenderMode mode)
+    {
+        _renderMode = mode;
+        setDirty();
+    }
+
+    void iSpriteRenderComponent::setFrameIndex(int32 frameIndex)
+    {
+        _frameIndex = frameIndex;
+        setDirty();
+    }
 }

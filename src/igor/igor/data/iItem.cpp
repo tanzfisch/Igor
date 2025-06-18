@@ -32,7 +32,8 @@ namespace igor
 
     void iItem::removeItem(iItemPtr item)
     {
-        auto iter = std::find_if(_items.begin(), _items.end(), [item](const std::unique_ptr<iItem> &ptr)
+        auto iter = std::find_if(_items.begin(), _items.end(),
+                                 [item](const std::unique_ptr<iItem> &ptr)
                                  { return ptr.get() == item; });
 
         if (iter == _items.end())

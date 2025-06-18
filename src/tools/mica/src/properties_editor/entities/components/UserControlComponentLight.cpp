@@ -11,9 +11,9 @@ UserControlComponentLight::UserControlComponentLight(const iEntitySceneID &scene
 {    
 }
 
-void UserControlComponentLight::init()
+void UserControlComponentLight::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -22,58 +22,58 @@ void UserControlComponentLight::init()
     lightTypeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelType = new iWidgetLabel(lightTypeLayout);
     labelType->setText("Type");
-    labelType->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelType->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _lightType = new iWidgetSelectBox(lightTypeLayout);
     _lightType->addItem("Directional", iLightType::Directional);
     _lightType->addItem("Point", iLightType::Point);
     _lightType->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _lightType->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
+    _lightType->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
 
     iWidgetBoxLayoutPtr ambientLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     ambientLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     ambientLayout->setStretchIndex(1);
     iWidgetLabelPtr labelAmbient = new iWidgetLabel(ambientLayout);
     labelAmbient->setText("Ambient");
-    labelAmbient->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelAmbient->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelAmbient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _ambient = new iUserControlColor(ambientLayout);
     _ambient->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _ambient->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
+    _ambient->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));
 
     iWidgetBoxLayoutPtr diffuseLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     diffuseLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     diffuseLayout->setStretchIndex(1);
     iWidgetLabelPtr labelDiffuse = new iWidgetLabel(diffuseLayout);
     labelDiffuse->setText("Diffuse");
-    labelDiffuse->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelDiffuse->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelDiffuse->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _diffuse = new iUserControlColor(diffuseLayout);
     _diffuse->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _diffuse->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));    
+    _diffuse->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));    
 
     iWidgetBoxLayoutPtr specularLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     specularLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     specularLayout->setStretchIndex(1);
     iWidgetLabelPtr labelSpecular = new iWidgetLabel(specularLayout);
     labelSpecular->setText("Diffuse");
-    labelSpecular->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSpecular->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelSpecular->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _specular = new iUserControlColor(specularLayout);
     _specular->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _specular->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));      
+    _specular->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentLight::onValueChanged));      
 }
 
 void UserControlComponentLight::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentLight::update()
+void UserControlComponentLight::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -103,7 +103,7 @@ void UserControlComponentLight::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentLight::updateComponent()
+void UserControlComponentLight::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

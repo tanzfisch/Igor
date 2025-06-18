@@ -62,8 +62,6 @@ namespace igor
 
         values have to be from 0.0 to 1.0 and represent a resolution independent unit.
 
-        TODO need a pixel version of this
-
         \param rect rectangle with view port boundings using relative values 0.0 - 1.0
         */
         void setViewportRelative(const iaRectangled &rect);
@@ -100,11 +98,11 @@ namespace igor
 
         /*! \returns near clipping plane
          */
-        float64 getNearClipPlane() const;
+        float64 getNearPlane() const;
 
         /*! \returns far clipping plane
          */
-        float64 getFarClipPlane() const;
+        float64 getFarPlane() const;
 
         /*! sets the clear color bit.
 
@@ -175,6 +173,10 @@ namespace igor
          */
         float64 getBottomOrtho() const;
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! viewport
          */
@@ -220,18 +222,22 @@ namespace igor
          */
         float64 _rightOrtho = 1.0;
 
+        /*! bottom value used for orthogonal projection
+         */
+        float64 _bottomOrtho = -1.0;        
+
         /*! top value used for orthogonal projection
          */
         float64 _topOrtho = 1.0;
-
-        /*! bottom value used for orthogonal projection
-         */
-        float64 _bottomOrtho = -1.0;
 
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! camera component pointer definition
+    */
+    typedef iCameraComponent* iCameraComponentPtr;
 
 }
 

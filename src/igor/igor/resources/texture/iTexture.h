@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURE__
-#define __IGOR_TEXTURE__
+#ifndef IGOR_TEXTURE_H
+#define IGOR_TEXTURE_H
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -180,4 +180,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURE__
+#endif // IGOR_TEXTURE_H

@@ -52,6 +52,8 @@ namespace igor
     public:
         template <typename T>
         static const T getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue);
+
+        static json parse(const iaString &filename);
     };
 
     /*! iAACubef to json
@@ -115,6 +117,14 @@ namespace iaux
      */
     void from_json(const json &j, iaVector4f &vec);
 
+    /*! iaQuaternionf to json
+     */
+    void to_json(json &j, const iaQuaternionf &vec);
+
+    /*! json to iaQuaternionf
+     */
+    void from_json(const json &j, iaQuaternionf &vec);    
+
     /*! iaVector2d to json
      */
     void to_json(json &j, const iaVector2d &vec);
@@ -138,6 +148,14 @@ namespace iaux
     /*! json to iaVector4d
      */
     void from_json(const json &j, iaVector4d &vec);
+
+    /*! iaQuaterniond to json
+     */
+    void to_json(json &j, const iaQuaterniond &vec);
+
+    /*! json to iaQuaterniond
+     */
+    void from_json(const json &j, iaQuaterniond &vec);    
 
     /*! iaColor3f to json
      */

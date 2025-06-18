@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_MESHBUILDERUTILS__
-#define __IGOR_MESHBUILDERUTILS__
+#ifndef IGOR_MESH_BUILDER_UTILS_H
+#define IGOR_MESH_BUILDER_UTILS_H
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -47,6 +47,17 @@ namespace igor
         \param hasCaps if true the cylinder will have caps on top and bottom
         */
         void IGOR_API addCylinder(iMeshBuilder &meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
+
+        /*! adds a torus to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param majorRadius the major radius of the torus
+        \param minorRadiusX the horizontal minor radius of the torus
+        \param minorRadiusY the vertical minor radius of the torus
+        \param majorSegments the major segment count
+        \param minorSegments the minor segment count
+        */
+        void IGOR_API addTorus(iMeshBuilder &meshBuilder, float32 majorRadius, float32 minorRadiusX, float32 minorRadiusY, uint32 majorSegments = 16, uint32 minorSegments = 8);
 
         /*! adds a sphere to the given mesh builder instance
 
@@ -115,4 +126,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_MESH_BUILDER_UTILS_H

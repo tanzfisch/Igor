@@ -169,16 +169,16 @@ namespace igor
 
 		\param entity the entity to update with this system
 		*/
-		void onEntityChanged(iEntityPtr entity);
+		void onEntityStructureChanged(iEntityPtr entity);
 
 		/*! create an entity view for given component types
 
 		\returns entity view
 		*/
 		template <typename... Args>
-		iEntityViewPtr createView()
+		iEntityViewPtr createView(const iaString& name = "")
 		{
-			iEntityViewPtr view = new iEntityView();
+			iEntityViewPtr view = new iEntityView(name);
 			(view->registerType<Args>(), ...);
 			_views.push_back(view);
 			return view;

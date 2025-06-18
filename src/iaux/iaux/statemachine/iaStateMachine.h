@@ -38,28 +38,29 @@
 namespace iaux
 {
 
-    /*! enter state event
-     */
-    IGOR_EVENT_DEFINITION(iaEnterState, iaStateID);
-
-    /*! re enter state event
-     */
-    IGOR_EVENT_DEFINITION(iaReEnterState, iaStateID);
-
-    /*! leave state event
-     */
-    IGOR_EVENT_DEFINITION(iaLeaveState, iaStateID);
-
-    /*! handle state event
-     */
-    IGOR_EVENT_DEFINITION(iaUpdateState, iaStateID);
-
     /*! state machine
      */
     class IAUX_API iaStateMachine
     {
 
     public:
+        /*! event type definition
+        */
+        enum class iaEvent
+        {
+            Enter,      // entered state during update
+            ReEnter,    // re entered the same state during update
+            NoChange    // no change in state
+        };
+
+        /*! does nothing
+         */
+        iaStateMachine() = default;
+
+        /*! does nothing
+         */
+        ~iaStateMachine() = default;        
+
         /*! creates and adds a new state
 
         \param name optional name of state
@@ -129,71 +130,18 @@ namespace iaux
         */
         void resetGates(iaTransitionID transitionID);
 
-        /*! calls the update of the current state
+        /*! processes the state machine
+        \returns latest event
          */
-        void update();
+        iaStateMachine::iaEvent update();
 
-        /*! finalizes the state machine.
-
-        after this you can not manipulate the state machine anymore
+        /*! starts the state machine at it initial state
         */
         void start();
 
-        /*! register delegate to enter event of specified state
-
-        \param enterStateDelegate enter state delegate
+        /*! \returns true if state machine is well defined and ready to use
         */
-        void registerEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
-
-        /*! register delegate to reenter event of specified state
-
-        \param reEnterStateDelegate reenter state delegate
-        */
-        void registerReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! register delegate to leave event of specified state
-
-        \param leaveStateDelegate leave state delegate
-        */
-        void registerLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! register delegate to update event of specified state
-
-        \param updateStateDelegate update state delegate
-        */
-        void registerUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
-
-        /*! unregister delegate from enter event with specified state
-
-        \param enterStateDelegate enter state delegate
-        */
-        void unregisterEnterStateDelegate(iaEnterStateDelegate enterStateDelegate);
-
-        /*! unregister delegate from reenter event with specified state
-
-        \param reEnterStateDelegate reenter state delegate
-        */
-        void unregisterReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate);
-
-        /*! unregister delegate from leave event with specified state
-
-        \param leaveStateDelegate leave state delegate
-        */
-        void unregisterLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate);
-
-        /*! unregister delegate from update event with specified state
-
-        \param updateStateDelegate update state delegate
-        */
-        void unregisterUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate);
-
-        /*! does nothing
-         */
-        iaStateMachine() = default;
-
-        /*! does nothing
-         */
-        ~iaStateMachine() = default;
+        bool isValid() const;
 
     private:
         /*! pointer to initial state
@@ -212,21 +160,9 @@ namespace iaux
          */
         std::map<iaTransitionID, iaTransitionPtr> _transitions;
 
-        /*! enter state event
-         */
-        iaEnterStateEvent _enterStateEvent;
-
-        /*! reenter state event
-         */
-        iaReEnterStateEvent _reEnterStateEvent;
-
-        /*! leave state event
-         */
-        iaLeaveStateEvent _leaveStateEvent;
-
-        /*! update state event
-         */
-        iaUpdateStateEvent _updateStateEvent;
+        /*! last even triggered
+        */
+        iaStateMachine::iaEvent _lastEvent;
 
         /*! triggers the current states enter event
          */

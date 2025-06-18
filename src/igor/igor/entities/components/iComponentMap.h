@@ -26,10 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_COMPONENT_MAP__
-#define __IGOR_COMPONENT_MAP__
-
-#include <igor/entities/components/iComponents.h>
+#ifndef IGOR_COMPONENT_MAP_H
+#define IGOR_COMPONENT_MAP_H
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -133,4 +131,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_COMPONENT_MAP__
+#endif // IGOR_COMPONENT_MAP_H

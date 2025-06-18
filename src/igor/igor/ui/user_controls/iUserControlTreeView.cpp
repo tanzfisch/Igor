@@ -6,6 +6,7 @@
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/system/iKeyboard.h>
 
 namespace igor
 {
@@ -24,11 +25,12 @@ namespace igor
     void iUserControlTreeView::initUI()
     {
         _scroll = new iWidgetScroll(this);
+        _scroll->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
+        _scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
+        _vboxLayout->setSpacing(0);
         _scroll->addWidget(_vboxLayout);
-
-        _scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
     }
 
     iClickTreeViewEvent &iUserControlTreeView::getClickEvent()
@@ -36,15 +38,11 @@ namespace igor
         return _clickEvent;
     }
 
-    void iUserControlTreeView::updateUI(iItem *item, const iaString &itemPath, int indentation)
+    void iUserControlTreeView::updateUI(iItem *item, const iItemPath &itemPath, int indentation)
     {
         bool filter = true;
 
-        std::vector<iaString> tokens;
-        itemPath.split('/', tokens);
-
-        iaString path = itemPath;
-        path += "/";
+        iItemPath path = itemPath;
         path += item->getID();
 
         if (!_filters.empty())
@@ -67,7 +65,7 @@ namespace igor
                     }
                 }
 
-                if(filter)
+                if (filter)
                 {
                     break;
                 }
@@ -82,21 +80,21 @@ namespace igor
                 displayName = item->getValue<iaString>(IGOR_ITEM_DATA_NAME);
             }
 
-            iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+            _buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
 
             iWidgetButtonPtr button = new iWidgetButton();
             _allInteractiveWidgets.push_back(button);
             button->setHorizontalAlignment(iHorizontalAlignment::Left);
             button->setBackground(iaColor4f::transparent);
             button->setText(displayName);
-            button->setCheckable(true);
+            button->setSelectable(true);
             button->getClickEvent().add(iClickDelegate(this, &iUserControlTreeView::onClick));
-            button->registerOnContextMenuEvent(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
+            button->getContextMenuEvent().add(iContextMenuDelegate(this, &iUserControlTreeView::onContextMenu));
 
-            if (path == _selectedItemPath)
-            {
-                button->setChecked(true);
-            }
+            const auto iter = std::find_if(_selectedItemPaths.begin(), _selectedItemPaths.end(),
+                                           [path](const iItemPath &selectedPath)
+                                           { return selectedPath == path; });
+            button->setSelect(iter != _selectedItemPaths.end());
 
             button->setUserData(path);
 
@@ -117,10 +115,10 @@ namespace igor
                 button->setEnabled(enabled);
             }
 
-            buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
-            buttonLayout->addWidget(button);
+            _buttonLayout->addWidget(new iWidgetSpacer(16 * indentation, button->getMinHeight()));
+            _buttonLayout->addWidget(button);
 
-            _vboxLayout->addWidget(buttonLayout);
+            _vboxLayout->addWidget(_buttonLayout);
 
             ++indentation;
         }
@@ -133,20 +131,93 @@ namespace igor
 
     void iUserControlTreeView::onClick(const iWidgetPtr source)
     {
-        // change selection
-        for (auto button : _allInteractiveWidgets)
-        {
-            button->setChecked(button == source);
-        }
-        _selectedItemPath = std::any_cast<iaString>(source->getUserData());
+        const bool lshift = iKeyboard::getInstance().keyPressed(iKeyCode::LShift);
+        const bool lctrl = iKeyboard::getInstance().keyPressed(iKeyCode::LControl);
+        const bool isButton = source->getWidgetType() == iWidgetType::iWidgetButton;
+        const bool multiSelect = isMultiSelectionEnabled();
+        const bool previousSelection = !_selectedItemPaths.empty();
 
-        // pass on event
-        _clickEvent(source);
+        if (previousSelection && multiSelect && lshift && isButton) // shift overrides ctrl
+        {
+            bool select = false;
+            bool sourceFirst = false;
+            bool oldFirst = false;
+
+            _selectedItemPaths.clear();
+
+            for (auto button : _allInteractiveWidgets)
+            {
+                bool wasSelected = button->isSelected();
+                if (wasSelected && !oldFirst)
+                {
+                    select = !sourceFirst;
+                    oldFirst = true;
+                }
+                else if (button == source && !sourceFirst)
+                {
+                    button->setSelect(true);
+                    select = !oldFirst;
+                    sourceFirst = true;
+                }
+                else
+                {
+                    button->setSelect(select);
+                }
+
+                if (button->isSelected())
+                {
+                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
+                }
+            }
+
+            iWidgetButtonPtr button = static_cast<iWidgetButtonPtr>(source);
+        }
+        else if (multiSelect && lctrl && isButton)
+        {
+            const auto iter = std::find(_allInteractiveWidgets.begin(), _allInteractiveWidgets.end(), source);
+            if (iter != _allInteractiveWidgets.end())
+            {
+                iWidgetButtonPtr button = (*iter);
+
+                bool wasSelected = button->isSelected();
+                button->setSelect(!wasSelected);
+
+                const auto itemPath = std::any_cast<iItemPath>(button->getUserData());
+                if (wasSelected)
+                {
+                    const auto iterItemPath = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), itemPath);
+                    if (iterItemPath != _selectedItemPaths.end())
+                    {
+                        _selectedItemPaths.erase(iterItemPath);
+                    }
+                }
+                else
+                {
+                    _selectedItemPaths.push_back(itemPath);
+                }
+            }
+        }
+        else
+        {
+            _selectedItemPaths.clear();
+            for (auto button : _allInteractiveWidgets)
+            {
+                bool select = button == source;
+                button->setSelect(select);
+                if (select)
+                {
+                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
+                }
+            }
+        }
+
+        _selectionChanged(this); // TODO for now just always trigger it
     }
 
     void iUserControlTreeView::onContextMenu(const iWidgetPtr source)
     {
         _contextMenuTreeViewEvent(source);
+        onClick(source);
     }
 
     void iUserControlTreeView::clear()
@@ -165,13 +236,27 @@ namespace igor
 
         for (const auto item : itemData->getItems())
         {
-            updateUI(item, "");
+            updateUI(item, iItemPath());
         }
     }
 
-    const iaString &iUserControlTreeView::getSelectedItemPath() const
+    void iUserControlTreeView::setSelectedItemPaths(const std::vector<iItemPath> &itemPaths)
     {
-        return _selectedItemPath;
+        _selectedItemPaths = itemPaths;
+
+        for (auto button : _allInteractiveWidgets)
+        {
+            const auto buttonItemPath = std::any_cast<iItemPath>(button->getUserData());
+            bool select = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), buttonItemPath) != _selectedItemPaths.end();
+            button->setSelect(select);
+        }
+
+        _selectionChanged(this);
+    }
+
+    const std::vector<iItemPath> &iUserControlTreeView::getSelectedItemPaths() const
+    {
+        return _selectedItemPaths;
     }
 
     iContextMenuTreeViewEvent &iUserControlTreeView::getContextMenuTreeViewEvent()

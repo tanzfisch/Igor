@@ -40,10 +40,14 @@ namespace igor
         registerAction(new iActionCutEntity());
         registerAction(new iActionCopyEntity());
         registerAction(new iActionPasteEntity());
+        registerAction(new iActionDuplicateEntity());
 
         registerAction(new iActionCreateScene());
         registerAction(new iActionCreateMaterial());
         registerAction(new iActionCreateShader());
+        registerAction(new iActionCreateSprite());
+
+        registerAction(new iActionLoadProject());
     }
 
     void iActionManager::registerAction(iActionPtr action)

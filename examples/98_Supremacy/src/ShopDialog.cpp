@@ -99,7 +99,7 @@ void ShopDialog::initGUI()
 	_itemGrid->setStretchRow(0);
 	_itemGrid->setSelectMode(iSelectionMode::Column);
 	_itemGrid->setEmptyCellsSelectable();
-	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
+	_itemGrid->getChangeEvent().add(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
 	iWidgetGridLayout *item1Grid = new iWidgetGridLayout();
 	item1Grid->appendRows(4);
@@ -176,7 +176,7 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
+	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
 	buyButton->setMinSize(50, 20);

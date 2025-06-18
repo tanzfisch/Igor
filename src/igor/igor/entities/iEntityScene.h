@@ -48,6 +48,10 @@ namespace igor
 	 */
 	typedef iaUUID iEntitySceneID;
 
+	/*! entity selection change event
+	 */
+	IGOR_EVENT_DEFINITION(iEntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
+
 	/*! entity scene
 	 */
 	class IGOR_API iEntityScene
@@ -104,7 +108,7 @@ namespace igor
 		iEntityPtr getEntity(iEntityID entityID);
 
 		/*! \returns the root entity
-		*/
+		 */
 		iEntityPtr getRootEntity() const;
 
 		/*! \returns all entities with camera component
@@ -155,7 +159,7 @@ namespace igor
 		\param splitThreshold threshold count of objects on a node before splitting the node
 		\param maxDepth the maximum depth of the tree
 		*/
-		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);		
+		void initializeOctree(const iAACubed &cube, const uint32 splitThreshold = 8, const uint32 maxDepth = 16);
 
 		/*! \returns internal octree
 		 */
@@ -163,7 +167,7 @@ namespace igor
 
 		/*! \returns true if octree present
 		 */
-		bool hasOctree() const;		
+		bool hasOctree() const;
 
 		/*! add system
 
@@ -178,8 +182,88 @@ namespace igor
 		void removeSystem(const iaString &systemName);
 
 		/*! \returns list of systems running on this scene
-		*/
+		 */
 		const std::vector<iaString> getSystems();
+
+		/*! empty out scene
+		 */
+		void clear();
+
+		/*! \returns all entities ordered by name
+
+		This is slow. Don't use it unless you really have to
+		 */
+		const std::vector<iEntityPtr> getEntities();
+
+		/*! sets selection on this scene
+
+		\param selection the entity IDs to select
+		*/
+		void setSelection(const std::vector<iEntityID> &selection);
+
+		/*! \returns selected entities
+		 */
+		const std::vector<iEntityID> &getSelection() const;
+
+		/*! clears current selection
+		 */
+		void clearSelection();
+
+		/*! \returns entity selection change event
+		 */
+		iEntitySelectionChangedEvent &getEntitySelectionChangedEvent();
+
+		/*! cut selected entities
+		 */
+		void cut();
+
+		/*! copy selected entities
+		 */
+		void copy();
+
+		/*! copy selected entities
+		 */
+		void paste();
+
+		/*! duplicate selected entities
+		 */
+		void duplicate();
+
+		/*! cut given entities
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void cut(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
+
+		/*! copy given entities
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
+
+		/*! paste clipboard to given scene and entity
+
+		assumes entity matches given scene
+
+		\param sceneID the given scene
+		\param entityID the given entity
+		*/
+		static void paste(const iEntitySceneID &sceneID, const iEntityID &entityID);
+
+		/*! duplicate given entities from given scene
+
+		assumes entities match given scene
+
+		\param sceneID the given scene
+		\param entities the given entities
+		*/
+		static void duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 
 	private:
 		/*! entity scene id
@@ -199,15 +283,15 @@ namespace igor
 		std::vector<iEntityPtr> _deleteQueue;
 
 		/*! delete queue mutex
-		*/
+		 */
 		iaMutex _deleteQueueMutex;
 
 		/*! entity process queue
-		*/
+		 */
 		std::vector<iEntityPtr> _processQueue;
 
 		/*! process queue mutex
-		*/
+		 */
 		iaMutex _processQueueMutex;
 
 		/*! keep one specialized root entity for tree traversal
@@ -219,28 +303,36 @@ namespace igor
 		std::array<std::vector<std::pair<iaString, iEntitySystemPtr>>, (int)iEntitySystemStage::StageCount> _systems;
 
 		/*! systems mutex
-		*/
+		 */
 		iaMutex _systemsMutex;
 
 		/*! quadtree
 		 */
-		iQuadtreed *_quadtree = nullptr;
+		std::unique_ptr<iQuadtreed> _quadtree;
 
 		/*! octree
-		*/
-		iOctreed *_octree = nullptr;
+		 */
+		std::unique_ptr<iOctreed> _octree;
 
 		/*! pointer to camera system if it was added
 		 */
 		iCameraSystem *_cameraSystem = nullptr;
 
 		/*! the render engine to use in render update stage
-		*/
+		 */
 		iRenderEnginePtr _renderEngine = nullptr;
 
 		/*! handle multi thread access to scene
-		*/
+		 */
 		iaMutex _mutex;
+
+		/*! list of selected entities
+		 */
+		std::vector<iEntityID> _selection;
+
+		/*! the entity selection changed event
+		 */
+		iEntitySelectionChangedEvent _entitySelectionChangedEvent;
 
 		/*! sets render engine
 
@@ -291,7 +383,7 @@ namespace igor
 
 		\param entity the entity that has changed it's components
 		*/
-		void onEntityChanged(iEntityPtr entity);
+		void onEntityStructureChanged(iEntityPtr entity);
 	};
 
 } // igor

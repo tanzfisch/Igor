@@ -26,7 +26,7 @@
 //
 // contact: igorgameengine@protonmail.com
 
-// https://wiki.lspace.org/Igor ;-)
+// What is Igor? -> https://wiki.lspace.org/Igor
 #ifndef IGOR_H
 #define IGOR_H
 
@@ -74,6 +74,7 @@
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/project/iProject.h>
 #include <igor/resources/prefab/iPrefab.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -112,11 +113,12 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 #include <igor/events/iEventFilesystem.h>
+#include <igor/events/iEventProject.h>
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
 
-#include <igor/entities/components/iComponents.h> // more cponents
+#include <igor/entities/components/iAnimationComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
 #include <igor/entities/components/iCircleComponent.h>
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -134,6 +136,9 @@
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 #include <igor/entities/traversal/iEntityPrintTraverser.h>
+#include <igor/entities/traversal/iEntityCopyTraverser.h>
+#include <igor/entities/traversal/iEntityBoundsTraverser.h>
+#include <igor/entities/traversal/iEntityTraverser.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>
@@ -193,6 +198,7 @@
 #include <igor/ui/user_controls/iUserControlFile.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 #include <igor/ui/user_controls/iUserControlTexture.h>
+#include <igor/ui/user_controls/iUserControlSprite.h>
 #include <igor/ui/user_controls/iUserControlMaterial.h>
 #include <igor/ui/user_controls/iUserControlShaderMaterial.h>
 #include <igor/ui/user_controls/iUserControlVector.h>

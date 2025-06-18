@@ -34,7 +34,7 @@ namespace igor
     {
         setMinSize(100, 0);
         setAcceptOutOfBoundsClicks();
-        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
         setIgnoreChildEventConsumption(false);
         setGrowingByContent(true);
@@ -42,14 +42,16 @@ namespace igor
         setResizeable(false);
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
     }
 
     void iDialogMenu::clear()
     {
         iWidget::clear();
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
         
-        _hasActions = false;
+        _hasEntries = false;
     }       
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
@@ -66,7 +68,7 @@ namespace igor
 
     void iDialogMenu::addSeparator()
     {
-        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
+        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 1, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _vboxLayout->addWidget(spacer);
     }
@@ -74,11 +76,13 @@ namespace igor
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
         _vboxLayout->addWidget(menu);
+        
+        _hasEntries = true;
     }
 
-    bool iDialogMenu::hasActions() const
+    bool iDialogMenu::hasEntries() const
     {
-        return _hasActions;
+        return _hasEntries;
     }
 
     void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context, bool enabled)
@@ -101,13 +105,14 @@ namespace igor
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
 
-        _hasActions = true;
+        _hasEntries = true;
     }
 
-    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled)
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -118,9 +123,13 @@ namespace igor
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
         button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
         button->getClickEvent().add(delegate);
+        button->setActionContext(context);
         button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
+
+        _hasEntries = true;
     }
 
     void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context, bool enabled)

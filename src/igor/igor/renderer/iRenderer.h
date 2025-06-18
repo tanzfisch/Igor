@@ -85,11 +85,11 @@ namespace igor
         /*! set projection matrix with perspective projection
 
         \param fov field of view in degrees
-        \param aspect aspect ratio of screen
         \param nearPlain near plane distance
         \param farPlain far plane distance
+        \param aspect aspect ratio of screen (if zero it's calculated from current viewport)
         */
-        void setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain);
+        void setPerspective(float64 fov, float64 nearPlain, float64 farPlain, float64 aspect = 0);
 
         /*! set projection matrix with orthogonal projection
 
@@ -531,9 +531,24 @@ namespace igor
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
-        void setLightPosition(int32 lightnum, const iaVector3d &pos);
+        /*! set directional light
+        */
+        void setDirectionalLight(int32 lightnum, const iaVector3d &orientation);
+
+        /*! set omni directional point light
+        */
+        void setPointLight(int32 lightnum, const iaVector3d &position);
+
+        /*! sets ambient of given light
+        */
         void setLightAmbient(int32 lightnum, const iaColor3f &ambient);
+
+        /*! sets diffuse of given light
+        */
         void setLightDiffuse(int32 lightnum, const iaColor3f &diffuse);
+
+        /*! sets specular of given light
+        */
         void setLightSpecular(int32 lightnum, const iaColor3f &specular);
 
         /*! sets line render width
@@ -621,6 +636,12 @@ namespace igor
         \param height height
         */
         void setViewport(int32 x, int32 y, int32 width, int32 height);
+
+        /*! \returns aspect ratio of current viewport
+
+        only valid after calling setViewport
+        */
+        float64 getAspectRatio() const;
 
         /*! clears swtencil buffer with clear depth
          */
@@ -727,7 +748,7 @@ namespace igor
 
         \param colorID next color ID to render with
         */
-        void setColorID(uint64 colorID);
+        void setColorID(uint32 colorID);
 
         /*! sets the solid color
 
@@ -950,6 +971,13 @@ namespace igor
         \param color the color to draw with
         */
         void drawBoxInternal(const iAABoxf &box, const iaColor4f &color);
+
+        /*! creates solid color 1x1 texture and registers it with the dictionary
+
+        \param alias the alias of the texture
+        \param color the color of the texture
+        */
+        iResourcePtr createSolidColorTexture(const iaString& alias, const iaColor4f& color);
     };
 
 #include <igor/renderer/iRenderer.inl>

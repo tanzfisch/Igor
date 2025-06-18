@@ -47,59 +47,155 @@ namespace igor
     {
 
     public:
-        void drawWidgetPicture(iWidgetPicturePtr widget) override;
-        void drawWidgetSpacer(iWidgetSpacerPtr widget) override;
-        void drawWidgetButton(iWidgetButtonPtr widget) override;
+        /*! init theme
+
+        \param fontTexture texture used for font
+         */
+        iWidgetDefaultTheme(iTexturePtr fontTexture);
+
+        /*! does nothing
+         */
+        virtual ~iWidgetDefaultTheme() = default;
+
+        /*! draw widget picture
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetPicturePtr widget) override;
+
+        /*! draw widget spacer
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetSpacerPtr widget) override;
+
+        /*! draw widget button
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetButtonPtr widget) override;
+
+        /*! draw widget label
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetLabelPtr widget) override;
+
+        /*! draw widget check box
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetCheckBoxPtr widget) override;
+
+        /*! draw widget text edit
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetTextEditPtr widget) override;
+
+        /*! draw dialog
+
+        \param widget the widget to draw
+        */
+        void draw(iDialogPtr dialog) override;
+
+        /*! draw color widget
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetColorPtr widget) override;
+
+        /*! draw widget group box
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetGroupBoxPtr widget) override;
+
+        /*! draw widget line text edit
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetLineTextEditPtr widget) override;
+
+        /*! draw widget number chooser
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetNumberChooserPtr widget) override;
+
+        /*! draw widget select box
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetSelectBoxPtr widget) override;
+
+        /*! draw widget slider
+
+        \param widget the widget to draw
+        */
+        void draw(iWidgetSliderPtr widget) override;
+
+        /*! draw selection box
+
+        \param rect the selection rectangle
+        */
         void drawSelection(const iaRectanglef &rect) override;
+
+        /*! draw drag icon
+
+        \param pos the position of the drag icon
+        \param drag the drag information to draw
+        */
         void drawDrag(const iaVector2f &pos, const iDrag &drag) override;
 
         // TODO
 
-        void drawRectangle(const iaRectanglef &rect, const iaColor4f &color) override;
-        void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color) override;
+        /*! \returns dialog title height
+         */
+        float32 getDialogTitleHeight() const override;
 
-        void drawRectangle(const iaRectanglef &rect) override;
-        void drawFilledRectangle(const iaRectanglef &rect) override;
-        void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient) override;
+        /*! \returns dialog frame width
+         */
+        float32 getDialogFrameWidth() const override;
 
-        void drawTiledRectangle(const iaRectanglef &rect, iTexturePtr texture) override;
+        /*! \returns scaled font size
+         */
+        float32 getFontSize() const override;
+
+        /*! \returns primary font used in this theme
+         */
+        iTextureFontPtr getFont() const override;
+
+        /*! draw tooltip at given position
+
+        \param pos the given position
+        \param text the given tool tip
+        */
+        void drawTooltip(const iaVector2f &pos, const iaString &text) override;
 
         void drawGridCell(const iaRectanglef &rect, iWidgetState state) override;
         void drawGridHighlight(const iaRectanglef &rect) override;
         void drawGridSelection(const iaRectanglef &rect) override;
-        void drawFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
-        void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
-        void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool enabled) override;
-        void drawDialog(const iaRectanglef &rect, const iaRectanglef &clientRect, bool headerEnabled, const iaString &title, bool resizeEnabled, iWidgetState state, bool enabled) override;
-        
-        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) override;
-        void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) override;
-        void drawGroupBox(const iaRectanglef &rect, bool headerOnly, const iaString &text, iWidgetState state, bool enabled) override;
-        void drawCheckBox(const iaRectanglef &rect, const iaString &text, bool checked, iWidgetState state, bool enabled) override;
-        void drawLabel(const iaRectanglef &rect, const iaString &text, int32 textWidth, iWidgetState state, bool enabled) override;
-        void drawNumberChooser(const iaRectanglef &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool enabled) override;
-        void drawSelectBox(const iaRectanglef &rect, const iaString &text, iWidgetState buttonAppearance, bool enabled) override;
-        void drawSelectBoxDropDown(const iaRectanglef &rect, std::vector<iaString> &text, int highlightIndex, bool enabled) override;
-        void drawLineTextEdit(const iaRectanglef &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool enabled) override;
-        void drawTextEdit(const iaRectanglef &rect, const iaString &text, float32 maxwidth, iWidgetState state, bool enabled) override;
-        void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) override;
-        void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) override;
+
+        void drawGraphFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
         void drawGraphGridlines(const iaRectanglef &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) override;
         void drawGraphLabels(const iaRectanglef &rect, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool enabled) override;
-        void drawGraphFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
+        void drawGraph(const iaRectanglef &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points) override;
 
-        void drawTooltip(const iaVector2f &pos, const iaString &text) override;
+        void drawButton(const iaRectanglef &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iTexturePtr icon, iWidgetState state, bool enabled, bool checked) override;
+        void drawButton(const iaRectanglef &rect, const iaColor4f &color, iWidgetState state, bool enabled, bool checked) override;
+
+        void drawGradient(const iaRectanglef &rect, const iaKeyFrameGraphColor4f &gradient) override;
+
+        void drawBackgroundFrame(const iaRectanglef &rect, iWidgetState state, bool enabled) override;
+
+    private:
+
+        void drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool enabled) override;
+
+        void drawText(const iaRectanglef &rect, const iaString &text, int32 textwidth) override;
 
         void drawShadowRect(const iaRectanglef &rect) override;
-
-        float32 getFontSize() const override;
-        iTextureFontPtr getFont() const override;
-
-        float32 getDialogTitleWidth() const override;
-        float32 getDialogFrameWidth() const override;
-
-        iWidgetDefaultTheme(iTexturePtr fontTexture, iTexturePtr backgroundTexture);
-        ~iWidgetDefaultTheme() = default;
 
     private:
         /*! background texture
@@ -118,19 +214,9 @@ namespace igor
          */
         float32 _fontLineHeight = 1.1f;
 
-        /*! title width
-         */
-        float32 _titleWidth = 28;
-
         /*! frame width
          */
-        float32 _frameWidth = 10;
-
-        /*! background texture
-         */
-        iTexturePtr _backgroundTexture = nullptr;
-
-
+        float32 _frameWidth = 5;
 
         /*! texture based font
          */
@@ -149,10 +235,6 @@ namespace igor
 
         void drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool enabled, const std::vector<iaColor4f> &colors);
         void drawButtonText(const iaRectanglef &rect, const iaString &text);
-        void drawCheckBoxFrame(const iaRectanglef &rect, iWidgetState state, bool enabled);
-        void drawCheckBox(const iaRectanglef &rect, iWidgetState state, bool enabled, bool checked);
-        void drawNumberChooserFrame(const iaRectanglef &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool enabled);
-        void drawSelectBoxFrame(const iaRectanglef &rect, iWidgetState buttonState, bool enabled);
     };
 } // namespace igor
 

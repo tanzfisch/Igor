@@ -5,6 +5,8 @@
 #include "UserControlEntity.h"
 
 #include "components/UserControlComponentTransform.h"
+#include "components/UserControlComponentSpriteRender.h"
+#include "components/UserControlComponentAnimation.h"
 #include "components/UserControlComponentCamera.h"
 #include "components/UserControlComponentCircle.h"
 #include "components/UserControlComponentSphere.h"
@@ -30,7 +32,7 @@ void UserControlEntity::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);    
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetGroupBoxPtr entityGroupBox = new iWidgetGroupBox(mainLayout);
@@ -39,6 +41,7 @@ void UserControlEntity::init()
     entityGroupBox->setHeaderOnly();
 
     iWidgetBoxLayoutPtr entityLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, entityGroupBox);
+    entityLayout->setSpacing(5);
     entityLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     entityLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -47,21 +50,21 @@ void UserControlEntity::init()
     nameLayout->setStretchIndex(1);
     iWidgetLabelPtr labelName = new iWidgetLabel(nameLayout);
     labelName->setText("Name");
-    labelName->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelName->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = new iWidgetLineTextEdit(nameLayout);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _textName->setEnabled(true);
-    _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onNameChanged));
+    _textName->getChangeEvent().add(iChangeDelegate(this, &UserControlEntity::onNameChanged));
 
     iWidgetBoxLayoutPtr idLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, entityLayout);
     idLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     idLayout->setStretchIndex(1);
     iWidgetLabelPtr labelID = new iWidgetLabel(idLayout);
     labelID->setText("ID");
-    labelID->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelID->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textID = new iWidgetLineTextEdit(idLayout);
@@ -74,17 +77,17 @@ void UserControlEntity::init()
     activeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelActive = new iWidgetLabel(activeLayout);
     labelActive->setText("Active");
-    labelActive->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActive->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = new iWidgetCheckBox(activeLayout);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _checkBoxActive->registerOnChangeEvent(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
+    _checkBoxActive->getChangeEvent().add(iChangeDelegate(this, &UserControlEntity::onActiveChanged));
 
     _addComponent = new iWidgetButton(entityLayout);
-    _addComponent->setHorizontalAlignment(iHorizontalAlignment::Center);
+    _addComponent->setHorizontalAlignment(iHorizontalAlignment::Left);
     _addComponent->setText("Add Component");
-    _addComponent->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    _addComponent->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     _addComponent->getClickEvent().add(iClickDelegate(this, &UserControlEntity::onAddComponentClicked));
 
     iWidgetGroupBoxPtr componentsGroupBox = new iWidgetGroupBox(mainLayout);
@@ -174,80 +177,96 @@ void UserControlEntity::update()
     if (transform != nullptr)
     {
         UserControlComponentTransform *userControl = new UserControlComponentTransform(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
+
+    auto spriteRender = entity->getComponent<iSpriteRenderComponent>();
+    if (spriteRender != nullptr)
+    {
+        UserControlComponentSpriteRender *userControl = new UserControlComponentSpriteRender(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto animation = entity->getComponent<iAnimationComponent>();
+    if (animation != nullptr)
+    {
+        UserControlComponentAnimation *userControl = new UserControlComponentAnimation(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }    
 
     auto camera = entity->getComponent<iCameraComponent>();
     if (camera != nullptr)
     {
         UserControlComponentCamera *userControl = new UserControlComponentCamera(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto circle = entity->getComponent<iCircleComponent>();
     if (circle != nullptr)
     {
         UserControlComponentCircle *userControl = new UserControlComponentCircle(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto sphere = entity->getComponent<iSphereComponent>();
     if (sphere != nullptr)
     {
         UserControlComponentSphere *userControl = new UserControlComponentSphere(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto light = entity->getComponent<iLightComponent>();
     if (light != nullptr)
     {
         UserControlComponentLight *userControl = new UserControlComponentLight(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto meshReference = entity->getComponent<iMeshReferenceComponent>();
     if (meshReference != nullptr)
     {
         UserControlComponentMeshReference *userControl = new UserControlComponentMeshReference(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto meshRender = entity->getComponent<iMeshRenderComponent>();
     if (meshRender != nullptr)
     {
         UserControlComponentMeshRender *userControl = new UserControlComponentMeshRender(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto octree = entity->getComponent<iOctreeComponent>();
     if (octree != nullptr)
     {
         UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto prefab = entity->getComponent<iPrefabComponent>();
     if (prefab != nullptr)
     {
         UserControlComponentPrefab *userControl = new UserControlComponentPrefab(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     auto quadtree = entity->getComponent<iQuadtreeComponent>();
     if (quadtree != nullptr)
     {
         UserControlComponentQuadtree *userControl = new UserControlComponentQuadtree(_sceneID, _entityID, _componentsLayout);
-        userControl->init();
-        userControl->update();
+        userControl->onInit();
+        userControl->onUpdateUI();
     }
 
     _ignoreUpdate = false;
@@ -297,3 +316,4 @@ void UserControlEntity::onNameChanged(iWidgetPtr source)
 {
     updateEntity();
 }
+

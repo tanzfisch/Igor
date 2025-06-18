@@ -8,6 +8,7 @@
 #include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/renderer/iRenderEngine.h>
+#include <igor/system/iClipboard.h>
 
 namespace igor
 {
@@ -42,10 +43,27 @@ namespace igor
         _systemsMutex.unlock();
     }
 
+    void iEntityScene::clear()
+    {
+        _deleteQueueMutex.lock();
+        _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
+
+        _processQueueMutex.lock();
+        _processQueue.clear();
+        _processQueueMutex.unlock();
+
+        delete _root;
+
+        flushQueues();
+
+        _root = new iEntity("root");
+        _root->_scene = this;
+    }
+
     void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        con_assert(_quadtree == nullptr, "Quadtree already initialized");
-        _quadtree = new iQuadtreed(rect, splitThreshold, maxDepth);
+        _quadtree = std::make_unique<iQuadtreed>(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
@@ -61,8 +79,7 @@ namespace igor
 
     void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        con_assert(_octree == nullptr, "Octree already initialized");
-        _octree = new iOctreed(cube, splitThreshold, maxDepth);
+        _octree = std::make_unique<iOctreed>(cube, splitThreshold, maxDepth);
     }
 
     iOctreed &iEntityScene::getOctree() const
@@ -85,6 +102,11 @@ namespace igor
             flushQueues();
         }
 
+        if (_renderEngine == nullptr)
+        {
+            return;
+        }
+
         _systemsMutex.lock();
         const auto stage = _systems[(int)stageIndex];
         _systemsMutex.unlock();
@@ -98,12 +120,6 @@ namespace igor
     void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
         _renderEngine = renderEngine;
-        if (_renderEngine == nullptr)
-        {
-            return;
-        }
-
-        _renderEngine->setScene(this);
     }
 
     void iEntityScene::flushQueues()
@@ -216,21 +232,20 @@ namespace igor
     {
         iEntityPtr result = nullptr;
 
-        _mutex.lock();
+        iaMutex::iaScopedLock lock(_mutex);
+
         auto iter = _entities.find(entityID);
         if (iter != _entities.end())
         {
-            result = iter->second;
+            return iter->second;
         }
-        _mutex.unlock();
 
-        if (result == nullptr &&
-            _root->getID() == entityID)
+        if (_root->getID() == entityID)
         {
-            result = _root;
+            return _root;
         }
 
-        return result;
+        return nullptr;
     }
 
     void iEntityScene::destroyEntity(iEntityPtr entity)
@@ -244,7 +259,10 @@ namespace igor
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
         auto entity = getEntity(entityID);
-        con_assert(entity != nullptr, "entity not found");
+        if (entity == nullptr)
+        {
+            return;
+        }
         destroyEntity(entity);
     }
 
@@ -256,7 +274,10 @@ namespace igor
     void iEntityScene::onComponentToProcess(iEntityPtr entity, const std::type_index &typeID)
     {
         _processQueueMutex.lock();
-        _processQueue.push_back(entity);
+        if (std::find(_processQueue.begin(), _processQueue.end(), entity) == _processQueue.end())
+        {
+            _processQueue.push_back(entity);
+        }
         _processQueueMutex.unlock();
     }
 
@@ -306,7 +327,7 @@ namespace igor
         }
     }
 
-    void iEntityScene::onEntityChanged(iEntityPtr entity)
+    void iEntityScene::onEntityStructureChanged(iEntityPtr entity)
     {
         // TODO this seems such a waste
         _systemsMutex.lock();
@@ -316,7 +337,7 @@ namespace igor
         {
             for (auto pair : stage)
             {
-                pair.second->onEntityChanged(entity);
+                pair.second->onEntityStructureChanged(entity);
             }
         }
     }
@@ -374,7 +395,7 @@ namespace igor
 
         for (const auto &pair : entities)
         {
-            system->onEntityChanged(pair.second);
+            system->onEntityStructureChanged(pair.second);
         }
     }
 
@@ -427,4 +448,157 @@ namespace igor
         return nullptr;
     }
 
+    const std::vector<iEntityPtr> iEntityScene::getEntities()
+    {
+        _mutex.lock();
+        std::vector<iEntityPtr> result;
+        for (const auto &pair : _entities)
+        {
+            result.push_back(pair.second);
+        }
+        _mutex.unlock();
+
+        std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b)
+                  { return a->getName() < b->getName(); });
+
+        return result;
+    }
+
+    void iEntityScene::setSelection(const std::vector<iEntityID> &selection)
+    {
+        _selection = selection;
+        _entitySelectionChangedEvent(getID(), _selection);
+    }
+
+    const std::vector<iEntityID> &iEntityScene::getSelection() const
+    {
+        return _selection;
+    }
+
+    void iEntityScene::clearSelection()
+    {
+        _selection.clear();
+        _entitySelectionChangedEvent(getID(), _selection);
+    }
+
+    iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
+    {
+        return _entitySelectionChangedEvent;
+    }
+
+    void iEntityScene::cut(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = {1};                               // 1 means this is a cut operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = {0};                               // 0 means this is a copy operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::cut()
+    {
+        cut(getID(), _selection);
+    }
+
+    void iEntityScene::copy()
+    {
+        copy(getID(), _selection);
+    }
+
+    void iEntityScene::paste(const iEntitySceneID &sceneID, const iEntityID &entityID)
+    {            
+        auto dstScene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(dstScene == nullptr)
+        {
+            return;
+        }
+        auto dstEntity = dstScene->getEntity(entityID);
+        if(dstEntity == nullptr)
+        {
+            return;
+        }
+
+        std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
+        if(IDs.size() < 3)
+        {
+            return;
+        }         
+        bool move = IDs[0].isValid();
+        auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
+        for (int i = 2; i < IDs.size(); ++i)
+        {
+            auto srcEntity = srcScene->getEntity(IDs[i]);
+
+            iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
+
+            if(move)
+            {
+                srcScene->destroyEntity(srcEntity);
+            }
+        }
+    }
+
+    void iEntityScene::paste()
+    {
+        if(_selection.size() != 1)
+        {
+            return;
+        }
+
+        paste(getID(), _selection[0]);
+    }
+
+    void iEntityScene::duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(scene == nullptr)
+        {
+            return;
+        }
+
+        for(const auto &entityID : entities)
+        {
+            auto entity = scene->getEntity(entityID);
+            if(entity == nullptr)
+            {
+                continue;
+            }
+
+            auto parent = entity->getParent();
+            if(parent == nullptr)
+            {
+                continue;
+            }
+
+            iEntitySystemModule::getInstance().insert(entity, parent);
+        }
+    }
+
+    void iEntityScene::duplicate()
+    {
+        duplicate(getID(), _selection);
+    }
+
 } // igor
+

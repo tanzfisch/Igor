@@ -42,7 +42,7 @@ namespace igor
     public:
         /*! does nothing
          */
-        iEntityPrintTraverser();
+        iEntityPrintTraverser(bool verbose = false);
 
         /*! does nothing
          */
@@ -52,6 +52,10 @@ namespace igor
         /*! keeps track of indentation
         */
         uint32 _indentation = 0;
+
+        /*! if true output is less verbose
+        */
+        bool _verbose;
 
         /*! is called before traversal
 

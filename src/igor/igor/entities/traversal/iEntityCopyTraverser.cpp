@@ -54,7 +54,7 @@ namespace igor
     {
         con_assert(_entityStack.size() == 0, "item stack should be empty");
 
-        _targetEntity->setDirtyHierarchy(true);
+        _targetEntity->setDirtyHierarchy();
     }
 
 } // namespace igor

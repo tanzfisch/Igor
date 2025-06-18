@@ -11,10 +11,23 @@
 
 #ifdef IGOR_LINUX
 #include <execinfo.h>
+#include <cxxabi.h>
+#include <regex>
 #endif
 
 namespace iaux
 {
+
+#ifdef IGOR_LINUX
+	std::string demangle(const char *mangled)
+	{
+		int status = -1;
+		std::unique_ptr<char, void (*)(void *)> demangled(
+			abi::__cxa_demangle(mangled, nullptr, nullptr, &status),
+			std::free);
+		return (status == 0) ? demangled.get() : mangled;
+	}
+#endif
 
 	/*! thank you Macmade
 	http://stackoverflow.com/questions/5693192/win32-backtrace-from-c-code
@@ -48,17 +61,44 @@ namespace iaux
 
 		void *buffer[buffSize];
 		int count = backtrace(buffer, buffSize);
-
-		char **strings = backtrace_symbols(buffer, count);
-		if (strings != nullptr && count > 2)
+		if(count < 2)
 		{
-			for (int i = 2; i < count; ++i)
-			{
-				callStack.push_back(iaString(strings[i]) + iaString('\n'));
-			}
+			callStack.push_back("no callstack found");
+			return;
 		}
 
-		free(strings);
+		char **symbollist = backtrace_symbols(buffer, count);
+		std::regex pattern(R"((.+)\(([^+]+)\+0x([0-9a-f]+)\)\s+\[(0x[0-9a-f]+)\])", std::regex::icase);
+
+		if (symbollist == nullptr)
+		{
+			callStack.push_back("no symbols found");
+			return;			
+		}
+
+		for (int i = 2; i < count; ++i)
+		{
+			iaString string;
+			std::cmatch match;
+			if (std::regex_match(symbollist[i], match, pattern))
+			{
+				const iaString binary = match[1].str().c_str();
+				const iaString offset = match[3].str().c_str();
+				const iaString address = match[4].str().c_str();
+				const iaString demangled = demangle(match[2].str().c_str()).c_str();
+
+				string = demangled + " +0x" + offset + " at " + address + " (" + binary + ")";
+			}
+			else
+			{
+				string = iaString(symbollist[i]);
+			}
+
+
+			callStack.push_back(string);
+		}
+
+		free(symbollist);
 #endif
 	}
 

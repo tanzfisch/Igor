@@ -23,24 +23,25 @@ namespace igor
         return name;
     }
 
-    const iaVector3d &iVelocityComponent::getVelocity() const
-    {
-        return _velocity;
-    }
-
     void iVelocityComponent::setVelocity(const iaVector3d &velocity)
     {
         _velocity = velocity;
-    }
-
-    const iaVector3d &iVelocityComponent::getAngularVelocity() const
-    {
-        return _angularVelocity;
+        setDirty();
     }
 
     void iVelocityComponent::setAngularVelocity(const iaVector3d &angularVelocity)
     {
         _angularVelocity = angularVelocity;
+        setDirty();
     }
 
+    std::vector<iaString> iVelocityComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        result.push_back(iaString("Vel: ") + iaString::toString(_velocity));
+        result.push_back(iaString("AVl: ") + iaString::toString(_angularVelocity));
+
+        return result;
+    }       
 }

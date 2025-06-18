@@ -51,7 +51,6 @@ namespace igor
     {
         if (!modelID.isValid())
         {
-            con_err("tried to set invalid mesh reference");
             return;
         }
 

@@ -126,6 +126,11 @@ namespace igor
 
         bool result = factory->saveResource(resource, filename);
 
+        if(!filename.isEmpty() && resource->getSource() == "")
+        {
+            resource->setSource(filename);
+        }
+
         if (result)
         {
             con_info("saved " << resource->getType() << " " << resource->getInfo());
@@ -180,9 +185,9 @@ namespace igor
 
     void iResourceManager::configure()
     {
-        if (iConfig::getInstance().hasSetting("loadMode"))
+        if (iConfig::getInstance().hasValue("igor.loadMode"))
         {
-            const iaString loadMode = iConfig::getInstance().getValue("loadMode");
+            const iaString loadMode = iConfig::getInstance().getValue("igor.loadMode");
 
             if (loadMode == "Sync")
             {
@@ -190,9 +195,9 @@ namespace igor
             }
         }
 
-        if (iConfig::getInstance().hasSetting("searchPaths"))
+        if (iConfig::getInstance().hasValue("igor.searchPaths"))
         {
-            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("searchPaths");
+            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("igor.searchPaths");
 
             for (const auto &path : searchPaths)
             {
@@ -416,8 +421,8 @@ namespace igor
         {
             const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
             const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
-            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
+            const iaString source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << source << "\"");
             return nullptr;
         }
 
@@ -441,6 +446,12 @@ namespace igor
             else
             {
                 con_trace("cache hit " << result->getType() << " " << result->getInfo());
+
+                const iaString type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
+                if(result->getType() != type)
+                {
+                    con_err("resource id collision " << result->getID() << " " << type << " vs " << result->getType());
+                }
             }
         }
         else
@@ -812,6 +823,12 @@ namespace igor
     void iResourceManager::removeFromDictionary(const iResourceID &resourceID)
     {
         _resourceDictionary.removeResource(resourceID);
+
+        auto resource = getResource(resourceID);
+        if(resource != nullptr)
+        {
+            con_warn("resource removed form dictionary is still allocated " << resource->getInfo());
+        }
     }
 
     void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)

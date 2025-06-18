@@ -33,7 +33,6 @@
 
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/resources/texture/iTexture.h>
 
 namespace igor
 {
@@ -77,7 +76,7 @@ namespace igor
          */
         iWidgetLabelPtr _labelAlias;
 
-        /*! displays the selected texture
+        /*! displays the texture
          */
         iWidgetPicturePtr _picture;
 

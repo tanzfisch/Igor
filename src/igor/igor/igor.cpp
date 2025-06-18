@@ -57,6 +57,11 @@ const iaString IGOR_RESOURCE_PARAM_SHININESS = "shininess";
 const iaString IGOR_RESOURCE_PARAM_ALPHA = "alpha";
 const iaString IGOR_RESOURCE_PARAM_TILING = "tiling";
 const iaString IGOR_RESOURCE_PARAM_ENTITY_SCENE_ID = "entitySceneID";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_PATTERN = "texture_pattern";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH = "texture_width";
+const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT = "texture_height";
+const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR = "primary_color";
+const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR = "secondary_color";
 
 const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
@@ -68,6 +73,7 @@ const iaString IGOR_ITEM_DATA_NAME = "name";
 const iaString IGOR_ITEM_DATA_ICON = "icon";
 const iaString IGOR_ITEM_DATA_UUID = "uuid";
 const iaString IGOR_ITEM_DATA_ENABLED = "enabled";
+const iaString IGOR_ITEM_DATA_SELECTED = "selected";
 const iaString IGOR_ITEM_DATA_SCENE_ID = "sceneID";
 const iaString IGOR_ITEM_DATA_ENTITY_ID = "entityID";
 
@@ -241,7 +247,7 @@ namespace igor
         if (iResourceManager::isInstantiated())
         {
             iResourceManager::destroyInstance();
-        }        
+        }
 
         if (iEntitySystemModule::isInstantiated())
         {
@@ -302,7 +308,7 @@ namespace igor
         {
             iAudio::destroyInstance();
         }
-        
+
         if (iFilesystem::isInstantiated())
         {
             iFilesystem::destroyInstance();
@@ -369,9 +375,9 @@ namespace igor
             iConfig::getInstance().read(configurationFilepath);
         }
 
-        if (iConfig::getInstance().hasSetting("logLevel"))
+        if (iConfig::getInstance().hasValue("igor.logLevel"))
         {
-            const iaString level = iConfig::getInstance().getValue("logLevel");
+            const iaString level = iConfig::getInstance().getValue("igor.logLevel");
 
             if (level == "Assert")
             {

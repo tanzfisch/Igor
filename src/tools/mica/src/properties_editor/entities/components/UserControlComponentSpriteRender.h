@@ -48,17 +48,42 @@ public:
 
     /*! init ui
      */
-    void init() override;
+    void onInit() override;
 
     /*! update ui with node data
      */
-    void update() override;
+    void onUpdateUI() override;
 
     /*! update entity
      */
-    void updateComponent() override;
+    void onUpdateComponent() override;
 
 private:
+
+    /*! represents a sprite
+    */
+    iUserControlSpritePtr _sprite;
+
+    /*! size of sprite
+    */
+    iUserControlVectorPtr _size;
+
+    /*! color of sprite
+    */
+    iUserControlColorPtr _color;
+
+    /*! z index of sprite
+    */
+    iWidgetLineTextEditPtr _zIndex;
+
+    /*! render mode of sprite
+    */
+    iWidgetSelectBoxPtr _mode;
+
+    /*! current frame index of sprite
+    */
+    iWidgetLineTextEditPtr _frameIndex;
+
     /*! called after values changed
      */
     void onValueChanged(iWidgetPtr source);

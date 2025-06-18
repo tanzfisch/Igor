@@ -95,17 +95,17 @@ namespace igor
 
     bool iTextureFactory::generateTexture(iTexturePtr texture, const iParameters &parameters)
     {
-        const iTexturePattern pattern = parameters.getParameter<iTexturePattern>("pattern", iTexturePattern::SolidColor);
-        const iaColor4f primaryf = parameters.getParameter<iaColor4f>("primary", iaColor4f::white);
-        const iaColor4f secondaryf = parameters.getParameter<iaColor4f>("secondary", iaColor4f::black);
+        const iTexturePattern pattern = parameters.getParameter<iTexturePattern>(IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor);
+        const iaColor4f primaryf = parameters.getParameter<iaColor4f>(IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::white);
+        const iaColor4f secondaryf = parameters.getParameter<iaColor4f>(IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::black);
 
         iaColor4c primary;
         iaConvert::convert(primaryf, primary);
         iaColor4c secondary;
         iaConvert::convert(secondaryf, secondary);
 
-        const uint32 width = parameters.getParameter<int32>("width", 1);
-        const uint32 height = parameters.getParameter<int32>("height", 1);
+        const uint32 width = parameters.getParameter<int32>(IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1);
+        const uint32 height = parameters.getParameter<int32>(IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1);
         const uint32 bpp = 4;
 
         uint8 *data = new uint8[width * height * bpp];
@@ -154,7 +154,7 @@ namespace igor
         }
 
         texture->setData(width, height, bpp, iColorFormat::RGBA, data, texture->_buildMode, texture->_wrapMode);
-        con_debug("generated texture \"" << texture->getInfo() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
+        con_trace("created texture \"" << texture->getInfo() << "\" [" << texture->_width << ":" << texture->_height << "] build:" << texture->_buildMode << " wrap:" << texture->_wrapMode);
         texture->_useFallback = false;
 
         delete[] data;

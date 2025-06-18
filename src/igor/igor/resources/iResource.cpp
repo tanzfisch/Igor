@@ -16,7 +16,15 @@ namespace igor
         // if there is no id specified we need a new one
         if (!_id.isValid())
         {
-            _id = iaUUID();
+            const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+            if(generate)
+            {
+                _id = iaUUID::getMarked();
+            }
+            else
+            {
+                _id = iaUUID();
+            }
         }
 
         _alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");

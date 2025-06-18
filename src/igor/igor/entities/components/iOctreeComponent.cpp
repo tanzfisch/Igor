@@ -10,19 +10,18 @@ namespace igor
 {
     iOctreeComponent::iOctreeComponent()
     {
-        
     }
 
     iEntityComponent *iOctreeComponent::createInstance()
     {
         return new iOctreeComponent();
-    }    
+    }
 
-    const iaString& iOctreeComponent::getTypeName()
+    const iaString &iOctreeComponent::getTypeName()
     {
         static const iaString name("igor_octree_component");
         return name;
-    }    
+    }
 
     iOctreeComponent::iOctreeComponent(iOctreed::ObjectPtr object)
         : _object(object)
@@ -33,6 +32,16 @@ namespace igor
     {
         iOctreeComponent *component = new iOctreeComponent();
         return component;
+    }
+
+    bool iOctreeComponent::onLoad(iEntityPtr entity, bool &asyncLoad)
+    {
+        if (!entity->getScene()->hasOctree())
+        {
+            return false;
+        }
+
+        return true;
     }
 
     void iOctreeComponent::onActivate(iEntityPtr entity)
@@ -50,4 +59,19 @@ namespace igor
         octree.remove(_object);
     }
 
+    std::vector<iaString> iOctreeComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        if(_object != nullptr)
+        {
+            result.push_back(iaString("object initialized"));
+        }
+        else
+        {
+            result.push_back(iaString("no object"));
+        }
+
+        return result;
+    }
 }

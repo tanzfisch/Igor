@@ -34,12 +34,12 @@ namespace iaux
 
     void iaThread::init()
     {
-        con_trace("start thread id:" << std::hex << getID() << std::dec << " type:" << getType());
+        con_trace("starting thread id:" << std::hex << getID() << std::dec << " type:" << getType());
     }
 
     void iaThread::deinit()
     {
-        con_trace("stop thread id:" << std::hex << getID() << std::dec << " type:" << getType());
+        con_trace("stopped thread id:" << std::hex << getID() << std::dec << " type:" << getType());
     }
 
     iaThreadState iaThread::getState() const

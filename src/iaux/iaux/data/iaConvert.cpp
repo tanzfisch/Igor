@@ -198,4 +198,20 @@ namespace iaux
         convertHSVtoRGB(src, dst);
         iaConvert::convert(dst, rgb);
     }
+
+    void iaConvert::convert(const iaMatrixf &src, iaMatrixd &dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = src[i];
+        }
+    }
+
+    void iaConvert::convert(const iaMatrixd &src, iaMatrixf &dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = src[i];
+        }
+    }
 } // namespace iaux

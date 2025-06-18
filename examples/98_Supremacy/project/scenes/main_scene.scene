@@ -1,0 +1,144 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "clearColor": {
+                            "a": 1.0,
+                            "b": 0.5,
+                            "g": 0.5,
+                            "r": 0.5
+                        },
+                        "clearColorActive": false,
+                        "clearDepth": 1.0,
+                        "clearDepthActive": false,
+                        "clipFar": 10.0,
+                        "clipNear": 0.0,
+                        "componentType": "camera",
+                        "fov": 45.0,
+                        "orthoBottom": -300.0,
+                        "orthoLeft": -300.0,
+                        "orthoRight": 300.0,
+                        "orthoTop": 300.0,
+                        "perspective": false,
+                        "viewport": {
+                            "height": 1.0,
+                            "width": 1.0,
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xce15ebf856e4b05e",
+                "name": "camera"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "color": {
+                            "a": 1.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "componentType": "spriteRender",
+                        "frame": 0,
+                        "mode": 0,
+                        "size": {
+                            "x": 0.8,
+                            "y": 0.8
+                        },
+                        "sprite": "0x7ab21bce99b17988",
+                        "zIndex": -1
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.25,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x2d0649c8d1000171",
+                "name": "shadow",
+                "parent": "0xc95a1e208a6bc9b8"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "color": {
+                            "a": 1.0,
+                            "b": 1.0,
+                            "g": 1.0,
+                            "r": 1.0
+                        },
+                        "componentType": "spriteRender",
+                        "frame": 0,
+                        "mode": 0,
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.0
+                        },
+                        "sprite": "0x601d73088954f7d5",
+                        "zIndex": 0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 120.0,
+                            "y": 120.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xc95a1e208a6bc9b8",
+                "name": "shop"
+            }
+        ],
+        "id": "0xab4790ba8fa5f29d",
+        "name": ""
+    }
+}

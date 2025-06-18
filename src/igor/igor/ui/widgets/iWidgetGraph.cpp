@@ -321,7 +321,7 @@ namespace igor
         return _selectedIndex;
     }
 
-    bool iWidgetGraph::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetGraph::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         iaVector2f mousePos(static_cast<float32>(getLastMousePos()._x), static_cast<float32>(getLastMousePos()._y));
 

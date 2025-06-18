@@ -49,14 +49,6 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
 
-    /*! project loaded event
-     */
-    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectLoaded);
-
-    /*! project unloaded event
-     */
-    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
-
     /*! project pointer definition
      */
     class iProject;
@@ -97,6 +89,10 @@ namespace igor
         /*! \returns project folder
          */
         const iaString &getProjectPath() const;
+
+        /*! \returns project file path
+         */
+        const iaString getProjectFilepath() const;
 
         /*! \returns scenes folder
         */
@@ -140,6 +136,10 @@ namespace igor
          */
         iEntityScenePtr getProjectScene() const;
 
+        /*! \returns true if project has a scene
+        */
+        bool hasProjectScene() const;
+
         /*! \returns project scene added event
          */
         iProjectSceneAddedEvent &getProjectSceneAddedEvent();
@@ -147,14 +147,6 @@ namespace igor
         /*! \returns project scene removed event
          */
         iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
-
-        /*! \returns project loaded event
-         */
-        iProjectLoadedEvent &getProjectLoadedEvent();
-
-        /*! \returns project unloaded event
-         */
-        iProjectUnloadedEvent &getProjectUnloadedEvent();
 
     private:
         /*! project folder
@@ -189,15 +181,7 @@ namespace igor
          */
         iProjectSceneRemovedEvent _projectSceneRemovedEvent;
 
-        /*! project loaded event
-         */
-        iProjectLoadedEvent _projectLoadedEvent;
-
-        /*! project unloaded event
-         */
-        iProjectUnloadedEvent _projectUnloadedEvent;
-
-        /*! scenes references by project
+        /*! scenes referenced by project
          */
         std::vector<iResourceID> _scenes;
 

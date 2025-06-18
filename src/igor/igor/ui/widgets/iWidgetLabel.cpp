@@ -48,7 +48,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 	const iaString &iWidgetLabel::getText() const

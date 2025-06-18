@@ -113,7 +113,7 @@ namespace igor
 		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Stretch);
 		_gradientWidget->setInteractive();
 		_gradientWidget->setMinHeight(60);
-		_gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
+		_gradientWidget->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
 		_gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
 		groupBoxGradient->addWidget(_gradientWidget);
 
@@ -160,7 +160,7 @@ namespace igor
 		_position->setAfterPoint(2);
 		_position->setPostFix("%");
 		_position->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-		_position->registerOnChangeEvent(iChangeDelegate(this, &iDialogColorGradient::onPositionChanged));
+		_position->getChangeEvent().add(iChangeDelegate(this, &iDialogColorGradient::onPositionChanged));
 		positionGrid->addWidget(_position, 1, 0);
 
 		iWidgetButton *okButton = new iWidgetButton();

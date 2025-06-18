@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOG__
-#define __IGOR_DIALOG__
+#ifndef IGOR_DIALOG_H
+#define IGOR_DIALOG_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -41,7 +41,7 @@ namespace igor
 
     /*! dialog close event
      */
-    typedef iaDelegate<void, iDialogPtr> iDialogCloseDelegate;
+    IGOR_DELEGATE_DEFINITION(iDialogClose, iDialogPtr);
 
     /*! dialog return states
      */
@@ -210,8 +210,35 @@ namespace igor
         void setAcceptESCToClose(bool acceptESC);
 
         /*! \returns true if dialog accepts ESC to close
-        */
+         */
         bool isAcceptingESCToClose() const;
+
+    protected:
+        /*! handles mouse key up events
+
+        \param event the mouse key up event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        virtual bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
+
+        /*! handles incoming mouse key down events
+
+        \param event mouse key down event
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        virtual bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
+
+        /*! handles incoming mouse move events
+
+        \param event mouse move event
+        */
+        virtual void onMouseMove(const iEventMouseMove &event) override;
+
+        /*! handles pressed key event
+
+        \param event the key down event
+        */
+        virtual bool onKeyDown(const iEventKeyDown &event) override;
 
     private:
         /*! if true dialog is open
@@ -219,7 +246,7 @@ namespace igor
         bool _isOpen = false;
 
         /*! if true dialog accepts ESC to close
-        */
+         */
         bool _acceptsESC = false;
 
         /*! the return state of the this dialog
@@ -266,32 +293,6 @@ namespace igor
          */
         iDialogCloseDelegate _dialogCloseDelegate;
 
-        /*! handles incoming mouse key down events
-
-        \param event mouse key down event
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
-
-        /*! handles mouse key up events
-
-        \param event the mouse key up event
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
-
-        /*! handles incoming mouse move events
-
-        \param event mouse move event
-        */
-        void onMouseMove(iEventMouseMove &event) override;
-
-        /*! handles pressed key event
-
-        \param event the key down event
-        */
-        virtual bool onKeyDown(iEventKeyDown &event) override;
-
         /*! updates size based on it's content
          */
         void calcMinSize() override;
@@ -321,4 +322,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif // __IGOR_DIALOG__
+#endif // IGOR_DIALOG_H

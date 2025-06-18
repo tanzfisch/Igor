@@ -11,9 +11,9 @@ UserControlComponentCamera::UserControlComponentCamera(const iEntitySceneID &sce
 {
 }
 
-void UserControlComponentCamera::init()
+void UserControlComponentCamera::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -22,24 +22,24 @@ void UserControlComponentCamera::init()
     viewportLayout->setStretchIndex(1);
     iWidgetLabelPtr labelViewport = new iWidgetLabel(viewportLayout);
     labelViewport->setText("Viewport");
-    labelViewport->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelViewport->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelViewport->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _viewport = new iUserControlVector(4, viewportLayout);
     _viewport->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _viewport->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _viewport->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr projectionLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     projectionLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     projectionLayout->setStretchIndex(1);
     iWidgetLabelPtr labelPerspective = new iWidgetLabel(projectionLayout);
     labelPerspective->setText("Perspec.");
-    labelPerspective->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelPerspective->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelPerspective->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _perspective = new iWidgetCheckBox(projectionLayout);
     _perspective->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _perspective->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onProjectionChanged));
+    _perspective->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onProjectionChanged));
 
     _perspectiveLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
     _perspectiveLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -49,12 +49,12 @@ void UserControlComponentCamera::init()
     fovLayout->setStretchIndex(1);
     iWidgetLabelPtr labelFOV = new iWidgetLabel(fovLayout);
     labelFOV->setText("FOV");
-    labelFOV->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelFOV->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelFOV->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _fov = new iWidgetLineTextEdit(fovLayout);
     _fov->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _fov->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _fov->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     _orthogonalLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
     _orthogonalLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -74,18 +74,18 @@ void UserControlComponentCamera::init()
             labelOrtho->setText("Right");
             break;
         case 2:
-            labelOrtho->setText("Top");
-            break;
-        case 3:
             labelOrtho->setText("Bottom");
             break;
+        case 3:
+            labelOrtho->setText("Top");
+            break;
         }
-        labelOrtho->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelOrtho->setMinWidth(MICA_REGULAR_LABEL_SIZE);
         labelOrtho->setHorizontalAlignment(iHorizontalAlignment::Left);
 
         _ortho[i] = new iWidgetLineTextEdit(orthoLayout);
         _ortho[i]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        _ortho[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+        _ortho[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
     }
 
     iWidgetBoxLayoutPtr clipPlanesLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
@@ -93,12 +93,12 @@ void UserControlComponentCamera::init()
     clipPlanesLayout->setStretchIndex(1);
     iWidgetLabelPtr labelClipPlanes = new iWidgetLabel(clipPlanesLayout);
     labelClipPlanes->setText("Near/Far");
-    labelClipPlanes->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelClipPlanes->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelClipPlanes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _clipNearFar = new iUserControlVector(2, clipPlanesLayout);
     _clipNearFar->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clipNearFar->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));    
+    _clipNearFar->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));    
 
     iWidgetBoxLayoutPtr activeClearColorLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     activeClearColorLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -106,21 +106,21 @@ void UserControlComponentCamera::init()
     iWidgetLabelPtr labelActiveClearColor = new iWidgetLabel(activeClearColorLayout);
     labelActiveClearColor->setText("Cl. Color");
     labelActiveClearColor->setTooltip("Clear color");
-    labelActiveClearColor->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActiveClearColor->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActiveClearColor->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _activeClearColor = new iWidgetCheckBox(activeClearColorLayout);
     _activeClearColor->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _activeClearColor->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _activeClearColor->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr clearColorLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearColorLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     clearColorLayout->setStretchIndex(1);
-    new iWidgetSpacer(MICA_REGULARBUTTON_SIZE, 0, false, clearColorLayout);
+    new iWidgetSpacer(MICA_REGULAR_LABEL_SIZE, 0, false, clearColorLayout);
 
     _clearColor = new iUserControlColor(clearColorLayout);
     _clearColor->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clearColor->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _clearColor->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr activeClearDepthLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     activeClearDepthLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -128,26 +128,26 @@ void UserControlComponentCamera::init()
     iWidgetLabelPtr labelActiveClearDepth = new iWidgetLabel(activeClearDepthLayout);
     labelActiveClearDepth->setText("Cl. Depth");
     labelActiveClearDepth->setTooltip("Clear depth");
-    labelActiveClearDepth->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelActiveClearDepth->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelActiveClearDepth->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _activeClearDepth = new iWidgetCheckBox(activeClearDepthLayout);
     _activeClearDepth->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _activeClearDepth->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _activeClearDepth->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 
     iWidgetBoxLayoutPtr clearDepthLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     clearDepthLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     clearDepthLayout->setStretchIndex(1);
-    new iWidgetSpacer(MICA_REGULARBUTTON_SIZE, 0, false, clearDepthLayout);
+    new iWidgetSpacer(MICA_REGULAR_LABEL_SIZE, 0, false, clearDepthLayout);
 
     _clearDepth = new iWidgetLineTextEdit(clearDepthLayout);
     _clearDepth->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _clearDepth->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
+    _clearDepth->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCamera::onValueChanged));
 }
 
 void UserControlComponentCamera::onProjectionChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 
     if (_perspective->isChecked())
     {
@@ -163,10 +163,10 @@ void UserControlComponentCamera::onProjectionChanged(iWidgetPtr source)
 
 void UserControlComponentCamera::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentCamera::update()
+void UserControlComponentCamera::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -200,8 +200,8 @@ void UserControlComponentCamera::update()
 
     _ortho[0]->setText(iaString::toString(component->getLeftOrtho(), 4));
     _ortho[1]->setText(iaString::toString(component->getRightOrtho(), 4));
-    _ortho[2]->setText(iaString::toString(component->getTopOrtho(), 4));
-    _ortho[3]->setText(iaString::toString(component->getBottomOrtho(), 4));
+    _ortho[2]->setText(iaString::toString(component->getBottomOrtho(), 4));
+    _ortho[3]->setText(iaString::toString(component->getTopOrtho(), 4));
 
     if (_perspective->isChecked())
     {
@@ -214,8 +214,8 @@ void UserControlComponentCamera::update()
         _orthogonalLayout->setVisible(true);
     }
 
-    _clipNearFar->setValue(0, component->getNearClipPlane());
-    _clipNearFar->setValue(1, component->getFarClipPlane());
+    _clipNearFar->setValue(0, component->getNearPlane());
+    _clipNearFar->setValue(1, component->getFarPlane());
 
     _activeClearColor->setChecked(component->isClearColorActive());
     _clearColor->setColor(component->getClearColor());
@@ -226,7 +226,7 @@ void UserControlComponentCamera::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentCamera::updateComponent()
+void UserControlComponentCamera::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

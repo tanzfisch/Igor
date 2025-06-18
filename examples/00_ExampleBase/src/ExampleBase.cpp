@@ -27,21 +27,16 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _view.setClipPlanes(0.1f, 10000.f);
         getWindow()->addView(&_view, getZIndex());
 
-        // init scene
-        _scene = iSceneFactory::getInstance().createScene();
-        // bind scene to perspective view
-        _view.setScene(_scene);
-
         // setup orthogonal view
         _viewOrtho.setName("Logo View");
         _viewOrtho.setClearColorActive(false);
         _viewOrtho.setClearDepthActive(false);
         _viewOrtho.setClipPlanes(0.1f, 10000.0f);
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-        _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+        _viewOrtho.getRenderEvent().add(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
         getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-        if (!skyBoxTexture.isEmpty())
+        /*if (!skyBoxTexture.isEmpty())
         {
             // create a skybox
             iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();            
@@ -56,7 +51,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
             skyBoxNode->setMaterial(_materialSkyBox);
             // and add it to the scene
             getScene()->getRoot()->insertNode(skyBoxNode);
-        }
+        }*/
 
         // init fonts
         _outlineFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
@@ -75,16 +70,12 @@ ExampleBase::~ExampleBase()
     // release material
     _materialSkyBox = nullptr;
 
-    // clear scene by destroying it
-    iSceneFactory::getInstance().destroyScene(_scene);
-    _scene = nullptr;
-
     // release resources
     _standardFont = nullptr;
     _outlineFont = nullptr;
     _igorLogo = nullptr;
 
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+    _viewOrtho.getRenderEvent().remove(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
 
     con_info("stopped example \"" << getName() << "\"");
 }
@@ -119,11 +110,11 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
 
     case iKeyCode::F6:
     {
-        iNodeVisitorPrintTree printTree;
+        /*iNodeVisitorPrintTree printTree;
         if (getScene() != nullptr)
         {
             printTree.printToConsole(getScene()->getRoot());
-        }
+        }*/
     }
         return true;
 
@@ -161,11 +152,6 @@ iView &ExampleBase::getView()
 iView &ExampleBase::getViewOrtho()
 {
     return _viewOrtho;
-}
-
-iScenePtr ExampleBase::getScene()
-{
-    return _scene;
 }
 
 void ExampleBase::onInit()

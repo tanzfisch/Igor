@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSCROLL__
-#define __IGOR_WIDGETSCROLL__
+#ifndef IGOR_WIDGET_SCROLL_H
+#define IGOR_WIDGET_SCROLL_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -175,20 +175,20 @@ namespace igor
         \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseWheel(iEventMouseWheel &event) override;
+        bool onMouseWheel(const iEventMouseWheel &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! handles incoming mouse key down events
 
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles internal button clicks
         \return true if click was consumed
@@ -200,14 +200,14 @@ namespace igor
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming double click
 
         \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event) override;
+        bool onMouseDoubleClick(const iEventMouseKeyDoubleClick &event) override;
 
         /*! updates size based on it's content
          */
@@ -254,4 +254,4 @@ namespace igor
     typedef iWidgetScroll *iWidgetScrollPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETSCROLL__
+#endif // IGOR_WIDGET_SCROLL_H

@@ -39,6 +39,8 @@ namespace igor
      */
     class iQuadtreeComponent : public iEntityComponent
     {
+        friend class iEntityTransformTraverser;
+
     public:
         /*! default ctor
          */
@@ -56,11 +58,19 @@ namespace igor
          */
         static const iaString &getTypeName();
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+        
+        /*! \retruns object bounds
+        */
+        const iaCircled& getObjectBounds() const;
+
+    private:
         /*! quadtree object
          */
         iQuadtreed::ObjectPtr _object = nullptr;
 
-    private:
         /*! callback to activate component
          */
         void onActivate(iEntityPtr entity) override;

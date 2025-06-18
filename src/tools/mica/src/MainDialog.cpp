@@ -4,134 +4,10 @@
 
 #include "MainDialog.h"
 
-MainDialog::MainDialog(WorkspacePtr workspace)
-: _workspace(workspace)
+MainDialog::MainDialog()
 {
     initGUI();
 }
-
-MainDialog::~MainDialog()
-{
-    deinitGUI();
-}
-
-// this really should not be in the MainDialog but in the UILayer in the "main" menu that does not exists yet
-iWidgetMenuBarPtr MainDialog::createMenu()
-{
-    iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
-
-    iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "Create Project", "Create a new project");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Load Project", "Loading an existing project", "igor_icon_load");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save Project", "Saving the current project", "igor_icon_save");
-    fileMenu->addSeparator();
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadFile), "Load File", "Loading file", "igor_icon_load");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveFile), "Save File", "Saving file", "igor_icon_save");
-    fileMenu->addSeparator();
-    fileMenu->addAction("igor:exit");
-    menuBar->addMenu(fileMenu);
-
-    iWidgetMenuPtr editMenu = new iWidgetMenu("Edit");
-    editMenu->addCallback(iClickDelegate(this, &MainDialog::onCut), "Cut", "Cut selection", "igor_icon_cut");
-    editMenu->addCallback(iClickDelegate(this, &MainDialog::onCopy), "Copy", "Copy selection", "igor_icon_copy");
-    editMenu->addCallback(iClickDelegate(this, &MainDialog::onPaste), "Paste", "Paste from clipboard", "igor_icon_paste");
-    editMenu->addSeparator();
-    editMenu->addCallback(iClickDelegate(this, &MainDialog::onDelete), "Delete", "Delete selection", "igor_icon_delete");
-    menuBar->addMenu(editMenu);
-
-
-    iWidgetMenuPtr projectMenu = new iWidgetMenu("Project");
-    projectMenu->addCallback(iClickDelegate(this, &MainDialog::onCut), "Settings", "Open project settings", "igor_icon_gears");
-    menuBar->addMenu(projectMenu);
-
-    return menuBar;
-}
-
-CreateProjectEvent &MainDialog::getEventCreateProject()
-{
-    return _createProject;
-}
-
-LoadProjectEvent &MainDialog::getEventLoadProject()
-{
-    return _loadProject;
-}
-
-SaveProjectEvent &MainDialog::getEventSaveProject()
-{
-    return _saveProject;
-}
-
-LoadFileEvent &MainDialog::getEventLoadFile()
-{
-    return _loadFile;
-}
-
-SaveFileEvent &MainDialog::getEventSaveFile()
-{
-    return _saveFile;
-}
-
-CopyNodeEvent &MainDialog::getEventCopyNode()
-{
-    return _copyNode;
-}
-
-CutNodeEvent &MainDialog::getEventCutNode()
-{
-    return _cutNode;
-}
-
-PasteNodeEvent &MainDialog::getEventPasteNode()
-{
-    return _pasteNode;
-}
-
-void MainDialog::onCreateProject(const iWidgetPtr source)
-{
-    _createProject();
-}
-
-void MainDialog::onLoadProject(const iWidgetPtr source)
-{
-    _loadProject();
-}
-
-void MainDialog::onSaveProject(const iWidgetPtr source)
-{
-    _saveProject();
-}
-
-void MainDialog::onLoadFile(const iWidgetPtr source)
-{
-    _loadFile();
-}
-
-void MainDialog::onSaveFile(const iWidgetPtr source)
-{
-    _saveFile();
-}
-
-void MainDialog::onDelete(const iWidgetPtr source)
-{
-    _workspace->deleteSelected();
-}
-
-void MainDialog::onCopy(const iWidgetPtr source)
-{
-    _workspace->copySelected();
-}
-
-void MainDialog::onPaste(const iWidgetPtr source)
-{
-    _workspace->pasteSelected();
-}
-
-void MainDialog::onCut(const iWidgetPtr source)
-{
-    _workspace->cutSelected();
-}
-
 
 void MainDialog::initGUI()
 {
@@ -151,6 +27,92 @@ void MainDialog::initGUI()
     vbox->addWidget(new iWidgetDockingLayout());
 }
 
-void MainDialog::deinitGUI()
+void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
 {
+    menu->clear();
+    if(iConfig::getInstance().hasValue("mica.recentProjects"))
+    {
+        const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+
+        for(const auto &project : recent)
+        {
+            iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(project);
+            menu->addAction("igor:load_project", actionContext);
+        }
+    }
 }
+
+iWidgetMenuBarPtr MainDialog::createMenu()
+{
+    iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
+
+    iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "Create Project", "Create a new project");
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Load Project", "Loading an existing project", "igor_icon_load");
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save Project", "Saving the current project", "igor_icon_save");
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCloseProject), "Close Project", "Closing the current project");
+
+    iWidgetMenuPtr recentMenu = new iWidgetMenu("Open Recent");
+    recentMenu->getPreMenuOpenEvent().add(iPreMenuOpenDelegate(this, &MainDialog::onRecentProjectOpen));
+    fileMenu->addMenu(recentMenu);
+
+    fileMenu->addSeparator();
+    fileMenu->addAction("igor:exit");
+    menuBar->addMenu(fileMenu);
+
+    iWidgetMenuPtr editMenu = new iWidgetMenu("Edit");
+    // TODO
+    menuBar->addMenu(editMenu);
+
+    iWidgetMenuPtr projectMenu = new iWidgetMenu("Project");
+    projectMenu->addCallback(iClickDelegate(this, &MainDialog::onPrintProjectTree), "Log Project Tree", "Logs the current project tree to the console");
+    menuBar->addMenu(projectMenu);
+
+    return menuBar;
+}
+
+CreateProjectEvent &MainDialog::getCreateProjectEvent()
+{
+    return _createProject;
+}
+
+LoadProjectEvent &MainDialog::getLoadProjectEvent()
+{
+    return _loadProject;
+}
+
+SaveProjectEvent &MainDialog::getSaveProjectEvent()
+{
+    return _saveProject;
+}
+
+CloseProjectEvent &MainDialog::getCloseProjectEvent()
+{
+    return _closeProject;
+}
+
+void MainDialog::onCreateProject(const iWidgetPtr source)
+{
+    _createProject();
+}
+
+void MainDialog::onLoadProject(const iWidgetPtr source)
+{
+    _loadProject();
+}
+
+void MainDialog::onSaveProject(const iWidgetPtr source)
+{
+    _saveProject();
+}
+
+void MainDialog::onCloseProject(const iWidgetPtr source)
+{
+    _closeProject();
+}
+
+void MainDialog::onPrintProjectTree(const iWidgetPtr source)
+{
+    iEntityPrintTraverser print(true);
+    print.traverse(iProject::getInstance().getProjectScene());
+} 

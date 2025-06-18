@@ -49,8 +49,9 @@ namespace igor
         /*! listen to changes at given path
 
         \param path given path
+        \param recursive if true track changes in subdirectories as well
         */
-        void listenToChanges(const iaString& path);
+        void listenToChanges(const iaString& path, bool recursive = false);
 
         /*! stop listening to changes at given path
 

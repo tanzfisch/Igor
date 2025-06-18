@@ -9,26 +9,26 @@
 
 namespace igor
 {
-    iBehaviourSystem::iBehaviourSystem()
-    {
+	iBehaviourSystem::iBehaviourSystem()
+	{
 		_view = createView<iBehaviourComponent>();
-    }
+	}
 
-    iEntitySystemPtr iBehaviourSystem::createInstance()
-    {
-        return new iBehaviourSystem();
-    }
+	iEntitySystemPtr iBehaviourSystem::createInstance()
+	{
+		return new iBehaviourSystem();
+	}
 
-    const iaString &iBehaviourSystem::getTypeName()
-    {
-        static const iaString typeName("igor_behaviour_system");
-        return typeName;
-    }
+	const iaString &iBehaviourSystem::getTypeName()
+	{
+		static const iaString typeName("igor_behaviour_system");
+		return typeName;
+	}
 
-    iEntitySystemStage iBehaviourSystem::getStage() const
-    {
-        return iEntitySystemStage::Update;
-    }
+	iEntitySystemStage iBehaviourSystem::getStage() const
+	{
+		return iEntitySystemStage::Update;
+	}
 
 	void iBehaviourSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
@@ -36,16 +36,7 @@ namespace igor
 		for (const auto entity : entities)
 		{
 			auto behaviour = entity->getComponent<iBehaviourComponent>();
-
-			for (auto &behaviourData : behaviour->_behaviors)
-			{
-				if (!behaviourData._delegate.isValid())
-				{
-					continue;
-				}
-
-				behaviourData._delegate(entity, behaviourData._userData);
-			}
+			behaviour->execute();
 		}
 	}
 

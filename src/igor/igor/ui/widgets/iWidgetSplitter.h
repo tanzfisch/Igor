@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_SPLITTER__
-#define __IGOR_WIDGET_SPLITTER__
+#ifndef IGOR_WIDGET_SPLITTER_H
+#define IGOR_WIDGET_SPLITTER_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/ui/actions/iAction.h>
@@ -239,23 +239,23 @@ namespace igor
         iaVector2f _lastMousePos;
 
         /*! simulating drag drop
-        */
+         */
         iWidgetID _draggedWidgetID = iWidget::INVALID_WIDGET_ID;
 
         /*! if true draw/handle the overlay
-        */
+         */
         bool _activeOverlay = false;
 
         /*! if true display cross
-        */
+         */
         bool _displayCross = false;
 
         /*! if true center button is displayed
-        */
+         */
         bool _displayCenter = false;
 
         /*! if true display edges
-        */
+         */
         bool _displayEdges = false;
 
         /*! updates size based on it's content
@@ -273,20 +273,20 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! simulates drop of widget id
 
@@ -320,10 +320,10 @@ namespace igor
 
         \param splitter the curent splitter
         */
-        void tryMerge(iWidgetSplitter* splitter);
+        void tryMerge(iWidgetSplitter *splitter);
 
-        /*! reverses order of children 
-        */
+        /*! reverses order of children
+         */
         void reverseChildren();
 
         /*! updates cursor based on splitter state
@@ -331,7 +331,6 @@ namespace igor
         \param splitterState the given splitter state
         */
         void updateCursor(iSplitterState splitterState);
-
     };
 
     /*! widget button pointer definition
@@ -339,4 +338,4 @@ namespace igor
     typedef iWidgetSplitter *iWidgetSplitterPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGET_SPLITTER__
+#endif // IGOR_WIDGET_SPLITTER_H

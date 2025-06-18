@@ -80,9 +80,9 @@ namespace igor
         */
         void addAction(const iaString &actionName, const iActionContextPtr context = nullptr, bool enabled = true);
 
-        /*! \returns true if dialog has actions on it
+        /*! \returns true if dialog has actions, callbacks or sub menus on it
         */
-        bool hasActions() const;
+        bool hasEntries() const;
 
         /*! add callback entry to menu
 
@@ -91,8 +91,9 @@ namespace igor
         \param description the full description (used as tooltip)
         \param iconAlias an alias or id for texture resource
         \param enabled if true widget will be enabled
+        \param context action context
         */
-        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true);
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 
@@ -120,9 +121,9 @@ namespace igor
         */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
 
-        /*! true if dialog has actions in it
+        /*! true if dialog has actions, callbacks or sub menus in it
         */
-        bool _hasActions = false;
+        bool _hasEntries = false;
 
         /*! handle mouse off click event
 

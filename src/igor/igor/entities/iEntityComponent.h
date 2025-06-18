@@ -52,8 +52,16 @@ namespace igor
         Active,           //! active
     };
 
+    /*! stream operator
+
+    \param stream the destination
+    \param state the entity component state
+    \returns the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iEntityComponentState &state);
+
     /*
-    +---------------+                                                           +----------------+  
+    +---------------+                                                           +----------------+
     |               v                                                           v                |
     |   ------------------------------------------    ----------------------------------------   |
     |   |                Unloaded                |    |           UnloadedInactive           |   |
@@ -149,6 +157,21 @@ namespace igor
          */
         iEntityComponentState getState() const;
 
+        /*! \returns a set of info strings
+         */
+        virtual std::vector<iaString> getInfo() const;
+
+        /*! sets component dirty by increasing version
+         */
+        IGOR_INLINE void setDirty()
+        {
+            _version++;
+        }
+
+        /*! \returns version
+         */
+        uint16 getVersion() const;
+
     protected:
         /*! callback for loading component
 
@@ -174,6 +197,10 @@ namespace igor
          */
         virtual iEntityComponentPtr getCopy() = 0;
 
+        /*! \returns entity
+         */
+        iEntityPtr getEntity() const;
+
     private:
         /*! entity component id
          */
@@ -186,6 +213,10 @@ namespace igor
         /*! reference to entity
          */
         iEntityPtr _entity = nullptr;
+
+        /*! version of this component
+         */
+        uint16 _version = 0;
     };
 }
 

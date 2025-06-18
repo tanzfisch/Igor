@@ -66,6 +66,12 @@ namespace iaux
         return iaUUID(IGOR_INVALID_ID);
     }
 
+    iaUUID iaUUID::getMarked()
+    {   
+        const uint64 value = (iaRandom::getNext() >> 16) | 0x1337000000000000;
+        return iaUUID(value);
+    }
+
     void iaUUID::reset()
     {
         _value = IGOR_INVALID_ID;

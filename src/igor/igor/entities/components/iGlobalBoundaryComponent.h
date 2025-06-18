@@ -78,6 +78,10 @@ namespace igor
         */
         void setType(iGlobalBoundaryType type);
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! global boundary type
          */

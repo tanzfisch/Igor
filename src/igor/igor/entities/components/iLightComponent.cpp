@@ -6,6 +6,18 @@
 
 namespace igor
 {
+    std::wostream &operator<<(std::wostream &stream, iLightType lightType)
+    {
+        const static std::wstring text[] = {
+            L"Directional",
+            L"Point",
+            L"Undefined"};
+
+        stream << text[static_cast<int>(lightType)];
+
+        return stream;
+    }
+
     iLightComponent::iLightComponent()
     {
     }
@@ -34,6 +46,7 @@ namespace igor
     void iLightComponent::setType(iLightType type)
     {
         _type = type;
+        setDirty();
     }
 
     iLightType iLightComponent::getType() const
@@ -64,6 +77,7 @@ namespace igor
     void iLightComponent::setAmbient(const iaColor3f &color)
     {
         _ambient = color;
+        setDirty();
     }
 
     iaColor3f &iLightComponent::getDiffuse()
@@ -74,6 +88,7 @@ namespace igor
     void iLightComponent::setDiffuse(const iaColor3f &color)
     {
         _diffuse = color;
+        setDirty();
     }
 
     iaColor3f &iLightComponent::getSpecular()
@@ -84,5 +99,17 @@ namespace igor
     void iLightComponent::setSpecular(const iaColor3f &color)
     {
         _specular = color;
+        setDirty();
     }
+
+    std::vector<iaString> iLightComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        std::wstringstream stream;
+        stream << getType();
+        result.push_back(iaString("Type: ") + stream.str().c_str());
+
+        return result;
+    }        
 }

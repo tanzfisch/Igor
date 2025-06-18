@@ -4,6 +4,8 @@
 
 #include <igor/resources/project/iProject.h>
 
+#include <igor/events/iEventProject.h>
+#include <igor/system/iApplication.h>
 #include <igor/utils/iJson.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
@@ -29,12 +31,12 @@ namespace igor
 
         if (iaDirectory::isDirectory(path))
         {
-            _projectFolder = path;
+            _projectFolder = iaDirectory::fixPath(path);
             _projectFile = s_defaultProjectFilename;
         }
         else
         {
-            iaFile projectFile(path);
+            iaFile projectFile(iaDirectory::fixPath(path));
             _projectFolder = projectFile.getPath();
             _projectFile = projectFile.getFileName();
         }
@@ -72,6 +74,11 @@ namespace igor
 
     void iProject::load()
     {
+        if (_isLoaded)
+        {
+            return;
+        }
+
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
         const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
@@ -84,22 +91,36 @@ namespace igor
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
 
-        _projectLoadedEvent();
+        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectLoaded(filenameConfig)));
     }
 
     void iProject::unload()
     {
+        if (!_isLoaded)
+        {
+            return;
+        }
+
+        for (const auto &sceneID : _scenes)
+        {
+            iEntitySystemModule::getInstance().destroyScene(sceneID);
+        }
+        _scenes.clear();
+
+        if (_projectScene != nullptr)
+        {
+            iEntitySystemModule::getInstance().destroyScene(_projectScene->getID());
+            _projectScene = nullptr;
+        }
+
         iResourceManager::getInstance().removeSearchPath(_projectFolder);
         iResourceManager::getInstance().clearResourceDictionary();
 
-        iEntitySystemModule::getInstance().clear();
-
         _projectFolder = "";
         _projectName = "";
-        _scenes.clear();
 
         _isLoaded = false;
-        _projectUnloadedEvent();
+        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectUnloaded()));
     }
 
     void iProject::save()
@@ -113,11 +134,8 @@ namespace igor
 
     bool iProject::read(const iaString &filename)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
+        json projectJson = iJson::parse(filename);
 
-        std::ifstream file(temp);
-        json projectJson = json::parse(file);
         if (!projectJson.contains("projectName"))
         {
             con_err("no project name found");
@@ -127,13 +145,15 @@ namespace igor
 
         if (!projectJson.contains("projectScene"))
         {
-            con_err("no project scene found");
-            return false;
+            _projectScene = iEntitySystemModule::getInstance().createScene("project_scene");
+            iEntitySystemModule::getInstance().activateScene(_projectScene);
+            return true;
         }
-        json projectSceneJson = projectJson["projectScene"];
 
+        json projectSceneJson = projectJson["projectScene"];
         const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
-        _projectScene = iEntitySystemModule::getInstance().createScene(_projectName, projectSceneID, false);
+
+        _projectScene = iEntitySystemModule::getInstance().createScene("project_scene", projectSceneID, false);
         iEntitySystemModule::getInstance().activateScene(_projectScene);
 
         if (projectSceneJson.contains("systems"))
@@ -183,6 +203,11 @@ namespace igor
     iEntityScenePtr iProject::getProjectScene() const
     {
         return _projectScene;
+    }
+
+    bool iProject::hasProjectScene() const
+    {
+        return _projectScene != nullptr;
     }
 
     static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
@@ -239,7 +264,6 @@ namespace igor
 
         json projectSceneJson =
             {
-                {"name", _projectScene->getName()},
                 {"id", _projectScene->getID()},
                 {"systems", systemsJson}};
 
@@ -284,9 +308,14 @@ namespace igor
         return _projectFolder;
     }
 
+    const iaString iProject::getProjectFilepath() const
+    {
+        return _projectFolder + _projectFile;
+    }
+
     const iaString iProject::getScenesPath() const
     {
-        return _projectFolder + IGOR_PATHSEPARATOR + "scenes";
+        return _projectFolder + "scenes";
     }
 
     const iaString &iProject::getName() const
@@ -318,16 +347,6 @@ namespace igor
     iProjectSceneRemovedEvent &iProject::getProjectSceneRemovedEvent()
     {
         return _projectSceneRemovedEvent;
-    }
-
-    iProjectLoadedEvent &iProject::getProjectLoadedEvent()
-    {
-        return _projectLoadedEvent;
-    }
-
-    iProjectUnloadedEvent &iProject::getProjectUnloadedEvent()
-    {
-        return _projectUnloadedEvent;
     }
 
     void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)

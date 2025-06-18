@@ -924,7 +924,7 @@ namespace igor
         return false;
     }
 
-    bool iKeyboard::getKey(iKeyCode keyCode)
+    bool iKeyboard::keyPressed(iKeyCode keyCode)
     {
         return _impl->_keys[static_cast<unsigned int>(keyCode)];
     }

@@ -15,7 +15,7 @@ AssetBrowser::AssetBrowser()
 
 AssetBrowser::~AssetBrowser()
 {
-    iFilesystem::getInstance().stopListenToChanges(_currentPath);
+    iFilesystem::getInstance().stopListenToChanges(_projectFolder);
 }
 
 void AssetBrowser::initUI()
@@ -53,7 +53,7 @@ void AssetBrowser::initUI()
     _treeView->setMinWidth(150);
     _treeView->setVerticalAlignment(iVerticalAlignment::Stretch);
     _treeView->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _treeView->getClickEvent().add(iClickDelegate(this, &AssetBrowser::onClickTreeView));
+    _treeView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChangedTree));
     _treeView->setFilter(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
     splitter->addWidget(_treeView);
 
@@ -61,11 +61,10 @@ void AssetBrowser::initUI()
     _gridView->setVerticalAlignment(iVerticalAlignment::Top);
     _gridView->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridView->setCellSize(iaVector2f(150, 150));
-    _gridView->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChanged));
-    
+    _gridView->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &AssetBrowser::onSelectionChangedGrid));
 
     iWidgetScrollPtr scroll = new iWidgetScroll();
-    scroll->registerOnContextMenuEvent(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
+    scroll->getContextMenuEvent().add(iContextMenuDelegate(this, &AssetBrowser::OnContextMenu));
     scroll->addWidget(_gridView);
     splitter->addWidget(scroll);
 }
@@ -88,11 +87,21 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     createMenu->addAction("igor:create_scene", actionContext);
     createMenu->addAction("igor:create_material", actionContext);
     createMenu->addAction("igor:create_shader", actionContext);
+    createMenu->addAction("igor:create_sprite", actionContext);
+
+    // TODO create all the assets
+
+    // TODO create folder
 
     _contextMenu.open();
 }
 
-void AssetBrowser::onSelectionChanged(const iWidgetPtr source)
+void AssetBrowser::onSelectionChangedTree(const iWidgetPtr source)
+{
+    onUpdateGridView();
+}
+
+void AssetBrowser::onSelectionChangedGrid(const iWidgetPtr source)
 {
     auto selection = source->getSelection();
     if (selection.empty())
@@ -147,7 +156,17 @@ void AssetBrowser::onUpdateGridView()
 {
     _gridView->clear();
 
-    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPath());
+    if (_treeView->getSelectedItemPaths().empty())
+    {
+        return;
+    }
+
+    const iItemPtr item = _itemData->getItem(_treeView->getSelectedItemPaths()[0]);
+    if (item == nullptr)
+    {
+        return;
+    }
+
     if (!item->hasValue("relativePath"))
     {
         return;
@@ -156,13 +175,8 @@ void AssetBrowser::onUpdateGridView()
 
     const iaDirectory projectDir(_projectFolder);
     const auto newPath = iaDirectory::fixPath(projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path);
-    if (_currentPath != newPath)
-    {
-        iFilesystem::getInstance().stopListenToChanges(_currentPath);
-        iFilesystem::getInstance().listenToChanges(newPath);
 
-        _currentPath = newPath;
-    }
+    _currentPath = newPath;
 
     if (iaDirectory::isDirectory(_currentPath))
     {
@@ -227,11 +241,6 @@ void AssetBrowser::onRefreshGridView()
     }
 }
 
-void AssetBrowser::onClickTreeView(const iWidgetPtr source)
-{
-    onUpdateGridView();
-}
-
 void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 {
     const iaDirectory projectDir(_projectFolder);
@@ -265,10 +274,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 
 bool AssetBrowser::onEvent(iEvent &event)
 {
-    if (iWidget::onEvent(event))
-    {
-        return true;
-    }
+    iWidget::onEvent(event);
 
     if (!event.isOfKind(iEventKind::Filesystem))
     {
@@ -277,7 +283,7 @@ bool AssetBrowser::onEvent(iEvent &event)
 
     onUpdateFilesystem();
 
-    return true;
+    return false;
 }
 
 void AssetBrowser::onUpdateFilesystem()
@@ -300,7 +306,10 @@ void AssetBrowser::onUpdateFilesystem()
 
 void AssetBrowser::setProjectFolder(const iaString &projectFolder)
 {
+    iFilesystem::getInstance().stopListenToChanges(_projectFolder);
     _projectFolder = projectFolder;
+    iFilesystem::getInstance().listenToChanges(_projectFolder, true);
+
     onUpdateFilesystem();
 }
 

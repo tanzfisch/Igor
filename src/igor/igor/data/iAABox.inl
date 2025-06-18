@@ -3,6 +3,13 @@
 // see copyright notice in corresponding header file
 
 template <class T>
+std::wostream &operator<<(std::wostream &ostr, const iAABox<T> &box)
+{
+    ostr << "{"<< box._center << ", " << box._halfWidths << "}";
+    return ostr;
+}
+
+template <class T>
 iAABox<T>::iAABox(const iaVector3<T>& center, const iaVector3<T>& halfWidths)
     : _center(center)
     , _halfWidths(halfWidths)

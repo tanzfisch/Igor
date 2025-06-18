@@ -101,6 +101,10 @@ namespace igor
 		*/
         const std::any getSelectedUserData() const;
 
+        /*! \returns state of button
+        */
+        iWidgetState getButtonState() const;
+
     private:
         /*! list of select box entries
 		*/
@@ -122,7 +126,7 @@ namespace igor
 
         /*! appearance state of the button
 		*/
-        iWidgetState _buttonAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonState = iWidgetState::Standby;
 
         /*! triggered when selection box closed
 
@@ -135,20 +139,20 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! updates size based on it's content
 		*/

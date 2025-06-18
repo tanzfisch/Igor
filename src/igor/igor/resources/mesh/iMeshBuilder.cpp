@@ -131,6 +131,11 @@ namespace igor
             result = _vertexes.size() - 1;
         }
 
+        if(hasNormals())
+        {
+            setNormal(result, iaVector3f(1,0,0));
+        }
+
         return result;
     }
 
@@ -660,11 +665,11 @@ namespace igor
         mesh->setBoundingBox(bbox);
     }
 
-    void iMeshBuilder::calcNormals(bool sharpEdges)
+    bool iMeshBuilder::calcNormals(bool sharpEdges)
     {
         if (!checkConsistency())
         {
-            return;
+            return false;
         }
 
         uint32 a, b, c;
@@ -715,6 +720,8 @@ namespace igor
         normalizeNormals();
 
         delete[] trianglenormals;
+
+        return true;
     }
 
     void iMeshBuilder::getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC)

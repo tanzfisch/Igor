@@ -17,7 +17,7 @@ namespace igor
         return new iCameraComponent();
     }
 
-    const iaString& iCameraComponent::getTypeName()
+    const iaString &iCameraComponent::getTypeName()
     {
         static const iaString name("igor_camera_component");
         return name;
@@ -45,6 +45,7 @@ namespace igor
     void iCameraComponent::setViewportRelative(const iaRectangled &rect)
     {
         _viewport = rect;
+        setDirty();
     }
 
     const iaRectangled &iCameraComponent::getViewport() const
@@ -58,6 +59,7 @@ namespace igor
 
         _fieldOfView = viewAngel;
         _projection = iProjectionType::Perspective;
+        setDirty();
     }
 
     float64 iCameraComponent::getFieldOfView() const
@@ -69,22 +71,24 @@ namespace igor
     {
         _leftOrtho = left;
         _rightOrtho = right;
-        _topOrtho = top;
         _bottomOrtho = bottom;
+        _topOrtho = top;
         _projection = iProjectionType::Orthogonal;
+        setDirty();
     }
 
     void iCameraComponent::setClipPlanes(float32 nearPlain, float32 farPlain)
     {
         _clipNear = nearPlain;
         _clipFar = farPlain;
+        setDirty();
     }
 
-    float64 iCameraComponent::getNearClipPlane() const
+    float64 iCameraComponent::getNearPlane() const
     {
         return _clipNear;
     }
-    float64 iCameraComponent::getFarClipPlane() const
+    float64 iCameraComponent::getFarPlane() const
     {
         return _clipFar;
     }
@@ -92,6 +96,7 @@ namespace igor
     void iCameraComponent::setClearColorActive(bool active)
     {
         _clearColorActive = active;
+        setDirty();
     }
 
     bool iCameraComponent::isClearColorActive() const
@@ -102,11 +107,13 @@ namespace igor
     void iCameraComponent::setClearColor(const iaColor4f &color)
     {
         _clearColor = color;
+        setDirty();
     }
 
     void iCameraComponent::setClearColor(float32 r, float32 g, float32 b, float32 a)
     {
         _clearColor.set(r, g, b, a);
+        setDirty();
     }
 
     const iaColor4f &iCameraComponent::getClearColor() const
@@ -117,6 +124,7 @@ namespace igor
     void iCameraComponent::setClearDepthActive(bool active)
     {
         _clearDepthActive = active;
+        setDirty();
     }
 
     bool iCameraComponent::isClearDepthActive() const
@@ -127,6 +135,7 @@ namespace igor
     void iCameraComponent::setClearDepth(float32 depth)
     {
         _clearDepth = depth;
+        setDirty();
     }
 
     float32 iCameraComponent::getClearDepth() const
@@ -157,6 +166,21 @@ namespace igor
     float64 iCameraComponent::getBottomOrtho() const
     {
         return _bottomOrtho;
+    }
+
+    std::vector<iaString> iCameraComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        result.push_back(iaString("Viewport: ") + iaString::toString(_viewport._x) + ", " + iaString::toString(_viewport._y) + ", " + iaString::toString(_viewport._width) + ", " + iaString::toString(_viewport._height));
+        result.push_back(iaString("Projection: ") + (_projection == iProjectionType::Perspective ? "Perspective" : "Orthogonal"));
+        result.push_back(iaString("FOV: ") + iaString::toString(_fieldOfView));
+        result.push_back(iaString("Clip planes: ") + iaString::toString(_clipNear) + " - " + iaString::toString(_clipFar));
+        result.push_back(iaString("Clear color: ") + iaString::toString(_clearColor._r) + ", " + iaString::toString(_clearColor._g) + ", " + iaString::toString(_clearColor._b) + ", " + iaString::toString(_clearColor._a) + " [" + (_clearColorActive ? "On" : "Off") + "]");
+        result.push_back(iaString("Clear depth: ") + iaString::toString(_clearDepth) + " [" + (_clearDepthActive ? "On" : "Off") + "]");
+        result.push_back(iaString("Ortho: ") + iaString::toString(_leftOrtho) + ", " + iaString::toString(_rightOrtho) + ", " + iaString::toString(_bottomOrtho) + ", " + iaString::toString(_topOrtho));
+
+        return result;
     }
 
 }

@@ -26,9 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICADEFINES__
-#define __MICADEFINES__
+#ifndef MICA_DEFINES_H
+#define MICA_DEFINES_H
 
-#define MICA_REGULARBUTTON_SIZE 80
+#include <igor/igor.h>
+using namespace igor;
 
-#endif // __MICADEFINES__
+#define MICA_REGULAR_LABEL_SIZE 100
+
+#endif // MICA_DEFINES_H

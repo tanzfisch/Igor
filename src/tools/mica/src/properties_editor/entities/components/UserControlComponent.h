@@ -53,15 +53,15 @@ public:
 
     /*! init ui
      */
-    virtual void init();
+    virtual void onInit();
 
     /*! update ui with node data
      */
-    virtual void update();
+    virtual void onUpdateUI();
 
     /*! update entity
      */
-    virtual void updateComponent();
+    virtual void onUpdateComponent();
 
 protected:
     /*! scene id

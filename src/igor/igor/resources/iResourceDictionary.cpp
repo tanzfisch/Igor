@@ -125,11 +125,7 @@ namespace igor
 
     bool iResourceDictionary::read(const iaString &filename)
     {
-        char temp[2048];
-        filename.getData(temp, 2048);
-
-        std::ifstream file(temp);
-        json data = json::parse(file);
+        json data = iJson::parse(filename);
 
         for (auto element : data)
         {

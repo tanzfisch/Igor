@@ -13,7 +13,7 @@ namespace igor
 {
 	iCameraSystem::iCameraSystem()
 	{
-		_cameraView = createView<iCameraComponent, iTransformComponent>();
+		_cameraView = createView<iCameraComponent, iTransformComponent>("igor_camera_system_view");
 	}
 
     iEntitySystemPtr iCameraSystem::createInstance()
@@ -61,13 +61,7 @@ namespace igor
 
 	void iCameraSystem::onUpdate(const iEntitySceneUpdateContext &context)
 	{
-		auto camera = getActiveCamera();
-		if (camera == nullptr)
-		{
-			return;
-		}
-
-		context._renderEngine->setCamera(camera);
+		// does nothing
 	}
 
 } // igor

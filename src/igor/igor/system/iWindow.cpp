@@ -18,7 +18,6 @@
 #include <algorithm>
 #include <sstream>
 
-// have to include this after GLee
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 
@@ -868,7 +867,6 @@ namespace igor
                         break;
 
                     case ClientMessage:
-                        _window->close();
                         closeEvent();
                         return;
                     default:;
@@ -1577,7 +1575,7 @@ namespace igor
 
         for (auto view : _views)
         {
-            view->render();
+            view->onRender();
         }
 
         iRenderer::getInstance().endFrame();

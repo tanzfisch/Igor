@@ -11,9 +11,9 @@ UserControlComponentCircle::UserControlComponentCircle(const iEntitySceneID &sce
 {
 }
 
-void UserControlComponentCircle::init()
+void UserControlComponentCircle::onInit()
 {
-    UserControlComponent::init();
+    UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -22,32 +22,32 @@ void UserControlComponentCircle::init()
     radiusLayout->setStretchIndex(1);
     iWidgetLabelPtr labelRadius = new iWidgetLabel(radiusLayout);
     labelRadius->setText("Radius");
-    labelRadius->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelRadius->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelRadius->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _radius = new iWidgetLineTextEdit(radiusLayout);
     _radius->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _radius->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
+    _radius->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
 
     iWidgetBoxLayoutPtr offsetLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     offsetLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     offsetLayout->setStretchIndex(1);
     iWidgetLabelPtr labelOffset = new iWidgetLabel(offsetLayout);
     labelOffset->setText("Offset");
-    labelOffset->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelOffset->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelOffset->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _offset = new iUserControlVector(2, offsetLayout);
     _offset->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _offset->registerOnChangeEvent(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
+    _offset->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentCircle::onValueChanged));
 }
 
 void UserControlComponentCircle::onValueChanged(iWidgetPtr source)
 {
-    updateComponent();
+    onUpdateComponent();
 }
 
-void UserControlComponentCircle::update()
+void UserControlComponentCircle::onUpdateUI()
 {
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -76,7 +76,7 @@ void UserControlComponentCircle::update()
     _ignoreUpdate = false;
 }
 
-void UserControlComponentCircle::updateComponent()
+void UserControlComponentCircle::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {

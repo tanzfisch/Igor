@@ -4,27 +4,12 @@
 
 #include "UserControlProperties.h"
 
-#include "nodes/UserControlNode.h"
-#include "nodes/UserControlTransformation.h"
-#include "nodes/UserControlParticleSystem.h"
-#include "nodes/UserControlLight.h"
-#include "nodes/UserControlEmitter.h"
-#include "nodes/UserControlMesh.h"
-#include "nodes/UserControlModel.h"
-
 #include "resources/UserControlResource.h"
 #include "resources/UserControlShaderMaterial.h"
 #include "resources/UserControlMaterial.h"
 #include "resources/UserControlTexture.h"
 
 #include "entities/UserControlEntity.h"
-
-UserControlProperties::UserControlProperties(iNodeID nodeID, const iWidgetPtr parent)
-    : iUserControl(iWidgetType::iUserControl, parent)
-{
-    initUI();
-    initNodeUI(nodeID);
-}
 
 UserControlProperties::UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent)
     : iUserControl(iWidgetType::iUserControl, parent)
@@ -37,7 +22,7 @@ UserControlProperties::UserControlProperties(PropertyType propertyType, const st
     {
     case PropertyType::Resource:
         initResourceUI(id.front());
-        break;        
+        break;
     case PropertyType::Entity:
         con_assert(id.size() == 2, "invalid ids");
         initEntityUI(id[0], id[1]);
@@ -54,59 +39,6 @@ void UserControlProperties::initUI()
 
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-}
-
-void UserControlProperties::initNodeUI(iNodeID nodeID)
-{
-    iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-    if (node == nullptr)
-    {
-        return;
-    }
-
-    UserControlNode *userControl = nullptr;
-
-    switch (node->getType())
-    {
-    case iNodeType::iNode:
-        // nothing to do
-        break;
-
-    case iNodeType::iNodeTransform:
-        userControl = new UserControlTransformation(nodeID, _layout);
-        break;
-
-    case iNodeType::iNodeLight:
-        userControl = new UserControlLight(nodeID, _layout);
-        break;
-
-    case iNodeType::iNodeMesh:
-        userControl = new UserControlMesh(nodeID, _layout);
-        break;
-
-    case iNodeType::iNodeModel:
-        userControl = new UserControlModel(nodeID, _layout);
-        break;
-
-    case iNodeType::iNodeEmitter:
-        userControl = new UserControlEmitter(nodeID, _layout);
-        break;
-
-    case iNodeType::iNodeParticleSystem:
-        userControl = new UserControlParticleSystem(nodeID, _layout);
-        break;
-
-    default:
-        con_warn("not implemented");
-    }
-
-    if (userControl == nullptr)
-    {
-        return;
-    }
-
-    userControl->init();
-    userControl->update();
 }
 
 void UserControlProperties::initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID)

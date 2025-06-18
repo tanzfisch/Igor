@@ -26,12 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICA__
-#define __MICA__
+#ifndef MICA_H
+#define MICA_H
 
-#include "Workspace.h"
+#include <igor/igor.h>
+using namespace igor;
 
-// https://wiki.lspace.org/Mica ;-)
+/*! entry point of Mica
+
+	What is Mica? -> https://wiki.lspace.org/Mica
+*/
 class Mica
 {
 
@@ -45,19 +49,14 @@ public:
 	~Mica() = default;
 
 	/*! run mica
-
-	\param filename name of file to start with
 	*/
-	void run(const iaString &filename);
+	void run();
 
 private:
 	/*! main window of mica
 	*/
 	iWindowPtr _window = nullptr;
 
-	/*! the workspace we are working with
-	*/
-	WorkspacePtr _workspace;
 };
 
-#endif // __MICA__
+#endif // MICA_H

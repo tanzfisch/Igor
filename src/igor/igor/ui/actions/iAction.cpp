@@ -19,8 +19,8 @@ namespace igor
 
 	void iAction::setDescription(const iaString &brief, const iaString &description)
 	{
-		_description = description;
 		_brief = brief;
+		_description = description;
 	}
 
 	const iaString &iAction::getBrief() const

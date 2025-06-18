@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETNUMBERCHOOSER__
-#define __IGOR_WIDGETNUMBERCHOOSER__
+#ifndef IGOR_WIDGET_NUMBER_CHOOSER_H
+#define IGOR_WIDGET_NUMBER_CHOOSER_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -104,6 +104,14 @@ namespace igor
         */
         void setStepping(float32 up, float32 down);
 
+        /*! \returns stage of button up
+        */
+        iWidgetState getButtonUpState() const;
+
+        /*! \returns stage of button down
+        */
+        iWidgetState getButtonDownState() const;
+
     private:
         /*! defines how many digits are displayed after the point
          */
@@ -151,11 +159,11 @@ namespace igor
 
         /*! appearance state of button up
          */
-        iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonUpState = iWidgetState::Standby;
 
         /*! appearance state of button down
          */
-        iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonDownState = iWidgetState::Standby;
 
         /*! button up rectangle
          */
@@ -174,27 +182,27 @@ namespace igor
         \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseWheel(iEventMouseWheel &event) override;
+        bool onMouseWheel(const iEventMouseWheel &event) override;
 
         /*! handles incoming mouse key down events
 
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! increase number by value
 
@@ -230,4 +238,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETNUMBERCHOOSER__
+#endif // IGOR_WIDGET_NUMBER_CHOOSER_H

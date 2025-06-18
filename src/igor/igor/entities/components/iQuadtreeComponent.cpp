@@ -16,13 +16,13 @@ namespace igor
     iEntityComponent *iQuadtreeComponent::createInstance()
     {
         return new iQuadtreeComponent();
-    }  
+    }
 
-    const iaString& iQuadtreeComponent::getTypeName()
+    const iaString &iQuadtreeComponent::getTypeName()
     {
         static const iaString name("igor_quadtree_component");
         return name;
-    }       
+    }
 
     iEntityComponentPtr iQuadtreeComponent::getCopy()
     {
@@ -43,5 +43,26 @@ namespace igor
     {
         auto &quadtree = entity->getScene()->getQuadtree();
         quadtree.remove(_object);
+    }
+
+    std::vector<iaString> iQuadtreeComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        if (_object != nullptr)
+        {
+            result.push_back(iaString("object initialized"));
+        }
+        else
+        {
+            result.push_back(iaString("no object"));
+        }
+
+        return result;
+    }
+
+    const iaCircled &iQuadtreeComponent::getObjectBounds() const
+    {
+        return _object->_circle;
     }
 }

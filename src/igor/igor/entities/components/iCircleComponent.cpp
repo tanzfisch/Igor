@@ -40,11 +40,13 @@ namespace igor
     void iCircleComponent::setOffset(const iaVector2d &offset)
     {
         _offset = offset;
+        setDirty();
     }
 
     void iCircleComponent::setRadius(float64 radius)
     {
         _radius = radius;
+        setDirty();
     }
 
     iEntityComponentPtr iCircleComponent::getCopy()
@@ -54,4 +56,13 @@ namespace igor
         component->_offset = _offset;
         return component;
     }
+
+    std::vector<iaString> iCircleComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        result.push_back(iaString("Radius: ") + iaString::toString(_radius) + " Offset: " + iaString::toString(_offset));
+
+        return result;
+    }    
 }

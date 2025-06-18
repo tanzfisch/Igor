@@ -463,7 +463,7 @@ namespace igor
         result->setMinWidth(35);
         result->setSteppingWheel(5.0f, 5.0f);
         result->setStepping(1.0f, 1.0f);
-        result->registerOnChangeEvent(changeDelegate);
+        result->getChangeEvent().add(changeDelegate);
         return result;
     }
 
@@ -477,7 +477,7 @@ namespace igor
         result->setValue(128.0f);
         result->setMinHeight(21);
         result->setTexture(textureFileName);
-        result->registerOnChangeEvent(changeDelegate);
+        result->getChangeEvent().add(changeDelegate);
         return result;
     }
 

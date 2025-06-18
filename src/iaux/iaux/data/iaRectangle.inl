@@ -120,56 +120,37 @@ const T iaRectangle<T>::getHeight() const
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getCenter() const
 {
-    iaVector2<T> result;
-
-    result._x = _x + _width * 0.5;
-    result._y = _y + _height * 0.5;
-
-    return result;
+    return {_x + _width * (T)0.5, _y + _height * (T)0.5};
 }
 
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getTopLeft() const
 {
-    iaVector2<T> result;
+    return {_x, _y};
+}
 
-    result._x = _x;
-    result._y = _y;
-
-    return result;
+template <typename T>
+const iaVector2<T> iaRectangle<T>::getSize() const
+{
+    return {_width, _height};
 }
 
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getTopRight() const
 {
-    iaVector2<T> result;
-
-    result._x = _x + _width;
-    result._y = _y;
-
-    return result;
+    return {_x + _width, _y};
 }
 
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getBottomLeft() const
 {
-    iaVector2<T> result;
-
-    result._x = _x;
-    result._y = _y + _height;
-
-    return result;
+    return {_x, _y + _height};
 }
 
 template <typename T>
 const iaVector2<T> iaRectangle<T>::getBottomRight() const
 {
-    iaVector2<T> result;
-
-    result._x = _x + _width;
-    result._y = _y + _height;
-
-    return result;
+    return {_x + _width, _y + _height};
 }
 
 template <typename T>

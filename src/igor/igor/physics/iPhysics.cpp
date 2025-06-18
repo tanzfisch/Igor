@@ -914,9 +914,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfig::getInstance().hasSetting("maxPhysicsThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxPhysicsThreads"))
         {
-            const iaString max = iConfig::getInstance().getValue("maxPhysicsThreads");
+            const iaString max = iConfig::getInstance().getValue("igor.maxPhysicsThreads");
 
             if (max != "Max")
             {
@@ -924,9 +924,9 @@ namespace igor
             }
         }
 
-        if (iConfig::getInstance().hasSetting("minPhysicsThreads"))
+        if (iConfig::getInstance().hasValue("igor.minPhysicsThreads"))
         {
-            minThreads = iConfig::getInstance().getValueAsInt("minPhysicsThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("igor.minPhysicsThreads");
         }
 
         return std::max(minThreads, maxThreads);

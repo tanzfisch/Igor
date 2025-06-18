@@ -16,13 +16,13 @@ namespace igor
     iEntityComponent *iPrefabComponent::createInstance()
     {
         return new iPrefabComponent();
-    }   
+    }
 
-    const iaString& iPrefabComponent::getTypeName()
+    const iaString &iPrefabComponent::getTypeName()
     {
         static const iaString name("igor_prefab_component");
         return name;
-    }        
+    }
 
     iEntityComponentPtr iPrefabComponent::getCopy()
     {
@@ -37,6 +37,7 @@ namespace igor
 
         if (_prefab == nullptr)
         {
+            asyncLoad = true; // keep trying
             return false;
         }
 
@@ -54,6 +55,7 @@ namespace igor
     {
         con_assert(getState() == iEntityComponentState::Unloaded, "invalid state");
         _prefab = prefab;
+        setDirty();
     }
 
     iPrefabPtr iPrefabComponent::getPrefab() const
@@ -61,4 +63,12 @@ namespace igor
         return _prefab;
     }
 
+    std::vector<iaString> iPrefabComponent::getInfo() const
+    {
+        std::vector<iaString> result = iEntityComponent::getInfo();
+
+        result.push_back(iaString("Pfb: ") + _prefab->getID().toString());
+
+        return result;
+    }
 }

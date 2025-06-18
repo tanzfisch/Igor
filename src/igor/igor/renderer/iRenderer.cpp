@@ -242,9 +242,9 @@ namespace igor
     struct iRendererLight
     {
     public:
-        /*! the light world position
+        /*! can be interpreted as position or orientation
          */
-        iaVector3f _position;
+        iaVector3f _vector;
 
         /*! ambient color
          */
@@ -257,6 +257,10 @@ namespace igor
         /*! specular color
          */
         iaColor3f _specular = {0.8f, 0.8f, 0.8f};
+
+        /*! light type
+         */
+        iLightType _type = iLightType::Directional;
     };
 
     /*! all the data needed
@@ -542,7 +546,7 @@ namespace igor
         _data->_colorIDShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_color_id");
 
         // don't cache the following so they stay invisible to the application
-        _data->_flatShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded", iResourceCacheMode::DontCache);
+        _data->_flatShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded_no_depth_test", iResourceCacheMode::DontCache);
         _data->_flatShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_flat_shaded_blend", iResourceCacheMode::DontCache);
         _data->_textureShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded", iResourceCacheMode::DontCache);
         _data->_textureShaderBlend = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_texture_shaded_blend", iResourceCacheMode::DontCache);
@@ -551,30 +555,47 @@ namespace igor
         _data->_currentShader.reset();
 
         ////////////// generate textures //////////
-        iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000001)},
-                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_fallback_texture"},
+        iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_fallback"},
                                    {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                    {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                    {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                   {"pattern", iTexturePattern::CheckerBoard},
-                                   {"primary", iaColor4f::black},
-                                   {"secondary", iaColor4f::magenta},
-                                   {"width", 128},
-                                   {"height", 128}});
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::CheckerBoard},
+                                   {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::black},
+                                   {IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::magenta},
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 128},
+                                   {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 128}});
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
+        iResourceManager::getInstance().addToDictionary("", "igor_texture_fallback", _data->_fallbackTexture->getID());
 
-        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID(0x1337000002)},
-                                {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_white"},
+        createSolidColorTexture("igor_texture_white", iaColor4f::white);
+        createSolidColorTexture("igor_texture_black", iaColor4f::black);
+        createSolidColorTexture("igor_texture_red", iaColor4f::red);
+        createSolidColorTexture("igor_texture_blue", iaColor4f::blue);
+        createSolidColorTexture("igor_texture_green", iaColor4f::green);
+        createSolidColorTexture("igor_texture_cyan", iaColor4f::cyan);
+        createSolidColorTexture("igor_texture_magenta", iaColor4f::magenta);
+        createSolidColorTexture("igor_texture_yellow", iaColor4f::yellow);
+        createSolidColorTexture("igor_texture_transparent", iaColor4f::transparent);
+    }
+
+    iResourcePtr iRenderer::createSolidColorTexture(const iaString &alias, const iaColor4f &color)
+    {
+        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                                {IGOR_RESOURCE_PARAM_ALIAS, alias},
                                 {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                 {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                 {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                {"pattern", iTexturePattern::SolidColor},
-                                {"primary", iaColor4f::white},
-                                {"width", 1},
-                                {"height", 1}});
+                                {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor},
+                                {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, color},
+                                {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1},
+                                {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1}});
 
-        iResourceManager::getInstance().loadResource(paramWhite);
+        auto resource = iResourceManager::getInstance().loadResource(paramWhite);
+        iResourceManager::getInstance().addToDictionary("", alias, resource->getID());
+
+        return resource;
     }
 
     void iRenderer::deinit()
@@ -739,6 +760,7 @@ namespace igor
 
     void iRenderer::drawSpriteInternal(const iaMatrixf &matrix, const iSpritePtr &sprite, uint32 frameIndex, const iaVector2f &size, const iaColor4f &color, bool blend)
     {
+        con_assert(sprite != nullptr, "zero pointer");
         if (!sprite->isValid())
         {
             return;
@@ -1154,10 +1176,11 @@ namespace igor
         updateMatrices();
     }
 
-    void iRenderer::setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain)
+    void iRenderer::setPerspective(float64 fov, float64 nearPlain, float64 farPlain, float64 aspect)
     {
+        const float64 a = (aspect == 0) ? getAspectRatio() : aspect;
         iaMatrixd matrix;
-        matrix.perspective(fov, aspect, nearPlain, farPlain);
+        matrix.perspective(fov, a, nearPlain, farPlain);
         if (_data->_projectionMatrix == matrix)
         {
             return;
@@ -1489,11 +1512,16 @@ namespace igor
         glViewport(viewport._x, viewport._y, viewport._width, viewport._height);
     }
 
+    float64 iRenderer::getAspectRatio() const
+    {
+        return static_cast<float64>(_data->_viewport._width) / static_cast<float64>(_data->_viewport._height);
+    }
+
     void iRenderer::setViewport(int32 x, int32 y, int32 width, int32 height)
     {
         con_assert(width >= 0 && height >= 0, "invalid view port");
 
-        if(width < 0 || height < 0)
+        if (width < 0 || height < 0)
         {
             con_err("invalid view port");
             return;
@@ -1548,16 +1576,17 @@ namespace igor
         iaVector3d result;
 
         in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
-        in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
+        in[1] = ((float32)viewport.getHeight() - (screenpos[1] - (float32)viewport.getY())) / (float32)viewport.getHeight() * 2.0f - 1.0f;
         in[2] = screenpos[2] * 2.0f - 1.0f;
         in[3] = 1.0f;
 
         iaMatrixd modelViewProjection = projection;
         modelViewProjection *= modelview;
-        modelViewProjection.invert();
+        bool success = modelViewProjection.invert();
+        con_assert(success, "Matrix inversion failed");
         out = modelViewProjection * in;
 
-        con_assert(out[3] != 0.0f, "out of range");
+        con_assert(out[3] != 0.0f, "Invalid perspective divide");
 
         if (out[3] != 0.0f)
         {
@@ -1809,7 +1838,7 @@ namespace igor
     void iRenderer::drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material)
     {
         const uint32 instanceCount = instancingBuffer->getInstanceCount();
-        if(instanceCount == 0)
+        if (instanceCount == 0)
         {
             return;
         }
@@ -1841,7 +1870,7 @@ namespace igor
         }
         vertexArray->setIndexBuffer(mesh->getVertexArray()->getIndexBuffer());
         vertexArray->addVertexBuffer(instancingBuffer->getVertexBuffer());
-        vertexArray->bind();        
+        vertexArray->bind();
 
         glDrawElementsInstanced(GL_TRIANGLES, mesh->getIndexCount(), GL_UNSIGNED_INT, nullptr, instanceCount);
         GL_CHECK_ERROR();
@@ -1903,7 +1932,7 @@ namespace igor
 
         if (_data->_currentShader->hasDirectionalLight())
         {
-            _data->_currentShader->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._position);
+            _data->_currentShader->setFloat3(UNIFORM_LIGHT_ORIENTATION, _data->_lights[0]._vector);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_AMBIENT, _data->_lights[0]._ambient);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_DIFFUSE, _data->_lights[0]._diffuse);
             _data->_currentShader->setFloat3(UNIFORM_LIGHT_SPECULAR, _data->_lights[0]._specular);
@@ -1958,9 +1987,16 @@ namespace igor
         }
     }
 
-    void iRenderer::setLightPosition(int32 lightnum, const iaVector3d &pos)
+    void iRenderer::setDirectionalLight(int32 lightnum, const iaVector3d &orientation)
     {
-        _data->_lights[lightnum]._position.set(pos._x, pos._y, pos._z);
+        _data->_lights[lightnum]._vector.set(orientation._x, orientation._y, orientation._z);
+        _data->_lights[lightnum]._type = iLightType::Directional;
+    }
+
+    void iRenderer::setPointLight(int32 lightnum, const iaVector3d &position)
+    {
+        _data->_lights[lightnum]._vector.set(position._x, position._y, position._z);
+        _data->_lights[lightnum]._type = iLightType::Point;
     }
 
     void iRenderer::setLightAmbient(int32 lightnum, const iaColor3f &ambient)
@@ -1978,12 +2014,12 @@ namespace igor
         _data->_lights[lightnum]._specular = specular;
     }
 
-    void iRenderer::setColorID(uint64 colorID)
+    void iRenderer::setColorID(uint32 colorID)
     {
-        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
+        _data->_solidColor.set(static_cast<float32>(static_cast<uint8>(colorID >> 24)) / 255.0,
+                               static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0,
                                static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0,
-                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0,
-                               1.0f);
+                               static_cast<float32>(static_cast<uint8>(colorID)) / 255.0);
     }
 
     void iRenderer::setColor(const iaColor4f &color)

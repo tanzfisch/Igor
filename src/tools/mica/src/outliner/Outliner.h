@@ -29,10 +29,7 @@
 #ifndef MICA_OUTLINER_H
 #define MICA_OUTLINER_H
 
-#include <igor/igor.h>
-using namespace igor;
-
-IGOR_EVENT_DEFINITION(EntitySelectionChanged, const iEntitySceneID &, const iEntityID &);
+#include "../MicaDefines.h"
 
 /*! outliner
 
@@ -47,10 +44,6 @@ public:
     /*! init ui
      */
     Outliner();
-
-    /*! \returns entity selection changed event
-    */
-    EntitySelectionChangedEvent& getEntitySelectionChangedEvent();
 
 private:
     /*! main layout
@@ -73,9 +66,9 @@ private:
      */
     iResourceID _contextResourceID;
 
-    /*! entity selection changed event
+    /*! flag to prevent endless loop
     */
-    EntitySelectionChangedEvent _entitySelectionChangedEvent;
+    bool _ignoreSelectionChange = false;
 
     /*! init user interface
      */
@@ -85,7 +78,7 @@ private:
 
     \param source the source widget of this event
     */
-    void onClickTreeView(const iWidgetPtr source);
+    void onTreeViewSelectionChanged(const iWidgetPtr source);
 
     /*! handles context menu for tree view
 
@@ -98,7 +91,7 @@ private:
     void populateTree();
 
     /*! populate the entity tree
-    */
+     */
     void populateTree(iItemPtr item, iEntityPtr entity);
 
     /*! drag move handle
@@ -128,7 +121,7 @@ private:
     void onEntityDestroyed(iEntityPtr entity);
 
     /*! called when given entity's name changed
-    
+
     \param entity the given entity
     */
     void onEntityNameChanged(iEntityPtr entity);
@@ -153,11 +146,11 @@ private:
 
     /*! called when project was loaded
      */
-    void onProjectLoaded();
+    bool onProjectLoaded(iEventProjectLoaded &event);
 
     /*! called when project was unloaded
      */
-    void onProjectUnloaded();    
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
 
     /*! called when user want's to load a scene
      */
@@ -175,12 +168,28 @@ private:
      */
     void onRefresh() override;
 
+    /*! save prefab event
+
+    \param source the event source
+    */
+    void onSavePrefab(const iWidgetPtr source);
+
     /*! populate outliner with sub scenes
 
     \param children list of entities that represent sub scenes or prefabs
     \param active if true this subscene will be displayed as active
     */
     void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
 #endif // MICA_OUTLINER_H

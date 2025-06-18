@@ -7,6 +7,8 @@
 #include <igor/threading/tasks/iTaskWatchFilesystem.h>
 #include <igor/threading/iTaskManager.h>
 
+#include <iaux/system/iaDirectory.h>
+
 namespace igor
 {
 
@@ -14,15 +16,20 @@ namespace igor
     {
     }
 
-    void iFilesystem::listenToChanges(const iaString &path)
+    void iFilesystem::listenToChanges(const iaString &path, bool recursive)
     {
-        if(_watchers.find(path) != _watchers.end())
+        if(!iaDirectory::exists(path))
         {
-            con_err("already watching path " << path);
+            con_err("path does not exist \"" << path << "\"");
             return;
         }
 
-        _watchers[path] = iTaskManager::getInstance().addTask(new iTaskWatchFilesystem(path));
+        if(_watchers.find(path) != _watchers.end())
+        {
+            return;
+        }
+
+        _watchers[path] = iTaskManager::getInstance().addTask(new iTaskWatchFilesystem(path, recursive));
     }
 
     void iFilesystem::stopListenToChanges(const iaString& path)

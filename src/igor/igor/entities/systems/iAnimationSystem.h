@@ -32,6 +32,10 @@
 
 #include <igor/entities/iEntitySystem.h>
 
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
+
 namespace igor
 {	
 
@@ -64,9 +68,23 @@ namespace igor
 
 	private: 
 
-		/*! a view on some entities
+		/*! a view on entities with animated transform
 		*/
-		iEntityViewPtr _view;
+		iEntityViewPtr _viewTransform;
+
+		/*! a view on entities with animated sprite
+		*/
+		iEntityViewPtr _viewSprite;
+
+		/*! update transform
+		*/
+		void onUpdateTransform(const iaTime &time, iAnimationComponentPtr animationComp, iTransformComponentPtr transformComp);
+
+		/*! update sprite
+		*/
+		void onUpdateSprite(const iaTime &time, iAnimationComponentPtr animationComp, iSpriteRenderComponentPtr spriteRenderComp);
+
+		float64 mapTime(const iaTime &time, iAnimationComponentPtr animationComp, iClipPtr clip, iaStateMachine::iaEvent lastEvent);
 	};
 
 } // igor

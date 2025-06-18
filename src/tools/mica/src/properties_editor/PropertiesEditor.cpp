@@ -14,11 +14,55 @@ void PropertiesEditor::initGUI()
     setTitle("Properties Editor");
 
     setDockable(true);
-    setMinWidth(450);
+    setMinWidth(460);
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _scroll = new iWidgetScroll(this);
+}
+
+bool PropertiesEditor::onEvent(iEvent &event)
+{
+    iWidget::onEvent(event);
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectUnloaded));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if(projectScene == nullptr)
+    {
+        return false;
+    }
+    
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectUnloaded(iEventProjectUnloaded &event)
+{
+    deinitProperties();
+
+    return false;
+}
+
+void PropertiesEditor::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    deinitProperties();
+
+    if (entities.size() != 1 ||
+        !sceneID.isValid() ||
+        !entities[0].isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entities[0]}, _scroll);
 }
 
 void PropertiesEditor::deinitProperties()
@@ -31,18 +75,6 @@ void PropertiesEditor::deinitProperties()
     }
 }
 
-void PropertiesEditor::setSelection(iNodeID nodeID)
-{
-    deinitProperties();
-
-    if (nodeID == iNode::INVALID_NODE_ID)
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(nodeID, _scroll);
-}
-
 void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
 {
     deinitProperties();
@@ -53,17 +85,4 @@ void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
     }
 
     _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
-}
-
-void PropertiesEditor::setSelectionEntity(const iEntitySceneID &sceneID, const iEntityID &entityID)
-{
-    deinitProperties();
-
-    if (!sceneID.isValid() ||
-        !entityID.isValid())
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entityID}, _scroll);
 }

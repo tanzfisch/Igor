@@ -14,6 +14,8 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Top);
         setHorizontalAlignment(iHorizontalAlignment::Left);
+
+        getSelectionChangedEvent().block();
     }
 
     void iWidgetBoxLayout::addWidget(iWidgetPtr widget)
@@ -48,7 +50,7 @@ namespace igor
                 minHeight += child->getMinHeight();
                 if (!first)
                 {
-                    minHeight += _spacing;
+                    minHeight += _spacing * getScale();
                 }
             }
             else
@@ -58,7 +60,7 @@ namespace igor
 
                 if (!first)
                 {
-                    minWidth += _spacing;
+                    minWidth += _spacing * getScale();
                 }
             }
 
@@ -88,7 +90,7 @@ namespace igor
         bool first = true;
         for (auto child : children)
         {
-            if(!first)
+            if (!first)
             {
                 offsetPos += _spacing;
             }
@@ -150,6 +152,16 @@ namespace igor
         stream << text[static_cast<int>(type)];
 
         return stream;
+    }
+
+    void iWidgetBoxLayout::setSpacing(uint32 spacing)
+    {
+        _spacing = spacing;
+    }
+
+    uint32 iWidgetBoxLayout::getSpacing() const
+    {
+        return _spacing;
     }
 
 } // namespace igor

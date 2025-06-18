@@ -1,6 +1,6 @@
 {
 	"sprite": {
-		"texture": "example_texture_supremacy_coin",
+		"texture": "texture_supremacy_coin",
 		"pixelPerUnit": 1,
 		"frames": [{
 				"pos": {

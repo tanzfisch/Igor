@@ -45,13 +45,12 @@ namespace igor
 
 	usually located at config/Igor.xml
 	*/
-	class iConfig : public iModule<iConfig>
+	class IGOR_API iConfig : public iModule<iConfig>
 	{
 
 		friend class iModule<iConfig>;
 
 	public:
-
 		/*! opens and reads configuration file from filesystem.
 
 		using tinyXML API
@@ -65,10 +64,10 @@ namespace igor
 		\param filename the given filename
 		\returns true if successful
 		*/
-		bool write(const iaString &filename);
+		bool write(const iaString &filename = "");
 
 		/*! \returns value for given setting as string
-		
+
 		\param key the given setting
 		*/
 		const iaString getValue(const iaString &setting) const;
@@ -95,39 +94,30 @@ namespace igor
 
 		\param setting the given setting
 		*/
-		bool hasSetting(const iaString &setting) const;
-
-	private:
-
-		/*! the key value data
-		*/
-		std::unordered_map<iaString, std::vector<iaString>> _settings;
-
-		/*! read configuration
-
-		\param config config xml element
-		*/
-		void readConfigElement(TiXmlElement *config);
+		bool hasValue(const iaString &setting) const;
 
 		/*! sets value on setting and overrides all values that been there before
 
 		\param setting the setting to set
 		\param value the value to set
 		*/
-		void set(const iaString &setting, const iaString &value);
+		void setValue(const iaString &setting, const iaString &value);
 
 		/*! sets multiple values on setting and overrides all values that been there before
 
 		\param setting the setting to set
 		\param values the values to set
 		*/
-		void set(const iaString &setting, const std::vector<iaString> &values);
+		void setValue(const iaString &setting, const std::vector<iaString> &values);
 
-		/*! removes given setting
+	private:
+		/*! the key value data
+		 */
+		std::unordered_map<iaString, std::vector<iaString>> _settings;
 
-		\param setting the setting to remove
+		/*! last used filename
 		*/
-		void reset(const iaString &setting);
+		iaString _filename;
 
 		/*! does nothing
 		 */
@@ -135,7 +125,7 @@ namespace igor
 
 		/*! does nothing
 		 */
-		virtual ~iConfig();		
+		virtual ~iConfig();
 	};
 
 } // namespace igor

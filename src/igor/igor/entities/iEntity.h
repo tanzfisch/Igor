@@ -29,11 +29,13 @@
 #ifndef IGOR_ENTITY_H
 #define IGOR_ENTITY_H
 
-#include <igor/entities/components/iComponents.h>
 #include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/iEntityIDPath.h>
 
 #include <unordered_map>
 #include <typeindex>
+
+#include <atomic>
 
 namespace igor
 {
@@ -50,16 +52,24 @@ namespace igor
     /*! entity definition
 
     Igor uses the terms entity, component and system but it is not a classic entity component system or ECS.
-    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.    
+    An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object.
      */
     class IGOR_API iEntity
     {
         friend class iEntityScene;
+        friend class iEntityTransformTraverser;
+        friend class iTransformComponent;
 
     public:
         /*! \returns entity id
          */
         const iEntityID &getID() const;
+
+        /*! \returns entity id path
+
+        This is slow. Use with care
+        */
+        iEntityIDPath getIDPath() const;
 
         /*! sets name of entity
 
@@ -114,6 +124,12 @@ namespace igor
         \param active if true entity will be active
         */
         void setActive(bool active);
+
+        /*! sets wether and entity is active or not while at the same time make sure all siblings will be set to the opposite
+
+        \param active if true entity will be active
+        */
+        void setActiveExclusive(bool active);
 
         /*! \returns true if entity is active
          */
@@ -174,15 +190,16 @@ namespace igor
         /*! destroys given component by type
          */
         template <typename T>
-        void reloadComponent();        
+        void reloadComponent();
 
         /*! adds behaviour to entity
 
         \param behaviour the behaviour to be added
         \param userData user data added to behaviour
         \param name the name of the behaviour
+        \param priority execution priority (low = 0, default = 100, high = ...)
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "");
+        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "", uint8 priority = 100);
 
         /*! removes behaviour from entity
 
@@ -198,11 +215,13 @@ namespace igor
          */
         bool isHierarchyDirty() const;
 
-        /*! sets dirty hierarchy flag
+        /*! sets dirty flag up and down the hierarchy
+         */
+        void setDirtyHierarchy();
 
-        \param dirty the dirty flag to set
-        */
-        void setDirtyHierarchy(bool dirty);
+        /*! resets dirty flag on this entity
+         */
+        void resetDirtyHierarchy();
 
     private:
         /*! the entities id (unique)
@@ -228,10 +247,6 @@ namespace igor
         /*! inactive child entities
          */
         std::vector<iEntityPtr> _inactiveChildren;
-
-        /*! if true entity is active and will be processed
-         */
-        bool _active = true;
 
         /*! true in case hierarchy (or transforms) is dirty
          */
@@ -285,7 +300,7 @@ namespace igor
 
         \param typeID the components type id
         */
-        void reloadComponent(const std::type_index &typeID);        
+        void reloadComponent(const std::type_index &typeID);
 
         /*! called for component that is about to be added
 
@@ -293,15 +308,19 @@ namespace igor
         */
         void componentToProcess(const std::type_index &typeID);
 
-        /*! notifies scene that components have changed
-         */
-        void onEntityChanged();
+        /*! notifies scene that the structure of the entity has changed
 
-        /*! sets dirty hierarchy up the hierarchy
+        * components
+        * active/inactive
+        * parent/child relationship
+         */
+        void onEntityStructureChanged();
+
+        /*! sets dirty flag up the hierarchy
          */
         void setDirtyHierarchyUp();
 
-        /*! sets dirty hierarchy down the hierarchy
+        /*! sets dirty flag down the hierarchy
          */
         void setDirtyHierarchyDown();
     };

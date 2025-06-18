@@ -128,7 +128,7 @@ namespace iaux
         \param x x component of the new center
         \param y y component of the new center
         */
-        void setCenter(T x, T y);        
+        void setCenter(T x, T y);
 
         /*! sets center of rectangle without changing it's size
 
@@ -159,7 +159,7 @@ namespace iaux
 
         /*! \returns top right corner of rectangle
          */
-        const iaVector2<T> getTopRight() const;        
+        const iaVector2<T> getTopRight() const;
 
         /*! \returns bottom left corner of rectangle
          */
@@ -167,7 +167,11 @@ namespace iaux
 
         /*! \returns bottom right corner of rectangle
          */
-        const iaVector2<T> getBottomRight() const;        
+        const iaVector2<T> getBottomRight() const;
+
+        /*! \returns size of rectangle
+         */
+        const iaVector2<T> getSize() const;
 
         /*! sets horizontal position
 
@@ -221,14 +225,14 @@ namespace iaux
         \param other the other rectangle
         \returns true if both rectangles are equal
         */
-        bool operator==(const iaRectangle<T> &other) const;       
+        bool operator==(const iaRectangle<T> &other) const;
 
         /*! compares two rectangles
 
         \param other the other rectangle
         \returns true if rectangles are not equal
         */
-        bool operator!=(const iaRectangle<T> &other) const;            
+        bool operator!=(const iaRectangle<T> &other) const;
     };
 
 #include <iaux/data/iaRectangle.inl>

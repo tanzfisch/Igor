@@ -4,8 +4,6 @@
 
 #include "UserControlResourceIcon.h"
 
-#include "../actions/MicaActionContext.h"
-
 #include <igor/resources/texture/iThumbnailCache.h>
 #include <iaux/system/iaFile.h>
 
@@ -23,7 +21,7 @@ UserControlResourceIcon::UserControlResourceIcon(const iaString &filename, const
 
 void UserControlResourceIcon::initGUI()
 {
-    registerOnContextMenuEvent(iContextMenuDelegate(this, &UserControlResourceIcon::OnContextMenu));
+    getContextMenuEvent().add(iContextMenuDelegate(this, &UserControlResourceIcon::OnContextMenu));
 
     iWidgetBoxLayoutPtr vBoxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     vBoxLayout->setHorizontalAlignment(iHorizontalAlignment::Center);

@@ -21,7 +21,7 @@ namespace igor
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-		updateMinSize(0, 0);
+		updateMinSize(0, iWidgetManager::getInstance().getTheme()->getFontSize() * 1.2f);
 	}
 
 	void iWidgetTextEdit::draw()
@@ -31,7 +31,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, 0.0, _widgetState, isEnabled());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 	const iaString &iWidgetTextEdit::getText() const

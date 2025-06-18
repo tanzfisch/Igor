@@ -42,7 +42,7 @@ namespace igor
 			auto transform = entity->getComponent<iTransformComponent>();
 
 			transform->translate(velocityComp->getVelocity());
-			transform->rotate(velocityComp->getAngularVelocity());
+			transform->rotate(iaQuaterniond::fromEuler(velocityComp->getAngularVelocity()));
 		}
 
 		iaVector3d min;
@@ -58,7 +58,7 @@ namespace igor
 
 			auto position = transform->getPosition();
 
-			transform->rotate(velocityComp->getAngularVelocity());
+			transform->rotate(iaQuaterniond::fromEuler(velocityComp->getAngularVelocity()));
 
 			switch (bounds->getType())
 			{

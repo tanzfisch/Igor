@@ -77,6 +77,10 @@ namespace igor
          */
         void setOffset(const iaVector3d &offset);
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
     private:
         /*! the sphere's radius
          */

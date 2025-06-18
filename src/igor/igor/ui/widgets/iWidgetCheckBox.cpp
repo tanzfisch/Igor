@@ -44,7 +44,7 @@ namespace igor
 		_currentRadioButtons.clear();
 	}
 
-	bool iWidgetCheckBox::onMouseKeyUp(iEventMouseKeyUp &event)
+	bool iWidgetCheckBox::onMouseKeyUp(const iEventMouseKeyUp &event)
 	{
 		if (!isEnabled())
 		{
@@ -126,7 +126,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isEnabled());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 } // namespace igor

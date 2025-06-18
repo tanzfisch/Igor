@@ -11,7 +11,7 @@ UserControlComponent::UserControlComponent(const iEntitySceneID &scene, const iE
     con_assert(iEntitySystemModule::getInstance().getScene(_sceneID)->getEntity(_entityID) != nullptr, "invalid entity id");
 }
 
-void UserControlComponent::init()
+void UserControlComponent::onInit()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -21,6 +21,7 @@ void UserControlComponent::init()
     groupBox->setHeaderOnly();
 
     _layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, groupBox);
+    _layout->setSpacing(5);
     _layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     _layout->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -50,12 +51,12 @@ void UserControlComponent::onClickDelete(iWidgetPtr source)
     onDestroyComponent(entity);
 }
 
-void UserControlComponent::update()
+void UserControlComponent::onUpdateUI()
 {
     // nothing to do
 }
 
-void UserControlComponent::updateComponent()
+void UserControlComponent::onUpdateComponent()
 {
     // nothing to do
 }

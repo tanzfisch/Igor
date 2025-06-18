@@ -36,7 +36,7 @@ void DialogComponentTypeSelection::initGUI()
 	{
 		_selectBoxComponentType->addItem(componentType.second._typeName, componentType.first);
 	}
-	_selectBoxComponentType->registerOnChangeEvent(iChangeDelegate(this, &DialogComponentTypeSelection::onTypeChanged));
+	_selectBoxComponentType->getChangeEvent().add(iChangeDelegate(this, &DialogComponentTypeSelection::onTypeChanged));
 
 	iWidgetBoxLayoutPtr buttonLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, mainLayout);
 	buttonLayout->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -63,7 +63,14 @@ std::type_index DialogComponentTypeSelection::getSelectedTypeIndex() const
 
 void DialogComponentTypeSelection::onTypeChanged(iWidgetPtr source)
 {
-	_selectedTypeIndex = std::any_cast<std::type_index>(_selectBoxComponentType->getSelectedUserData());
+	const auto data = _selectBoxComponentType->getSelectedUserData();
+	if (!data.has_value() ||
+		data.type() != typeid(std::type_index))
+	{
+		return;
+	}
+
+	_selectedTypeIndex = std::any_cast<std::type_index>(data);
 }
 
 void DialogComponentTypeSelection::onCancel(iWidgetPtr source)

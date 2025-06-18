@@ -48,8 +48,8 @@ namespace igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth = _configuredMinWidth;
-		int32 minHeight = _configuredMinHeight;
+		int32 minWidth;
+		int32 minHeight;
 
 		if (isGrowingByContent())
 		{
@@ -102,7 +102,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawWidgetPicture(this);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 
 		for (const auto child : _children)
 		{

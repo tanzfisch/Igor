@@ -1,6 +1,6 @@
 {
 	"sprite": {
-		"texture": "example_texture_supremacy_drone",
+		"texture": "texture_supremacy_drone",
 		"pixelPerUnit": 1,
 		"frames": [{
 				"pos": {

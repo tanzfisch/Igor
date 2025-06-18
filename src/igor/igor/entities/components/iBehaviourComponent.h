@@ -39,11 +39,11 @@ using namespace iaux;
 namespace igor
 {
     class iEntity;
-    typedef iEntity* iEntityPtr;
+    typedef iEntity *iEntityPtr;
 
-    /*! behaviour function definition
+    /*! behaviour delegate definition
      */
-    typedef iaDelegate<void, iEntityPtr, std::any &> iBehaviourDelegate;
+    IGOR_DELEGATE_DEFINITION(iBehaviour, iEntityPtr, std::any &);
 
     /*! behaviour data
      */
@@ -54,23 +54,22 @@ namespace igor
         iBehaviourDelegate _delegate;
 
         /*! user data
-
-        \todo this is not ideal maybe fix in #300
-        */
+         */
         std::any _userData;
 
         /*! optional name of behaviour
          */
         iaString _name;
+
+        /*! execution priority
+         */
+        uint8 _priority;
     };
 
     /*! behaviour component
      */
     class iBehaviourComponent : public iEntityComponent
     {
-        friend class iEntity;
-        friend class iBehaviourSystem;
-
     public:
         /*! ctor
          */
@@ -81,8 +80,35 @@ namespace igor
         static iEntityComponent *createInstance();
 
         /*! \returns type name of component
+         */
+        static const iaString &getTypeName();
+
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;
+
+        /*! \returns behaviours
+         */
+        const std::vector<iBehaviourData> &getBehaviors() const;
+
+        /*! adds behaviour
+
+        \param behaviour the behaviour to be added
+        \param userData user data added to behaviour
+        \param name the name of the behaviour
+        \param priority execution priority (low = 0, default = 100, high = 255)
         */
-        static const iaString& getTypeName();
+        void addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority);
+
+        /*! removes behaviour from entity
+
+        \param behaviour the behaviour to be removed
+        */
+        void removeBehaviour(const iBehaviourDelegate &delegate);
+
+        /*! executes all behaviours
+         */
+        void execute();
 
     private:
         /*! behaviors

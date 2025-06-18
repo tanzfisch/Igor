@@ -90,8 +90,8 @@ namespace igor
         _graph->setExtrapolateData();
         _graph->setViewGrid();
         _graph->setViewLabels();
-        _graph->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
-        _graph->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
+        _graph->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
+        _graph->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
 
         iWidgetGroupBox *groupBoxSelection = new iWidgetGroupBox();
         groupBoxSelection->setText("Selected Value");
@@ -119,7 +119,7 @@ namespace igor
         _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
         _axisNumberChooser[0]->setAfterPoint(_afterPoint);
-        _axisNumberChooser[0]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+        _axisNumberChooser[0]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelX, 0, 0);
         axisGrid->addWidget(_axisNumberChooser[0], 1, 0);
@@ -136,7 +136,7 @@ namespace igor
         _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
         _axisNumberChooser[1]->setAfterPoint(_afterPoint);
-        _axisNumberChooser[1]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+        _axisNumberChooser[1]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelY1, 0, 1);
         axisGrid->addWidget(_axisNumberChooser[1], 1, 1);
@@ -155,7 +155,7 @@ namespace igor
             _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
             _axisNumberChooser[2]->setAfterPoint(_afterPoint);
-            _axisNumberChooser[2]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+            _axisNumberChooser[2]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY2, 0, 2);
             axisGrid->addWidget(_axisNumberChooser[2], 1, 2);
@@ -175,7 +175,7 @@ namespace igor
             _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
             _axisNumberChooser[3]->setAfterPoint(_afterPoint);
-            _axisNumberChooser[3]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+            _axisNumberChooser[3]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY3, 0, 3);
             axisGrid->addWidget(_axisNumberChooser[3], 1, 3);

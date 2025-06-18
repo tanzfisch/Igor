@@ -68,7 +68,7 @@ namespace iaux
 
         \param sphere the sphere to merge with
         */
-        void merge(iaSphere<T> &sphere);
+        void merge(const iaSphere<T> &sphere);
 
         /*! \returns true if two spheres are equal
 
@@ -88,7 +88,7 @@ namespace iaux
         \param sphere the other sphere to test with
         \returns true: if sphere is completely inside sphere; false: if not
         */
-        bool contains(const iaSphere<T> &sphere);
+        bool contains(const iaSphere<T> &sphere) const;
     };
 
 #include <iaux/data/iaSphere.inl>

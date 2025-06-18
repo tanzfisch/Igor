@@ -32,12 +32,12 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawWidgetSpacer(this);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 
-        for (const auto child : _children)
-        {
-            child->draw();
-        }				
+		for (const auto child : _children)
+		{
+			child->draw();
+		}
 	}
 
 } // namespace igor

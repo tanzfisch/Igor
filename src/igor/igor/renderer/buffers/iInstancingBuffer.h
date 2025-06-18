@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_INSTANCING_BUFFER__
-#define __IGOR_INSTANCING_BUFFER__
+#ifndef IGOR_INSTANCING_BUFFER_H
+#define IGOR_INSTANCING_BUFFER_H
 
 #include <igor/renderer/buffers/iVertexArray.h>
 
@@ -66,6 +66,18 @@ namespace igor
         \param data the data to add
         */
         void addInstance(uint32 size, const void* data);
+
+        /*! returns instance data
+
+        \param index index of first instance to return
+        \param size the size of data to returns. Must be multiple of the layout size (or stride)
+        \param[out] data the data to return
+        */
+        void getInstance(uint32 index, uint32 size, void* data);
+
+        /*! \returns size in byte of each instance. Including stride
+        */
+        uint32 getInstanceSize() const;
 
         /*! sets a new size hint.
 
@@ -145,4 +157,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_INSTANCING_BUFFER__ 
+#endif // IGOR_INSTANCING_BUFFER_H

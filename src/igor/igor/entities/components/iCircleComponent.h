@@ -76,6 +76,10 @@ namespace igor
         */
         void setOffset(const iaVector2d &offset);
 
+        /*! \returns a set of info strings
+         */
+        std::vector<iaString> getInfo() const override;        
+
     private:
         /*! the circles radius
          */

@@ -43,8 +43,7 @@ namespace igor
     public:
         /*! init context
 
-        \param entitySceneID the scene those entities are in
-        \param entityIDs list of entity IDs to run the action on
+        \param path the file path to add to this context
         */
         iFilesystemActionContext(const iaString &path)
             : _path(path)

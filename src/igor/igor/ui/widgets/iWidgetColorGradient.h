@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETCOLORGRADIENT__
-#define __IGOR_WIDGETCOLORGRADIENT__
+#ifndef IGOR_WIDGETCOLORGRADIENT_H
+#define IGOR_WIDGETCOLORGRADIENT_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -143,14 +143,14 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! updates size based on it's content
          */
@@ -167,4 +167,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETCOLORGRADIENT__
+#endif // IGOR_WIDGETCOLORGRADIENT_H
