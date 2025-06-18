@@ -13,7 +13,6 @@ var classiaux_1_1ia_console =
     [ "operator<<", "classiaux_1_1ia_console.html#a7cf4898af6c4b34223b620a74537a232", null ],
     [ "operator<<", "classiaux_1_1ia_console.html#ae3aa9ba790811c62cbbfcb801a45c51e", null ],
     [ "operator<<", "classiaux_1_1ia_console.html#a6ab3b5081b32688f103975a633e3d305", null ],
-    [ "printCake", "classiaux_1_1ia_console.html#a2b0af11d7ba889a0012339368153288d", null ],
     [ "printCallStack", "classiaux_1_1ia_console.html#ad25b84bea579d56683c1616242b5f8e7", null ],
     [ "printHeader", "classiaux_1_1ia_console.html#a32e95a8e3ac354a4f5089fb49aea2b7b", null ],
     [ "printStats", "classiaux_1_1ia_console.html#a00733a2ffd8bd614ec412aa95f27a122", null ],

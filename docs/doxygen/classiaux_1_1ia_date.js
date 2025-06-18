@@ -6,5 +6,7 @@ var classiaux_1_1ia_date =
     [ "getDay", "classiaux_1_1ia_date.html#a4fbfa8fedbb283020e73c82524292a19", null ],
     [ "getMonth", "classiaux_1_1ia_date.html#a91a8c691b0aca8bb9770b02feb7c10ed", null ],
     [ "getToday", "classiaux_1_1ia_date.html#a573f2065b1f71e8a34ca3530c417cf65", null ],
-    [ "getYear", "classiaux_1_1ia_date.html#ab940049e9ebd91b85a9e68dee815d6fa", null ]
+    [ "getYear", "classiaux_1_1ia_date.html#ab940049e9ebd91b85a9e68dee815d6fa", null ],
+    [ "operator!=", "classiaux_1_1ia_date.html#a6c026acb29a672e1995c346e14e53b1f", null ],
+    [ "operator==", "classiaux_1_1ia_date.html#aa4a16d73d3c10d6701bac8244864ae6d", null ]
 ];

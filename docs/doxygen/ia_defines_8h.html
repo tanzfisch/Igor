@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/iaux/iaux/iaDefines.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/iaux/iaux/iaDefines.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -89,11 +89,13 @@ $(document).ready(function(){initNavTree('ia_defines_8h.html',''); initResizable
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">iaDefines.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -248,9 +250,9 @@ Macros</h2></td></tr>
 <tr class="separator:a42d356a10342d55d122f0e2f1a1248ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a170c60feb8221523e337b3cc009848f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a170c60feb8221523e337b3cc009848f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab727452502ccae69b394193218fcab4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#ab727452502ccae69b394193218fcab4d">IGOR_RAD2GRAD</a>&#160;&#160;&#160;180.0/<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a></td></tr>
+<tr class="memitem:ab727452502ccae69b394193218fcab4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#ab727452502ccae69b394193218fcab4d">IGOR_RAD2GRAD</a>&#160;&#160;&#160;180.0 / <a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a></td></tr>
 <tr class="separator:ab727452502ccae69b394193218fcab4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be98a2c3caef37f00de4298424fa641"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a5be98a2c3caef37f00de4298424fa641">IGOR_GRAD2RAD</a>&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a>/180.0</td></tr>
+<tr class="memitem:a5be98a2c3caef37f00de4298424fa641"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a5be98a2c3caef37f00de4298424fa641">IGOR_GRAD2RAD</a>&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.0</td></tr>
 <tr class="separator:a5be98a2c3caef37f00de4298424fa641"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -287,6 +289,11 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba21c2e59531c8710156d34a3c30ac81d5">iaux::Z</a>
  }</td></tr>
 <tr class="separator:ad667fe7c1ad6757a475a5913e3789d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a467f11d6c49d7d28d2c2e1bae468d6c0"><td class="memItemLeft" align="right" valign="top">std::thread::id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a467f11d6c49d7d28d2c2e1bae468d6c0">IGOR_MAIN_THREAD_ID</a></td></tr>
+<tr class="separator:a467f11d6c49d7d28d2c2e1bae468d6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae7214c86d0dedfb0639cc274832d83a3" name="ae7214c86d0dedfb0639cc274832d83a3"></a>
@@ -878,7 +885,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IGOR_GRAD2RAD&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a>/180.0</td>
+          <td class="memname">#define IGOR_GRAD2RAD&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a> / 180.0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1039,7 +1046,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define IGOR_RAD2GRAD&#160;&#160;&#160;180.0/<a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a></td>
+          <td class="memname">#define IGOR_RAD2GRAD&#160;&#160;&#160;180.0 / <a class="el" href="ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3">M_PI</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1529,6 +1536,30 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a467f11d6c49d7d28d2c2e1bae468d6c0" name="a467f11d6c49d7d28d2c2e1bae468d6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a467f11d6c49d7d28d2c2e1bae468d6c0">&#9670;&nbsp;</a></span>IGOR_MAIN_THREAD_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::thread::id IGOR_MAIN_THREAD_ID</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >igor main thread id </p>
 
 </div>
 </div>

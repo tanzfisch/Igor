@@ -1,9 +1,9 @@
 var classigor_1_1i_clipboard =
 [
-    [ "clear", "classigor_1_1i_clipboard.html#a0c72b4e7ae74bc7ac1a5f01a9381d531", null ],
-    [ "getData", "classigor_1_1i_clipboard.html#a129cc94e3e9f2d18ef031e72ad0c2c18", null ],
-    [ "getFormat", "classigor_1_1i_clipboard.html#aeb1981e480f9c711cd9ea303f3e9927b", null ],
-    [ "hasData", "classigor_1_1i_clipboard.html#a3b77d7da0ea899eac6902de8672ce785", null ],
-    [ "setData", "classigor_1_1i_clipboard.html#af7bae4cd2f688ac7867dd64c9cb4fddb", null ],
+    [ "copyEntityIDs", "classigor_1_1i_clipboard.html#a34bd274a57487e583cd888c33e419f28", null ],
+    [ "copyText", "classigor_1_1i_clipboard.html#a898359e45e5fd1b92566770b75931b2f", null ],
+    [ "has", "classigor_1_1i_clipboard.html#a4b281765001b6c027d479ef0a11223fb", null ],
+    [ "pasteEntityIDs", "classigor_1_1i_clipboard.html#aa032e8469689de4489bc4c569a6ddf1b", null ],
+    [ "pasteText", "classigor_1_1i_clipboard.html#a92267b6ac72e7d1878547b3674c9a32b", null ],
     [ "iModule< iClipboard >", "classigor_1_1i_clipboard.html#a13159d978857717f36cb763d6a10874d", null ]
 ];

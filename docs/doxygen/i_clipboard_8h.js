@@ -1,8 +1,8 @@
 var i_clipboard_8h =
 [
-    [ "iClipboard", "classigor_1_1i_clipboard.html", "classigor_1_1i_clipboard" ],
-    [ "iClipboardFormat", "i_clipboard_8h.html#ae289d213d889898575f4a28bd3c13ed0", [
-      [ "IgorNodes", "i_clipboard_8h.html#ae289d213d889898575f4a28bd3c13ed0a83d90c02f21ca82cd44831b6782d4d41", null ],
-      [ "Empty", "i_clipboard_8h.html#ae289d213d889898575f4a28bd3c13ed0ace2c8aed9c2fa0cfbed56cbda4d8bf07", null ]
+    [ "igor::iClipboard", "classigor_1_1i_clipboard.html", "classigor_1_1i_clipboard" ],
+    [ "iClipboardDataFormat", "i_clipboard_8h.html#a1d5627c8c955561e55e43001a2a6eaa3", [
+      [ "Text", "i_clipboard_8h.html#a1d5627c8c955561e55e43001a2a6eaa3a9dffbf69ffba8bc38bc4e01abf4b1675", null ],
+      [ "EntityID", "i_clipboard_8h.html#a1d5627c8c955561e55e43001a2a6eaa3adf7c7cf41ae7b7e6e32d0e6947fcd7d3", null ]
     ] ]
 ];

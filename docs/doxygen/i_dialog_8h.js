@@ -1,7 +1,6 @@
 var i_dialog_8h =
 [
     [ "igor::iDialog", "classigor_1_1i_dialog.html", "classigor_1_1i_dialog" ],
-    [ "iDialogCloseDelegate", "i_dialog_8h.html#a21f1f480a5c4a515de004dc44a1d137e", null ],
     [ "iDialogPtr", "i_dialog_8h.html#a8ddbd92d767f89943094e7482f9afa4f", null ],
     [ "iDialogMotionState", "i_dialog_8h.html#a699b02e285751837bf23a0d369c48c75", [
       [ "Moving", "i_dialog_8h.html#a699b02e285751837bf23a0d369c48c75adefe967ad0373b2274fc298f19125ca7", null ],
@@ -21,5 +20,6 @@ var i_dialog_8h =
       [ "Ok", "i_dialog_8h.html#a122478c90d48716251aee24739420db4aa60852f204ed8028c1c58808b746d115", null ],
       [ "Cancel", "i_dialog_8h.html#a122478c90d48716251aee24739420db4aea4788705e6873b424c65e91c2846b19", null ],
       [ "Error", "i_dialog_8h.html#a122478c90d48716251aee24739420db4a902b0d55fddef6f8d651fe1035b7d4bd", null ]
-    ] ]
+    ] ],
+    [ "IGOR_DELEGATE_DEFINITION", "i_dialog_8h.html#a733027fd1f2ed361e2a6ca788a0332e8", null ]
 ];

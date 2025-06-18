@@ -7,5 +7,6 @@ var i_mesh_builder_utils_8cpp =
     [ "addMesh", "i_mesh_builder_utils_8cpp.html#abb356765819006cd20d00741c05b893d", null ],
     [ "addPlane", "i_mesh_builder_utils_8cpp.html#af7cfc2d1a3245dd3e32c08d79a73219e", null ],
     [ "addRing", "i_mesh_builder_utils_8cpp.html#af6df6545ce47a6594a6cb05a4bf67a7a", null ],
-    [ "addSphere", "i_mesh_builder_utils_8cpp.html#aff49d0f4b5eec74a9da4e87fbd785c61", null ]
+    [ "addSphere", "i_mesh_builder_utils_8cpp.html#aff49d0f4b5eec74a9da4e87fbd785c61", null ],
+    [ "addTorus", "i_mesh_builder_utils_8cpp.html#aecfb4f7649953cb3a0205624377e5b06", null ]
 ];

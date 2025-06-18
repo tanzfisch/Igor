@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -138,8 +138,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0a997f8c856a4f7c3cb96e7c2c6dd968"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09328b73524d8592ff25c2ed46f60fc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a09328b73524d8592ff25c2ed46f60fc0">clear</a> ()</td></tr>
 <tr class="separator:a09328b73524d8592ff25c2ed46f60fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa0da17523c203367c2857ecce5c6466"><td class="memItemLeft" align="right" valign="top">const iaRectangle&lt; F &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#afa0da17523c203367c2857ecce5c6466">getRootBox</a> () const</td></tr>
-<tr class="separator:afa0da17523c203367c2857ecce5c6466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dde2bab2e35c8ca81602e4500910a3c"><td class="memItemLeft" align="right" valign="top">const iaRectangle&lt; F &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a2dde2bab2e35c8ca81602e4500910a3c">getArea</a> () const</td></tr>
+<tr class="separator:a2dde2bab2e35c8ca81602e4500910a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dff7aa374a621e7b014cf737c2e4cf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a9dff7aa374a621e7b014cf737c2e4cf6">getSplitThreshold</a> () const</td></tr>
+<tr class="separator:a9dff7aa374a621e7b014cf737c2e4cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89e26b2fcdd79bce3b559f708162aa45"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_quadtree.html#a89e26b2fcdd79bce3b559f708162aa45">getMaxDepth</a> () const</td></tr>
+<tr class="separator:a89e26b2fcdd79bce3b559f708162aa45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename F&gt;<br />
@@ -320,6 +324,46 @@ template&lt;typename F &gt; </div>
 
 </div>
 </div>
+<a id="a2dde2bab2e35c8ca81602e4500910a3c" name="a2dde2bab2e35c8ca81602e4500910a3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dde2bab2e35c8ca81602e4500910a3c">&#9670;&nbsp;</a></span>getArea()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename F &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const iaRectangle&lt; F &gt; &amp; iQuadtree::getArea </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>dimensions of quadtree </dd></dl>
+
+</div>
+</div>
+<a id="a89e26b2fcdd79bce3b559f708162aa45" name="a89e26b2fcdd79bce3b559f708162aa45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89e26b2fcdd79bce3b559f708162aa45">&#9670;&nbsp;</a></span>getMaxDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename F &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> iQuadtree::getMaxDepth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>configured max depth of tree </dd></dl>
+
+</div>
+</div>
 <a id="a951f55a41b7de3bb46e8b6b28def4e6c" name="a951f55a41b7de3bb46e8b6b28def4e6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a951f55a41b7de3bb46e8b6b28def4e6c">&#9670;&nbsp;</a></span>getRoot()</h2>
 
@@ -340,8 +384,8 @@ template&lt;typename F &gt; </div>
 
 </div>
 </div>
-<a id="afa0da17523c203367c2857ecce5c6466" name="afa0da17523c203367c2857ecce5c6466"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa0da17523c203367c2857ecce5c6466">&#9670;&nbsp;</a></span>getRootBox()</h2>
+<a id="a9dff7aa374a621e7b014cf737c2e4cf6" name="a9dff7aa374a621e7b014cf737c2e4cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dff7aa374a621e7b014cf737c2e4cf6">&#9670;&nbsp;</a></span>getSplitThreshold()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,14 +393,14 @@ template&lt;typename F &gt; </div>
 template&lt;typename F &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const iaRectangle&lt; F &gt; &amp; iQuadtree::getRootBox </td>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> iQuadtree::getSplitThreshold </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>dimensions of quadtree </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>split threshold </dd></dl>
 
 </div>
 </div>
@@ -567,8 +611,8 @@ template&lt;typename F &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/igor/igor/data/<a class="el" href="i_quadtree_8h.html">iQuadtree.h</a></li>
-<li>/home/maddin/dev/Igor/src/igor/igor/data/<a class="el" href="i_quadtree_8inl.html">iQuadtree.inl</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/data/<a class="el" href="i_quadtree_8h.html">iQuadtree.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/data/<a class="el" href="i_quadtree_8inl.html">iQuadtree.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

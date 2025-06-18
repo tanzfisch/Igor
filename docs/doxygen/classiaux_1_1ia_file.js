@@ -6,6 +6,7 @@ var classiaux_1_1ia_file =
     [ "copy", "classiaux_1_1ia_file.html#aa052b70f89a7c05077d86e7bc1c9d3ef", null ],
     [ "exists", "classiaux_1_1ia_file.html#a8e34792a500c7a5fd6b83e688013a43a", null ],
     [ "exists", "classiaux_1_1ia_file.html#a48db13931a3b7f61ce3f9ec3dec9b8ac", null ],
+    [ "generateUniqueFilename", "classiaux_1_1ia_file.html#a3b05ca5a1937dc1f78736640f44195a8", null ],
     [ "getExtension", "classiaux_1_1ia_file.html#aad9a65cebed146fdc65ff4d2cc188265", null ],
     [ "getFileName", "classiaux_1_1ia_file.html#ad7326e4eac54215661473fbc073b0568", null ],
     [ "getFileOpenMode", "classiaux_1_1ia_file.html#a106bd71d2bb5e9d2cee3b121779f06bc", null ],

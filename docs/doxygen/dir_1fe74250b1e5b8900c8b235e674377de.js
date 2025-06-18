@@ -16,8 +16,6 @@ var dir_1fe74250b1e5b8900c8b235e674377de =
     [ "ompfMeshChunk.h", "ompf_mesh_chunk_8h.html", "ompf_mesh_chunk_8h" ],
     [ "ompfParticleSystemChunk.cpp", "ompf_particle_system_chunk_8cpp.html", null ],
     [ "ompfParticleSystemChunk.h", "ompf_particle_system_chunk_8h.html", "ompf_particle_system_chunk_8h" ],
-    [ "ompfResourceSearchPathChunk.cpp", "ompf_resource_search_path_chunk_8cpp.html", null ],
-    [ "ompfResourceSearchPathChunk.h", "ompf_resource_search_path_chunk_8h.html", "ompf_resource_search_path_chunk_8h" ],
     [ "ompfTransformChunk.cpp", "ompf_transform_chunk_8cpp.html", null ],
     [ "ompfTransformChunk.h", "ompf_transform_chunk_8h.html", "ompf_transform_chunk_8h" ]
 ];

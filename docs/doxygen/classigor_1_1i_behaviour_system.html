@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_behaviour_system.html',
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classigor_1_1i_behaviour_system-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">igor::iBehaviourSystem Class Reference</div></div>
 </div><!--header-->
@@ -98,31 +99,54 @@ $(document).ready(function(){initNavTree('classigor_1_1i_behaviour_system.html',
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a007c61437cd555b8f5abf80c18e63db4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#a007c61437cd555b8f5abf80c18e63db4">iBehaviourSystem</a> ()=default</td></tr>
-<tr class="separator:a007c61437cd555b8f5abf80c18e63db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef05707cfd410bc964805d8fdf268311"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#aef05707cfd410bc964805d8fdf268311">~iBehaviourSystem</a> ()=default</td></tr>
-<tr class="separator:aef05707cfd410bc964805d8fdf268311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad64c27b8fd20f4cec1b909f3ad40010f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#ad64c27b8fd20f4cec1b909f3ad40010f">update</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time, <a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a> scene) override</td></tr>
-<tr class="separator:ad64c27b8fd20f4cec1b909f3ad40010f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80bcf537934970e387922930e5810f1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#a80bcf537934970e387922930e5810f1e">iBehaviourSystem</a> ()</td></tr>
+<tr class="separator:a80bcf537934970e387922930e5810f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae293e60967541696908a930a00e07b64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#ae293e60967541696908a930a00e07b64">onUpdate</a> (const <a class="el" href="structigor_1_1i_entity_scene_update_context.html">iEntitySceneUpdateContext</a> &amp;context) override</td></tr>
+<tr class="separator:ae293e60967541696908a930a00e07b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb6079b9779713bff235414087c65e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">iEntitySystemStage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#aabb6079b9779713bff235414087c65e1">getStage</a> () const override</td></tr>
+<tr class="separator:aabb6079b9779713bff235414087c65e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classigor_1_1i_entity_system"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_entity_system')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_entity_system.html">igor::iEntitySystem</a></td></tr>
 <tr class="memitem:a9e71b4722ad24c1812f9db2605da5906 inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a9e71b4722ad24c1812f9db2605da5906">iEntitySystem</a> ()=default</td></tr>
 <tr class="separator:a9e71b4722ad24c1812f9db2605da5906 inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80597626c79d8a61e128477dceaa46af inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a80597626c79d8a61e128477dceaa46af">~iEntitySystem</a> ()=default</td></tr>
 <tr class="separator:a80597626c79d8a61e128477dceaa46af inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55c7563744ab1ae9927dc2dfe55289b3 inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a55c7563744ab1ae9927dc2dfe55289b3">update</a> (const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time, <a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a> scene)=0</td></tr>
-<tr class="separator:a55c7563744ab1ae9927dc2dfe55289b3 inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0ec6984fc2c46f5431b94d09a6a980c inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#ab0ec6984fc2c46f5431b94d09a6a980c">onUpdate</a> (const <a class="el" href="structigor_1_1i_entity_scene_update_context.html">iEntitySceneUpdateContext</a> &amp;context)=0</td></tr>
+<tr class="separator:ab0ec6984fc2c46f5431b94d09a6a980c inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b87e48b2262fffd3c027daa5837bf77 inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">iEntitySystemStage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a3b87e48b2262fffd3c027daa5837bf77">getStage</a> () const =0</td></tr>
+<tr class="separator:a3b87e48b2262fffd3c027daa5837bf77 inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a352c33038b229408017a9e6ada2baa84 inherit pub_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a352c33038b229408017a9e6ada2baa84">getScene</a> () const</td></tr>
+<tr class="separator:a352c33038b229408017a9e6ada2baa84 inherit pub_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a60cc9676c12e19d2f376ca9df4b58a6a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#a9bf81629552b916beccffc303ffd3a09">iEntitySystemPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#a60cc9676c12e19d2f376ca9df4b58a6a">createInstance</a> ()</td></tr>
+<tr class="separator:a60cc9676c12e19d2f376ca9df4b58a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae01b6e022a09f946e75aeb901e197ea8"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_behaviour_system.html#ae01b6e022a09f946e75aeb901e197ea8">getTypeName</a> ()</td></tr>
+<tr class="separator:ae01b6e022a09f946e75aeb901e197ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classigor_1_1i_entity_system"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classigor_1_1i_entity_system')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classigor_1_1i_entity_system.html">igor::iEntitySystem</a></td></tr>
+<tr class="memitem:af8c77fea7cbdfee5e8f420fc9c0c358d inherit pro_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#af8c77fea7cbdfee5e8f420fc9c0c358d">onComponentAdded</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:af8c77fea7cbdfee5e8f420fc9c0c358d inherit pro_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74773a0bcb035b974a748044dd545654 inherit pro_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a74773a0bcb035b974a748044dd545654">onComponentRemoved</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:a74773a0bcb035b974a748044dd545654 inherit pro_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bc8bb72c26b3787b7983e2a0922127a inherit pro_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a5bc8bb72c26b3787b7983e2a0922127a">onComponentToRemove</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity, const std::type_index &amp;typeID)</td></tr>
+<tr class="separator:a5bc8bb72c26b3787b7983e2a0922127a inherit pro_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ce88877da2fccc1b12bc4f0d062c3e8 inherit pro_methods_classigor_1_1i_entity_system"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#a2ce88877da2fccc1b12bc4f0d062c3e8">onEntityStructureChanged</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> entity)</td></tr>
+<tr class="separator:a2ce88877da2fccc1b12bc4f0d062c3e8 inherit pro_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0a6cab55572098fb575e90720fd1b36 inherit pro_methods_classigor_1_1i_entity_system"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:ad0a6cab55572098fb575e90720fd1b36 inherit pro_methods_classigor_1_1i_entity_system"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a8f058cc5bcdb959158bcc29a523ba2c8">iEntityViewPtr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system.html#ad0a6cab55572098fb575e90720fd1b36">createView</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;&quot;)</td></tr>
+<tr class="separator:ad0a6cab55572098fb575e90720fd1b36 inherit pro_methods_classigor_1_1i_entity_system"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >behaviour system </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a007c61437cd555b8f5abf80c18e63db4" name="a007c61437cd555b8f5abf80c18e63db4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a007c61437cd555b8f5abf80c18e63db4">&#9670;&nbsp;</a></span>iBehaviourSystem()</h2>
+<a id="a80bcf537934970e387922930e5810f1e" name="a80bcf537934970e387922930e5810f1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bcf537934970e387922930e5810f1e">&#9670;&nbsp;</a></span>iBehaviourSystem()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">igor::iBehaviourSystem::iBehaviourSystem </td>
@@ -131,18 +155,14 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p >does nothing </p>
+<p >init types </p>
 
 </div>
 </div>
-<a id="aef05707cfd410bc964805d8fdf268311" name="aef05707cfd410bc964805d8fdf268311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef05707cfd410bc964805d8fdf268311">&#9670;&nbsp;</a></span>~iBehaviourSystem()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a60cc9676c12e19d2f376ca9df4b58a6a" name="a60cc9676c12e19d2f376ca9df4b58a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60cc9676c12e19d2f376ca9df4b58a6a">&#9670;&nbsp;</a></span>createInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +171,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">igor::iBehaviourSystem::~iBehaviourSystem </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a9bf81629552b916beccffc303ffd3a09">iEntitySystemPtr</a> igor::iBehaviourSystem::createInstance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -159,17 +179,16 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p >does nothing </p>
+<p >creates instance of this system type </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad64c27b8fd20f4cec1b909f3ad40010f" name="ad64c27b8fd20f4cec1b909f3ad40010f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad64c27b8fd20f4cec1b909f3ad40010f">&#9670;&nbsp;</a></span>update()</h2>
+<a id="aabb6079b9779713bff235414087c65e1" name="aabb6079b9779713bff235414087c65e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb6079b9779713bff235414087c65e1">&#9670;&nbsp;</a></span>getStage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,21 +197,65 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iBehaviourSystem::update </td>
+          <td class="memname"><a class="el" href="namespaceigor.html#a49f0f6a3a2e9b4a7a4a4c57752f82851">iEntitySystemStage</a> igor::iBehaviourSystem::getStage </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;&#160;</td>
-          <td class="paramname"><em>time</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>processing stage this system want's to run in </dd></dl>
+
+<p>Implements <a class="el" href="classigor_1_1i_entity_system.html#a3b87e48b2262fffd3c027daa5837bf77">igor::iEntitySystem</a>.</p>
+
+</div>
+</div>
+<a id="ae01b6e022a09f946e75aeb901e197ea8" name="ae01b6e022a09f946e75aeb901e197ea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae01b6e022a09f946e75aeb901e197ea8">&#9670;&nbsp;</a></span>getTypeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp; igor::iBehaviourSystem::getTypeName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceigor.html#a50418646744bae54d4b34c9b9e95be52">iEntityScenePtr</a>&#160;</td>
-          <td class="paramname"><em>scene</em>&#160;</td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>type name of system </dd></dl>
+
+</div>
+</div>
+<a id="ae293e60967541696908a930a00e07b64" name="ae293e60967541696908a930a00e07b64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae293e60967541696908a930a00e07b64">&#9670;&nbsp;</a></span>onUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
+          <td class="memname">void igor::iBehaviourSystem::onUpdate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structigor_1_1i_entity_scene_update_context.html">iEntitySceneUpdateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>context</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -204,18 +267,18 @@ Public Member Functions</h2></td></tr>
 <p >updates system</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>the scene used for this update </td></tr>
+    <tr><td class="paramname">context</td><td>the update context </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classigor_1_1i_entity_system.html#a55c7563744ab1ae9927dc2dfe55289b3">igor::iEntitySystem</a>.</p>
+<p>Implements <a class="el" href="classigor_1_1i_entity_system.html#ab0ec6984fc2c46f5431b94d09a6a980c">igor::iEntitySystem</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/igor/igor/entities/systems/<a class="el" href="i_behaviour_system_8h.html">iBehaviourSystem.h</a></li>
-<li>/home/maddin/dev/Igor/src/igor/igor/entities/systems/<a class="el" href="i_behaviour_system_8cpp.html">iBehaviourSystem.cpp</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/entities/systems/<a class="el" href="i_behaviour_system_8h.html">iBehaviourSystem.h</a></li>
+<li>/home/martin/dev/Igor/src/igor/igor/entities/systems/<a class="el" href="i_behaviour_system_8cpp.html">iBehaviourSystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

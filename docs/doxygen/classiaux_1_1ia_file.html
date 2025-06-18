@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -146,6 +146,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a48db13931a3b7f61ce3f9ec3dec9b8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab87297b51bb97f30b7b312c5bf38c623"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#ab87297b51bb97f30b7b312c5bf38c623">remove</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:ab87297b51bb97f30b7b312c5bf38c623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b05ca5a1937dc1f78736640f44195a8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a3b05ca5a1937dc1f78736640f44195a8">generateUniqueFilename</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
+<tr class="separator:a3b05ca5a1937dc1f78736640f44195a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91b75379fdc62adb5b687c4060e45682"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_file.html#a91b75379fdc62adb5b687c4060e45682">getLastModifiedTime</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:a91b75379fdc62adb5b687c4060e45682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -259,7 +261,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >checks if the file exist</p>
-<dl class="section return"><dt>Returns</dt><dd>true: if file exists; false: if not </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true: if file has an absolute path and exists; false: if not </dd></dl>
 
 </div>
 </div>
@@ -294,6 +296,39 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true: if file exists; false: if not </dd></dl>
+
+</div>
+</div>
+<a id="a3b05ca5a1937dc1f78736640f44195a8" name="a3b05ca5a1937dc1f78736640f44195a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b05ca5a1937dc1f78736640f44195a8">&#9670;&nbsp;</a></span>generateUniqueFilename()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaFile::generateUniqueFilename </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>valid unique filename for given filename </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>the given filename </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -732,8 +767,8 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_file_8h.html">iaFile.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_file_8cpp.html">iaFile.cpp</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_file_8h.html">iaFile.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_file_8cpp.html">iaFile.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

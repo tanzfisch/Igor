@@ -6,6 +6,7 @@ var classigor_1_1i_mime_data =
     [ "getResourceID", "classigor_1_1i_mime_data.html#a5c40a0ed3b9cf12cd56a2f6bc810cfa0", null ],
     [ "getText", "classigor_1_1i_mime_data.html#a7b340696ff26843c8367e2fd3bb9d8c2", null ],
     [ "getWidgetID", "classigor_1_1i_mime_data.html#a35c4dc2e4664ca0105639f628b355793", null ],
+    [ "hasData", "classigor_1_1i_mime_data.html#aa947b46b094026d4a9b1ab7658b1c763", null ],
     [ "hasResourceID", "classigor_1_1i_mime_data.html#a7189c8d074c1df58aff11cd30c48cc56", null ],
     [ "hasText", "classigor_1_1i_mime_data.html#a05e4ecfd686c67f4e114875148146f26", null ],
     [ "hasType", "classigor_1_1i_mime_data.html#a462328c31a630f86d09df9855495a973", null ],

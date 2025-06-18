@@ -9,5 +9,6 @@ var classigor_1_1i_resource_dictionary =
     [ "read", "classigor_1_1i_resource_dictionary.html#a0ff7f0f5349b01ece75c16b06341cf83", null ],
     [ "removeResource", "classigor_1_1i_resource_dictionary.html#a23e82259c64a3c334f3cefd972a8f6fa", null ],
     [ "setAlias", "classigor_1_1i_resource_dictionary.html#a55fe4546f51dab383f0aee6045cf3182", null ],
-    [ "write", "classigor_1_1i_resource_dictionary.html#a77928e8365bdcdfce88557a787806a97", null ]
+    [ "write", "classigor_1_1i_resource_dictionary.html#a77928e8365bdcdfce88557a787806a97", null ],
+    [ "iResourceManager", "classigor_1_1i_resource_dictionary.html#a3d7f73050de28471f180641b509bbfde", null ]
 ];

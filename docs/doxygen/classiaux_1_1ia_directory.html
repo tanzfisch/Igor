@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -104,12 +104,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a68ad2ed4525ebbf8139fdf8d351e7ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bee0a04a2428514ab4dfb4f9d6c27eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a0bee0a04a2428514ab4dfb4f9d6c27eb">operator=</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;directoryName)</td></tr>
 <tr class="separator:a0bee0a04a2428514ab4dfb4f9d6c27eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63cd0a182750ab5b17bebfc294ca7e5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a63cd0a182750ab5b17bebfc294ca7e5f">getFullDirectoryName</a> () const</td></tr>
-<tr class="separator:a63cd0a182750ab5b17bebfc294ca7e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af24b1d4d0fa8d15d867ef4eaf609da54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#af24b1d4d0fa8d15d867ef4eaf609da54">getAbsoluteDirectoryName</a> () const</td></tr>
+<tr class="separator:af24b1d4d0fa8d15d867ef4eaf609da54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0836b5f5eea3e3fa41a377aea285a99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#af0836b5f5eea3e3fa41a377aea285a99">getDirectoryName</a> () const</td></tr>
 <tr class="separator:af0836b5f5eea3e3fa41a377aea285a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa387838709d9ee29a1369a2e2c8463b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#aa387838709d9ee29a1369a2e2c8463b3">getFullParentDirectoryName</a> () const</td></tr>
-<tr class="separator:aa387838709d9ee29a1369a2e2c8463b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74bfc9f760da93def9ad3f84ad133416"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a74bfc9f760da93def9ad3f84ad133416">getAbsoluteParentDirectoryName</a> () const</td></tr>
+<tr class="separator:a74bfc9f760da93def9ad3f84ad133416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87cbec68132434ce1a5880904181c904"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a87cbec68132434ce1a5880904181c904">getDirectories</a> (bool recursive=false, bool orderAlphabetically=true) const</td></tr>
 <tr class="separator:a87cbec68132434ce1a5880904181c904"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d6260443a07bf240e55ed2c455a55e1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classiaux_1_1ia_file.html">iaFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a9d6260443a07bf240e55ed2c455a55e1">getFiles</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;searchPattern=L&quot;*&quot;, bool recursive=false, bool orderAlphabetically=true) const</td></tr>
@@ -137,8 +137,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:aed644fabfdd0c251c0252cfb8be0f665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a766224f6f3a33a51f2defb32132ae637"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#a766224f6f3a33a51f2defb32132ae637">isEmpty</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path)</td></tr>
 <tr class="separator:a766224f6f3a33a51f2defb32132ae637"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2f5dc60ff037445d2527ce35a30c94d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#aa2f5dc60ff037445d2527ce35a30c94d">fixPath</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;directoryName, bool file)</td></tr>
-<tr class="separator:aa2f5dc60ff037445d2527ce35a30c94d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf4459e6068fcaf89d2292374fdef02d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html#adf4459e6068fcaf89d2292374fdef02d">fixPath</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;directoryName)</td></tr>
+<tr class="separator:adf4459e6068fcaf89d2292374fdef02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -270,8 +270,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="aa2f5dc60ff037445d2527ce35a30c94d" name="aa2f5dc60ff037445d2527ce35a30c94d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2f5dc60ff037445d2527ce35a30c94d">&#9670;&nbsp;</a></span>fixPath()</h2>
+<a id="adf4459e6068fcaf89d2292374fdef02d" name="adf4459e6068fcaf89d2292374fdef02d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf4459e6068fcaf89d2292374fdef02d">&#9670;&nbsp;</a></span>fixPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,18 +283,8 @@ Friends</h2></td></tr>
           <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaDirectory::fixPath </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>directoryName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>directoryName</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -312,6 +302,44 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>fixed path </dd></dl>
+
+</div>
+</div>
+<a id="af24b1d4d0fa8d15d867ef4eaf609da54" name="af24b1d4d0fa8d15d867ef4eaf609da54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af24b1d4d0fa8d15d867ef4eaf609da54">&#9670;&nbsp;</a></span>getAbsoluteDirectoryName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaDirectory::getAbsoluteDirectoryName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>get the absolute path name</dd></dl>
+<p>e.g. if the path is c:\foo\bar then this returns c:\foo\bar </p>
+
+</div>
+</div>
+<a id="a74bfc9f760da93def9ad3f84ad133416" name="a74bfc9f760da93def9ad3f84ad133416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74bfc9f760da93def9ad3f84ad133416">&#9670;&nbsp;</a></span>getAbsoluteParentDirectoryName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaDirectory::getAbsoluteParentDirectoryName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the absolute path name of parent directory</dd></dl>
+<p>e.g. if the path is c:\foo\bar then this returns c:\foo </p>
 
 </div>
 </div>
@@ -436,44 +464,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a63cd0a182750ab5b17bebfc294ca7e5f" name="a63cd0a182750ab5b17bebfc294ca7e5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63cd0a182750ab5b17bebfc294ca7e5f">&#9670;&nbsp;</a></span>getFullDirectoryName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaDirectory::getFullDirectoryName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>get the absolute path name</dd></dl>
-<p>e.g. if the path is c:\foo\bar then this returns c:\foo\bar </p>
-
-</div>
-</div>
-<a id="aa387838709d9ee29a1369a2e2c8463b3" name="aa387838709d9ee29a1369a2e2c8463b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa387838709d9ee29a1369a2e2c8463b3">&#9670;&nbsp;</a></span>getFullParentDirectoryName()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::iaDirectory::getFullParentDirectoryName </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the absolute path name of parent directory</dd></dl>
-<p>e.g. if the path is c:\foo\bar then this returns c:\foo </p>
 
 </div>
 </div>
@@ -715,8 +705,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_directory_8h.html">iaDirectory.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_directory_8cpp.html">iaDirectory.cpp</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_directory_8h.html">iaDirectory.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_directory_8cpp.html">iaDirectory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

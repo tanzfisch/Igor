@@ -4,7 +4,7 @@ var class_o_m_p_f_1_1ompf_base_chunk =
     [ "~ompfBaseChunk", "class_o_m_p_f_1_1ompf_base_chunk.html#a35030608d258f5917c9c7875a39acbf5", null ],
     [ "getChildren", "class_o_m_p_f_1_1ompf_base_chunk.html#a86aabdc024383dbd61d2f8189ffa1c72", null ],
     [ "getID", "class_o_m_p_f_1_1ompf_base_chunk.html#aab20d95c7f7e4e74682c7e7001d8b5d2", null ],
-    [ "getName", "class_o_m_p_f_1_1ompf_base_chunk.html#a5f520b618326e0fba9e6a3433f48d345", null ],
+    [ "getName", "class_o_m_p_f_1_1ompf_base_chunk.html#ab8951b1f4674f495b974a491ab060113", null ],
     [ "getParentID", "class_o_m_p_f_1_1ompf_base_chunk.html#a1491875387eb38ba83cf747dd5bd67e9", null ],
     [ "getSize", "class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401", null ],
     [ "getType", "class_o_m_p_f_1_1ompf_base_chunk.html#a195c1c3a51e06b36608d348d396dedda", null ],
@@ -16,5 +16,6 @@ var class_o_m_p_f_1_1ompf_base_chunk =
     [ "setID", "class_o_m_p_f_1_1ompf_base_chunk.html#a60c963bf58ea5aacd0f1329bec35163c", null ],
     [ "setName", "class_o_m_p_f_1_1ompf_base_chunk.html#a46fad2b1023518cc102c994ad818a166", null ],
     [ "setParentID", "class_o_m_p_f_1_1ompf_base_chunk.html#aaf3b4e5244ebce9bd164cefbda196c1d", null ],
-    [ "write", "class_o_m_p_f_1_1ompf_base_chunk.html#a7a751c15f128eb5619ac626d038500b1", null ]
+    [ "write", "class_o_m_p_f_1_1ompf_base_chunk.html#a7a751c15f128eb5619ac626d038500b1", null ],
+    [ "OMPF", "class_o_m_p_f_1_1ompf_base_chunk.html#aab58fb4cfecd35af051399a86d7804e6", null ]
 ];
