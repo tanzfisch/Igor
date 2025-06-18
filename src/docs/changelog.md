@@ -4,6 +4,8 @@ Changelog                           {#changelog}
 0.45.0
 ------
 
+Most examples do not work anymore. Focus was on Mica and Supremacy
+
 - #422 new entity based render engine (will eventually replace the scene graph based renderer)
 - #414 reintroducing home brew entity system (it's something like a game object component thingy)
 - IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
@@ -33,6 +35,7 @@ Changelog                           {#changelog}
 - #445 introduced iaTransform
 - added recursive watch to iTaskWatchFilesystem
 - fixed iWidgetScroll which was scrolling by the wrong amount
+- added more tests to iaux
 
 0.44.0
 ------
