@@ -1,222 +1,655 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/entities/components/iComponents.h>
+#include <igor/entities/iEntityScene.h>
+#include <igor/entities/iEntitySystemModule.h>
 
-#include <entt.h>
+#include <algorithm>
 
 namespace igor
 {
 
-    iEntity::iEntity(const iEntityID entity, iEntityScenePtr scene)
-        : _entity(entity), _scene(scene)
+    iEntity::iEntity(const iaString &name)
+        : _name(name)
     {
+    }
+
+    iEntity::~iEntity()
+    {
+        removeParent();
+
+        const auto children = _children;
+        for (auto child : children)
+        {
+            child->removeParent();
+            _scene->destroyEntity(child);
+        }
+
+        const auto inactiveChildren = _inactiveChildren;
+        for (auto child : inactiveChildren)
+        {
+            child->removeParent();
+            _scene->destroyEntity(child);
+        }
+
+        clearComponents();
+    }
+
+    const std::vector<std::type_index> iEntity::getComponentTypes()
+    {
+        std::vector<std::type_index> result;
+        _mutex.lock();
+        for (const auto &pair : _components)
+        {
+            result.push_back(pair.first);
+        }
+        _mutex.unlock();
+
+        return result;
+    }
+
+    iEntityComponentPtr iEntity::getComponent(const std::type_index &typeID) const
+    {
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            return nullptr;
+        }
+
+        return iter->second;
     }
 
     void iEntity::setName(const iaString &name)
     {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iBaseEntityComponent &component = registry->get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
-        component._name = name;
-    }
-
-    const iaString iEntity::getName() const
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iBaseEntityComponent &component = registry->get<iBaseEntityComponent>(static_cast<entt::entity>(_entity));
-        return component._name;
-    }
-
-    bool iEntity::isActive() const
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iActiveComponent *component = registry->try_get<iActiveComponent>(static_cast<entt::entity>(_entity));
-        return component != nullptr;
-    }
-
-    void iEntity::setActive(bool active)
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-        
-        iActiveComponent *component = registry->try_get<iActiveComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr && active)
+        if (_name == name)
         {
-            registry->emplace_or_replace<iActiveComponent>(static_cast<entt::entity>(_entity));
-        }
-        else if (component != nullptr && !active)
-        {
-            registry->remove<iActiveComponent>(static_cast<entt::entity>(_entity));
-        }
-    }
-
-    iEntityID iEntity::getID() const
-    {
-        return _entity;
-    }
-
-    bool iEntity::isValid() const
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        return registry->valid(static_cast<entt::entity>(_entity));
-    }
-
-    void iEntity::addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData)
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iBehaviourComponent *component = registry->try_get<iBehaviourComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
-        {
-            component = &(registry->emplace_or_replace<iBehaviourComponent>(static_cast<entt::entity>(_entity)));
+            return;
         }
 
-        for (auto &behaviourData : component->_behaviour)
+        _name = name;
+
+        iEntitySystemModule::getInstance().getEntityNameChangedEvent()(this);
+    }
+
+    void iEntity::addComponent(const std::type_index &typeID, iEntityComponentPtr component)
+    {
+        con_assert(component != nullptr, "zero pointer");
+
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter != _components.end())
         {
-            if (!behaviourData._delegate.isValid())
+            con_err("component already exists");
+            _mutex.unlock();
+            return;
+        }
+
+        _components[typeID] = component;
+        component->_entity = this;
+
+        _unloadedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
+        componentToProcess(typeID);
+    }
+
+    void iEntity::componentToProcess(const std::type_index &typeID)
+    {
+        _scene->onComponentToProcess(this, typeID);
+    }
+
+    bool iEntity::processComponents()
+    {
+        _mutex.lock();
+        auto componentsToProcess = std::move(_unloadedComponents);
+        _mutex.unlock();
+
+        if (componentsToProcess.empty())
+        {
+            return true;
+        }
+
+        std::vector<std::pair<std::type_index, iEntityComponentPtr>> remainUnloaded;
+
+        bool changed = false;
+
+        for (const auto &pair : componentsToProcess)
+        {
+            iEntityComponentPtr component = pair.second;
+            con_assert(component->_state == iEntityComponentState::Unloaded || component->_state == iEntityComponentState::UnloadedInactive, "invalid state");
+
+            bool asyncLoad = false;
+            bool active = component->_state == iEntityComponentState::Unloaded;
+
+            bool success = component->onLoad(this, asyncLoad);
+            if (success)
             {
-                behaviourData._delegate = behaviour;
-                behaviourData._userData = userData;
-                return;
+                if (active)
+                {
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
+                }
+                else
+                {
+                    component->onActivate(this);
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
+                }
+
+                changed = true;
+                _scene->onComponentAdded(this, pair.first);
+            }
+            else
+            {
+                if (!asyncLoad)
+                {
+                    component->_state = iEntityComponentState::LoadFailed;
+                    con_err("load of component " << pair.first.name() << " failed");
+                }
+                else
+                {
+                    // keep in queue
+                    remainUnloaded.push_back(pair);
+                }
             }
         }
 
-        con_err("can't add more then " << component->_behaviour.size() << " behaviors");
+        const bool processAgain = !remainUnloaded.empty();
+
+        if (processAgain)
+        {
+            _mutex.lock();
+            _unloadedComponents.insert(_unloadedComponents.end(), remainUnloaded.begin(), remainUnloaded.end());
+            _mutex.unlock();
+        }
+
+        if (changed)
+        {
+            _componentMask = calcComponentMask();
+            onEntityStructureChanged();
+        }
+
+        return !processAgain;
     }
 
-    void iEntity::removeBehaviour(const iBehaviourDelegate &behaviour)
+    void iEntity::destroyComponent(const std::type_index &typeID)
     {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
+        _scene->onComponentToRemove(this, typeID);
 
-        iBehaviourComponent *component = registry->try_get<iBehaviourComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            _mutex.unlock();
+            return;
+        }
+
+        auto component = iter->second;
+        _components.erase(iter);
+        _mutex.unlock();
+
+        if (component->_state == iEntityComponentState::Active)
+        {
+            component->onDeactivate(this);
+            component->_state == iEntityComponentState::Inactive;
+        }
+        else if (component->_state == iEntityComponentState::Inactive)
+        {
+            component->onUnLoad(this);
+            component->_state = iEntityComponentState::Unloaded;
+        }
+        else if (component->_state == iEntityComponentState::Unloaded ||
+                 component->_state == iEntityComponentState::UnloadedInactive)
+        {
+            _mutex.lock();
+            auto iter = std::find_if(_unloadedComponents.begin(), _unloadedComponents.end(),
+                                     [component](const std::pair<std::type_index, iEntityComponentPtr> &element)
+                                     {
+                                         return component == element.second;
+                                     });
+
+            if (iter != _unloadedComponents.end())
+            {
+                _unloadedComponents.erase(iter);
+            }
+            _mutex.unlock();
+        }
+
+        delete component;
+
+        _componentMask = calcComponentMask();
+
+        _scene->onComponentRemoved(this, typeID);
+    }
+
+    void iEntity::reloadComponent(const std::type_index &typeID)
+    {
+        _mutex.lock();
+        auto iter = _components.find(typeID);
+        if (iter == _components.end())
+        {
+            _mutex.unlock();
+            con_err("trying to reload component that does not exist");
+            return;
+        }
+
+        auto component = iter->second;
+        _mutex.unlock();
+
+        con_assert(component->_state == iEntityComponentState::Active || component->_state == iEntityComponentState::Inactive, "invalid state");
+
+        const bool active = component->_state == iEntityComponentState::Active;
+
+        if (active)
+        {
+            component->onDeactivate(this);
+        }
+
+        component->onUnLoad(this);
+        component->_state = active ? iEntityComponentState::Unloaded : iEntityComponentState::UnloadedInactive;
+
+        _mutex.lock();
+        _unloadedComponents.emplace_back(typeID, component);
+        _mutex.unlock();
+
+        componentToProcess(typeID);
+    }
+
+    void iEntity::onEntityStructureChanged()
+    {
+        _scene->onEntityStructureChanged(this);
+
+        iEntitySystemModule::getInstance().getEntityChangedEvent()(this);
+    }
+
+    void iEntity::clearComponents()
+    {
+        _mutex.lock();
+        const auto components = _components;
+        _mutex.unlock();
+        for (const auto &pair : components)
+        {
+            destroyComponent(pair.first);
+        }
+
+        onEntityStructureChanged();
+    }
+
+    iEntityIDPath iEntity::getIDPath() const
+    {
+        iEntityIDPath result;
+
+        result += _id;
+
+        iEntityPtr parent = getParent();
+        while (parent != nullptr)
+        {
+            result += parent->getID();
+            parent = parent->getParent();
+        }
+        result.reverse();
+
+        return result;
+    }
+
+    const iEntityID &iEntity::getID() const
+    {
+        return _id;
+    }
+
+    const iaString &iEntity::getName() const
+    {
+        return _name;
+    }
+
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
+    {
+        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
+        if (behaviourComponent == nullptr)
+        {
+            behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
+        }
+
+        behaviourComponent->addBehaviour(delegate, userData, name, priority);
+    }
+
+    void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)
+    {
+        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
+
+        if (behaviourComponent == nullptr)
         {
             con_err("no behaviour component available");
             return;
         }
 
-        int nonZero = 0;
-        for (auto &behaviourData : component->_behaviour)
-        {
-            if (behaviourData._delegate == behaviour)
-            {
-                nonZero++;
-                behaviourData._delegate.clear();
-            }
-        }
+        behaviourComponent->removeBehaviour(delegate);
 
-        if (nonZero == 1)
-        {
-            registry->remove<iBehaviourComponent>(static_cast<entt::entity>(_entity));
-        }
-
-        if (nonZero == 0)
-        {
-            con_err("can't remove given behaviour");
-        }
-    }
-
-    void iEntity::setParent(iEntityID parent)
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iHierarchyComponent *component = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
-        {
-            if (parent == IGOR_INVALID_ENTITY_ID)
-            {
-                return;
-            }
-
-            component = &(registry->emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(_entity)));
-        }
-
-        if (component->_parent == parent)
+        if (!behaviourComponent->getBehaviors().empty())
         {
             return;
         }
 
-        iHierarchyComponent *parentComponent = nullptr;
-
-        if (component->_parent != IGOR_INVALID_ENTITY_ID)
-        {
-            parentComponent = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(component->_parent));
-            if (parentComponent != nullptr)
-            {
-                parentComponent->_childCount = std::max(0, parentComponent->_childCount - 1);
-            }
-
-            component->_parent = IGOR_INVALID_ENTITY_ID;
-        }
-
-        if (parent != IGOR_INVALID_ENTITY_ID)
-        {
-            parentComponent = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(parent));
-            if (parentComponent == nullptr)
-            {
-                parentComponent = &(registry->emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(parent)));
-            }
-
-            parentComponent->_childCount++;
-        }
-
-        component->_parent = parent;
+        destroyComponent<iBehaviourComponent>();
     }
 
-    iEntityID iEntity::getParent() const
+    iEntityScenePtr iEntity::getScene() const
     {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iHierarchyComponent *component = registry->try_get<iHierarchyComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
-        {
-            return IGOR_INVALID_ENTITY_ID;
-        }
-
-        return component->_parent;
+        return _scene;
     }
 
-    void iEntity::setMotionInteractionType(iMotionInteractionType interactionType)
+    void iEntity::setParent(iEntityPtr parent)
     {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iMotionInteractionResolverComponent *component = registry->try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
+        if (parent == nullptr)
         {
-            if (interactionType == iMotionInteractionType::None)
-            {
-                return;
-            }
-
-            component = &(registry->emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity)));
-        }
-
-        if (interactionType == iMotionInteractionType::None)
-        {
-            registry->remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
+            con_err("invalid pointer");
             return;
         }
 
-        component->_type = interactionType;
-    }
-
-    iMotionInteractionType iEntity::getMotionInteractionType() const
-    {
-        auto *registry = static_cast<entt::registry*>(_scene->getRegistry());
-
-        iMotionInteractionResolverComponent *component = registry->try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(_entity));
-        if (component == nullptr)
+        if (parent->getScene() != getScene())
         {
-            return iMotionInteractionType::None;
+            con_err("incompatible scene");
+            return;
         }
 
-        return component->_type;
+        removeParent();
+
+        _parent = parent;
+        _parent->_children.push_back(this);
+
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
     }
 
+    void iEntity::setParent(const iEntityID &parentID)
+    {
+        iEntityPtr parent = _scene->getEntity(parentID);
+        setParent(parent);
+    }
+
+    void iEntity::removeParent()
+    {
+        if (_parent == nullptr)
+        {
+            return;
+        }
+
+        auto &children = _parent->_children;
+        auto iter = std::find(children.begin(), children.end(), this);
+        if (iter != children.end())
+        {
+            children.erase(iter);
+        }
+
+        _parent = _scene->_root;
+        iEntitySystemModule::getInstance().getHierarchyChangedEvent()(_scene);
+    }
+
+    iEntityPtr iEntity::getParent() const
+    {
+        if (_parent == _scene->_root || _parent == nullptr)
+        {
+            return nullptr;
+        }
+
+        return _parent;
+    }
+
+    bool iEntity::hasParent() const
+    {
+        return _parent != _scene->_root && _parent != nullptr;
+    }
+
+    const std::vector<iEntityPtr> &iEntity::getChildren() const
+    {
+        return _children;
+    }
+
+    const std::vector<iEntityPtr> &iEntity::getInactiveChildren() const
+    {
+        return _inactiveChildren;
+    }
+
+    void iEntity::setActiveExclusive(bool active)
+    {
+        setActive(active);
+
+        if (!hasParent())
+        {
+            return;
+        }
+
+        if (!active)
+        {
+            auto inactiveChildren = _parent->_inactiveChildren;
+            for (const auto &sibling : inactiveChildren)
+            {
+                if (sibling == this)
+                {
+                    continue;
+                }
+                sibling->setActive(true);
+            }
+        }
+        else
+        {
+            auto children = _parent->_children;
+            for (const auto &sibling : children)
+            {
+                if (sibling == this)
+                {
+                    continue;
+                }
+                sibling->setActive(false);
+            }
+        }
+    }
+
+    void iEntity::setActive(bool active)
+    {
+        if (isActive() == active)
+        {
+            return;
+        }
+
+        if (hasParent())
+        {
+            if (active)
+            {
+                auto &inactiveChildren = _parent->_inactiveChildren;
+                auto iter = std::find(inactiveChildren.begin(), inactiveChildren.end(), this);
+                if (iter != inactiveChildren.end())
+                {
+                    inactiveChildren.erase(iter);
+                    _parent->_children.push_back(this);
+                }
+            }
+            else
+            {
+                auto &children = _parent->_children;
+                auto iter = std::find(children.begin(), children.end(), this);
+                if (iter != children.end())
+                {
+                    children.erase(iter);
+                    _parent->_inactiveChildren.push_back(this);
+                }
+            }
+        }
+
+        bool componentsChanged = false;
+
+        if (active)
+        {
+            // activate components
+            for (const auto &pair : _components)
+            {
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Inactive)
+                {
+                    component->onActivate(this);
+                    component->_state = iEntityComponentState::Active;
+                    componentsChanged = true;
+                }
+                else if (component->_state == iEntityComponentState::UnloadedInactive)
+                {
+                    component->_state = iEntityComponentState::Unloaded;
+                    componentsChanged = true;
+                }
+            }
+
+            // activate children
+            auto children = getInactiveChildren(); // make copy
+            for (auto child : children)
+            {
+                child->setActive(active);
+            }
+        }
+        else
+        {
+            // deactivate components
+            for (const auto &pair : _components)
+            {
+                iEntityComponentPtr component = pair.second;
+                if (component->_state == iEntityComponentState::Active)
+                {
+                    component->onDeactivate(this);
+                    component->_state = iEntityComponentState::Inactive;
+                    componentsChanged = true;
+                }
+                else if (component->_state == iEntityComponentState::Unloaded)
+                {
+                    component->_state = iEntityComponentState::UnloadedInactive;
+                    componentsChanged = true;
+                }
+            }
+
+            // deactivate children
+            auto children = getChildren(); // make copy
+            for (auto child : children)
+            {
+                child->setActive(active);
+            }
+        }
+
+        if (componentsChanged)
+        {
+            _componentMask = calcComponentMask();
+        }
+
+        onEntityStructureChanged();
+
+        setDirtyHierarchy();
+    }
+
+    bool iEntity::isActive() const
+    {
+        const auto parent = getParent();
+        if (parent == nullptr)
+        {
+            return true;
+        }
+
+        const auto &siblings = parent->getChildren();
+        return std::find(siblings.begin(), siblings.end(), this) != siblings.end();
+    }
+
+    iEntityComponentMask iEntity::calcComponentMask(const std::vector<std::type_index> &types)
+    {
+        iEntityComponentMask result = 0;
+        auto &esm = iEntitySystemModule::getInstance();
+
+        for (const auto &type : types)
+        {
+            result |= esm.getComponentMask(type);
+        }
+
+        return result;
+    }
+
+    iEntityComponentMask iEntity::calcComponentMask()
+    {
+        iEntityComponentMask result = 0;
+        auto &esm = iEntitySystemModule::getInstance();
+
+        _mutex.lock();
+        for (const auto &pair : _components)
+        {
+            iEntityComponentPtr component = pair.second;
+            if (component->_state == iEntityComponentState::Active ||
+                component->_state == iEntityComponentState::Inactive)
+            {
+                result |= esm.getComponentMask(pair.first);
+            }
+        }
+        _mutex.unlock();
+
+        return result;
+    }
+
+    iEntityComponentMask iEntity::getComponentMask() const
+    {
+        return _componentMask;
+    }
+
+    bool iEntity::isHierarchyDirty() const
+    {
+        return _dirtyHierarchy;
+    }
+
+    void iEntity::resetDirtyHierarchy()
+    {
+        _dirtyHierarchy = false;
+    }
+
+    void iEntity::setDirtyHierarchy()
+    {
+        _dirtyHierarchy = true;
+
+        if (hasParent())
+        {
+            getParent()->setDirtyHierarchyUp();
+        }
+
+        for (uint32 i = 0; i < _children.size(); ++i)
+        {
+            _children[i]->setDirtyHierarchyDown();
+        }
+    }
+
+    void iEntity::setDirtyHierarchyUp()
+    {
+        if (_dirtyHierarchy)
+        {
+            return;
+        }
+
+        _dirtyHierarchy = true;
+
+        if (hasParent())
+        {
+            getParent()->setDirtyHierarchyUp();
+        }
+    }
+
+    void iEntity::setDirtyHierarchyDown()
+    {
+        if (_dirtyHierarchy)
+        {
+            return;
+        }
+
+        _dirtyHierarchy = true;
+
+        for (auto child : _children)
+        {
+            child->setDirtyHierarchyDown();
+        }
+    }
+
+    bool iEntity::isRoot() const
+    {
+        return _scene->_root == this;
+    }
 }

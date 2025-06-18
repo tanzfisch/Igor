@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iWindow.h>
@@ -15,12 +15,9 @@
 #include <igor/threading/tasks/iTaskFlushResources.h>
 #include <igor/events/iEventWindow.h>
 
-#include <igor/entities/iEntitySystemModule.h>
-
 #include <algorithm>
 #include <sstream>
 
-// have to include this after GLee
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 
@@ -150,7 +147,7 @@ namespace igor
         bool _doubleClick = false;
 
         /*! gl extensions
-        */
+         */
         std::vector<iaString> _wglxExtensions;
 
         /*! window pointer
@@ -250,7 +247,7 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            typedef BOOL(WINAPI* wglSwapIntervalProc)(int);
+            typedef BOOL(WINAPI * wglSwapIntervalProc)(int);
 
             _wglMutex.lock();
             wglSwapIntervalProc wglSwapIntervalEXT = (wglSwapIntervalProc)wglGetProcAddress("wglSwapIntervalEXT");
@@ -266,7 +263,7 @@ namespace igor
 
         bool getVSync() override
         {
-            typedef BOOL(WINAPI* wglGetSwapIntervalProc)();
+            typedef BOOL(WINAPI * wglGetSwapIntervalProc)();
 
             _wglMutex.lock();
             wglGetSwapIntervalProc wglGetSwapIntervalEXT = (wglGetSwapIntervalProc)wglGetProcAddress("wglGetSwapIntervalEXT");
@@ -870,7 +867,6 @@ namespace igor
                         break;
 
                     case ClientMessage:
-                        _window->close();
                         closeEvent();
                         return;
                     default:;
@@ -1577,11 +1573,9 @@ namespace igor
         iRenderer::getInstance().clearStats();
         iRenderer::getInstance().beginFrame();
 
-        iEntitySystemModule::getInstance().onRender(getClientWidth(), getClientHeight());
-
         for (auto view : _views)
         {
-            view->draw();
+            view->onRender();
         }
 
         iRenderer::getInstance().endFrame();

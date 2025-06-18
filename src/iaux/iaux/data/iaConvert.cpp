@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/data/iaConvert.h>
@@ -197,5 +197,21 @@ namespace iaux
         iaConvert::convert(hsv, src);
         convertHSVtoRGB(src, dst);
         iaConvert::convert(dst, rgb);
+    }
+
+    void iaConvert::convert(const iaMatrixf &src, iaMatrixd &dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = src[i];
+        }
+    }
+
+    void iaConvert::convert(const iaMatrixd &src, iaMatrixf &dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = src[i];
+        }
     }
 } // namespace iaux

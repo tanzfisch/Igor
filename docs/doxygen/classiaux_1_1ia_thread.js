@@ -8,6 +8,7 @@ var classiaux_1_1ia_thread =
     [ "getThisThreadID", "classiaux_1_1ia_thread.html#a26085e6e0b40272a024651510243a7bd", null ],
     [ "getType", "classiaux_1_1ia_thread.html#aff9d0fc1d7f22cceb22b5f2797c5f8df", null ],
     [ "init", "classiaux_1_1ia_thread.html#a16a887741b29f0d775fecd9756d0d860", null ],
+    [ "isMainThread", "classiaux_1_1ia_thread.html#accca70f89e49053dd0a87afc53381166", null ],
     [ "join", "classiaux_1_1ia_thread.html#a1bb81a4a0d6794035317ad63a0897277", null ],
     [ "run", "classiaux_1_1ia_thread.html#a854f588fc638cd4e2380f2d35069ea9d", null ],
     [ "threadFunc", "classiaux_1_1ia_thread.html#a705ab5f5871dc099bfc9d4a77cd7aa84", null ]

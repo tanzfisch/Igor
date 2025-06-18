@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetLabel.h>
@@ -48,7 +48,7 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isEnabled());
+		iWidgetManager::getInstance().getTheme()->draw(this);
 	}
 
 	const iaString &iWidgetLabel::getText() const

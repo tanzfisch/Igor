@@ -1,11 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "ExampleSound.h"
 
 ExampleSound::ExampleSound(iWindowPtr window)
-    : ExampleBase(window, L"Sound", true, "example_skybox_debug")
+    : ExampleBase(window, L"Sound", true, "igor_skybox_debug")
 {
 }
 

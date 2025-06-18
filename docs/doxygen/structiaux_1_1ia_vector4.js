@@ -2,6 +2,9 @@ var structiaux_1_1ia_vector4 =
 [
     [ "iaVector4", "structiaux_1_1ia_vector4.html#a0f1259f7e4b9b1a654b9affa4097c771", null ],
     [ "iaVector4", "structiaux_1_1ia_vector4.html#ad907a1f055e52226e80656e8217d310a", null ],
+    [ "iaVector4", "structiaux_1_1ia_vector4.html#aa5113634fe999f263017e40a3500c177", null ],
+    [ "iaVector4", "structiaux_1_1ia_vector4.html#a2600a8b89aa8eb1afacdfec77dc26cba", null ],
+    [ "iaVector4", "structiaux_1_1ia_vector4.html#ad63dbd2714b4e79ecef355be66430854", null ],
     [ "convert", "structiaux_1_1ia_vector4.html#a859a8358bf9dd31a2b7c9b91511423ea", null ],
     [ "convert", "structiaux_1_1ia_vector4.html#a859a8358bf9dd31a2b7c9b91511423ea", null ],
     [ "getData", "structiaux_1_1ia_vector4.html#ab61c3c681514a045eb24a09f92adb690", null ],

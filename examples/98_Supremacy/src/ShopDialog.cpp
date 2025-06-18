@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "ShopDialog.h"
@@ -28,8 +28,7 @@ void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const
 	_option3 = (*iter++);
 
 	updateGUI(coins);
-	iDialog::open(dialogCloseDelegate);
-	iWidgetManager::getInstance().setModal(this);
+	iDialog::open(dialogCloseDelegate, true);
 }
 
 void ShopDialog::updateGUI(int coins)
@@ -100,7 +99,7 @@ void ShopDialog::initGUI()
 	_itemGrid->setStretchRow(0);
 	_itemGrid->setSelectMode(iSelectionMode::Column);
 	_itemGrid->setEmptyCellsSelectable();
-	_itemGrid->registerOnChangeEvent(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
+	_itemGrid->getChangeEvent().add(iChangeDelegate(this, &ShopDialog::onSelectionChanged));
 
 	iWidgetGridLayout *item1Grid = new iWidgetGridLayout();
 	item1Grid->appendRows(4);
@@ -177,21 +176,21 @@ void ShopDialog::initGUI()
 
 	_labelCoins = new iWidgetLabel();
 	iWidgetPicturePtr coinPicture = new iWidgetPicture();
-	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("example_texture_supremacy_coin"));
+	coinPicture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("texture_supremacy_coin"));
 
 	iWidgetButton *buyButton = new iWidgetButton();
 	buyButton->setMinSize(50, 20);
 	buyButton->setVerticalAlignment(iVerticalAlignment::Center);
 	buyButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	buyButton->setText("buy");
-	buyButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onBuy));
+	buyButton->getClickEvent().add(iClickDelegate(this, &ShopDialog::onBuy));
 
 	iWidgetButton *cancelButton = new iWidgetButton();
 	cancelButton->setMinSize(50, 20);
 	cancelButton->setVerticalAlignment(iVerticalAlignment::Center);
 	cancelButton->setHorizontalAlignment(iHorizontalAlignment::Center);
 	cancelButton->setText("cancel");
-	cancelButton->registerOnClickEvent(iClickDelegate(this, &ShopDialog::onCancel));
+	cancelButton->getClickEvent().add(iClickDelegate(this, &ShopDialog::onCancel));
 
 	coinsGrid->addWidget(coinPicture, 0, 0);
 	coinsGrid->addWidget(_labelCoins, 1, 0);

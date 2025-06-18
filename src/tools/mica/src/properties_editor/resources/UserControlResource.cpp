@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlResource.h"
@@ -30,7 +30,7 @@ void UserControlResource::init()
     typeLayout->setStretchIndex(1);
     iWidgetLabelPtr labelType = new iWidgetLabel(typeLayout);
     labelType->setText("Type");
-    labelType->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelType->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textType = new iWidgetLineTextEdit(typeLayout);
@@ -43,7 +43,7 @@ void UserControlResource::init()
     sourceLayout->setStretchIndex(1);
     iWidgetLabelPtr labelSource = new iWidgetLabel(sourceLayout);
     labelSource->setText("Source");
-    labelSource->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelSource->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelSource->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textSource = new iWidgetLineTextEdit(sourceLayout);
@@ -57,7 +57,7 @@ void UserControlResource::init()
     idLayout->setStretchIndex(1);
     iWidgetLabelPtr labelID = new iWidgetLabel(idLayout);
     labelID->setText("ID");
-    labelID->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelID->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textID = new iWidgetLineTextEdit(idLayout);
@@ -71,14 +71,14 @@ void UserControlResource::init()
     aliasLayout->setStretchIndex(1);
     iWidgetLabelPtr labelAlias = new iWidgetLabel(aliasLayout);
     labelAlias->setText("Alias");
-    labelAlias->setMinWidth(MICA_REGULARBUTTON_SIZE);
+    labelAlias->setMinWidth(MICA_REGULAR_LABEL_SIZE);
     labelAlias->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textAlias = new iWidgetLineTextEdit(aliasLayout);
     _textAlias->setMaxTextLength(256);
     _textAlias->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textAlias->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    _textAlias->registerOnChangeEvent(iChangeDelegate(this, &UserControlResource::onAliasChanged));    
+    _textAlias->getChangeEvent().add(iChangeDelegate(this, &UserControlResource::onAliasChanged));    
 }
 
 iWidgetBoxLayoutPtr UserControlResource::getLayout()

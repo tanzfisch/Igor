@@ -26,8 +26,8 @@ IAUX_TEST(Vector2Tests, Vector2dParamCtor)
 {
 	iaVector2d vec(1.0, 2.0);
 
-	IAUX_EXPECT_TRUE(vec._x == 1.0 &&
-				vec._y == 2.0);
+	IAUX_EXPECT_EQUAL(vec._x, 1.0);
+	IAUX_EXPECT_EQUAL(vec._y, 2.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dLenghtZero)
@@ -82,7 +82,7 @@ IAUX_TEST(Vector2Tests, Vector2dAngleX)
 	iaVector2d vec2(1.0, 0.0);
 	float64 angle2 = vec2.angle();
 
-	IAUX_EXPECT_EQUAL(angle2, 0.0 * IGOR_GRAD2RAD);	
+	IAUX_EXPECT_EQUAL(angle2, 0.0 * IGOR_GRAD2RAD);
 
 	iaVector2d vec3(0.0, -1.0);
 	float64 angle3 = vec3.angle();
@@ -92,8 +92,7 @@ IAUX_TEST(Vector2Tests, Vector2dAngleX)
 	iaVector2d vec4(-1.0, 0.0);
 	float64 angle4 = vec4.angle();
 
-	IAUX_EXPECT_EQUAL(angle4, 180.0 * IGOR_GRAD2RAD);	
-
+	IAUX_EXPECT_EQUAL(angle4, 180.0 * IGOR_GRAD2RAD);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dAngle)
@@ -111,7 +110,7 @@ IAUX_TEST(Vector2Tests, Vector2dSet)
 	vec.set(1, 2);
 
 	IAUX_EXPECT_TRUE(vec._x == 1.0 &&
-				vec._y == 2.0);
+					 vec._y == 2.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dGetData)
@@ -121,7 +120,7 @@ IAUX_TEST(Vector2Tests, Vector2dGetData)
 	data = vec.getData();
 
 	IAUX_EXPECT_TRUE(data[0] == 2.0 &&
-				data[1] == 3.0);
+					 data[1] == 3.0);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dRotateXY)
@@ -130,7 +129,7 @@ IAUX_TEST(Vector2Tests, Vector2dRotateXY)
 	vec.rotateXY(0.5 * static_cast<float64>(M_PI));
 
 	IAUX_EXPECT_TRUE(fabs(vec._x) < 0.0000000001 &&
-				fabs(vec._y) > 0.9999999999);
+					 fabs(vec._y) > 0.9999999999);
 }
 
 IAUX_TEST(Vector2Tests, Vector2dNormalize)
@@ -139,6 +138,26 @@ IAUX_TEST(Vector2Tests, Vector2dNormalize)
 	vec.normalize();
 
 	IAUX_EXPECT_TRUE(fabs(vec._x) > 0.9999999999 &&
-				fabs(vec._x) <= 1.0 &&
-				vec._y == 0);
+					 fabs(vec._x) <= 1.0 &&
+					 vec._y == 0);
+}
+
+IAUX_TEST(Vector2Tests, DotProduct)
+{
+	iaVector2d vecA(1.0, 0.0);
+	iaVector2d vecB(0.0, 1.0);
+	iaVector2d vecC(0.25, 0.1);
+
+	IAUX_EXPECT_EQUAL(vecA.dot(vecB), 0);
+	IAUX_EXPECT_EQUAL(vecA.dot(vecA), 1);
+	IAUX_EXPECT_EQUAL(vecA.dot(vecC), 0.25);
+}
+
+IAUX_TEST(Vector2Tests, Product)
+{
+	IAUX_EXPECT_EQUAL(iaVector2d(0.5, 0) * iaVector2d(10, 2), iaVector2d(5, 0));
+
+	iaVector2d a(0.5, 0);
+	a *= iaVector2d(10, 2);
+	IAUX_EXPECT_EQUAL(a, iaVector2d(5, 0));
 }

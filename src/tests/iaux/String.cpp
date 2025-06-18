@@ -49,8 +49,7 @@ IAUX_TEST(StringTests, Assignment)
 
 IAUX_TEST(StringTests, ToLower)
 {
-    iaString string(L"FooBar!124");
-    string.toLower();
+    iaString string = iaString::toLower(L"FooBar!124");
 
     IAUX_EXPECT_EQUAL(string.isEmpty(), false);
     IAUX_EXPECT_EQUAL(string.getLength(), 10);
@@ -59,8 +58,7 @@ IAUX_TEST(StringTests, ToLower)
 
 IAUX_TEST(StringTests, ToUpper)
 {
-    iaString string(L"FooBar!124");
-    string.toUpper();
+    iaString string = iaString::toUpper(L"FooBar!124");
 
     IAUX_EXPECT_EQUAL(string.isEmpty(), false);
     IAUX_EXPECT_EQUAL(string.getLength(), 10);

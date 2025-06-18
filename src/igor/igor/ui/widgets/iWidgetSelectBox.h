@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSELECTBOX__
-#define __IGOR_WIDGETSELECTBOX__
+#ifndef IGOR_WIDGET_SELECTBOX_H
+#define IGOR_WIDGET_SELECTBOX_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -61,7 +61,7 @@ namespace igor
         /*! adds entry to select box
 
 		\param entryText the entry text
-		\param userData optional user data
+		\param userData optional user data (use same type of user data for every entry)
 		*/
         void addItem(const iaString &entryText, const std::any &userData = std::any());
 
@@ -72,8 +72,18 @@ namespace igor
         void clear();
 
         /*! sets selection by index
+
+        \param index the index to set
 		*/
         void setSelection(uint32 index);
+
+        /*! sets selection by user data
+
+        works on ly same type of user data for every entry was used
+
+        \param userData the user data to set
+        */
+        void setSelection(const std::any &userData);
 
         /*! \returns amount of select box entries
 		*/
@@ -90,6 +100,10 @@ namespace igor
         /*! \returns user data pointer of selected entry
 		*/
         const std::any getSelectedUserData() const;
+
+        /*! \returns state of button
+        */
+        iWidgetState getButtonState() const;
 
     private:
         /*! list of select box entries
@@ -112,7 +126,7 @@ namespace igor
 
         /*! appearance state of the button
 		*/
-        iWidgetState _buttonAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonState = iWidgetState::Standby;
 
         /*! triggered when selection box closed
 
@@ -125,20 +139,20 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! updates size based on it's content
 		*/
@@ -155,4 +169,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETSELECTBOX__
+#endif // IGOR_WIDGET_SELECTBOX_H

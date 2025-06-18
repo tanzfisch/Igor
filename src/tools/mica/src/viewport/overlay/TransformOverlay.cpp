@@ -1,482 +1,524 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "TransformOverlay.h"
 
-TransformOverlay::TransformOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
-    : NodeOverlay(view, scene, workspace)
+TransformOverlay::TransformOverlay(iViewPtr view)
+    : EntityOverlay(view)
 {
     onInit();
 }
 
 TransformOverlay::~TransformOverlay()
 {
-    onDeinit();
 }
 
-void TransformOverlay::setNodeID(uint64 nodeID)
+bool TransformOverlay::accepts(OverlayMode mode, iEntityPtr entity)
 {
-    NodeOverlay::setNodeID(nodeID);
+    con_assert(entity != nullptr, "zero pointer");
 
-    update();
-}
+    if (mode == OverlayMode::None)
+    {
+        return false;
+    }
 
-bool TransformOverlay::accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType)
-{
-    return nodeKind == iNodeKind::Transformation;
-}
+    if (entity->getComponent<iLightComponent>() != nullptr)
+    {
+        return false;
+    }
 
-void TransformOverlay::onDeinit()
-{
-    getView()->unregisterRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
-
-    _red = nullptr;
-    _green = nullptr;
-    _blue = nullptr;
-    _cyan = nullptr;
-    _materialCelShading = nullptr;
+    return entity->getComponent<iTransformComponent>() != nullptr;
 }
 
 void TransformOverlay::onInit()
 {
-    getView()->registerRenderDelegate(iDrawDelegate(this, &TransformOverlay::onRender));
+    getView()->getPreRenderEvent().add(iPreRenderDelegate(this, &TransformOverlay::onPreRender));
 
-    iShaderMaterialPtr shaderMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_transform_overlay_base");
+    iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_transform_overlay_base");
     iParameters paramMaterial({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
 
     });
 
-    iShaderMaterialPtr shaderMaterialCelShading = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_cellshading_yellow");
-    iParameters paramMaterialCelshading({
-        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-        {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterialCelShading},
-    });
-    _materialCelShading = iResourceManager::getInstance().loadResource<iMaterial>(paramMaterialCelshading);
+    const float32 alpha = 1.0f;
 
     iParameters paramRed({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.3f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.2f, 0.0f, 0.0f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.8f, 0.0f, 0.0f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
     _red = iResourceManager::getInstance().loadResource<iMaterial>(paramRed);
 
     iParameters paramGreen({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.0f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.0f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.0f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.0f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
     _green = iResourceManager::getInstance().loadResource<iMaterial>(paramGreen);
 
     iParameters paramBlue({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.0f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.0f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.0f, 0.2f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.8f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
     _blue = iResourceManager::getInstance().loadResource<iMaterial>(paramBlue);
 
     iParameters paramCyan({
         {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
         {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, shaderMaterial},
+        {IGOR_RESOURCE_PARAM_SHADER, shader},
         {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.0f, 0.3f, 0.3f)},
         {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.0f, 0.5f, 0.5f)},
         {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.0f, 0.2f, 0.2f)},
         {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.8f, 0.8f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 0.8f},
+        {IGOR_RESOURCE_PARAM_ALPHA, alpha},
     });
-
     _cyan = iResourceManager::getInstance().loadResource<iMaterial>(paramCyan);
 
     iMeshPtr translateMesh = createTranslateMesh();
     iMeshPtr scaleMesh = createScaleMesh();
     iMeshPtr ringMesh = createRingMesh();
-    iMeshPtr ringMesh2D = create2DRingMesh();
     iMeshPtr cylinder = createCylinder();
 
-    _rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
-    _rootTransform->insertNode(_switchNode);
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    con_assert(entityScene != nullptr, "no scene");
+    auto root = entityScene->createEntity("overlay.root");
+    _rootTransform = entityScene->createEntity("overlay.transform.root");
+    _rootTransform->addComponent(new iTransformComponent());
+    _rootTransform->setParent(root);
 
     createTranslateModifier(translateMesh);
     createScaleModifier(scaleMesh);
-    createRotateModifier(ringMesh, ringMesh2D, cylinder);
-    createLocatorRepresentation(cylinder);
-
-    getScene()->getRoot()->insertNode(_rootTransform);
+    createRotateModifier(ringMesh, cylinder);
 
     _rootTransform->setActive(false);
-    _switchNode->setActiveChild(nullptr);
 }
 
-void TransformOverlay::scale(const iaVector3d &vec, iaMatrixd &matrix)
+void TransformOverlay::onUpdateOverlayMode()
 {
-    const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
-    iaVector3d scale;
-
-    for (int i = 0; i < 4; ++i)
+    switch (getOverlayMode())
     {
-        if (_selectedManipulatorNodeID == _scaleIDs[i])
-        {
-            scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
-            matrix.scale(scale);
-            return;
-        }
-    }
-}
+    case OverlayMode::None:
+        _translateModifier->setActive(false);
+        _scaleModifier->setActive(false);
+        _rotateModifier->setActive(false);
+        break;
 
-void TransformOverlay::translate(const iaVector3d &vec, iaMatrixd &matrix)
-{
-    static const iaVector3d dir[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-    iaVector3d translate;
+    case OverlayMode::Translate:
+        _translateModifier->setActiveExclusive(true);
+        break;
 
-    for (int i = 0; i < 3; ++i)
-    {
-        if (_selectedManipulatorNodeID == _translateIDs[i])
-        {
-            translate = vec.project(dir[i]);
-            matrix.translate(translate);
-            return;
-        }
-    }
-}
+    case OverlayMode::Scale:
+        _scaleModifier->setActiveExclusive(true);
+        break;
 
-void TransformOverlay::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix)
-{
-    iNode *node = iNodeManager::getInstance().getNode(getNodeID());
-    iaMatrixd transformWorldMatrix;
-    node->calcWorldTransformation(transformWorldMatrix);
-
-    iaMatrixd camWorldMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-    iaVector3d center = getView()->project(transformWorldMatrix._pos, camWorldMatrix);
-
-    iaVector2d center2D(center._x, center._y);
-
-    iaVector2d a = from - center2D;
-    iaVector2d b = to - center2D;
-
-    float64 angle = b.angle(a);
-
-    for (int i = 0; i < 3; ++i)
-    {
-        if (_selectedManipulatorNodeID == _rotateIDs[i])
-        {
-            iaAxis axis = static_cast<iaAxis>(i);
-            float64 scalar = 0;
-
-            iaVector3d toCam = camWorldMatrix._pos - matrix._pos;
-
-            switch (axis)
-            {
-            case iaAxis::X:
-                scalar = toCam * matrix._right;
-                break;
-            case iaAxis::Y:
-                scalar = toCam * matrix._top;
-                break;
-            case iaAxis::Z:
-                scalar = toCam * matrix._depth;
-                break;
-            }
-
-            if (scalar < 0)
-            {
-                angle = -angle;
-            }
-
-            matrix.rotate(angle, static_cast<iaAxis>(i));
-            return;
-        }
+    case OverlayMode::Rotate:
+        _rotateModifier->setActiveExclusive(true);
+        break;
     }
 }
 
 void TransformOverlay::setActive(bool active)
 {
-    NodeOverlay::setActive(active);
-
+    EntityOverlay::setActive(active);
     _rootTransform->setActive(active);
 
-    update();
-}
-
-void TransformOverlay::update()
-{
-    iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
-    if (node == nullptr)
+    if (!isActive())
     {
         return;
     }
 
-    iaMatrixd matrix;
-    node->calcWorldTransformation(matrix);
-
-    iaMatrixd camMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camMatrix);
-
-    float64 distanceToCam = camMatrix._pos.distance(matrix._pos) * 0.1;
-
-    matrix._right.normalize();
-    matrix._top.normalize();
-    matrix._depth.normalize();
-    _rootTransform->setMatrix(matrix);
-    _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
-
-    // compensate for parent orientation
-    iaMatrixd parentMatrix;
-    _rotateBillboardTransform->getParent()->calcWorldTransformation(parentMatrix);
-    parentMatrix._pos.set(0, 0, 0);
-    parentMatrix.invert();
-    parentMatrix._right.normalize();
-    parentMatrix._top.normalize();
-    parentMatrix._depth.normalize();
-
-    _rotateBillboardTransform->identity();
-    iaMatrixd billboardMatrix;
-    _rotateBillboardTransform->getMatrix(billboardMatrix);
-    billboardMatrix._right = camMatrix._right;
-    billboardMatrix._top = camMatrix._top;
-    billboardMatrix._depth = camMatrix._depth;
-    _rotateBillboardTransform->setMatrix(parentMatrix * billboardMatrix);
-    _rotateBillboardTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _rotateBillboardTransform->scale(2.1, 2.1, 2.1);
+    onUpdateOverlayMode();
 }
 
-void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder)
+void TransformOverlay::onUpdate()
 {
-    _roateModifier = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_roateModifier);
+    if (!isActive())
+    {
+        return;
+    }
 
-    iNodeTransform *xRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xRingTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    xRingTransform->scale(2.0, 0.1, 2.0);
-    _roateModifier->insertNode(xRingTransform);
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    if (entityScene == nullptr)
+    {
+        return;
+    }
 
-    iNodeTransform *yRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    yRingTransform->scale(1.99, 0.1, 1.99);
-    _roateModifier->insertNode(yRingTransform);
+    auto entity = entityScene->getEntity(getEntityID());
+    if (entity == nullptr)
+    {
+        setActive(false);
+        return;
+    }
 
-    iNodeTransform *zRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zRingTransform->rotate(M_PI * 0.5, iaAxis::X);
-    zRingTransform->scale(1.98, 0.1, 1.98);
-    _roateModifier->insertNode(zRingTransform);
+    auto transformComp = entity->getComponent<iTransformComponent>();
+    if (transformComp == nullptr)
+    {
+        return;
+    }
 
-    iNodeMesh *xRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xRing->setName("manipulator.ring.x");
-    xRing->setMesh(ringMesh);
-    xRing->setMaterial(_red);
-    xRingTransform->insertNode(xRing);
+    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
+    auto camWorldPosition = camTransformComp->getWorldPosition();
+    auto camWorldOrientation = camTransformComp->getWorldOrientation();
 
-    iNodeMesh *yRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yRing->setName("manipulator.ring.y");
-    yRing->setMesh(ringMesh);
-    yRing->setMaterial(_green);
-    yRingTransform->insertNode(yRing);
+    auto entityWorldMatrix = transformComp->getWorldMatrix();
+    const auto &entityPos = entityWorldMatrix._pos;
+    const auto &entityOrientation = transformComp->getWorldOrientation();
 
-    iNodeMesh *zRing = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zRing->setName("manipulator.ring.z");
-    zRing->setMesh(ringMesh);
-    zRing->setMaterial(_blue);
-    zRingTransform->insertNode(zRing);
+    float64 distanceToCam = camWorldPosition.distance(entityPos) * 0.1;
 
-    _rotateBillboardTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _roateModifier->insertNode(_rotateBillboardTransform);
+    // update modifier transform
+    auto rootTransformComp = _rootTransform->getComponent<iTransformComponent>();
+    rootTransformComp->setPosition(entityPos);
+    rootTransformComp->setOrientation(entityOrientation);
+    rootTransformComp->setScale(iaVector3d(distanceToCam, distanceToCam, distanceToCam));
+}
 
-    iNodeMesh *ring = iNodeManager::getInstance().createNode<iNodeMesh>();
-    ring->setName("manipulator.ring");
-    ring->setMesh(ringMesh2D);
-    ring->setMaterial(_cyan);
-    _rotateBillboardTransform->insertNode(ring);
+void TransformOverlay::createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinderMesh)
+{
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    _rotateModifier = entityScene->createEntity("overlay.rotate");
+    _rotateModifier->setParent(_rootTransform);
 
-    _rotateIDs.push_back(xRing->getID());
-    _rotateIDs.push_back(yRing->getID());
-    _rotateIDs.push_back(zRing->getID());
+    iEntityPtr xRingTransform = entityScene->createEntity("overlay.rotate.x");
+    xRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xRingTransform->addComponent(new iSphereComponent(1.0));
+    xRingTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xRingTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(ringMesh, _red);
+    xRingTransform->setParent(_rotateModifier);
+
+    iEntityPtr yRingTransform = entityScene->createEntity("overlay.rotate.y");
+    yRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond(), iaVector3d(0.99, 1.0, 0.99)));
+    yRingTransform->addComponent(new iSphereComponent(1.0));
+    yRingTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yRingTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(ringMesh, _green);
+    yRingTransform->setParent(_rotateModifier);
+
+    iEntityPtr zRingTransform = entityScene->createEntity("overlay.rotate.z");
+    zRingTransform->addComponent(new iTransformComponent(iaVector3d(-0.05, -0.05, -0.05), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0), iaVector3d(0.98, 1.0, 0.98)));
+    zRingTransform->addComponent(new iSphereComponent(1.0));
+    zRingTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zRingTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(ringMesh, _blue);
+    zRingTransform->setParent(_rotateModifier);
+
+    _rotateIDs.push_back(xRingTransform->getID());
+    _rotateIDs.push_back(yRingTransform->getID());
+    _rotateIDs.push_back(zRingTransform->getID());
 
     // add a locator in the middle for better orientation
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _roateModifier->insertNode(xTransform);
+    iEntityPtr xCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.x");
+    xCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xCylinderTransform->addComponent(new iSphereComponent(1.0));
+    xCylinderTransform->addComponent(new iOctreeComponent());
+    auto xCylinderMeshRenderComponent = xCylinderTransform->addComponent(new iMeshRenderComponent());
+    xCylinderMeshRenderComponent->addMesh(cylinderMesh, _red);
+    xCylinderTransform->setParent(_rotateModifier);
 
-    iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _roateModifier->insertNode(yTransform);
+    iEntityPtr yCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.y");
+    yCylinderTransform->addComponent(new iTransformComponent());
+    yCylinderTransform->addComponent(new iSphereComponent(1.0));
+    yCylinderTransform->addComponent(new iOctreeComponent());
+    auto yCylinderMeshRenderComponent = yCylinderTransform->addComponent(new iMeshRenderComponent());
+    yCylinderMeshRenderComponent->addMesh(cylinderMesh, _green);
+    yCylinderTransform->setParent(_rotateModifier);
 
-    iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _roateModifier->insertNode(zTransform);
-
-    iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xCylinder->setName("manipulator.cylinder.x");
-    xCylinder->setMesh(cylinder);
-    xCylinder->setMaterial(_red);
-    xTransform->insertNode(xCylinder);
-
-    iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yCylinder->setName("manipulator.cylinder.y");
-    yCylinder->setMesh(cylinder);
-    yCylinder->setMaterial(_green);
-    yTransform->insertNode(yCylinder);
-
-    iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zCylinder->setName("manipulator.cylinder.z");
-    zCylinder->setMesh(cylinder);
-    zCylinder->setMaterial(_blue);
-    zTransform->insertNode(zCylinder);
-}
-
-void TransformOverlay::createLocatorRepresentation(iMeshPtr &cylinder)
-{
-    _locatorRepresentation = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_locatorRepresentation);
-
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _locatorRepresentation->insertNode(xTransform);
-
-    iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _locatorRepresentation->insertNode(yTransform);
-
-    iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _locatorRepresentation->insertNode(zTransform);
-
-    iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xCylinder->setName("manipulator.cylinder.x");
-    xCylinder->setMesh(cylinder);
-    xCylinder->setMaterial(_red);
-    xTransform->insertNode(xCylinder);
-
-    iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yCylinder->setName("manipulator.cylinder.y");
-    yCylinder->setMesh(cylinder);
-    yCylinder->setMaterial(_green);
-    yTransform->insertNode(yCylinder);
-
-    iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zCylinder->setName("manipulator.cylinder.z");
-    zCylinder->setMesh(cylinder);
-    zCylinder->setMaterial(_blue);
-    zTransform->insertNode(zCylinder);
+    iEntityPtr zCylinderTransform = entityScene->createEntity("overlay.rotate.cylinder.z");
+    zCylinderTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
+    zCylinderTransform->addComponent(new iSphereComponent(1.0));
+    zCylinderTransform->addComponent(new iOctreeComponent());
+    auto zCylinderMeshRenderComponent = zCylinderTransform->addComponent(new iMeshRenderComponent());
+    zCylinderMeshRenderComponent->addMesh(cylinderMesh, _blue);
+    zCylinderTransform->setParent(_rotateModifier);
 }
 
 void TransformOverlay::createTranslateModifier(iMeshPtr &translateMesh)
 {
-    _translateModifier = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_translateModifier);
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    _translateModifier = entityScene->createEntity("overlay.translate");
+    _translateModifier->setParent(_rootTransform);
 
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _translateModifier->insertNode(xTransform);
+    iEntityPtr xTransform = entityScene->createEntity("overlay.translate.x");
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iSphereComponent(1.0));
+    xTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(translateMesh, _red);
+    xTransform->setParent(_translateModifier);
 
-    iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _translateModifier->insertNode(yTransform);
+    iEntityPtr yTransform = entityScene->createEntity("overlay.translate.y");
+    yTransform->addComponent(new iTransformComponent());
+    yTransform->addComponent(new iSphereComponent(1.0));
+    yTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(translateMesh, _green);
+    yTransform->setParent(_translateModifier);
 
-    iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _translateModifier->insertNode(zTransform);
+    iEntityPtr zTransform = entityScene->createEntity("overlay.translate.z");
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iSphereComponent(1.0));
+    zTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(translateMesh, _blue);
+    zTransform->setParent(_translateModifier);
 
-    iNodeMesh *xUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xUmbrella->setName("manipulator.umbrella.x");
-    xUmbrella->setMesh(translateMesh);
-    xUmbrella->setMaterial(_red);
-    xTransform->insertNode(xUmbrella);
-
-    iNodeMesh *yUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yUmbrella->setName("manipulator.umbrella.y");
-    yUmbrella->setMesh(translateMesh);
-    yUmbrella->setMaterial(_green);
-    yTransform->insertNode(yUmbrella);
-
-    iNodeMesh *zUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zUmbrella->setName("manipulator.umbrella.z");
-    zUmbrella->setMesh(translateMesh);
-    zUmbrella->setMaterial(_blue);
-    zTransform->insertNode(zUmbrella);
-
-    _translateIDs.push_back(xUmbrella->getID());
-    _translateIDs.push_back(yUmbrella->getID());
-    _translateIDs.push_back(zUmbrella->getID());
+    _translateIDs.push_back(xTransform->getID());
+    _translateIDs.push_back(yTransform->getID());
+    _translateIDs.push_back(zTransform->getID());
 }
 
 void TransformOverlay::createScaleModifier(iMeshPtr &scaleMesh)
 {
-    _scaleModifier = iNodeManager::getInstance().createNode<iNode>();
-    _switchNode->insertNode(_scaleModifier);
+    const auto &entitySceneID = getView()->getSceneID();
+    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
+    _scaleModifier = entityScene->createEntity("overlay.scale");
+    _scaleModifier->setParent(_rootTransform);
 
-    iNodeTransform *xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    _scaleModifier->insertNode(xTransform);
+    iEntityPtr xTransform = entityScene->createEntity("overlay.scale.x");
+    xTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(0, 0, -M_PI * 0.5)));
+    xTransform->addComponent(new iSphereComponent(1.0));
+    xTransform->addComponent(new iOctreeComponent());
+    auto xMeshRenderComponent = xTransform->addComponent(new iMeshRenderComponent());
+    xMeshRenderComponent->addMesh(scaleMesh, _red);
+    xTransform->setParent(_scaleModifier);
 
-    iNodeTransform *yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _scaleModifier->insertNode(yTransform);
+    iEntityPtr yTransform = entityScene->createEntity("overlay.scale.y");
+    yTransform->addComponent(new iTransformComponent());
+    yTransform->addComponent(new iSphereComponent(1.0));
+    yTransform->addComponent(new iOctreeComponent());
+    auto yMeshRenderComponent = yTransform->addComponent(new iMeshRenderComponent());
+    yMeshRenderComponent->addMesh(scaleMesh, _green);
+    yTransform->setParent(_scaleModifier);
 
-    iNodeTransform *zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-    zTransform->rotate(M_PI * 0.5, iaAxis::X);
-    _scaleModifier->insertNode(zTransform);
-
-    iNodeMesh *xCube = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xCube->setName("manipulator.cube.x");
-    xCube->setMesh(scaleMesh);
-    xCube->setMaterial(_red);
-    xTransform->insertNode(xCube);
-
-    iNodeMesh *yCube = iNodeManager::getInstance().createNode<iNodeMesh>();
-    yCube->setName("manipulator.cube.y");
-    yCube->setMesh(scaleMesh);
-    yCube->setMaterial(_green);
-    yTransform->insertNode(yCube);
-
-    iNodeMesh *zCube = iNodeManager::getInstance().createNode<iNodeMesh>();
-    zCube->setName("manipulator.cube.z");
-    zCube->setMesh(scaleMesh);
-    zCube->setMaterial(_blue);
-    zTransform->insertNode(zCube);
+    iEntityPtr zTransform = entityScene->createEntity("overlay.scale.z");
+    zTransform->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(M_PI * 0.5, 0, 0)));
+    zTransform->addComponent(new iSphereComponent(1.0));
+    zTransform->addComponent(new iOctreeComponent());
+    auto zMeshRenderComponent = zTransform->addComponent(new iMeshRenderComponent());
+    zMeshRenderComponent->addMesh(scaleMesh, _blue);
+    zTransform->setParent(_scaleModifier);
 
     iMeshPtr cube = createCube();
+    iEntityPtr xyzCube = entityScene->createEntity("overlay.scale.cube");
+    xyzCube->addComponent(new iTransformComponent(iaVector3d(0.1, 0, 0.1)));
+    xyzCube->addComponent(new iSphereComponent(1.0));
+    xyzCube->addComponent(new iOctreeComponent());
+    auto cubeRenderComponent = xyzCube->addComponent(new iMeshRenderComponent());
+    cubeRenderComponent->addMesh(cube, _cyan);
+    xyzCube->setParent(_scaleModifier);
 
-    iNodeMesh *xyzCube = iNodeManager::getInstance().createNode<iNodeMesh>();
-    xyzCube->setName("manipulator.cube.xyz");
-    xyzCube->setMesh(cube);
-    xyzCube->setMaterial(_cyan);
-    _scaleModifier->insertNode(xyzCube);
-
-    _scaleIDs.push_back(xCube->getID());
-    _scaleIDs.push_back(yCube->getID());
-    _scaleIDs.push_back(zCube->getID());
+    _scaleIDs.push_back(xTransform->getID());
+    _scaleIDs.push_back(yTransform->getID());
+    _scaleIDs.push_back(zTransform->getID());
     _scaleIDs.push_back(xyzCube->getID());
 }
 
-iMeshPtr TransformOverlay::createRingMesh()
+void TransformOverlay::setOverlayMode(OverlayMode overlayMode)
 {
-    iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 64, false);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
+    EntityOverlay::setOverlayMode(overlayMode);
+
+    if (!isActive())
+    {
+        return;
+    }
+
+    onUpdateOverlayMode();
 }
 
-iMeshPtr TransformOverlay::create2DRingMesh()
+void TransformOverlay::onPreRender()
 {
-    iMeshBuilder meshBuilder;
-    iMeshBuilderUtils::addRing(meshBuilder, 0.99, 1, 64);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
+    onUpdate();
+}
+
+bool TransformOverlay::onMouseKeyUpEvent(const iEventMouseKeyUp &event)
+{
+    if (!_selectionID.isValid())
+    {
+        return false;
+    }
+
+    _selectionID = iEntityID::getInvalid();
+    return true;
+}
+
+bool TransformOverlay::onMouseKeyDownEvent(const iEventMouseKeyDown &event)
+{
+    auto rect = getView()->getViewport();
+    auto window = iApplication::getInstance().getWindow();
+
+    auto top = window->getClientHeight() - rect._height - rect._y;
+
+    iEntityID selectionID = getView()->pickEntityID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
+
+    _selectionID = iEntityID::getInvalid();
+
+    for (int i = 0; i < 4; ++i)
+    {
+        if (selectionID == _scaleIDs[i])
+        {
+            _selectionID = selectionID;
+            return true;
+        }
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        if (selectionID == _translateIDs[i])
+        {
+            _selectionID = selectionID;
+            return true;
+        }
+
+        if (selectionID == _rotateIDs[i])
+        {
+            _selectionID = selectionID;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool TransformOverlay::onMouseMoveEvent(const iEventMouseMove &event)
+{
+    if (!_selectionID.isValid())
+    {
+        return false;
+    }
+
+    auto entityScene = iEntitySystemModule::getInstance().getScene(getSceneID());
+    con_assert(entityScene != nullptr, "no scene");
+
+    auto entity = entityScene->getEntity(getEntityID());
+    if (entity == nullptr)
+    {
+        return false;
+    }
+
+    auto entityTransformComp = entity->getComponent<iTransformComponent>();
+    if (entityTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    auto camera = entityScene->getActiveCamera();
+    if (camera == nullptr)
+    {
+        return false;
+    }
+
+    auto camTransformComp = camera->getComponent<iTransformComponent>();
+    if (camTransformComp == nullptr)
+    {
+        return false;
+    }
+
+    const iaMatrixd &camWorldMatrix = camTransformComp->getWorldMatrix();
+    iaVector2d fromd = event.getLastPosition().convert<float64>();
+    iaVector2d tod = event.getPosition().convert<float64>();
+
+    iaVector3d from = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
+    iaVector3d to = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
+
+    iaMatrixd transformWorldMatrix = entityTransformComp->getWorldMatrix();
+    transformWorldMatrix.invert();
+    from = transformWorldMatrix * from;
+    to = transformWorldMatrix * to;
+
+    float64 distanceToCam = camWorldMatrix._pos.distance(entityTransformComp->getPosition());
+
+    switch (getOverlayMode())
+    {
+    case OverlayMode::None:
+        break;
+    case OverlayMode::Rotate:
+        rotate(from, to, entityTransformComp);
+        break;
+    case OverlayMode::Scale:
+        scale((to - from) * distanceToCam * 2, entityTransformComp);
+        break;
+    case OverlayMode::Translate:
+        translate((to - from) * distanceToCam, entityTransformComp);
+        break;
+    }
+
+    return false;
+}
+
+void TransformOverlay::scale(const iaVector3d &vec, iTransformComponentPtr transform)
+{
+    auto iter = std::find(_scaleIDs.begin(), _scaleIDs.end(), _selectionID);
+    if (iter == _scaleIDs.end())
+    {
+        return;
+    }
+
+    int axisIndex = std::distance(_scaleIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {1, 1, 1}};
+
+    iaVector3d scale = vec.project(axis[axisIndex]) + iaVector3d(1, 1, 1);
+    scale = transform->getScale() * scale;
+    transform->setScale(scale);
+}
+
+void TransformOverlay::translate(const iaVector3d &vec, iTransformComponentPtr transform)
+{
+    auto iter = std::find(_translateIDs.begin(), _translateIDs.end(), _selectionID);
+    if (iter == _translateIDs.end())
+    {
+        return;
+    }
+
+    int axisIndex = std::distance(_translateIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+
+    iaVector3d translate = transform->getOrientation().rotate(vec.project(axis[axisIndex])) * transform->getScale();
+    transform->setPosition(transform->getPosition() + translate);
+}
+
+void TransformOverlay::rotate(const iaVector3d &localFrom, const iaVector3d &localTo, iTransformComponentPtr transform)
+{
+    auto iter = std::find(_rotateIDs.begin(), _rotateIDs.end(), _selectionID);
+    if (iter == _rotateIDs.end())
+    {
+        return;
+    }
+
+    int axisIndex = std::distance(_rotateIDs.begin(), iter);
+    static const iaVector3d axis[] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    const iaVector3d localAxis = axis[axisIndex];
+
+    const auto projectedFrom = localFrom - (localAxis * localFrom.dot(localAxis));
+    const auto projectedTo = localTo - (localAxis * localTo.dot(localAxis));
+
+    float64 angle = projectedFrom.angle(projectedTo) * 20;
+
+    angle = ((projectedFrom % projectedTo).dot(localAxis) < 0) ? -angle : angle;
+
+    const iaQuaterniond q = iaQuaterniond::fromAxisAngle(localAxis, angle);
+    transform->setOrientation(transform->getOrientation() * q);
 }
 
 iMeshPtr TransformOverlay::createScaleMesh()
@@ -490,7 +532,7 @@ iMeshPtr TransformOverlay::createScaleMesh()
 
     matrix.identity();
     matrix.translate(0, 1.5, 0);
-    matrix.scale(0.25, 0.25, 0.25);
+    matrix.scale(0.2, 0.2, 0.2);
     meshBuilder.setMatrix(matrix);
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
 
@@ -503,213 +545,10 @@ iMeshPtr TransformOverlay::createCube()
     iMeshBuilder meshBuilder;
 
     iaMatrixf matrix;
-    matrix.scale(0.25, 0.25, 0.25);
+    matrix.scale(0.2, 0.2, 0.2);
     meshBuilder.setMatrix(matrix);
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
 
     meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
-}
-
-iMeshPtr TransformOverlay::createCylinder()
-{
-    iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertexes(true);
-
-    iaMatrixf matrix;
-    matrix.scale(0.025, 1.5, 0.025);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
-
-    meshBuilder.calcNormals(true);
-
-    return meshBuilder.createMesh();
-}
-
-iMeshPtr TransformOverlay::createTranslateMesh()
-{
-    iMeshBuilder meshBuilder;
-    meshBuilder.setJoinVertexes(false);
-
-    iaMatrixf matrix;
-
-    matrix.translate(0, 1.5, 0);
-    matrix.scale(0.1, 0.5, 0.1);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 6);
-
-    matrix.identity();
-    matrix.scale(0.025, 1.5, 0.025);
-    meshBuilder.setMatrix(matrix);
-    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
-
-    meshBuilder.calcNormals(true);
-
-    return meshBuilder.createMesh();
-}
-
-void TransformOverlay::setOverlayMode(OverlayMode manipulatorMode)
-{
-    NodeOverlay::setOverlayMode(manipulatorMode);
-
-    switch (manipulatorMode)
-    {
-    case OverlayMode::None:
-        _switchNode->setActiveChild(_locatorRepresentation);
-        break;
-
-    case OverlayMode::Translate:
-        _switchNode->setActiveChild(_translateModifier);
-        break;
-
-    case OverlayMode::Scale:
-        _switchNode->setActiveChild(_scaleModifier);
-        break;
-
-    case OverlayMode::Rotate:
-        _switchNode->setActiveChild(_roateModifier);
-        break;
-    }
-
-    update();
-}
-
-void TransformOverlay::onRender()
-{
-    renderHighlight();
-}
-
-void TransformOverlay::renderHighlight()
-{
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
-    {
-        return;
-    }
-
-    const iNodePtr node = iNodeManager::getInstance().getNode(_selectedManipulatorNodeID);
-
-    if (node->getKind() != iNodeKind::Renderable &&
-        node->getKind() != iNodeKind::Volume)
-    {
-        return;
-    }
-
-    const iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(node);
-    iRenderer::getInstance().setModelMatrix(renderNode->getWorldMatrix());
-
-    if (node->getType() != iNodeType::iNodeMesh)
-    {
-        return;
-    }
-
-    iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-    iRenderer::getInstance().setLineWidth(4);
-    iRenderer::getInstance().setShaderMaterial(_materialCelShading->getShaderMaterial());
-    iRenderer::getInstance().drawMesh(meshNode->getMesh(), _materialCelShading);
-}
-
-bool TransformOverlay::onMouseKeyUpEvent(iEventMouseKeyUp &event)
-{
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
-    {
-        return false;
-    }
-
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
-    return true;
-}
-
-bool TransformOverlay::onMouseKeyDownEvent(iEventMouseKeyDown &event)
-{
-    auto rect = getView()->getViewport();
-    auto window = iApplication::getInstance().getWindow();
-
-    auto top = window->getClientHeight() - rect._height - rect._y;
-
-    iNodeID nodeID = getView()->pickColorID(event.getPosition()._x - rect._x, event.getPosition()._y - top);
-
-    _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
-
-    for (int i = 0; i < 4; ++i)
-    {
-        if (nodeID == _scaleIDs[i])
-        {
-            _selectedManipulatorNodeID = nodeID;
-            return true;
-        }
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        if (nodeID == _translateIDs[i])
-        {
-            _selectedManipulatorNodeID = nodeID;
-            return true;
-        }
-
-        if (nodeID == _rotateIDs[i])
-        {
-            _selectedManipulatorNodeID = nodeID;
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool TransformOverlay::onMouseMoveEvent(iEventMouseMove &event)
-{
-    if (_selectedManipulatorNodeID == iNode::INVALID_NODE_ID)
-    {
-        return false;
-    }
-
-    iNodePtr node = iNodeManager::getInstance().getNode(getNodeID());
-    if (node == nullptr ||
-        node->getType() != iNodeType::iNodeTransform)
-    {
-        return false;
-    }
-
-    iaVector2d fromd = event.getLastPosition().convert<float64>();
-    iaVector2d tod = event.getPosition().convert<float64>();
-
-    iaMatrixd camWorldMatrix;
-    getWorkspace()->getCameraArc()->getWorldTransformation(camWorldMatrix);
-
-    iaVector3d fromWorld = camWorldMatrix * getView()->unProject(iaVector3d(fromd._x, fromd._y, 0), camWorldMatrix);
-    iaVector3d toWorld = camWorldMatrix * getView()->unProject(iaVector3d(tod._x, tod._y, 0), camWorldMatrix);
-
-    iNodeTransform *transformNode = static_cast<iNodeTransform *>(node);
-    iaMatrixd transformWorldMatrix;
-    transformNode->calcWorldTransformation(transformWorldMatrix);
-    transformWorldMatrix.invert();
-    fromWorld = transformWorldMatrix * fromWorld;
-    toWorld = transformWorldMatrix * toWorld;
-
-    float64 distance = getWorkspace()->getCameraArc()->getDistance();
-
-    iaMatrixd nodeMatrix;
-    transformNode->getMatrix(nodeMatrix);
-
-    switch (getOverlayMode())
-    {
-    case OverlayMode::None:
-        break;
-    case OverlayMode::Rotate:
-        rotate(fromd, tod, nodeMatrix);
-        break;
-    case OverlayMode::Scale:
-        scale((toWorld - fromWorld) * distance * 2, nodeMatrix);
-        break;
-    case OverlayMode::Translate:
-        translate((toWorld - fromWorld) * distance, nodeMatrix);
-        break;
-    }
-
-    transformNode->setMatrix(nodeMatrix);
-
-    update();
-
-    return false;
 }

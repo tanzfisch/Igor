@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,15 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETMENU__
-#define __IGOR_WIDGETMENU__
+#ifndef IGOR_WIDGET_MENU_H
+#define IGOR_WIDGET_MENU_H
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
 
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/ui/widgets/iWidgetButton.h>
 
 namespace igor
 {
@@ -43,6 +41,10 @@ namespace igor
     */
     class iWidgetMenu;
     typedef iWidgetMenu *iWidgetMenuPtr;
+
+    /*! pre menu open event definition
+     */
+    IGOR_EVENT_DEFINITION(iPreMenuOpen, iWidgetMenuPtr);    
 
     /*! menu widget
     */
@@ -97,8 +99,10 @@ namespace igor
         \param title the title or brief description
         \param description the full description (used as tooltip)
         \param iconAlias an alias or id for texture resource
+        \param enabled if true widget will be enabled
+        \param context action context
         */
-        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 
@@ -110,18 +114,18 @@ namespace igor
         */
         void addSeparator();
 
+        /*! \returns pre menu open event
+        */
+        iPreMenuOpenEvent& getPreMenuOpenEvent();
+
+        /*! clears the widget back to default
+        */
+        void clear() override;        
+
     private:
-        /*! menu title
+        /*! menu button
         */
-        iWidgetLabelPtr _title = nullptr;
-
-        /*! spacer
-        */
-        iWidgetSpacerPtr _spacer = nullptr;
-
-        /*! picture
-        */
-        iWidgetPicturePtr _picture = nullptr;
+        iWidgetButtonPtr _button;
 
         /*! menu body
         */
@@ -130,6 +134,10 @@ namespace igor
         /*! ID of parent in menu hierarchy
         */
         iWidgetID _menuParent = IGOR_INVALID_ID;
+
+        /*! pre menu open event
+        */
+        iPreMenuOpenEvent _preMenuOpenEvent;
 
         /*! defines the menu parent
 
@@ -169,4 +177,4 @@ namespace igor
     typedef iWidgetMenu *iMenuPtr;
 } // namespace igor
 
-#endif // __IGOR_WIDGETMENU__
+#endif // IGOR_WIDGET_MENU_H

@@ -1,0 +1,2147 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.433799184613822,
+                            "y": 4.356452815918273,
+                            "z": 3.3367609556014055
+                        },
+                        "position": {
+                            "x": 10.55068,
+                            "y": 10.319785,
+                            "z": 7.924994999999999
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xf2b235158a9450c6",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 3.127945575102599,
+                            "y": 2.3526507736790956,
+                            "z": 4.554561648653646
+                        },
+                        "position": {
+                            "x": 8.241620000000001,
+                            "y": 3.611039999999999,
+                            "z": 8.547155
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xb95cc09630ddb624",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.7146690615228617,
+                            "y": 3.8977614389382422,
+                            "z": 0.13703627154958678
+                        },
+                        "position": {
+                            "x": 9.945239999999998,
+                            "y": 0.5710750000000004,
+                            "z": 12.449449999999999
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x947bbfa7d9afd5e2",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.8041538291035464,
+                            "y": 3.1462736266436417,
+                            "z": 4.484950238635403
+                        },
+                        "position": {
+                            "x": 10.424154999999999,
+                            "y": 1.248265,
+                            "z": 2.9571950000000005
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xf72131f09bb40762",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.3043013051761816,
+                            "y": 3.9928637317477125,
+                            "z": 0.7296160442403079
+                        },
+                        "position": {
+                            "x": 2.518295,
+                            "y": 2.096924999999999,
+                            "z": 4.746980000000001
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x785f7d69572085ec",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.49597579859283497,
+                            "y": 5.246635660683555,
+                            "z": 0.4539412888878036
+                        },
+                        "position": {
+                            "x": 11.560559999999999,
+                            "y": -6.125105,
+                            "z": 7.3513850000000005
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xbe0e6de4fb67dc58",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.650097838813478,
+                            "y": 2.045792569647059,
+                            "z": 0.996953012690185
+                        },
+                        "position": {
+                            "x": 9.507295,
+                            "y": 7.249144999999999,
+                            "z": -1.3290249999999997
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x8fac447333b29055",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.7390160470240155,
+                            "y": 5.8460829549150235,
+                            "z": 5.453484404181214
+                        },
+                        "position": {
+                            "x": 8.238565000000001,
+                            "y": 6.688859999999998,
+                            "z": 4.340025000000001
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xdba0009524f65727",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.319564592543989,
+                            "y": 3.8217286135360617,
+                            "z": 1.2424370626416914
+                        },
+                        "position": {
+                            "x": 5.167670000000001,
+                            "y": 5.187474999999999,
+                            "z": -0.6236750000000004
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xb9b56420ecbdf8e2",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 3.952444000666626,
+                            "y": 3.7141981801889905,
+                            "z": 3.8268682591173344
+                        },
+                        "position": {
+                            "x": 1.767315,
+                            "y": 0.26555000000000106,
+                            "z": -0.9149549999999991
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x34b3cc708614ea03",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.865119933703277,
+                            "y": 0.2803682947769675,
+                            "z": 1.6707303891055878
+                        },
+                        "position": {
+                            "x": 4.519795000000002,
+                            "y": -4.34995,
+                            "z": 2.2354200000000013
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xc1f8115d0bb43165",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 6.215232658082439,
+                            "y": 1.0163617721040625,
+                            "z": 3.9224732067513792
+                        },
+                        "position": {
+                            "x": 0.8105100000000007,
+                            "y": -5.709395,
+                            "z": -2.1882900000000003
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x503cba56a7f2d6a4",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.024089732467726534,
+                            "y": 4.33052839334085,
+                            "z": 1.6493047272081054
+                        },
+                        "position": {
+                            "x": 10.257089999999998,
+                            "y": 8.570149999999998,
+                            "z": -3.3028499999999994
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x530b611839aa67a2",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.5572619880790647,
+                            "y": 0.18611423198396654,
+                            "z": 4.846616668101968
+                        },
+                        "position": {
+                            "x": 7.8197800000000015,
+                            "y": -6.56094,
+                            "z": -7.630935
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x3f12a4390619b878",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.895380826835154,
+                            "y": 0.8603062986296433,
+                            "z": 5.799958091575019
+                        },
+                        "position": {
+                            "x": 10.07723,
+                            "y": 1.3102649999999993,
+                            "z": 0.03354999999999997
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xfbfdd8e11ac662a0",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.133757163947573,
+                            "y": 3.4799296160107995,
+                            "z": 0.0012126547642856602
+                        },
+                        "position": {
+                            "x": -2.230995,
+                            "y": 2.0764949999999995,
+                            "z": -5.58661
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x8e9e28f642b69ee3",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.911170471512097,
+                            "y": 2.16597733820279,
+                            "z": 3.5029072246791553
+                        },
+                        "position": {
+                            "x": -0.5677799999999991,
+                            "y": -6.126475,
+                            "z": -11.64607
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x99dadf2c3bacc54d",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 3.395973693936266,
+                            "y": 1.771418433653141,
+                            "z": 4.392901573885222
+                        },
+                        "position": {
+                            "x": 6.727235,
+                            "y": 0.3917649999999995,
+                            "z": -9.362105
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xabb81b083ddfc19f",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.632239953477973,
+                            "y": 0.8875062078244237,
+                            "z": 2.489121558551036
+                        },
+                        "position": {
+                            "x": -2.710355,
+                            "y": -4.89096,
+                            "z": -10.346395
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x88bde16f4fdb69e4",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.6134605852873145,
+                            "y": 1.7411209141019208,
+                            "z": 2.310427768414849
+                        },
+                        "position": {
+                            "x": 6.5484849999999994,
+                            "y": -2.8107699999999998,
+                            "z": 6.070924999999999
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x87a39d4e7e21bfe6",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 3.952971788232429,
+                            "y": 2.255858304021994,
+                            "z": 4.010155057713071
+                        },
+                        "position": {
+                            "x": 7.580295,
+                            "y": 0.3502299999999998,
+                            "z": -5.45669
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xe398131b97e21bb3",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.553946254057709,
+                            "y": 1.5390850905495612,
+                            "z": 5.338998484699096
+                        },
+                        "position": {
+                            "x": 11.91103,
+                            "y": -1.1329250000000002,
+                            "z": -8.62123
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xfe6f122765663303",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.359054412199613,
+                            "y": 5.348454678586401,
+                            "z": 2.8473385192839586
+                        },
+                        "position": {
+                            "x": -7.274725,
+                            "y": -6.850845,
+                            "z": -5.034725
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x5fea1568a58abe5e",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 6.14202726606849,
+                            "y": 5.305565655679593,
+                            "z": 3.497095278270014
+                        },
+                        "position": {
+                            "x": 11.777470000000001,
+                            "y": -11.014935,
+                            "z": 2.16216
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x87bb8b7e6e9ffc51",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.827057469804885,
+                            "y": 4.971287630967025,
+                            "z": 5.576590853904785
+                        },
+                        "position": {
+                            "x": 7.20101,
+                            "y": -6.64299,
+                            "z": -10.22753
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xf71b91d098f5c662",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.9609322264524587,
+                            "y": 4.792719504536981,
+                            "z": 6.25261132747485
+                        },
+                        "position": {
+                            "x": 6.619225,
+                            "y": -9.056145,
+                            "z": -8.111385
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x7d4125c3116db068",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 6.044122672612017,
+                            "y": 2.3498421898467865,
+                            "z": 1.3753829805563043
+                        },
+                        "position": {
+                            "x": 9.16336,
+                            "y": -7.133165,
+                            "z": 1.985240000000001
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xdb686bf7dca0c49b",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.7324497608138458,
+                            "y": 3.9522932042192536,
+                            "z": 3.063398412441943
+                        },
+                        "position": {
+                            "x": -1.2913899999999998,
+                            "y": -10.4657,
+                            "z": -8.01585
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x4bbd576b9265f72f",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xfd63411dd99a43fa",
+                "name": "camera_pitch",
+                "parent": "0x78850f5517de0fe9"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.9757982428892453,
+                            "y": 1.6998403866337508,
+                            "z": 3.848224805976438
+                        },
+                        "position": {
+                            "x": 8.929365,
+                            "y": -2.9114299999999993,
+                            "z": -2.781295
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x0de168500cf0602a",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.8414881586346404,
+                            "y": 0.4603312883452052,
+                            "z": 5.756340219172578
+                        },
+                        "position": {
+                            "x": 8.830285,
+                            "y": -7.86793,
+                            "z": -8.171495
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x35b26f83d54ab177",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.271856366506574,
+                            "y": 5.525181831721441,
+                            "z": 0.4968491613505329
+                        },
+                        "position": {
+                            "x": 5.383894999999999,
+                            "y": 4.797060000000002,
+                            "z": -10.575245
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x2ea7bb557ce72f94",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "ambient": {
+                            "b": 0.699999988079071,
+                            "g": 0.699999988079071,
+                            "r": 0.699999988079071
+                        },
+                        "componentType": "light",
+                        "diffuse": {
+                            "b": 0.8999999761581421,
+                            "g": 0.8999999761581421,
+                            "r": 0.8999999761581421
+                        },
+                        "specular": {
+                            "b": 1.0,
+                            "g": 1.0,
+                            "r": 1.0
+                        },
+                        "type": 0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x587aac7ccdb86e1c",
+                "name": "sun_light"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.950596386622148,
+                            "y": 4.855017286857667,
+                            "z": 4.806969768813664
+                        },
+                        "position": {
+                            "x": 6.061765000000001,
+                            "y": 6.557389999999998,
+                            "z": 3.7979699999999994
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xd262f1e08e255b6e",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.3699417420802869,
+                            "y": 3.4587741310815256,
+                            "z": 2.4819524441155445
+                        },
+                        "position": {
+                            "x": 9.95299,
+                            "y": 6.530660000000001,
+                            "z": -11.894665
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x53eeb815ebb4b3a4",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 4.736730040264703,
+                            "y": 0.494574648269334,
+                            "z": 3.9997752355856098
+                        },
+                        "position": {
+                            "x": 6.410710000000002,
+                            "y": 8.174029999999998,
+                            "z": -7.953975
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xe7d92906d70b9d18",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.4895610239583716,
+                            "y": 6.038153646570197,
+                            "z": 2.3825713021118844
+                        },
+                        "position": {
+                            "x": 2.7567199999999996,
+                            "y": -0.45261499999999977,
+                            "z": 0.23391499999999965
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xd343847fd1f1e9d1",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 4.7448479156815795,
+                            "y": 4.420453341457204,
+                            "z": 0.649989236842421
+                        },
+                        "position": {
+                            "x": 0.013505000000000322,
+                            "y": -2.0574399999999997,
+                            "z": -8.55944
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x9a66cdded74f7dd1",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.407704043340603,
+                            "y": 4.944395597852296,
+                            "z": 0.09780406249155744
+                        },
+                        "position": {
+                            "x": 6.050059999999998,
+                            "y": -4.47255,
+                            "z": -5.624275
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x69e8654936ad18f0",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0xacc860ab083b29ff"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.4366189045600763,
+                            "y": 4.555403595484807,
+                            "z": 0.05384689808252905
+                        },
+                        "position": {
+                            "x": 8.248085,
+                            "y": 10.60087,
+                            "z": -8.489365
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x2061b3fd41630119",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.1137263691882846,
+                            "y": 0.8691593067274594,
+                            "z": 3.517025542064388
+                        },
+                        "position": {
+                            "x": -0.44770499999999913,
+                            "y": -7.562165,
+                            "z": -3.793915
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xefac340828b5cabf",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.854364193149887,
+                            "y": 4.223846190010248,
+                            "z": 2.526305449198925
+                        },
+                        "position": {
+                            "x": 9.430895,
+                            "y": -9.170855,
+                            "z": -3.136614999999999
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x374f38307b4c1488",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 2.2089103434067483,
+                            "y": 1.454764743727211,
+                            "z": 3.435199619808988
+                        },
+                        "position": {
+                            "x": 11.501805000000001,
+                            "y": 3.6517300000000006,
+                            "z": -3.8986850000000004
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x0d6a5d4a800ece2c",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x98861236315ccdf1"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 1.8650378947301165,
+                            "y": 5.80438773721658,
+                            "z": 3.8078616235631166
+                        },
+                        "position": {
+                            "x": 0.8389999999999986,
+                            "y": -4.493345,
+                            "z": -7.09767
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xf0dc150862917027",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.3466244838411762,
+                            "y": 1.5787319898378644,
+                            "z": 5.548316520022476
+                        },
+                        "position": {
+                            "x": 6.664770000000001,
+                            "y": -12.17126,
+                            "z": -4.43066
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xc32cd8ca0a8ec85a",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x0d930cfa6f049a1c"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 6.007020463373122,
+                            "y": 0.016505927801960772,
+                            "z": 4.977294356120688
+                        },
+                        "position": {
+                            "x": 3.46608,
+                            "y": -1.1039150000000006,
+                            "z": -5.029215
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x5fd88ce4eea6a32d",
+                "name": ""
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "clearColor": {
+                            "a": 1.0,
+                            "b": 0.5,
+                            "g": 0.5,
+                            "r": 0.5
+                        },
+                        "clearColorActive": true,
+                        "clearDepth": 1.0,
+                        "clearDepthActive": true,
+                        "clipFar": 10000.0,
+                        "clipNear": 0.10000000149011612,
+                        "componentType": "camera",
+                        "fov": 45.0,
+                        "orthoBottom": -1.0,
+                        "orthoLeft": -1.0,
+                        "orthoRight": 1.0,
+                        "orthoTop": 1.0,
+                        "perspective": true,
+                        "viewport": {
+                            "height": 1.0,
+                            "width": 1.0,
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 12.5
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xc49cd7f032e75e27",
+                "name": "camera",
+                "parent": "0xfd63411dd99a43fa"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x78850f5517de0fe9",
+                "name": "camera_heading"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "meshRender"
+                    },
+                    {
+                        "componentType": "meshReference",
+                        "model": "0x42000caa82a2e5e0"
+                    },
+                    {
+                        "componentType": "octree"
+                    },
+                    {
+                        "componentType": "sphere",
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 5.001566300962323,
+                            "y": 3.278698040177759,
+                            "z": 2.593893673548256
+                        },
+                        "position": {
+                            "x": 6.2909749999999995,
+                            "y": 7.043555000000001,
+                            "z": -4.974045
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xe3a22ec7aeef1ce7",
+                "name": ""
+            }
+        ],
+        "id": "0x39641c77a4e872ee",
+        "name": "",
+        "octree": {
+            "maxDepth": 16,
+            "splitThreshold": 8,
+            "volume": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "halfEdgeLength": 10000.0
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogGraph.h>
@@ -42,7 +42,7 @@ namespace igor
 
     void iDialogGraph::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>> &graphs)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, true);
 
         con_assert(!graphs.empty() && !graphs[0].empty(), "invalid data");
 
@@ -66,7 +66,6 @@ namespace igor
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
         setMinWidth(450);
@@ -91,8 +90,8 @@ namespace igor
         _graph->setExtrapolateData();
         _graph->setViewGrid();
         _graph->setViewLabels();
-        _graph->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
-        _graph->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
+        _graph->getSelectionChangedEvent().add(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
+        _graph->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
 
         iWidgetGroupBox *groupBoxSelection = new iWidgetGroupBox();
         groupBoxSelection->setText("Selected Value");
@@ -120,7 +119,7 @@ namespace igor
         _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
         _axisNumberChooser[0]->setAfterPoint(_afterPoint);
-        _axisNumberChooser[0]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+        _axisNumberChooser[0]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelX, 0, 0);
         axisGrid->addWidget(_axisNumberChooser[0], 1, 0);
@@ -137,7 +136,7 @@ namespace igor
         _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
         _axisNumberChooser[1]->setAfterPoint(_afterPoint);
-        _axisNumberChooser[1]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+        _axisNumberChooser[1]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelY1, 0, 1);
         axisGrid->addWidget(_axisNumberChooser[1], 1, 1);
@@ -156,7 +155,7 @@ namespace igor
             _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
             _axisNumberChooser[2]->setAfterPoint(_afterPoint);
-            _axisNumberChooser[2]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+            _axisNumberChooser[2]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY2, 0, 2);
             axisGrid->addWidget(_axisNumberChooser[2], 1, 2);
@@ -176,7 +175,7 @@ namespace igor
             _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Stretch);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
             _axisNumberChooser[3]->setAfterPoint(_afterPoint);
-            _axisNumberChooser[3]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
+            _axisNumberChooser[3]->getChangeEvent().add(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY3, 0, 3);
             axisGrid->addWidget(_axisNumberChooser[3], 1, 3);
@@ -185,7 +184,7 @@ namespace igor
         iWidgetButton *delButton = new iWidgetButton();
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
-        delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
+        delButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGridLayout *buttonGrid = new iWidgetGridLayout();
@@ -194,15 +193,15 @@ namespace igor
 
         iWidgetButton *okButton = new iWidgetButton();
         okButton->setText("OK");
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onOK));
 
         iWidgetButton *cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onCancel));
 
         iWidgetButton *resetButton = new iWidgetButton();
         resetButton->setText("Reset");
-        resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
+        resetButton->getClickEvent().add(iClickDelegate(this, &iDialogGraph::onReset));
 
         grid->addWidget(groupBoxGradient, 0, 0);
         grid->addWidget(groupBoxSelection, 0, 1);

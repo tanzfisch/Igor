@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetColorGradient.h>
@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/data/iIntersection.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -58,13 +59,13 @@ namespace igor
         return _selectedColorIndex;
     }
 
-    bool iWidgetColorGradient::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetColorGradient::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         _selectedColorIndex = -1;
         return iWidget::onMouseKeyUp(event);
     }
 
-    bool iWidgetColorGradient::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetColorGradient::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         const iaVector2f &mousePos = getLastMousePos();
 
@@ -172,9 +173,11 @@ namespace igor
             gradientRect._height -= s_buttonHeight;
         }
 
-        iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect, _texture);
+        const iaVector2f tiling(gradientRect._width / _texture->getWidth(), gradientRect._height / _texture->getHeight());
+        iRenderer::getInstance().drawTexturedRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture, iaColor4f::white, false, tiling);
+
         iWidgetManager::getInstance().getTheme()->drawGradient(gradientRect, _gradient);
-        iWidgetManager::getInstance().getTheme()->drawRectangle(gradientRect);
+        iRenderer::getInstance().drawRectangle(gradientRect);
 
         if (_interactive)
         {

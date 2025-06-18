@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RESOURCE_DICTIONARY__
-#define __IGOR_RESOURCE_DICTIONARY__
+#ifndef IGOR_RESOURCE_DICTIONARY_H
+#define IGOR_RESOURCE_DICTIONARY_H
 
 #include <igor/resources/iResource.h>
 
@@ -42,6 +42,8 @@ namespace igor
      */
     class iResourceDictionary
     {
+        friend class iResourceManager;
+
     public:
         /*! does nothing
          */
@@ -120,13 +122,6 @@ namespace igor
         */
         std::vector<std::tuple<iResourceID, iaString, iaString>> _data;
 
-        /*! reads resource dictionary element
-
-        \param element the element to read
-        \returns true if successful
-        */
-        bool readResourceDictionaryElement(TiXmlElement *element, bool internal);
-
         /*! internal add resource implementation
 
         \param uuid the uuid to add
@@ -139,4 +134,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_RESOURCE_DICTIONARY__
+#endif // IGOR_RESOURCE_DICTIONARY_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION__
-#define __IGOR_ANIMATION__
+#ifndef IGOR_ANIMATION_H
+#define IGOR_ANIMATION_H
 
 #include <igor/resources/iResource.h>
 
@@ -49,7 +49,6 @@ namespace igor
     - rotateAnimation: rotate animation data (type: iaKeyFrameGraphVector3d)
     - scaleAnimation: scale animation data (type: iaKeyFrameGraphVector3d)
     - spriteAnimation: sprite frame index animation data (type: iaKeyFrameGraphui)
-
      */
     class IGOR_API iAnimation : public iResource
     {
@@ -101,16 +100,14 @@ namespace igor
         const uint32 getFrameIndex(float64 t) const;
 
         /*! \returns time of first key frame
-        */
+         */
         const iaTime getStart() const;
 
         /*! \returns time of last key frame
-        */
+         */
         const iaTime getStop() const;
 
     private:
-        // TODO I don't like that we have so many placeholders here
-
         /*! translate animation
          */
         iaKeyFrameGraphVector3d _translate;
@@ -164,4 +161,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_ANIMATION__
+#endif // IGOR_ANIMATION_H

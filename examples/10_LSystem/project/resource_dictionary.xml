@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<Igor>
-    <ResourceDictionary>
-        <Resource id="0xd9414e77657b07c8" alias="example_skybox_debug" source="textures/skyboxes/debug.png" />
-    </ResourceDictionary>
-</Igor>

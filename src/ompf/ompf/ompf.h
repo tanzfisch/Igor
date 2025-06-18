@@ -5,7 +5,7 @@
 //  #   # #   # #     #
 //  ##### #   # #     #  3d model file format
 //
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -22,8 +22,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OMPF__
-#define __OMPF__
+#ifndef OMPF_H
+#define OMPF_H
 
 #include <ompf/ompfVersion.h>
 #include <ompf/ompfSettings.h>
@@ -36,7 +36,6 @@
 #include <ompf/chunks/ompfMaterialReferenceChunk.h>
 #include <ompf/chunks/ompfMeshChunk.h>
 #include <ompf/chunks/ompfParticleSystemChunk.h>
-#include <ompf/chunks/ompfResourceSearchPathChunk.h>
 #include <ompf/chunks/ompfTransformChunk.h>
 
 #include <iaux/data/iaString.h>
@@ -221,4 +220,4 @@ namespace OMPF
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_H 

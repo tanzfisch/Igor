@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_AACUBE__
-#define __IGOR_AACUBE__
+#ifndef IGOR_AACUBE_H
+#define IGOR_AACUBE_H
 
 #include <igor/iDefines.h>
 
@@ -54,6 +54,14 @@ namespace igor
         */
         iAACube(const iaVector3<T> &center, T halfEdgeLenght);
 
+        /*! \returns the center
+        */
+        const iaVector3<T>& getCenter() const;
+
+        /*! \returns the center
+        */
+        const T& getHalfEdge() const;
+
         /*! center position of cube
         */
         iaVector3<T> _center;
@@ -75,4 +83,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_AACUBE__
+#endif // IGOR_AACUBE_H

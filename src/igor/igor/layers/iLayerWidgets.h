@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LAYERWIDGETS__
-#define __IGOR_LAYERWIDGETS__
+#ifndef IGOR_LAYERWIDGETS_H
+#define IGOR_LAYERWIDGETS_H
 
 #include <igor/layers/iLayer.h>
 #include <igor/ui/theme/iWidgetTheme.h>
@@ -96,4 +96,4 @@ namespace igor
     };
 
 } // namespace igor
-#endif // __IGOR_LAYERWIDGETS__
+#endif // IGOR_LAYERWIDGETS_H

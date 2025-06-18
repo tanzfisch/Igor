@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/mesh/iMeshBuilder.h>
@@ -65,7 +65,7 @@ namespace igor
         return _triangles;
     }
 
-    void iMeshBuilder::setJoinVertexes(bool joinVertexes)
+    void iMeshBuilder::setJoinVertices(bool joinVertexes)
     {
         con_assert(_vertexes.empty(), "can't change this setting if already vertexes inserted");
 
@@ -75,9 +75,19 @@ namespace igor
         }
     }
 
-    bool iMeshBuilder::getJoinVertexes()
+    bool iMeshBuilder::isJoiningVertices() const
     {
         return _joinVertexes;
+    }
+
+    void iMeshBuilder::setKeepRawData(bool keepRawData)
+    {
+        _keepRawData = keepRawData;
+    }
+
+    bool iMeshBuilder::isKeepingRawData() const
+    {
+        return _keepRawData;
     }
 
     uint32 iMeshBuilder::addVertex(const iaVector4f &vertex)
@@ -119,6 +129,11 @@ namespace igor
         {
             _vertexes.push_back(vertex);
             result = _vertexes.size() - 1;
+        }
+
+        if(hasNormals())
+        {
+            setNormal(result, iaVector3f(1,0,0));
         }
 
         return result;
@@ -494,7 +509,7 @@ namespace igor
         const uint32 vertexCount = vertexDataIndex;
         const uint32 vertexBufferSize = vertexCount * vertexSize;
 
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout(), _keepRawData);
 
         delete[] indexBufferData;
         delete[] vertexBufferData;
@@ -624,7 +639,7 @@ namespace igor
             }
         }
 
-        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout());
+        mesh->setData(indexBufferData, indexCount * sizeof(uint32), vertexBufferData, vertexBufferSize, generateLayout(), _keepRawData);
 
         delete[] indexBufferData;
         delete[] vertexBufferData;
@@ -650,11 +665,11 @@ namespace igor
         mesh->setBoundingBox(bbox);
     }
 
-    void iMeshBuilder::calcNormals(bool sharpEdges)
+    bool iMeshBuilder::calcNormals(bool sharpEdges)
     {
         if (!checkConsistency())
         {
-            return;
+            return false;
         }
 
         uint32 a, b, c;
@@ -705,6 +720,8 @@ namespace igor
         normalizeNormals();
 
         delete[] trianglenormals;
+
+        return true;
     }
 
     void iMeshBuilder::getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC)

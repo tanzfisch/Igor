@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGMENU__
-#define __IGOR_DIALOGMENU__
+#ifndef IGOR_DIALOGMENU_H
+#define IGOR_DIALOGMENU_H
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/actions/iAction.h>
@@ -65,16 +65,24 @@ namespace igor
         actions are not owned by the menu
 
         \param action the action to be added
+        \param context the action cintext
+        \param enabled if true widget will be enabled
         */
-        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr, bool enabled = true);
 
         /*! same as add actions just by action name
 
         requires that the action we are searching for was already registered to the action manager
 
         \param actionName name of the action to be added
+        \param context the action cintext
+        \param enabled if true widget will be enabled
         */
-        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr, bool enabled = true);
+
+        /*! \returns true if dialog has actions, callbacks or sub menus on it
+        */
+        bool hasEntries() const;
 
         /*! add callback entry to menu
 
@@ -82,8 +90,10 @@ namespace igor
         \param title the title or brief description
         \param description the full description (used as tooltip)
         \param iconAlias an alias or id for texture resource
+        \param enabled if true widget will be enabled
+        \param context action context
         */
-        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "");
+        void addCallback(iClickDelegate delegate, const iaString &title, const iaString &description = "", const iaString &iconAlias = "", bool enabled = true, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 
@@ -98,8 +108,9 @@ namespace igor
         /*! shows the dialog on screen
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
+        \param modal if true open this dialog as modal
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate()) override;
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate(), bool modal = false) override;
 
         /*! clears the widget back to default
         */
@@ -109,6 +120,10 @@ namespace igor
         /*! main layout
         */
         iWidgetBoxLayoutPtr _vboxLayout = nullptr;
+
+        /*! true if dialog has actions, callbacks or sub menus in it
+        */
+        bool _hasEntries = false;
 
         /*! handle mouse off click event
 
@@ -131,4 +146,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGMENU__
+#endif // IGOR_DIALOGMENU_H

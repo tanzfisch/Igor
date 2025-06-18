@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,9 +26,9 @@
 //
 // contact: igorgameengine@protonmail.com
 
-// https://wiki.lspace.org/Igor ;-)
-#ifndef __IGOR__
-#define __IGOR__
+// What is Igor? -> https://wiki.lspace.org/Igor
+#ifndef IGOR_H
+#define IGOR_H
 
 // igor includes
 #include <igor/audio/iAudio.h>
@@ -44,6 +44,7 @@
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iQuadtree.h>
+#include <igor/data/iOctree.h>
 
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iLSystem.h>
@@ -61,8 +62,8 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/shader_material/loader/iShaderMaterialIO.h>
-#include <igor/resources/shader_material/iShaderMaterialFactory.h>
+#include <igor/resources/shader/loader/iShaderIO.h>
+#include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -72,6 +73,8 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/project/iProject.h>
+#include <igor/resources/prefab/iPrefab.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -97,20 +100,45 @@
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
 
 #include <igor/system/iApplication.h>
+#include <igor/system/iClipboard.h>
 #include <igor/system/iKeyboard.h>
+#include <igor/system/iFilesystem.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iTimer.h>
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
 
-#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
+#include <igor/events/iEventFilesystem.h>
+#include <igor/events/iEventProject.h>
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
+
+#include <igor/entities/components/iAnimationComponent.h>
+#include <igor/entities/components/iCameraComponent.h>
+#include <igor/entities/components/iCircleComponent.h>
+#include <igor/entities/components/iMeshRenderComponent.h>
+#include <igor/entities/components/iMeshReferenceComponent.h>
+#include <igor/entities/components/iOctreeComponent.h>
+#include <igor/entities/components/iQuadtreeComponent.h>
+#include <igor/entities/components/iSphereComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iLightComponent.h>
+#include <igor/entities/components/iPrefabComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
+#include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/components/iGlobalBoundaryComponent.h>
+
+#include <igor/entities/traversal/iEntityToItemTraverser.h>
+#include <igor/entities/traversal/iEntityPrintTraverser.h>
+#include <igor/entities/traversal/iEntityCopyTraverser.h>
+#include <igor/entities/traversal/iEntityBoundsTraverser.h>
+#include <igor/entities/traversal/iEntityTraverser.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>
@@ -122,13 +150,19 @@
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/threading/tasks/iTaskGenerateThumbnails.h>
+#include <igor/threading/tasks/iTaskWatchFilesystem.h>
 
 #include <igor/simulation/iParticleSystem2D.h>
 
 #include <igor/ui/iDrag.h>
 #include <igor/ui/iWidgetManager.h>
+
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
+
+#include <igor/ui/actions/context/iEntityActionContext.h>
+#include <igor/ui/actions/context/iFilesystemActionContext.h>
+
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogColorGradient.h>
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
@@ -137,7 +171,9 @@
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
+
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
+
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/widgets/iWidgetColor.h>
@@ -158,12 +194,15 @@
 #include <igor/ui/widgets/iWidgetSplitter.h>
 #include <igor/ui/widgets/iWidgetViewport.h>
 
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
+#include <igor/ui/user_controls/iUserControlColor.h>
+#include <igor/ui/user_controls/iUserControlFile.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
-#include <igor/ui/user_controls/iUserControlTextureChooser.h>
-#include <igor/ui/user_controls/iUserControlMaterialChooser.h>
-#include <igor/ui/user_controls/iUserControlShaderMaterialChooser.h>
+#include <igor/ui/user_controls/iUserControlTexture.h>
+#include <igor/ui/user_controls/iUserControlSprite.h>
+#include <igor/ui/user_controls/iUserControlMaterial.h>
+#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
+#include <igor/ui/user_controls/iUserControlVector.h>
+#include <igor/ui/user_controls/iUserControlMeshReference.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/layouts/iWidgetDockingLayout.h>
@@ -208,15 +247,15 @@ namespace igor
     config file will be searched for in this order
 
     Windows: 
-        config\igor.xml
-        ..\config\igor.xml
-        ..\..\config\igor.xml
+        config\igor.json
+        ..\config\igor.json
+        ..\..\config\igor.json
     Linux:
-        ~/.igor/igor.xml
-        /etc/igor/igor.xml
-        config/igor.xml
-        ../config/igor.xml
-        ../../config/igor.xml
+        ~/.igor/igor.json
+        /etc/igor/igor.json
+        config/igor.json
+        ../config/igor.json
+        ../../config/igor.json
 
     in that order
 	*/
@@ -231,4 +270,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR__
+#endif // IGOR_H

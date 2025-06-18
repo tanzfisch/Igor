@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/physics/iPhysics.h>
@@ -20,7 +20,7 @@
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/physics/iPhysicsUserMeshCollisionHandler.h>
 #include <iaux/data/iaConvert.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <dgNewton/Newton.h>
 
@@ -473,7 +473,7 @@ namespace igor
         NewtonMaterialSetDefaultFriction(static_cast<const NewtonWorld *>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), staticFriction, kineticFriction);
     }
 
-    void iPhysics::handleQueues()
+    void iPhysics::onUpdateQueues()
     {
         _mutexBodyContacts.lock();
         auto contacts = std::move(_bodyContacts);
@@ -503,28 +503,31 @@ namespace igor
         }
     }
 
-    void iPhysics::handle()
+    void iPhysics::onUpdate()
     {
+        if (!_running ||
+            (_bodies.empty() && _collisions.empty()))
+        {
+            return;
+        }
+
         IGOR_PROFILER_SCOPED(physics);
 
-        if (_running)
+        onUpdateQueues();
+
+        const uint32 maxUpdateCount = 3;
+        const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
+
+        uint32 updateCount = 0;
+        iaTime currentTime = iTimer::getInstance().getTime();
+
+        while ((_lastTime + timeDelta < currentTime) &&
+               (updateCount < maxUpdateCount))
         {
-            handleQueues();
-
-            const uint32 maxUpdateCount = 3;
-            const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
-
-            uint32 updateCount = 0;
-            iaTime currentTime = iTimer::getInstance().getTime();
-
-            while ((_lastTime + timeDelta < currentTime) &&
-                   (updateCount < maxUpdateCount))
-            {
-                NewtonUpdateAsync(static_cast<const NewtonWorld *>(_defaultWorld), timeDelta.getSeconds());
-                _lastTime += timeDelta;
-                updateCount++;
-            };
-        }
+            NewtonUpdateAsync(static_cast<const NewtonWorld *>(_defaultWorld), timeDelta.getSeconds());
+            _lastTime += timeDelta;
+            updateCount++;
+        };
     }
 
     void iPhysics::setSimulationRate(float64 simulationRate)
@@ -698,7 +701,7 @@ namespace igor
             NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld *>(_defaultWorld));
 
             NewtonJoint *joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld *>(_defaultWorld), maxDOF,
-                                                                 reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), 
+                                                                 reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints),
                                                                  static_cast<NewtonBody *>(body0->getNewtonBody()),
                                                                  body1 != nullptr ? static_cast<NewtonBody *>(body1->getNewtonBody()) : nullptr);
 
@@ -911,9 +914,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxPhysicsThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxPhysicsThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxPhysicsThreads");
+            const iaString max = iConfig::getInstance().getValue("igor.maxPhysicsThreads");
 
             if (max != "Max")
             {
@@ -921,13 +924,13 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minPhysicsThreads"))
+        if (iConfig::getInstance().hasValue("igor.minPhysicsThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minPhysicsThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("igor.minPhysicsThreads");
         }
 
         return std::max(minThreads, maxThreads);
-    }    
+    }
 
     iPhysicsWorld *iPhysics::createWorld()
     {
@@ -936,7 +939,7 @@ namespace igor
         _worldListMutex.lock();
 
         NewtonWorld *world = NewtonCreate();
-        //NewtonSetSolverModel(static_cast<const NewtonWorld *>(world), 1);
+        // NewtonSetSolverModel(static_cast<const NewtonWorld *>(world), 1);
 
         int32 numThreads = getPhysicsThreadCountFromConfig();
         NewtonSetThreadsCount(static_cast<const NewtonWorld *>(world), numThreads);

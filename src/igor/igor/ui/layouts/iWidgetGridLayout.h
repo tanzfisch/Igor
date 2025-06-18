@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_GRID_LAYOUT__
-#define __IGOR_WIDGET_GRID_LAYOUT__
+#ifndef IGOR_WIDGET_GRID_LAYOUT_H
+#define IGOR_WIDGET_GRID_LAYOUT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -254,7 +254,7 @@ namespace igor
 
         /*! internal helper struct that represents a child widget and it's position
          */
-        struct Cell
+        struct iGridCell
         {
             /*! pointer to child widget
              */
@@ -291,16 +291,16 @@ namespace igor
 
         /*! internal struct that represents a column of widgets
          */
-        struct GridColumn
+        struct iGridColumn
         {
             /*! list of widgets within one column
              */
-            std::vector<Cell> _widgetColumn;
+            std::vector<iGridCell> _widgetColumn;
         };
 
         /*! the child widgets
          */
-        std::vector<GridColumn> _widgetRows;
+        std::vector<iGridColumn> _widgetRows;
 
         /*! cellspacing within the grid
          */
@@ -339,34 +339,34 @@ namespace igor
         \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseWheel(iEventMouseWheel &event) override;
+        bool onMouseWheel(const iEventMouseWheel &event) override;
 
         /*! handles incoming mouse key down events
 
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
- 
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
+
         /*! handles incoming double click
 
         \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event) override;
+        bool onMouseDoubleClick(const iEventMouseKeyDoubleClick &event) override;
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         */
-        void onMouseMove(iEventMouseMove &event) override;
+        void onMouseMove(const iEventMouseMove &event) override;
 
         /*! updates size based on it's content
          */
@@ -400,4 +400,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_GRID_LAYOUT__
+#endif // IGOR_WIDGET_GRID_LAYOUT_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,51 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROL_PROPERTIES__
-#define __USERCONTROL_PROPERTIES__
+#ifndef MICA_USERCONTROL_PROPERTIES_H
+#define MICA_USERCONTROL_PROPERTIES_H
 
 #include <igor/igor.h>
 using namespace igor;
 
 /*! user control properties
-*/
+ */
 class UserControlProperties : public iUserControl
 {
 public:
-    /*! init ui for nodes
+    /*! property type definition
+     */
+    enum class PropertyType
+    {
+        Resource,
+        Entity
+    };
 
-    \param nodeID the node to represent
+    /*! init ui with id
+
+    \param propertyType type of property
+    \param id the id chain of what we are looking at
+    \param parent the parent widget (optional)
     */
-    UserControlProperties(iNodeID nodeID, const iWidgetPtr parent);
-
-    /*! init ui for resource
-
-    \param resourceID the resource to represent
-    */
-    UserControlProperties(const iResourceID &resourceID, const iWidgetPtr parent);
+    UserControlProperties(PropertyType propertyType, const std::vector<iaUUID> &id, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
-    */
+     */
     virtual ~UserControlProperties() = default;
 
 private:
     /*! layout widget
-    */
+     */
     iWidgetBoxLayoutPtr _layout = nullptr;
 
     /*! init common part of UI
-    */
+     */
     void initUI();
 
-    /*! initializes node UI
-    */
-    void initNodeUI(iNodeID nodeID);
-
-    /*! initializes material UI
+    /*! initializes resource UI
 
     \param resourceID id of resource to display
     */
     void initResourceUI(const iResourceID &resourceID);
+
+    /*! initializes entity UI
+
+    \param sceneID the scene id
+    \param entityID the entity id (must be in given scene)
+    */
+    void initEntityUI(const iEntitySceneID &sceneID, const iEntityID &entityID);
 };
 
-#endif // __USERCONTROL_PROPERTIES__
+#endif // MICA_USERCONTROL_PROPERTIES_H

@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/igor/igor/resources/project/iProject.cpp File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/resources/project/iProject.cpp File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,26 +87,40 @@ $(document).ready(function(){initNavTree('i_project_8cpp.html',''); initResizabl
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">iProject.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_project_8h.html">igor/resources/project/iProject.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_resource_manager_8h.html">igor/resources/iResourceManager.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_event_project_8h.html">igor/events/iEventProject.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_json_8h.html">igor/utils/iJson.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_entity_system_module_8h.html">igor/entities/iEntitySystemModule.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_prefab_component_8h.html">igor/entities/components/iPrefabComponent.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_directory_8h.html">iaux/system/iaDirectory.h</a>&gt;</code><br />
-<code>#include &lt;tinyxml.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_file_8h.html">iaux/system/iaFile.h</a>&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
-<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture unit 3 <br /></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">item data entity id <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5d9b38ff1eadb40e8334e44ddb6ec1e5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5d9b38ff1eadb40e8334e44ddb6ec1e5">igor::writeScenes</a> (const std::vector&lt; iEntityPtr &gt; &amp;entities, <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;scenesJson)</td></tr>
+<tr class="separator:a5d9b38ff1eadb40e8334e44ddb6ec1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa3662b596e8e24d4b7253716b31ff166"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa3662b596e8e24d4b7253716b31ff166">igor::s_defaultTemplate</a> = &quot;igor/projects/default&quot;</td></tr>
+<tr class="memitem:aa3662b596e8e24d4b7253716b31ff166"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa3662b596e8e24d4b7253716b31ff166">igor::s_defaultTemplate</a> = &quot;projects/default&quot;</td></tr>
 <tr class="separator:aa3662b596e8e24d4b7253716b31ff166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38532517a211ed569aed1517a6de051"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae38532517a211ed569aed1517a6de051">igor::s_defaultProjectFilename</a> = &quot;project_config.project&quot;</td></tr>
+<tr class="separator:ae38532517a211ed569aed1517a6de051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bb6be1d0ac2289c5720ca94dfd71b9"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae8bb6be1d0ac2289c5720ca94dfd71b9">igor::s_resourceDictionary</a> = &quot;resource_dictionary.json&quot;</td></tr>
+<tr class="separator:ae8bb6be1d0ac2289c5720ca94dfd71b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

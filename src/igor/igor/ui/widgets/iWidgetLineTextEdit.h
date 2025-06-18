@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETLINETEXTEDIT__
-#define __IGOR_WIDGETLINETEXTEDIT__
+#ifndef IGOR_WIDGETLINETEXTEDIT_H
+#define IGOR_WIDGETLINETEXTEDIT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -120,6 +120,10 @@ namespace igor
 		*/
         uint64 getCursorPos() const;
 
+        /* \returns current cursor pos in pixel
+		*/
+        uint64 getCursorPosPix() const;
+
         /*! increase cursor pos by one
 		*/
         void incCursorPos();
@@ -153,19 +157,19 @@ namespace igor
 
         \param event the key ascii event
         */
-        bool onASCII(iEventKeyASCII &event) override;
+        bool onASCII(const iEventKeyASCII &event) override;
 
         /*! handles incoming released key events
 
 		\param event the key down event
 		*/
-        virtual bool onKeyDown(iEventKeyDown &event) override;
+        virtual bool onKeyDown(const iEventKeyDown &event) override;
 
         /*! handles incoming released key events
 
 		\param event the key up event
 		*/
-        virtual bool onKeyUp(iEventKeyUp &event) override;
+        virtual bool onKeyUp(const iEventKeyUp &event) override;
 
         /*! handles gained kayboard focus
 		*/
@@ -219,4 +223,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETLINETEXTEDIT__
+#endif // IGOR_WIDGETLINETEXTEDIT_H

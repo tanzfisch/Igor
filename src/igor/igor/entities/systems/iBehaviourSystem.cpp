@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/systems/iBehaviourSystem.h>
@@ -7,30 +7,36 @@
 #include <igor/entities/iEntityScene.h>
 #include <igor/entities/iEntity.h>
 
-#include <entt.h>
-
 namespace igor
 {
-	void iBehaviourSystem::update(const iaTime &time, iEntityScenePtr scene)
+	iBehaviourSystem::iBehaviourSystem()
 	{
-		auto *registry = static_cast<entt::registry *>(scene->getRegistry());
-		auto view = registry->view<iBehaviourComponent, iActiveComponent>();
+		_view = createView<iBehaviourComponent>();
+	}
 
-		for (auto entityID : view)
+	iEntitySystemPtr iBehaviourSystem::createInstance()
+	{
+		return new iBehaviourSystem();
+	}
+
+	const iaString &iBehaviourSystem::getTypeName()
+	{
+		static const iaString typeName("igor_behaviour_system");
+		return typeName;
+	}
+
+	iEntitySystemStage iBehaviourSystem::getStage() const
+	{
+		return iEntitySystemStage::Update;
+	}
+
+	void iBehaviourSystem::onUpdate(const iEntitySceneUpdateContext &context)
+	{
+		const auto &entities = _view->getEntities();
+		for (const auto entity : entities)
 		{
-			auto &behaviour = view.get<iBehaviourComponent>(entityID);
-
-			iEntity entity(static_cast<iEntityID>(entityID), scene);
-
-			for (auto &behaviourData : behaviour._behaviour)
-			{
-				if (!behaviourData._delegate.isValid())
-				{
-					continue;
-				}
-
-				behaviourData._delegate(entity, behaviourData._userData);
-			}
+			auto behaviour = entity->getComponent<iBehaviourComponent>();
+			behaviour->execute();
 		}
 	}
 

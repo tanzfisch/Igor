@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -36,8 +36,9 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/iResourceDictionary.h>
 
 #include <iaux/system/iaDirectory.h>
@@ -53,6 +54,10 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! resource processed (aka loaded) event
+     */
+    IGOR_EVENT_DEFINITION(iResourceProcessed, iResourceID);
+
     /*! manages resources and their factories
      */
     class IGOR_API iResourceManager : public iModule<iResourceManager>
@@ -63,19 +68,15 @@ namespace igor
     public:
         /*! adds search path to list
 
-        \param folder search path to add
+        \param searchPath search path to add
         */
-        void addSearchPath(const iaString &folder);
+        void addSearchPath(const iaString &searchPath);
 
         /*! removes search path from list
 
-        \param folder search path to remove
+        \param searchPath search path to remove
         */
-        void removeSearchPath(const iaString &folder);
-
-        /*! \returns list of search paths
-         */
-        const std::vector<iaString> &getSearchPaths() const;
+        void removeSearchPath(const iaString &searchPath);
 
         /*! clears search path list
          */
@@ -242,7 +243,7 @@ namespace igor
 
         TODO how about a more general interface?
         */
-        void getMaterials(std::vector<iShaderMaterialPtr> &materials);
+        void getMaterials(std::vector<iShaderPtr> &materials);
 
         /*! works like a garbage collector.
 
@@ -315,13 +316,13 @@ namespace igor
         \param filename path to resource (must be relative to search paths)
         \param alias optional alias
         */
-        void addResource(const iaString &filename, const iaString &alias = "");
+        void addToDictionary(const iaString &filename, const iaString &alias = "", const iaUUID &uuid = iaUUID::getInvalid());
 
         /*! removes given resource from dictionary
 
         \param resourceID the given resource id
         */
-        void removeResource(const iResourceID &resourceID);
+        void removeFromDictionary(const iResourceID &resourceID);
 
         /*! \returns resource type for given filename
         
@@ -355,6 +356,10 @@ namespace igor
         */
         bool saveResource(iResourceID resourceID, const iaString &filename = "");
 
+        /*! \returns resource process event
+        */
+        iResourceProcessedEvent &getResourceProcessedEvent();
+
     private:
         /*! mutex to manage access to internal data
          */
@@ -387,6 +392,10 @@ namespace igor
         /*! resource dictionary
          */
         iResourceDictionary _resourceDictionary;
+
+        /*! resource processed event
+         */
+        iResourceProcessedEvent _resourceProcessedEvent;        
 
         /*! \returns factory for given resource parameters
 

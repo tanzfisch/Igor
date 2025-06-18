@@ -23,8 +23,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PARTICLESYSTEMCHUNK__
-#define __PARTICLESYSTEMCHUNK__
+#ifndef OMPF_PARTICLE_SYSTEM_CHUNK_H
+#define OMPF_PARTICLE_SYSTEM_CHUNK_H
 
 #include <ompf/chunks/ompfBaseChunk.h>
 
@@ -32,17 +32,19 @@ namespace OMPF
 {
 
     /*! ompf particle system chunk
-    */
+     */
     class OMPF_API ompfParticleSystemChunk : public ompfBaseChunk
     {
 
+        friend class OMPF;
+
     public:
         /*! init base class
-        */
+         */
         ompfParticleSystemChunk();
 
         /*! does nothing
-        */
+         */
         ~ompfParticleSystemChunk() = default;
 
         /*! sets the maximum particle count
@@ -54,7 +56,7 @@ namespace OMPF
         void setMaxParticleCount(uint16 max);
 
         /*! \returns the maximum particle count used
-        */
+         */
         uint16 getMaxParticleCount() const;
 
         /*! sets if the particle system runs in a loop
@@ -64,7 +66,7 @@ namespace OMPF
         void setLoop(bool loop = true);
 
         /*! \returns true if particle system runs in loop
-        */
+         */
         bool isLooped() const;
 
         /*! sets rainbow gradient for particles color
@@ -99,11 +101,11 @@ namespace OMPF
         void setVortexTorque(float32 min, float32 max);
 
         /*! \returns minimum vortex torque
-        */
+         */
         float32 getVortexTorqueMin();
 
         /*! \returns maximum vortex torque
-        */
+         */
         float32 getVortexTorqueMax();
 
         /*! sets minimum and maximum range of vortexes
@@ -114,11 +116,11 @@ namespace OMPF
         void setVortexRange(float32 min, float32 max);
 
         /*! \returns minimum range of vortexes
-        */
+         */
         float32 getVortexRangeMin();
 
         /*! \returns maximum range of vortexes
-        */
+         */
         float32 getVortexRangeMax();
 
         /*! sets vortex check range
@@ -128,7 +130,7 @@ namespace OMPF
         void setVortexCheckRange(uint8 particles);
 
         /*! \return vortex check rangein indexes from vortex particle
-        */
+         */
         uint8 getVortexCheckRange();
 
         /*! sets the vortex to particle ratio
@@ -138,7 +140,7 @@ namespace OMPF
         void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
-        */
+         */
         float32 getVortexToParticleRate() const;
 
         /*! sets vorticity confinement force
@@ -148,14 +150,8 @@ namespace OMPF
         void setVorticityConfinement(float32 vorticityConfinement);
 
         /*! \returns vorticity confinement force
-        */
+         */
         float32 getVorticityConfinement();
-
-        /*! \returns size of chunk in bytes
-
-        \param settings the settings the size calculation is based on
-        */
-        uint32 getSize(const ompfSettings &settings) override;
 
         /*! sets the tiling resolution of the first texture layer
 
@@ -165,11 +161,11 @@ namespace OMPF
         void setTextureTiling(uint8 columns, uint8 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
-        */
+         */
         uint8 getTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
-        */
+         */
         uint8 getTextureRows() const;
 
         /*! sets visible gradient for particles per frame
@@ -256,18 +252,18 @@ namespace OMPF
         */
         void getStartOrientationRateGradient(iaKeyFrameGraphVector2f &orientationRateGradient) const;
 
-        /*! sets air drag 
+        /*! sets air drag
         0.0-1.0
         1.0 means basically no air drag
         0.0 is a full stop
-        and about 0.99 is a usefull value for simulating air drag
+        and about 0.99 is a useful value for simulating air drag
 
         \param airDrag the air drag factor (0.0 - 1.0)
         */
         void setAirDrag(float32 airDrag);
 
         /*! \returns air drag factor
-        */
+         */
         float32 getAirDrag() const;
 
         /*! sets period time of this particle system
@@ -280,7 +276,7 @@ namespace OMPF
         void setPeriodTime(float32 periodTime);
 
         /*! \returns period time of this particle system
-        */
+         */
         float32 getPeriodTime() const;
 
         /*! sets the velocity oriented flag
@@ -293,38 +289,8 @@ namespace OMPF
         void setVelocityOriented(bool velocityOriented = true);
 
         /*! \returns velocity oriented flag
-        */
+         */
         bool getVelocityOriented() const;
-
-        /*! sets first texture
-
-        \param filename file name of texture
-        */
-        void setTextureA(const iaString &filename);
-
-        /*! sets second texture
-
-        \param filename file name of texture
-        */
-        void setTextureB(const iaString &filename);
-
-        /*! sets third texture
-
-        \param filename file name of texture
-        */
-        void setTextureC(const iaString &filename);
-
-        /*! \returns file name of first texture
-        */
-        iaString getTextureA() const;
-
-        /*! \returns file name of second texture
-        */
-        iaString getTextureB() const;
-
-        /*! \returns file name of third texture
-        */
-        iaString getTextureC() const;
 
         /*! sets material chunk id
         \param id the material chunk id
@@ -332,7 +298,7 @@ namespace OMPF
         void setMaterialChunkID(uint32 id);
 
         /*! \returns material chunk id
-        */
+         */
         uint32 getMaterialChunkID() const;
 
         /*! sets emitter node id
@@ -342,16 +308,13 @@ namespace OMPF
         void setEmitterChunkID(uint32 emitterID);
 
         /*! \returns the emitter node's id
-        */
+         */
         uint32 getEmitterChunkID() const;
 
     private:
         uint32 _emitterID = 0;
 
         bool _velocityOriented = false;
-        iaString _textureA;
-        iaString _textureB;
-        iaString _textureC;
 
         float32 _airDrag = 0;
         float32 _periodTime = 0;
@@ -359,85 +322,94 @@ namespace OMPF
         float32 _vorticityConfinement = 0;
 
         /*! material chunk id
-        */
+         */
         uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
+        /*! orientation rate gradient. controls rate of orientation change over time
+         */
         iaKeyFrameGraphVector2f _orientationRateGradient;
+
         iaKeyFrameGraphVector2f _orientationGradient;
         iaKeyFrameGraphVector2f _liftGradient;
         iaKeyFrameGraphVector2f _velocityGradient;
 
         /*! start size gradient
-        */
+         */
         iaKeyFrameGraphVector2f _sizeGradient;
 
         /*! size scale gradient
-        */
+         */
         iaKeyFrameGraphf _sizeScaleGradient;
 
         /*! start visibility time
-        */
+         */
         iaKeyFrameGraphVector2f _startVisibleTimeGradient;
 
         /*! first texture tiling in columns
-        */
-        uint8 _firstTectureTilingColumns;
+         */
+        uint8 _firstTextureTilingColumns;
 
         /*! first texture tiling in rows
-        */
-        uint8 _firstTectureTilingRows;
+         */
+        uint8 _firstTextureTilingRows;
 
-        /*! min vortex tourque
-        */
+        /*! min vortex torque
+         */
         float32 _minVortexTorque = 0;
 
-        /*! max vortex tourque
-        */
+        /*! max vortex torque
+         */
         float32 _maxVortexTorque = 0;
 
         /*! min vortex range
-        */
+         */
         float32 _minVortexRange = 0;
 
         /*! max vortex range
-        */
+         */
         float32 _maxVortexRange = 0;
 
         /*! vortex check range
-        */
+         */
         uint8 _vortexCheckRange = 0;
 
         /*! emission gradient
-        */
+         */
         iaKeyFrameGraphf _emissionGradient;
 
         /*! color gradient for particles during their lifetime
-        */
+         */
         iaKeyFrameGraphColor4f _colorGradient;
 
         /*! maximum particle count
-        */
+         */
         uint16 _maxParticleCount = 500;
 
         /*! if true particle system is in endless loop
-        */
+         */
         bool _loop = true;
+
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the size calculation is based on
+        */
+        uint32 getSize(const ompfSettings &settings) override;
 
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
+        bool write(std::ofstream &stream, const ompfSettings &settings) override;
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+        bool read(std::ifstream &stream, ompfSettings &settings) override;
     };
 
 } // namespace OMPF
 
-#endif
+#endif // OMPF_PARTICLE_SYSTEM_CHUNK_H

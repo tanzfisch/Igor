@@ -1,0 +1,33 @@
+{
+    "projectName": "Supremacy",
+    "projectScene": {
+        "id": "0x493163547664aa39",
+        "quadtree": {
+            "area": {
+                "height": 1200.0,
+                "width": 1200.0,
+                "x": 0.0,
+                "y": 0.0
+            },
+            "maxDepth": 8,
+            "splitThreshold": 8
+        },
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_transform_system",
+            "igor_behaviour_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    },
+    "scenes": [
+        {
+            "active": true,
+            "id": "0x5068d3c988afbf8a",
+            "name": "main_scene"
+        }
+    ]
+}

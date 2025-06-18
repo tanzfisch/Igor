@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResource.h>
@@ -11,12 +11,20 @@ namespace igor
     iResource::iResource(const iParameters &parameters)
         : _parameters(parameters)
     {
-        extractID(parameters, _id, true);
+        extractID(parameters, _id);
 
         // if there is no id specified we need a new one
         if (!_id.isValid())
         {
-            _id = iaUUID();
+            const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+            if(generate)
+            {
+                _id = iaUUID::getMarked();
+            }
+            else
+            {
+                _id = iaUUID();
+            }
         }
 
         _alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
@@ -27,7 +35,7 @@ namespace igor
         _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
     }
 
-    bool iResource::extractID(const iParameters &parameters, iResourceID &id, bool quiet)
+    bool iResource::extractID(const iParameters &parameters, iResourceID &id)
     {
         id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
         if (id.isValid())
@@ -42,18 +50,18 @@ namespace igor
             return true;
         }
 
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-        if (generate)
-        {
-            // no id expected
-            return true;
-        }
-
         const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         if (!filename.isEmpty())
         {
             // if there is no id but a file name make sure the id is based on the filename
             id = static_cast<uint64>(filename.getHashValue());
+            return true;
+        }
+
+        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        if (generate)
+        {
+            // no id expected
             return true;
         }
 

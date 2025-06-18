@@ -1,5 +1,10 @@
 var classiaux_1_1ia_state_machine =
 [
+    [ "iaEvent", "classiaux_1_1ia_state_machine.html#a911f82ab0adc57269780f2dcaa5d3bd1", [
+      [ "Enter", "classiaux_1_1ia_state_machine.html#a911f82ab0adc57269780f2dcaa5d3bd1af1851d5600eae616ee802a31ac74701b", null ],
+      [ "ReEnter", "classiaux_1_1ia_state_machine.html#a911f82ab0adc57269780f2dcaa5d3bd1a669f8c61e2861a5f97ee6d54ce342f28", null ],
+      [ "NoChange", "classiaux_1_1ia_state_machine.html#a911f82ab0adc57269780f2dcaa5d3bd1a4bac8cdf0a968472b519b3b295d0d48b", null ]
+    ] ],
     [ "iaStateMachine", "classiaux_1_1ia_state_machine.html#aa9af0b4f5c436f62966a9d2e40d3359e", null ],
     [ "~iaStateMachine", "classiaux_1_1ia_state_machine.html#a9dcb3cac9391ecec30a2bb2e336e8e54", null ],
     [ "activateGate", "classiaux_1_1ia_state_machine.html#ad8a5164f61c4591c3fdc15aca1c9edb9", null ],
@@ -10,17 +15,10 @@ var classiaux_1_1ia_state_machine =
     [ "getCurrentState", "classiaux_1_1ia_state_machine.html#a75db4a5d9599e3c444591784fd5f05e8", null ],
     [ "getInitialState", "classiaux_1_1ia_state_machine.html#a3c1ddd0ae1143421f3752de3624eaf6a", null ],
     [ "getOutgoingTransitions", "classiaux_1_1ia_state_machine.html#ac05fd5ac4c8d8adb2f3d29158f5b9c35", null ],
+    [ "isValid", "classiaux_1_1ia_state_machine.html#ad5ea338a4bde2b36c56057da7965ff64", null ],
     [ "openGate", "classiaux_1_1ia_state_machine.html#a443588d034a6785028c0a1f2dce9ea84", null ],
-    [ "registerEnterStateDelegate", "classiaux_1_1ia_state_machine.html#a94f60d9aeddf8095d39f3420106a396c", null ],
-    [ "registerLeaveStateDelegate", "classiaux_1_1ia_state_machine.html#abc841bed79304860c394190dc244255d", null ],
-    [ "registerReEnterStateDelegate", "classiaux_1_1ia_state_machine.html#aff896ef7dbf2b7a5b8a27d86e95feefb", null ],
-    [ "registerUpdateStateDelegate", "classiaux_1_1ia_state_machine.html#a95410ed5da44b6238a0062dddfdca03b", null ],
     [ "resetGates", "classiaux_1_1ia_state_machine.html#aba2a09c27ecfc6159e6c05006ca61b64", null ],
     [ "setInitialState", "classiaux_1_1ia_state_machine.html#a287071328a2e82591d8e90ebf8fe1c8e", null ],
     [ "start", "classiaux_1_1ia_state_machine.html#a9e56f32f4122a1fb95915bd61015c2d0", null ],
-    [ "unregisterEnterStateDelegate", "classiaux_1_1ia_state_machine.html#a79f08ff91257da6eeaf581a7fa382a4f", null ],
-    [ "unregisterLeaveStateDelegate", "classiaux_1_1ia_state_machine.html#a9bad750fab3967c852f82e7777a35762", null ],
-    [ "unregisterReEnterStateDelegate", "classiaux_1_1ia_state_machine.html#aae02030cbbdade85f133984232e66628", null ],
-    [ "unregisterUpdateStateDelegate", "classiaux_1_1ia_state_machine.html#a806795b58d524cf94add3c2536055317", null ],
-    [ "update", "classiaux_1_1ia_state_machine.html#afdf0043e98629fc2b22787a64608a2e4", null ]
+    [ "update", "classiaux_1_1ia_state_machine.html#a6497aba1b4fadc9d1ae7d920ee223232", null ]
 ];

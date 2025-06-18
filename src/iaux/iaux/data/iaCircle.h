@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CIRCLE__
-#define __IAUX_CIRCLE__
+#ifndef IAUX_CIRCLE_H
+#define IAUX_CIRCLE_H
 
 #include <iaux/math/iaVector2.h>
 
@@ -140,6 +140,18 @@ namespace iaux
         */
         iaCircle<T> operator=(const iaCircle<T> &circle);
 
+        /*! \returns true if two circles are equal
+
+        \param circle the circle to compare with
+        */
+        bool operator==(const iaCircle<T> &circle) const;
+
+        /*! \returns true if circle are not equal
+
+        \param circle the circle to compare with
+        */
+        bool operator!=(const iaCircle<T> &circle) const;
+
         /*! center position
          */
         iaVector2<T> _center;
@@ -150,6 +162,14 @@ namespace iaux
     };
 
 #include <iaux/data/iaCircle.inl>
+
+    /*! stream operator e.g. for console output
+
+    \param ostr the out stream handle
+    \param circle the circle to print in stream
+    */
+    template <class T>
+    std::wostream &operator<<(std::wostream &ostr, const iaCircle<T> &circle);
 
     /*! float32 precision of rectangle
      */
@@ -166,7 +186,7 @@ namespace iaux
     /*! int64 precision of rectangle
      */
     typedef iaCircle<int64> iaCircleI;
-    
+
 }; // namespace igor
 
-#endif // __IAUX_RECTANGLE__
+#endif // IAUX_CIRCLE_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,13 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER__
-#define __IGOR_RENDERER__
+#ifndef IGOR_RENDERER_H
+#define IGOR_RENDERER_H
 
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
 #include <igor/renderer/buffers/iInstancingBuffer.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -76,20 +76,20 @@ namespace igor
 
         \param material the material to render with
         */
-        void setShaderMaterial(const iShaderMaterialPtr &material);
+        void setShader(const iShaderPtr &material);
 
         /*! \returns currently active material
          */
-        const iShaderMaterialPtr &getMaterial() const;
+        const iShaderPtr &getMaterial() const;
 
         /*! set projection matrix with perspective projection
 
         \param fov field of view in degrees
-        \param aspect aspect ratio of screen
         \param nearPlain near plane distance
         \param farPlain far plane distance
+        \param aspect aspect ratio of screen (if zero it's calculated from current viewport)
         */
-        void setPerspective(float64 fov, float64 aspect, float64 nearPlain, float64 farPlain);
+        void setPerspective(float64 fov, float64 nearPlain, float64 farPlain, float64 aspect = 0);
 
         /*! set projection matrix with orthogonal projection
 
@@ -508,7 +508,7 @@ namespace igor
         positioned based on current model view and projection matrices
 
         \param mesh the given mesh to draw
-        \param material the target material to use
+        \param material the material to use
         */
         void drawMesh(iMeshPtr mesh, iMaterialPtr material);
 
@@ -518,23 +518,38 @@ namespace igor
 
         \param mesh the given mesh to draw
         \param instancingBuffer the instancing buffer
-        \param material the target material to use
+        \param material the material to use
         */
         void drawMeshInstanced(iMeshPtr mesh, iInstancingBufferPtr instancingBuffer, iMaterialPtr material = nullptr);
 
-        /*! draws buffer with given target material and primitive type
+        /*! draws buffer with given material and primitive type
 
         \param vertexArray the buffer to draw
         \param primitiveType the given primitive type
-        \param material the target material (optional)
+        \param material the material (optional)
         */
         void drawBuffer(iVertexArrayPtr vertexArray, iRenderPrimitive primitiveType, iMaterialPtr material = nullptr);
 
         /////////////// LIGHT TODO this might change a lot ///////////
-        void setLightPosition(int32 lightnum, const iaVector3d &pos);
-        void setLightAmbient(int32 lightnum, iaColor3f &ambient);
-        void setLightDiffuse(int32 lightnum, iaColor3f &diffuse);
-        void setLightSpecular(int32 lightnum, iaColor3f &specular);
+        /*! set directional light
+        */
+        void setDirectionalLight(int32 lightnum, const iaVector3d &orientation);
+
+        /*! set omni directional point light
+        */
+        void setPointLight(int32 lightnum, const iaVector3d &position);
+
+        /*! sets ambient of given light
+        */
+        void setLightAmbient(int32 lightnum, const iaColor3f &ambient);
+
+        /*! sets diffuse of given light
+        */
+        void setLightDiffuse(int32 lightnum, const iaColor3f &diffuse);
+
+        /*! sets specular of given light
+        */
+        void setLightSpecular(int32 lightnum, const iaColor3f &specular);
 
         /*! sets line render width
 
@@ -621,6 +636,12 @@ namespace igor
         \param height height
         */
         void setViewport(int32 x, int32 y, int32 width, int32 height);
+
+        /*! \returns aspect ratio of current viewport
+
+        only valid after calling setViewport
+        */
+        float64 getAspectRatio() const;
 
         /*! clears swtencil buffer with clear depth
          */
@@ -727,7 +748,7 @@ namespace igor
 
         \param colorID next color ID to render with
         */
-        void setColorID(uint64 colorID);
+        void setColorID(uint32 colorID);
 
         /*! sets the solid color
 
@@ -787,11 +808,11 @@ namespace igor
 
         /*! \returns default material
          */
-        const iShaderMaterialPtr &getDefaultShader() const;
+        const iShaderPtr &getDefaultShader() const;
 
         /*! \returns colorID material
          */
-        const iShaderMaterialPtr &getColorIDMaterial() const;
+        const iShaderPtr &getColorIDMaterial() const;
 
         /*! draws everything that is still in the queue
          */
@@ -950,10 +971,17 @@ namespace igor
         \param color the color to draw with
         */
         void drawBoxInternal(const iAABoxf &box, const iaColor4f &color);
+
+        /*! creates solid color 1x1 texture and registers it with the dictionary
+
+        \param alias the alias of the texture
+        \param color the color of the texture
+        */
+        iResourcePtr createSolidColorTexture(const iaString& alias, const iaColor4f& color);
     };
 
 #include <igor/renderer/iRenderer.inl>
 
 }
 
-#endif // __IGOR_RENDERER__
+#endif // IGOR_RENDERER_H

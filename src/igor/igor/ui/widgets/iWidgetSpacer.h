@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETSPACER__
-#define __IGOR_WIDGETSPACER__
+#ifndef IGOR_WIDGET_SPACER_H
+#define IGOR_WIDGET_SPACER_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -47,7 +47,7 @@ namespace igor
 
         \param parent optional parent
         */
-        iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
+        iWidgetSpacer(int32 width = 0, int32 height = 0, bool visible = false, const iWidgetPtr parent = nullptr);
 
         /*! does nothing
          */
@@ -65,4 +65,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETSPACER__
+#endif // IGOR_WIDGET_SPACER_H

@@ -15,6 +15,7 @@ var dir_ff63218eb8d6b76bf6f3638bd523226b =
     [ "terrain", "dir_1e5224a656c27a4fb3b193db3e1dc09a.html", "dir_1e5224a656c27a4fb3b193db3e1dc09a" ],
     [ "threading", "dir_9e5bcfe1e740fe6cb0edf2e6ac59021f.html", "dir_9e5bcfe1e740fe6cb0edf2e6ac59021f" ],
     [ "ui", "dir_3c7ef6b7c5d8af3396dce7f9ec43edf9.html", "dir_3c7ef6b7c5d8af3396dce7f9ec43edf9" ],
+    [ "utils", "dir_176d7210e59a090dc0e5dfa36c541b9f.html", "dir_176d7210e59a090dc0e5dfa36c541b9f" ],
     [ "iDefines.h", "i_defines_8h.html", "i_defines_8h" ],
     [ "igor.cpp", "igor_8cpp.html", "igor_8cpp" ],
     [ "igor.h", "igor_8h.html", "igor_8h" ],

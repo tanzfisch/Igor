@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetMenu.h>
@@ -25,27 +25,12 @@ namespace igor
     {
         setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-        iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
-        grid->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-        grid->appendColumns(2);
-        grid->setStretchColumn(1);
-        grid->setCellSpacing(4);
-
-        _spacer = new iWidgetSpacer(16, 16);
-        grid->addWidget(_spacer, 0, 0);
-
-        _title = new iWidgetLabel();
-        _title->setHorizontalAlignment(iHorizontalAlignment::Left);
-        grid->addWidget(_title, 1, 0);
-
-        _picture = new iWidgetPicture();
-        _picture->setMaxSize(8, 8);
-        _picture->setKeepAspectRatio(false);
-        _picture->setTexture(iResourceManager::getInstance().loadResource<iTexture>("igor_icon_right"));
-
-        grid->addWidget(_picture, 2, 0);
-
-        grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
+        _button = new iWidgetButton(this);
+        _button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+        _button->setMinHeight(25);
+        _button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+        _button->getClickEvent().add(iClickDelegate(this, &iWidgetMenu::onClick));
+        _button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _dialogMenu = new iDialogMenu();
     }
@@ -61,13 +46,14 @@ namespace igor
 
         if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
         {
-            _spacer->setMinSize(0, 16);
-            _picture->setMaxSize(0, 8);
+            _button->setIcon("");
+            _button->setBackground(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f)); // TODO this needs to go in to the Theme
+            _button->setBackgroundTexture("igor_texture_white");
         }
         else
         {
-            _spacer->setMinSize(16, 16);
-            _picture->setMaxSize(8, 8);
+            _button->setIcon("igor_icon_right_small");
+            _button->setBackgroundTexture("");
         }
     }
 
@@ -83,6 +69,8 @@ namespace igor
 
     void iWidgetMenu::onClick(const iWidgetPtr source)
     {
+        _preMenuOpenEvent(this);
+
         iWidgetPtr parent = iWidgetManager::getInstance().getWidget(_menuParent);
 
         if (parent != nullptr)
@@ -111,6 +99,11 @@ namespace igor
         _dialogMenu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
     }
 
+    iPreMenuOpenEvent& iWidgetMenu::getPreMenuOpenEvent()
+    {
+        return _preMenuOpenEvent;
+    }
+
     void iWidgetMenu::setMenuParent(iWidgetPtr menuParent)
     {
         _menuParent = menuParent->getID();
@@ -131,12 +124,12 @@ namespace igor
 
     void iWidgetMenu::setTitle(const iaString &title)
     {
-        _title->setText(title);
+        _button->setText(title);
     }
 
     const iaString &iWidgetMenu::getTitle() const
     {
-        return _title->getText();
+        return _button->getText();
     }
 
     void iWidgetMenu::addMenu(const iWidgetMenuPtr menu)
@@ -147,12 +140,12 @@ namespace igor
 
     void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _dialogMenu->addAction(action, context);        
+        _dialogMenu->addAction(action, context);
     }
 
-    void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    void iWidgetMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)
     {
-        _dialogMenu->addCallback(delegate, title, description, iconAlias);
+        _dialogMenu->addCallback(delegate, title, description, iconAlias, enabled, context);
     }
 
     void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)
@@ -164,5 +157,10 @@ namespace igor
     {
         _dialogMenu->close();
     }
+
+    void iWidgetMenu::clear()
+    {
+        _dialogMenu->clear();
+    }          
 
 } // namespace igor

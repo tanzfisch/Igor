@@ -1,8 +1,9 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/data/iaColor3.h>
+#include <iaux/math/iaRandom.h>
 
 namespace iaux
 {
@@ -21,6 +22,18 @@ iaColor3<uint8>::iaColor3()
     _r = 0xff;
     _g = 0xff;
     _b = 0xff;
+}
+
+template <>
+iaColor3<float32> iaColor3<float32>::random()
+{
+    return iaColor3<float32>(iaRandom::getNextFloatRange(0.2,0.8), iaRandom::getNextFloatRange(0.2,0.8), iaRandom::getNextFloatRange(0.2,0.8));
+}
+
+template <>
+iaColor3<uint8> iaColor3<uint8>::random()
+{
+    return iaColor3<uint8>(iaRandom::getNextRange(0x40, 0xd0), iaRandom::getNextRange(0x40, 0xd0), iaRandom::getNextRange(0x40, 0xd0));
 }
 
 template <>

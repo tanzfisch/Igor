@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MODULE__
-#define __IAUX_MODULE__
+#ifndef IAUX_MODULE_H
+#define IAUX_MODULE_H
 
 #include <igor/iDefines.h>
 
@@ -62,7 +62,7 @@ namespace igor
 
         only call this if you know what you are doing
          */
-        static void create()
+        static void createInstance()
         {
             con_assert_sticky(iModule<T>::_instance == nullptr, "module already initialized");
             iModule<T>::_instance = new T();
@@ -72,7 +72,7 @@ namespace igor
 
         only call this if you know what you are doing
          */
-        static void destroy()
+        static void destroyInstance()
         {
             con_assert_sticky(iModule<T>::_instance != nullptr, "module already destroyed");
             delete iModule<T>::_instance;
@@ -105,4 +105,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IAUX_MODULE__
+#endif // IAUX_MODULE_H

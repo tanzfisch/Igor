@@ -1,106 +1,74 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
 
-#include <igor/entities/iEntity.h>
-
-#include <igor/entities/systems/iSpriteRenderSystem.h>
-#include <igor/entities/systems/iTransformHierarchySystem.h>
-#include <igor/entities/systems/iBehaviourSystem.h>
-#include <igor/entities/systems/iQuadtreeSystem.h>
-#include <igor/entities/systems/iAnimationSystem.h>
+#include <igor/entities/iEntitySystemModule.h>
+#include <igor/entities/systems/iCameraSystem.h>
 #include <igor/renderer/iRenderer.h>
-
-#include <utility>
-#include <tuple>
-
-#include <entt.h>
+#include <igor/renderer/iRenderEngine.h>
+#include <igor/system/iClipboard.h>
 
 namespace igor
 {
-
-    // for debugging
-    static void renderQuadtree(const iQuadtreed::NodePtr &node)
+    iEntityScene::iEntityScene(const iaString &name)
     {
-        if (node == nullptr)
-        {
-            return;
-        }
+        setName(name);
 
-        iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height, iaColor4f::red);
-
-        for (auto object : node->_objects)
-        {
-            iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, object->_circle._radius);
-        }
-
-        for (auto child : node->_children)
-        {
-            renderQuadtree(child);
-        }
-    }
-
-    class iRegistry
-    {
-    public:
-        /*! the entt registry
-         */
-        entt::registry _registry;
-    };
-
-    iEntityScene::iEntityScene()
-    {
-        _registry = new iRegistry();
-
-        _systems.push_back(std::make_shared<iAnimationSystem>());
-        _systems.push_back(std::make_shared<iBehaviourSystem>());
-
-        _velocitySystem = std::make_shared<iVelocitySystem>();
-        _systems.push_back(_velocitySystem);
-        _systems.push_back(std::make_shared<iTransformHierarchySystem>());
-        _systems.push_back(std::make_shared<iQuadtreeSystem>());
-
-        _renderingSystems.push_back(std::make_shared<iSpriteRenderSystem>());
+        _root = new iEntity("root");
+        _root->_scene = this;
     }
 
     iEntityScene::~iEntityScene()
     {
-        if (_quadtree != nullptr)
-        {
-            delete _quadtree;
-        }
+        _deleteQueueMutex.lock();
+        _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
 
-        delete _registry;
+        delete _root;
+
+        _systemsMutex.lock();
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
+        {
+            auto &stage = _systems[i];
+            {
+                for (const auto &pair : stage)
+                {
+                    delete pair.second;
+                }
+            }
+            stage.clear();
+        }
+        _systemsMutex.unlock();
     }
 
     void iEntityScene::clear()
     {
-        _systems.clear();
-        _registry->_registry.clear();
+        _deleteQueueMutex.lock();
+        _deleteQueue.clear();
+        _deleteQueueMutex.unlock();
+
+        _processQueueMutex.lock();
+        _processQueue.clear();
+        _processQueueMutex.unlock();
+
+        delete _root;
+
+        flushQueues();
+
+        _root = new iEntity("root");
+        _root->_scene = this;
     }
 
-    void iEntityScene::setBounds(const iAABoxd &box)
+    void iEntityScene::initializeQuadtree(const iaRectangled &rect, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        _velocitySystem->setBounds(box);
-    }
-
-    const iAABoxd &iEntityScene::getBounds() const
-    {
-        return _velocitySystem->getBounds();
-    }
-
-    void iEntityScene::initializeQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
-    {
-        con_assert(_quadtree == nullptr, "Quadtree already initialized");
-
-        _quadtree = new iQuadtreed(box, splitThreshold, maxDepth);
+        _quadtree = std::make_unique<iQuadtreed>(rect, splitThreshold, maxDepth);
     }
 
     iQuadtreed &iEntityScene::getQuadtree() const
     {
-        con_assert(_quadtree != nullptr, "Quadtree not initialized");
+        con_assert(_quadtree != nullptr, "Quadtree was not initialized");
         return *_quadtree;
     }
 
@@ -109,500 +77,528 @@ namespace igor
         return _quadtree != nullptr;
     }
 
-    void iEntityScene::onUpdate(const iaTime &time)
+    void iEntityScene::initializeOctree(const iAACubed &cube, const uint32 splitThreshold, const uint32 maxDepth)
     {
-        destroyEntities();
+        _octree = std::make_unique<iOctreed>(cube, splitThreshold, maxDepth);
+    }
 
-        for (iEntitySystemPtr &system : _systems)
+    iOctreed &iEntityScene::getOctree() const
+    {
+        con_assert(_octree != nullptr, "Octree was not initialized");
+        return *_octree;
+    }
+
+    bool iEntityScene::hasOctree() const
+    {
+        return _octree != nullptr;
+    }
+
+    void iEntityScene::onUpdate(const iaTime &time, iEntitySystemStage stageIndex)
+    {
+        con_assert((int)stageIndex < (int)iEntitySystemStage::StageCount, "out of range stage");
+
+        if (stageIndex == iEntitySystemStage::Update)
         {
-            system->update(time, shared_from_this());
+            flushQueues();
+        }
+
+        if (_renderEngine == nullptr)
+        {
+            return;
+        }
+
+        _systemsMutex.lock();
+        const auto stage = _systems[(int)stageIndex];
+        _systemsMutex.unlock();
+
+        for (const auto &pair : stage)
+        {
+            pair.second->onUpdate(iEntitySceneUpdateContext{time, stageIndex, this, _renderEngine});
         }
     }
 
-    void iEntityScene::onRender(float32 clientWidth, float32 clientHeight)
+    void iEntityScene::setRenderEngine(iRenderEnginePtr renderEngine)
     {
-        // TODO sort by zindex
-        auto &registry = _registry->_registry;
+        _renderEngine = renderEngine;
+    }
 
-        auto cameraView = registry.view<iCameraComponent, iTransformComponent>();
+    void iEntityScene::flushQueues()
+    {
+        _deleteQueueMutex.lock();
+        const auto deleteQueue = std::move(_deleteQueue);
+        _deleteQueueMutex.unlock();
 
-        for (auto entityID : cameraView)
+        for (auto entity : deleteQueue)
         {
-            auto [camera, transform] = cameraView.get<iCameraComponent, iTransformComponent>(entityID);
-            iRenderDebugComponent *debug = registry.try_get<iRenderDebugComponent>(entityID);
-
-            iRenderer::getInstance().setViewport(camera._viewport._x * clientWidth,
-                                                 camera._viewport._y * clientHeight,
-                                                 camera._viewport._width * clientWidth,
-                                                 camera._viewport._height * clientHeight);
-
-            if (camera._clearColorActive)
+            _mutex.lock();
+            auto iter = _entities.find(entity->getID());
+            if (iter == _entities.end())
             {
-                iRenderer::getInstance().clearColorBuffer(camera._clearColor);
+                _mutex.unlock();
+                continue;
             }
+            _entities.erase(iter);
+            _mutex.unlock();
 
-            if (camera._clearDepthActive)
-            {
-                iRenderer::getInstance().clearDepthBuffer(camera._clearDepth);
-            }
+            iEntitySystemModule::getInstance().getDestroyEntityEvent()(entity);
+            delete entity;
+        }
 
-            if (camera._projection == iProjectionType::Perspective)
-            {
-                iRenderer::getInstance().setPerspective(camera._fieldOfView, camera._viewport._width / camera._viewport._height, camera._clipNear, camera._clipFar);
-            }
-            else
-            {
-                iRenderer::getInstance().setOrtho(camera._leftOrtho, camera._rightOrtho, camera._bottomOrtho, camera._topOrtho, camera._clipNear, camera._clipFar);
-            }
+        _processQueueMutex.lock();
+        const auto processQueue = std::move(_processQueue);
+        _processQueueMutex.unlock();
 
-            iRenderer::getInstance().setViewMatrixFromCam(transform._worldMatrix);
+        std::vector<iEntityPtr> processAgain;
 
-            if (debug != nullptr)
+        for (auto entity : processQueue)
+        {
+            if (!entity->processComponents())
             {
-                iRenderer::getInstance().setWireframeEnabled(debug->_renderWireframe);
-            }
-
-            for (auto &system : _renderingSystems)
-            {
-                system->render(shared_from_this());
-            }
-
-            if (debug != nullptr && debug->_renderSpacePartitioning && _quadtree != nullptr)
-            {
-                renderQuadtree(_quadtree->getRoot());
+                processAgain.push_back(entity);
             }
         }
 
-        iRenderer::getInstance().flush();
+        _processQueueMutex.lock();
+        _processQueue.insert(_processQueue.end(), processAgain.begin(), processAgain.end());
+        _processQueueMutex.unlock();
     }
 
-    iEntity iEntityScene::createEntity(const iaString &name, bool active)
+    void iEntityScene::setName(const iaString &name)
     {
-        iEntityID entityID = static_cast<iEntityID>(_registry->_registry.create());
-        _registry->_registry.emplace_or_replace<iBaseEntityComponent>(static_cast<entt::entity>(entityID), name);
+        _name = name;
+    }
 
-        iEntity entity(entityID, shared_from_this());
-        entity.setActive(active);
+    const iaString &iEntityScene::getName() const
+    {
+        return _name;
+    }
+
+    iEntityPtr iEntityScene::createEntity(iEntityPtr srcEntity, bool copyID)
+    {
+        iEntityPtr entity = new iEntity(srcEntity->getName());
+        if (copyID)
+        {
+            entity->_id = srcEntity->getID();
+        }
+
+        _mutex.lock();
+        if (_entities.find(entity->getID()) != _entities.end())
+        {
+            con_err("Entity ID collision " << entity->getID());
+        }
+
+        _entities[entity->getID()] = entity;
+        entity->_scene = this;
+        entity->setParent(_root);
+        _mutex.unlock();
+
+        iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
+
+        const auto componentTypes = srcEntity->getComponentTypes();
+        for (const auto &typeIndex : componentTypes)
+        {
+            entity->addComponent(typeIndex, srcEntity->getComponent(typeIndex)->getCopy());
+        }
 
         return entity;
     }
 
+    iEntityPtr iEntityScene::createEntity(const iaString &name, const iEntityID &id)
+    {
+        iEntityPtr entity = new iEntity(name);
+        if (id.isValid())
+        {
+            entity->_id = id;
+        }
+        _mutex.lock();
+        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+
+        _entities[entity->getID()] = entity;
+        entity->_scene = this;
+        entity->setParent(_root);
+        _mutex.unlock();
+
+        iEntitySystemModule::getInstance().getCreatedEntityEvent()(entity);
+
+        return entity;
+    }
+
+    iEntityPtr iEntityScene::getRootEntity() const
+    {
+        return _root;
+    }
+
+    iEntityPtr iEntityScene::getEntity(iEntityID entityID)
+    {
+        iEntityPtr result = nullptr;
+
+        iaMutex::iaScopedLock lock(_mutex);
+
+        auto iter = _entities.find(entityID);
+        if (iter != _entities.end())
+        {
+            return iter->second;
+        }
+
+        if (_root->getID() == entityID)
+        {
+            return _root;
+        }
+
+        return nullptr;
+    }
+
+    void iEntityScene::destroyEntity(iEntityPtr entity)
+    {
+        con_assert(entity != nullptr, "zero pointer");
+        _deleteQueueMutex.lock();
+        _deleteQueue.push_back(entity);
+        _deleteQueueMutex.unlock();
+    }
+
     void iEntityScene::destroyEntity(iEntityID entityID)
     {
-        _deleteQueue.push_back(entityID);
-    }
-
-    void iEntityScene::destroyEntity(const iEntity &entity)
-    {
-        _deleteQueue.push_back(entity.getID());
-    }
-
-    void iEntityScene::destroyEntities()
-    {
-        for (auto entityID : _deleteQueue)
+        auto entity = getEntity(entityID);
+        if (entity == nullptr)
         {
-            if (!_registry->_registry.valid(static_cast<entt::entity>(entityID)))
+            return;
+        }
+        destroyEntity(entity);
+    }
+
+    const iEntitySceneID &iEntityScene::getID() const
+    {
+        return _id;
+    }
+
+    void iEntityScene::onComponentToProcess(iEntityPtr entity, const std::type_index &typeID)
+    {
+        _processQueueMutex.lock();
+        if (std::find(_processQueue.begin(), _processQueue.end(), entity) == _processQueue.end())
+        {
+            _processQueue.push_back(entity);
+        }
+        _processQueueMutex.unlock();
+    }
+
+    void iEntityScene::onComponentAdded(iEntityPtr entity, const std::type_index &typeID)
+    {
+        // TODO this seems such a waste
+        // make no send to lock the list if we can manipulate the pointers in it. need to rework this
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
+        {
+            for (auto pair : stage)
+            {
+                pair.second->onComponentAdded(entity, typeID);
+            }
+        }
+    }
+
+    void iEntityScene::onComponentRemoved(iEntityPtr entity, const std::type_index &typeID)
+    {
+        // TODO this seems such a waste
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
+        {
+            for (auto pair : stage)
+            {
+                pair.second->onComponentRemoved(entity, typeID);
+            }
+        }
+    }
+
+    void iEntityScene::onComponentToRemove(iEntityPtr entity, const std::type_index &typeID)
+    {
+        // TODO this seems such a waste
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
+        {
+            for (auto pair : stage)
+            {
+                pair.second->onComponentToRemove(entity, typeID);
+            }
+        }
+    }
+
+    void iEntityScene::onEntityStructureChanged(iEntityPtr entity)
+    {
+        // TODO this seems such a waste
+        _systemsMutex.lock();
+        const auto stages = _systems;
+        _systemsMutex.unlock();
+        for (auto stage : stages)
+        {
+            for (auto pair : stage)
+            {
+                pair.second->onEntityStructureChanged(entity);
+            }
+        }
+    }
+
+    const std::vector<iaString> iEntityScene::getSystems()
+    {
+        std::vector<iaString> result;
+
+        _systemsMutex.lock();
+
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
+        {
+            auto &stage = _systems[i];
+            for (const auto &pair : stage)
+            {
+                result.push_back(pair.first);
+            }
+        }
+
+        _systemsMutex.unlock();
+
+        return result;
+    }
+
+    void iEntityScene::addSystem(const iaString &systemName)
+    {
+        iEntitySystemPtr system = iEntitySystemModule::getInstance().createSystem(systemName);
+
+        _systemsMutex.lock();
+        auto &stage = _systems[(int)system->getStage()];
+
+        auto iter = std::find_if(stage.begin(), stage.end(), [systemName](const std::pair<iaString, iEntitySystemPtr> &element)
+                                 { return element.first == systemName; });
+        if (iter != stage.end())
+        {
+            con_err("system \"" << systemName << "\" already added to scene");
+            delete system;
+            _systemsMutex.unlock();
+            return;
+        }
+
+        stage.emplace_back(systemName, system);
+        system->_scene = this;
+
+        iCameraSystem *cameraSystem = dynamic_cast<iCameraSystem *>(system);
+        if (cameraSystem != nullptr)
+        {
+            _cameraSystem = cameraSystem;
+        }
+        _systemsMutex.unlock();
+
+        _mutex.lock();
+        auto entities = _entities;
+        _mutex.unlock();
+
+        for (const auto &pair : entities)
+        {
+            system->onEntityStructureChanged(pair.second);
+        }
+    }
+
+    void iEntityScene::removeSystem(const iaString &systemName)
+    {
+        _systemsMutex.lock();
+
+        for (int i = 0; i < (int)iEntitySystemStage::StageCount; ++i)
+        {
+            auto &stage = _systems[i];
+            const auto iter = std::find_if(stage.begin(), stage.end(), [systemName](const std::pair<iaString, iEntitySystemPtr> &element)
+                                           { return element.first == systemName; });
+            if (iter == stage.end())
             {
                 continue;
             }
 
-            /*! cleanup quadtree
-             */
-            iBody2DComponent *component = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
-            if (component != nullptr)
+            iter->second->_scene = nullptr;
+
+            if (iter->second == _cameraSystem)
             {
-                getQuadtree().remove(component->_object);
+                _cameraSystem = nullptr;
             }
 
-            // cleanup hierarchy
-            iHierarchyComponent *hierarchy = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
-            if (hierarchy != nullptr &&
-                _registry->_registry.valid(static_cast<entt::entity>(hierarchy->_parent)))
-            {
-                iHierarchyComponent *parentHierarchy = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(hierarchy->_parent));
-                if (parentHierarchy != nullptr)
-                {
-                    parentHierarchy->_childCount = std::max(0, parentHierarchy->_childCount - 1);
-                }
-            }
-
-            _registry->_registry.destroy(static_cast<entt::entity>(entityID));
+            delete iter->second;
+            stage.erase(iter);
+            break;
         }
 
-        _deleteQueue.clear();
+        _systemsMutex.unlock();
     }
 
-    void *iEntityScene::getRegistry() const
+    std::vector<iEntityPtr> iEntityScene::getCameras() const
     {
-        return &_registry->_registry;
+        if (_cameraSystem != nullptr)
+        {
+            return _cameraSystem->getCameras();
+        }
+
+        return std::vector<iEntityPtr>();
     }
 
-    void *iEntityScene::addComponent(iEntityID entityID, const void *component, const std::type_info &typeInfo)
+    iEntityPtr iEntityScene::getActiveCamera() const
     {
-        if (typeInfo == typeid(iDeleteComponent))
+        if (_cameraSystem != nullptr)
         {
-            const iDeleteComponent &typedComponent = *static_cast<const iDeleteComponent *>(component);
-            iDeleteComponent &result = _registry->_registry.emplace_or_replace<iDeleteComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iSpriteRendererComponent))
-        {
-            const iSpriteRendererComponent &typedComponent = *static_cast<const iSpriteRendererComponent *>(component);
-            iSpriteRendererComponent &result = _registry->_registry.emplace_or_replace<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iTransformComponent))
-        {
-            const iTransformComponent &typedComponent = *static_cast<const iTransformComponent *>(component);
-            iTransformComponent &result = _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iHierarchyComponent))
-        {
-            const iHierarchyComponent &typedComponent = *static_cast<const iHierarchyComponent *>(component);
-            iHierarchyComponent &result = _registry->_registry.emplace_or_replace<iHierarchyComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iBody2DComponent))
-        {
-            iTransformComponent *transform = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
-            if (transform == nullptr)
-            {
-                const iaVector2d center = getQuadtree().getRootBox().getCenter();
-                transform = &(_registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID), iaVector3d(center._x, center._y, 0.0)));
-            }
-
-            const iBody2DComponent &typedComponent = *static_cast<const iBody2DComponent *>(component);
-            iBody2DComponent &result = _registry->_registry.emplace_or_replace<iBody2DComponent>(static_cast<entt::entity>(entityID));
-            result._object = std::make_shared<iQuadtreed::Object>(iaCircled(transform->_position._x, transform->_position._y, 1.0), entityID);
-            getQuadtree().insert(result._object);
-
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iCircleCollision2DComponent))
-        {
-            const iCircleCollision2DComponent &typedComponent = *static_cast<const iCircleCollision2DComponent *>(component);
-            iCircleCollision2DComponent &result = _registry->_registry.emplace_or_replace<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iVelocityComponent))
-        {
-            const iVelocityComponent &typedComponent = *static_cast<const iVelocityComponent *>(component);
-            iVelocityComponent &result = _registry->_registry.emplace_or_replace<iVelocityComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iBehaviourComponent))
-        {
-            const iBehaviourComponent &typedComponent = *static_cast<const iBehaviourComponent *>(component);
-            iBehaviourComponent &result = _registry->_registry.emplace_or_replace<iBehaviourComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iGlobalBoundaryComponent))
-        {
-            const iGlobalBoundaryComponent &typedComponent = *static_cast<const iGlobalBoundaryComponent *>(component);
-            iGlobalBoundaryComponent &result = _registry->_registry.emplace_or_replace<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            const iMotionInteractionResolverComponent &typedComponent = *static_cast<const iMotionInteractionResolverComponent *>(component);
-            iMotionInteractionResolverComponent &result = _registry->_registry.emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iCameraComponent))
-        {
-            iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-            if (transform == nullptr)
-            {
-                _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
-            }
-
-            const iCameraComponent &typedComponent = *static_cast<const iCameraComponent *>(component);
-            iCameraComponent &result = _registry->_registry.emplace_or_replace<iCameraComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            const iMotionInteractionResolverComponent &typedComponent = *static_cast<const iMotionInteractionResolverComponent *>(component);
-            iMotionInteractionResolverComponent &result = _registry->_registry.emplace_or_replace<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iRenderDebugComponent))
-        {
-            const iRenderDebugComponent &typedComponent = *static_cast<const iRenderDebugComponent *>(component);
-            iRenderDebugComponent &result = _registry->_registry.emplace_or_replace<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iPartyComponent))
-        {
-            const iPartyComponent &typedComponent = *static_cast<const iPartyComponent *>(component);
-            iPartyComponent &result = _registry->_registry.emplace_or_replace<iPartyComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iAnimationComponent))
-        {
-            iTransformComponent *transform = tryGetComponent<iTransformComponent>(entityID);
-            if (transform == nullptr)
-            {
-                _registry->_registry.emplace_or_replace<iTransformComponent>(static_cast<entt::entity>(entityID));
-            }
-
-            const iAnimationComponent &typedComponent = *static_cast<const iAnimationComponent *>(component);
-            iAnimationComponent &result = _registry->_registry.emplace_or_replace<iAnimationComponent>(static_cast<entt::entity>(entityID));
-            result = typedComponent;
-            return static_cast<void *>(&result);
+            return _cameraSystem->getActiveCamera();
         }
 
-        con_crit("unsupported type " << typeInfo.name());
         return nullptr;
     }
 
-    void *iEntityScene::getComponent(iEntityID entityID, const std::type_info &typeInfo)
+    const std::vector<iEntityPtr> iEntityScene::getEntities()
     {
-        if (typeInfo == typeid(iDeleteComponent))
+        _mutex.lock();
+        std::vector<iEntityPtr> result;
+        for (const auto &pair : _entities)
         {
-            iDeleteComponent &result = _registry->_registry.get<iDeleteComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
+            result.push_back(pair.second);
         }
-        else if (typeInfo == typeid(iSpriteRendererComponent))
-        {
-            iSpriteRendererComponent &result = _registry->_registry.get<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iTransformComponent))
-        {
-            iTransformComponent &result = _registry->_registry.get<iTransformComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iHierarchyComponent))
-        {
-            iHierarchyComponent &result = _registry->_registry.get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iBody2DComponent))
-        {
-            iBody2DComponent &result = _registry->_registry.get<iBody2DComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iCircleCollision2DComponent))
-        {
-            iCircleCollision2DComponent &result = _registry->_registry.get<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iVelocityComponent))
-        {
-            iVelocityComponent &result = _registry->_registry.get<iVelocityComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iBehaviourComponent))
-        {
-            iBehaviourComponent &result = _registry->_registry.get<iBehaviourComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iGlobalBoundaryComponent))
-        {
-            iGlobalBoundaryComponent &result = _registry->_registry.get<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            iMotionInteractionResolverComponent &result = _registry->_registry.get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iCameraComponent))
-        {
-            iCameraComponent &result = _registry->_registry.get<iCameraComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            iMotionInteractionResolverComponent &result = _registry->_registry.get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iRenderDebugComponent))
-        {
-            iRenderDebugComponent &result = _registry->_registry.get<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iPartyComponent))
-        {
-            iPartyComponent &result = _registry->_registry.get<iPartyComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
-        else if (typeInfo == typeid(iAnimationComponent))
-        {
-            iAnimationComponent &result = _registry->_registry.get<iAnimationComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(&result);
-        }
+        _mutex.unlock();
 
-        con_crit("unsupported type " << typeInfo.name());
-        return nullptr;
+        std::sort(result.begin(), result.end(), [](iEntityPtr a, iEntityPtr b)
+                  { return a->getName() < b->getName(); });
+
+        return result;
     }
 
-    void *iEntityScene::tryGetComponent(iEntityID entityID, const std::type_info &typeInfo)
+    void iEntityScene::setSelection(const std::vector<iEntityID> &selection)
     {
-        if (typeInfo == typeid(iDeleteComponent))
-        {
-            iDeleteComponent *result = _registry->_registry.try_get<iDeleteComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iSpriteRendererComponent))
-        {
-            iSpriteRendererComponent *result = _registry->_registry.try_get<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iTransformComponent))
-        {
-            iTransformComponent *result = _registry->_registry.try_get<iTransformComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iHierarchyComponent))
-        {
-            iHierarchyComponent *result = _registry->_registry.try_get<iHierarchyComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iBody2DComponent))
-        {
-            iBody2DComponent *result = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iCircleCollision2DComponent))
-        {
-            iCircleCollision2DComponent *result = _registry->_registry.try_get<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iVelocityComponent))
-        {
-            iVelocityComponent *result = _registry->_registry.try_get<iVelocityComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iBehaviourComponent))
-        {
-            iBehaviourComponent *result = _registry->_registry.try_get<iBehaviourComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iGlobalBoundaryComponent))
-        {
-            iGlobalBoundaryComponent *result = _registry->_registry.try_get<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            iMotionInteractionResolverComponent *result = _registry->_registry.try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iCameraComponent))
-        {
-            iCameraComponent *result = _registry->_registry.try_get<iCameraComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            iMotionInteractionResolverComponent *result = _registry->_registry.try_get<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iRenderDebugComponent))
-        {
-            iRenderDebugComponent *result = _registry->_registry.try_get<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iPartyComponent))
-        {
-            iPartyComponent *result = _registry->_registry.try_get<iPartyComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-        else if (typeInfo == typeid(iAnimationComponent))
-        {
-            iAnimationComponent *result = _registry->_registry.try_get<iAnimationComponent>(static_cast<entt::entity>(entityID));
-            return static_cast<void *>(result);
-        }
-
-        con_crit("unsupported type " << typeInfo.name());
-        return nullptr;
+        _selection = selection;
+        _entitySelectionChangedEvent(getID(), _selection);
     }
 
-    void iEntityScene::removeComponent(iEntityID entityID, const std::type_info &typeInfo)
+    const std::vector<iEntityID> &iEntityScene::getSelection() const
     {
-        if (typeInfo == typeid(iDeleteComponent))
+        return _selection;
+    }
+
+    void iEntityScene::clearSelection()
+    {
+        _selection.clear();
+        _entitySelectionChangedEvent(getID(), _selection);
+    }
+
+    iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
+    {
+        return _entitySelectionChangedEvent;
+    }
+
+    void iEntityScene::cut(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
         {
-            _registry->_registry.remove<iDeleteComponent>(static_cast<entt::entity>(entityID));
+            return;
         }
-        else if (typeInfo == typeid(iSpriteRendererComponent))
+
+        std::vector<iaUUID> IDs = {1};                               // 1 means this is a cut operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::copy(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        con_assert(sceneID.isValid(), "invalid scene id");
+
+        if (entities.empty())
         {
-            _registry->_registry.remove<iSpriteRendererComponent>(static_cast<entt::entity>(entityID));
+            return;
         }
-        else if (typeInfo == typeid(iTransformComponent))
+
+        std::vector<iaUUID> IDs = {0};                               // 0 means this is a copy operation
+        IDs.push_back(sceneID);                                      // scene id
+        IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
+        iClipboard::getInstance().copyEntityIDs(IDs);
+    }
+
+    void iEntityScene::cut()
+    {
+        cut(getID(), _selection);
+    }
+
+    void iEntityScene::copy()
+    {
+        copy(getID(), _selection);
+    }
+
+    void iEntityScene::paste(const iEntitySceneID &sceneID, const iEntityID &entityID)
+    {            
+        auto dstScene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(dstScene == nullptr)
         {
-            _registry->_registry.remove<iTransformComponent>(static_cast<entt::entity>(entityID));
+            return;
         }
-        else if (typeInfo == typeid(iHierarchyComponent))
+        auto dstEntity = dstScene->getEntity(entityID);
+        if(dstEntity == nullptr)
         {
-            _registry->_registry.remove<iHierarchyComponent>(static_cast<entt::entity>(entityID));
+            return;
         }
-        else if (typeInfo == typeid(iBody2DComponent))
+
+        std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
+        if(IDs.size() < 3)
         {
-            iBody2DComponent *component = _registry->_registry.try_get<iBody2DComponent>(static_cast<entt::entity>(entityID));
-            if (component != nullptr)
+            return;
+        }         
+        bool move = IDs[0].isValid();
+        auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
+        for (int i = 2; i < IDs.size(); ++i)
+        {
+            auto srcEntity = srcScene->getEntity(IDs[i]);
+
+            iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
+
+            if(move)
             {
-                getQuadtree().remove(component->_object);
-                _registry->_registry.remove<iBody2DComponent>(static_cast<entt::entity>(entityID));
+                srcScene->destroyEntity(srcEntity);
             }
         }
-        else if (typeInfo == typeid(iCircleCollision2DComponent))
+    }
+
+    void iEntityScene::paste()
+    {
+        if(_selection.size() != 1)
         {
-            _registry->_registry.remove<iCircleCollision2DComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iVelocityComponent))
-        {
-            _registry->_registry.remove<iVelocityComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iBehaviourComponent))
-        {
-            _registry->_registry.remove<iBehaviourComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iGlobalBoundaryComponent))
-        {
-            _registry->_registry.remove<iGlobalBoundaryComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            _registry->_registry.remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iCameraComponent))
-        {
-            _registry->_registry.remove<iCameraComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iMotionInteractionResolverComponent))
-        {
-            _registry->_registry.remove<iMotionInteractionResolverComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iRenderDebugComponent))
-        {
-            _registry->_registry.remove<iRenderDebugComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iPartyComponent))
-        {
-            _registry->_registry.remove<iPartyComponent>(static_cast<entt::entity>(entityID));
-        }
-        else if (typeInfo == typeid(iAnimationComponent))
-        {
-            _registry->_registry.remove<iAnimationComponent>(static_cast<entt::entity>(entityID));
+            return;
         }
 
-        return;
+        paste(getID(), _selection[0]);
+    }
+
+    void iEntityScene::duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+    {
+        auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
+        if(scene == nullptr)
+        {
+            return;
+        }
+
+        for(const auto &entityID : entities)
+        {
+            auto entity = scene->getEntity(entityID);
+            if(entity == nullptr)
+            {
+                continue;
+            }
+
+            auto parent = entity->getParent();
+            if(parent == nullptr)
+            {
+                continue;
+            }
+
+            iEntitySystemModule::getInstance().insert(entity, parent);
+        }
+    }
+
+    void iEntityScene::duplicate()
+    {
+        duplicate(getID(), _selection);
     }
 
 } // igor
+

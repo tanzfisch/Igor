@@ -90,5 +90,6 @@ var ia_defines_8h =
       [ "X", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383", null ],
       [ "Y", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0", null ],
       [ "Z", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba21c2e59531c8710156d34a3c30ac81d5", null ]
-    ] ]
+    ] ],
+    [ "IGOR_MAIN_THREAD_ID", "ia_defines_8h.html#a467f11d6c49d7d28d2c2e1bae468d6c0", null ]
 ];

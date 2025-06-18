@@ -1,8 +1,15 @@
 var i_entity_system_8h =
 [
+    [ "igor::iEntitySystemTypeInfo", "structigor_1_1i_entity_system_type_info.html", "structigor_1_1i_entity_system_type_info" ],
+    [ "igor::iEntitySceneUpdateContext", "structigor_1_1i_entity_scene_update_context.html", "structigor_1_1i_entity_scene_update_context" ],
     [ "igor::iEntitySystem", "classigor_1_1i_entity_system.html", "classigor_1_1i_entity_system" ],
-    [ "igor::iEntityRenderSystem", "classigor_1_1i_entity_render_system.html", "classigor_1_1i_entity_render_system" ],
-    [ "iEntityRenderSystemPtr", "i_entity_system_8h.html#aa820698fb27490bcb5d24b28806c98dd", null ],
-    [ "iEntityScenePtr", "i_entity_system_8h.html#a50418646744bae54d4b34c9b9e95be52", null ],
-    [ "iEntitySystemPtr", "i_entity_system_8h.html#a795ff0f797e6025a481867fc0993174a", null ]
+    [ "iEntitySystemFactory", "i_entity_system_8h.html#a6924c13ff142364ce1b3a943065f3b01", null ],
+    [ "iEntitySystemPtr", "i_entity_system_8h.html#a9bf81629552b916beccffc303ffd3a09", null ],
+    [ "iRenderEnginePtr", "i_entity_system_8h.html#a377d95cbc0905ad07d2e9c80a36d2d63", null ],
+    [ "iEntitySystemStage", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851", [
+      [ "Update", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a06933067aafd48425d67bcb01bba5cb6", null ],
+      [ "PreRender", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a9f8f53680b26c10da3b993add473b9e0", null ],
+      [ "Render", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a5e520da5341f2fec6d3bbfe7ef357922", null ],
+      [ "StageCount", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a2c6024adc4e3d644f5771cc5712272fb", null ]
+    ] ]
 ];

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,15 +26,17 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ITEM_DATA__
-#define __IGOR_ITEM_DATA__
+#ifndef IGOR_ITEM_DATA_H
+#define IGOR_ITEM_DATA_H
 
 #include <igor/data/iItem.h>
+#include <igor/data/iItemPath.h>
 
 namespace igor
 {
-
     /*! container for items
+
+    Caller needs to make sure all sibling items have unique names
      */
     class iItemData
     {
@@ -42,9 +44,9 @@ namespace igor
         /*! adds item to this container
 
         \returns newly added item
-        \param name unique name of item
+        \param id unique id of item (unique amongst siblings)
         */
-        iItemPtr addItem(const iaString &name);
+        iItemPtr addItem(const iaString &id);
 
         /*! removes given item from this container
 
@@ -64,11 +66,7 @@ namespace igor
 
         \param itemPath the given item path
         */
-        iItemPtr getItem(const iaString &itemPath);
-
-        /*! \returns root item
-         */
-        iItemPtr getRoot();
+        iItemPtr getItem(const iItemPath &itemPath);
 
         /*! compare two item data sets for equality
 
@@ -92,4 +90,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_ITEM_DATA__
+#endif // IGOR_ITEM_DATA_H

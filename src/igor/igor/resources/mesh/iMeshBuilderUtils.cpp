@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
@@ -252,7 +252,7 @@ namespace igor
                 return;
             }
 
-            if (meshBuilder.getJoinVertexes())
+            if (meshBuilder.isJoiningVertices())
             {
                 con_err("can't add mesh in join vertexes mode");
                 return;
@@ -315,5 +315,67 @@ namespace igor
                 meshBuilder.addTriangle(triA, triB, triC, offsetIndex);
             }
         }
+
+        void addTorus(iMeshBuilder &meshBuilder, float32 majorRadius, float32 minorRadiusX, float32 minorRadiusY, uint32 majorSegments, uint32 minorSegments)
+        {
+            con_assert(majorSegments >= 3 && minorSegments >= 3, "parameters out of range");
+            con_assert(majorRadius > 0.0f && minorRadiusX > 0.0f && minorRadiusY > 0.0f, "parameters out of range");
+
+            const float32 majorStep = (2.0f * M_PI) / majorSegments;
+            const float32 minorStep = (2.0f * M_PI) / minorSegments;
+
+            const uint32 offsetIndex = meshBuilder.getVertexCount();
+
+            // Generate vertices and normals
+            for (uint32 i = 0; i < majorSegments; ++i)
+            {
+                float theta = i * majorStep;
+                float cosTheta = cos(theta);
+                float sinTheta = sin(theta);
+
+                for (uint32 j = 0; j < minorSegments; ++j)
+                {
+                    float phi = j * minorStep;
+                    float cosPhi = cos(phi);
+                    float sinPhi = sin(phi);
+
+                    // Elliptical offsets
+                    float dx = minorRadiusX * cosPhi;
+                    float dy = minorRadiusY * sinPhi;
+
+                    float x = (majorRadius + dx) * cosTheta;
+                    float y = dy;
+                    float z = (majorRadius + dx) * sinTheta;
+
+                    iaVector3f pos(x, y, z);
+                    meshBuilder.addVertex(pos);
+
+                    // Normal (from torus ring center to ellipse surface point)
+                    iaVector3f centerOnRing(majorRadius * cosTheta, 0, majorRadius * sinTheta);
+                    iaVector3f normal = pos - centerOnRing;
+                    normal.normalize();
+                    meshBuilder.setNormal(meshBuilder.getVertexCount() - 1, normal);
+                }
+            }
+
+            // Generate triangles with proper winding
+            for (uint32 i = 0; i < majorSegments; ++i)
+            {
+                for (uint32 j = 0; j < minorSegments; ++j)
+                {
+                    uint32 iNext = (i + 1) % majorSegments;
+                    uint32 jNext = (j + 1) % minorSegments;
+
+                    uint32 a = offsetIndex + i * minorSegments + j;
+                    uint32 b = offsetIndex + iNext * minorSegments + j;
+                    uint32 c = offsetIndex + iNext * minorSegments + jNext;
+                    uint32 d = offsetIndex + i * minorSegments + jNext;
+
+                    meshBuilder.addTriangle(a, c, b);
+                    meshBuilder.addTriangle(a, d, c);
+                }
+            }
+        }
+
     };
 };

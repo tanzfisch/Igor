@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET__
-#define __IGOR_WIDGET__
+#ifndef IGOR_WIDGET_H
+#define IGOR_WIDGET_H
 
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
@@ -61,49 +61,49 @@ namespace igor
 
     /*! widget click event
      */
-    IGOR_EVENT_DEFINITION(iClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iClick, const iWidgetPtr);
 
     /*! mouse off click event
 
     so when there was a click outside the range of a widget
     */
-    IGOR_EVENT_DEFINITION(iMouseOffClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOffClick, const iWidgetPtr);
 
     /*! context menu event
      */
-    IGOR_EVENT_DEFINITION(iContextMenu, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iContextMenu, const iWidgetPtr);
 
     /*! wheel up event
      */
-    IGOR_EVENT_DEFINITION(iWheelUp, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iWheelUp, const iWidgetPtr);
 
     /*! wheel down event
      */
-    IGOR_EVENT_DEFINITION(iWheelDown, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iWheelDown, const iWidgetPtr);
 
     /*! double click event
      */
-    IGOR_EVENT_DEFINITION(iDoubleClick, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iDoubleClick, const iWidgetPtr);
 
     /*! mouse over event
      */
-    IGOR_EVENT_DEFINITION(iMouseOver, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOver, const iWidgetPtr);
 
     /*! mouse off event
      */
-    IGOR_EVENT_DEFINITION(iMouseOff, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iMouseOff, const iWidgetPtr);
 
     /*! change event
      */
-    IGOR_EVENT_DEFINITION(iChange, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iChange, const iWidgetPtr);
 
     /*! keyboard focus changed event
      */
-    IGOR_EVENT_DEFINITION(iFocus, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iFocus, const iWidgetPtr);
 
     /*! selection changed event
      */
-    IGOR_EVENT_DEFINITION(iSelectionChanged, void, const iWidgetPtr);
+    IGOR_EVENT_DEFINITION(iSelectionChanged, const iWidgetPtr);
 
     /*! interaction state of widget
      */
@@ -160,12 +160,15 @@ namespace igor
         iWidgetDockingLayout,
 
         iUserControl,
-        iUserControlColorChooser,
-        iUserControlFileChooser,
-        iUserControlTextureChooser,
-        iUserControlMaterialChooser,
-        iUserControlShaderMaterialChooser,
+        iUserControlColor,
+        iUserControlFile,
+        iUserControlTexture,
+        iUserControlSprite,
+        iUserControlMaterial,
+        iUserControlShaderMaterial,
         iUserControlTreeView,
+        iUserControlVector,
+        iUserControlMeshReference,
 
         iDialog,
         iDialogColorChooser,
@@ -280,137 +283,49 @@ namespace igor
          */
         iWidgetState getState() const;
 
-        /*! registers delegate to click event (click is left mouse button)
+        /*! \returns click event
+         */
+        iClickEvent &getClickEvent();
 
-        \param clickDelegate the delegate to register
-        */
-        void registerOnClickEvent(iClickDelegate clickDelegate);
+        /*! \returns mouse off click event
+         */
+        iMouseOffClickEvent &getMouseOffClickEvent();
 
-        /*! registers delegate to mouse out of bounds click events
+        /*! \returns double click event
+         */
+        iDoubleClickEvent &getDoubleClickEvent();
 
-        \param clickDelegate the delegate to register
-        */
-        void registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
+        /*! \returns mouse over event
+         */
+        iMouseOverEvent &getMouseOverEvent();
 
-        /*! registers delegate to double click event
+        /*! \returns mouse off event
+         */
+        iMouseOffEvent &getMouseOffEvent();
 
-        \param doubleClickDelegate the delegate to register
-        */
-        void registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
+        /*! \returns change event
+         */
+        iChangeEvent &getChangeEvent();
 
-        /*! registers delegate to mouse over event
+        /*! \returns focus event
+         */
+        iFocusEvent &getFocusEvent();
 
-        \param mouseOverDelegate the delegate to register
-        */
-        void registerOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
+        /*! \returns wheel up event
+         */
+        iWheelUpEvent &getWheelUpEvent();
 
-        /*! registers delegate to mouse off event (opposite of mouse over)
+        /*! \returns wheel down event
+         */
+        iWheelDownEvent &getWheelDownEvent();
 
-        \param mouseOffDelegate the delegate to register
-        */
-        void registerOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
+        /*! \returns context menu event
+         */
+        iContextMenuEvent &getContextMenuEvent();
 
-        /*! registers delegate to content change event
-
-        \param changeDelegate the delegate to register
-        */
-        void registerOnChangeEvent(iChangeDelegate changeDelegate);
-
-        /*! registers delegate to keyboard focus event
-
-        \param focusDelegate the delegate to register
-        */
-        void registerOnFocusEvent(iFocusDelegate focusDelegate);
-
-        /*! registers delegate to wheel up event
-
-        \param wheelUpDelegate the delegate to register
-        */
-        void registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
-
-        /*! unregister delegate from wheel up event
-
-        \param wheelUpDelegate the delegate to unregister
-        */
-        void unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
-
-        /*! registers delegate to wheel down event
-
-        \param wheelDownDelegate the delegate to register
-        */
-        void registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
-
-        /*! unregister delegate from wheel down event
-
-        \param wheelDownDelegate the delegate to unregister
-        */
-        void unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
-
-        /*! unregisters delegate from click event (click is left mouse button)
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterOnClickEvent(iClickDelegate clickDelegate);
-
-        /*! unregisters delegate from mouse off click event
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
-
-        /*! unregisters delegate from double click event
-
-        \param doubleClickDelegate the delegate to unregister
-        */
-        void unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
-
-        /*! unregisters delegate mouse over event
-
-        \param mouseOverDelegate the delegate to unregister
-        */
-        void unregisterOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
-
-        /*! unregisters delegate mouse off event
-
-        \param mouseOffDelegate the delegate to unregister
-        */
-        void unregisterOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
-
-        /*! unregisters delegate content change event
-
-        \param changeDelegate the delegate to unregister
-        */
-        void unregisterOnChangeEvent(iChangeDelegate changeDelegate);
-
-        /*! unregisters delegate keyboard focus event
-
-        \param focusDelegate the delegate to unregister
-        */
-        void unregisterOnFocusEvent(iFocusDelegate focusDelegate);
-
-        /*! registers delegate to context menu event
-
-        \param contextMenuDelegate the delegate to register
-        */
-        void registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
-
-        /*! unregister delegate from context menu event
-
-        \param contextMenuDelegate the delegate to unregister
-        */
-        void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
-
-        /*! registers delegate to selection changed event
-
-        \param delegate the delegate to register
-        */
-        void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
-
-        /*! unregisters delegate from selection changed event
-
-        \param delegate the delegate to unregister
-        */
-        void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+        /*! \returns selection changed events
+         */
+        iSelectionChangedEvent &getSelectionChangedEvent();
 
         /*! \returns actual absolute position
          */
@@ -435,6 +350,10 @@ namespace igor
         /*! \returns actual rectangle (absolute and in pixel)
          */
         iaRectanglef getActualRect() const;
+
+        /*! \returns actual client rectangle (absolute and in pixel)
+         */
+        iaRectanglef getActualClientRect() const;
 
         /*! \returns actual relative to it's parent horizontal position
          */
@@ -606,6 +525,8 @@ namespace igor
         const std::vector<iWidgetPtr> &getChildren() const;
 
         /*! clears the widget back to default
+
+        This can mean different things for different derivatives of iWidget
          */
         virtual void clear();
 
@@ -692,7 +613,7 @@ namespace igor
         void setSelectable(bool selectable);
 
         /*! \returns true if selectable
-        */
+         */
         bool isSelectable() const;
 
         /*! sets multi selection for children
@@ -702,49 +623,53 @@ namespace igor
         void setMultiSelection(bool enabled);
 
         /*! \returns true if multi selection of children is enabled
-        */
+         */
         bool isMultiSelectionEnabled() const;
 
-        /*! selects widget
-
-        \param exclusive if true it unselects siblings
-        */        
-        void select();
-
-        /*! unselect widget
-        */
-        void unselect();
+        /*! selects or unselects widget
+         */
+        void setSelect(bool select);
 
         /*! \returns true if widget is selected
-        */
+         */
         bool isSelected() const;
 
         /*! clear selection of children
-        */
+         */
         void clearSelection();
 
         /*! \returns list of selected child widgets
-        */
+         */
         const std::vector<iWidgetPtr> getSelection() const;
 
         /*! sets selected children
 
         \param selection list of children to select
         */
-        void setSelection(const std::vector<iWidgetPtr>& selection);
+        void setSelection(const std::vector<iWidgetPtr> &selection);
+
+        /*! queue this widget for refresh in next frame
+         */
+        void refresh();
+
+        /*! \returns system wide UI scale
+         */
+        IGOR_INLINE static float32 getScale()
+        {
+            return s_scale;
+        }
 
     protected:
-
         /*! if true widget is selected
-        */
+         */
         bool _selected = false;
 
         /*! if true widget is selectable
-        */
+         */
         bool _isSelectable = false;
 
         /*! if true multi selection is enabled
-        */
+         */
         bool _isMultiSelectionEnabled = false;
 
         /*! list of children
@@ -840,7 +765,7 @@ namespace igor
         bool _acceptDrop = false;
 
         /*! if true widget accepts to be dragged
-        */
+         */
         bool _acceptDrag = false;
 
         /*! true: if currently mouse is over widget
@@ -856,8 +781,12 @@ namespace igor
         iaVector2f _lastMousePos;
 
         /*! mouse position when last time pressed
-        */
+         */
         iaVector2f _lastMousePressPos;
+
+        /*! if true widget will be refreshed next frame
+         */
+        bool _needRefresh = true;
 
         /*! removes and deletes all children
 
@@ -908,6 +837,8 @@ namespace igor
 
         /*! handles incoming generic event
 
+        the only place where an entity can directly consume an event
+
         \param event the event
         */
         virtual bool onEvent(iEvent &event);
@@ -917,53 +848,53 @@ namespace igor
         \param event mouse wheel event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseWheel(iEventMouseWheel &event);
+        virtual bool onMouseWheel(const iEventMouseWheel &event);
 
         /*! handles incoming mouse key down events
 
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyDown(iEventMouseKeyDown &event);
+        virtual bool onMouseKeyDown(const iEventMouseKeyDown &event);
 
         /*! handles incoming double click
 
         \param event the mouse double click event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseDoubleClick(iEventMouseKeyDoubleClick &event);
+        virtual bool onMouseDoubleClick(const iEventMouseKeyDoubleClick &event);
 
         /*! handles mouse key up events
 
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        virtual bool onMouseKeyUp(iEventMouseKeyUp &event);
+        virtual bool onMouseKeyUp(const iEventMouseKeyUp &event);
 
         /*! handles incoming mouse move events
 
         \param event mouse move event
         \param consumed if true mouse move was already consumed
         */
-        virtual void onMouseMove(iEventMouseMove &event);
+        virtual void onMouseMove(const iEventMouseMove &event);
 
         /*! handles incoming acsii codes from keyboard
 
         \param event the key ascii event
         */
-        virtual bool onASCII(iEventKeyASCII &event);
+        virtual bool onASCII(const iEventKeyASCII &event);
 
         /*! handles pressed key event
 
         \param event the key down event
         */
-        virtual bool onKeyDown(iEventKeyDown &event);
+        virtual bool onKeyDown(const iEventKeyDown &event);
 
         /*! handles released key event
 
         \param event the key up event
         */
-        virtual bool onKeyUp(iEventKeyUp &event);
+        virtual bool onKeyUp(const iEventKeyUp &event);
 
         /*! handles lost keyboard focus
          */
@@ -1003,6 +934,7 @@ namespace igor
         /*! drag move handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
         virtual void onDragMove(iDrag &drag, const iaVector2f &mousePos);
 
@@ -1015,12 +947,17 @@ namespace igor
         /*! drop handle
 
         \param drag the drag data
+        \param mousePos the current mouse pos
         */
-        virtual void onDrop(const iDrag &drag);
+        virtual void onDrop(const iDrag &drag, const iaVector2f &mousePos);
 
         /*! called when dragged
-        */
+         */
         virtual void onDrag();
+
+        /*! called when widget was queued for refresh in last frame
+         */
+        virtual void onRefresh();
 
     private:
         /*! the next node id
@@ -1139,6 +1076,10 @@ namespace igor
          */
         std::any _userData;
 
+        /*! the system wide ui scale
+         */
+        static float32 s_scale;
+
         /*! called when parent of this widget changes
          */
         virtual void onParentChanged();
@@ -1159,4 +1100,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET__
+#endif // IGOR_WIDGET_H

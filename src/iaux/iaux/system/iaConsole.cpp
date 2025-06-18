@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaConsole.h>
@@ -202,23 +202,10 @@ namespace iaux
         *this << iaForegroundColor::DarkGreen << "^^^^^^^^^^^^^^^^^^^" << endl;
     }
 
-    void iaConsole::printCake()
-    {
-        *this << endlTab;
-        *this << iaForegroundColor::Yellow << "    , , ,    " << endlTab;
-        *this << iaForegroundColor::White << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endlTab;
-        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endlTab;
-        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endlTab;
-        *this << iaForegroundColor::White << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endlTab;
-        *this << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endlTab;
-        *this << iaForegroundColor::Gray << "\\___________/" << endlTab << endl;
-    }
-
     void iaConsole::printCallStack(uint32 maxDepth)
     {
         std::vector<iaString> callStack;
         getCallStack(callStack);
-        bool skip = true;
         for (int i = 1; i < callStack.size(); ++i)
         {
             *this << callStack[i];
@@ -353,7 +340,7 @@ namespace iaux
     iaConsole &printIgorThreadID(iaConsole &console)
     {
         const iaID32 id = iaThread::getThisThreadID();
-        console << std::setfill(L'0') << std::setw(2) << std::hex << id << std::dec;
+        console << (iaForegroundColor)((id-1) % 14) << std::setfill(L'0') << std::setw(3) << id << std::dec;
         return console;
     }
 

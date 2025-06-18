@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "ExampleBase.h"
@@ -27,36 +27,31 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _view.setClipPlanes(0.1f, 10000.f);
         getWindow()->addView(&_view, getZIndex());
 
-        // init scene
-        _scene = iSceneFactory::getInstance().createScene();
-        // bind scene to perspective view
-        _view.setScene(_scene);
-
         // setup orthogonal view
         _viewOrtho.setName("Logo View");
         _viewOrtho.setClearColorActive(false);
         _viewOrtho.setClearDepthActive(false);
         _viewOrtho.setClipPlanes(0.1f, 10000.0f);
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-        _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+        _viewOrtho.getRenderEvent().add(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
         getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-        if (!skyBoxTexture.isEmpty())
+        /*if (!skyBoxTexture.isEmpty())
         {
             // create a skybox
             iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();            
             // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-            iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+            iShaderPtr skyboxShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_skybox");
             iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                                      {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                     {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                                     {IGOR_RESOURCE_PARAM_SHADER, skyboxShader},
                                      {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>(skyBoxTexture)}});
             _materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
             // set that material
             skyBoxNode->setMaterial(_materialSkyBox);
             // and add it to the scene
             getScene()->getRoot()->insertNode(skyBoxNode);
-        }
+        }*/
 
         // init fonts
         _outlineFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default_outline"));
@@ -75,16 +70,12 @@ ExampleBase::~ExampleBase()
     // release material
     _materialSkyBox = nullptr;
 
-    // clear scene by destroying it
-    iSceneFactory::getInstance().destroyScene(_scene);
-    _scene = nullptr;
-
     // release resources
     _standardFont = nullptr;
     _outlineFont = nullptr;
     _igorLogo = nullptr;
 
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
+    _viewOrtho.getRenderEvent().remove(iRenderDelegate(this, &ExampleBase::onRenderOrtho));
 
     con_info("stopped example \"" << getName() << "\"");
 }
@@ -119,11 +110,11 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
 
     case iKeyCode::F6:
     {
-        iNodeVisitorPrintTree printTree;
+        /*iNodeVisitorPrintTree printTree;
         if (getScene() != nullptr)
         {
             printTree.printToConsole(getScene()->getRoot());
-        }
+        }*/
     }
         return true;
 
@@ -161,11 +152,6 @@ iView &ExampleBase::getView()
 iView &ExampleBase::getViewOrtho()
 {
     return _viewOrtho;
-}
-
-iScenePtr ExampleBase::getScene()
-{
-    return _scene;
 }
 
 void ExampleBase::onInit()

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogMenu.h>
@@ -24,9 +24,9 @@ namespace igor
         init();
     }
 
-    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
+    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
     {
-        iDialog::open(dialogCloseDelegate);
+        iDialog::open(dialogCloseDelegate, modal);
         putInFront();
     }
 
@@ -34,7 +34,7 @@ namespace igor
     {
         setMinSize(100, 0);
         setAcceptOutOfBoundsClicks();
-        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
         setIgnoreChildEventConsumption(false);
         setGrowingByContent(true);
@@ -42,13 +42,17 @@ namespace igor
         setResizeable(false);
 
         _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
     }
 
     void iDialogMenu::clear()
     {
         iWidget::clear();
-        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);        
-    }    
+        _vboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _vboxLayout->setSpacing(0);
+        
+        _hasEntries = false;
+    }       
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
@@ -64,7 +68,7 @@ namespace igor
 
     void iDialogMenu::addSeparator()
     {
-        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
+        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 1, true);
         spacer->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _vboxLayout->addWidget(spacer);
     }
@@ -72,9 +76,16 @@ namespace igor
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
         _vboxLayout->addWidget(menu);
+        
+        _hasEntries = true;
     }
 
-    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
+    bool iDialogMenu::hasEntries() const
+    {
+        return _hasEntries;
+    }
+
+    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context, bool enabled)
     {
         if (!iActionManager::getInstance().isRegistered(action))
         {
@@ -92,13 +103,16 @@ namespace igor
         button->setMinHeight(25);
         button->setAction(action, context);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-
-        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
+
+        _hasEntries = true;
     }
 
-    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias)
+    void iDialogMenu::addCallback(iClickDelegate delegate, const iaString &title, const iaString &description, const iaString &iconAlias, bool enabled, const iActionContextPtr context)
     {
         iWidgetButtonPtr button = new iWidgetButton();
         button->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -107,15 +121,20 @@ namespace igor
         button->setTooltip(description);
         button->setIcon(iconAlias);
         button->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-        button->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
-        button->registerOnClickEvent(delegate);
+        button->getClickEvent().add(iClickDelegate(this, &iDialogMenu::onActionClick));
+        button->getClickEvent().add(delegate);
+        button->setActionContext(context);
+        button->setEnabled(enabled);
+        button->setBorderStyle(iWidgetButtonBorderStyle::None);
 
         _vboxLayout->addWidget(button);
+
+        _hasEntries = true;
     }
 
-    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)
+    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context, bool enabled)
     {
-        addAction(iActionManager::getInstance().getAction(actionName), context);
+        addAction(iActionManager::getInstance().getAction(actionName), context, enabled);
     }
 
 } // namespace igor

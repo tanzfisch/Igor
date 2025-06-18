@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONSOLE__
-#define __IAUX_CONSOLE__
+#ifndef IAUX_CONSOLE_H
+#define IAUX_CONSOLE_H
 
 #include <iaux/system/iaClock.h>
 #include <iaux/system/iaMutex.h>
@@ -45,7 +45,7 @@ namespace iaux
 
 /*! logging tab definition including size of time and thread ID
  */
-#define __IGOR_LOGGING_TAB__ L"                               "
+#define __IGOR_LOGGING_TAB__ L"                                "
 
     /*!
     \todo forgot what this is good for
@@ -189,10 +189,6 @@ namespace iaux
          */
         void exit();
 
-        /*! prints a birthday cake in the log
-         */
-        void printCake();
-
         /*! reset error and warning counter
          */
         void resetStats();
@@ -264,7 +260,7 @@ namespace iaux
          */
         std::wfstream _file;
 
-        /*! true: log to file is active; false: log to file will be scipped
+        /*! true: log to file is active; false: log to file will be skipped
 
         but there is always console output
         */
@@ -321,7 +317,7 @@ will be fully removed in release build
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal && !(Condition))                                      \
     {                                                                                                                     \
         iaConsole::getInstance() << LOCK;                                                                                 \
-        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                            \
+        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                          \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endlTab;              \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                             \
@@ -341,7 +337,7 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Debug)           \
     {                                                                          \
         iaConsole::getInstance() << LOCK;                                      \
-        iaConsole::getInstance().printHeader(iaLogLevel::Debug);                 \
+        iaConsole::getInstance().printHeader(iaLogLevel::Debug);               \
         iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
                                  << UNLOCK;                                    \
     }
@@ -356,7 +352,7 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)           \
     {                                                                          \
         iaConsole::getInstance() << LOCK;                                      \
-        iaConsole::getInstance().printHeader(iaLogLevel::Trace);                 \
+        iaConsole::getInstance().printHeader(iaLogLevel::Trace);               \
         iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
                                  << UNLOCK;                                    \
     }
@@ -367,13 +363,13 @@ including line feed
 
 \param Message message output
 */
-#define con_trace_call()                                                                                                 \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                                                     \
-    {                                                                                                                    \
-        iaConsole::getInstance() << LOCK;                                                                                \
-        iaConsole::getInstance().printHeader(iaLogLevel::Trace);                                                           \
-        iaConsole::getInstance() << iaForegroundColor::DarkMagenta << IGOR_FUNCTION << " " << __IGOR_FILE_LINE__ << endl \
-                                 << UNLOCK;                                                                              \
+#define con_trace_call()                                                                                          \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                                              \
+    {                                                                                                             \
+        iaConsole::getInstance() << LOCK;                                                                         \
+        iaConsole::getInstance().printHeader(iaLogLevel::Trace);                                                  \
+        iaConsole::getInstance() << iaForegroundColor::Gray << IGOR_FUNCTION << " " << __IGOR_FILE_LINE__ << endl \
+                                 << UNLOCK;                                                                       \
     }
 
 #else // IGOR_DEBUG -> RELEASE BUILD
@@ -389,8 +385,8 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal)                                                      \
     {                                                                                                                     \
         iaConsole::getInstance() << LOCK;                                                                                 \
-        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                            \
-        iaConsole::getInstance() << iaForegroundColor::Red << Message << endlTab;                                     \
+        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                          \
+        iaConsole::getInstance() << iaForegroundColor::Red << Message << endlTab;                                         \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                             \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
@@ -408,8 +404,8 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal && !(Condition))                                      \
     {                                                                                                                     \
         iaConsole::getInstance() << LOCK;                                                                                 \
-        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                            \
-        iaConsole::getInstance() << iaForegroundColor::Red << Message << " (" #Condition ")" << endlTab;              \
+        iaConsole::getInstance().printHeader(iaLogLevel::Fatal);                                                          \
+        iaConsole::getInstance() << iaForegroundColor::Red << Message << " (" #Condition ")" << endlTab;                  \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                                             \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
@@ -426,7 +422,7 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Error)                            \
     {                                                                                           \
         iaConsole::getInstance() << LOCK;                                                       \
-        iaConsole::getInstance().printHeader(iaLogLevel::Error);                                  \
+        iaConsole::getInstance().printHeader(iaLogLevel::Error);                                \
         iaConsole::getInstance() << incerr << iaForegroundColor::DarkRed << Message << endlTab; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                              \
         iaConsole::getInstance() << IGOR_FUNCTION << endlTab;                                   \
@@ -443,7 +439,7 @@ including line feed
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Warning)                              \
     {                                                                                               \
         iaConsole::getInstance() << LOCK;                                                           \
-        iaConsole::getInstance().printHeader(iaLogLevel::Warning);                                    \
+        iaConsole::getInstance().printHeader(iaLogLevel::Warning);                                  \
         iaConsole::getInstance() << incwarn << iaForegroundColor::DarkYellow << Message << endlTab; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                  \
         iaConsole::getInstance() << IGOR_FUNCTION << endl;                                          \
@@ -455,13 +451,13 @@ including line feed
 
 \param Message message to be printed
 */
-#define con_info(Message)                                                       \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)             \
-    {                                                                           \
-        iaConsole::getInstance() << LOCK;                                       \
-        iaConsole::getInstance().printHeader(iaLogLevel::Info);                   \
+#define con_info(Message)                                                          \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)                \
+    {                                                                              \
+        iaConsole::getInstance() << LOCK;                                          \
+        iaConsole::getInstance().printHeader(iaLogLevel::Info);                    \
         iaConsole::getInstance() << iaForegroundColor::DarkBlue << Message << endl \
-                                 << UNLOCK;                                     \
+                                 << UNLOCK;                                        \
     }
 
 /*! prints an message to console and optionally to the log file.
@@ -469,13 +465,13 @@ including line feed
 
     \param Message message to be printed
     */
-#define con_endl(Message)                                                       \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)             \
-    {                                                                           \
-        iaConsole::getInstance() << LOCK;                                       \
-        iaConsole::getInstance().printHeader(iaLogLevel::User);                   \
+#define con_endl(Message)                                                      \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)            \
+    {                                                                          \
+        iaConsole::getInstance() << LOCK;                                      \
+        iaConsole::getInstance().printHeader(iaLogLevel::User);                \
         iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
-                                 << UNLOCK;                                     \
+                                 << UNLOCK;                                    \
     }
 
     /*! prints an endline to the console
@@ -605,4 +601,4 @@ including line feed
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
 }; // namespace iaux
 
-#endif // __IAUX_CONSOLE__
+#endif // IAUX_CONSOLE_H

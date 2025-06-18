@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DIRECTORY__
-#define __IAUX_DIRECTORY__
+#ifndef IAUX_DIRECTORY_H
+#define IAUX_DIRECTORY_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
@@ -68,7 +68,7 @@ namespace iaux
 
         e.g. if the path is c:\foo\bar then this returns c:\foo\bar
         */
-        iaString getFullDirectoryName() const;
+        iaString getAbsoluteDirectoryName() const;
 
         /*! \returns the name of the directory
 
@@ -80,7 +80,7 @@ namespace iaux
 
         e.g. if the path is c:\foo\bar then this returns c:\foo
         */
-        iaString getFullParentDirectoryName() const;
+        iaString getAbsoluteParentDirectoryName() const;
 
         /*! \returns relative path from path to path
 
@@ -158,7 +158,7 @@ namespace iaux
         \param file true: it's a file; false: it's a directory
         \returns fixed path
         */
-        static iaString fixPath(const iaString &directoryName, bool file);
+        static iaString fixPath(const iaString &directoryName);
 
     private:
         /*! the path to the directory
@@ -166,6 +166,14 @@ namespace iaux
         iaString _directoryName;
     };
 
+    /*! stream operator
+
+    \param stream the destination
+    \param dir the directory to stream
+    \returns the resulting stream
+    */
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDirectory &dir);    
+
 } // namespace iaux
 
-#endif
+#endif // IAUX_DIRECTORY_H

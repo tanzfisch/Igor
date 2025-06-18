@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@
 #include <igor/simulation/iParticleSystem.h>
 #include <igor/simulation/iParticleEmitter.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 
 namespace igor
 {
@@ -63,7 +63,7 @@ namespace igor
          */
         iParticleEmitter &getEmitter();
 
-        /*! \returns target material
+        /*! \returns material
          */
         iMaterialPtr &getMaterial();
 
@@ -76,7 +76,7 @@ namespace igor
          */
         iParticleEmitter _particleEmitter;
 
-        /*! particle target material
+        /*! particle material
          */
         iMaterialPtr _material;
 

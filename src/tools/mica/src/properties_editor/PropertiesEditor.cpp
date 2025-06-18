@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "PropertiesEditor.h"
@@ -14,11 +14,55 @@ void PropertiesEditor::initGUI()
     setTitle("Properties Editor");
 
     setDockable(true);
-    setMinWidth(380);
+    setMinWidth(460);
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _scroll = new iWidgetScroll(this);
+}
+
+bool PropertiesEditor::onEvent(iEvent &event)
+{
+    iWidget::onEvent(event);
+
+    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectLoaded));
+    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectUnloaded));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
+{
+    auto projectScene = iProject::getInstance().getProjectScene();
+    if(projectScene == nullptr)
+    {
+        return false;
+    }
+    
+    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
+
+    return false;
+}
+
+bool PropertiesEditor::onProjectUnloaded(iEventProjectUnloaded &event)
+{
+    deinitProperties();
+
+    return false;
+}
+
+void PropertiesEditor::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
+{
+    deinitProperties();
+
+    if (entities.size() != 1 ||
+        !sceneID.isValid() ||
+        !entities[0].isValid())
+    {
+        return;
+    }
+
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Entity, {sceneID, entities[0]}, _scroll);
 }
 
 void PropertiesEditor::deinitProperties()
@@ -31,26 +75,14 @@ void PropertiesEditor::deinitProperties()
     }
 }
 
-void PropertiesEditor::setSelection(iNodeID nodeID)
+void PropertiesEditor::setSelectionResource(const iResourceID &resourceID)
 {
     deinitProperties();
 
-    if (nodeID == iNode::INVALID_NODE_ID)
+    if (!resourceID.isValid())
     {
         return;
     }
 
-    _userControlProperties = new UserControlProperties(nodeID, _scroll);
-}
-
-void PropertiesEditor::setSelection(const iResourceID &resourceID)
-{
-    deinitProperties();
-
-    if(!resourceID.isValid())
-    {
-        return;
-    }
-
-    _userControlProperties = new UserControlProperties(resourceID, _scroll);
+    _userControlProperties = new UserControlProperties(UserControlProperties::PropertyType::Resource, {resourceID}, _scroll);
 }

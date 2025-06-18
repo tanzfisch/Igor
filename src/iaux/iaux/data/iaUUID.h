@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_UUID__
-#define __IAUX_UUID__
+#ifndef IAUX_UUID_H
+#define IAUX_UUID_H
 
 #include <iaux/data/iaString.h>
 
@@ -39,8 +39,9 @@ namespace iaux
     class IAUX_API iaUUID
     {
     public:
-
         /*! init valid random value
+
+        \param mark if true this id gets an 0xFF mark so we can recognize it later
          */
         iaUUID();
 
@@ -56,9 +57,13 @@ namespace iaux
         */
         iaUUID(uint64 value);
 
-        /*! \returns invalid uuid 
-        */
+        /*! \returns invalid uuid
+         */
         static iaUUID getInvalid();
+
+        /*! \returns an id with a mark on it
+        */
+        static iaUUID getMarked();
 
         /*! import from string
 
@@ -76,7 +81,7 @@ namespace iaux
         static bool isUUID(const iaString &text);
 
         /*! makes id invalid
-        */
+         */
         void reset();
 
         /*! \returns true if both uuids are equal
@@ -103,18 +108,18 @@ namespace iaux
         \param value the new value
         \returns the new uuid
         */
-        iaUUID operator=(uint64 value);        
+        iaUUID operator=(uint64 value);
 
         /*! \returns true if uuid is valid/initialized
          */
         bool isValid() const;
 
         /*! \returns id as string
-        */
+         */
         const iaString toString() const;
 
         /*! \returns value
-        */
+         */
         operator uint64() const;
 
     private:
@@ -131,6 +136,13 @@ namespace iaux
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid);
 
+    /*! print list of uuid in console
+
+    \param stream the stream to write to
+    \param uuids the uuids to write
+    \returns stream it self
+    */
+   IAUX_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaUUID> &uuids);
 }
 
 /*! so can be used as key in a map
@@ -144,4 +156,4 @@ struct std::hash<iaux::iaUUID>
     }
 };
 
-#endif // __IAUX_UUID__
+#endif // IAUX_UUID_H

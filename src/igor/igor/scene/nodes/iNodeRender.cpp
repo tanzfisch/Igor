@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/scene/nodes/iNodeRender.h>
@@ -17,7 +17,7 @@ namespace igor
     iNodeRender::iNodeRender()
         : iNode()
     {
-        _material = iResourceManager::getInstance().loadResource<iMaterial>("igor_material_default");
+        _material = iResourceManager::getInstance().createResource<iMaterial>();
 
         setName(L"iNodeRender");
         _nodeType = iNodeType::iNodeRender;

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -50,6 +50,7 @@ namespace igor
     {
 
         friend class iSpriteFactory;
+        friend class iSpriteIO;
 
     public:
         /*! a frame defines an area within the texture that later can be rendered
@@ -61,10 +62,12 @@ namespace igor
             iaRectanglef _rect;
 
             /*! pivot or pivot of frame in texture coordinates 0.0-1.0
-
-            can be used to position on screen
             */
             iaVector2f _pivot;
+
+            /*! if true values are pixels else values are relative
+            */
+            bool _pixel;
         };
 
         /*! \returns the amount of frames

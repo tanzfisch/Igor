@@ -1,5 +1,5 @@
 // OMPF 3d model file format
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <ompf/ompf.h>
@@ -229,11 +229,6 @@ namespace OMPF
                 result = chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkType::ResourceSearchPath:
-                chunk = new ompfResourceSearchPathChunk();
-                result = chunk->read(file, _settings);
-                break;
-
             case OMPFChunkType::Mesh:
                 chunk = new ompfMeshChunk();
                 result = chunk->read(file, _settings);
@@ -286,7 +281,7 @@ namespace OMPF
     void OMPF::loadFile(iaString filename)
     {
         iaDirectory dir(filename);
-        _filepath = dir.getFullDirectoryName();
+        _filepath = dir.getAbsoluteDirectoryName();
 
         reset();
 
@@ -345,7 +340,7 @@ namespace OMPF
     void OMPF::saveFile(iaString filename)
     {
         iaDirectory dir(filename);
-        _filepath = dir.getFullParentDirectoryName();
+        _filepath = dir.getAbsoluteParentDirectoryName();
 
         con_assert(_root != nullptr, "can never be zero");
 

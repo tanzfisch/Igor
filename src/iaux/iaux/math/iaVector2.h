@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_VECTOR2__
-#define __IAUX_VECTOR2__
+#ifndef IAUX_VECTOR2_H
+#define IAUX_VECTOR2_H
 
 #include <iaux/iaDefines.h>
 
@@ -140,7 +140,22 @@ namespace iaux
         \param vec vector to multiply this vector with
         \returns dot product of both vectors
         */
-        T operator*(const iaVector2<T> &vec) const;
+        T dot(const iaVector2<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        \param vec vector to multiply this vector with
+        \returns the product of the mutiplication
+        */
+        iaVector2<T> operator*(const iaVector2<T> &vec) const;
+
+        /*! multiplication of two vectors
+
+        the product is stored in this vector
+
+        \param vec vector to multiply this vector with
+        */
+        void operator*=(const iaVector2<T> &vec);
 
         /*! \returns value by index (const version)
 
@@ -177,6 +192,10 @@ namespace iaux
          */
         T length2() const;
 
+        /*! \returns true if vector has zero length
+         */
+        bool zero() const;
+
         /*! \returns distance between positions
 
         \param vec the second position to calculate the distance to
@@ -203,7 +222,7 @@ namespace iaux
 
         \param vec second vector to calculate the angle with
         */
-        T angle(iaVector2<T> &vec) const;
+        T angle(const iaVector2<T> &vec) const;
 
         /*! rotates a vector in XY plane
 
@@ -256,4 +275,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_VECTOR2__
+#endif // IAUX_VECTOR2_H

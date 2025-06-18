@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SPHERE__
-#define __IAUX_SPHERE__
+#ifndef IAUX_SPHERE_H
+#define IAUX_SPHERE_H
 
 #include <iaux/math/iaVector3.h>
 
@@ -68,7 +68,7 @@ namespace iaux
 
         \param sphere the sphere to merge with
         */
-        void merge(iaSphere<T> &sphere);
+        void merge(const iaSphere<T> &sphere);
 
         /*! \returns true if two spheres are equal
 
@@ -88,7 +88,7 @@ namespace iaux
         \param sphere the other sphere to test with
         \returns true: if sphere is completely inside sphere; false: if not
         */
-        bool contains(const iaSphere<T> &sphere);
+        bool contains(const iaSphere<T> &sphere) const;
     };
 
 #include <iaux/data/iaSphere.inl>
@@ -107,4 +107,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_SPHERE__
+#endif // IAUX_SPHERE_H

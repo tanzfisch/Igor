@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/buffers/iInstancingBuffer.h>
@@ -94,8 +94,18 @@ namespace igor
         resizeBuffer(maxInstanceSizeHint * _instanceSize);
     }
 
+    void iInstancingBuffer::getInstance(uint32 index, uint32 size, void* data)
+    {
+        con_assert(index < _instanceCount, "index out of bonds");
+        con_assert((size % _instanceSize) == 0, "size needs to be multiples of instance size");
+
+        memcpy(data, _instancingData + index * _instanceSize, size);
+    }
+
     void iInstancingBuffer::addInstance(uint32 size, const void *data)
     {
+        con_assert((size % _instanceSize) == 0, "size needs to be multiples of instance size");
+
         // buffer too small. double it
         if (_instancingDataPtr + size > _instancingData + _instanceDataSize)
         {
@@ -112,6 +122,11 @@ namespace igor
     {
         _instancingDataPtr = _instancingData;
         _instanceCount = 0;
+    }
+
+    uint32 iInstancingBuffer::getInstanceSize() const
+    {
+        return _instanceSize;
     }
 
 }

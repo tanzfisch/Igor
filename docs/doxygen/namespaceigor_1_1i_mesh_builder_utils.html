@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -109,6 +109,8 @@ Functions</h2></td></tr>
 <tr class="separator:af6df6545ce47a6594a6cb05a4bf67a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb356765819006cd20d00741c05b893d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor_1_1i_mesh_builder_utils.html#abb356765819006cd20d00741c05b893d">addMesh</a> (<a class="el" href="classigor_1_1i_mesh_builder.html">iMeshBuilder</a> &amp;meshBuilder, const <a class="el" href="namespaceigor.html#abce6ba2a517934f61e1c0b6570b5411c">iMeshPtr</a> mesh)</td></tr>
 <tr class="separator:abb356765819006cd20d00741c05b893d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfb4f7649953cb3a0205624377e5b06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor_1_1i_mesh_builder_utils.html#aecfb4f7649953cb3a0205624377e5b06">addTorus</a> (<a class="el" href="classigor_1_1i_mesh_builder.html">iMeshBuilder</a> &amp;meshBuilder, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> majorRadius, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> minorRadiusX, <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> minorRadiusY, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> majorSegments, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> minorSegments)</td></tr>
+<tr class="separator:aecfb4f7649953cb3a0205624377e5b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ab95456814de5d3b8d755279bdc89bdbf" name="ab95456814de5d3b8d755279bdc89bdbf"></a>
@@ -499,6 +501,70 @@ Functions</h2></td></tr>
     <tr><td class="paramname">meshBuilder</td><td>the given mesh builder instance </td></tr>
     <tr><td class="paramname">radius</td><td>the radius of the cylinder </td></tr>
     <tr><td class="paramname">segments</td><td>the segment count of the cylinder </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aecfb4f7649953cb3a0205624377e5b06" name="aecfb4f7649953cb3a0205624377e5b06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecfb4f7649953cb3a0205624377e5b06">&#9670;&nbsp;</a></span>addTorus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IGOR_API igor::iMeshBuilderUtils::addTorus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classigor_1_1i_mesh_builder.html">iMeshBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>meshBuilder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
+          <td class="paramname"><em>majorRadius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
+          <td class="paramname"><em>minorRadiusX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
+          <td class="paramname"><em>minorRadiusY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>majorSegments</em> = <code>16</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramname"><em>minorSegments</em> = <code>8</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >adds a torus to the given mesh builder instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meshBuilder</td><td>the given mesh builder instance </td></tr>
+    <tr><td class="paramname">majorRadius</td><td>the major radius of the torus </td></tr>
+    <tr><td class="paramname">minorRadiusX</td><td>the horizontal minor radius of the torus </td></tr>
+    <tr><td class="paramname">minorRadiusY</td><td>the vertical minor radius of the torus </td></tr>
+    <tr><td class="paramname">majorSegments</td><td>the major segment count </td></tr>
+    <tr><td class="paramname">minorSegments</td><td>the minor segment count </td></tr>
   </table>
   </dd>
 </dl>

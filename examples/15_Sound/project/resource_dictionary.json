@@ -1,0 +1,34 @@
+[
+    {
+        "alias": "example_sound_left_right",
+        "id": "0x39243a85bd6576fc",
+        "source": "sounds/left_right.wav"
+    },
+    {
+        "id": "0x3ad626e030f78ab0",
+        "source": "models/cat/cat_norm.png"
+    },
+    {
+        "alias": "example_model_cat",
+        "id": "0x42000caa82a2e5e0",
+        "source": "models/cat/cat.ompf"
+    },
+    {
+        "alias": "example_sound_beep",
+        "id": "0x836d4f9ab0ac0d4e",
+        "source": "sounds/beep.wav"
+    },
+    {
+        "alias": "example_texture_cat_diff",
+        "id": "0xa7058a1207339228",
+        "source": "models/cat/cat_diff.png"
+    },
+    {
+        "id": "0xdd343293b9579e59",
+        "source": "models/cat/cat_spec.png"
+    },
+    {
+        "id": "0xfaa3b1436a20dbf3",
+        "source": "models/cat/cat.mat"
+    }
+]

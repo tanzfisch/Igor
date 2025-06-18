@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MUTEX__
-#define __IAUX_MUTEX__
+#ifndef IAUX_MUTEX_H
+#define IAUX_MUTEX_H
 
 #include <iaux/iaDefines.h>
 
@@ -36,39 +36,60 @@ namespace iaux
 
     /*! mutex
 
-	wraps std::mutex
- 	*/
+    wraps std::mutex
+    */
     class IAUX_API iaMutex
     {
         /*! mutex handle definition
-		*/
+         */
         typedef void *iaMutexHandle;
 
     public:
         /*! creates a mutex
-		*/
+         */
         iaMutex();
 
         /*! destroys a mutex
-		*/
+         */
         ~iaMutex();
 
         /*! locks a mutex
-		*/
+         */
         void lock();
 
         /*! unlocks a mutex
-		*/
+         */
         void unlock();
+
+        class iaScopedLock
+        {
+        public:
+            iaScopedLock(iaMutex &mutex)
+                : m_mutex(mutex)
+            {
+                m_mutex.lock();
+            }
+
+            ~iaScopedLock()
+            {
+                m_mutex.unlock();
+            }
+
+            iaScopedLock(const iaScopedLock &) = delete;
+            iaScopedLock &operator=(const iaScopedLock &) = delete;
+
+        private:
+            iaMutex &m_mutex;
+        };
 
     private:
         /*! handle to mutex
 
-		initialized in ctor
-		*/
+        initialized in ctor
+        */
         iaMutexHandle m_handle;
     };
 
 } // namespace iaux
 
-#endif // __IAUX_MUTEX__
+#endif // IAUX_MUTEX_H

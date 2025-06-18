@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialog.h>
@@ -58,7 +58,7 @@ namespace igor
     {
         if (iWidgetManager::getInstance().isModal(this))
         {
-            iWidgetManager::getInstance().resetModal();
+            iWidgetManager::getInstance().resetModal(this);
         }
     }
 
@@ -82,12 +82,17 @@ namespace igor
         return _returnState;
     }
 
-    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
+    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
     {
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
         setVisible();
         putInFront();
+
+        if (modal)
+        {
+            iWidgetManager::getInstance().setModal(this);
+        }
 
         _isOpen = true;
     }
@@ -96,7 +101,10 @@ namespace igor
     {
         setEnabled(false);
         setVisible(false);
-        iWidgetManager::getInstance().resetModal();
+        if (iWidgetManager::getInstance().isModal(this))
+        {
+            iWidgetManager::getInstance().resetModal(this);
+        }
         iWidgetManager::getInstance().closeDialog(this);
 
         _isOpen = false;
@@ -122,8 +130,8 @@ namespace igor
 
         if (_headerEnabled)
         {
-            const int32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
-            setClientArea(0, 0, titleWidth, 0);
+            const int32 titleHeight = iWidgetManager::getInstance().getTheme()->getDialogTitleHeight();
+            setClientArea(0, 0, titleHeight, 0);
 
             const float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
             const int32 titleTextWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_title, fontSize));
@@ -205,22 +213,13 @@ namespace igor
             return;
         }
 
-        iaRectanglef rect = getActualRect();
-
-        iaRectanglef clientRect = rect;
-        clientRect.adjust(_clientAreaLeft, _clientAreaTop, -_clientAreaRight - _clientAreaLeft, -_clientAreaBottom - _clientAreaTop);
-
-        if (!isDocked())
-        {
-            iWidgetManager::getInstance().getTheme()->drawShadowRect(rect);
-        }
-
-        iWidgetManager::getInstance().getTheme()->drawDialog(rect, clientRect, _headerEnabled, _title, isResizeable(), getState(), isEnabled());
+        iWidgetManager::getInstance().getTheme()->draw(this);
 
         // store current render states
         const iaRectanglei viewport = iRenderer::getInstance().getViewport();
         const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
 
+        const iaRectanglef clientRect = getActualClientRect();
         iRenderer::getInstance().setViewport(clientRect._x, iWidgetManager::getInstance().getDesktopHeight() - clientRect._y - clientRect._height, clientRect._width, clientRect._height);
         iRenderer::getInstance().setOrtho(clientRect._x, clientRect._x + clientRect._width, clientRect._y + clientRect._height, clientRect._y, 0.1f, 10.0f);
 
@@ -263,7 +262,7 @@ namespace igor
         iWidgetManager::getInstance().putDialogInFront(this);
     }
 
-    bool iDialog::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iDialog::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -312,7 +311,7 @@ namespace igor
         return hasParent();
     }
 
-    bool iDialog::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iDialog::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         bool wasMoving = _moving;
         _moving = false;
@@ -340,6 +339,15 @@ namespace igor
                 return false;
             }
         }
+        else
+        {
+            if (isAcceptingDrop() &&
+                iWidgetManager::getInstance().inDrag())
+            {
+                onDrop(iWidgetManager::getInstance().getDrag(), event.getPosition());
+                return true;
+            }
+        }
 
         // get copy of children
         std::vector<iWidgetPtr> children = getChildren();
@@ -360,23 +368,24 @@ namespace igor
                 return true;
             }
 
-            if (event.getKey() == iKeyCode::MouseLeft ||
-                event.getKey() == iKeyCode::MouseRight)
+            if ((event.getKey() == iKeyCode::MouseLeft ||
+                 event.getKey() == iKeyCode::MouseRight) &&
+                _widgetState == iWidgetState::Pressed)
             {
-                if (_widgetState == iWidgetState::Pressed)
+                _widgetState = iWidgetState::Clicked;
+                setKeyboardFocus();
+
+                if (event.getKey() == iKeyCode::MouseLeft)
                 {
-                    _widgetState = iWidgetState::Clicked;
-                    setKeyboardFocus();
-
                     _click(this);
-
-                    if (event.getKey() == iKeyCode::MouseRight)
-                    {
-                        _contextMenu(this);
-                    }
-
-                    return true;
                 }
+
+                if (event.getKey() == iKeyCode::MouseRight)
+                {
+                    _contextMenu(this);
+                }
+
+                return true;
             }
         }
 
@@ -385,7 +394,7 @@ namespace igor
 
     iDialogMotionState iDialog::calcMotionState(const iaVector2f &pos)
     {
-        const float32 titleWidth = iWidgetManager::getInstance().getTheme()->getDialogTitleWidth();
+        const float32 titleHeight = iWidgetManager::getInstance().getTheme()->getDialogTitleHeight();
         const float32 frameWidth = iWidgetManager::getInstance().getTheme()->getDialogFrameWidth();
 
         if (!isMoveable())
@@ -395,7 +404,7 @@ namespace igor
 
         if (_headerEnabled)
         {
-            iaRectanglef header(_absoluteX, _absoluteY, _actualWidth, titleWidth);
+            iaRectanglef header(_absoluteX, _absoluteY, _actualWidth, titleHeight);
             if (iIntersection::intersects(pos, header))
             {
                 return iDialogMotionState::Moving;
@@ -504,7 +513,7 @@ namespace igor
         setCursor(cursorType);
     }
 
-    void iDialog::onMouseMove(iEventMouseMove &event)
+    void iDialog::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -538,6 +547,28 @@ namespace igor
             {
                 _widgetState = iWidgetState::Highlighted;
                 _mouseOver(this);
+
+                if (isAcceptingDrop() &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragEnter(iWidgetManager::getInstance().getDrag());
+                }
+            }
+            else
+            {
+                if (isAcceptingDrop() &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragMove(iWidgetManager::getInstance().getDrag(), event.getPosition());
+                }
+
+                if (isAcceptingDrag() &&
+                    iMouse::getInstance().getLeftButton() &&
+                    !iWidgetManager::getInstance().inDrag() &&
+                    _lastMousePressPos.distance(event.getPosition()) > 3.0)
+                {
+                    onDrag();
+                }
             }
 
             _isMouseOver = true;
@@ -577,6 +608,12 @@ namespace igor
             {
                 _widgetState = iWidgetState::Standby;
                 _mouseOff(this);
+
+                if (_acceptDrop &&
+                    iWidgetManager::getInstance().inDrag())
+                {
+                    onDragLeave(iWidgetManager::getInstance().getDrag());
+                }
             }
 
             _isMouseOver = false;
@@ -679,7 +716,7 @@ namespace igor
         return _acceptsESC;
     }
 
-    bool iDialog::onKeyDown(iEventKeyDown &event)
+    bool iDialog::onKeyDown(const iEventKeyDown &event)
     {
         if (iWidget::onKeyDown(event))
         {

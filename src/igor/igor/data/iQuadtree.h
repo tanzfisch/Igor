@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,14 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_QUADTREE__
-#define __IGOR_QUADTREE__
+#ifndef IGOR_QUADTREE_H
+#define IGOR_QUADTREE_H
 
-#include <igor/iDefines.h>
 #include <igor/data/iIntersection.h>
-
-#include <iaux/data/iaRectangle.h>
-#include <iaux/data/iaCircle.h>
 
 #include <algorithm>
 #include <memory>
@@ -159,7 +155,15 @@ namespace igor
 
         /*! \returns dimensions of quadtree
          */
-        const iaRectangle<F> &getRootBox() const;
+        const iaRectangle<F> &getArea() const;
+
+        /*! \returns split threshold
+        */
+        uint32 getSplitThreshold() const;
+
+        /*! \returns configured max depth of tree
+        */
+        uint32 getMaxDepth() const;
 
         using Object = iQuadtreeObject;
         using Node = iQuadtreeNode;
@@ -237,4 +241,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_QUADTREE__
+#endif // IGOR_QUADTREE_H

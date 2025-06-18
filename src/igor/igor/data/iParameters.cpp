@@ -1,12 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iParameters.h>
 
 #include <igor/data/iFrustum.h>
 #include <igor/renderer/utils/iRendererDefines.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>

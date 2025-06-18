@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,13 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_STRING__
-#define __IAUX_STRING__
+#ifndef IAUX_STRING_H
+#define IAUX_STRING_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector2.h>
-#include <iaux/math/iaVector3.h>
-#include <iaux/math/iaVector4.h>
+#include <iaux/math/iaQuaternion.h>
 #include <iaux/system/iaConsole.h>
 
 #include <ostream>
@@ -45,12 +44,12 @@ namespace iaux
      */
     enum class iaStringSplitMode
     {
-        Normal,
-        RetriveAllEmpties
+        Normal,           // ignores empties
+        RetriveAllEmpties // returns all empties
     };
 
     /*! wide char (unicode) character string with trailing zero and length
-    */
+     */
     class IAUX_API iaString
     {
 
@@ -108,23 +107,31 @@ namespace iaux
         /*! \returns size of data in bytes
          */
         int64 getSize() const;
-        
+
         /*! \returns hash value for current text
          */
         int64 getHashValue() const;
 
-        /*! change string to lower case letters
-         */
-        void toLower();
+        /*! \returns a lower case version of given string
 
-        /*! change string to upper case letters
+        \param text given string
          */
-        void toUpper();
+        static iaString toLower(const iaString &text);
 
-        /*! + operator concatanates two strings
+        /*! \returns an upper case version of given string
+
+        \param text given string
+         */
+        static iaString toUpper(const iaString &text);
+
+        /*! \returns a snake case version of given string
+         */
+        iaString toSnakeCase() const;
+
+        /*! + operator concatenates two strings
 
         \param text the string to add
-        \returns resulting concatanated string
+        \returns resulting concatenates string
         */
         iaString operator+(const iaString &text) const;
 
@@ -266,7 +273,7 @@ namespace iaux
         \param characters the characters to search for
         \param from optional parameter to define start index to search from
         */
-        int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;        
+        int64 findFirstOf(const iaString &characters, const int64 from = INVALID_POSITION) const;
 
         /*! \returns position of first occurrence of on of the specified characters
 
@@ -336,6 +343,12 @@ namespace iaux
         */
         int64 findLastNotOf(const wchar_t *characters) const;
 
+        /*! \returns first occurrence of givent text
+
+        \param text the given text
+        */
+        int64 find(const iaString &text) const;
+
         /*! empties the string
          */
         void clear();
@@ -401,7 +414,7 @@ namespace iaux
 
         \param value the integer value
         \param base the number base
-        \returns isString
+        \returns the string
         */
         static iaString toString(uint64 value, int base = 10);
 
@@ -409,7 +422,7 @@ namespace iaux
 
         \param value the integer value
         \param base the number base
-        \returns isString
+        \returns the string
         */
         static iaString toString(int64 value, int base = 10);
 
@@ -417,7 +430,7 @@ namespace iaux
 
         \param value the integer value
         \param base the number base
-        \returns isString
+        \returns the string
         */
         static iaString toString(int32 value, int base = 10);
 
@@ -425,7 +438,7 @@ namespace iaux
 
         \param value the integer value
         \param base the number base
-        \returns isString
+        \returns the string
         */
         static iaString toString(uint32 value, int base = 10);
 
@@ -433,7 +446,7 @@ namespace iaux
 
         \param value the float value
         \param afterPoint defines how many digits after the point
-        \returns isString
+        \returns the string
         */
         static iaString toString(float64 value, int afterPoint = 4);
 
@@ -441,9 +454,45 @@ namespace iaux
 
         \param value the float value
         \param afterPoint defines how many digits after the point
-        \returns isString
+        \returns the string
         */
         static iaString toString(float32 value, int afterPoint = 4);
+
+        /*! transforms a 2d vector to a iaString
+
+        \param vec the vector
+        \param afterPoint defines how many digits after the point for each component
+        \returns the string
+        */
+        template <class T>
+        static iaString toString(const iaVector2<T> &vec, int afterPoint = 4);
+
+        /*! transforms a 3d vector to a iaString
+
+        \param vec the vector
+        \param afterPoint defines how many digits after the point for each component
+        \returns the string
+        */
+        template <class T>
+        static iaString toString(const iaVector3<T> &vec, int afterPoint = 4);
+
+        /*! transforms a 4d vector to a iaString
+
+        \param vec the vector
+        \param afterPoint defines how many digits after the point for each component
+        \returns the string
+        */
+        template <class T>
+        static iaString toString(const iaVector4<T> &vec, int afterPoint = 4);
+
+        /*! transforms a quaternion to a iaString
+
+        \param vec the vector
+        \param afterPoint defines how many digits after the point for each component
+        \returns the string
+        */
+        template <class T>
+        static iaString toString(const iaQuaternion<T> &q, int afterPoint = 4);
 
         /*! human readabile number
 
@@ -474,7 +523,7 @@ namespace iaux
         /*! transforms a iaString to a uint64
 
         \param text the string
-        \param base the number base 
+        \param base the number base
         \returns value
         */
         static uint64 toUInt(const iaString &text, int base = 10);
@@ -542,16 +591,18 @@ namespace iaux
         /*! trims white spaces on the left hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimLeft(const iaString &text);
+        static iaString trimLeft(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on the right hand side
 
         \param text the source text
+        \param chars the characters to trim
         \returns the trimmed text
         */
-        static iaString trimRight(const iaString &text);
+        static iaString trimRight(const iaString &text, const iaString &chars = " \n\r\t\f\v");
 
         /*! trims white spaces on both ends of the string
 
@@ -632,47 +683,7 @@ namespace iaux
     */
     IAUX_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
 
-    template <class T>
-    void iaString::toVector(const iaString &text, iaVector2<T> &vector)
-    {
-        std::vector<iaString> tokens;
-        text.split(',', tokens);
-        con_assert(tokens.size() == 2, "invalid format");
-
-        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
-
-        vector.set(static_cast<T>(x), static_cast<T>(y));
-    }
-
-    template <class T>
-    void iaString::toVector(const iaString &text, iaVector3<T> &vector)
-    {
-        std::vector<iaString> tokens;
-        text.split(',', tokens);
-        con_assert(tokens.size() == 3, "invalid format");
-
-        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
-        float64 z = iaString::toFloat(iaString::trim(tokens[2]));
-
-        vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z));
-    }
-
-    template <class T>
-    void iaString::toVector(const iaString &text, iaVector4<T> &vector)
-    {
-        std::vector<iaString> tokens;
-        text.split(',', tokens);
-        con_assert(tokens.size() == 4, "invalid format");
-
-        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
-        float64 z = iaString::toFloat(iaString::trim(tokens[2]));
-        float64 w = iaString::toFloat(iaString::trim(tokens[4]));
-
-        vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
-    }
+#include <iaux/data/iaString.inl>
 
 } // namespace iaux
 
@@ -687,4 +698,4 @@ struct std::hash<iaux::iaString>
     }
 };
 
-#endif // __IAUX_STRING__
+#endif // IAUX_STRING_H

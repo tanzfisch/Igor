@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VIEW__
-#define __IGOR_VIEW__
+#ifndef IGOR_VIEW_H
+#define IGOR_VIEW_H
 
 #include <igor/iDefines.h>
 #include <igor/renderer/iRenderEngine.h>
+#include <igor/entities/iEntityScene.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
@@ -46,20 +47,26 @@ namespace igor
 
     class iWindow;
     class iPixmap;
-    class iScene;
-    class iNodeCamera;
     class iOctreeObject;
+    class iSkyBox;
 
-    /*! draw event triggered for every frame a view is rendered
-    */
-    IGOR_EVENT_DEFINITION(iDraw, void);
+    /*! render event triggered for every frame a view is rendered
+
+    This is called after render of the entity system
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iRender);
+
+    /*! pre render event triggered for every frame a view is rendered
+
+    This is called after pre render of the entity system
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iPreRender);
 
     /*! represents a view rectangle within a window and projection of the scene
 
     similar to what the combination of glViewport and glFrustum do
 
     \todo would be nice to have that again -> iPixmap* makeScreenshot(bool alphachannel=false);
-    \todo pre and post render event
     */
     class IGOR_API iView
     {
@@ -67,24 +74,43 @@ namespace igor
         friend class iWidgetViewport;
 
     public:
-    
-        /*! does nothing
-        */
-        iView() = default;
+        /*! init
+         */
+        iView();
 
-        /*! checks consistency
-        */
+        /*! does nothing
+         */
         virtual ~iView();
 
-        /*! sets the scene to be rendered with this view
+        /*! sets the entity scene to render with this view
 
-        \param scene scene to be rendered
+        \param entitySceneID entity scene ID to render
         */
-        void setScene(iScenePtr scene);
+        void setScene(const iEntitySceneID &entitySceneID);
 
-        /*! \returns scene to be rendered with this view
+        /*! sets the entity scene to render with this view
+
+        \param entityScene entity scene to render
         */
-        iScenePtr getScene();
+        void setScene(iEntityScenePtr entityScene);
+
+        /*! \returns scene ID
+         */
+        const iEntitySceneID &getSceneID() const;
+
+        /*! specifies a camera to override the active cam of the scene
+
+        camera is allowed to not be from the same scene as the view scene
+
+        \param camera camera entity to use
+        */
+        void setOverrideCamera(iEntityPtr camera);
+
+        /*! \returns effective camera
+
+        either the scene's active camera or the override camera if set
+        */
+        const iEntityPtr getCamera() const;        
 
         /*! sets name of view
 
@@ -93,24 +119,20 @@ namespace igor
         void setName(const iaString &name);
 
         /*! \returns name of the view
-        */
+         */
         const iaString &getName() const;
 
         /*! \returns aspect ratio
-        */
+         */
         float64 getAspectRatio() const;
 
-        /*! registers delegate to render event
+        /*! \returns render event
+         */
+        iRenderEvent &getRenderEvent();
 
-        \param renderDelegate delegate to register
-        */
-        void registerRenderDelegate(iDrawDelegate renderDelegate);
-
-        /*! unregister delegate from render event
-
-        \param renderDelegate delegate to unregister
-        */
-        void unregisterRenderDelegate(iDrawDelegate renderDelegate);
+        /*! \returns pre render event
+         */
+        iPreRenderEvent &getPreRenderEvent();
 
         /*! sets the view port within a window.
 
@@ -123,8 +145,8 @@ namespace igor
         void setViewportRelative(iaRectanglef rect);
 
         /*! \returns viewport in pixels
-        */
-        iaRectanglei getViewport() const;
+         */
+        const iaRectanglei& getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
 
@@ -155,7 +177,7 @@ namespace igor
         void setClearColorActive(bool active);
 
         /*! \returns true if color buffer will be cleared before render
-        */
+         */
         bool isClearColorActive() const;
 
         /*! sets if the viewport will be updated during draw call
@@ -165,7 +187,7 @@ namespace igor
         void setUpdateViewport(bool enabled);
 
         /*! \returns true if viewport will be updated before drawing
-        */
+         */
         bool isUpdatingViewport() const;
 
         /*! specifies the the color the color buffer will be cleared with
@@ -184,8 +206,8 @@ namespace igor
         void setClearColor(float32 r, float32 g, float32 b, float32 a);
 
         /*! \returns current clear color
-        */
-        const iaColor4f & getClearColor()const;
+         */
+        const iaColor4f &getClearColor() const;
 
         /*! sets the clear buffer bit.
 
@@ -194,7 +216,7 @@ namespace igor
         void setClearDepthActive(bool active);
 
         /*! \returns true if clear depth is active
-        */
+         */
         bool isClearDepthActive() const;
 
         /*! sets the clear depth value
@@ -204,7 +226,7 @@ namespace igor
         void setClearDepth(float32 depth);
 
         /*! \returns clear depth Value
-        */
+         */
         float32 getClearDepth() const;
 
         /*! sets view visible
@@ -214,7 +236,7 @@ namespace igor
         void setVisible(bool visible = true);
 
         /*! \returns true if view is visible
-        */
+         */
         bool isVisible() const;
 
         /*! shows all rendering in wireframe mode or normal mode
@@ -224,7 +246,7 @@ namespace igor
         void setWireframeVisible(bool wireframe = true);
 
         /*! \returns true if wireframe mode is active
-        */
+         */
         bool isWireframeVisible() const;
 
         /*! defines if bounding boxes are shown or not
@@ -234,7 +256,7 @@ namespace igor
         void setBoundingBoxVisible(bool boundingBox = true);
 
         /*! \returns true if bounding boxes are shown
-        */
+         */
         bool isBoundingBoxVisible() const;
 
         /*! defines if octree is shown or not
@@ -246,26 +268,32 @@ namespace igor
         void setOctreeVisible(bool octree = true);
 
         /*! \returns true if octree is shown
-        */
+         */
         bool isOctreeVisible() const;
-
-        /*! sets current camera by id
-
-        \param cameraID the camery id
-        */
-        void setCamera(iNodeID cameraID);
-
-        /*! \returns current camera id
-        */
-        iNodeID getCamera() const;
 
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)
-        \param modelMatrix the camera matrix to create the model view matrix from
         \returns unprojected position in object space
         */
-        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelMatrix);
+        iaVector3d unProject(const iaVector3d &screenpos);
+
+        /*! project world position to screen coordinates
+
+        \param worldSpacePos the position in world space to project
+        \returns projected screen position
+        */
+        iaVector3d project(const iaVector3d &worldSpacePos);
+
+        /*! unprojects screen position to object space
+
+        \param screenpos screen position in pixels (vertical origin is at top of window)
+        \param cameraMatrix the camera matrix to create the model view matrix from
+        \returns unprojected position in object space
+        */
+        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &cameraMatrix);
+
+        iaVector3d unProject(const iaVector3d &screenpos, iEntityPtr camera);
 
         /*! project world position to screen coordinates
 
@@ -283,20 +311,20 @@ namespace igor
         \param posy vertical position of point in pixel
         \returns color id at given point (results are only valid for IDs <= 0xFFFFFF in use)
         */
-        uint64 pickColorID(uint32 posx, uint32 posy);
+        iEntityID pickEntityID(uint32 posx, uint32 posy);
 
-        /*! same as pickColorID but with different parameters
+        /*! same as pickEntityID but with different parameters
 
         \param pos the position to pick a color from
         */
-        uint64 pickColorID(const iaVector2i& pos);
+        iEntityID pickEntityID(const iaVector2i &pos);
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
-        */
-        void pickColorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs);
+         */
+        void pickEntityID(const iaRectanglei &rectangle, std::vector<iEntityID> &entityIDs);
 
         /*! \returns the z index of this view
-        */
+         */
         int32 getZIndex() const;
 
         /*! \returns true if configure with perspective projection
@@ -305,57 +333,57 @@ namespace igor
         */
         bool isPerspective() const;
 
+        /*! \returns true if this view is embedded inside a widget
+         */
+        bool isEmbedded();
+
     private:
         /*! z index
-        */
+         */
         int32 _zIndex = 0;
 
         /*! visible flag
-        */
+         */
         bool _visible = true;
 
         /*! if true this view will be rendered in wireframe mode
-        */
+         */
         bool _wireframeEnabled = false;
 
         /*! views name
-        */
+         */
         iaString _name = "iView";
 
-        /*! scene that is currently bound with this view
-        */
-        iScenePtr _scene = nullptr;
-
         /*! size of parenting window in pixel
-        */
+         */
         iaRectanglei _windowRect;
 
         /*! the viewingport with values from 0.0-1.0 so it is independent form screen resolution
-        */
+         */
         iaRectanglef _viewportConfig = {0.0f, 0.0f, 1.0f, 1.0f};
 
         /*! viewport in pixel
-        */
+         */
         iaRectanglei _viewport;
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
-        */
+         */
         bool _clearColorActive = true;
 
         /*! if true viewport gets updated before drawing
-        */
+         */
         bool _updateViewport = true;
 
         /*! the color definition of the clear color step
-        */
+         */
         iaColor4f _clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
 
         /*! if true the depth buffer will be cleared with _clearDepth before every frame
-        */
+         */
         bool _clearDepthActive = true;
 
         /*! clear depth value
-        */
+         */
         float32 _clearDepth = 1.0;
 
         /*! if true rendering will use a perspective projection.
@@ -364,40 +392,60 @@ namespace igor
         bool _perspective = true;
 
         /*! left value used for orthogonal projection
-        */
+         */
         float64 _left = -1.0;
 
         /*! right value used for orthogonal projection
-        */
+         */
         float64 _right = 1.0;
 
         /*! top value used for orthogonal projection
-        */
+         */
         float64 _top = 1.0;
 
         /*! bottom value used for orthogonal projection
-        */
+         */
         float64 _bottom = -1.0;
 
         /*! field of view
-        */
-        float64 _viewAngel = 45.0;
+         */
+        float64 _fieldOfView = 45.0;
 
         /*! distance from camera to near clipping plane
-        */
-        float64 _nearPlaneDistance = 1.0;
+         */
+        float64 _nearPlane = 1.0;
 
         /*! distance from camera to far clipping plane
-        */
-        float64 _farPlaneDistance = 10000.0;
+         */
+        float64 _farPlane = 10000.0;
 
-        /*! event called one per render frame
-        */
-        iDrawEvent _renderEvent;
+        /*! event called last per render frame
+         */
+        iRenderEvent _renderEvent;
 
-        /*! render engine that turns a scene in to something visible
-        */
+        /*! event called before render
+         */
+        iPreRenderEvent _preRenderEvent;
+
+        /*! render engine
+         */
         iRenderEngine _renderEngine;
+
+        /*! entity scene to render
+         */
+        iEntitySceneID _entitySceneID = iEntitySceneID::getInvalid();
+
+        /*! if true view behaves as it was embedded in a widget
+         */
+        bool _embedded = false;
+
+        /*! override camera id
+         */
+        iEntityID _overrideCameraID = iEntityID::getInvalid();
+
+        /*! override camera scene id
+         */
+        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();  
 
         /*! sets the z index of this view. will be used by window to determine the render order
 
@@ -406,20 +454,30 @@ namespace igor
         void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
-        */
-        void draw();
+         */
+        void onRender();
 
         /*! updates window rectangle
 
         \param windowRect the new window rectangle
         */
         void updateWindowRect(const iaRectanglei &windowRect);
+
+        /*! tells the view that it is rendered embedded inside a widget
+
+        \param embedded if true this view will behave as it was embedded in a widget
+        */
+        void setEmbedded(bool embedded);
+
+        /*! setup camera for render
+         */
+        void setupCamera();
     };
 
     /*! view pointer definition
-    */
+     */
     typedef iView *iViewPtr;
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_VIEW_H

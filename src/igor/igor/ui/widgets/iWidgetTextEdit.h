@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETTEXTEDIT__
-#define __IGOR_WIDGETTEXTEDIT__
+#ifndef IGOR_WIDGET_TEXT_EDIT_H
+#define IGOR_WIDGET_TEXT_EDIT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -37,38 +37,38 @@ namespace igor
     /*! text edit widget
 
     for now non interactive
-	*/
+    */
     class IGOR_API iWidgetTextEdit : public iWidget
     {
 
     public:
         /*! initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetTextEdit(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetTextEdit() = default;
 
         /*! sets the text
 
-		\param text the text to be set
-		*/
+        \param text the text to be set
+        */
         void setText(const iaString &text);
 
         /*! \returns the text
-		*/
+         */
         const iaString &getText() const;
 
     private:
         /*! the text
-		*/
+         */
         iaString _text;
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
 
         /*! draws the widget
@@ -77,9 +77,9 @@ namespace igor
     };
 
     /*! text widget pointer definition
-    */
-    typedef iWidgetTextEdit* iWidgetTextEditPtr;
+     */
+    typedef iWidgetTextEdit *iWidgetTextEditPtr;
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETTEXTEDIT__
+#endif // IGOR_WIDGET_TEXT_EDIT_H

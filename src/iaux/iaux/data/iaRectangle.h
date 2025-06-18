@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RECTANGLE__
-#define __IAUX_RECTANGLE__
+#ifndef IAUX_RECTANGLE_H
+#define IAUX_RECTANGLE_H
 
 #include <iaux/math/iaVector2.h>
 
@@ -128,7 +128,7 @@ namespace iaux
         \param x x component of the new center
         \param y y component of the new center
         */
-        void setCenter(T x, T y);        
+        void setCenter(T x, T y);
 
         /*! sets center of rectangle without changing it's size
 
@@ -159,7 +159,7 @@ namespace iaux
 
         /*! \returns top right corner of rectangle
          */
-        const iaVector2<T> getTopRight() const;        
+        const iaVector2<T> getTopRight() const;
 
         /*! \returns bottom left corner of rectangle
          */
@@ -167,7 +167,11 @@ namespace iaux
 
         /*! \returns bottom right corner of rectangle
          */
-        const iaVector2<T> getBottomRight() const;        
+        const iaVector2<T> getBottomRight() const;
+
+        /*! \returns size of rectangle
+         */
+        const iaVector2<T> getSize() const;
 
         /*! sets horizontal position
 
@@ -221,14 +225,14 @@ namespace iaux
         \param other the other rectangle
         \returns true if both rectangles are equal
         */
-        bool operator==(const iaRectangle<T> &other) const;       
+        bool operator==(const iaRectangle<T> &other) const;
 
         /*! compares two rectangles
 
         \param other the other rectangle
         \returns true if rectangles are not equal
         */
-        bool operator!=(const iaRectangle<T> &other) const;            
+        bool operator!=(const iaRectangle<T> &other) const;
     };
 
 #include <iaux/data/iaRectangle.inl>
@@ -250,4 +254,4 @@ namespace iaux
     typedef iaRectangle<int64> iaRectangleI;
 }; // namespace igor
 
-#endif // __IAUX_RECTANGLE__
+#endif // IAUX_RECTANGLE_H

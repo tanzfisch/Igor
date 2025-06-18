@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
@@ -51,7 +51,7 @@ namespace igor
     void iNodeVisitorRenderColorID::preTraverse()
     {
         _currentMatrix.identity();
-        iRenderer::getInstance().setShaderMaterial(iRenderer::getInstance().getColorIDMaterial());
+        iRenderer::getInstance().setShader(iRenderer::getInstance().getColorIDMaterial());
     }
 
     void iNodeVisitorRenderColorID::postTraverse()

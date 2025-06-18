@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/threading/iTaskManager.h>
@@ -8,7 +8,7 @@
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/system/iWindow.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/config/iConfig.h>
 
 #include <iaux/system/iaConsole.h>
 
@@ -24,9 +24,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxThreads");
+            const iaString max = iConfig::getInstance().getValue("igor.maxThreads");
 
             if (max != "Max")
             {
@@ -34,9 +34,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minThreads"))
+        if (iConfig::getInstance().hasValue("igor.minThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("igor.minThreads");
         }
 
         return std::max(minThreads, maxThreads);
@@ -199,9 +199,9 @@ namespace igor
         int64 minThreads = 1;
         int64 maxThreads = std::thread::hardware_concurrency();
 
-        if (iConfigReader::getInstance().hasSetting("maxRenderContextThreads"))
+        if (iConfig::getInstance().hasValue("igor.maxRenderContextThreads"))
         {
-            const iaString max = iConfigReader::getInstance().getValue("maxRenderContextThreads");
+            const iaString max = iConfig::getInstance().getValue("igor.maxRenderContextThreads");
 
             if (max != "Max")
             {
@@ -209,9 +209,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("minRenderContextThreads"))
+        if (iConfig::getInstance().hasValue("igor.minRenderContextThreads"))
         {
-            minThreads = iConfigReader::getInstance().getValueAsInt("minRenderContextThreads");
+            minThreads = iConfig::getInstance().getValueAsInt("igor.minRenderContextThreads");
         }
 
         return std::max(minThreads, maxThreads);

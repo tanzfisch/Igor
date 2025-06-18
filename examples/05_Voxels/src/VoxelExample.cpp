@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "VoxelExample.h"
@@ -75,10 +75,10 @@ void VoxelExample::initScene()
     // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    iShaderMaterialPtr skyboxShader = iResourceManager::getInstance().loadResource<iShaderMaterial>("igor_shader_material_skybox");
+    iShaderPtr skyboxShader = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_skybox");
     iParameters paramSkybox({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
                              {IGOR_RESOURCE_PARAM_GENERATE, true},
-                             {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, skyboxShader},
+                             {IGOR_RESOURCE_PARAM_SHADER, skyboxShader},
                              {IGOR_RESOURCE_PARAM_TEXTURE0, iResourceManager::getInstance().requestResource<iTexture>("example_texture_skybox_stars")}});
     iMaterialPtr materialSkyBox = iResourceManager::getInstance().loadResource<iMaterial>(paramSkybox);
 
@@ -88,7 +88,7 @@ void VoxelExample::initScene()
     getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
-    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iShaderMaterial>("example_material_voxel_terrain_directional_light");
+    _voxelMeshMaterial = iResourceManager::getInstance().loadResource<iShader>("example_material_voxel_terrain_directional_light");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -237,14 +237,15 @@ void VoxelExample::prepareMeshGeneration()
     _voxelMeshModel = voxelMeshModel->getID();
 
     // tell the model node to load data with specified parameters
-    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMesh") + iaString::toString(_incarnation++)},
+    // add an index for incarnation so the resource manager understands that this is a new resource and not an existing one
+    iParameters parameters({{IGOR_RESOURCE_PARAM_ALIAS, iaString("VoxelMeshExample") + iaString::toString(_incarnation++)},
                             {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MODEL},
                             {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                             {IGOR_RESOURCE_PARAM_SUB_TYPE, "example.vtg"},
                             {IGOR_RESOURCE_PARAM_GENERATE, true},
                             {IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
                             {IGOR_RESOURCE_PARAM_KEEP_MESH, true},
-                            {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, _voxelMeshMaterial},
+                            {IGOR_RESOURCE_PARAM_SHADER, _voxelMeshMaterial},
                             {"voxelData", _voxelData}});
 
     iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(parameters);
@@ -319,7 +320,7 @@ bool VoxelExample::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::F4:
-        iModelFactory::exportToFile("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"));
+        iModelFactory::exportToFile("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), iSaveMode::EmbedExternals);
         return true;
     }
 
@@ -349,4 +350,15 @@ bool VoxelExample::onMouseMoveEvent(iEventMouseMove &event)
     }
 
     return false;
+}
+
+iaString VoxelExample::getHelpString()
+{
+    iaString help = "\n"
+                    "[F4] export current scene";
+
+    iaString result = ExampleBase::getHelpString();
+    result += help;
+
+    return result;
 }

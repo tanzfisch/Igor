@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,53 +26,103 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ENTITY_SYSTEM_MODULE__
-#define __IGOR_ENTITY_SYSTEM_MODULE__
+#ifndef IGOR_ENTITY_SYSTEM_MODULE_H
+#define IGOR_ENTITY_SYSTEM_MODULE_H
 
 #include <igor/resources/module/iModule.h>
 
 #include <igor/entities/iEntityScene.h>
+#include <igor/resources/prefab/iPrefab.h>
 
-#include <iaux/system/iaMutex.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
-
-#include <vector>
+#include <unordered_map>
 
 namespace igor
 {
+    /*! event called after creation of new entity
+     */
+    IGOR_EVENT_DEFINITION(iCreatedEntity, iEntityPtr);
+
+    /*! event called before destruction of given entity
+     */
+    IGOR_EVENT_DEFINITION(iDestroyEntity, iEntityPtr);
+
+    /*! event called after entity has changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityChanged, iEntityPtr);    
+
+    /*! event called when hierarchy of given scene has changed
+     */
+    IGOR_EVENT_DEFINITION(iHierarchyChanged, iEntityScenePtr);
+
+    /*! event called when entity name changed
+     */
+    IGOR_EVENT_DEFINITION(iEntityNameChanged, iEntityPtr);
 
     /*! entity system module
-
-    manages and updates all entity systems created
-    */
+     */
     class IGOR_API iEntitySystemModule : public iModule<iEntitySystemModule>
     {
 
         friend class iModule<iEntitySystemModule>;
+        friend class iEntity;
 
     public:
         /*! creates a scene and returns it
 
+        ownership of scenes always stay with module
+
+        \param name the name of the scene
+        \param id optional id to override the generated one
+        \param addIgorSystems if true adds all default igor systems to it. if false there will be no systems added to this scene
         \returns new created scene
         */
-        iEntityScenePtr createScene();
+        iEntityScenePtr createScene(const iaString &name = "", const iEntitySceneID &id = iEntitySceneID::getInvalid(), bool addIgorSystems = true);
+
+        /*! \returns scene for given scene id
+
+        \param sceneID the given id
+        */
+        iEntityScenePtr getScene(const iEntitySceneID &sceneID);
+
+        /*! insert copy of prefab at given entity
+
+        This copies entities recursively
+
+        \param prefab the source scene or prefab to insert
+        \param entity the entity inside the destination scene
+        */
+        void insert(iPrefabPtr prefab, iEntityPtr dstEntity);
+
+        /*! insert copy of entity at given entity 
+
+        This copies entities recursively
+
+        \param srcEntity the entity to copy
+        \param dstEntity the entity to copy to
+        */
+        void insert(iEntityPtr srcEntity, iEntityPtr dstEntity);
+
+        /*! destroys scene with given id
+
+        \param sceneID the given scene id
+        */
+        void destroyScene(const iEntitySceneID &sceneID);
 
         /*! updates all scenes and cleans up scene lists
          */
         void onUpdate();
 
-        /*! renders all scenes
+        /*! triggers pre render update stage with given scene
+
+        \param scene the given scene to update/render
          */
-        void onRender(float32 clientWidth, float32 clientHeight);
+        void onPreRender(iEntityScenePtr scene);
 
-        /*! starts/continues the entity systems to run
-        */
-        void start();
+        /*! triggers render update stage with given scene
 
-        /*! stops the entity system to run (except rendering)
-        */
-        void stop();
+        \param scene the given scene to update/render
+         */
+        void onRender(iEntityScenePtr scene);
 
         /*! set's the simulation rate in Hz
 
@@ -83,40 +133,151 @@ namespace igor
         void setSimulationRate(float64 simulationRate);
 
         /*! \returns simulation rate
+         */
+        float64 getSimulationRate();
+
+        /*! registers a component type
+
+        \param factoryFunction factory function returning instance of given component
+        \param componentTypeName component type name (must be unique)
+         */
+        template <typename T>
+        void registerComponentType(iEntityComponentFactory factoryFunction, const iaString &componentTypeName);
+
+        /*! registers a system type
+
+        \param factoryFunction factory function returning instance of given system
+        \param systemTypeName system type name (must be unique)
+         */
+        void registerSystemType(iEntitySystemFactory factoryFunction, const iaString &systemTypeName);
+
+        /*! \returns newly created system instance
+
+        \param systemTypeName type of system to create
+
+        caller takes ownership
         */
-        float64 getSimulationRate();        
+        iEntitySystemPtr createSystem(const iaString &systemTypeName) const;
+
+        /*! \returns mask for given component type
+
+        \param typeID the given component type
+        */
+        iEntityComponentMask getComponentMask(const std::type_index &typeID);
+
+        /*! activates given scene
+
+        \param scene the given scene to activate
+        */
+        void activateScene(iEntityScenePtr scene);
+
+        /*! deactivates given scene
+
+        \param scene the given scene to deactivate
+        */
+        void deactivateScene(iEntityScenePtr scene);
+
+        /*! \returns all active scenes
+         */
+        std::vector<iEntityScenePtr> getActiveScenes();
+
+        /*! \returns all inactive scenes
+         */
+        std::vector<iEntityScenePtr> getInactiveScenes();
+
+        /*! \returns entity got created event
+         */
+        iCreatedEntityEvent &getCreatedEntityEvent();
+
+        /*! \returns entity will be destroyed event
+         */
+        iDestroyEntityEvent &getDestroyEntityEvent();
+
+        /*! \returns entity changed event
+        */
+        iEntityChangedEvent &getEntityChangedEvent();
+
+        /*! \returns hierarchy changed event
+         */
+        iHierarchyChangedEvent &getHierarchyChangedEvent();
+
+        /*! \returns entity name changed event
+         */
+        iEntityNameChangedEvent &getEntityNameChangedEvent();
+
+        /*! clear everything
+         */
+        void clear();
+
+        /*! \returns registered component types
+         */
+        const std::unordered_map<std::type_index, iEntityComponentTypeInfo> &getRegisteredComponentTypes() const;
+
+        /*! \returns registered system types
+        */
+        const std::unordered_map<iaString, iEntitySystemTypeInfo> &getRegisteredSystemTypes() const;
 
     private:
-        /*! mutex to safeguard entity scene list
+        /*! entity scenes
+         */
+        std::unordered_map<iEntitySceneID, iEntityScenePtr> _scenes;
+
+        /*! active entity scenes
+         */
+        std::vector<iEntityScenePtr> _activeScenes;
+
+        /*! inactive entity scenes
+         */
+        std::vector<iEntityScenePtr> _inactiveScenes;
+
+        /*! mutex protecting all data
          */
         iaMutex _mutex;
 
-        /*! entity scenes
-         */
-        std::vector<iEntityScenePtr> _scenes;
-
         /*! simulation rate in Hz
-        */
-        float64 _simulationRate = 60.0;        
-
-        /*! if true entity system is running
-
-        render is always running
-        */
-        bool _running = true;
+         */
+        float64 _simulationRate = 60.0;
 
         /*! simulation frame time
-        */
+         */
         iaTime _simulationFrameTime;
 
-        /*! does nothing
+        /*! event triggered when entity got created
          */
-        iEntitySystemModule() = default;
+        iCreatedEntityEvent _createdEntityEvent;
 
-        /*! does nothing
+        /*! event triggered when entity changed
+        */
+       iEntityChangedEvent _entityChangeEvent;
+
+        /*! event triggered before entity get's destroyed
          */
-        ~iEntitySystemModule() = default;
+        iDestroyEntityEvent _destroyEntityEvent;
+
+        /*! the hierarchy changed event
+         */
+        iHierarchyChangedEvent _hierarchyChangedEvent;
+
+        /*! entity name changed event
+         */
+        iEntityNameChangedEvent _entityNameChangedEvent;
+
+        /*! the registered component types
+
+        IGOR_MAX_ENTITY_COMPONENT_TYPES is the maximum that can be registered
+        */
+        std::unordered_map<std::type_index, iEntityComponentTypeInfo> _registeredComponentTypes;
+
+        /*! registered systems
+        */
+        std::unordered_map<iaString, iEntitySystemTypeInfo> _registeredSystemTypes;
+
+        /*! register known types
+         */
+        iEntitySystemModule();
     };
+
+#include <igor/entities/iEntitySystemModule.inl>
 
 } // namespace igor
 

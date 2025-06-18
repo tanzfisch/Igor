@@ -8,23 +8,23 @@ using namespace iaux;
 IAUX_TEST(FileDirTests, Initial)
 {
     iaDirectory dir("");
-    IAUX_EXPECT_EQUAL(dir.getFullDirectoryName().isEmpty(), true);
+    IAUX_EXPECT_EQUAL(dir.getAbsoluteDirectoryName().isEmpty(), true);
 }
 
 #ifdef IGOR_LINUX
 IAUX_TEST(FileDirTests, FixPathLinux)
 {
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/bar", false), "/foo/bar");
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/blue/../bar", false), "/foo/bar");
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/blue/../bar.txt", true), "/foo/bar.txt");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/bar"), "/foo/bar");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/blue/../bar"), "/foo/bar");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"/foo/blue/../bar.txt"), "/foo/bar.txt");
 }
 #endif
 
 #ifdef IGOR_WINDOWS
 IAUX_TEST(FileDirTests, FixPathWindows)
 {
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\bar", false), "c:\\foo\\bar");
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\blue\\..\\bar", false), "c:\\foo\\bar");
-    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\blue\\..\\bar.txt", true), "c:\\foo\\bar.txt");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\bar"), "c:\\foo\\bar");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\blue\\..\\bar"), "c:\\foo\\bar");
+    IAUX_EXPECT_EQUAL(iaDirectory::fixPath(L"c:\\foo\\blue\\..\\bar.txt"), "c:\\foo\\bar.txt");
 }
 #endif

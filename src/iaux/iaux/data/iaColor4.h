@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2023 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_COLOR4__
-#define __IAUX_COLOR4__
+#ifndef IAUX_COLOR4_H
+#define IAUX_COLOR4_H
 
 #include <iaux/iaDefines.h>
 
@@ -118,6 +118,10 @@ namespace iaux
         */
         void operator*(float32 factor);
 
+        /*! \returns random color (opaque)
+        */
+        static iaColor4<T> random();
+
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> lightGray;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> gray;
@@ -134,7 +138,7 @@ namespace iaux
 
 #include <iaux/data/iaColor4.inl>
 
-    /*! stream operator e.g. for cosole output
+    /*! stream operator e.g. for console output
 
     \param ostr the out stream handle
     \param color the color to print in stream
@@ -152,4 +156,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_COLOR4__
+#endif // IAUX_COLOR4_H

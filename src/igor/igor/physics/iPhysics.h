@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -425,11 +425,11 @@ namespace igor
         */
         std::map<uint64, iPhysicsCollision *> _collisions;
 
-        /*! list of bodys
+        /*! list of bodies
         */
         std::map<uint64, iPhysicsBody *> _bodies;
 
-        /*! list of bodys to delete
+        /*! list of bodies to delete
         */
         std::vector<iPhysicsBody *> _bodiesToDelete;
 
@@ -437,7 +437,7 @@ namespace igor
         */
         iaMutex _mutexBodiesToDelete;
 
-        /*! list of bodys to transform
+        /*! list of bodies to transform
         */
         std::vector<std::pair<iPhysicsBody *, iaMatrixd>> _bodiesToTransform;
 
@@ -452,7 +452,7 @@ namespace igor
             iPhysicsBody *_body2;
         };
 
-        /*! list of contacts to trigger
+        /*! queue of contacts to trigger
         */
         std::vector<Contact> _bodyContacts;
 
@@ -608,11 +608,11 @@ namespace igor
         */
         void createDefaultMaterial();
 
-        /*! destroyes default material
+        /*! destroys default material
 		*/
         void destroyDefaultMaterial();
 
-        /*! destroyes all materials
+        /*! destroys all materials
         */
         void destroyMaterials();
 
@@ -689,11 +689,11 @@ namespace igor
 
         /*! update newton calculations
         */
-        void handle();
+        void onUpdate();
 
         /*! handles queues like deleting stuff moving stuff etc.
         */
-        void handleQueues();
+        void onUpdateQueues();
 
         /*! initializes newton world
         */

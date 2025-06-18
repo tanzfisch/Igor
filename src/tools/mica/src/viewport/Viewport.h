@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,33 +26,30 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __VIEWPORT__
-#define __VIEWPORT__
+#ifndef MICA_VIEWPORT_H
+#define MICA_VIEWPORT_H
 
-#include "../Workspace.h"
-#include "overlay/NodeOverlay.h"
+#include "overlay/EntityOverlay.h"
+#include "camera/CameraArc.h"
 
+/*! Mica's viewport dialog
+ */
 class Viewport : public iDialog
 {
-
     friend class iWidgetManager;
 
 public:
     /*! init
      */
-    Viewport(WorkspacePtr workspace);
+    Viewport();
 
     /*! deinit
      */
     ~Viewport();
 
-    void setCamera(iNodeID cameraID);
-    iNodeID getCamera() const;
+    /*! sets the manipulator mode on currently selected entity
 
-    /*! sets the manipulator mode on currently selected node
-    but only if it is a transform node otherwise its set to none
-
-    \param modifierMode the modifier mode to set
+    \param overlayMode the modifier mode to set
     */
     void setOverlayMode(OverlayMode overlayMode);
 
@@ -61,7 +58,7 @@ public:
     OverlayMode getOverlayMode() const;
 
 private:
-    /*! viewport to display workspace scene
+    /*! viewport to display scene
      */
     iWidgetViewportPtr _viewportScene = nullptr;
 
@@ -69,46 +66,57 @@ private:
      */
     iWidgetViewportPtr _viewportOverlay = nullptr;
 
-    /*! the workspace
+    /*! overlay scene id
      */
-    WorkspacePtr _workspace;
+    iEntitySceneID _overlaySceneID;
 
-    /*! cel shading material for selecting nodes in the scene
+    /*! cel shading material for selecting entities in the scene
      */
-    iShaderMaterialPtr _materialCelShading;
+    iShaderPtr _materialCelShading;
 
     /*! material for bounding box display
      */
-    iShaderMaterialPtr _materialBoundingBox;
+    iShaderPtr _materialBoundingBox;
 
     /*! material for orientation plane
      */
-    iShaderMaterialPtr _materialOrientationPlane;
+    iShaderPtr _materialOrientationOverlay;
 
-    /*! the scene for the overlay
+    /*! entity overlays
      */
-    iScenePtr _overlayScene;
-
-    /*! node overlays
-     */
-    std::vector<NodeOverlayPtr> _nodeOverlays;
-
-    // TODO need to handle light differently
-    iNodeTransform *_directionalLightTranslate = nullptr;
-    iNodeTransform *_directionalLightRotate = nullptr;
-    iNodeLight *_lightNode = nullptr;
-
-    /*! last mouse position
-     */
-    iaVector2f _lastMousePos;
+    std::vector<EntityOverlayPtr> _entityOverlays;
 
     /*! overlay mode
      */
     OverlayMode _overlayMode = OverlayMode::None;
 
-    /*! selected node
+    /*! the context menu
      */
-    iNodePtr _selectedNode = nullptr;
+    iDialogMenu _contextMenu;
+
+    /*! camera arc controller
+     */
+    std::unique_ptr<CameraArc> _cameraArc;
+
+    /*! if true render grid overlay
+     */
+    bool _renderOverlayGrid = true;
+
+    /*! if true render XYZ overlay
+     */
+    bool _renderOverlayXYZ = true;
+
+    /*! grid button
+     */
+    iWidgetButtonPtr _buttonGrid = nullptr;
+
+    /*! xyz button
+     */
+    iWidgetButtonPtr _buttonXYZ = nullptr;
+
+    /*! bounds button
+     */
+    iWidgetButtonPtr _buttonBounds = nullptr;
 
     /*! handles incoming generic event
 
@@ -116,60 +124,56 @@ private:
     */
     bool onEvent(iEvent &event) override;
 
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
-
     /*! handles pressed key event
 
     \param key the pressed key
     */
-    bool onKeyDown(iEventKeyDown &event) override;
+    bool onKeyDown(const iEventKeyDown &event) override;
 
     /*! handles mouse key up events
 
     \param event the mouse key up event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+    bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
     /*! handles incoming mouse key down events
 
     \param event mouse key down event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    virtual bool onMouseKeyDown(iEventMouseKeyDown &event);
+    virtual bool onMouseKeyDown(const iEventMouseKeyDown &event);
 
     /*! handles incoming mouse move events
 
     \param event mouse move event
     */
-    void onMouseMove(iEventMouseMove &event) override;
+    void onMouseMove(const iEventMouseMove &event) override;
 
     /*! handles incoming mouse wheel event
 
     \param event mouse wheel event
     \returns true: if event was consumed and therefore ignored by the parent
     */
-    bool onMouseWheel(iEventMouseWheel &event) override;
+    bool onMouseWheel(const iEventMouseWheel &event) override;
 
     /*! draws the widget
      */
     void draw() override;
 
+    /*! \returns entityID at given screen position
+    \param x horizontal screen position
+    \param y vertical screen position
+    */
+    iEntityID getEntityIDAt(int32 x, int32 y);
+
     /*! \returns node at given screen position
     \param x horizontal screen position
     \param y vertical screen position
     */
-    iNodePtr getNodeAt(int32 x, int32 y);
+    // TODO getEntityAt // iNodePtr getNodeAt(int32 x, int32 y);
 
-    /*! initialize basic scene
-     */
-    void initScene();
-
-    /*! frame viewport on selected nodes
+    /*! frame viewport on selected entities
      */
     void frameOnSelection();
 
@@ -185,25 +189,65 @@ private:
      */
     void renderSelection();
 
-    /*! render the orientation plane
+    /*! render the orientation overlay grid
      */
-    void renderOrientationPlane();
+    void renderOverlayGrid();
 
-    /*! checks overlays for candidates that accept current mode node combination
+    /*! render the orientation overlay XYZ
      */
-    void updateAcceptance();
+    void renderOverlayXYZ();
 
     /*! drag move handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
     void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
 
     /*! drop handle
 
     \param drag the drag data
+    \param mousePos the current mouse pos
     */
-    void onDrop(const iDrag &drag) override;
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! called when a resource was loaded
+     */
+    void onResourceLoaded(const iResourceID resourceID);
+
+    /*! called when project was loaded
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! called when project was unloaded
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
+
+    /*! handles context menu call
+
+    \param source the event source
+    */
+    void onContextMenu(iWidgetPtr source);
+
+    /*! change camera
+     */
+    void onChangeCamera(iWidgetPtr source);
+
+    /*! on grid button click
+     */
+    void onGridClick(iWidgetPtr source);
+
+    /*! on xyz button click
+     */
+    void onXYZClick(iWidgetPtr source);
+
+    /*! on bounds button click
+     */
+    void onBoundsClick(iWidgetPtr source);
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
-#endif // __VIEWPORT__
+#endif // MICA_VIEWPORT_H

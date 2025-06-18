@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -126,6 +126,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a08b70e9a09c9c6774ac682c277bd96c1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_u_u_i_d.html#a08b70e9a09c9c6774ac682c277bd96c1">getInvalid</a> ()</td></tr>
 <tr class="separator:a08b70e9a09c9c6774ac682c277bd96c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1b7172c142a8f28575740974c92df9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_u_u_i_d.html#a7a1b7172c142a8f28575740974c92df9">getMarked</a> ()</td></tr>
+<tr class="separator:a7a1b7172c142a8f28575740974c92df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d2a7bc77d8c2669575f9a43cba5d0bb"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_u_u_i_d.html#a2d2a7bc77d8c2669575f9a43cba5d0bb">isUUID</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
 <tr class="separator:a2d2a7bc77d8c2669575f9a43cba5d0bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -146,7 +148,13 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >init valid random value </p>
+<p >init valid random value</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mark</td><td>if true this id gets an 0xFF mark so we can recognize it later </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -250,6 +258,32 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>invalid uuid </dd></dl>
+
+</div>
+</div>
+<a id="a7a1b7172c142a8f28575740974c92df9" name="a7a1b7172c142a8f28575740974c92df9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1b7172c142a8f28575740974c92df9">&#9670;&nbsp;</a></span>getMarked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a> iaux::iaUUID::getMarked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>an id with a mark on it </dd></dl>
 
 </div>
 </div>
@@ -461,8 +495,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_u_u_i_d_8h.html">iaUUID.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_u_u_i_d_8cpp.html">iaUUID.cpp</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_u_u_i_d_8h.html">iaUUID.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/data/<a class="el" href="ia_u_u_i_d_8cpp.html">iaUUID.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

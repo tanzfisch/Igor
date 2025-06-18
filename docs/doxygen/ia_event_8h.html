@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/iaux/iaux/system/iaEvent.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/iaux/iaux/system/iaEvent.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -89,21 +89,22 @@ $(document).ready(function(){initNavTree('ia_event_8h.html',''); initResizable()
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">iaEvent.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_delegate.html">iaux::iaDelegate&lt; R, Args &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_return_handler.html">iaux::iaEventReturnHandler&lt; R, Args &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_return_handler_3_01void_00_01_args_8_8_8_01_4.html">iaux::iaEventReturnHandler&lt; void, Args... &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_pool.html">iaux::iaEventPool</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html">iaux::iaEvent&lt; R, Args &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,6 +118,15 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:ad3bc2bf930f3a10e2eb42f53921aecda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_event_8h.html#ad3bc2bf930f3a10e2eb42f53921aecda">IGOR_EVENT_DEFINITION</a>(NAME, ...)</td></tr>
 <tr class="separator:ad3bc2bf930f3a10e2eb42f53921aecda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457d00af94937301a443ac4b7957ab73"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_event_8h.html#a457d00af94937301a443ac4b7957ab73">IGOR_DELEGATE_DEFINITION</a>(NAME, ...)&#160;&#160;&#160;    typedef iaDelegate&lt;void, __VA_ARGS__&gt; NAME##Delegate;</td></tr>
+<tr class="separator:a457d00af94937301a443ac4b7957ab73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eb9b5097cdbb0f113a4e91883ad8811"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_event_8h.html#a0eb9b5097cdbb0f113a4e91883ad8811">IGOR_EVENT_DEFINITION_NO_ARGS</a>(NAME)</td></tr>
+<tr class="separator:a0eb9b5097cdbb0f113a4e91883ad8811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4ba25cc6e4de039d1bde494f3d653232"><td class="memItemLeft" align="right" valign="top">typedef iaDelegate&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a4ba25cc6e4de039d1bde494f3d653232">iaux::iaEventPoolDelegate</a></td></tr>
+<tr class="separator:a4ba25cc6e4de039d1bde494f3d653232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -125,6 +135,34 @@ Functions</h2></td></tr>
 <tr class="separator:ac2868399805db6aa51c9700d850e3ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a457d00af94937301a443ac4b7957ab73" name="a457d00af94937301a443ac4b7957ab73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a457d00af94937301a443ac4b7957ab73">&#9670;&nbsp;</a></span>IGOR_DELEGATE_DEFINITION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IGOR_DELEGATE_DEFINITION</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NAME, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;    typedef iaDelegate&lt;void, __VA_ARGS__&gt; NAME##Delegate;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad3bc2bf930f3a10e2eb42f53921aecda" name="ad3bc2bf930f3a10e2eb42f53921aecda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3bc2bf930f3a10e2eb42f53921aecda">&#9670;&nbsp;</a></span>IGOR_EVENT_DEFINITION</h2>
 
@@ -150,8 +188,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">typedef</span> iaEvent&lt;__VA_ARGS__&gt; NAME##Event; \</div>
-<div class="line">    typedef iaDelegate&lt;__VA_ARGS__&gt; NAME##Delegate;</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">typedef</span> iaEvent&lt;void, __VA_ARGS__&gt; NAME##Event; \</div>
+<div class="line">    typedef iaDelegate&lt;void, __VA_ARGS__&gt; NAME##Delegate;</div>
 </div><!-- fragment --><p >helper function to specify an event and its corresponding delegate</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -161,6 +199,26 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+</div>
+</div>
+<a id="a0eb9b5097cdbb0f113a4e91883ad8811" name="a0eb9b5097cdbb0f113a4e91883ad8811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eb9b5097cdbb0f113a4e91883ad8811">&#9670;&nbsp;</a></span>IGOR_EVENT_DEFINITION_NO_ARGS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IGOR_EVENT_DEFINITION_NO_ARGS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">NAME</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">typedef</span> iaEvent&lt;void&gt; NAME##Event;      \</div>
+<div class="line">    typedef iaDelegate&lt;void&gt; NAME##Delegate;</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

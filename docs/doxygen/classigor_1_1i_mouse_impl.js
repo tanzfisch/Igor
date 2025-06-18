@@ -9,11 +9,11 @@ var classigor_1_1i_mouse_impl =
     [ "resetCursor", "classigor_1_1i_mouse_impl.html#a5fcaf3e8f4a0ebfb801ba2f103aaba4d", null ],
     [ "setCenter", "classigor_1_1i_mouse_impl.html#ac47bfd8b7bdbf3ac37f54b49e663e4c3", null ],
     [ "setCursor", "classigor_1_1i_mouse_impl.html#ad57c1fe517a4a6d5b725ef4b4e236047", null ],
-    [ "setPosition", "classigor_1_1i_mouse_impl.html#af7fa4ee7023cce7d6eb20504cce8291c", null ],
+    [ "setPosition", "classigor_1_1i_mouse_impl.html#ae7cc4960df3a2892ca966d2d1b7e8e51", null ],
     [ "iMouse", "classigor_1_1i_mouse_impl.html#ac8542224cb08c7f412298af2343473b4", null ],
     [ "_buttonStates", "classigor_1_1i_mouse_impl.html#aa8c99a6fe25692154a3dc278e89f660d", null ],
-    [ "_lastMousePos", "classigor_1_1i_mouse_impl.html#a8e6afb365cd497444d30f5e54317d013", null ],
+    [ "_lastMousePos", "classigor_1_1i_mouse_impl.html#af32dcf4907766bf6856ea6661f5df8e0", null ],
     [ "_mouse", "classigor_1_1i_mouse_impl.html#af3bc85ad733f934c5c663debff9e8504", null ],
-    [ "_pos", "classigor_1_1i_mouse_impl.html#a32796cbc0d1805e654353b07ad817ec6", null ],
+    [ "_pos", "classigor_1_1i_mouse_impl.html#aae3eddeae92e60c49c90a05e022e5fcd", null ],
     [ "_window", "classigor_1_1i_mouse_impl.html#a331eee914245071421f9445973e6bb77", null ]
 ];

@@ -1,0 +1,24 @@
+[
+    {
+        "alias": "example_model_crate",
+        "id": "0x98861236315ccdf1",
+        "source": "models/crate/crate.ompf"
+    },
+    {
+        "id": "0xd8bb96f7d28a4995",
+        "source": "models/crate/crate_norm.png"
+    },
+    {
+        "id": "0xdc953ee65e2cf235",
+        "source": "models/crate/crate.mat"
+    },
+    {
+        "id": "0xe878f89df812dc45",
+        "source": "shaders/textured.shader"
+    },
+    {
+        "alias": "example_texture_crate_diff",
+        "id": "0xfb8ec7e44efcccc9",
+        "source": "models/crate/crate_diff.png"
+    }
+]

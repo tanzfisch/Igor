@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGCOLORCHOOSER__
-#define __IGOR_DIALOGCOLORCHOOSER__
+#ifndef IGOR_DIALOG_COLOR_CHOOSER_H
+#define IGOR_DIALOG_COLOR_CHOOSER_H
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -38,8 +38,8 @@ using namespace iaux;
 namespace igor
 {
 
-    class iUserControlColorChooser;
-    typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+    class iUserControlColor;
+    typedef iUserControlColor *iUserControlColorPtr;
 
     /*! the color chooser dialog
 	*/
@@ -78,7 +78,7 @@ namespace igor
 
         /*! actual color chooser
 		*/
-        iUserControlColorChooserPtr _userControlColorChooser = nullptr;
+        iUserControlColorPtr _userControlColorChooser = nullptr;
 
         /*! all widgets
 		*/
@@ -116,4 +116,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGCOLORCHOOSER__
+#endif // IGOR_DIALOG_COLOR_CHOOSER_H

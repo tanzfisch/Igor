@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,123 +26,170 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OUTLINER__
-#define __OUTLINER__
+#ifndef MICA_OUTLINER_H
+#define MICA_OUTLINER_H
 
-#include "../Workspace.h"
-#include "UserControlGraphView.h"
-#include "UserControlMaterialView.h"
+#include "../MicaDefines.h"
 
-IGOR_EVENT_DEFINITION(ImportFile, void);
-IGOR_EVENT_DEFINITION(ImportFileReference, void);
-IGOR_EVENT_DEFINITION(ExitMica, void);
+/*! outliner
 
-// replace later with iWidgetTab once implemented
-enum class ViewType
-{
-    GraphView,
-    MaterialView
-};
-
-/*! menu dialog
-*/
+    a hierarchy of scenes and their entities
+ */
 class Outliner : public iDialog
 {
 
     friend class iWidgetManager;
 
 public:
-    Outliner(WorkspacePtr workspace);
-    ~Outliner();
-
-    void refresh();
-
-    void registerOnImportFile(ImportFileDelegate importFileDelegate);
-    void unregisterOnImportFile(ImportFileDelegate importFileDelegate);
-
-    void registerOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-    void unregisterOnImportFileReference(ImportFileReferenceDelegate importFileReferenceDelegate);
-
-    void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
-    void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
-
-    void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-    void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-
-    void registerOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-    void unregisterOnLoadMaterial(LoadMaterialDelegate addMaterialDelegate);
-
-    void registerOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-    void unregisterOnResourceSelectionChanged_old(ResourceSelectionChanged_oldDelegate resourceSelectionChangedDelegate);
-
-    void addModel();
+    /*! init ui
+     */
+    Outliner();
 
 private:
-    /*! the mica workspace
+    /*! main layout
+     */
+    iWidgetBoxLayoutPtr _layout = nullptr;
+
+    /*! tree view
+     */
+    iUserControlTreeViewPtr _treeView = nullptr;
+
+    /*! tree view data
+     */
+    std::unique_ptr<iItemData> _itemData;
+
+    /*! the context menu
+     */
+    iDialogMenu _contextMenu;
+
+    /*! resource to do actions on
+     */
+    iResourceID _contextResourceID;
+
+    /*! flag to prevent endless loop
     */
-    WorkspacePtr _workspace;
+    bool _ignoreSelectionChange = false;
 
-    ImportFileEvent _importFile;
-    ImportFileReferenceEvent _importFileReference;
-    ExitMicaEvent _exitMica;
-
-    GraphSelectionChangedEvent _graphSelectionChanged;
-
-    AddMaterialEvent _addMaterial;
-    LoadMaterialEvent _loadMaterial;
-    ResourceSelectionChanged_oldEvent _materialSelectionChanged;
-
-    iWidgetGridLayout *_grid = nullptr;
-
-    UserControlGraphView *_userControlGraphView = nullptr;
-    UserControlMaterialView *_userControlMaterialView = nullptr;
-
-    iDialogMessageBox *_messageBox = nullptr;
-    iDialogDecisionBox *_decisionBoxModelRef = nullptr;
-
-    ViewType _currentView = ViewType::GraphView;
-
-    uint32 _copiedNodeID = 0;
-    uint32 _cutNodeID = 0;
-
-    void setViewType(ViewType viewType);
-
+    /*! init user interface
+     */
     void initGUI();
-    void deinitGUI();
 
-    void deinitGraphView();
-    void initGraphView();
+    /*! handles click in tree view
 
-    void deinitMaterialView();
-    void initMaterialView();
+    \param source the source widget of this event
+    */
+    void onTreeViewSelectionChanged(const iWidgetPtr source);
 
-    void onCreateProject(const iWidgetPtr source);
-    void onLoadProject(const iWidgetPtr source);
-    void onSaveProject(const iWidgetPtr source);
+    /*! handles context menu for tree view
 
-    void onLoadFile(const iWidgetPtr source);
-    void onSaveFile(const iWidgetPtr source);
+    \param source the source widget of this event
+    */
+    void onContextMenuTreeView(const iWidgetPtr source);
 
-    void onDelete(const iWidgetPtr source);
+    /*! populate the entity tree
+     */
+    void populateTree();
 
-    void onAddModelDecision(iDialogPtr dialog);
-    void onAddTransformation(uint64 addAt);
-    void onAddSwitch(uint64 addAt);
-    void onAddGroup(uint64 addAt);
-    void onAddEmitter(uint64 addAt);
-    void onAddParticleSystem(uint64 addAt);
+    /*! populate the entity tree
+     */
+    void populateTree(iItemPtr item, iEntityPtr entity);
 
-    void onCopy(const iWidgetPtr source);
-    void onPaste(const iWidgetPtr source);
-    void onCut(const iWidgetPtr source);
+    /*! drag move handle
 
-    void onGraphSelectionChanged(uint64 nodeID);
-    void onAddMaterial();
-    void onLoadMaterial();
-    void onResourceSelectionChanged_old(const iShaderMaterialID &materialID);
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
 
-    void onGraphViewSelected(const iWidgetPtr source);
-    void onMaterialViewSelected(const iWidgetPtr source);
+    /*! drop handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! called when entity was created
+
+    \param entity the entity that was created
+    */
+    void onEntityCreated(iEntityPtr entity);
+
+    /*! called when entity is about to be destroyed
+
+    \param entity the entity that is about to be destroyed
+    */
+    void onEntityDestroyed(iEntityPtr entity);
+
+    /*! called when given entity's name changed
+
+    \param entity the given entity
+    */
+    void onEntityNameChanged(iEntityPtr entity);
+
+    /*! called when hierarchy of given scene changed
+
+    \param scene the given scene
+    */
+    void onHierarchyChanged(iEntityScenePtr scene);
+
+    /*! called when scene was added
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneAdded(const iResourceID &sceneID);
+
+    /*! called when scene was removed
+
+    \param sceneID the resource id of the scene
+    */
+    void onSceneRemoved(const iResourceID &sceneID);
+
+    /*! called when project was loaded
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! called when project was unloaded
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
+
+    /*! called when user want's to load a scene
+     */
+    void onLoadScene(const iWidgetPtr source);
+
+    /*! called when scene was loaded
+     */
+    void onResourceLoaded(iResourceID resourceID);
+
+    /*! called when user want's to unload a scene
+     */
+    void onUnloadScene(const iWidgetPtr source);
+
+    /*! called when widget was queued for refresh in last frame
+     */
+    void onRefresh() override;
+
+    /*! save prefab event
+
+    \param source the event source
+    */
+    void onSavePrefab(const iWidgetPtr source);
+
+    /*! populate outliner with sub scenes
+
+    \param children list of entities that represent sub scenes or prefabs
+    \param active if true this subscene will be displayed as active
+    */
+    void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
-#endif // __OUTLINER__
+#endif // MICA_OUTLINER_H

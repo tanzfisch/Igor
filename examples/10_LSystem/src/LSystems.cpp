@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "LSystems.h"
@@ -7,7 +7,7 @@
 #include "PlantMeshGenerator.h"
 
 LSystems::LSystems(iWindowPtr window)
-	: ExampleBase(window, "L-System", true, "example_skybox_debug")
+	: ExampleBase(window, "L-System", true, "igor_skybox_debug")
 {
 }
 
@@ -177,7 +177,7 @@ uint64 LSystems::generatePlant(const iaMatrixd &matrix, const iaString &axiom, u
 							{IGOR_RESOURCE_PARAM_GENERATE, true},
 							{IGOR_RESOURCE_PARAM_QUIET, true},
 							{"lsystem", &_lSystem},
-							{IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
+							{IGOR_RESOURCE_PARAM_SHADER, iRenderer::getInstance().getDefaultShader()},
 							{IGOR_RESOURCE_PARAM_JOIN_VERTICES, true},
 							{"axiom", axiom},
 							{"iterations", iterations},

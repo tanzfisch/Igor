@@ -1,6 +1,5 @@
 #include <igor/ui/actions/iActions.h>
 
-#include <igor/resources/iResourceManager.h>
 #include <igor/system/iApplication.h>
 
 namespace igor

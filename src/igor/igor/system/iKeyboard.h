@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_KEYBOARD__
-#define __IGOR_KEYBOARD__
+#ifndef IGOR_KEYBOARD_H
+#define IGOR_KEYBOARD_H
 
 #include <igor/system/iWindow.h>
 #include <igor/system/iOSEventListener.h>
@@ -52,7 +52,7 @@ namespace igor
 
         \param keyCode the specified key
         */
-        bool getKey(iKeyCode keyCode);
+        bool keyPressed(iKeyCode keyCode);
 
         /*! \returns true: if any key is pressed; false: if no key is pressed
 
@@ -67,9 +67,9 @@ namespace igor
 		*/
         static iKeyCode getKeyCode(const iaString &keyname);
 
-        /*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
-		*/
+        /*! \returns pointer to corresponding window
+        if it returns nullptr the listener was not registered to a window yet
+        */
         iWindowPtr getWindow() const override;
 
     private:
@@ -77,8 +77,8 @@ namespace igor
 		*/
         iKeyboardImpl *_impl;
 
-        /*! called by a window if an os event occours
-		*/
+        /*! called by a window if an os event occurs
+         */
         bool onOSEvent(const void *data) override;
 
         /*! does what ever necessairy to get the device running
@@ -117,4 +117,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_KEYBOARD__
+#endif // IGOR_KEYBOARD_H

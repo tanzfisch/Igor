@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_FILE__
-#define __IAUX_FILE__
+#ifndef IAUX_FILE_H
+#define IAUX_FILE_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
@@ -57,7 +57,7 @@ namespace iaux
     IAUX_API std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode);
 
     /*! \brief File handle
-    */
+     */
     class IAUX_API iaFile
     {
     public:
@@ -104,7 +104,7 @@ namespace iaux
 
         /*! checks if the file exist
 
-        \returns true: if file exists; false: if not
+        \returns true: if file has an absolute path and exists; false: if not
         */
         bool exists() const;
 
@@ -120,6 +120,11 @@ namespace iaux
         \param filename the file to remove
         */
         static bool remove(const iaString &filename);
+
+        /*! \returns valid unique filename for given filename
+        \param filename the given filename
+        */
+        static iaString generateUniqueFilename(const iaString &filename);
 
         /*! \returns only the parent path
          */
@@ -169,7 +174,7 @@ namespace iaux
         bool write(int32 size, const char *source, int64 offset = -1);
 
         /*! \returns last modified time of file
-        */
+         */
         iaTime getLastModifiedTime() const;
 
         /*! \returns last modified time of file
@@ -205,4 +210,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // IAUX_FILE_H

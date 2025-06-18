@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SERIALIZABLE__
-#define __IAUX_SERIALIZABLE__
+#ifndef IAUX_SERIALIZABLE_H
+#define IAUX_SERIALIZABLE_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/system/iaConsole.h>
@@ -453,4 +453,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif // __IAUX_SERIALIZABLE__
+#endif // IAUX_SERIALIZABLE_H

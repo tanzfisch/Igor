@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetSpacer.h>
@@ -32,12 +32,12 @@ namespace igor
 			return;
 		}
 
-		iWidgetManager::getInstance().getTheme()->drawWidgetSpacer(this);
+		iWidgetManager::getInstance().getTheme()->draw(this);
 
-        for (const auto child : _children)
-        {
-            child->draw();
-        }				
+		for (const auto child : _children)
+		{
+			child->draw();
+		}
 	}
 
 } // namespace igor

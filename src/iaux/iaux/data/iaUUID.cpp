@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/data/iaUUID.h>
@@ -66,6 +66,12 @@ namespace iaux
         return iaUUID(IGOR_INVALID_ID);
     }
 
+    iaUUID iaUUID::getMarked()
+    {   
+        const uint64 value = (iaRandom::getNext() >> 16) | 0x1337000000000000;
+        return iaUUID(value);
+    }
+
     void iaUUID::reset()
     {
         _value = IGOR_INVALID_ID;
@@ -108,6 +114,22 @@ namespace iaux
     std::wostream &operator<<(std::wostream &stream, const iaUUID &uuid)
     {
         stream << uuid.toString();
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const std::vector<iaUUID> &uuids)
+    {
+        bool first = true;
+        for(const auto &uuid : uuids)
+        {
+            if(!first)
+            {
+                stream << ",";
+            }
+            stream << uuid.toString();
+
+            first = false;
+        }
         return stream;
     }
 

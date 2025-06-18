@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -120,6 +120,8 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a26085e6e0b40272a024651510243a7bd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="ia_defines_8h.html#ad9b656f66a1778d91ca6765a34d485d0">iaID32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_thread.html#a26085e6e0b40272a024651510243a7bd">getThisThreadID</a> ()</td></tr>
 <tr class="separator:a26085e6e0b40272a024651510243a7bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accca70f89e49053dd0a87afc53381166"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_thread.html#accca70f89e49053dd0a87afc53381166">isMainThread</a> ()</td></tr>
+<tr class="separator:accca70f89e49053dd0a87afc53381166"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -206,7 +208,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >deinit function is called last by the thread. right before join </p>
 
-<p>Reimplemented in <a class="el" href="classigor_1_1i_render_context_thread.html#ada4b9e2e2e06908da78ffa3d13ebea3a">igor::iRenderContextThread</a>, and <a class="el" href="classigor_1_1i_thread.html#a9d101402edde64ea4626b2e2d934a3ae">igor::iThread</a>.</p>
+<p>Reimplemented in <a class="el" href="classigor_1_1i_render_context_thread.html#ad617b6f7928dcc72b8ba0043f4d749f4">igor::iRenderContextThread</a>, and <a class="el" href="classigor_1_1i_thread.html#a9d101402edde64ea4626b2e2d934a3ae">igor::iThread</a>.</p>
 
 </div>
 </div>
@@ -314,7 +316,33 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >init function will be called as first by the thread </p>
 
-<p>Reimplemented in <a class="el" href="classigor_1_1i_render_context_thread.html#ab54f4f4db9275bffd5f8553bddefff2e">igor::iRenderContextThread</a>, and <a class="el" href="classigor_1_1i_thread.html#a1b2b48f731dee9cbc83af09c83fb63a8">igor::iThread</a>.</p>
+<p>Reimplemented in <a class="el" href="classigor_1_1i_render_context_thread.html#affb558e824dcb07fc7ce6408da053af2">igor::iRenderContextThread</a>, and <a class="el" href="classigor_1_1i_thread.html#a1b2b48f731dee9cbc83af09c83fb63a8">igor::iThread</a>.</p>
+
+</div>
+</div>
+<a id="accca70f89e49053dd0a87afc53381166" name="accca70f89e49053dd0a87afc53381166"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accca70f89e49053dd0a87afc53381166">&#9670;&nbsp;</a></span>isMainThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::iaThread::isMainThread </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if this is called on main thread </dd></dl>
 
 </div>
 </div>
@@ -389,8 +417,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_thread_8h.html">iaThread.h</a></li>
-<li>/home/maddin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_thread_8cpp.html">iaThread.cpp</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_thread_8h.html">iaThread.h</a></li>
+<li>/home/martin/dev/Igor/src/iaux/iaux/system/<a class="el" href="ia_thread_8cpp.html">iaThread.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

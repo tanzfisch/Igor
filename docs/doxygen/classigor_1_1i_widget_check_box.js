@@ -8,7 +8,7 @@ var classigor_1_1i_widget_check_box =
     [ "endRadioButtonGroup", "classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076", null ],
     [ "getText", "classigor_1_1i_widget_check_box.html#aff22fd45129f117d5718b71be203cc51", null ],
     [ "isChecked", "classigor_1_1i_widget_check_box.html#a4a09ee8a81323a87cafae949d35a7b7e", null ],
-    [ "onMouseKeyUp", "classigor_1_1i_widget_check_box.html#a0b0391183334dad3bb27779d28d399fb", null ],
+    [ "onMouseKeyUp", "classigor_1_1i_widget_check_box.html#a1ff32e3bbbdb572c02c6d86d935e1a3b", null ],
     [ "setChecked", "classigor_1_1i_widget_check_box.html#acab2d811d433ac00081182afac124cba", null ],
     [ "setText", "classigor_1_1i_widget_check_box.html#a6a44aa5f0ef8a7d2dc6d0a8bd75ff3ab", null ],
     [ "_checked", "classigor_1_1i_widget_check_box.html#aea4840db3d8ad0a7ecc05d5c8de73880", null ],

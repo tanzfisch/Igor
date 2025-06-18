@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
@@ -14,6 +14,8 @@ namespace igor
     {
         setVerticalAlignment(iVerticalAlignment::Top);
         setHorizontalAlignment(iHorizontalAlignment::Left);
+
+        getSelectionChangedEvent().block();
     }
 
     void iWidgetBoxLayout::addWidget(iWidgetPtr widget)
@@ -32,24 +34,37 @@ namespace igor
         int32 minHeight = 0;
 
         if (!isGrowingByContent() ||
-            getChildren().empty())
+            getChildren().empty() ||
+            !isVisible())
         {
             updateMinSize(minWidth, minHeight);
             return;
         }
 
+        bool first = true;
         for (const auto child : getChildren())
         {
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 minWidth = std::max(minWidth, child->getMinWidth());
                 minHeight += child->getMinHeight();
+                if (!first)
+                {
+                    minHeight += _spacing * getScale();
+                }
             }
             else
             {
                 minHeight = std::max(minHeight, child->getMinHeight());
                 minWidth += child->getMinWidth();
+
+                if (!first)
+                {
+                    minWidth += _spacing * getScale();
+                }
             }
+
+            first = false;
         }
 
         minWidth = std::max(minWidth, getConfiguredMinWidth());
@@ -72,8 +87,14 @@ namespace igor
 
         auto &children = getChildren();
 
+        bool first = true;
         for (auto child : children)
         {
+            if (!first)
+            {
+                offsetPos += _spacing;
+            }
+
             if (_layoutType == iWidgetBoxLayoutType::Vertical)
             {
                 clientRect.setX(0);
@@ -94,6 +115,7 @@ namespace igor
             }
 
             offsets.push_back(clientRect);
+            first = false;
         }
 
         if (getVerticalAlignment() == iVerticalAlignment::Stretch &&
@@ -130,6 +152,16 @@ namespace igor
         stream << text[static_cast<int>(type)];
 
         return stream;
+    }
+
+    void iWidgetBoxLayout::setSpacing(uint32 spacing)
+    {
+        _spacing = spacing;
+    }
+
+    uint32 iWidgetBoxLayout::getSpacing() const
+    {
+        return _spacing;
     }
 
 } // namespace igor

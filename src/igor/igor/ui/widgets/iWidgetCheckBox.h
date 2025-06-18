@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -96,7 +96,7 @@ namespace igor
         \param event the mouse key up event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyUp(iEventMouseKeyUp &event) override;
+        bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! if check box is part of a radio button group. this is the group
 		*/

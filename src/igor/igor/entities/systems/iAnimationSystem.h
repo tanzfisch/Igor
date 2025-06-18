@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -7,9 +8,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,34 +27,66 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ANIMATION_SYSTEM__
-#define __IGOR_ANIMATION_SYSTEM__
+#ifndef IGOR_ANIMATION_SYSTEM_H
+#define IGOR_ANIMATION_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
+#include <igor/entities/components/iTransformComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
+
 namespace igor
-{
+{	
 
 	/*! behaviour system
 	*/
 	class iAnimationSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
+		/*! init types
 		*/
-		iAnimationSystem() = default;
+		iAnimationSystem();
 
-		/*! does nothing
-		*/
-		~iAnimationSystem() = default;
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();
 
 		/*! updates system
 
-		\param scene the scene used for this update
+		\param context the update context
 		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
+		void onUpdate(const iEntitySceneUpdateContext &context) override;
+
+		/*! \returns processing stage this system want's to run in
+		*/
+		iEntitySystemStage getStage() const override;
+
+	private: 
+
+		/*! a view on entities with animated transform
+		*/
+		iEntityViewPtr _viewTransform;
+
+		/*! a view on entities with animated sprite
+		*/
+		iEntityViewPtr _viewSprite;
+
+		/*! update transform
+		*/
+		void onUpdateTransform(const iaTime &time, iAnimationComponentPtr animationComp, iTransformComponentPtr transformComp);
+
+		/*! update sprite
+		*/
+		void onUpdateSprite(const iaTime &time, iAnimationComponentPtr animationComp, iSpriteRenderComponentPtr spriteRenderComp);
+
+		float64 mapTime(const iaTime &time, iAnimationComponentPtr animationComp, iClipPtr clip, iaStateMachine::iaEvent lastEvent);
 	};
 
 } // igor
 
-#endif // __IGOR_ANIMATION_SYSTEM__
+#endif // IGOR_ANIMATION_SYSTEM_H

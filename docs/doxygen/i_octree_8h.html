@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/maddin/dev/Igor/src/igor/igor/data/iOctree.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/data/iOctree.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.44.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -92,30 +92,34 @@ $(document).ready(function(){initNavTree('i_octree_8h.html',''); initResizable()
   <div class="headertitle"><div class="title">iOctree.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_a_a_cube_8h.html">igor/data/iAACube.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_frustum_8h.html">igor/data/iFrustum.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_sphere_8h.html">iaux/data/iaSphere.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_intersection_8h.html">igor/data/iIntersection.h</a>&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;list&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;any&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_octree_8inl.html">igor/data/iOctree.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_octree.html">igor::iOctree</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Octree implementation.  <a href="classigor_1_1i_octree.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_octree.html">igor::iOctree&lt; F &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_octree_1_1i_octree_object.html">igor::iOctree&lt; F &gt;::iOctreeObject</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_octree_1_1i_octree_node.html">igor::iOctree&lt; F &gt;::iOctreeNode</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
-<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameters texture unit 3 <br /></td></tr>
+<tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">item data entity id <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a435689c6ef3bb87398bd2634f321ad0f"><td class="memItemLeft" align="right" valign="top">typedef iOctree *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a435689c6ef3bb87398bd2634f321ad0f">igor::iOctreePtr</a></td></tr>
-<tr class="separator:a435689c6ef3bb87398bd2634f321ad0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb47a8f28571ac9ec280a0573755aed"><td class="memItemLeft" align="right" valign="top">typedef iOctree&lt; <a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a5bb47a8f28571ac9ec280a0573755aed">igor::iOctreef</a></td></tr>
+<tr class="separator:a5bb47a8f28571ac9ec280a0573755aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe607811a770b8901c937ee1463a4e50"><td class="memItemLeft" align="right" valign="top">typedef iOctree&lt; <a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#abe607811a770b8901c937ee1463a4e50">igor::iOctreed</a></td></tr>
+<tr class="separator:abe607811a770b8901c937ee1463a4e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

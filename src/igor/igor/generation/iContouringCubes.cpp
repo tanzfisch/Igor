@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/generation/iContouringCubes.h>
@@ -65,7 +65,7 @@ namespace igor
             _currentPoles.push_back(pole);
         }
 
-        _meshBuilder.setJoinVertexes(true);
+        _meshBuilder.setJoinVertices(true);
 
         for (int i = 0; i < 27; ++i)
         {

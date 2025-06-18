@@ -5,7 +5,7 @@
 //  #   # #   # #     #
 //  ##### #   # #     #  3d model file format
 //
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -35,13 +35,13 @@
 #endif
 
 //! ompf major version
-#define OMPF_VERSION_MAJOR 1
+#define OMPF_VERSION_MAJOR 2
 
 //! ompf minor version
 #define OMPF_VERSION_MINOR 0
 
 //! ompf patch version
-#define OMPF_VERSION_PATCH 1
+#define OMPF_VERSION_PATCH 0
 
 //! some tricky definitions to get the version displayed right
 #define STR2(x) #x

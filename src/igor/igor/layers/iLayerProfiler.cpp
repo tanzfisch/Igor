@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/layers/iLayerProfiler.h>
@@ -25,7 +25,7 @@ namespace igor
         _view.setClearDepthActive(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()),
                             static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-        _view.registerRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
+        _view.getRenderEvent().add(iRenderDelegate(this, &iLayerProfiler::onRender));
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
@@ -37,7 +37,7 @@ namespace igor
         // release resources
         _font = nullptr;
 
-        _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
+        _view.getRenderEvent().remove(iRenderDelegate(this, &iLayerProfiler::onRender));
     }
 
     void iLayerProfiler::onEvent(iEvent &event)

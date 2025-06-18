@@ -10,7 +10,6 @@ var namespace_o_m_p_f =
     [ "ompfMaterialReferenceChunk", "class_o_m_p_f_1_1ompf_material_reference_chunk.html", "class_o_m_p_f_1_1ompf_material_reference_chunk" ],
     [ "ompfMeshChunk", "class_o_m_p_f_1_1ompf_mesh_chunk.html", "class_o_m_p_f_1_1ompf_mesh_chunk" ],
     [ "ompfParticleSystemChunk", "class_o_m_p_f_1_1ompf_particle_system_chunk.html", "class_o_m_p_f_1_1ompf_particle_system_chunk" ],
-    [ "ompfResourceSearchPathChunk", "class_o_m_p_f_1_1ompf_resource_search_path_chunk.html", "class_o_m_p_f_1_1ompf_resource_search_path_chunk" ],
     [ "ompfSettings", "class_o_m_p_f_1_1ompf_settings.html", "class_o_m_p_f_1_1ompf_settings" ],
     [ "ompfTransformChunk", "class_o_m_p_f_1_1ompf_transform_chunk.html", "class_o_m_p_f_1_1ompf_transform_chunk" ],
     [ "OMPFChunkType", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3", [
@@ -19,7 +18,6 @@ var namespace_o_m_p_f =
       [ "Group", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a03937134cedab9078be39a77ee3a48a0", null ],
       [ "Transform", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a2ff4148554480a37f85efd299df04850", null ],
       [ "External", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779", null ],
-      [ "ResourceSearchPath", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ac69e550c1c1878906fbd48688eaa5759", null ],
       [ "Mesh", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961", null ],
       [ "Emitter", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3", null ],
       [ "ParticleSystem", "namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8", null ],

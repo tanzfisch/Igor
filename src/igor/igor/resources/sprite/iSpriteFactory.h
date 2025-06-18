@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE_FACTORY__
-#define __IGOR_SPRITE_FACTORY__
+#ifndef IGOR_SPRITE_FACTORY_H
+#define IGOR_SPRITE_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/sprite/iSprite.h>
@@ -72,21 +72,17 @@ namespace igor
         */
         void unloadResource(iResourcePtr resource) override;
 
-        /*! reads sprite element
+        /*! exports the resource based on it's parameters
 
-        \param sprite the sprite element
-        \param sprite the target sprite
+        this needs to be a valid resource with a valid source parameter
+
+        \param resource the resource to save
+        \param filename optional filename if resource is to be saved in a new location
+        \returns true if saving the resource was successful
         */
-        void readSpriteElement(TiXmlElement *spriteElement, iSpritePtr sprite);
-
-        /*! load sprite from file
-
-        \param filename the filename
-        \param sprite the target sprite
-        */
-        bool loadSprite(const iaString &filename, iSpritePtr sprite);
+        bool saveResource(iResourcePtr resource, const iaString &filename = "") override;        
     };
 
 }; // namespace igor
 
-#endif // __IGOR_SPRITE_FACTORY__
+#endif // IGOR_SPRITE_FACTORY_H

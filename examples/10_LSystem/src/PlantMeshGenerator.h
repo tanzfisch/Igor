@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -35,7 +35,7 @@ using namespace iaux;
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/data/iSkeleton.h>
 using namespace igor;
 

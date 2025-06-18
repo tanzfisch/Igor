@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetGraph.h>
@@ -321,7 +321,7 @@ namespace igor
         return _selectedIndex;
     }
 
-    bool iWidgetGraph::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetGraph::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         iaVector2f mousePos(static_cast<float32>(getLastMousePos()._x), static_cast<float32>(getLastMousePos()._y));
 

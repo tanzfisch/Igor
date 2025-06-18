@@ -26,8 +26,6 @@ endif()
 
 message(STATUS ${IAUX_HEADERS_DIR})
 
-target_include_directories(iaux 
-    PUBLIC
-    ${IAUX_HEADERS_DIR})
+target_include_directories(iaux PUBLIC ${IAUX_HEADERS_DIR} ${JSON_HEADERS_DIR})
 
 source_group_special("${IAUX_SOURCES}" ${IAUX_SRC_DIR})  

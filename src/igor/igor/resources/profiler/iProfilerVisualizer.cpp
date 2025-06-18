@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/profiler/iProfilerVisualizer.h>
@@ -58,7 +58,7 @@ namespace igor
     void iProfilerVisualizer::cycleVerbosity()
     {
         _renderStatisticsMode = static_cast<iProfilerVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
-        if (_renderStatisticsMode > iProfilerVerbosity::Sections)
+        if (_renderStatisticsMode > iProfilerVerbosity::SectionsAndValues)
         {
             _renderStatisticsMode = iProfilerVerbosity::None;
         }
@@ -71,13 +71,24 @@ namespace igor
 
     void iProfilerVisualizer::draw(iWindowPtr window, const iTextureFontPtr &font)
     {
+        iProfiler::beginSection("agaetgethaerg");
+
         if (_renderStatisticsMode == iProfilerVerbosity::None)
         {
+            iProfiler::endSection("agaetgethaerg");
             return;
         }
 
-        // gather some data
+        iaTime begin = iaTime::getNow();
+
         const iRenderer::iRendererStats stats = iRenderer::getInstance().getStats();
+        const auto currentFrameIndex = iProfiler::getCurrentFrameIndex();
+
+        int32 lastFrame = (currentFrameIndex - 1) % PROFILER_MAX_FRAMES_COUNT;
+        if (lastFrame < 0)
+        {
+            lastFrame += PROFILER_MAX_FRAMES_COUNT;
+        }
 
         if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
         {
@@ -98,10 +109,10 @@ namespace igor
             }
         }
 
-        const iaColor4f backgroundColor(0, 0, 0, 0.8);
+        const iaColor4f backgroundColor(0.5, 0.5, 0.8, 0.3);
 
         iRenderer::getInstance().setFont(font);
-        iRenderer::getInstance().setFontSize(13.0f);
+        iRenderer::getInstance().setFontSize(16.0f);
 
         // draw footer background
         iRenderer::getInstance().drawFilledRectangle(0, window->getClientHeight() - 40, window->getClientWidth(), 40, backgroundColor);
@@ -136,24 +147,28 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
-            const iaRectanglef rect(0, 0, window->getClientWidth(), window->getClientHeight() * 0.4);            
+            const iaRectanglef rect(0, 0, window->getClientWidth(), window->getClientHeight() * 0.4);
 
             iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), backgroundColor);
 
             uint32 sectionIndex = 0;
             const int32 lineCount = std::min(static_cast<int>(rect.getWidth()), PROFILER_MAX_FRAMES_COUNT);
-            const int32 currentFrame = (iProfiler::getCurrentFrameIndex() + 1 - lineCount) % PROFILER_MAX_FRAMES_COUNT;
+            const int32 currentFrame = (currentFrameIndex + 1 - lineCount) % PROFILER_MAX_FRAMES_COUNT;
 
             memset(&_accumulationBuffer, 0, sizeof(float32) * PROFILER_MAX_FRAMES_COUNT);
             const auto sections = iProfiler::getSections();
 
             const float32 peakFrameTime = iProfiler::getPeakFrame().getMilliseconds();
             const float32 verticalScale = rect._height / (peakFrameTime + 5.0);
-
-            for (const auto section : sections)
+            
+            for (const auto &section : sections)
             {
-                const auto &values = section->_values;
+                if (section._name == "agaetgethaerg")
+                {
+                    continue;
+                }
 
+                const auto &values = section._values;
                 const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
 
                 for (int i = 0; i < lineCount; ++i)
@@ -192,23 +207,96 @@ namespace igor
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60, lineColor);
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100, lineColor);
 
-            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - peak, iaString::toString(peakFrameTime, 0) +  "ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - peak, iaString::toString(peakFrameTime, 0) + "ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect.getX(), rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
             sectionIndex = 0;
             float32 textOffsetY = 20.0f;
-            for (const auto section : sections)
+            for (const auto &section : sections)
             {
-                const auto &values = section->_values;
-                const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
-                sectionIndex++;
+                if (section._name == "agaetgethaerg")
+                {
+                    continue;
+                }
 
-                iRenderer::getInstance().drawString(rect.getRight() - 200, rect.getBottom() - textOffsetY, section->_name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                const auto &values = section._values;
+                const iaColor4f &sectionColor = COLORS[sectionIndex % COLOR_COUNT];
+
+                iRenderer::getInstance().drawString(rect.getRight() - 300, rect.getBottom() - textOffsetY, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toString(values[lastFrame].getMilliseconds(), 2) + iaString("ms"), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
                 textOffsetY += 20;
+                sectionIndex++;
             }
         }
+
+        if (_renderStatisticsMode >= iProfilerVerbosity::SectionsAndValues)
+        {
+            const iaRectanglef rect(0, window->getClientHeight() * 0.40, window->getClientWidth(), window->getClientHeight() * 0.4);
+
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), backgroundColor);
+
+            const float32 verticalScale = rect._height / 30.0;
+
+            uint32 colorIndex = 0;
+            const int32 lineCount = std::min(static_cast<int>(rect.getWidth()), PROFILER_MAX_FRAMES_COUNT);
+            const int32 currentFrame = (currentFrameIndex + 1 - lineCount) % PROFILER_MAX_FRAMES_COUNT;
+
+            const auto counters = iProfiler::getCounters();
+
+            for (const auto &counter : counters)
+            {
+                const iaColor4f &sectionColor = COLORS[colorIndex % COLOR_COUNT];
+
+                for (int i = 0; i < lineCount; ++i)
+                {
+                    int32 currentIndex = (currentFrame + i) % PROFILER_MAX_FRAMES_COUNT;
+                    int32 lastIndex = (currentFrame + i - 1) % PROFILER_MAX_FRAMES_COUNT;
+
+                    if (currentIndex < 0)
+                    {
+                        currentIndex += PROFILER_MAX_FRAMES_COUNT;
+                    }
+
+                    if (lastIndex < 0)
+                    {
+                        lastIndex += PROFILER_MAX_FRAMES_COUNT;
+                    }
+
+                    iRenderer::getInstance().drawLine(i + rect.getRight() - lineCount,
+                                                      rect.getBottom() - static_cast<float32>(std::log2(counter._counters[lastIndex])) * verticalScale,
+                                                      i + 1 + rect.getRight() - lineCount,
+                                                      rect.getBottom() - static_cast<float32>(std::log2(counter._counters[currentIndex])) * verticalScale,
+                                                      sectionColor);
+                }
+
+                colorIndex++;
+            }
+
+            colorIndex = 0;
+            float32 textOffsetY = 20.0f;
+
+            for (const auto &counter : counters)
+            {
+                const iaColor4f &sectionColor = COLORS[colorIndex % COLOR_COUNT];
+
+                iRenderer::getInstance().drawString(rect.getRight() - 300, rect.getBottom() - textOffsetY, counter._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, sectionColor);
+                iRenderer::getInstance().drawString(rect.getRight() - 30, rect.getBottom() - textOffsetY, iaString::toStringUnits(counter._counters[lastFrame]), iHorizontalAlignment::Right, iVerticalAlignment::Bottom, sectionColor);
+                textOffsetY += 20;
+
+                colorIndex++;
+            }
+        }
+
+        iProfiler::endSection("agaetgethaerg");
+        auto &profilerSectionData = iProfiler::getSectionData("agaetgethaerg");
+
+        // TODO #418 "support nested profiler sections"
+
+        // exclude agaetgethaerg from rendering section
+        auto &sectionData = iProfiler::getSectionData("render");
+        sectionData._beginTime += profilerSectionData._values[currentFrameIndex];
     }
 
 } // namespace igor

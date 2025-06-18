@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResourceManager.h>
@@ -9,9 +9,10 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
 #include <igor/resources/model/iModelFactory.h>
-#include <igor/resources/shader_material/iShaderMaterialFactory.h>
+#include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
-#include <igor/resources/config/iConfigReader.h>
+#include <igor/resources/prefab/iPrefabFactory.h>
+#include <igor/resources/config/iConfig.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/iResourceDictionary.h>
 
@@ -23,7 +24,7 @@ using namespace iaux;
 
 namespace igor
 {
-    static const iaString s_igorResourceDictionaryPath = "igor_resource_dictionary.xml";
+    static const iaString s_igorResourceDictionaryPath = "igor_resource_dictionary.json";
 
     static bool matchingFilename(iFactoryPtr factory, const iaString &filename)
     {
@@ -46,11 +47,12 @@ namespace igor
         configure();
 
         registerFactory(iFactoryPtr(new iTextureFactory()));
+        registerFactory(iFactoryPtr(new iPrefabFactory()));
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iMaterialFactory()));
-        registerFactory(iFactoryPtr(new iShaderMaterialFactory()));
+        registerFactory(iFactoryPtr(new iShaderFactory()));
         registerFactory(iFactoryPtr(new iSoundFactory()));
 
         // read igor internal resource dictionary
@@ -124,6 +126,11 @@ namespace igor
 
         bool result = factory->saveResource(resource, filename);
 
+        if(!filename.isEmpty() && resource->getSource() == "")
+        {
+            resource->setSource(filename);
+        }
+
         if (result)
         {
             con_info("saved " << resource->getType() << " " << resource->getInfo());
@@ -172,14 +179,15 @@ namespace igor
     {
         // make sure igor resources are always in the dictionary
         _resourceDictionary.clear();
+        con_info("cleared resource dictionary");
         _resourceDictionary.read(resolvePath(s_igorResourceDictionaryPath));
     }
 
     void iResourceManager::configure()
     {
-        if (iConfigReader::getInstance().hasSetting("loadMode"))
+        if (iConfig::getInstance().hasValue("igor.loadMode"))
         {
-            const iaString loadMode = iConfigReader::getInstance().getValue("loadMode");
+            const iaString loadMode = iConfig::getInstance().getValue("igor.loadMode");
 
             if (loadMode == "Sync")
             {
@@ -187,9 +195,9 @@ namespace igor
             }
         }
 
-        if (iConfigReader::getInstance().hasSetting("searchPaths"))
+        if (iConfig::getInstance().hasValue("igor.searchPaths"))
         {
-            const std::vector<iaString> searchPaths = iConfigReader::getInstance().getValueAsArray("searchPaths");
+            const std::vector<iaString> searchPaths = iConfig::getInstance().getValueAsArray("igor.searchPaths");
 
             for (const auto &path : searchPaths)
             {
@@ -395,6 +403,7 @@ namespace igor
 
         result->setProcessed(true);
         result->setValid(true);
+        _resourceProcessedEvent(result->getID());
 
         return result;
     }
@@ -408,12 +417,12 @@ namespace igor
         }
 
         iResourceID id;
-        if (!iResource::extractID(parameters, id))
+         if (!iResource::extractID(parameters, id))
         {
             const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
             const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
-            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << filename << "\"");
+            const iaString source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << source << "\"");
             return nullptr;
         }
 
@@ -427,14 +436,22 @@ namespace igor
         {
             result = resourceIter->second;
 
-            con_trace("cache hit " << result->getType() << " " << result->getInfo());
-
             // remove from load queue because we will load it right away
             auto iter = std::find(_loadingQueue.begin(), _loadingQueue.end(), result);
             if (iter != _loadingQueue.end())
             {
                 _loadingQueue.erase(iter);
                 loadNow = true;
+            }
+            else
+            {
+                con_trace("cache hit " << result->getType() << " " << result->getInfo());
+
+                const iaString type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
+                if(result->getType() != type)
+                {
+                    con_err("resource id collision " << result->getID() << " " << type << " vs " << result->getType());
+                }
             }
         }
         else
@@ -450,15 +467,18 @@ namespace igor
 
         if (loadNow)
         {
-            result->setValid(factory->loadResource(result));
+            bool valid = factory->loadResource(result);
 
-            if (result->isValid() &&
+            if (valid &&
                 result->getSource().isEmpty())
             {
                 result->setSource(iResourceManager::getInstance().getFilename(result->getID()));
             }
 
             result->setProcessed(true);
+            result->setValid(valid);
+            
+            _resourceProcessedEvent(result->getID());
         }
 
         const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
@@ -535,8 +555,17 @@ namespace igor
             // should never fail
             iFactoryPtr factory = getFactory(resource->getParameters());
 
-            resource->setValid(factory->loadResource(resource));
+            bool valid = factory->loadResource(resource);
+
+            if (valid &&
+                resource->getSource().isEmpty())
+            {
+                resource->setSource(iResourceManager::getInstance().getFilename(resource->getID()));
+            }
+
             resource->setProcessed(true);
+            resource->setValid(valid);
+            _resourceProcessedEvent(resource->getID());
         }
 
         _interruptLoading = false;
@@ -547,69 +576,32 @@ namespace igor
         _interruptLoading = true;
     }
 
-    const std::vector<iaString> &iResourceManager::getSearchPaths() const
-    {
-        return _searchPaths;
-    }
-
-    void iResourceManager::addSearchPath(const iaString &folder)
+    void iResourceManager::addSearchPath(const iaString &searchPath)
     {
         _mutex.lock();
-
-        bool found = false;
-        auto iter = _searchPaths.begin();
-        while (iter != _searchPaths.end())
+        auto iter = std::find(_searchPaths.begin(), _searchPaths.end(), searchPath);
+        if (iter == _searchPaths.end())
         {
-            if ((*iter) == folder)
-            {
-                con_warn("search path " << folder << " already in list");
-                found = true;
-                break;
-            }
-
-            iter++;
+            _searchPaths.insert(_searchPaths.begin(), searchPath);
         }
-
-        if (!found)
-        {
-            _searchPaths.push_back(folder);
-        }
-
         _mutex.unlock();
     }
 
-    void iResourceManager::removeSearchPath(const iaString &folder)
+    void iResourceManager::removeSearchPath(const iaString &searchPath)
     {
         _mutex.lock();
-
-        bool found = false;
-        auto iter = _searchPaths.begin();
-        while (iter != _searchPaths.end())
+        auto iter = std::find(_searchPaths.begin(), _searchPaths.end(), searchPath);
+        if (iter != _searchPaths.end())
         {
-            if ((*iter) == folder)
-            {
-                _searchPaths.erase(iter);
-                found = true;
-                break;
-            }
-
-            iter++;
+            _searchPaths.erase(iter);
         }
-
-        if (!found)
-        {
-            con_warn("search path " << folder << " not found");
-        }
-
         _mutex.unlock();
     }
 
     void iResourceManager::clearSearchPaths()
     {
         _mutex.lock();
-
         _searchPaths.clear();
-
         _mutex.unlock();
     }
 
@@ -630,45 +622,57 @@ namespace igor
 
     const iaString iResourceManager::resolvePath(const iaString &filepath)
     {
-        iaString result = filepath;
+        if(filepath.isEmpty())
+        {
+            return "";
+        }
+
+        const iaDirectory checkDir(filepath);
+        if (checkDir.exists())
+        {
+            return checkDir.getAbsoluteDirectoryName();
+        }
+
+        iaFile checkFile(filepath);
+        if (checkFile.exists())
+        {
+            return checkFile.getFullFileName();
+        }
 
         const iaString currentDir = iaDirectory::getCurrentDirectory();
 
         _mutex.lock();
+        const auto searchPaths = _searchPaths;
+        _mutex.unlock();
 
-        for (auto path : _searchPaths)
+        for (auto searchPath : searchPaths)
         {
-            iaString build;
-
-            iaDirectory searchDir(path);
+            iaString path;
+            const iaDirectory searchDir(searchPath);
             if (searchDir.exists())
             {
-                build = path + IGOR_PATHSEPARATOR + filepath;
+                path = iaDirectory::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
             }
             else
             {
-                // TODO assuming it's a relative path to executable. Maybe here we better refer to project path
-                build = currentDir + IGOR_PATHSEPARATOR + path + IGOR_PATHSEPARATOR + filepath;
+                // if it does not exists assume it's relative to current dir
+                path = iaDirectory::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
-            iaFile file(build);
+            iaFile file(path);
             if (file.exists())
             {
-                result = file.getFullFileName();
-                break;
+                return file.getFullFileName();
             }
 
-            iaDirectory dir(build);
+            const iaDirectory dir(path);
             if (dir.exists())
             {
-                result = dir.getFullDirectoryName();
-                break;
+                return dir.getAbsoluteDirectoryName();
             }
         }
 
-        _mutex.unlock();
-
-        return result;
+        return filepath;
     }
 
     iaString iResourceManager::getRelativePath(const iaString &filename)
@@ -679,10 +683,10 @@ namespace igor
             iaDirectory dir(path);
 
             std::vector<iaString> matches;
-            iaString::searchRegex(filename, dir.getFullDirectoryName(), matches);
+            iaString::searchRegex(filename, dir.getAbsoluteDirectoryName(), matches);
             if (!matches.empty())
             {
-                result = iaDirectory::getRelativePath(dir.getFullDirectoryName(), filename);
+                result = iaDirectory::getRelativePath(dir.getAbsoluteDirectoryName(), filename);
                 break;
             }
         }
@@ -751,7 +755,7 @@ namespace igor
         return stream;
     }
 
-    void iResourceManager::getMaterials(std::vector<iShaderMaterialPtr> &materials)
+    void iResourceManager::getMaterials(std::vector<iShaderPtr> &materials)
     {
         materials.clear();
 
@@ -760,17 +764,17 @@ namespace igor
         _mutex.lock();
         for (const auto &pair : _resources)
         {
-            if (pair.second->getType() != IGOR_RESOURCE_SHADER_MATERIAL)
+            if (pair.second->getType() != IGOR_RESOURCE_SHADER)
             {
                 continue;
             }
 
-            materials.push_back(std::dynamic_pointer_cast<iShaderMaterial>(pair.second));
+            materials.push_back(std::dynamic_pointer_cast<iShader>(pair.second));
         }
         _mutex.unlock();
 
         sort(materials.begin(), materials.end(),
-             [](const iShaderMaterialPtr a, const iShaderMaterialPtr b) -> bool
+             [](const iShaderPtr a, const iShaderPtr b) -> bool
              {
                  return a->getOrder() < b->getOrder();
              });
@@ -816,14 +820,26 @@ namespace igor
         return param;
     }
 
-    void iResourceManager::removeResource(const iResourceID &resourceID)
+    void iResourceManager::removeFromDictionary(const iResourceID &resourceID)
     {
         _resourceDictionary.removeResource(resourceID);
+
+        auto resource = getResource(resourceID);
+        if(resource != nullptr)
+        {
+            con_warn("resource removed form dictionary is still allocated " << resource->getInfo());
+        }
     }
 
-    void iResourceManager::addResource(const iaString &filename, const iaString &alias)
+    void iResourceManager::addToDictionary(const iaString &filename, const iaString &alias, const iaUUID &uuid)
     {
-        _resourceDictionary.addResource(filename, alias);
+        iaUUID id = uuid.isValid() ? uuid : iaUUID();
+        _resourceDictionary.addResource(id, filename, alias, false);
+    }
+
+    iResourceProcessedEvent &iResourceManager::getResourceProcessedEvent()
+    {
+        return _resourceProcessedEvent;
     }
 
 } // namespace igor

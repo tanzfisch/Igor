@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETGRAPH__
-#define __IGOR_WIDGETGRAPH__
+#ifndef IGOR_WIDGET_GRAPH_H
+#define IGOR_WIDGET_GRAPH_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -52,43 +52,43 @@ namespace igor
     {
 
         /*! graph data
-        */
+         */
         struct GraphData
         {
             /*! list of points in graph
-            */
+             */
             std::vector<iaVector2f> _points;
 
             /*! the line color
-            */
+             */
             iaColor4f _lineColor = {1.0, 1.0, 1.0, 1.0};
 
             /*! the points color
-            */
+             */
             iaColor4f _pointColor = {1.0, 1.0, 1.0, 1.0};
 
             /*! line width of graph
-            */
+             */
             float32 _lineWidth = 1.0;
 
             /*! size of points. if zero no points will be drawn
-            */
+             */
             float32 _pointSize = 0.0;
         };
 
     public:
         /*! ctor initializes member variables
 
-		\param parent optional parent
-		*/
+        \param parent optional parent
+        */
         iWidgetGraph(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetGraph() = default;
 
         /*! clears all point data
-        */
+         */
         void clearPoints();
 
         /*! sets line color for specified graph
@@ -163,7 +163,7 @@ namespace igor
         void setBoundings(const iaRectanglef &boundings);
 
         /*! \returns user specified boudings / range of graph
-        */
+         */
         iaRectanglef getBoundings();
 
         /*! activated user defined boundings / range of graph
@@ -173,7 +173,7 @@ namespace igor
         void setUseBoundings(bool useBoundings = true);
 
         /*! \returns if true user specified boundings are in use
-        */
+         */
         bool isUsingBoundings();
 
         /*! set data extend flag
@@ -185,7 +185,7 @@ namespace igor
         void setExtrapolateData(bool extendData = true);
 
         /*! \returns true if data will be extended
-        */
+         */
         bool getExtrapolateData();
 
         /*! sets the grid visibility
@@ -195,7 +195,7 @@ namespace igor
         void setViewGrid(bool viewGrid = true);
 
         /*! \returns true if the grid is visible
-        */
+         */
         bool getViewGrid() const;
 
         /*! configures the resolution of the grid
@@ -206,11 +206,11 @@ namespace igor
         void setGridResolution(uint32 x, uint32 y);
 
         /*! \returns amount of vertical grid lines
-        */
+         */
         uint32 getGridXResolution() const;
 
         /*! \returns amount of horizontal grid lines
-        */
+         */
         uint32 getGridYResolution() const;
 
         /*! sets if labels are visible
@@ -220,11 +220,11 @@ namespace igor
         void setViewLabels(bool viewLabels = true);
 
         /*! \returns if labels are visible
-        */
+         */
         bool getViewLabels() const;
 
         /*! \returns count of graphs
-        */
+         */
         int32 getGraphCount() const;
 
         /*! sets the interactive feature
@@ -234,7 +234,7 @@ namespace igor
         void setInteractive(bool interactive = true);
 
         /*! \returns true if graph is interactive
-        */
+         */
         bool isInteractive();
 
         /*! \returns selected value index
@@ -243,15 +243,15 @@ namespace igor
 
     private:
         /*! flag if graph is interactive
-        */
+         */
         bool _interactive = false;
 
         /*! dirty flag if graph data was changed
-        */
+         */
         bool _dirty = true;
 
         /*! flag if labels are visible
-        */
+         */
         bool _viewLabels = false;
 
         /*! selected index
@@ -259,43 +259,43 @@ namespace igor
         int32 _selectedIndex = -1;
 
         /*! calculated data boudings
-        */
+         */
         iaRectanglef _dataBoundings;
 
         /*! user defined boudings
-        */
+         */
         iaRectanglef _boundings = {0, 0, 1, 1};
 
         /*! if true user specified boundings will be used
-        */
+         */
         bool _useUserBoudings = false;
 
         /*! if true graphs that are smaller then the boundings will be extended to bounding size
-        */
+         */
         bool _extrapolateData = false;
 
         /*! maps with all graphs
-        */
+         */
         std::map<uint64, GraphData> _graphs;
 
         /*! the grid resolution
-        */
+         */
         iaVector2i _gridResolution = {5, 3};
 
         /*! flag if true we render a grid
-        */
+         */
         bool _viewGrid = false;
 
         /*! button height definition
-        */
+         */
         const int32 _buttonHeight = 20;
 
         /*! makes some calculations before we can draw
-        */
+         */
         void prepareDraw();
 
         /*! updates size based on it's content
-        */
+         */
         void calcMinSize() override;
 
         /*! draws the widget
@@ -319,13 +319,13 @@ namespace igor
         \param event mouse key down event
         \returns true: if event was consumed and therefore ignored by the parent
         */
-        bool onMouseKeyDown(iEventMouseKeyDown &event) override;
+        bool onMouseKeyDown(const iEventMouseKeyDown &event) override;
     };
 
     /*! widget graph pointer definition
-    */
-    typedef iWidgetGraph* iWidgetGraphPtr;
+     */
+    typedef iWidgetGraph *iWidgetGraphPtr;
 
 } // namespace igor
 
-#endif // __IGOR_WIDGETGRAPH__
+#endif // IGOR_WIDGET_GRAPH_H

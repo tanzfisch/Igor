@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,51 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __TRANSFORM_OVERLAY__
-#define __TRANSFORM_OVERLAY__
+#ifndef MICA_TRANSFORM_OVERLAY_H
+#define MICA_TRANSFORM_OVERLAY_H
 
-#include "NodeOverlay.h"
+#include "EntityOverlay.h"
 
 /*! 3d overlay ui element for scene nodes
 
     to modify position, orientation and scale of objects in the scene
     to display additional information when nodes are selected
 */
-class TransformOverlay : public NodeOverlay
+class TransformOverlay : public EntityOverlay
 {
 
 public:
     /*! initialize node overlay
 
     \param view the view to use
-    \param scene the scene to use
-    \param workspace the mica workspace
     */
-    TransformOverlay(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
+    TransformOverlay(iViewPtr view);
 
     /*! cleanup
      */
     ~TransformOverlay();
-
-    /*! sets the node to control by ID
-
-    \param nodeID id of node to control
-    */
-    void setNodeID(uint64 nodeID) override;
-
-    /*! sets node overlay active
-
-    \param active true to set node overlay active
-    */
-    void setActive(bool active) override;
-
-    /*! \returns true if mode in combination with node type can be handled by this node overlay
-
-    \param mode the overlay mode
-    \param nodeKind kind of node
-    \param nodeType type of node
-    */
-    bool accepts(OverlayMode mode, iNodeKind nodeKind, iNodeType nodeType) override;
 
     /*! sets overlay mode
 
@@ -79,131 +57,107 @@ public:
     void setOverlayMode(OverlayMode mode) override;
 
 private:
-    /*! id of selected manipulator node
+    /*! red material
      */
-    iNodeID _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
+    iMaterialPtr _red;
 
-    /*! root transform of manipulator
+    /*! green material
      */
-    iNodeTransformPtr _rootTransform = nullptr;
+    iMaterialPtr _green;
 
-    /*! switch node to switch between manipulator states
+    /*! blue material
      */
-    iNodeSwitchPtr _switchNode = nullptr;
+    iMaterialPtr _blue;
 
-    /*! translate node ids
+    /*! cyan material
      */
-    std::vector<iNodeID> _translateIDs;
+    iMaterialPtr _cyan;
 
-    /*! scale node ids
+    /*! translate ids
      */
-    std::vector<iNodeID> _scaleIDs;
+    std::vector<iEntityID> _translateIDs;
 
-    /*! rotate node ids
+    /*! scale ids
      */
-    std::vector<iNodeID> _rotateIDs;
+    std::vector<iEntityID> _scaleIDs;
 
-    /*! rotate billboard transform
+    /*! rotate ids
      */
-    iNodeTransformPtr _rotateBillboardTransform = nullptr;
+    std::vector<iEntityID> _rotateIDs;
 
-    /*! locator representation of manipulator
+    /*! root transform
      */
-    iNodePtr _locatorRepresentation = nullptr;
+    iEntityPtr _rootTransform = nullptr;
 
-    /*! transform modifier representation of manipulator
+    /*! translate modifier
      */
-    iNodePtr _translateModifier = nullptr;
+    iEntityPtr _translateModifier = nullptr;
 
-    /*! scale modifier representation of manipulator
+    /*! rotate modifier
      */
-    iNodePtr _scaleModifier = nullptr;
+    iEntityPtr _rotateModifier = nullptr;
 
-    /*! rotate modifier representation of manipulator
+    /*! scale modifier
      */
-    iNodePtr _roateModifier = nullptr;
+    iEntityPtr _scaleModifier = nullptr;
 
-    /*! red target material
+    /*! selected entity ID
      */
-    iMaterialPtr _red = nullptr;
-
-    /*! green target material
-     */
-    iMaterialPtr _green = nullptr;
-
-    /*! blue target material
-     */
-    iMaterialPtr _blue = nullptr;
-
-    /*! cyan target material
-     */
-    iMaterialPtr _cyan = nullptr;
-
-    /*! cel chader material for selection
-     */
-    iMaterialPtr _materialCelShading;
+    iEntityID _selectionID = iEntityID::getInvalid();
 
     /*! translate given matrix by vector projected on selected axis
 
     \param vec vector to translate
-    \param matrix the matrix to manipulate
+    \param transformComp the transform component to manipulate
     */
-    void translate(const iaVector3d &vec, iaMatrixd &matrix);
+    void translate(const iaVector3d &vec, iTransformComponentPtr transform);
 
-    /*! scele given matrix by vector on selected axis
+    /*! scale given matrix by vector on selected axis
 
     \param vec scale vector
     \param matrix the matrix to manipulate
     */
-    void scale(const iaVector3d &vec, iaMatrixd &matrix);
+    void scale(const iaVector3d &vec, iTransformComponentPtr transform);
 
-    /*! roate matrix based screen space movement
+    /*! rotate matrix based screen space movement
 
-    \param from from in screen space
-    \param to to in screen space
-    \param matrix the matrix to manipulate
+    \param from from mouse position in world coordinates
+    \param to to mouse position in world coordinates
+    \param transform the transform to manipulate
     */
-    void rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd &matrix);
+    void rotate(const iaVector3d &from, const iaVector3d &to, iTransformComponentPtr transform);
 
     /*! update internal structure
      */
-    void update();
+    void onUpdate();
 
     /*! handles mouse move event
 
     \param event the mouse move event
     */
-    bool onMouseMoveEvent(iEventMouseMove &event) override;
+    bool onMouseMoveEvent(const iEventMouseMove &event) override;
 
     /*! handles mouse key down event
 
     \param event the mouse key down event
     \returns true if consumed
     */
-    bool onMouseKeyDownEvent(iEventMouseKeyDown &event) override;
+    bool onMouseKeyDownEvent(const iEventMouseKeyDown &event) override;
 
     /*! handles mouse key up event
 
     \param event the mouse key up event
     \returns true if consumed
     */
-    virtual bool onMouseKeyUpEvent(iEventMouseKeyUp &event);    
+    bool onMouseKeyUpEvent(const iEventMouseKeyUp &event) override;
 
     /*! initialisation
      */
     void onInit();
 
-    /*! clean up
+    /*! on pre render callback
      */
-    void onDeinit();
-
-    /*! on render callback
-     */
-    void onRender();
-
-    /*! create translate mesh
-     */
-    iMeshPtr createTranslateMesh();
+    void onPreRender();
 
     /*! create scale mesh
      */
@@ -212,18 +166,6 @@ private:
     /*! create cube mesh
      */
     iMeshPtr createCube();
-
-    /*! create ring mesh
-     */
-    iMeshPtr createRingMesh();
-
-    /*! create 2d ring mesh
-     */
-    iMeshPtr create2DRingMesh();
-
-    /*! create cylinder mesh
-     */
-    iMeshPtr createCylinder();
 
     /*! create translate manipulator
 
@@ -240,20 +182,27 @@ private:
     /*! create rotate manipulator
 
     \param ringMesh ring mesh
-    \param ringMesh2D ring mesh 2d
     \param cylinder cylinder mesh
     */
-    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr &cylinder);
+    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &cylinder);
 
-    /*! create locator representation
+    /*! \returns true if mode in combination with a given entity can be handled by this node overlay
 
-    \param cylinder cylinder mesh
+    \param mode the overlay mod
+    \param entity the given entity
     */
-    void createLocatorRepresentation(iMeshPtr &cylinder);
+    bool accepts(OverlayMode mode, iEntityPtr entity) override;
 
-    /*! highlight selected manipulator node
-     */
-    void renderHighlight();
+    /*! sets node overlay active
+
+    \param active true to set node overlay active
+    */
+    void setActive(bool active) override;
+
+    /*! updates overlay mode settings
+    */
+    void onUpdateOverlayMode();
+
 };
 
-#endif // __TRANSFORM_OVERLAY__
+#endif // MICA_TRANSFORM_OVERLAY_H

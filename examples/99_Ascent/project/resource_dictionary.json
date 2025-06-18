@@ -1,0 +1,12 @@
+[
+    {
+        "alias": "example_texture_skybox_stars",
+        "id": "0x9a9c80439e25a7d2",
+        "source": "textures/skyboxes/stars.png"
+    },
+    {
+        "alias": "example_texture_crates_2",
+        "id": "0xcfed88658c77cddf",
+        "source": "textures/crates2.png"
+    }
+]

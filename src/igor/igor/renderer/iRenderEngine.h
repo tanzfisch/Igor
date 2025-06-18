@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,35 +26,60 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERENGINE__
-#define __IGOR_RENDERENGINE__
+#ifndef IGOR_RENDER_ENGINE_H
+#define IGOR_RENDER_ENGINE_H
 
-#include <igor/scene/iScene.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/entities/iEntityScene.h>
+#include <igor/data/iFrustum.h>
+#include <igor/renderer/buffers/iInstancingBuffer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/renderer/buffers/iInstancingBuffer.h>
 
-#include <vector>
-#include <unordered_map>
+#include <iaux/math/iaMatrix.h>
 
 namespace igor
 {
 
-    /*! does control the render loop
+    /*! feeds the renderer with pre filtered data
      */
-    class IGOR_API iRenderEngine
+    class iRenderEngine
     {
     public:
         /*! does nothing
-        */
+         */
         iRenderEngine() = default;
 
         /*! does nothing
          */
         virtual ~iRenderEngine() = default;
+
+        /*! add mesh for render queue
+
+        \param mesh entity that contains iTransformComponent and iMeshRenderComponent
+        */
+        void addMesh(iEntityPtr mesh);
+
+        /*! renders given data
+
+        \param viewport the given viewport to render in
+        */
+        void render();
+
+        /*! \returns current frustum
+         */
+        const iFrustumd &getFrustum() const;
+
+        /*! set frustum
+
+        \param frustum the frustum to set
+        */
+        void setFrustum(const iFrustumd &frustum);
+
+        /*! set frustum by matrix
+
+        \param matrix the matrix for the frustum
+        */
+        void setFrustum(const iaMatrixd &matrix);
 
         /*! defines if bounding boxes are shown or not
 
@@ -66,139 +91,64 @@ namespace igor
          */
         bool isBoundingBoxVisible() const;
 
-        /*! defines if octree is shown or not
+    private: 
 
-        \param octree if true octree is shown
-        */
-        void setOctreeVisible(bool octree = true);
-
-        /*! \returns true if octree is shown
+        /*! current frustum
          */
-        bool isOctreeVisible() const;
-
-        /*! sets if the nodes should be rendered with solely their colorid
-
-        \param enabled if true nodes will be rendered with their color id
-        */
-        void setColorIDRendering(bool enabled = true);
-
-        /*! \returns if nodes will be rendered with their color id
-         */
-        bool isColorIDRendering() const;
-
-        /*! sets the scene to render with
-
-        \param scene scene to render
-        */
-        void setScene(iScenePtr scene);
-
-        /*! \returns pointer to scene
-         */
-        iScenePtr getScene() const;
-
-        /*! sets current camera by id
-
-        \param cameraID the camery id
-        */
-        void setCamera(iNodeID cameraID);
-
-        /*! \returns current camera id
-         */
-        iNodeID getCamera() const;
-
-        /*! culls and renders
-         */
-        void render();
-
-    private:
-        /*! current camera
-         */
-        iNodeCamera *_currentCamera = nullptr;
-
-        /*! flag if rendering uses wireframe
-         */
-        bool _showWireframe = false;
-
-        /*! flag if bounding boxes are drawn
-         */
-        bool _showBoundingBoxes = false;
-
-        /*! flag if octree will be rendered
-         */
-        bool _showOctree = false;
-
-        /*! flag if true color ids get rendered
-         */
-        bool _renderColorID = false;
-
-        /*! handle to scene
-         */
-        iScenePtr _scene = nullptr;
-
-        /*! temporary list of nodes that where filtered by the culling process
-         */
-        std::vector<iNodeID> _cullResult;
+        iFrustumd _frustum;
 
         struct iInstaningPackage
         {
-            iInstancingBufferPtr _buffer;
-            iMaterialPtr _targetMaterial;
+            iInstancingBufferPtr _buffer = nullptr;
+            iMaterialPtr _material = nullptr; // TODO needs to be part of the buffer so individual instances can have different colors etc
+        };
+
+        struct iRegularPackage
+        {
+            iMeshPtr _mesh;
+            iaMatrixd _matrix;
+            iMaterialPtr _material;
+
+            iRegularPackage(iMeshPtr mesh, const iaMatrixd &matrix, iMaterialPtr material)
+            : _mesh(mesh), _matrix(matrix), _material(material)
+            {
+
+            }
         };
 
         /*! bringing all nodes using the same material together for more efficient rendering
-        */
+         */
         struct iMaterialGroup
         {
-            /*! the material used
-            */
-            iShaderMaterialPtr _material;
+            /*! the shader used
+             */
+            iShaderPtr _shader;
 
-            /*! the nodes rendered with this material
+            /*! non instanced data
             */
-            std::vector<iNodeRenderPtr> _renderNodes;
+            std::vector<iRegularPackage> _regular;
 
             /*! optional instancing buffers per mesh that is using the same material
-            */
+             */
             std::unordered_map<iMeshPtr, iInstaningPackage> _instancing;
         };
 
         /*! render nodes
          */
-        std::vector<iMaterialGroup> _materialGroups;    
+        std::vector<iMaterialGroup> _materialGroups;
 
-        /*! cull scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void cullScene(iNodeCameraPtr camera);
-
-        /*! updates material groups
+        /*! flag if bounding boxes are drawn
          */
-        void updateMaterialGroups();
+        bool _showBoundingBoxes = false;        
 
-        /*! adds node to material groups
-
-        \param renderNode the node to add
-        */
-        void addNodeToMaterialGroups(iNodeRenderPtr renderNode);
-
-        /*! adds node to corresponding material group
-
-        \param renderNode the node to add
-        */
-        void addToMaterialGroup(const iNodeRenderPtr renderNode);
-
-        /*! draw scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void drawScene();
-
-        /*! draws everyting by using it's color id
+        /*! renders all mesh material groups
          */
-        void drawColorIDs();
+        void renderMaterialGroups();
 
+        /*! renders bounding boxes
+        */
+        void renderBoundingBoxes();
     };
 } // namespace igor
 
-#endif // __IGOR_RENDERENGINE__
+#endif // IGOR_RENDER_ENGINE_H

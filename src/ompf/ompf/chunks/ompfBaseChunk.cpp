@@ -1,5 +1,5 @@
 // OMPF 3d model file format
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <ompf/ompf.h>
@@ -115,7 +115,7 @@ namespace OMPF
         _name = name;
     }
 
-    iaString ompfBaseChunk::getName() const
+    const iaString& ompfBaseChunk::getName() const
     {
         return _name;
     }

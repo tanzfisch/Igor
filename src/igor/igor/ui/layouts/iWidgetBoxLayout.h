@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGET_BOX_LAYOUT__
-#define __IGOR_WIDGET_BOX_LAYOUT__
+#ifndef IGOR_WIDGET_BOX_LAYOUT_H
+#define IGOR_WIDGET_BOX_LAYOUT_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -90,11 +90,25 @@ namespace igor
         */
         int32 getStretchIndex() const;
 
+        /*! sets spacing between children
+
+        \param spacing the spacing in pixels
+        */
+        void setSpacing(uint32 spacing);
+
+        /*! \returns the spacing
+        */
+        uint32 getSpacing() const;
+
     private:
         /*! layout type
          */
         iWidgetBoxLayoutType _layoutType;
 
+        /*! spacing in pixels
+        */
+        uint32 _spacing = 1;
+ 
         /*! the stretch index
         */
         int32 _stretchIndex = -1;
@@ -116,4 +130,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_WIDGET_BOX_LAYOUT__
+#endif // IGOR_WIDGET_BOX_LAYOUT_H

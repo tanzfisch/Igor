@@ -1,13 +1,11 @@
-<?xml version="1.0"?>
-<Igor>
-	<Material>
-		<ShaderMaterial>0xb29810e9feb9b8cf</ShaderMaterial>
-		<Diffuse>0.969231, 0.80769, 0.961531</Diffuse>
-		<Ambient>0.365384, 0.363373, 0.363374</Ambient>
-		<Specular>0.534616, 0.434615, 0.434616</Specular>
-		<Emissive>0, 0, 0</Emissive>
-		<Shininess>10.9</Shininess>
-		<Alpha>1</Alpha>
-		<Tiling>1, 1</Tiling>
-	</Material>
-</Igor>
+{	"material": {
+		"shader_material": "igor_shader_instancing_flat_shaded",
+		"diffuse": { "r": 0.269231, "g": 0.20769, "b": 0.761531},
+		"ambient": { "r": 0.265384, "g": 0.263373, "b": 0.263374},
+		"specular": { "r": 0.534616, "g": 0.434615, "b": 0.434616},
+		"emissive": { "r": 0.0, "g": 0.0, "b": 0.0},
+		"shininess": 10.9,
+		"alpha": 1.0,
+		"tiling": { "x": 1.0, "y": 1.0 }
+	}
+}

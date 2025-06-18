@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -54,10 +54,6 @@ public:
     */
     iView &getViewOrtho();
 
-    /*! \returns the examples scene
-    */
-    iScenePtr getScene();
-
     /*! \returns font
     */
     iTextureFontPtr getFont() const;
@@ -68,7 +64,7 @@ public:
 
     /*! \returns font material
     */
-    iShaderMaterialID getFontMaterial() const;
+    iShaderID getFontMaterial() const;
 
 protected:
     /*! initialize example
@@ -117,10 +113,6 @@ private:
     /*! the view we render 3D to
     */
     iView _view;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScenePtr _scene = nullptr;
 
     /*! igor logo
     */

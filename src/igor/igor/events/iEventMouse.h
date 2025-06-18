@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTMOUSE__
-#define __IGOR_EVENTMOUSE__
+#ifndef IGOR_EVENT_MOUSE_H
+#define IGOR_EVENT_MOUSE_H
 
 #include <igor/events/iEvent.h>
 
@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDown(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
+        iEventMouseKeyDown(iWindowPtr window, const iKeyCode key, const iaVector2f &pos);
 
         /*! \returns event kind mask
         */
@@ -62,7 +62,7 @@ namespace igor
 
         /*! \returns mouse pos when key was down
         */
-        const iaVector2i& getPosition() const;
+        const iaVector2f& getPosition() const;
 
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDown)
 
@@ -73,7 +73,7 @@ namespace igor
 
         /*! mouse pos when key was pressed
         */
-        iaVector2i _pos;
+        iaVector2f _pos;
     };
 
     /*! mouse key up event
@@ -86,7 +86,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyUp(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
+        iEventMouseKeyUp(iWindowPtr window, const iKeyCode key, const iaVector2f &pos);
 
         /*! \returns event kind mask
         */
@@ -102,7 +102,7 @@ namespace igor
 
         /*! \returns mouse pos when key was down
         */
-        const iaVector2i& getPosition() const;
+        const iaVector2f& getPosition() const;
 
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyUp)
 
@@ -113,7 +113,7 @@ namespace igor
 
         /*! mouse pos when key was released
         */
-        iaVector2i _pos;        
+        iaVector2f _pos;        
     };
 
     /*! mouse key double click event
@@ -126,7 +126,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key, const iaVector2i &pos);
+        iEventMouseKeyDoubleClick(iWindowPtr window, const iKeyCode key, const iaVector2f &pos);
 
         /*! \returns event kind mask
         */
@@ -142,7 +142,7 @@ namespace igor
 
         /*! \returns mouse pos when key was down
         */
-        const iaVector2i& getPosition() const;        
+        const iaVector2f& getPosition() const;        
 
         IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDoubleClick)
 
@@ -153,7 +153,7 @@ namespace igor
 
         /*! mouse pos when key was double clicked
         */
-        iaVector2i _pos;             
+        iaVector2f _pos;             
     };
 
     /*! mouse wheel event
@@ -231,4 +231,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTMOUSE__
+#endif // IGOR_EVENT_MOUSE_H

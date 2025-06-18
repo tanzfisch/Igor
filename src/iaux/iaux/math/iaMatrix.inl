@@ -1,14 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <class T>
 IGOR_INLINE std::wostream &operator<<(std::wostream &stream, const iaMatrix<T> &m)
 {
-    stream << "(" << std::setprecision(2) << m._right._x << ", " << m._top._x << ", " << m._depth._x << ", " << m._pos._x << " | ";
-    stream << m._right._y << ", " << m._top._y << ", " << m._depth._y << ", " << m._pos._y << " | ";
-    stream << m._right._z << ", " << m._top._z << ", " << m._depth._z << ", " << m._pos._z << " | ";
-    stream << m._w0 << ", " << m._w1 << ", " << m._w2 << ", " << m._w3 << ")";
+    stream << "{" << m._right << ", " << m._top << ", " << m._depth << ", " << m._pos << "}";
     return stream;
 }
 
@@ -25,34 +22,10 @@ IGOR_INLINE T iaMatrix<T>::operator[](int i) const
 }
 
 template <class T>
-IGOR_INLINE void iaMatrix<T>::operator+=(iaMatrix<T> &a)
+IGOR_INLINE bool iaMatrix<T>::operator==(const iaMatrix<T> &other) const
 {
     T *m = (T *)&_right;
-    T *n = (T *)&a;
-
-    for (long x = 0; x < 16; x++)
-    {
-        m[x] += n[x];
-    }
-}
-
-template <class T>
-IGOR_INLINE void iaMatrix<T>::operator-=(iaMatrix<T> &a)
-{
-    T *m = (T *)&_right;
-    T *n = (T *)&a;
-
-    for (long x = 0; x < 16; x++)
-    {
-        m[x] -= n[x];
-    }
-}
-
-template <class T>
-IGOR_INLINE bool iaMatrix<T>::operator==(const iaMatrix<T> &a) const
-{
-    T *m = (T *)&_right;
-    T *n = (T *)&a;
+    T *n = (T *)&other;
 
     for (long x = 0; x < 16; x++)
     {
@@ -66,10 +39,10 @@ IGOR_INLINE bool iaMatrix<T>::operator==(const iaMatrix<T> &a) const
 }
 
 template <class T>
-IGOR_INLINE bool iaMatrix<T>::operator!=(const iaMatrix<T> &a) const
+IGOR_INLINE bool iaMatrix<T>::operator!=(const iaMatrix<T> &other) const
 {
     T *m = (T *)&_right;
-    T *n = (T *)&a;
+    T *n = (T *)&other;
 
     for (long x = 0; x < 16; x++)
     {
@@ -83,32 +56,10 @@ IGOR_INLINE bool iaMatrix<T>::operator!=(const iaMatrix<T> &a) const
 }
 
 template <class T>
-IGOR_INLINE iaVector3<T> iaMatrix<T>::operator*(iaVector3<T> &a) const
-{
-    iaVector3<T> result;
-    result = _right * a._x + _top * a._y + _depth * a._z + _pos;
-
-    return result;
-}
-
-template <class T>
 IGOR_INLINE iaVector3<T> iaMatrix<T>::operator*(const iaVector3<T> &a) const
 {
     iaVector3<T> result;
     result = _right * a._x + _top * a._y + _depth * a._z + _pos;
-
-    return result;
-}
-
-template <class T>
-IGOR_INLINE iaVector4<T> iaMatrix<T>::operator*(iaVector4<T> &a) const
-{
-    iaVector4<T> result;
-
-    result._x = _right._x * a._x + _top._x * a._y + _depth._x * a._z + _pos._x * a._w;
-    result._y = _right._y * a._x + _top._y * a._y + _depth._y * a._z + _pos._y * a._w;
-    result._z = _right._z * a._x + _top._z * a._y + _depth._z * a._z + _pos._z * a._w;
-    result._w = _w0 * a._x + _w1 * a._y + _w2 * a._z + _w3 * a._w;
 
     return result;
 }
@@ -317,17 +268,17 @@ IGOR_INLINE void iaMatrix<T>::lookAt(const iaVector3<T> &eye, const iaVector3<T>
     lookat._right[0] = x[0];
     lookat._top[0] = x[1];
     lookat._depth[0] = x[2];
-    lookat._pos[0] = -(x * eye);
+    lookat._pos[0] = -(x.dot(eye));
 
     lookat._right[1] = y[0];
     lookat._top[1] = y[1];
     lookat._depth[1] = y[2];
-    lookat._pos[1] = -(y * eye);
+    lookat._pos[1] = -(y.dot(eye));
 
     lookat._right[2] = z[0];
     lookat._top[2] = z[1];
     lookat._depth[2] = z[2];
-    lookat._pos[2] = -(z * eye);
+    lookat._pos[2] = -(z.dot(eye));
 
     lookat._w0 = static_cast<T>(0);
     lookat._w1 = static_cast<T>(0);
@@ -366,6 +317,9 @@ IGOR_INLINE void iaMatrix<T>::transpose()
 // return the inverse of this matrix, that is,
 // the inverse of the rotation, the inverse of the scaling, and
 // the opposite of the translation vector.
+template <class T>
+IGOR_INLINE bool iaMatrix<T>::invert()
+{
 #define MATSWAP(a, b) \
     {                 \
         temp = (a);   \
@@ -373,9 +327,6 @@ IGOR_INLINE void iaMatrix<T>::transpose()
         (b) = temp;   \
     }
 
-template <class T>
-IGOR_INLINE bool iaMatrix<T>::invert()
-{
     T *mat = (T *)&_right;
     T matr[4][4], ident[4][4];
     int i, j, k, l, ll;

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -135,7 +135,7 @@ namespace igor
         */
         uint64 getPhysicsMaterialID() const;
 
-        /*! \returns target material
+        /*! \returns material
         */
         iMaterialPtr getMaterial() const;
 
@@ -189,7 +189,7 @@ namespace igor
         */
         uint64 _physicsMaterialID = 0;
 
-        /*! target material for given tile
+        /*! terrain material
         */
         iMaterialPtr _material;
 

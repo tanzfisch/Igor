@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PROPERTIES_EDITOR__
-#define __PROPERTIES_EDITOR__
+#ifndef MICA_PROPERTIES_EDITOR_H
+#define MICA_PROPERTIES_EDITOR_H
 
 #include "UserControlProperties.h"
 
@@ -47,26 +47,19 @@ public:
      */
     ~PropertiesEditor() = default;
 
-    /*! sets selection of a node id
-
-    \param nodeID the node id to be selected
-    */
-    void setSelection(iNodeID nodeID);
-
     /*! sets selection of a resource id
 
     \param resourceID the id to be selected
     */
-    void setSelection(const iResourceID &resourceID);
+    void setSelectionResource(const iResourceID &resourceID);
 
 private:
-
     /*! scroll widget
-    */
+     */
     iWidgetScrollPtr _scroll = nullptr;
 
     /*! user control properties
-    */
+     */
     UserControlProperties *_userControlProperties = nullptr;
 
     /*! init UI
@@ -74,8 +67,26 @@ private:
     void initGUI();
 
     /*! delete current properties UI
-    */
+     */
     void deinitProperties();
+
+    /*! handles incoming generic event
+
+    \param event the event
+    */
+    bool onEvent(iEvent &event) override;
+
+    /*! called when project was loaded
+     */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! called when project was unloaded
+     */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
+
+    /*! handle selection change
+     */
+    void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
 };
 
-#endif // __PROPERTIES_EDITOR__
+#endif // MICA_PROPERTIES_EDITOR_H

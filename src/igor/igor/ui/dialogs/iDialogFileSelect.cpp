@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -26,12 +26,19 @@ namespace igor
     iDialogFileSelect::iDialogFileSelect(const iWidgetPtr parent)
         : iDialog(iWidgetType::iDialogFileSelect, parent)
     {
+        setMinWidth(600);
+        setMinHeight(370);
+
+        setResizeable(false);
+        setMoveable(true);
         setAcceptESCToClose(true);
     }
 
-    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)
+    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path, const std::vector<iaString> &extensions)
     {
-        iDialog::open(dialogCloseDelegate);
+        setExtensionsFilter(extensions);
+
+        iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
         initGUI();
@@ -45,14 +52,14 @@ namespace igor
         else if (iaDirectory::isDirectory(path))
         {
             _filename = "";
-            _directory = iaDirectory::fixPath(path, false);
+            _directory = path;
         }
         else
         {
             if (!path.isEmpty())
             {
                 _filename = "";
-                _directory = iaDirectory::fixPath(path, false);
+                _directory = iaDirectory::fixPath(path);
 
                 if (!iaDirectory::isDirectory(_directory))
                 {
@@ -68,7 +75,6 @@ namespace igor
 
         updateFileDir();
 
-        iWidgetManager::getInstance().setModal(this);
         setEnabled();
         setVisible();
 
@@ -83,9 +89,6 @@ namespace igor
     void iDialogFileSelect::initGUI()
     {
         clearChildren();
-
-        setMinWidth(700);
-        setMinHeight(500);
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
@@ -104,7 +107,7 @@ namespace igor
         _pathEdit->setMaxTextLength(1024);
         _pathEdit->setHorizontalAlignment(iHorizontalAlignment::Stretch);
         _pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
-        _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
+        _pathEdit->getChangeEvent().add(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
         grid->addWidget(_pathEdit, 0, 0);
 
         _scroll = new iWidgetScroll();
@@ -114,7 +117,7 @@ namespace igor
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Cell);
-        _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
+        _fileGrid->getDoubleClickEvent().add(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
         if (_purpose != iFileDialogPurpose::SelectFolder)
         {
@@ -137,7 +140,7 @@ namespace igor
             _filenameEdit->setMaxTextLength(256);
             _filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
             _filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
-            _filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
+            _filenameEdit->getChangeEvent().add(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
             filenameGrid->addWidget(_filenameEdit, 1, 0);
         }
 
@@ -149,12 +152,12 @@ namespace igor
         grid->addWidget(buttonGrid, 0, 3);
 
         iWidgetButtonPtr okButton = new iWidgetButton();
-        okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
+        okButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onOK));
         buttonGrid->addWidget(okButton, 0, 0);
 
         iWidgetButtonPtr cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-        cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
+        cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogFileSelect::onCancel));
         buttonGrid->addWidget(cancelButton, 1, 0);
 
         switch (_purpose)
@@ -188,18 +191,12 @@ namespace igor
 
     iaString iDialogFileSelect::getFullPath()
     {
-        iaString temp;
-
         if (_filename.isEmpty())
         {
-            temp = iaDirectory::fixPath(_directory, false);
-        }
-        else
-        {
-            temp = iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename, true);
+            return iaDirectory::fixPath(_directory);
         }
 
-        return temp;
+        return iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
     }
 
     void iDialogFileSelect::updateFileDir()
@@ -225,11 +222,34 @@ namespace igor
         }
     }
 
+    bool iDialogFileSelect::filterExtension(const iaString &filename)
+    {
+        if (_extensions.empty())
+        {
+            return true;
+        }
+
+        const iaFile file(filename);
+        const iaString fileExt = file.getExtension();
+
+        for (const auto &extension : _extensions)
+        {
+            if (fileExt == extension)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void iDialogFileSelect::updateFileGrid()
     {
+        const uint32 rowCount = 12;
+
         clearFileGrid();
 
-        _fileGrid->appendRows(9);
+        _fileGrid->appendRows(rowCount - 1);
 
         int32 index = 0;
         iaDirectory directory(_directory);
@@ -238,19 +258,24 @@ namespace igor
 
         if (!directory.isRoot())
         {
-            addToFileGrid(0, 0, directory.getFullParentDirectoryName(), "..", true);
+            addToFileGrid(0, 0, directory.getAbsoluteParentDirectoryName(), "..", true);
             index++;
         }
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / 10, index % 10, iter.getFullDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
             index++;
         }
 
         for (auto iter : files)
         {
-            addToFileGrid(index / 10, index % 10, iter.getFullFileName(), iter.getFileName(), false);
+            if (!filterExtension(iter.getFileName()))
+            {
+                continue;
+            }
+
+            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getFileName(), false);
             index++;
         }
 
@@ -380,5 +405,15 @@ namespace igor
         }
 
         iDialog::close();
+    }
+
+    void iDialogFileSelect::setExtensionsFilter(const std::vector<iaString> &extensions)
+    {
+        _extensions = extensions;
+    }
+
+    const std::vector<iaString> &iDialogFileSelect::getExtensionsFilter() const
+    {
+        return _extensions;
     }
 } // namespace igor

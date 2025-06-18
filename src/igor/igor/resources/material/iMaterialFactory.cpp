@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/material/iMaterialFactory.h>
@@ -19,7 +19,7 @@ namespace igor
     iResourcePtr iMaterialFactory::createResource()
     {
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-                           {IGOR_RESOURCE_PARAM_SHADER_MATERIAL, iRenderer::getInstance().getDefaultShader()},
+                           {IGOR_RESOURCE_PARAM_SHADER, iRenderer::getInstance().getDefaultShader()},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
         return iMaterialPtr(new iMaterial(param));

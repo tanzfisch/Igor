@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VELOCITY_SYSTEM__
-#define __IGOR_VELOCITY_SYSTEM__
+#ifndef IGOR_VELOCITY_SYSTEM_H
+#define IGOR_VELOCITY_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -41,13 +41,17 @@ namespace igor
 	class iVelocitySystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
+		/*! init types
 		 */
-		iVelocitySystem() = default;
+		iVelocitySystem();
 
-		/*! does nothing
-		 */
-		~iVelocitySystem() = default;
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();		
 
 		/*! sets global bounds
 		 */
@@ -59,16 +63,28 @@ namespace igor
 
 		/*! updates system
 
-		\param scene the scene used for this update
+		\param context the update context
 		 */
-		void update(const iaTime &time, iEntityScenePtr scene) override;
+		void onUpdate(const iEntitySceneUpdateContext &context) override;
+
+		/*! \returns processing stage this system want's to run in
+		 */
+		iEntitySystemStage getStage() const override;
 
 	private:
 		/*! global bounds
 		 */
 		iAABoxd _bounds;
+
+		/*! a view on some entities with no bounds
+		 */
+		iEntityViewPtr _noBoundsView;
+
+		/*! a view on some entities with bounds
+		 */
+		iEntityViewPtr _boundsView;
 	};
 
 } // igor
 
-#endif // __IGOR_VELOCITY_SYSTEM__
+#endif // IGOR_VELOCITY_SYSTEM_H

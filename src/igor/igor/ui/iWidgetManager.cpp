@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/iWidgetManager.h>
@@ -9,6 +9,8 @@
 #include <igor/ui/layouts/iWidgetDockingLayout.h>
 
 #include <cstdlib>
+
+#include <igor/system/iDefinesLinux.h>
 
 namespace igor
 {
@@ -69,11 +71,6 @@ namespace igor
             return (*iter).second;
         }
         return nullptr;
-    }
-
-    iDialogPtr iWidgetManager::getModal() const
-    {
-        return _modal;
     }
 
     void iWidgetManager::putDialogInFront(iDialogPtr dialog)
@@ -151,15 +148,36 @@ namespace igor
         _tooltipText = "";
     }
 
-    bool iWidgetManager::isModal(iDialogPtr dialog)
-    {
-        return (_modal == dialog) ? true : false;
-    }
-
     void iWidgetManager::setModal(iDialogPtr dialog)
     {
-        con_assert_sticky(_modal == nullptr, "an other dialog is alsready modal");
-        _modal = dialog;
+        _modalStack.push_back(dialog);
+    }
+
+    void iWidgetManager::resetModal(iDialogPtr dialog)
+    {
+        con_assert(!_modalStack.empty(), "stack underflow");
+        con_assert(dialog == _modalStack.back(), "invalid stack");
+        _modalStack.pop_back();
+    }
+
+    iDialogPtr iWidgetManager::getModal() const
+    {
+        if (_modalStack.empty())
+        {
+            return nullptr;
+        }
+
+        return _modalStack.back();
+    }
+
+    bool iWidgetManager::isModal(iDialogPtr dialog)
+    {
+        if (_modalStack.empty())
+        {
+            return false;
+        }
+
+        return _modalStack.back() == dialog;
     }
 
     void iWidgetManager::closeDialog(iDialogPtr dialog)
@@ -173,17 +191,6 @@ namespace igor
         }
 
         _dialogsToClose.insert(dialog->getID());
-    }
-
-    void iWidgetManager::resetModal()
-    {
-        if (_modal == nullptr)
-        {
-            return;
-        }
-
-        auto pos = _modal->getLastMousePos();
-        _modal = nullptr;
     }
 
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAscending)
@@ -236,6 +243,17 @@ namespace igor
 
             // align children with their parents top down
             traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
+        }
+
+        for (auto pair : _widgets)
+        {
+            if (!pair.second->_needRefresh)
+            {
+                continue;
+            }
+
+            pair.second->onRefresh();
+            pair.second->_needRefresh = false;
         }
 
         for (auto pair : _widgets)
@@ -364,6 +382,7 @@ namespace igor
     void iWidgetManager::draw()
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
+        iWidget::s_scale = getSystemScale(); // TODO don't do this every frame
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
@@ -666,6 +685,49 @@ namespace igor
 
         _lastCursorType = _cursorType;
         iMouse::getInstance().setCursor(_lastCursorType);
+    }
+
+    float32 iWidgetManager::getSystemScale() const
+    {
+#ifdef IGOR_LINUX
+        Display *display = XOpenDisplay(nullptr);
+        if (!display)
+        {
+            con_err("Unable to open X display");
+            return 1.0f;
+        }
+
+        char *res_man_str = XResourceManagerString(display);
+        if (!res_man_str)
+        {
+            con_err("XResourceManagerString is null");
+            XCloseDisplay(display);
+            return 1.0f;
+        }
+
+        XrmInitialize();
+        XrmDatabase db = XrmGetStringDatabase(res_man_str);
+        if (!db)
+        {
+            con_err("Failed to get X resource database");
+            XCloseDisplay(display);
+            return 1.0f;
+        }
+
+        XrmValue value;
+        char *type;
+        if (XrmGetResource(db, "Xft.dpi", "Xft.Dpi", &type, &value) && value.addr)
+        {
+            float dpi = std::atof(value.addr);
+            XCloseDisplay(display);
+            return dpi / 96.0f; // Assuming 96 DPI is 1.0 scale
+        }
+
+        XCloseDisplay(display);
+        return 1.0f;
+#else
+        return 1.0f;
+#endif
     }
 
 } // namespace igor

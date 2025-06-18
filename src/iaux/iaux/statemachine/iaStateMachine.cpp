@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/statemachine/iaStateMachine.h>
@@ -17,7 +17,7 @@ namespace iaux
             transition.second->resetGates();
         }
 
-        _enterStateEvent(_currentState->getID());
+        _lastEvent = iaStateMachine::iaEvent::Enter;
     }
 
     void iaStateMachine::reEnterCurrentState()
@@ -27,7 +27,7 @@ namespace iaux
             transition.second->resetGates();
         }
 
-        _reEnterStateEvent(_currentState->getID());
+        _lastEvent = iaStateMachine::iaEvent::ReEnter;
     }
 
     void iaStateMachine::start()
@@ -37,8 +37,20 @@ namespace iaux
         enterCurrentState();
     }
 
-    void iaStateMachine::update()
+    bool iaStateMachine::isValid() const
     {
+        if(_states.empty() || _initState == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    iaStateMachine::iaEvent iaStateMachine::update()
+    {
+        _lastEvent = iaStateMachine::iaEvent::NoChange;
+        
         for (const auto &pair : _transitions)
         {
             auto transition = pair.second;
@@ -51,11 +63,11 @@ namespace iaux
             if (transition->isOpen())
             {
                 transit(transition);
-                return;
+                return _lastEvent;
             }
         }
 
-        _updateStateEvent(_currentState->getID());
+        return _lastEvent;
     }
 
     iaStateID iaStateMachine::getCurrentState() const
@@ -93,7 +105,6 @@ namespace iaux
         }
         else
         {
-            _leaveStateEvent(transition->getFrom());
             _currentState = getState(transition->getTo());
             enterCurrentState();
         }
@@ -195,46 +206,6 @@ namespace iaux
     {
         auto transition = getTransition(transitionID);
         transition->resetGates();
-    }
-
-    void iaStateMachine::registerEnterStateDelegate(iaEnterStateDelegate enterStateDelegate)
-    {
-        _enterStateEvent.add(enterStateDelegate);
-    }
-
-    void iaStateMachine::registerReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate)
-    {
-        _reEnterStateEvent.add(reEnterStateDelegate);
-    }
-
-    void iaStateMachine::registerLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate)
-    {
-        _leaveStateEvent.add(leaveStateDelegate);
-    }
-
-    void iaStateMachine::registerUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate)
-    {
-        _updateStateEvent.add(updateStateDelegate);
-    }
-
-    void iaStateMachine::unregisterEnterStateDelegate(iaEnterStateDelegate enterStateDelegate)
-    {
-        _enterStateEvent.remove(enterStateDelegate);
-    }
-
-    void iaStateMachine::unregisterReEnterStateDelegate(iaReEnterStateDelegate reEnterStateDelegate)
-    {
-        _reEnterStateEvent.remove(reEnterStateDelegate);
-    }
-
-    void iaStateMachine::unregisterLeaveStateDelegate(iaLeaveStateDelegate leaveStateDelegate)
-    {
-        _leaveStateEvent.remove(leaveStateDelegate);
-    }
-
-    void iaStateMachine::unregisterUpdateStateDelegate(iaUpdateStateDelegate updateStateDelegate)
-    {
-        _updateStateEvent.remove(updateStateDelegate);
     }
 
 } // namespace iaux

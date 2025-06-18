@@ -1,6 +1,8 @@
 var classigor_1_1i_animation_system =
 [
-    [ "iAnimationSystem", "classigor_1_1i_animation_system.html#ad8dfeb7aadc44e6fe0868e808afdd648", null ],
-    [ "~iAnimationSystem", "classigor_1_1i_animation_system.html#a5f54e3e03a8feb6318b803401f21424e", null ],
-    [ "update", "classigor_1_1i_animation_system.html#abb0500d3aa7ba9901c81da91316611a7", null ]
+    [ "iAnimationSystem", "classigor_1_1i_animation_system.html#abc412598e4424dba4a98a047bf326203", null ],
+    [ "createInstance", "classigor_1_1i_animation_system.html#a2c59612c61b027070d0600a91176f9df", null ],
+    [ "getStage", "classigor_1_1i_animation_system.html#ab819531fa9888f3a6dc3a9ec171996ed", null ],
+    [ "getTypeName", "classigor_1_1i_animation_system.html#a9c455514cde530180c42c2028c245993", null ],
+    [ "onUpdate", "classigor_1_1i_animation_system.html#a4da5e7bf4996be800b875ee0ba7b40e3", null ]
 ];

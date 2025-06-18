@@ -5,7 +5,7 @@
 //  #   # #   # #     #
 //  ##### #   # #     #  3d model file format
 //
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -95,7 +95,6 @@ namespace OMPF
 		Group = 0x02,
 		Transform = 0x03,
 		External = 0x04,
-		ResourceSearchPath = 0x05,
 		Mesh = 0x06,
 		Emitter = 0x08,
 		ParticleSystem = 0x09,

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaDirectory.h>
@@ -37,17 +37,16 @@ namespace iaux
 
     std::vector<iaDirectory> iaDirectory::getDirectories(bool recursive, bool orderAlphabetically) const
     {
-        iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaDirectory> result;
 
-        if (!isDirectory(fullPath))
+        if (!isDirectory(_directoryName))
         {
             return result;
         }
 
         if (recursive)
         {
-            for (const auto &entry : std::filesystem::recursive_directory_iterator(fullPath.getData()))
+            for (const auto &entry : std::filesystem::recursive_directory_iterator(_directoryName.getData()))
             {
                 if (entry.is_directory())
                 {
@@ -57,7 +56,7 @@ namespace iaux
         }
         else
         {
-            for (const auto &entry : std::filesystem::directory_iterator(fullPath.getData()))
+            for (const auto &entry : std::filesystem::directory_iterator(_directoryName.getData()))
             {
                 if (entry.is_directory())
                 {
@@ -68,13 +67,13 @@ namespace iaux
 
         if (orderAlphabetically)
         {
-            std::sort(result.begin(), result.end(), [](iaDirectory const a, iaDirectory const b)
-                      { 
-                        iaString sa = a.getFullDirectoryName();
-                        sa.toLower();
-                        iaString sb = b.getFullDirectoryName();
-                        sb.toLower();
-                        return sa < sb; });
+            std::sort(result.begin(), result.end(),
+                      [](iaDirectory const a, iaDirectory const b)
+                      {
+                          const iaString sa = iaString::toLower(a.getAbsoluteDirectoryName());
+                          const iaString sb = iaString::toLower(b.getAbsoluteDirectoryName());
+                          return sa < sb;
+                      });
         }
 
         return result;
@@ -87,8 +86,8 @@ namespace iaux
             return false;
         }
 
-        std::filesystem::directory_entry entry(path.getData());
-        if (entry.is_directory())
+        std::filesystem::file_status entry = std::filesystem::status(path.getData());
+        if (std::filesystem::is_directory(entry))
         {
             return true;
         }
@@ -98,7 +97,7 @@ namespace iaux
 
     bool iaDirectory::exists() const
     {
-        return iaDirectory::exists(getFullDirectoryName());
+        return iaDirectory::exists(_directoryName);
     }
 
     bool iaDirectory::exists(const iaString &path)
@@ -109,7 +108,15 @@ namespace iaux
         }
 
         std::filesystem::path fspath(path.getData());
-        return std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath);
+        if (std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
+        {
+            return true;
+        }
+
+        const iaString fullDir = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + path;
+
+        std::filesystem::path fspath2(fullDir.getData());
+        return std::filesystem::is_directory(fspath2) && std::filesystem::exists(fspath2);
     }
 
     bool iaDirectory::isEmpty(const iaString &path)
@@ -155,17 +162,16 @@ namespace iaux
 
     std::vector<iaFile> iaDirectory::getFiles(const iaString &searchPattern, bool recursive, bool orderAlphabetically) const
     {
-        iaString fullPath = fixPath(_directoryName, false);
         std::vector<iaFile> result;
 
-        if (!isDirectory(fullPath))
+        if (!isDirectory(_directoryName))
         {
             return result;
         }
 
         if (recursive)
         {
-            for (const auto &entry : std::filesystem::recursive_directory_iterator(fullPath.getData()))
+            for (const auto &entry : std::filesystem::recursive_directory_iterator(_directoryName.getData()))
             {
                 if (fileMatch(entry, searchPattern))
                 {
@@ -175,7 +181,7 @@ namespace iaux
         }
         else
         {
-            for (const auto &entry : std::filesystem::directory_iterator(fullPath.getData()))
+            for (const auto &entry : std::filesystem::directory_iterator(_directoryName.getData()))
             {
                 if (fileMatch(entry, searchPattern))
                 {
@@ -186,33 +192,33 @@ namespace iaux
 
         if (orderAlphabetically)
         {
-            std::sort(result.begin(), result.end(), [](iaFile const a, iaFile const b)
-                      { 
-                        iaString sa = a.getFullFileName();
-                        sa.toLower();
-                        iaString sb = b.getFullFileName();
-                        sb.toLower();
-                        return sa < sb; });
+            std::sort(result.begin(), result.end(),
+                      [](iaFile const a, iaFile const b)
+                      {
+                          const iaString sa = iaString::toLower(a.getFullFileName());
+                          const iaString sb = iaString::toLower(b.getFullFileName());
+                          return sa < sb;
+                      });
         }
 
         return result;
     }
 
-    iaString iaDirectory::getFullDirectoryName() const
+    iaString iaDirectory::getAbsoluteDirectoryName() const
     {
-        return fixPath(_directoryName, false);
+        return fixPath(_directoryName);
     }
 
     iaString iaDirectory::getDirectoryName() const
     {
-        iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(fullPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
     }
 
-    iaString iaDirectory::getFullParentDirectoryName() const
+    iaString iaDirectory::getAbsoluteParentDirectoryName() const
     {
-        iaString fullPath = fixPath(_directoryName, false);
-        return fullPath.getSubString(0, fullPath.findLastOf(IGOR_PATHSEPARATOR));
+        iaString cleanPath = iaString::trimRight(_directoryName, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     bool iaDirectory::isRoot()
@@ -274,7 +280,7 @@ namespace iaux
         return false;
     }
 
-    iaString iaDirectory::fixPath(const iaString &directoryName, bool file)
+    iaString iaDirectory::fixPath(const iaString &directoryName)
     {
         if (directoryName.isEmpty())
         {
@@ -282,22 +288,14 @@ namespace iaux
         }
 
         iaString temp = directoryName;
-        const wchar_t pathSeperator = IGOR_PATHSEPARATOR;
-        const wchar_t notPathSeperator = IGOR_NOT_PATHSEPARATOR;
 
         // converts to OS specific path seperator
         for (int i = 0; i < temp.getLength(); ++i)
         {
-            if (temp[i] == notPathSeperator)
+            if (temp[i] == IGOR_NOT_PATHSEPARATOR)
             {
-                temp[i] = pathSeperator;
+                temp[i] = IGOR_PATHSEPARATOR;
             }
-        }
-
-        // if this is a folder get rid of the last path seperator
-        if (iaFile::exists(temp) && !file)
-        {
-            temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
 
 #ifdef IGOR_LINUX
@@ -314,7 +312,7 @@ namespace iaux
         // does some relative to absolute path magic
         if (!directoryIsAbsolute(temp))
         {
-            temp = iaDirectory::getCurrentDirectory() + pathSeperator + temp;
+            temp = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + temp;
         }
 
         std::filesystem::path path(temp.getData());
@@ -335,12 +333,12 @@ namespace iaux
             iaDirectory dirFrom(from);
             if (iaDirectory::isDirectory(from))
             {
-                tempFrom = dirFrom.getFullDirectoryName();
+                tempFrom = dirFrom.getAbsoluteDirectoryName();
             }
             else
             {
                 // assuming the subfolder is actually a filename
-                tempFrom = dirFrom.getFullParentDirectoryName();
+                tempFrom = dirFrom.getAbsoluteParentDirectoryName();
             }
         }
 
@@ -356,13 +354,23 @@ namespace iaux
 
     void iaDirectory::setCurrentDirectory(const iaString &directory)
     {
-        iaString fixedDirectory = iaDirectory::fixPath(directory, false);
         std::error_code error;
-        std::filesystem::current_path(fixedDirectory.getData(), error);
+        std::filesystem::current_path(directory.getData(), error);
         if (error)
         {
-            con_err("can't set current directory to " << fixedDirectory);
+            con_err("can't set current directory to " << directory);
         }
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iaDirectory &dir)
+    {
+        const auto path = dir.getAbsoluteDirectoryName();
+        if (!path.isEmpty())
+        {
+            stream << path.getData();
+        }
+
+        return stream;
     }
 
 } // namespace iaux

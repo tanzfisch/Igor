@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,16 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __ASSET_BROWSER__
-#define __ASSET_BROWSER__
+#ifndef ASSET_BROWSER_H
+#define ASSET_BROWSER_H
 
 #include <igor/igor.h>
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(ResourceSelectionChanged, void, const iResourceID &);
+IGOR_EVENT_DEFINITION(ResourceSelectionChanged, const iResourceID &);
 
 /*! the asset browser
-*/
+ */
 class AssetBrowser : public iDialog
 {
     friend class iWidgetManager;
@@ -47,17 +47,17 @@ public:
 
     /*! does nothing
      */
-    ~AssetBrowser() = default;
+    ~AssetBrowser();
 
     /*! sets project
 
     \param project the project to use
     */
-    void setProject(iProjectPtr project);
+    void setProjectFolder(const iaString &projectFolder);
 
     /*! \returns current project
      */
-    iProjectPtr getProject() const;
+    const iaString &getProjectPath() const;
 
     /*! \returns resource selection changed event
      */
@@ -80,13 +80,9 @@ private:
      */
     std::unique_ptr<iItemData> _itemData;
 
-    /*! the current project
+    /*! the current project folder
      */
-    iProjectPtr _project;
-
-    /*! update handle for filesystem updates
-     */
-    iTimerHandle _updateHandle;
+    iaString _projectFolder;
 
     /*! resource selection changed event
      */
@@ -109,18 +105,26 @@ private:
     iDialogMenu _contextMenu;
 
     /*! current selected path
-    */
+     */
     iaString _currentPath;
+
+    /*! some resources will be displayed in the file tree. these when selected will be represented by this variable
+    */
+    iResourceID _currentFocussedResource;
 
     /*! init UI
      */
     void initUI();
 
-    /*! polls filesystem changes in an intervall
+    /*! refresh grid view in an interval
 
     \param time the current time
     */
-    void update(const iaTime &time);
+    void onRefreshGridView();
+
+    /*! called when filesystem has changed
+    */
+    void onUpdateFilesystem();
 
     /*! recursive update of folder structure data
 
@@ -145,21 +149,22 @@ private:
     */
     void onClickTreeView(const iWidgetPtr source);
 
-    /*! updates grid view with given item data
-
-    \param item the given item
+    /*! updates grid view for given selected relative path
     */
-    void updateGridView(iItemPtr item);
+    void onUpdateGridView();
 
-    /*! light weight refresh
-     */
-    void refreshGridView();
-
-    /*! triggered by selection changed event
+    /*! triggered by selection changed event on grid
 
     \param source the source widget of this event
     */
-    void onSelectionChanged(const iWidgetPtr source);
+    void onSelectionChangedGrid(const iWidgetPtr source);
+
+    /*! triggered by selection changed event on tree
+
+    \param source the source widget of this event
+    */
+   void onSelectionChangedTree(const iWidgetPtr source);
+
 
     /*! handle context menu event
 
@@ -167,17 +172,18 @@ private:
     */
     void OnContextMenu(iWidgetPtr source);
 
-    /*! handle creation of new material
+    /*! called when resource was loaded
 
-    \param source the source widget of this event
+    \param resourceID the id of the resource that was loaded
     */
-    void onCreateMaterial(iWidgetPtr source);
+    void onResourceLoaded(iResourceID resourceID);
 
-    /*! handle creation of new shader
+    /*! handles incoming generic event
 
-    \param source the source widget of this event
+    \param event the event
     */
-    void onCreateShader(iWidgetPtr source);
+    bool onEvent(iEvent &event) override;
+
 };
 
-#endif // __ASSET_BROWSER__
+#endif // ASSET_BROWSER_H

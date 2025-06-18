@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,14 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ITEM__
-#define __IGOR_ITEM__
+#ifndef IGOR_ITEM_H
+#define IGOR_ITEM_H
 
 #include <igor/data/iMimeData.h>
 
 namespace igor
 {
 
+    /*! item pointer definition
+    */
     class iItem;
     typedef iItem *iItemPtr;
 
@@ -44,11 +46,9 @@ namespace igor
     class IGOR_API iItem
     {
     public:
-        /*! ctor
-
-        \param name name of the item (must be unique between siblings)
-        */
-        iItem(const iaString &name = "root");
+        /*! nothing to do
+         */
+        iItem() = default;
 
         /*! set value for given key
 
@@ -73,18 +73,20 @@ namespace igor
          */
         bool hasValue(const iaString &key) const;
 
-        /*! \returns name of item
+        /*! \returns id of item
+
+        it's a unique id amongst siblings
          */
-        const iaString getName() const;
+        const iaString getID() const;
 
         /*! adds item to this item
 
         this item retains ownership
 
         \returns newly added item
-        \param name name of the item (must be unique between siblings)
+        \param id if of the item (must be unique between siblings)
         */
-        iItemPtr addItem(const iaString &name);
+        iItemPtr addItem(const iaString &id);
 
         /*! removes given item from this item
 
@@ -118,6 +120,10 @@ namespace igor
         */
         bool operator!=(const iItem &other) const;
 
+        /*! \returns true if this item has any data
+        */
+        bool hasData() const;
+
     private:
         /*! using mime data for implementation
          */
@@ -125,7 +131,7 @@ namespace igor
 
         /*! pointer to parent item
          */
-        iItem *_parent = nullptr;
+        iItemPtr _parent = nullptr;
 
         /*! sub items of this item
          */
@@ -136,4 +142,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_ITEM__
+#endif // IGOR_ITEM_H

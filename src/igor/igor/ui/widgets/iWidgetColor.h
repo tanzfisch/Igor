@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_WIDGETCOLOR__
-#define __IGOR_WIDGETCOLOR__
+#ifndef IGOR_WIDGETCOLOR_H
+#define IGOR_WIDGETCOLOR_H
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -53,9 +53,9 @@ namespace igor
 		*/
         iWidgetColor(const iWidgetPtr parent = nullptr);
 
-        /*! release texture
+        /*! does nothing
 		*/
-        virtual ~iWidgetColor();
+        virtual ~iWidgetColor() = default;
 
         /*! sets color
 		\param color color value in rgba
@@ -71,10 +71,6 @@ namespace igor
         */
         iaColor4f _color;
 
-        /*! shared pointer to background texture
-        */
-        iTexturePtr _texture;
-
         /*! updates size based on it's content
         */
         void calcMinSize() override;
@@ -83,6 +79,11 @@ namespace igor
          */
         void draw() override;
     };
+
+    /*! widget color pointer definition
+    */
+    typedef iWidgetColor* iWidgetColorPtr;
+
 } // namespace igor
 
-#endif // __IGOR_WIDGETCOLOR__
+#endif // IGOR_WIDGETCOLOR_H

@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,152 +26,107 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __UILAYER__
-#define __UILAYER__
+#ifndef MICA_UILAYER_H
+#define MICA_UILAYER_H
 
-#include "Workspace.h"
 #include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
 #include "properties_editor/PropertiesEditor.h"
 #include "viewport/Viewport.h"
 
+/*! ui layer handling all widget things
+ */
 class UILayer : public iLayerWidgets
 {
 
 public:
-    /*! nothing to do
-	*/
-    UILayer(iWindowPtr window, int32 zIndex, WorkspacePtr workspace);
+    /*! init members
+     */
+    UILayer(iWindowPtr window, int32 zIndex);
 
-    /*! deinit resources
-	*/
-    ~UILayer();
+    /*! nothing to do
+     */
+    ~UILayer() = default;
 
 private:
-    /*! the mica workspace
-	*/
-    WorkspacePtr _workspace;
-
     /*! the main dialog
-    */
+     */
     MainDialog *_mainDialog = nullptr;
 
-    /*! the outliner
-	*/
+    /*! entities outliner
+     */
     Outliner *_outliner = nullptr;
 
     /*! the asset browser
-	*/
+     */
     AssetBrowser *_assetBrowser = nullptr;
 
     /*! view port dialog
-    */
+     */
     Viewport *_viewport = nullptr;
 
     /*! the properties dialog or editor
-	*/
+     */
     PropertiesEditor *_propertiesDialog = nullptr;
 
-    /*! file open/close dialog 
-	*/
+    /*! file open/close dialog
+     */
     iDialogFileSelect _fileDialog;
 
-    /*! if true refresh ui next frame
-    */
-    bool _refresh = false;
-
-    /*! active project
-    */
-    iProjectPtr _activeProject;
-
-    /*! empties the workspace
-	*/
-    void clearWorkspace();
-
-    /*! handle for graph view selection change event
-
-	\param nodeID the id of the selected node
-	*/
-    void onGraphViewSelectionChanged(uint64 nodeID);    
-
-    /*! handle for load file event
-	*/
-    void onLoadFile();
-
-    /*! handle for import file to existing scene event
-	*/
-    void onImportFile();
-
-    /*! handle for import file by reference to existing scene event
-	*/
-    void onImportFileReference();
-
-    /*! handle for save file event
-	*/
-    void onSaveFile();
-
+    /*! opens the create project dialog
+     */
     void onCreateProject();
+
+    /*! opens the load project dialog
+     */
     void onLoadProject();
+
+    /*! saves the current project
+     */
     void onSaveProject();
 
-    /*! called when model was done loading
+    /*! closes the current project
+     */
+    void onCloseProject();
 
-    \param modelNodeID the node id of the model done loading
+    /*! handles closing the create project dialog
+
+    \param dialog the calling widget
     */
-    void onFileLoadModelReady(uint64 modelNodeID);
-
-    void onAddMaterial();
-    void onLoadMaterial();
-
     void onCreateProjectDialogClosed(iDialogPtr dialog);
+
+    /*! handles closing the load project dialog
+
+    \param dialog the calling widget
+    */
     void onLoadProjectDialogClosed(iDialogPtr dialog);
 
-    void onFileLoadDialogClosed(iDialogPtr dialog);
-    void onImportFileDialogClosed(iDialogPtr dialog);
-    void onImportFileReferenceDialogClosed(iDialogPtr dialog);
-    void onFileSaveDialogClosed(iDialogPtr dialog);
-    void onLoadMaterialFileDialogClosed(iDialogPtr dialog);
-
     /*! init ui
-	*/
+     */
     void onInit() override;
 
     /*! clear resources
-	*/
+     */
     void onDeinit() override;
 
-    /*! called on application pre draw event
-    */
-    void onUpdate() override;
-
     /*! called on any other event
-    */
+     */
     void onEvent(iEvent &event) override;
 
     /*! called when key was pressed
 
     \param event the event to handle
+    \returns true if event was consumed
     */
     bool onKeyDown(iEventKeyDown &event);
 
-    /*! triggered when node was added to scene
+    /*! on project loaded event
 
-    \param event the event to handle
+    \param event the event data
+    \returns true if event was consumed
     */
-    bool onNodeAddedToScene(iEventNodeAddedToScene &event);
-
-    /*! triggered when node was removed from scene
-
-    \param event the event to handle
-    */
-    bool onNodeRemovedFromScene(iEventNodeRemovedFromScene &event);
-
-    /*! triggered when selection in scene changed
-
-    \param event the event handle
-    */
-    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
+    bool onProjectLoaded(iEventProjectLoaded &event);
 };
 
-#endif // __UILAYER__
+#endif // MICA_UILAYER_H

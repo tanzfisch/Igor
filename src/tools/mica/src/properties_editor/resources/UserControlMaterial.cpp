@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlMaterial.h"
@@ -47,11 +47,11 @@ void UserControlMaterial::updateResource()
 
     if(_shaderMaterialChooser->getID().isValid())
     {
-        material->setShaderMaterial(iResourceManager::getInstance().loadResource<iShaderMaterial>(_shaderMaterialChooser->getID()));
+        material->setShader(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getID()));
     }
     else
     {
-        material->setShaderMaterial(nullptr);
+        material->setShader(nullptr);
     }
 
     iResourceManager::getInstance().saveResource(getResourceID());
@@ -85,9 +85,9 @@ void UserControlMaterial::update()
         }
     }
 
-    if (material->getShaderMaterial() != nullptr)
+    if (material->getShader() != nullptr)
     {
-        _shaderMaterialChooser->setID(material->getShaderMaterial()->getID());
+        _shaderMaterialChooser->setID(material->getShader()->getID());
     }
     else
     {
@@ -112,25 +112,25 @@ void UserControlMaterial::init()
 
     iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, lightGroupBox);
 
-    _ambientColorChooser = new iUserControlColorChooser(materialLayout);
+    _ambientColorChooser = new iUserControlColor(materialLayout);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
-    _ambientColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _ambientColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _diffuseColorChooser = new iUserControlColorChooser(materialLayout);
+    _diffuseColorChooser = new iUserControlColor(materialLayout);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
-    _diffuseColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _diffuseColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _specularColorChooser = new iUserControlColorChooser(materialLayout);
+    _specularColorChooser = new iUserControlColor(materialLayout);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
-    _specularColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _specularColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _emissiveColorChooser = new iUserControlColorChooser(materialLayout);
+    _emissiveColorChooser = new iUserControlColor(materialLayout);
     _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");
-    _emissiveColorChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _emissiveColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     iWidgetLabel *labelShininess = new iWidgetLabel(materialLayout);
     labelShininess->setText("Shininess");
@@ -145,7 +145,7 @@ void UserControlMaterial::init()
     _sliderShininess->setSteppingWheel(0.1f, 0.1f);
     _sliderShininess->setValue(0.0f);
     _sliderShininess->setMinWidth(220);
-    _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
+    _sliderShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
     _numberChooserShininess = new iWidgetNumberChooser(shininessLayout);
     _numberChooserShininess->setMinMaxNumber(0.0f, 1000.0f);
@@ -154,7 +154,7 @@ void UserControlMaterial::init()
     _numberChooserShininess->setMinWidth(80);
     _numberChooserShininess->setSteppingWheel(0.1f, 0.1f);
     _numberChooserShininess->setStepping(0.01f, 0.01f);
-    _numberChooserShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
+    _numberChooserShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateShininess));
 
     iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
     for (int i = 0; i < 4; ++i)
@@ -162,12 +162,12 @@ void UserControlMaterial::init()
         iWidgetBoxLayoutPtr textureLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
         labelTextureUnit[i] = new iWidgetLabel(textureLayout);
         labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
-        labelTextureUnit[i]->setMinWidth(MICA_REGULARBUTTON_SIZE);
+        labelTextureUnit[i]->setMinWidth(MICA_REGULAR_LABEL_SIZE);
         labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
         labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-        _textureChooser[i] = new iUserControlTextureChooser(textureLayout);
-        _textureChooser[i]->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+        _textureChooser[i] = new iUserControlTexture(textureLayout);
+        _textureChooser[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     }
 
     iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
@@ -175,10 +175,10 @@ void UserControlMaterial::init()
     shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
     shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
     shaderMaterialLabel->setText("Shader");
-    shaderMaterialLabel->setMinWidth(MICA_REGULARBUTTON_SIZE);
-    _shaderMaterialChooser = new iUserControlShaderMaterialChooser(shaderMaterialLayout);
+    shaderMaterialLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+    _shaderMaterialChooser = new iUserControlShaderMaterial(shaderMaterialLayout);
 
-    _shaderMaterialChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 }
 
 void UserControlMaterial::onDoUpdateShininess(const iWidgetPtr source)

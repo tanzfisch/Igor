@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetMenuBar.h>
@@ -22,6 +22,7 @@ namespace igor
         _grid = new iWidgetGridLayout(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::Column);
+        _grid->setCellSpacing(0);
     }
 
     void iWidgetMenuBar::unselect()

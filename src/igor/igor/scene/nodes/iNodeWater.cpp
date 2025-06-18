@@ -1,12 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/scene/nodes/iNodeWater.h>
 
 #include <iaux/system/iaConsole.h>
 #include <igor/renderer/iRenderer.h>
-#include <igor/resources/shader_material/iShaderMaterial.h>
+#include <igor/resources/shader/iShader.h>
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeManager.h>

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetSelectBox.h>
@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/data/iIntersection.h>
+#include <igor/utils/iAny.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -60,7 +61,7 @@ namespace igor
         updateMinSize(minWidth, minHeight);
     }
 
-    bool iWidgetSelectBox::onMouseKeyDown(iEventMouseKeyDown &event)
+    bool iWidgetSelectBox::onMouseKeyDown(const iEventMouseKeyDown &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -68,12 +69,12 @@ namespace igor
             return false;
         }
 
-        _buttonAppearanceState = iWidgetState::Pressed;
+        _buttonState = iWidgetState::Pressed;
 
         return iWidget::onMouseKeyDown(event);
     }
 
-    void iWidgetSelectBox::onMouseMove(iEventMouseMove &event)
+    void iWidgetSelectBox::onMouseMove(const iEventMouseMove &event)
     {
         if (!isEnabled())
         {
@@ -89,15 +90,15 @@ namespace igor
 
         if (!event.isConsumed())
         {
-            _buttonAppearanceState = iWidgetState::Highlighted;
+            _buttonState = iWidgetState::Highlighted;
         }
         else
         {
-            _buttonAppearanceState = iWidgetState::Standby;
+            _buttonState = iWidgetState::Standby;
         }
     }
 
-    bool iWidgetSelectBox::onMouseKeyUp(iEventMouseKeyUp &event)
+    bool iWidgetSelectBox::onMouseKeyUp(const iEventMouseKeyUp &event)
     {
         if (!isEnabled() ||
             !isMouseOver())
@@ -107,7 +108,7 @@ namespace igor
 
         if (event.getKey() == iKeyCode::MouseLeft)
         {
-            _buttonAppearanceState = iWidgetState::Standby;
+            _buttonState = iWidgetState::Standby;
 
             if (_selectBox == nullptr)
             {
@@ -145,6 +146,21 @@ namespace igor
 
         delete _selectBox;
         _selectBox = nullptr;
+    }
+
+    void iWidgetSelectBox::setSelection(const std::any &userData)
+    {
+        uint32 index = 0;
+        for(const auto &pair :_entries)   
+        {
+            if(iAny::getInstance().compare(userData, pair.second))
+            {
+                setSelection(index);
+                return;
+            }
+
+            index++;
+        }
     }
 
     void iWidgetSelectBox::setSelection(uint32 key)
@@ -192,7 +208,17 @@ namespace igor
 
     iaString iWidgetSelectBox::getSelectedValue() const
     {
+        if(_currentSelection >= _entries.size())
+        {
+            return iaString();
+        }
+
         return _entries[_currentSelection].first;
+    }
+
+    iWidgetState iWidgetSelectBox::getButtonState() const
+    {
+        return _buttonState;
     }
 
     void iWidgetSelectBox::draw()
@@ -202,14 +228,7 @@ namespace igor
             return;
         }
 
-        iaString displayString;
-
-        if (_currentSelection >= 0 && _currentSelection < _entries.size())
-        {
-            displayString = _entries[_currentSelection].first;
-        }
-
-        iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isEnabled());
+        iWidgetManager::getInstance().getTheme()->draw(this);
     }
 
 } // namespace igor

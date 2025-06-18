@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,73 +26,108 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MAIN_LAYOUT__
-#define __MAIN_LAYOUT__
-
-#include "Workspace.h"
+#ifndef MICA_MAIN_LAYOUT_H
+#define MICA_MAIN_LAYOUT_H
 
 #include <igor/igor.h>
 using namespace igor;
 
-IGOR_EVENT_DEFINITION(CreateProject, void);
-IGOR_EVENT_DEFINITION(LoadProject, void);
-IGOR_EVENT_DEFINITION(SaveProject, void);
-IGOR_EVENT_DEFINITION(LoadFile, void);
-IGOR_EVENT_DEFINITION(SaveFile, void);
-
-IGOR_EVENT_DEFINITION(CopyNode, void, uint64);
-IGOR_EVENT_DEFINITION(PasteNode, void, uint64);
-IGOR_EVENT_DEFINITION(CutNode, void, uint64);
+IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(CloseProject);
 
 /*! main dialog
  */
 class MainDialog : public iDialog
 {
 public:
-    MainDialog(WorkspacePtr workspace);
-    ~MainDialog();
+    /*! init
+     */
+    MainDialog();
 
-    CreateProjectEvent& getEventCreateProject();
-    LoadProjectEvent& getEventLoadProject();
-    SaveProjectEvent& getEventSaveProject();
-    LoadFileEvent& getEventLoadFile();
-    SaveFileEvent& getEventSaveFile();
-    CopyNodeEvent& getEventCopyNode();
-    CutNodeEvent& getEventCutNode();
-    PasteNodeEvent& getEventPasteNode();
+    /*! does nothing
+     */
+    ~MainDialog() = default;
+
+    /*! \returns create project event
+     */
+    CreateProjectEvent &getCreateProjectEvent();
+
+    /*! \returns load project event
+     */
+    LoadProjectEvent &getLoadProjectEvent();
+
+    /*! \returns save project event
+     */
+    SaveProjectEvent &getSaveProjectEvent();
+
+    /*! \returns close project event
+     */
+    CloseProjectEvent &getCloseProjectEvent();
 
 private:
-    /*! the mica workspace
-    */
-    WorkspacePtr _workspace;
-
+    /*! create project event
+     */
     CreateProjectEvent _createProject;
+
+    /*! load project event
+     */
     LoadProjectEvent _loadProject;
+
+    /*! save project event
+     */
     SaveProjectEvent _saveProject;
 
-    LoadFileEvent _loadFile;
-    SaveFileEvent _saveFile;
+    /*! save project event
+     */
+    CloseProjectEvent _closeProject;
 
-    CopyNodeEvent _copyNode;
-    CutNodeEvent _cutNode;
-    PasteNodeEvent _pasteNode;
-
+    /*! init ui
+     */
     void initGUI();
-    void deinitGUI();
 
+    /*! triggers create project event
+
+    \param source the event source
+    */
     void onCreateProject(const iWidgetPtr source);
+
+    /*! triggers load project event
+
+    \param source the event source
+    */
     void onLoadProject(const iWidgetPtr source);
+
+    /*! triggers save project event
+
+    \param source the event source
+    */
     void onSaveProject(const iWidgetPtr source);
 
-    void onLoadFile(const iWidgetPtr source);
-    void onSaveFile(const iWidgetPtr source);
+    /*! triggers close project event
 
-    void onCopy(const iWidgetPtr source);
-    void onPaste(const iWidgetPtr source);
-    void onCut(const iWidgetPtr source);    
-    void onDelete(const iWidgetPtr source);
+    \param source the event source
+    */
+    void onCloseProject(const iWidgetPtr source);
 
+    /*! creates main application menu
+
+    \returns created menu
+    */
     iWidgetMenuBarPtr createMenu();
+
+    /*! prints project tree to console
+
+    \param source the event source
+     */
+    void onPrintProjectTree(const iWidgetPtr source);      
+
+    /*! on pre recent project menu open
+
+    \param menu the recent project menu
+    */
+    void onRecentProjectOpen(iWidgetMenuPtr menu);
 };
 
-#endif // __MAIN_LAYOUT__
+#endif // MICA_MAIN_LAYOUT_H

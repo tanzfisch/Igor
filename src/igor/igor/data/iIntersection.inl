@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <typename T>
@@ -21,7 +21,7 @@ bool iIntersection::contains(const iaSphere<T> &sphereA, const iaSphere<T> &sphe
 template <typename T>
 bool iIntersection::inFrontOf(const iaSphere<T> &sphere, const iPlane<T> &plane)
 {
-    const T distancePlanePoint = (plane._normal * sphere._center) - plane._distance;
+    const T distancePlanePoint = (plane._normal.dot(sphere._center)) - plane._distance;
     return distancePlanePoint > -sphere._radius;
 }
 
@@ -58,7 +58,7 @@ bool iIntersection::intersects(const iaSphere<T> &sphere, const iFrustum<T> &fru
 template <typename T>
 bool iIntersection::inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane)
 {
-    const T distancePlanePoint = (plane._normal * cube._center) - plane._distance;
+    const T distancePlanePoint = (plane._normal.dot(cube._center)) - plane._distance;
     return distancePlanePoint > (-cube._halfEdgeLength * 3);
 }
 

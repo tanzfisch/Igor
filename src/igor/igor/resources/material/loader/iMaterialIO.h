@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -31,8 +31,6 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-class TiXmlElement;
-
 namespace igor
 {
     /*! reader for Igor material files
@@ -53,10 +51,6 @@ namespace igor
         \param material the material to use
         */
         static bool write(const iaString &filename, const iMaterialPtr &material);
-
-    private:
-        static bool readMaterial(TiXmlElement *materialXML, const iMaterialPtr &material);
-        static bool readTextures(TiXmlElement *materialXML, const iMaterialPtr &material);
     };
 
 } // namespace igor

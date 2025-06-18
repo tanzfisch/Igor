@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE_RENDER_SYSTEM__
-#define __IGOR_SPRITE_RENDER_SYSTEM__
+#ifndef IGOR_SPRITE_RENDER_SYSTEM_H
+#define IGOR_SPRITE_RENDER_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -35,25 +35,38 @@ namespace igor
 {
 
 	/*! sprite render system
-	*/
-	class iSpriteRenderSystem : public iEntityRenderSystem
+	 */
+	class iSpriteRenderSystem : public iEntitySystem
 	{
 	public:
-		/*! does nothing
-		*/
-		iSpriteRenderSystem() = default;
+		/*! init types
+		 */
+		iSpriteRenderSystem();
 
-		/*! does nothing
-		*/
-		~iSpriteRenderSystem() = default;
+        /*! creates instance of this system type
+         */
+        static iEntitySystemPtr createInstance();
+		
+        /*! \returns type name of system
+         */
+        static const iaString &getTypeName();		
 
 		/*! updates system
 
-		\param scene the scene used for this update
+		\param context the update context
 		 */
-		void render(iEntityScenePtr scene) override;
+		void onUpdate(const iEntitySceneUpdateContext &context) override;
+
+		/*! \returns processing stage this system want's to run in
+		 */
+		iEntitySystemStage getStage() const override;
+
+	private:
+		/*! a view on some entities
+		 */
+		iEntityViewPtr _view;
 	};
 
 } // igor
 
-#endif // __IGOR_SPRITE_RENDER_SYSTEM__
+#endif // IGOR_SPRITE_RENDER_SYSTEM_H

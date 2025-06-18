@@ -1,11 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "PhysicsExample.h"
 
 PhysicsExample::PhysicsExample(iWindowPtr window)
-    : ExampleBase(window, "Physics", true, "example_skybox_debug")
+    : ExampleBase(window, "Physics", true, "igor_skybox_debug")
 {
 }
 

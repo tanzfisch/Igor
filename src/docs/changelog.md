@@ -1,10 +1,44 @@
 Changelog                           {#changelog}
 =========
 
-0.44.0
+0.45.0
 ------
 
-!!! MSVC build fails. no time to fix !!!
+Most examples do not work anymore. Focus was on Mica and Supremacy
+
+- #422 new entity based render engine (will eventually replace the scene graph based renderer)
+- #414 reintroducing home brew entity system (it's something like a game object component thingy)
+- IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
+- added random interface to iaColor3 and iaColor4
+- iaDirectory and iaFile do not automatically fix a paths anymore
+- #407 more renaming iShaderMaterial to iShader and related
+- removed widget example since Mica covers all you need to know about widgets in Igor
+- #374 using float32 for mouse position to reduce conversions
+- #408 cleaned up ompf from legacy data and broke compatibility with older ompf (set ompf to 2.0.0)
+- #404 made project a singleton and put project and user search paths on top in iResourceManager
+- igor data folder now installed under data
+- iProfiler now also tracks key value pairs per frame ie "draw calls", "triangles" etc
+- iEntityScene is registered with iView which eventually will replace iScene
+- #424 added sky box compatible to new render engine
+- #420 integrated json and replaced all xml files except for shaders
+- introduced prefab as resource
+- iaEvent now allows to add a delegate that only get's triggered once
+- introduced iaEventPool to handle events that only get called in main thread
+- fixed del key issue in iWidgetLineTextEdit
+- modal dialogs are allowed to be nested using a modal stack. The top one is the current modal one
+- added iClipboard copy pasting text and entity IDs
+- #412 bring entity system to use in Mica at least make a start
+- added iFilesystem to watch changes in the filesystem and trigger events like iEventFileCreated, iEventFileChanged etc
+- #441 cleared Mica form all scene node code so we can phase out the scene graph and replace it with entities
+- #436 made callstack more readable
+- added iEntityPrintTraverser for logging entity hierarchies in human readable format
+- #445 introduced iaTransform
+- added recursive watch to iTaskWatchFilesystem
+- fixed iWidgetScroll which was scrolling by the wrong amount
+- added more tests to iaux
+
+0.44.0
+------
 
 - #388 allow file select dialogs to be closed using ESC
 - #387 improved render of drag operation
@@ -21,8 +55,6 @@ Changelog                           {#changelog}
 0.43.1
 ------
 
-!!! MSVC build fails. no time to fix !!!
-
 - #393 fixed invalid node info issue
 - #391 adding more docs to examples
 - #383 thumbnails now respect aspect ratio
@@ -30,8 +62,7 @@ Changelog                           {#changelog}
 0.43.0
 ------
 
-!!! MSVC build fails. no time to fix !!!
-
+- MSVC support discontinued
 - reimplemented iMaterial and make it a iResource
 - replaced iMaterialResourceFactory with iMaterialFactory which is now integrated in the iResourceManager
 - some spring cleaning around plenty of TODOs
@@ -54,7 +85,7 @@ Changelog                           {#changelog}
 - fixed texture font vertical alignment
 - added new widget selection interfaces
 - Mica drag drop assets in viewport (models and textures on models)
-- added iUserControlTextureChooser
+- added iUserControlTexture
 - added background color and background checkerboard option to iWidgetPicture
 
 Known issues:
@@ -461,3 +492,55 @@ I really needed to get this out before it get's even bigger.
 - Added alpha to target material
 - Support alpha in target material in OMPF
 - Updated the OMPF example models with new format
+
+pre Igor
+--------
+
+Before Igor there was openDC (Open Dirty Coding) starting in 2003.
+Back then it's primary function was to load stuff and render it for projects during my Study.
+
+As curiosity following the original header.
+
+/*
+                                              _______     ______             
+                                             |       \   /                   
+                                             |        | |                    
+          ______   ______   ______  _ _____  |        | |                    
+         /      \ |      \ /      \ |      \ |        | |                    
+         |      | |      | |______  |      | |        | |                    
+         |      | |      | |        |      | |        | |                    
+         \______/ |______/ \_______ |      | |_______/   \______             
+                  |                                                           
+                  |                                                          
+                     O p e n  D i r t y  C o d i n g                       
+    
+               Grundfunktionalitaet fuer 3D - Applikationen          
+
+                  (c) Copyright 2003-2007 by Martin Loga               
+                                                                            
+  ------------------------------------------------------------------------- 
+                                                                            
+  This library is free software; you can redistribute it and or modify it   
+  under the terms of the GNU Lesser General Public License as published by  
+  the Free Software Foundation; either version 2.1 of the License, or (at   
+  your option) any later version.                                           
+                                                                            
+  This library is distributed in the hope that it will be useful,           
+  but WITHOUT ANY WARRANTY; without even the implied warranty of            
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
+  Lesser General Public License for more details.                           
+                                                                            
+  You should have received a copy of the GNU Lesser General Public          
+  License along with this library; if not, write to the Free Software       
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA 
+                                                                            
+    contact: martinloga@gamedev.de                                          
+    URL    : www.opendc.de                                                  
+                                                                            
+  ------------------------------------------------------------------------- 
+  */      
+
+pre OpenDC
+----------
+
+OpenDC came from easyGL. An OO wrapper for OpenGL. Started probably in 2001 or 2002.

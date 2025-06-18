@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/actions/iAction.h>
@@ -19,8 +19,8 @@ namespace igor
 
 	void iAction::setDescription(const iaString &brief, const iaString &description)
 	{
-		_description = description;
 		_brief = brief;
+		_description = description;
 	}
 
 	const iaString &iAction::getBrief() const

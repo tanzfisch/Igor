@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/model/iModelFactory.h>
@@ -57,6 +57,11 @@ namespace igor
         if (!filename.isEmpty())
         {
             parameters.setParameter(IGOR_RESOURCE_PARAM_SOURCE, filename);
+        }
+        else
+        {
+            // sanity check. if there is no filename than the data must be generated
+            con_assert(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false), "invalid parameters");
         }
 
         iaString subType = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SUB_TYPE, "");

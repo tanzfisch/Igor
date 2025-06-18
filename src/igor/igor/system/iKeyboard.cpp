@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iKeyboard.h>
@@ -924,7 +924,7 @@ namespace igor
         return false;
     }
 
-    bool iKeyboard::getKey(iKeyCode keyCode)
+    bool iKeyboard::keyPressed(iKeyCode keyCode)
     {
         return _impl->_keys[static_cast<unsigned int>(keyCode)];
     }

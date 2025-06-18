@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_INSTANCING_BUFFER__
-#define __IGOR_INSTANCING_BUFFER__
+#ifndef IGOR_INSTANCING_BUFFER_H
+#define IGOR_INSTANCING_BUFFER_H
 
 #include <igor/renderer/buffers/iVertexArray.h>
 
@@ -52,11 +52,11 @@ namespace igor
         /*! \returns a newly created vertex buffer
         
         \param layout the layout of data used for instancing
-        \param maxInstanceSizeHint a hint for the maximum amout of instances
+        \param maxInstanceSizeHint a hint for the maximum amount of instances
 
         Adding more instances then specified with maxInstanceSizeHint will lead to reallocating memory and doubling the buffer size.
         */
-        static iInstancingBufferPtr create(const iBufferLayout &layout, uint32 maxInstanceSizeHint = 100);
+        static iInstancingBufferPtr create(const iBufferLayout &layout, uint32 maxInstanceSizeHint = 8);
 
         /*! adds instance data. This can be the data of just one instance or many.
 
@@ -66,6 +66,18 @@ namespace igor
         \param data the data to add
         */
         void addInstance(uint32 size, const void* data);
+
+        /*! returns instance data
+
+        \param index index of first instance to return
+        \param size the size of data to returns. Must be multiple of the layout size (or stride)
+        \param[out] data the data to return
+        */
+        void getInstance(uint32 index, uint32 size, void* data);
+
+        /*! \returns size in byte of each instance. Including stride
+        */
+        uint32 getInstanceSize() const;
 
         /*! sets a new size hint.
 
@@ -145,4 +157,4 @@ namespace igor
 
 }
 
-#endif // __IGOR_INSTANCING_BUFFER__ 
+#endif // IGOR_INSTANCING_BUFFER_H

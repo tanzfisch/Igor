@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+//    (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,92 +26,503 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY_COMPONENTS__
-#define __SUPREMACY_COMPONENTS__
+#ifndef SUPREMACY_COMPONENTS_H
+#define SUPREMACY_COMPONENTS_H
 
 #include <igor/igor.h>
 using namespace igor;
 
-struct RangeComponent
+/*! I love parties <3
+ */
+class PartyComponent : public iEntityComponent
 {
+public:
+    /*! ctor
+
+    \param name the name of this component
+    */
+    PartyComponent(uint32 partyID = 0, const iaString &name = "party")
+        : _partyID(partyID)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new PartyComponent();
+    }
+
+    /*! party id
+     */
+    uint32 _partyID = 0;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        PartyComponent *component = new PartyComponent();
+        component->_partyID = _partyID;
+        return component;
+    }
+};
+
+class RangeComponent : public iEntityComponent
+{
+public:
+    /*! default ctor
+     */
+    RangeComponent() = default;
+
+    /*! ctor
+
+    \param name the name of this component
+    */
+    RangeComponent(float64 rangeLeft, const iaVector3d &lastPosition)
+        : _rangeLeft(rangeLeft), _lastPosition(lastPosition)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new RangeComponent();
+    }
+
     /*! max range
      */
     float64 _rangeLeft = 0.0;
 
     /*! last position
-    */
+     */
     iaVector3d _lastPosition;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        RangeComponent *component = new RangeComponent();
+        component->_rangeLeft = _rangeLeft;
+        component->_lastPosition = _lastPosition;
+        return component;
+    }
 };
 
-struct AngularVelocityComponent
+class AngularVelocityComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    AngularVelocityComponent() = default;
+
+    /*! ctor
+     */
+    AngularVelocityComponent(float64 velocity)
+        : _velocity(velocity)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new AngularVelocityComponent();
+    }
+
     /*! angular velocity in rad per frame
      */
     float32 _velocity;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        AngularVelocityComponent *component = new AngularVelocityComponent();
+        component->_velocity = _velocity;
+        return component;
+    }
 };
 
-struct HealthComponent
+class HealthComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    HealthComponent() = default;
+
+    /*! ctor
+     */
+    HealthComponent(float64 health, bool destroyOnImpact = false)
+        : _health(health), _destroyOnImpact(destroyOnImpact)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new HealthComponent();
+    }
+
     float32 _health = 0;
     bool _destroyOnImpact = false;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        HealthComponent *component = new HealthComponent();
+        component->_health = _health;
+        component->_destroyOnImpact = _destroyOnImpact;
+        return component;
+    }
 };
 
-struct PickupComponent
+class PickupComponent : public iEntityComponent
 {
-    bool _canBePickedUp = true;
+public:
+    /*! default ctor
+     */
+    PickupComponent() = default;
+
+    /*! ctor
+     */
+    PickupComponent(bool canBePickedUp)
+        : _canBePickedUp(canBePickedUp)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new PickupComponent();
+    }
+
+    bool _canBePickedUp;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        PickupComponent *component = new PickupComponent();
+        component->_canBePickedUp = _canBePickedUp;
+        return component;
+    }
 };
 
-struct HealComponent
+class HealComponent : public iEntityComponent
 {
-    float32 _heal = 0;
+public:
+    /*! default ctor
+     */
+    HealComponent() = default;
+
+    /*! ctor
+     */
+    HealComponent(float32 heal)
+        : _heal(heal)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new HealComponent();
+    }
+
+    float32 _heal;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        HealComponent *component = new HealComponent();
+        component->_heal = _heal;
+        return component;
+    }
 };
 
-struct DamageComponent
+class DamageComponent : public iEntityComponent
 {
-    float32 _damage = 0.0;
+public:
+    /*! default ctor
+     */
+    DamageComponent() = default;
+
+    /*! ctor
+     */
+    DamageComponent(float32 damage)
+        : _damage(damage)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new DamageComponent();
+    }
+
+    float32 _damage;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        DamageComponent *component = new DamageComponent();
+        component->_damage = _damage;
+        return component;
+    }
 };
 
-struct ExperienceComponent
+class ExperienceComponent : public iEntityComponent
 {
-    float32 _experience = 0.0;
-    float32 _level = 1.0;
+public:
+    /*! default ctor
+     */
+    ExperienceComponent() = default;
+
+    /*! ctor
+     */
+    ExperienceComponent(float32 experience, float32 level)
+        : _experience(experience), _level(level)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ExperienceComponent();
+    }
+
+    float32 _experience = 0;
+    float32 _level = 0;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ExperienceComponent *component = new ExperienceComponent();
+        component->_experience = _experience;
+        component->_level = _level;
+        return component;
+    }
 };
 
-struct CoinsComponent
+class CoinsComponent : public iEntityComponent
 {
-    float32 _coins = 0;
-};
+public:
+    /*! default ctor
+     */
+    CoinsComponent() = default;
 
-struct ExperienceGainComponent
-{
-    float32 _experience = 0.0;
-};
+    /*! ctor
+     */
+    CoinsComponent(float32 coins)
+        : _coins(coins)
+    {
+    }
 
-struct CoinGainComponent
-{
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new CoinsComponent();
+    }
+
     float32 _coins = 0.0;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        CoinsComponent *component = new CoinsComponent();
+        component->_coins = _coins;
+        return component;
+    }
 };
 
-struct TargetComponent
+class ExperienceGainComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    ExperienceGainComponent() = default;
+
+    /*! ctor
+     */
+    ExperienceGainComponent(float32 experience)
+        : _experience(experience)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ExperienceGainComponent();
+    }
+
+    float32 _experience;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ExperienceGainComponent *component = new ExperienceGainComponent();
+        component->_experience = _experience;
+        return component;
+    }
+};
+
+class CoinGainComponent : public iEntityComponent
+{
+public:
+    /*! default ctor
+     */
+    CoinGainComponent() = default;
+
+    /*! ctor
+     */
+    CoinGainComponent(float32 coins)
+        : _coins(coins)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new CoinGainComponent();
+    }
+
+    float32 _coins;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        CoinGainComponent *component = new CoinGainComponent();
+        component->_coins = _coins;
+        return component;
+    }
+};
+
+class TargetComponent : public iEntityComponent
+{
+public:
+    /*! default ctor
+     */
+    TargetComponent() = default;
+
+    /*! ctor
+     */
+    TargetComponent(iEntityID targetID, bool inRange = false, bool followTarget = true)
+        : _targetID(targetID), _inRange(inRange), _followTarget(followTarget)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new TargetComponent();
+    }
+
     iEntityID _targetID;
     bool _inRange = false;
     bool _followTarget = true;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        TargetComponent *component = new TargetComponent();
+        component->_targetID = _targetID;
+        component->_inRange = _inRange;
+        component->_followTarget = _followTarget;
+        return component;
+    }
 };
 
-struct MovementControlComponent
+class MovementControlComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    MovementControlComponent() = default;
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new MovementControlComponent();
+    }
+
     bool _up = false;
     bool _down = false;
     bool _left = false;
     bool _right = false;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        MovementControlComponent *component = new MovementControlComponent();
+        component->_up = _up;
+        component->_down = _down;
+        component->_left = _left;
+        component->_right = _right;
+        return component;
+    }
 };
 
-struct ViewportComponent
+class ViewportComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    ViewportComponent() = default;
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ViewportComponent();
+    }
+
     iaRectanglef _viewport;
     iaVector2f _targetOffset;
-    iEntityID _targetID;
+    iEntityID _targetID = iEntityID::getInvalid();
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ViewportComponent *component = new ViewportComponent();
+        component->_viewport = _viewport;
+        component->_targetOffset = _targetOffset;
+        component->_targetID = _targetID;
+        return component;
+    }
 };
 
 /*! weapon types
@@ -124,7 +535,7 @@ enum class WeaponType
     RocketLauncher
 };
 
-struct WeaponComponent
+struct WeaponConfiguration
 {
     iaString _texture;
     float32 _size;
@@ -157,10 +568,47 @@ struct WeaponComponent
     /*! offset to unit position to fire from
      */
     iaVector2d _offset;
+};
+
+class WeaponComponent : public iEntityComponent
+{
+public:
+    /*! default ctor
+     */
+    WeaponComponent() = default;
+
+    /*! ctor
+
+    \param name the name of this component
+    */
+    WeaponComponent(const WeaponConfiguration &config, const iaString &name = "weapon")
+        : _config(config)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new WeaponComponent();
+    }
+
+    WeaponConfiguration _config;
 
     /*! keeps track of cool down
      */
     iaTime _time;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        WeaponComponent *component = new WeaponComponent();
+        component->_config = _config;
+        component->_time = _time;
+        return component;
+    }
 };
 
 enum class ObjectType
@@ -168,7 +616,7 @@ enum class ObjectType
     Coin
 };
 
-struct ModifierComponent
+struct ModifierConfiguration
 {
     float32 _damageFactor;
     float32 _attackIntervalFactor;
@@ -180,15 +628,82 @@ struct ModifierComponent
     float32 _projectileRangeFactor;
 };
 
+class ModifierComponent : public iEntityComponent
+{
+public:
+    /*! default ctor
+     */
+    ModifierComponent() = default;
+
+    /*! ctor
+
+    \param name the name of this component
+    */
+    ModifierComponent(const ModifierConfiguration &config, const iaString &name = "modifier")
+        : _config(config)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new ModifierComponent();
+    }
+
+    ModifierConfiguration _config;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        ModifierComponent *component = new ModifierComponent();
+        component->_config = _config;
+        return component;
+    }
+};
+
 enum class BuildingType
 {
     None,
     Shop
 };
 
-struct BuildingComponent
+class BuildingComponent : public iEntityComponent
 {
+public:
+    /*! default ctor
+     */
+    BuildingComponent() = default;
+
+    /*! ctor
+
+    \param name the name of this component
+    */
+    BuildingComponent(BuildingType type, const iaString &name = "building")
+        : _type(type)
+    {
+    }
+
+    /*! creates instance of this component type
+     */
+    static iEntityComponent *createInstance()
+    {
+        return new BuildingComponent();
+    }
+
     BuildingType _type;
+
+private:
+    /*! \returns a copy of this component
+     */
+    iEntityComponentPtr getCopy() override
+    {
+        BuildingComponent *component = new BuildingComponent();
+        component->_type = _type;
+        return component;
+    }
 };
 
-#endif // __SUPREMACY_COMPONENTS__
+#endif // SUPREMACY_COMPONENTS_H

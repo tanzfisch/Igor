@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2023 by Martin Loga
+// (c) Copyright 2012-2025 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,102 +26,141 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_TRANSFORM__
-#define __IAUX_TRANSFORM__
+#ifndef IAUX_TRANSFORM_H
+#define IAUX_TRANSFORM_H
 
-#include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaQuaternion.h>
 
 namespace iaux
 {
 
-    /*! Transform based on the components translate, rotate, scale, shear and perspective
-	*/
+    /*! Transform based on the components position, orientation, scale
+     */
     template <class T>
     class IAUX_API_EXPORT_ONLY iaTransform
     {
-
     public:
-        /*! translate component
-		*/
-        iaVector3<T> _translate;
+        /*! position component
+         */
+        iaVector3<T> _position;
 
-        /*! orientation component as quaternion
-        */
+        /*! orientation component with euler angles
+         */
         iaQuaternion<T> _orientation;
 
         /*! scale component
-		*/
+         */
         iaVector3<T> _scale;
 
-        /*! shear component
-		*/
-        iaVector3<T> _shear;
+        /*! comparison of two transforms
 
-        /*! \returns true if transform has shear differnt from 0,0,0
-		*/
-        bool hasShear() const;
+        \param other the other transform to compare with
+        \returns true if transforms are equal
+        */
+        bool operator==(const iaTransform<T> &other) const;
 
-        /*! \returns true if transform has scale different from 1,1,1
-		*/
-        bool hasScale() const;
+        /*! negated comparison of two transforms
+
+        \param other the other transform to compare with
+        \returns true if transforms are unequal
+        */
+        bool operator!=(const iaTransform<T> &other) const;
+
+        /*! transform multiplication
+
+        equivalent of a matrix multiplication
+
+        \param other the other transform to multiply with
+        \returns product of multiplication
+         */
+        iaTransform<T> operator*(const iaTransform<T> &other);
+
+        /*! inverse transform
+
+        \returns inverse of transform
+         */
+        iaTransform<T> inverse() const;
+
+        /*! multiply transform with vector
+
+        \param vec the given vector
+        \returns transformed vector
+         */
+        iaVector3<T> applyTo(const iaVector3<T> &vec) const;
+
+        /*! transform multiplication stored in this transform
+
+        equivalent of a matrix multiplication
+
+        \param other the other transform to multiply with
+         */
+        void operator*=(const iaTransform<T> &other);
 
         /*! \returns true if transform has translation different from 0,0,0
-		*/
+         */
         bool hasTranslation() const;
 
         /*! \returns true if transform has rotation different from 0,0,0
-		*/
+         */
         bool hasRotation() const;
 
-        /*! returns the transforms matrix based on it's components
-		\param[out] matrix the resulting matrix
-		*/
-        void getMatrix(iaMatrix<T> &matrix) const;
+        /*! \returns true if transform has scale different from 1,1,1
+         */
+        bool hasScale() const;
 
-        /*! initializes the matrix with the id matrix
-		*/
+        /*! set the transform with given components
+
+        \param position translation component
+        \param orientation the orientation component
+        \param scale the scale component
+        */
+        void set(const iaVector3<T> &position, const iaQuaternion<T> orientation, const iaVector3<T> &scale);
+
+        /*! \returns matrix the resulting matrix
+         */
+        const iaMatrix<T> getMatrix() const;
+
+        /*! the equivalent of setting an identity matrix
+         */
+        void identity();
+
+        /*! initializes the transform effectively with the id matrix
+         */
         iaTransform();
 
-        /*! ctor set wit matrix to decompose
+        /*! initializes the transform with given components
 
-		\param matrix the matrix to decompose
-		*/
-        iaTransform(const iaMatrix<T> &matrix);
-
-        /*! initializes the matrix with given components
-
-		\param translate translation component
-		\param orientation the orientation component
-		\param scale the scale component
-		*/
-        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale);
-
-        /*! initializes the matrix with given components
-
-		\param translate translation component
-		\param orientation the orientation component
-		\param scale the scale component
-		\param shear the shear component
-		*/
-        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear);
+        \param position translation component
+        \param orientation the orientation component
+        \param scale the scale component
+        */
+        iaTransform(const iaVector3<T> &position, const iaQuaternion<T> orientation = iaVector3<T>(0.0, 0.0, 0.0), const iaVector3<T> &scale = iaVector3<T>(1.0, 1.0, 1.0));
 
         /*! does nothing
-		*/
-        ~iaTransform();
+         */
+        ~iaTransform() = default;
     };
 
     template <class T>
     iaTransform<T> lerp(const iaTransform<T> &a, const iaTransform<T> &b, T t);
 
+    /*! stream operator
+
+    \param stream the destination
+    \param m the matrix to stream
+    \returns the resulting stream
+    */
+    template <class T>
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaTransform<T> &transform);
+
 #include <iaux/math/iaTransform.inl>
 
     /*! float32 transform
-    */
+     */
     typedef iaTransform<float64> iaTransformf;
 
     /*! float64 transform
-	*/
+     */
     typedef iaTransform<float64> iaTransformd;
 
 }; // namespace iaux
