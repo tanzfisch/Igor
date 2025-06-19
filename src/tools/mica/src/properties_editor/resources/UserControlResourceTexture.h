@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_USERCONTROL_SHADER_H
-#define MICA_USERCONTROL_SHADER_H
+#ifndef MICA_USERCONTROL_RESOURCE_TEXTURE_H
+#define MICA_USERCONTROL_RESOURCE_TEXTURE_H
 
 #include "UserControlResource.h"
 
-class UserControlShaderMaterial : public UserControlResource
+class UserControlResourceTexture : public UserControlResource
 {
 public:
     /*! init user control
@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlShaderMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+	UserControlResourceTexture(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! does nothing
+	/*! cleanup
 	*/
-	~UserControlShaderMaterial() = default;
+	~UserControlResourceTexture();
 
     /*! init ui
      */
@@ -59,65 +59,14 @@ public:
 
 private:
 
-	/*! number chooser representing render order
+	/*! display the texture
 	*/
-	iWidgetNumberChooser *_renderingOrder;
+	iWidgetPicturePtr _picture;
 
-	/*! checkbox representing cull face
+	/*! label with texture information
 	*/
-	iWidgetCheckBox *_checkBoxCullFace;
-
-	/*! checkbox representing depth test
-	*/
-	iWidgetCheckBox *_checkBoxDepthTest;
-
-	/*! checkbox representing depth mask
-	*/
-	iWidgetCheckBox *_checkBoxDepthMask;
-
-	/*! checkbox representing blend
-	*/
-	iWidgetCheckBox *_checkBoxBlend;
-
-	/*! checkbox representing wireframe
-	*/
-	iWidgetCheckBox *_checkBoxWireframe;
-
-	/*! checkbox representing instancing
-	*/
-	iWidgetCheckBox *_checkBoxInstanced;
-
-	/*! select box representing depth function
-	*/
-	iWidgetSelectBox *_selectBoxDepthFunc;
-
-	/*! select box representing cull face function
-	*/
-	iWidgetSelectBox *_selectBoxCullFaceFunc;
-
-	/*! select box representing instancing function
-	*/
-	iWidgetSelectBox *_selectBoxInstancedFunc;
-
-	/*! flag to prevent endless update loop
-	*/
-	bool _ignoreMaterialUpdate = false;
-
-	/*! widget to display the material texture
-	*/
-	iWidgetPicturePtr _materialPicture;
-
-	/*! triggers shader material update
-
-	\param source the source widget of this event
-	*/
-	void onDoUpdateShaderMaterial(const iWidgetPtr source);
-
-	/*! updates material display render
-
-	\param material the material to use
-	*/
-	void updateMaterialDisplay(iShaderPtr material);
+	iWidgetLabelPtr _infoLabel;
+	
 };
 
-#endif // MICA_USERCONTROL_SHADER_H
+#endif // MICA_USERCONTROL_RESOURCE_TEXTURE_H

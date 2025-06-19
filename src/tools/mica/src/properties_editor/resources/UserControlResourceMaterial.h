@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_USERCONTROL_TEXTURE_H
-#define MICA_USERCONTROL_TEXTURE_H
+#ifndef MICA_USERCONTROL_RESOURCE_MATERIAL_H
+#define MICA_USERCONTROL_RESOURCE_MATERIAL_H
 
 #include "UserControlResource.h"
 
-class UserControlTexture : public UserControlResource
+class UserControlResourceMaterial : public UserControlResource
 {
 public:
     /*! init user control
@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlTexture(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+    UserControlResourceMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! cleanup
-	*/
-	~UserControlTexture();
+    /*! does nothing
+     */
+    ~UserControlResourceMaterial() = default;
 
     /*! init ui
      */
@@ -58,15 +58,53 @@ public:
     virtual void updateResource();
 
 private:
+    /*! diffuse color chooser
+     */
+    iUserControlColor *_diffuseColorChooser = nullptr;
 
-	/*! display the texture
-	*/
-	iWidgetPicturePtr _picture;
+    /*! ambient color chooser
+     */
+    iUserControlColor *_ambientColorChooser = nullptr;
 
-	/*! label with texture information
-	*/
-	iWidgetLabelPtr _infoLabel;
-	
+    /*! specular color chooser
+     */
+    iUserControlColor *_specularColorChooser = nullptr;
+
+    /*! emissive color chooser
+     */
+    iUserControlColor *_emissiveColorChooser = nullptr;
+
+    /*! shininess number chooser
+     */
+    iWidgetNumberChooserPtr _numberChooserShininess = nullptr;
+
+    /*! texture choosers
+     */
+    iUserControlTexturePtr _textureChooser[4] = {nullptr, nullptr, nullptr, nullptr};
+
+    /*! shader material chooser
+    */
+    iUserControlShaderMaterialPtr _shaderMaterialChooser = nullptr;
+
+    /*! shininess slider
+     */
+    iWidgetSliderPtr _sliderShininess = nullptr;
+
+    /*! flag to prevent endless update loop
+     */
+    bool _ignoreUpdate = false;
+
+    /*! triggers material update
+
+    \param source the source widget of this event
+    */
+    void onDoUpdateMaterial(const iWidgetPtr source);
+
+    /*! triggers material update
+
+    \param source the source widget of this event
+    */
+    void onDoUpdateShininess(const iWidgetPtr source);
 };
 
-#endif // MICA_USERCONTROL_TEXTURE_H
+#endif // MICA_USERCONTROL_RESOURCE_MATERIAL_H

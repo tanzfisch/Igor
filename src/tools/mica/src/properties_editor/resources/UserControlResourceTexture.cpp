@@ -2,23 +2,23 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include "UserControlTexture.h"
+#include "UserControlResourceTexture.h"
 
-UserControlTexture::UserControlTexture(iResourceID resourceID, const iWidgetPtr parent)
+UserControlResourceTexture::UserControlResourceTexture(iResourceID resourceID, const iWidgetPtr parent)
     : UserControlResource(resourceID, parent)
 {
 }
 
-UserControlTexture::~UserControlTexture()
+UserControlResourceTexture::~UserControlResourceTexture()
 {
 }
 
-void UserControlTexture::updateResource()
+void UserControlResourceTexture::updateResource()
 {
     // TODO?
 }
 
-void UserControlTexture::update()
+void UserControlResourceTexture::update()
 {
     UserControlResource::update();
 
@@ -37,7 +37,7 @@ void UserControlTexture::update()
     _picture->setTexture(texture);
 }
 
-void UserControlTexture::init()
+void UserControlResourceTexture::init()
 {
     UserControlResource::init();
 
