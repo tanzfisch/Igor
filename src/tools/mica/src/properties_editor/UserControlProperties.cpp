@@ -5,9 +5,9 @@
 #include "UserControlProperties.h"
 
 #include "resources/UserControlResource.h"
-#include "resources/UserControlShaderMaterial.h"
-#include "resources/UserControlMaterial.h"
-#include "resources/UserControlTexture.h"
+#include "resources/UserControlResourceShaderMaterial.h"
+#include "resources/UserControlResourceMaterial.h"
+#include "resources/UserControlResourceTexture.h"
 
 #include "entities/UserControlEntity.h"
 
@@ -60,15 +60,15 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 
     if (resourceType == IGOR_RESOURCE_SHADER)
     {
-        userControl = new UserControlShaderMaterial(resourceID, _layout);
+        userControl = new UserControlResourceShaderMaterial(resourceID, _layout);
     }
     if (resourceType == IGOR_RESOURCE_MATERIAL)
     {
-        userControl = new UserControlMaterial(resourceID, _layout);
+        userControl = new UserControlResourceMaterial(resourceID, _layout);
     }
     else if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
-        userControl = new UserControlTexture(resourceID, _layout);
+        userControl = new UserControlResourceTexture(resourceID, _layout);
     }
 
     if (userControl == nullptr)
