@@ -36,9 +36,9 @@ namespace igor
         }
         else
         {
-            iaFile projectFile(iaPath::fixPath(path));
-            _projectFolder = projectFile.getPath();
-            _projectFile = projectFile.getFileName();
+            iaPath projectFile(iaPath::fixPath(path));
+            _projectFolder = projectFile.getParentPath();
+            _projectFile = projectFile.getName();
         }
 
         load();
@@ -310,7 +310,7 @@ namespace igor
 
     const iaString iProject::getProjectFilepath() const
     {
-        return _projectFolder + _projectFile;
+        return _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
     }
 
     const iaString iProject::getScenesPath() const

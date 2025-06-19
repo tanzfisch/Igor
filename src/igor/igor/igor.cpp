@@ -340,11 +340,10 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + IGOR_PATHSEPARATOR + "igor.json");
-
+            iaPath file(location + IGOR_PATHSEPARATOR + "igor.json");
             if (file.exists())
             {
-                configurationFilepath = file.getFullFileName();
+                configurationFilepath = file.getAbsolutePath();
                 break;
             }
         }

@@ -37,7 +37,7 @@ namespace igor
 
         iPrefabPtr resource = iResourceManager::getInstance().createResource<iPrefab>();
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_scene.scene";
-        path = iaFile::generateUniqueFilename(path);        
+        path = iaPath::generateUniqueFilename(path);        
         iResourceManager::getInstance().saveResource(resource, path);
 
         path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
@@ -68,7 +68,7 @@ namespace igor
 
         iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_material.mat";
-        path = iaFile::generateUniqueFilename(path);
+        path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }    
@@ -97,7 +97,7 @@ namespace igor
 
         iShaderPtr resource = iResourceManager::getInstance().createResource<iShader>();
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_shader.shader";
-        path = iaFile::generateUniqueFilename(path);
+        path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        
@@ -151,7 +151,7 @@ namespace igor
 
         iSpritePtr resource = iResourceManager::getInstance().createResource<iSprite>();
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_sprite.sprite";
-        path = iaFile::generateUniqueFilename(path);
+        path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        

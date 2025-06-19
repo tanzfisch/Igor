@@ -633,10 +633,10 @@ namespace igor
             return checkDir.getAbsolutePath();
         }
 
-        iaFile checkFile(filepath);
+        iaPath checkFile(filepath);
         if (checkFile.exists())
         {
-            return checkFile.getFullFileName();
+            return checkFile.getAbsolutePath();
         }
 
         const iaString currentDir = iaPath::getCurrentDirectory();
@@ -659,10 +659,10 @@ namespace igor
                 path = iaPath::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
-            iaFile file(path);
+            iaPath file(path);
             if (file.exists())
             {
-                return file.getFullFileName();
+                return file.getAbsolutePath();
             }
 
             const iaPath dir(path);
@@ -696,9 +696,7 @@ namespace igor
 
     bool iResourceManager::fileExists(const iaString &filename)
     {
-        iaFile file(filename);
-
-        if (file.exists())
+        if (iaPath::exists(filename))
         {
             return true;
         }
@@ -708,7 +706,7 @@ namespace igor
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + IGOR_PATHSEPARATOR + filename);
+            iaPath composed(path + IGOR_PATHSEPARATOR + filename);
             if (composed.exists())
             {
                 result = true;

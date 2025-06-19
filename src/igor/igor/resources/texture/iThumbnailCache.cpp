@@ -55,12 +55,12 @@ namespace igor
 
     iTexturePtr iThumbnailCache::getThumbnail(const iaString &filename)
     {
-        iaFile file(filename);
-        if(!file.exists())
+        if(!iaPath::exists(filename))
         {
             return nullptr;
         }        
 
+        iaFile file(filename);
         iaTime time = file.getLastModifiedTime();
 
         const iaString hashName = iaString::toString((uint64)filename.getHashValue(), 16);
@@ -69,7 +69,7 @@ namespace igor
         const iaString thumbnailFilename = hashName + "-" + hashTime + ".png";
         const iaString thumbnailFilepath = _thumbnailCachePath + "/" + thumbnailFilename;
 
-        if (!iaFile::exists(thumbnailFilepath))
+        if (!iaPath::exists(thumbnailFilepath))
         {
             // look for older files with same hashName and delete them
             iaPath dir(_thumbnailCachePath);
@@ -77,7 +77,7 @@ namespace igor
             auto files = dir.getFiles(searchPattern);
             for (auto file : files)
             {
-                iaFile::remove(file.getFullFileName());
+                iaPath::remove(file.getFullFileName());
             }
 
             // put in queue to create new thumbnail later

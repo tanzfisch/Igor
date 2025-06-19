@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.46.0
+------
+
+- #439 refactor of iaDirectory/iaFile to iaPath/iaFile
+
 0.45.0
 ------
 

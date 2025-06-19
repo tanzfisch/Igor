@@ -31,6 +31,7 @@
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
+#include <iaux/system/iaTime.h>
 
 #include <vector>
 
@@ -43,8 +44,6 @@ namespace iaux
      */
     class IAUX_API iaPath
     {
-
-        friend class iaFile;
 
     public:
         /*! creates an object for some directory
@@ -89,11 +88,53 @@ namespace iaux
         */
         const iaString getName() const;
 
+        /*! \returns the last name from given path
+
+        examples:
+        "c:\foo\bar" -> "bar"
+        "/foo/bar.txt" -> "bar.txt"
+
+        \param path the given path
+        */
+        static const iaString getName(const iaString &path);
+
         /*! \returns the absolute path name of parent directory
 
         e.g. if the path is c:\foo\bar then this returns c:\foo
         */
         const iaString getParentPath() const;
+
+        /*! \returns the absolute path name of parent directory from given path
+
+        e.g. if the path is c:\foo\bar then this returns c:\foo
+
+        \param path the given path
+        */
+        static const iaString getParentPath(const iaString &path);
+
+        /*! \returns filename without extension
+
+        "" if this is not a file
+         */
+        const iaString getStem() const;
+
+        /*! \returns filename without extension from given path
+
+        "" if this is not a file
+
+        \param path the given path
+         */
+        static const iaString getStem(const iaString &path);
+
+        /*! \returns the file extension
+         */
+        const iaString getExtension() const;
+
+        /*! \returns the file extension from given path
+
+        \param path the given path
+         */
+        static const iaString getExtension(const iaString &path);
 
         /*! \returns relative path from path to path
 
@@ -136,12 +177,54 @@ namespace iaux
         static bool directoryIsAbsolute(const iaString &path);
 
         /*! \returns true: if a path is directory; false: if path is not a directory
+
+        \param path the given path
          */
         static bool isDirectory(const iaString &path);
 
-        /*! \returns true: if a path is a file; false: if path is not a file
+        /*! \returns true: if a path is directory; false: if path is not a directory
+         */
+        bool isDirectory() const;
+
+        /*! \returns true: if a path is a file or a symbolic link
+
+        \param path the given path
          */
         static bool isFile(const iaString &path);
+
+        /*! \returns true: if a path is a file or a symbolic link
+         */
+        bool isFile() const;
+
+        /*! \returns true if given path is a symbolic link
+
+        \param path the given path
+        */
+        static bool isSymlink(const iaString &path);
+
+        /*! \returns true if given path is a symbolic link
+         */
+        bool isSymlink() const;
+
+        /*! deletes/removes path from filesystem
+
+        \param path the file or directory to remove
+        */
+        static void remove(const iaString &path);
+
+        /*! copys the file to a new destination
+
+        \param newFileName name of copy destination
+        */
+        static void copy(const iaString &src, const iaString &dst);
+
+        /*! renames path to a new name
+
+        \param src the source path
+        \param dst the destination path
+        \param replaceExisting true: destination will be replaced; false: no action will be taken if destination already exists
+        */
+        static void rename(const iaString &src, const iaString &dst, bool replaceExisting = false);
 
         /*! creates directory at given path
 
@@ -151,7 +234,9 @@ namespace iaux
 
         /*! \returns true if given directory exists
 
-        \param path the given directory
+        relative to current or absolute
+
+        \param path the given path
         */
         static bool exists(const iaString &path);
 
@@ -178,6 +263,21 @@ namespace iaux
         \returns fixed path
         */
         static iaString fixPath(const iaString &path);
+
+        /*! \returns valid unique filename for given filename
+        \param filename the given filename
+        */
+        static iaString generateUniqueFilename(const iaString &filename);       
+        
+        /*! \returns last modified time of path
+         */
+        iaTime getLastModifiedTime() const;
+
+        /*! \returns last modified time of given path
+
+        \param path the given path
+        */
+        static iaTime getLastModifiedTime(const iaString &path);        
 
     private:
         /*! the path to the directory

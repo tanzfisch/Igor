@@ -119,7 +119,7 @@ void UserControlResourceIcon::updateUI()
 
     iaFile file(iResourceManager::getInstance().resolvePath(_filename));
     setTooltip(file.getFullFileName());
-    _labelFilename->setText(file.getFileName());    
+    _labelFilename->setText(file.getName());
     _labelReferencePath->setText(_referencePath);
 
     iTexturePtr texture = iThumbnailCache::getInstance().getThumbnail(file.getFullFileName());

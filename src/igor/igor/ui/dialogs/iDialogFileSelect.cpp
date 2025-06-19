@@ -43,11 +43,11 @@ namespace igor
         _purpose = purpose;
         initGUI();
 
-        if (iaFile::exists(path))
+        if (iaPath::isFile(path))
         {
-            iaFile file(path);
-            _filename = file.getFileName();
-            _directory = file.getPath();
+            iaPath path(path);
+            _filename = path.getName();
+            _directory = path.getParentPath();
         }
         else if (iaPath::isDirectory(path))
         {
@@ -201,17 +201,17 @@ namespace igor
 
     void iDialogFileSelect::updateFileDir()
     {
-        if (iaFile::exists(_filename))
+        if (iaPath::isFile(_filename))
         {
-            iaFile file(_filename);
-            _directory = file.getPath();
-            _filename = file.getFileName();
+            iaPath path(_filename);
+            _directory = path.getParentPath();
+            _filename = path.getName();
         }
-        else if (iaFile::exists(_directory))
+        else if (iaPath::isFile(_directory))
         {
-            iaFile file(_directory);
-            _directory = file.getPath();
-            _filename = file.getFileName();
+            iaPath path(_directory);
+            _directory = path.getParentPath();
+            _filename = path.getName();
         }
 
         _pathEdit->setText(_directory);
@@ -270,12 +270,12 @@ namespace igor
 
         for (auto iter : files)
         {
-            if (!filterExtension(iter.getFileName()))
+            if (!filterExtension(iter.getName()))
             {
                 continue;
             }
 
-            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getFileName(), false);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getName(), false);
             index++;
         }
 
@@ -397,8 +397,7 @@ namespace igor
     {
         if (_purpose == iFileDialogPurpose::Load)
         {
-            iaFile file(getFullPath());
-            if (!file.exists())
+            if (!iaPath::exists(getFullPath()))
             {
                 setReturnState(iDialogReturnState::Error);
             }

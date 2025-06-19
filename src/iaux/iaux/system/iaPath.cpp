@@ -20,6 +20,17 @@
 
 namespace iaux
 {
+    std::wostream &operator<<(std::wostream &stream, const iaPath &dir)
+    {
+        const auto path = dir.getAbsolutePath();
+        if (!path.isEmpty())
+        {
+            stream << path.getData();
+        }
+
+        return stream;
+    }
+
     iaPath::iaPath()
     {
     }
@@ -90,20 +101,47 @@ namespace iaux
     }
 
     bool iaPath::isFile(const iaString &path)
-    {   
-        // TODO
+    {
+        if (!exists(path))
+        {
+            return false;
+        }
+
+        std::filesystem::path fspath(path.getData());
+        if (std::filesystem::is_regular_file(fspath) ||
+            std::filesystem::is_symlink(fspath))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool iaPath::isSymlink(const iaString &path)
+    {
+        if (!exists(path))
+        {
+            return false;
+        }
+
+        std::filesystem::path fspath(path.getData());
+        if (std::filesystem::is_symlink(fspath))
+        {
+            return true;
+        }
+
         return false;
     }
 
     bool iaPath::isDirectory(const iaString &path)
     {
-        if (path.isEmpty())
+        if (!exists(path))
         {
             return false;
         }
 
-        std::filesystem::file_status entry = std::filesystem::status(path.getData());
-        if (std::filesystem::is_directory(entry))
+        std::filesystem::path fspath(path.getData());
+        if (std::filesystem::is_directory(fspath))
         {
             return true;
         }
@@ -124,7 +162,7 @@ namespace iaux
         }
 
         std::filesystem::path fspath(path.getData());
-        if (std::filesystem::is_directory(fspath) && std::filesystem::exists(fspath))
+        if (std::filesystem::exists(fspath))
         {
             return true;
         }
@@ -132,7 +170,7 @@ namespace iaux
         const iaString fullDir = iaPath::getCurrentDirectory() + IGOR_PATHSEPARATOR + path;
 
         std::filesystem::path fspath2(fullDir.getData());
-        return std::filesystem::is_directory(fspath2) && std::filesystem::exists(fspath2);
+        return std::filesystem::exists(fspath2);
     }
 
     bool iaPath::isEmpty(const iaString &path)
@@ -147,14 +185,17 @@ namespace iaux
     {
         if (iaPath::exists(path))
         {
-            con_warn("directory already exists " << path);
             return;
         }
 
-        std::filesystem::path directory(path.getData());
-        if (!std::filesystem::create_directories(directory))
+        std::filesystem::path fspath(path.getData());
+        if (!std::filesystem::create_directories(fspath))
         {
             con_err("can't create directory \"" << path << "\"");
+        }
+        else
+        {
+            con_trace("created directory " << path);
         }
     }
 
@@ -225,16 +266,26 @@ namespace iaux
         return fixPath(_path);
     }
 
+    const iaString iaPath::getName(const iaString &path)
+    {
+        iaString cleanPath = iaString::trimRight(path, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
+    }
+
     const iaString iaPath::getName() const
     {
-        iaString cleanPath = iaString::trimRight(_path, IGOR_PATHSEPARATOR);
-        return cleanPath.getSubString(cleanPath.findLastOf(IGOR_PATHSEPARATOR) + 1);
+        return getName(_path);
+    }
+
+    const iaString iaPath::getParentPath(const iaString &path)
+    {
+        iaString cleanPath = iaString::trimRight(path, IGOR_PATHSEPARATOR);
+        return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
     }
 
     const iaString iaPath::getParentPath() const
     {
-        iaString cleanPath = iaString::trimRight(_path, IGOR_PATHSEPARATOR);
-        return cleanPath.getSubString(0, cleanPath.findLastOf(IGOR_PATHSEPARATOR));
+        return getParentPath(_path);
     }
 
     bool iaPath::isRoot()
@@ -303,62 +354,64 @@ namespace iaux
             return iaString();
         }
 
-        iaString temp = path;
+        iaString result = path;
 
         // converts to OS specific path seperator
-        for (int i = 0; i < temp.getLength(); ++i)
+        for (int i = 0; i < result.getLength(); ++i)
         {
-            if (temp[i] == IGOR_NOT_PATHSEPARATOR)
+            if (result[i] == IGOR_NOT_PATHSEPARATOR)
             {
-                temp[i] = IGOR_PATHSEPARATOR;
+                result[i] = IGOR_PATHSEPARATOR;
             }
         }
 
 #ifdef IGOR_LINUX
         // check if this is the user home folder
-        if (temp[0] == '~')
+        if (result[0] == '~')
         {
             passwd *pw = getpwuid(getuid());
             const iaString homeDirectory(pw->pw_dir);
 
-            temp = homeDirectory + temp.getSubString(1, temp.getLength() - 1);
+            result = homeDirectory + result.getSubString(1, result.getLength() - 1);
         }
 #endif
 
         // does some relative to absolute path magic
-        if (!directoryIsAbsolute(temp))
+        if (!directoryIsAbsolute(result))
         {
-            temp = iaPath::getCurrentDirectory() + IGOR_PATHSEPARATOR + temp;
+            result = iaPath::getCurrentDirectory() + IGOR_PATHSEPARATOR + result;
         }
 
-        std::filesystem::path fspath(temp.getData());
-        return iaString(fspath.lexically_normal().c_str());
+        std::filesystem::path fspath(result.getData());
+        result = fspath.lexically_normal().c_str();
+
+        return result;
+    }
+
+    void iaPath::remove(const iaString &path)
+    {
+        if (!exists(path))
+        {
+            return;
+        }
+
+        std::filesystem::path fspath(path.getData());
+
+        if (std::filesystem::is_regular_file(fspath) || std::filesystem::is_symlink(fspath))
+        {
+            std::filesystem::remove(fspath);
+            con_trace("removed file " << path);
+        }
+        else if (std::filesystem::is_directory(fspath))
+        {
+            std::uintmax_t count = std::filesystem::remove_all(fspath); // removes directory recursively
+            con_trace("directory removed recursively (" << count << " items): " << path);
+        }
     }
 
     iaString iaPath::getRelativePath(const iaString &from, const iaString &to)
     {
-        iaString tempFrom;
-
-        if (iaFile::exists(from))
-        {
-            iaFile file(from);
-            tempFrom = file.getPath();
-        }
-        else
-        {
-            iaPath dirFrom(from);
-            if (iaPath::isDirectory(from))
-            {
-                tempFrom = dirFrom.getAbsolutePath();
-            }
-            else
-            {
-                // assuming the subfolder is actually a filename
-                tempFrom = dirFrom.getParentPath();
-            }
-        }
-
-        std::filesystem::path fromPath(tempFrom.getData());
+        std::filesystem::path fromPath(from.getData());
         std::filesystem::path toPath(to.getData());
         return iaString(toPath.lexically_relative(fromPath).c_str());
     }
@@ -378,15 +431,143 @@ namespace iaux
         }
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iaPath &dir)
+    void iaPath::rename(const iaString &src, const iaString &dst, bool replaceExisting)
     {
-        const auto path = dir.getAbsolutePath();
-        if (!path.isEmpty())
+        if (exists(dst))
         {
-            stream << path.getData();
+            if (!replaceExisting)
+            {
+                remove(dst);
+            }
+            else
+            {
+                con_err("can't rename " << src << " to " << dst << ". Destination already exists");
+                return;
+            }
         }
 
-        return stream;
+        const std::filesystem::path fssrc(src.getData());
+        const std::filesystem::path fsdst(dst.getData());
+        std::error_code error;
+
+        std::filesystem::rename(fssrc, fsdst, error);
+
+        if (error)
+        {
+            con_err("can't rename: " << src << " to: " << dst);
+        }
+        else
+        {
+            con_trace("renamed: " << src << " to: " << dst);
+        }
     }
+
+    void iaPath::copy(const iaString &src, const iaString &dst)
+    {
+        std::filesystem::path fssrc(src.getData());
+        std::filesystem::path fsdst(dst.getData());
+
+        std::error_code error;
+        std::filesystem::copy(fssrc, fsdst, error);
+
+        if (error)
+        {
+            con_err("cant copy file: " << src << " to: " << dst);
+        }
+        else
+        {
+            con_trace("copied file: " << src << " to: " << dst);
+        }
+    }
+
+    bool iaPath::isFile() const
+    {
+        return isFile(_path);
+    }
+
+    bool iaPath::isDirectory() const
+    {
+        return isDirectory(_path);
+    }
+
+    bool iaPath::isSymlink() const
+    {
+        return isSymlink(_path);
+    }
+
+    const iaString iaPath::getStem(const iaString &path)
+    {
+        if (!isFile(path))
+        {
+            return "";
+        }
+
+        iaString stem = getName(path);
+
+        int64 pos = stem.findLastOf('.');
+
+        if (pos != iaString::INVALID_POSITION &&
+            pos > 0)
+        {
+            return stem.getSubString(0, pos);
+        }
+
+        return "";
+    }
+
+    const iaString iaPath::getStem() const
+    {
+        return getStem(_path);
+    }
+
+    const iaString iaPath::getExtension() const
+    {
+        return getExtension(_path);
+    }
+
+    const iaString iaPath::getExtension(const iaString &path)
+    {
+        int64 pos = path.findLastOf('.');
+
+        if (pos != iaString::INVALID_POSITION &&
+            pos < path.getLength())
+        {
+            return path.getSubString(pos + 1, iaString::INVALID_POSITION);
+        }
+
+        return "";        
+    }
+
+    iaString iaPath::generateUniqueFilename(const iaString &filename)
+    {
+        const iaFile file(filename);
+        const iaString extension = file.getExtension();
+        const iaString stem = file.getStem();
+        const iaString path = file.getParentPath();
+
+        auto result = filename;
+
+        int index = 1;
+        while (iaPath::exists(result)) {
+            result = path + stem + iaString::toString(index) + '.' + extension;
+            ++index;
+        }
+
+        return result;
+    }
+
+    iaTime iaPath::getLastModifiedTime() const
+    {
+        return getLastModifiedTime(getAbsolutePath());
+    }
+
+    iaTime iaPath::getLastModifiedTime(const iaString &path)
+    {
+        const auto lastModifiedTime = std::filesystem::last_write_time(path.getData());
+        const auto duration = lastModifiedTime.time_since_epoch();
+        const int64 ms = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+
+        return iaTime::fromMicroseconds(ms);
+    }    
 
 } // namespace iaux
