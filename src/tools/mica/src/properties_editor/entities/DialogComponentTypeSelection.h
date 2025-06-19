@@ -81,7 +81,7 @@ private:
 
     /*! init ui
      */
-    void initGUI();
+    void onInitUI();
 
     /*! called when cancel was clicked
      */

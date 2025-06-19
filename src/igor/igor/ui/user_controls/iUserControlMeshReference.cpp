@@ -21,14 +21,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlMeshReference::~iUserControlMeshReference()
     {
     }
 
-    void iUserControlMeshReference::initGUI()
+    void iUserControlMeshReference::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         // TODO thumbnail picture would be great

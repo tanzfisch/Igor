@@ -45,9 +45,9 @@ void UserControlResourceMaterial::onUpdateResource()
         }
     }
 
-    if(_shaderMaterialChooser->getID().isValid())
+    if(_shaderMaterialChooser->getShaderID().isValid())
     {
-        material->setShader(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getID()));
+        material->setShader(iResourceManager::getInstance().loadResource<iShader>(_shaderMaterialChooser->getShaderID()));
     }
     else
     {
@@ -87,11 +87,11 @@ void UserControlResourceMaterial::onUpdateUI()
 
     if (material->getShader() != nullptr)
     {
-        _shaderMaterialChooser->setID(material->getShader()->getID());
+        _shaderMaterialChooser->setShader(material->getShader()->getID());
     }
     else
     {
-        _shaderMaterialChooser->setID(iResourceID::getInvalid());
+        _shaderMaterialChooser->setShader(iResourceID::getInvalid());
     }
 
     _ignoreUpdate = false;
@@ -176,7 +176,7 @@ void UserControlResourceMaterial::onInit()
     shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
     shaderMaterialLabel->setText("Shader");
     shaderMaterialLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-    _shaderMaterialChooser = new iUserControlShaderMaterial(shaderMaterialLayout);
+    _shaderMaterialChooser = new iUserControlShader(shaderMaterialLayout);
 
     _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
 }

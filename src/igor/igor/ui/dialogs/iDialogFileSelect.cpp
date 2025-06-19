@@ -41,7 +41,7 @@ namespace igor
         iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
-        initGUI();
+        onInitUI();
 
         if (iaPath::isFile(path))
         {
@@ -86,7 +86,7 @@ namespace igor
         return _purpose;
     }
 
-    void iDialogFileSelect::initGUI()
+    void iDialogFileSelect::onInitUI()
     {
         clearChildren();
 

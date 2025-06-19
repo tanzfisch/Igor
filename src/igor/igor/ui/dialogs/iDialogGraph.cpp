@@ -58,10 +58,10 @@ namespace igor
         _oldGraphs = graphs;
         _graphs = graphs;
 
-        initGUI();
+        onInitUI();
     }
 
-    void iDialogGraph::initGUI()
+    void iDialogGraph::onInitUI()
     {
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);

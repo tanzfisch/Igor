@@ -83,7 +83,7 @@ namespace igor
 
         /*! initialize gui elements
          */
-        void initGUI();
+        void onInitUI();
 
         /*! drag move handle
 

@@ -19,14 +19,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlTexture::~iUserControlTexture()
     {
     }
 
-    void iUserControlTexture::initGUI()
+    void iUserControlTexture::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);        
         _picture = new iWidgetPicture(layout);

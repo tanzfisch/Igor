@@ -34,15 +34,15 @@ namespace igor
 
 		if (pictures.empty())
 		{
-			initGUI(texts);
+			onInitUI(texts);
 		}
 		else
 		{
-			initGUI(texts, pictures);
+			onInitUI(texts, pictures);
 		}
 	}
 
-	void iDialogIndexMenu::initGUI(std::vector<iaString> &texts)
+	void iDialogIndexMenu::onInitUI(std::vector<iaString> &texts)
 	{
 		setEnabled();
 		setVisible();
@@ -70,7 +70,7 @@ namespace igor
 		}
 	}
 
-	void iDialogIndexMenu::initGUI(std::vector<iaString> &texts, std::vector<iaString> &pictures)
+	void iDialogIndexMenu::onInitUI(std::vector<iaString> &texts, std::vector<iaString> &pictures)
 	{
 		con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 

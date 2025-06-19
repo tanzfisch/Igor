@@ -6,10 +6,10 @@
 
 PropertiesEditor::PropertiesEditor()
 {
-    initGUI();
+    onInitUI();
 }
 
-void PropertiesEditor::initGUI()
+void PropertiesEditor::onInitUI()
 {
     setTitle("Properties Editor");
 

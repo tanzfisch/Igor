@@ -88,7 +88,7 @@ namespace igor
 
         /*! initializes the gui elements
 		*/
-        void initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
+        void onInitUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
     };
 
     /*! dialog decision box pointer definition

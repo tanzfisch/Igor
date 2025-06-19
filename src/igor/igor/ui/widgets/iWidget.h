@@ -165,7 +165,7 @@ namespace igor
         iUserControlTexture,
         iUserControlSprite,
         iUserControlMaterial,
-        iUserControlShaderMaterial,
+        iUserControlShader,
         iUserControlTreeView,
         iUserControlVector,
         iUserControlMeshReference,

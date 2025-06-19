@@ -112,14 +112,14 @@ namespace igor
 
         \param texts the texts for the menu
         */
-        void initGUI(std::vector<iaString> &texts);
+        void onInitUI(std::vector<iaString> &texts);
 
         /*! initializes the gui
 
         \param texts the texts for the menu
         \param pictures the pictures for the menu
         */
-        void initGUI(std::vector<iaString> &texts, std::vector<iaString> &pictures);
+        void onInitUI(std::vector<iaString> &texts, std::vector<iaString> &pictures);
     };
 
     /*! dialog menu pointer definition

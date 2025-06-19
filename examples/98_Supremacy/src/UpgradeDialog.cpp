@@ -6,7 +6,7 @@
 
 UpgradeDialog::UpgradeDialog(const iWidgetPtr parent)
 {
-	initGUI();
+	onInitUI();
 }
 
 void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<UpgradeConfiguration> &upgrades)
@@ -48,7 +48,7 @@ void UpgradeDialog::updateGUI()
 	_button3->setBackgroundTexture(config3._icon);
 }
 
-void UpgradeDialog::initGUI()
+void UpgradeDialog::onInitUI()
 {
 	setMinWidth(500);
 	setMinHeight(100);

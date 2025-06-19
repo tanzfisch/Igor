@@ -86,7 +86,7 @@ private:
     void onBuy(const iWidgetPtr source);
     void onCancel(const iWidgetPtr source);
 
-    void initGUI();
+    void onInitUI();
     void updateGUI(int coins);
 };
 

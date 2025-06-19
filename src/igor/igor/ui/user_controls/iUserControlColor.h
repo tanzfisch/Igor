@@ -505,7 +505,7 @@ namespace igor
 
         /*! initializes the gui
          */
-        void initGUI();
+        void onInitUI();
 
         /*! releases resources
          */

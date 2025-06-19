@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
+#include <igor/ui/user_controls/iUserControlShader.h>
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/resources/iResourceManager.h>
@@ -16,21 +16,21 @@ using namespace iaux;
 namespace igor
 {
 
-    iUserControlShaderMaterial::iUserControlShaderMaterial(const iWidgetPtr parent)
-        : iUserControl(iWidgetType::iUserControlShaderMaterial, parent)
+    iUserControlShader::iUserControlShader(const iWidgetPtr parent)
+        : iUserControl(iWidgetType::iUserControlShader, parent)
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
-    iUserControlShaderMaterial::~iUserControlShaderMaterial()
+    iUserControlShader::~iUserControlShader()
     {
-    }    
+    }
 
-    void iUserControlShaderMaterial::initGUI()
+    void iUserControlShader::onInitUI()
     {
-        iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);       
+        iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         _picture = new iWidgetPicture(layout);
         _picture->setKeepAspectRatio(false);
         _picture->setMaxSize(64, 64);
@@ -46,11 +46,11 @@ namespace igor
         _labelAlias->setVerticalAlignment(iVerticalAlignment::Top);
     }
 
-    void iUserControlShaderMaterial::setID(iResourceID materialID)
+    void iUserControlShader::setShader(const iResourceID &shaderID)
     {
-        _materialID = materialID;
+        _shaderID = shaderID;
 
-        if (!_materialID.isValid())
+        if (!_shaderID.isValid())
         {
             _picture->setTexture(iTexturePtr());
             _labelID->setText("");
@@ -58,22 +58,22 @@ namespace igor
             return;
         }
 
-        /*const iaString filename = iResourceManager::getInstance().getFilename(_materialID);
+        /*const iaString filename = iResourceManager::getInstance().getFilename(_shaderID);
         iaFile file(iResourceManager::getInstance().resolvePath(filename));
         _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(file.getFullFileName()));*/
 
-        _labelID->setText(_materialID.toString());
-        _labelAlias->setText(iResourceManager::getInstance().getAlias(_materialID));
+        _labelID->setText(_shaderID.toString());
+        _labelAlias->setText(iResourceManager::getInstance().getAlias(_shaderID));
 
         _change(this);
     }
 
-    iResourceID iUserControlShaderMaterial::getID() const
+    const iResourceID& iUserControlShader::getShaderID() const
     {
-        return _materialID;
+        return _shaderID;
     }
 
-    void iUserControlShaderMaterial::onDragMove(iDrag &drag, const iaVector2f &mousePos)
+    void iUserControlShader::onDragMove(iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
         if (!mimeData.hasResourceID())
@@ -94,7 +94,7 @@ namespace igor
         drag.accept();
     }
 
-    void iUserControlShaderMaterial::onDrop(const iDrag &drag, const iaVector2f &mousePos)
+    void iUserControlShader::onDrop(const iDrag &drag, const iaVector2f &mousePos)
     {
         const iMimeData &mimeData = drag.getMimeData();
         if (!mimeData.hasResourceID())
@@ -110,7 +110,7 @@ namespace igor
             return;
         }
 
-        setID(id);
+        setShader(id);
     }
 
 } // namespace igor

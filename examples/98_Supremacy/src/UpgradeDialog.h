@@ -79,7 +79,7 @@ private:
     void onSelect2(const iWidgetPtr source);
     void onSelect3(const iWidgetPtr source);
 
-    void initGUI();
+    void onInitUI();
     void updateGUI();
 };
 

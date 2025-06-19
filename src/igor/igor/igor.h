@@ -200,7 +200,7 @@
 #include <igor/ui/user_controls/iUserControlTexture.h>
 #include <igor/ui/user_controls/iUserControlSprite.h>
 #include <igor/ui/user_controls/iUserControlMaterial.h>
-#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
+#include <igor/ui/user_controls/iUserControlShader.h>
 #include <igor/ui/user_controls/iUserControlVector.h>
 #include <igor/ui/user_controls/iUserControlMeshReference.h>
 

@@ -216,7 +216,7 @@ namespace igor
 
         /*! initializes gui elements
         */
-        void initGUI();
+        void onInitUI();
     };
 
     /*! dialog graph pointer definition

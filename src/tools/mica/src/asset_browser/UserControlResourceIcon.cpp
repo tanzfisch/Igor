@@ -15,11 +15,11 @@ UserControlResourceIcon::UserControlResourceIcon(const iaString &filename, const
     setSelectable(true);
     setAcceptDrag(true);
 
-    initGUI();
+    onInitUI();
     updateUI();
 }
 
-void UserControlResourceIcon::initGUI()
+void UserControlResourceIcon::onInitUI()
 {
     getContextMenuEvent().add(iContextMenuDelegate(this, &UserControlResourceIcon::OnContextMenu));
 

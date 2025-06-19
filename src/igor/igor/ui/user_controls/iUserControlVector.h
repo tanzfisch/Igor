@@ -78,7 +78,7 @@ namespace igor
 
         /*! initializes the gui
          */
-        void initGUI();
+        void onInitUI();
 
         /*! called when any value was changed
         */

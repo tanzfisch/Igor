@@ -141,7 +141,7 @@ namespace igor
 
         /*! initialize gui elements
          */
-        void initGUI();
+        void onInitUI();
 
         /*! release resources
          */

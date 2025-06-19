@@ -19,12 +19,12 @@ void DialogComponentTypeSelection::open(iDialogCloseDelegate dialogCloseDelegate
 	setMinWidth(20);
 	setMinHeight(20);
 
-	initGUI();
+	onInitUI();
 
 	iDialog::open(dialogCloseDelegate, true);
 }
 
-void DialogComponentTypeSelection::initGUI()
+void DialogComponentTypeSelection::onInitUI()
 {
 	iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
 	mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);

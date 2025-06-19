@@ -38,9 +38,9 @@
 namespace igor
 {
 
-    /*! User control shader material chooser
+    /*! User control shader shader chooser
      */
-    class IGOR_API iUserControlShaderMaterial : public iUserControl
+    class IGOR_API iUserControlShader : public iUserControl
     {
 
     public:
@@ -48,42 +48,42 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlShaderMaterial(const iWidgetPtr parent = nullptr);
+        iUserControlShader(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlShaderMaterial();
+        ~iUserControlShader();
 
-        /*! sets the material id
+        /*! sets the shader id
 
-        \param materialID the given material id
+        \param shaderID the given shader id
         */
-        void setID(iResourceID materialID);
+        void setShader(const iResourceID &shaderID);
 
-        /*! \returns material id
+        /*! \returns shader id
          */
-        iResourceID getID() const;
+        const iResourceID& getShaderID() const;
 
     private:
-        /*! material ID
+        /*! shader ID
          */
-        iResourceID _materialID;
+        iResourceID _shaderID;
 
-        /*! label material id
+        /*! label shader id
          */
         iWidgetLabelPtr _labelID;
 
-        /*! material alias
+        /*! shader alias
          */
         iWidgetLabelPtr _labelAlias;
 
-        /*! displays the selected material
+        /*! displays the selected shader
          */
         iWidgetPicturePtr _picture;
 
         /*! initialize gui elements
          */
-        void initGUI();
+        void onInitUI();
 
         /*! drag move handle
 
@@ -100,9 +100,9 @@ namespace igor
         void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
-    /*! user control shader material chooser pointer definition
+    /*! user control shader shader chooser pointer definition
      */
-    typedef iUserControlShaderMaterial *iUserControlShaderMaterialPtr;
+    typedef iUserControlShader *iUserControlShaderMaterialPtr;
 
 } // namespace igor
 
