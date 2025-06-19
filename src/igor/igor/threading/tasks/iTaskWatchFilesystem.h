@@ -31,7 +31,7 @@
 
 #include <igor/threading/tasks/iTask.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 
 #include <unordered_map>
 
@@ -88,7 +88,7 @@ namespace igor
 
         \param dir the given directory
         */
-        int watchDir(const iaDirectory &dir);
+        int watchDir(const iaPath &dir);
 
         /*! handle created directory event
 

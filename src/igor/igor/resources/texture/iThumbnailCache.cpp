@@ -9,7 +9,7 @@
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iTextureFactory.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/system/iaFile.h>
 
 namespace igor
@@ -31,9 +31,9 @@ namespace igor
         // TODO _thumbnailCachePath = "%LOCALAPPDATA%/Igor/ThumbnailCache";
 #endif
 
-        if (!iaDirectory::exists(_thumbnailCachePath))
+        if (!iaPath::exists(_thumbnailCachePath))
         {
-            iaDirectory::makeDirectory(_thumbnailCachePath);
+            iaPath::makeDirectory(_thumbnailCachePath);
         }
 
         iWindowPtr window = iApplication::getInstance().getWindow();
@@ -72,7 +72,7 @@ namespace igor
         if (!iaFile::exists(thumbnailFilepath))
         {
             // look for older files with same hashName and delete them
-            iaDirectory dir(_thumbnailCachePath);
+            iaPath dir(_thumbnailCachePath);
             const iaString searchPattern = hashName + "*.png";
             auto files = dir.getFiles(searchPattern);
             for (auto file : files)

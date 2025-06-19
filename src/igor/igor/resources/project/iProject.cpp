@@ -10,7 +10,7 @@
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/system/iaFile.h>
 
 #include <filesystem>
@@ -29,14 +29,14 @@ namespace igor
             unload();
         }
 
-        if (iaDirectory::isDirectory(path))
+        if (iaPath::isDirectory(path))
         {
-            _projectFolder = iaDirectory::fixPath(path);
+            _projectFolder = iaPath::fixPath(path);
             _projectFile = s_defaultProjectFilename;
         }
         else
         {
-            iaFile projectFile(iaDirectory::fixPath(path));
+            iaFile projectFile(iaPath::fixPath(path));
             _projectFolder = projectFile.getPath();
             _projectFile = projectFile.getFileName();
         }
@@ -46,12 +46,12 @@ namespace igor
 
     void iProject::create(const iaString &path)
     {
-        if (!iaDirectory::exists(path))
+        if (!iaPath::exists(path))
         {
-            iaDirectory::makeDirectory(path);
+            iaPath::makeDirectory(path);
         }
 
-        if (!iaDirectory::isEmpty(path))
+        if (!iaPath::isEmpty(path))
         {
             con_err("can't create project in folder that is not empty \"" << path << "\"");
             return;
@@ -61,9 +61,9 @@ namespace igor
         _projectFile = s_defaultProjectFilename;
 
         iaString templatePath = iResourceManager::getInstance().resolvePath(s_defaultTemplate);
-        iaDirectory srcDir(templatePath);
+        iaPath srcDir(templatePath);
 
-        std::filesystem::path srcPath(srcDir.getAbsoluteDirectoryName().getData());
+        std::filesystem::path srcPath(srcDir.getAbsolutePath().getData());
         std::filesystem::path dstPath(path.getData());
         std::filesystem::copy(srcPath, dstPath, std::filesystem::copy_options::recursive);
 

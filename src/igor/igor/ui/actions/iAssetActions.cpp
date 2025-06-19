@@ -40,7 +40,7 @@ namespace igor
         path = iaFile::generateUniqueFilename(path);        
         iResourceManager::getInstance().saveResource(resource, path);
 
-        path = iaDirectory::getRelativePath(iProject::getInstance().getProjectPath(), path);
+        path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }    
 

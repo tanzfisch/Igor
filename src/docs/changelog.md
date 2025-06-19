@@ -10,7 +10,7 @@ Most examples do not work anymore. Focus was on Mica and Supremacy
 - #414 reintroducing home brew entity system (it's something like a game object component thingy)
 - IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
 - added random interface to iaColor3 and iaColor4
-- iaDirectory and iaFile do not automatically fix a paths anymore
+- iaPath and iaFile do not automatically fix a paths anymore
 - #407 more renaming iShaderMaterial to iShader and related
 - removed widget example since Mica covers all you need to know about widgets in Igor
 - #374 using float32 for mouse position to reduce conversions

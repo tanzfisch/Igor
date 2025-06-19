@@ -84,7 +84,7 @@ void UILayer::onDeinit()
 
 void UILayer::onCreateProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaPath::getCurrentDirectory());
 }
 
 void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
@@ -100,7 +100,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onLoadProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaDirectory::getCurrentDirectory(), {"project"});
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaPath::getCurrentDirectory(), {"project"});
 }
 
 void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)

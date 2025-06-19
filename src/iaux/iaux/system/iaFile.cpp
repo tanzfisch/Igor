@@ -5,7 +5,7 @@
 #include <iaux/system/iaFile.h>
 
 #include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 
 #include <filesystem>
 
@@ -156,7 +156,7 @@ namespace iaux
             return true;
         }
 
-        const iaString fullDir = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + filename;
+        const iaString fullDir = iaPath::getCurrentDirectory() + IGOR_PATHSEPARATOR + filename;
 
         std::filesystem::path fspath2(fullDir.getData());
         return !std::filesystem::is_directory(fspath2) && std::filesystem::exists(fspath2);

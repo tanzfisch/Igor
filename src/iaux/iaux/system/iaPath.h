@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IAUX_DIRECTORY_H
-#define IAUX_DIRECTORY_H
+#ifndef IAUX_PATH_H
+#define IAUX_PATH_H
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
@@ -40,47 +40,60 @@ namespace iaux
     class iaFile;
 
     /*! handles directories and containing files
-    */
-    class IAUX_API iaDirectory
+     */
+    class IAUX_API iaPath
     {
 
         friend class iaFile;
 
     public:
-
         /*! creates an object for some directory
 
-        \param directoryName path of directory
+        \param path path of directory
         */
-        iaDirectory(const iaString &directoryName);
+        iaPath(const iaString &path);
 
         /*! empty directory ctor
-        */
-        iaDirectory();
+         */
+        iaPath();
 
         /*! copy operator
 
-        \param directoryName path of directory
+        \param path path of directory
         */
-        iaDirectory operator=(const iaString &directoryName);
+        iaPath operator=(const iaString &path);
 
-        /*! \returns get the absolute path name
+        /*! equal operator
 
-        e.g. if the path is c:\foo\bar then this returns c:\foo\bar
+        \param other the other path to compare with
         */
-        iaString getAbsoluteDirectoryName() const;
+        bool operator==(const iaString &other);
 
-        /*! \returns the name of the directory
+        /*! unequal operator
 
-        e.g. if the directory is c:\foo\bar than the directory name is bar
+        \param other the other path to compare with
         */
-        iaString getDirectoryName() const;
+        bool operator!=(const iaString &other);
+
+        /*! \returns get the absolute path (if possible)
+
+        To generate an absolute path it check if it exists relative to the current directory
+        */
+        const iaString getAbsolutePath() const;
+
+        /*! \returns the last name in path
+
+        examples:
+        "c:\foo\bar" -> "bar"
+        "/foo/bar.txt" -> "bar.txt"
+        */
+        const iaString getName() const;
 
         /*! \returns the absolute path name of parent directory
 
         e.g. if the path is c:\foo\bar then this returns c:\foo
         */
-        iaString getAbsoluteParentDirectoryName() const;
+        const iaString getParentPath() const;
 
         /*! \returns relative path from path to path
 
@@ -94,9 +107,11 @@ namespace iaux
         \param recursive true: search recursively; false: search only in current directory
         \param orderAlphabetically true: returns directories in alphabetical order
         */
-        std::vector<iaDirectory> getDirectories(bool recursive = false, bool orderAlphabetically = true) const;
+        std::vector<iaPath> getDirectories(bool recursive = false, bool orderAlphabetically = true) const;
 
-        /*! \returns all files
+        /*! \returns files of given directory
+
+        assuming path is an existing directory
 
         \param searchPattern what to search for using regular expression
         \param recursive true: search recursively; false: search only in current directory
@@ -106,22 +121,27 @@ namespace iaux
 
         /*! set's the current or working directory
 
-        \param directoyName the directory path
+        \param path the directory path
         */
-        static void setCurrentDirectory(const iaString &directoyName);
+        static void setCurrentDirectory(const iaString &path);
 
         /*! \returns the current or working directory
-        */
+         */
         static iaString getCurrentDirectory();
 
-        /*! \returns true: if a directory is absolute; false: if diretory is relative
-        */
-        static bool directoryIsAbsolute(const iaString &directoryname);
+        /*! \returns true: if a path is absolute; false: if path is relative
 
-        /*! \returns true: if a directory is realy a directory; false: if directory is a file
-		don't use this to check if a path is a file try iaFile::exist
+        \param path the given path
         */
-        static bool isDirectory(const iaString &directoryname);
+        static bool directoryIsAbsolute(const iaString &path);
+
+        /*! \returns true: if a path is directory; false: if path is not a directory
+         */
+        static bool isDirectory(const iaString &path);
+
+        /*! \returns true: if a path is a file; false: if path is not a file
+         */
+        static bool isFile(const iaString &path);
 
         /*! creates directory at given path
 
@@ -136,7 +156,7 @@ namespace iaux
         static bool exists(const iaString &path);
 
         /*! \returns true if given directory exists
-        */
+         */
         bool exists() const;
 
         /*! \returns true if given directory is empty
@@ -145,8 +165,8 @@ namespace iaux
         */
         static bool isEmpty(const iaString &path);
 
-        /*! \returns true: if root folder 
-        
+        /*! \returns true: if root folder
+
         eg c:, d: (windows)
         / (linux)
         */
@@ -154,16 +174,15 @@ namespace iaux
 
         /*! fixes the path from something like "../bla\blubber/temp.txt" to an absolute c:\bla\blubber\temp.txt
 
-        \param directoryName path to fix
-        \param file true: it's a file; false: it's a directory
+        \param path path to fix
         \returns fixed path
         */
-        static iaString fixPath(const iaString &directoryName);
+        static iaString fixPath(const iaString &path);
 
     private:
         /*! the path to the directory
-        */
-        iaString _directoryName;
+         */
+        iaString _path;
     };
 
     /*! stream operator
@@ -172,7 +191,7 @@ namespace iaux
     \param dir the directory to stream
     \returns the resulting stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaDirectory &dir);    
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaPath &dir);
 
 } // namespace iaux
 

@@ -627,10 +627,10 @@ namespace igor
             return "";
         }
 
-        const iaDirectory checkDir(filepath);
+        const iaPath checkDir(filepath);
         if (checkDir.exists())
         {
-            return checkDir.getAbsoluteDirectoryName();
+            return checkDir.getAbsolutePath();
         }
 
         iaFile checkFile(filepath);
@@ -639,7 +639,7 @@ namespace igor
             return checkFile.getFullFileName();
         }
 
-        const iaString currentDir = iaDirectory::getCurrentDirectory();
+        const iaString currentDir = iaPath::getCurrentDirectory();
 
         _mutex.lock();
         const auto searchPaths = _searchPaths;
@@ -648,15 +648,15 @@ namespace igor
         for (auto searchPath : searchPaths)
         {
             iaString path;
-            const iaDirectory searchDir(searchPath);
+            const iaPath searchDir(searchPath);
             if (searchDir.exists())
             {
-                path = iaDirectory::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
+                path = iaPath::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
             }
             else
             {
                 // if it does not exists assume it's relative to current dir
-                path = iaDirectory::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
+                path = iaPath::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
             iaFile file(path);
@@ -665,10 +665,10 @@ namespace igor
                 return file.getFullFileName();
             }
 
-            const iaDirectory dir(path);
+            const iaPath dir(path);
             if (dir.exists())
             {
-                return dir.getAbsoluteDirectoryName();
+                return dir.getAbsolutePath();
             }
         }
 
@@ -680,13 +680,13 @@ namespace igor
         iaString result = filename;
         for (auto path : _searchPaths)
         {
-            iaDirectory dir(path);
+            iaPath dir(path);
 
             std::vector<iaString> matches;
-            iaString::searchRegex(filename, dir.getAbsoluteDirectoryName(), matches);
+            iaString::searchRegex(filename, dir.getAbsolutePath(), matches);
             if (!matches.empty())
             {
-                result = iaDirectory::getRelativePath(dir.getAbsoluteDirectoryName(), filename);
+                result = iaPath::getRelativePath(dir.getAbsolutePath(), filename);
                 break;
             }
         }

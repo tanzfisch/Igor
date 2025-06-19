@@ -131,7 +131,7 @@ private:
     \param dir the current directory
     \param item the item to store information to
     */
-    void update(const iaDirectory &dir, iItemPtr item);
+    void update(const iaPath &dir, iItemPtr item);
 
     /*! update appearance of content mode button
      */

@@ -17,7 +17,7 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaFile.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 using namespace iaux;
 
 namespace igor
@@ -49,7 +49,7 @@ namespace igor
             _filename = file.getFileName();
             _directory = file.getPath();
         }
-        else if (iaDirectory::isDirectory(path))
+        else if (iaPath::isDirectory(path))
         {
             _filename = "";
             _directory = path;
@@ -59,17 +59,17 @@ namespace igor
             if (!path.isEmpty())
             {
                 _filename = "";
-                _directory = iaDirectory::fixPath(path);
+                _directory = iaPath::fixPath(path);
 
-                if (!iaDirectory::isDirectory(_directory))
+                if (!iaPath::isDirectory(_directory))
                 {
-                    _directory = iaDirectory::getCurrentDirectory();
+                    _directory = iaPath::getCurrentDirectory();
                 }
             }
             else
             {
                 _filename = "";
-                _directory = iaDirectory::getCurrentDirectory();
+                _directory = iaPath::getCurrentDirectory();
             }
         }
 
@@ -193,10 +193,10 @@ namespace igor
     {
         if (_filename.isEmpty())
         {
-            return iaDirectory::fixPath(_directory);
+            return iaPath::fixPath(_directory);
         }
 
-        return iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
+        return iaPath::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
     }
 
     void iDialogFileSelect::updateFileDir()
@@ -252,19 +252,19 @@ namespace igor
         _fileGrid->appendRows(rowCount - 1);
 
         int32 index = 0;
-        iaDirectory directory(_directory);
+        iaPath directory(_directory);
         auto directories = directory.getDirectories();
         auto files = directory.getFiles();
 
         if (!directory.isRoot())
         {
-            addToFileGrid(0, 0, directory.getAbsoluteParentDirectoryName(), "..", true);
+            addToFileGrid(0, 0, directory.getParentPath(), "..", true);
             index++;
         }
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsolutePath(), iter.getName(), true);
             index++;
         }
 
