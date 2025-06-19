@@ -5,6 +5,7 @@ Changelog                           {#changelog}
 ------
 
 - #439 refactor of iaDirectory/iaFile to iaPath/iaFile
+- #448 renamed all the resource related user controls in Mica
 
 0.45.0
 ------
