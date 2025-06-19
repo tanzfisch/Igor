@@ -322,7 +322,7 @@ namespace igor
         iTimer::createInstance();
         printInfo();
 
-        con_info("current directory is \"" << iaDirectory::getCurrentDirectory() << "\"");
+        con_info("current directory is \"" << iaPath::getCurrentDirectory() << "\"");
 
 #ifdef IGOR_WINDOWS
         static const std::vector<iaString> configLocations = {
@@ -340,11 +340,10 @@ namespace igor
 
         for (const auto &location : configLocations)
         {
-            iaFile file(location + IGOR_PATHSEPARATOR + "igor.json");
-
+            iaPath file(location + IGOR_PATHSEPARATOR + "igor.json");
             if (file.exists())
             {
-                configurationFilepath = file.getFullFileName();
+                configurationFilepath = file.getAbsolutePath();
                 break;
             }
         }
@@ -363,9 +362,9 @@ namespace igor
             // iaString configFolder = "%LOCALAPPDATA%/Igor ...// TODO
 #endif
 
-            if (!iaDirectory::exists(configFolder))
+            if (!iaPath::exists(configFolder))
             {
-                iaDirectory::makeDirectory(configFolder);
+                iaPath::makeDirectory(configFolder);
             }
 
             iConfig::getInstance().write(configFolder + "/igor.json");

@@ -17,7 +17,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/data/iaConvert.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/math/iaRandom.h>
 using namespace iaux;
 

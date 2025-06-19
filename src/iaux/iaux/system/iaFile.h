@@ -89,62 +89,25 @@ namespace iaux
          */
         const iaFileOpenMode &getFileOpenMode() const;
 
-        /*! renames the file to a new name
-
-        \param newFileName the new file name
-        \param replaceExisting true: destination will be replaced; false: no action will be taken if destination already exists
-        */
-        void rename(const iaString &newFileName, bool replaceExisting = false);
-
-        /*! copys the file to a new destination
-
-        \param newFileName name of copy destination
-        */
-        iaFile copy(const iaString &newFileName) const;
-
-        /*! checks if the file exist
-
-        \returns true: if file has an absolute path and exists; false: if not
-        */
-        bool exists() const;
-
-        /*! checks if some file exist
-
-        \param filename the file to be checked for
-        \returns true: if file exists; false: if not
-        */
-        static bool exists(const iaString &filename);
-
-        /*! deletes/removes file from filesystem
-
-        \param filename the file to remove
-        */
-        static bool remove(const iaString &filename);
-
-        /*! \returns valid unique filename for given filename
-        \param filename the given filename
-        */
-        static iaString generateUniqueFilename(const iaString &filename);
-
         /*! \returns only the parent path
          */
-        iaString getPath() const;
-
-        /*! \returns only the filename
-         */
-        iaString getFileName() const;
-
-        /*! \returns filename without extension
-         */
-        iaString getStem() const;
+        const iaString getParentPath() const;
 
         /*! \returns the full path & filename
          */
-        iaString getFullFileName() const;
+        const iaString getFullFileName() const;
+
+        /*! \returns only the filename
+         */
+        const iaString getName() const;
+
+        /*! \returns filename without extension
+         */
+        const iaString getStem() const;
 
         /*! \returns the file extension
          */
-        iaString getExtension() const;
+        const iaString getExtension() const;
 
         /*! \returns the size of the file
          */
@@ -176,12 +139,6 @@ namespace iaux
         /*! \returns last modified time of file
          */
         iaTime getLastModifiedTime() const;
-
-        /*! \returns last modified time of file
-
-        \param filename the given filename
-        */
-        static iaTime getLastModifiedTime(const iaString &filename);
 
     protected:
         /*! sets the file pointer to a destination

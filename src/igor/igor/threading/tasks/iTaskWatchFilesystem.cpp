@@ -19,12 +19,12 @@ namespace igor
     {
     }
 
-    int iTaskWatchFilesystem::watchDir(const iaDirectory &dir)
+    int iTaskWatchFilesystem::watchDir(const iaPath &dir)
     {
         const size_t bufSize = 4096;
         char buffer[bufSize];
 
-        dir.getAbsoluteDirectoryName().getData(buffer, bufSize);
+        dir.getAbsolutePath().getData(buffer, bufSize);
         return inotify_add_watch(_inotify, buffer, IN_CREATE | IN_DELETE | IN_MOVED_FROM | IN_MOVED_TO);
     }
 
@@ -58,10 +58,10 @@ namespace igor
 
         if (_recursive)
         {
-            iaDirectory path(_path);
+            iaPath path(_path);
             for (const auto &subdir : path.getDirectories(true, false))
             {
-                if (!onWatchDir(subdir.getAbsoluteDirectoryName()))
+                if (!onWatchDir(subdir.getAbsolutePath()))
                 {
                     return;
                 }
@@ -104,7 +104,7 @@ namespace igor
 
                 if (event->mask & IN_CREATE)
                 {
-                    if (iaDirectory::isDirectory(fullPath))
+                    if (iaPath::isDirectory(fullPath))
                     {
                         onWatchDir(fullPath);
                     }
@@ -135,7 +135,7 @@ namespace igor
                 }
                 else if (event->mask & IN_MOVED_TO)
                 {
-                    if (iaDirectory::isDirectory(fullPath))
+                    if (iaPath::isDirectory(fullPath))
                     {
                         onWatchDir(fullPath);
                     }

@@ -173,20 +173,20 @@ void AssetBrowser::onUpdateGridView()
     }
     const iaString path = item->getValue<iaString>("relativePath");
 
-    const iaDirectory projectDir(_projectFolder);
-    const auto newPath = iaDirectory::fixPath(projectDir.getAbsoluteDirectoryName() + IGOR_PATHSEPARATOR + path);
+    const iaPath projectDir(_projectFolder);
+    const auto newPath = iaPath::fixPath(projectDir.getAbsolutePath() + IGOR_PATHSEPARATOR + path);
 
     _currentPath = newPath;
 
-    if (iaDirectory::isDirectory(_currentPath))
+    if (iaPath::isDirectory(_currentPath))
     {
         iResourceManager::getInstance().getResourceProcessedEvent().remove(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded));
 
-        const iaDirectory dir(_currentPath);
+        const iaPath dir(_currentPath);
         auto files = dir.getFiles();
         for (const auto &file : files)
         {
-            const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
+            const iaString relativePath = iaPath::getRelativePath(projectDir.getAbsolutePath(), file.getFullFileName());
             if (_contentMode == ContentMode::Assets &&
                 iResourceManager::getInstance().getResourceID(relativePath) == iResourceID(IGOR_INVALID_ID))
             {
@@ -206,7 +206,7 @@ void AssetBrowser::onUpdateGridView()
 
         iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded), false, true);
 
-        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
+        const iaString relativePath = iaPath::getRelativePath(projectDir.getAbsolutePath(), file.getFullFileName());
         _currentFocussedResource = iResourceManager::getInstance().getResourceID(relativePath);
         iModelPtr model = iResourceManager::getInstance().requestResource<iModel>(_currentFocussedResource);
         if (model->isValid())
@@ -241,17 +241,17 @@ void AssetBrowser::onRefreshGridView()
     }
 }
 
-void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
+void AssetBrowser::update(const iaPath &dir, iItemPtr item)
 {
-    const iaDirectory projectDir(_projectFolder);
+    const iaPath projectDir(_projectFolder);
     auto dirs = dir.getDirectories();
     auto files = dir.getFiles();
 
     for (const auto &subDir : dirs)
     {
-        iItemPtr child = item->addItem(subDir.getDirectoryName());
+        iItemPtr child = item->addItem(subDir.getName());
         child->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
-        iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), subDir.getAbsoluteDirectoryName());
+        iaString relativePath = iaPath::getRelativePath(projectDir.getAbsolutePath(), subDir.getAbsolutePath());
         child->setValue<iaString>("relativePath", relativePath);
 
         update(subDir, child);
@@ -259,7 +259,7 @@ void AssetBrowser::update(const iaDirectory &dir, iItemPtr item)
 
     for (const auto &file : files)
     {
-        const iaString relativePath = iaDirectory::getRelativePath(projectDir.getAbsoluteDirectoryName(), file.getFullFileName());
+        const iaString relativePath = iaPath::getRelativePath(projectDir.getAbsolutePath(), file.getFullFileName());
         if (_contentMode == ContentMode::Assets &&
             iResourceManager::getInstance().getResourceID(relativePath) == iResourceID(IGOR_INVALID_ID))
         {
@@ -295,8 +295,8 @@ void AssetBrowser::onUpdateFilesystem()
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
-    const iaDirectory projectDir(_projectFolder);
-    iItemPtr projectRoot = _itemData->addItem(projectDir.getDirectoryName());
+    const iaPath projectDir(_projectFolder);
+    iItemPtr projectRoot = _itemData->addItem(projectDir.getName());
     projectRoot->setValue<iaString>(IGOR_ITEM_DATA_ICON, "igor_icon_folder");
     projectRoot->setValue<iaString>("relativePath", "");
     update(projectDir, projectRoot);

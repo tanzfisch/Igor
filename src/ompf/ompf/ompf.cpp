@@ -5,7 +5,7 @@
 #include <ompf/ompf.h>
 
 #include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 using namespace iaux;
 
 #include <iostream>
@@ -280,8 +280,8 @@ namespace OMPF
 
     void OMPF::loadFile(iaString filename)
     {
-        iaDirectory dir(filename);
-        _filepath = dir.getAbsoluteDirectoryName();
+        iaPath dir(filename);
+        _filepath = dir.getAbsolutePath();
 
         reset();
 
@@ -339,8 +339,8 @@ namespace OMPF
 
     void OMPF::saveFile(iaString filename)
     {
-        iaDirectory dir(filename);
-        _filepath = dir.getAbsoluteParentDirectoryName();
+        iaPath dir(filename);
+        _filepath = dir.getParentPath();
 
         con_assert(_root != nullptr, "can never be zero");
 

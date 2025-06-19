@@ -41,7 +41,7 @@
 #include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/iResourceDictionary.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;

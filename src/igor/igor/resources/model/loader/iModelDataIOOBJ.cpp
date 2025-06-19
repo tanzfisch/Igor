@@ -299,7 +299,7 @@ namespace igor
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
 		std::ifstream file;
-		if (iaFile::exists(filename))
+		if (iaPath::exists(filename))
 		{
 			iaString path = iResourceManager::getInstance().resolvePath(filename);
 			char temp[1024];
@@ -507,8 +507,8 @@ namespace igor
 
 	bool iModelDataIOOBJ::readFile(const iaString &filename)
 	{
-		iaFile file(filename);
-		_pathOfModel = file.getPath();
+		iaPath path(filename);
+		_pathOfModel = path.getParentPath();
 
 		std::ifstream fileStream;
 		char temp[1024];
