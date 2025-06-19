@@ -81,7 +81,7 @@ void UserControlResourceShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
     _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(paramTex));
 }
 
-void UserControlResourceShaderMaterial::updateResource()
+void UserControlResourceShaderMaterial::onUpdateResource()
 {
     iShaderPtr shader = iResourceManager::getInstance().getResource<iShader>(getResourceID());
 
@@ -107,9 +107,9 @@ void UserControlResourceShaderMaterial::updateResource()
     updateMaterialDisplay(shader);
 }
 
-void UserControlResourceShaderMaterial::update()
+void UserControlResourceShaderMaterial::onUpdateUI()
 {
-    UserControlResource::update();
+    UserControlResource::onUpdateUI();
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>(getResourceID());
 
@@ -131,9 +131,9 @@ void UserControlResourceShaderMaterial::update()
     updateMaterialDisplay(shader);
 }
 
-void UserControlResourceShaderMaterial::init()
+void UserControlResourceShaderMaterial::onInit()
 {
-    UserControlResource::init();
+    UserControlResource::onInit();
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -276,5 +276,5 @@ void UserControlResourceShaderMaterial::init()
 
 void UserControlResourceShaderMaterial::onDoUpdateShaderMaterial(const iWidgetPtr source)
 {
-    updateResource();
+    onUpdateResource();
 }

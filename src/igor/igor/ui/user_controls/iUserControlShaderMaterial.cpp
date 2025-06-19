@@ -26,7 +26,7 @@ namespace igor
 
     iUserControlShaderMaterial::~iUserControlShaderMaterial()
     {
-    }
+    }    
 
     void iUserControlShaderMaterial::initGUI()
     {

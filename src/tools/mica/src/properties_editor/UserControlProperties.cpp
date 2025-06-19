@@ -76,6 +76,6 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
         userControl = new UserControlResource(resourceID, _layout);
     }
 
-    userControl->init();
-    userControl->update();
+    userControl->onInit();
+    userControl->onUpdateUI();
 }

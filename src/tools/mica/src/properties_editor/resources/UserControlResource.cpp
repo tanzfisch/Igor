@@ -12,7 +12,7 @@ UserControlResource::UserControlResource(iResourceID resourceID, const iWidgetPt
     con_assert(_resourceID.isValid(), "invalid resource id");
 }
 
-void UserControlResource::init()
+void UserControlResource::onInit()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
@@ -86,7 +86,7 @@ iWidgetBoxLayoutPtr UserControlResource::getLayout()
     return _layout;
 }
 
-void UserControlResource::update()
+void UserControlResource::onUpdateUI()
 {
     _textType->setText(iResourceManager::getInstance().getType(getResourceID()));
     _textAlias->setText(iResourceManager::getInstance().getAlias(getResourceID()));
@@ -94,7 +94,7 @@ void UserControlResource::update()
     _textSource->setText(iResourceManager::getInstance().getFilename(getResourceID()));
 }
 
-void UserControlResource::updateResource()
+void UserControlResource::onUpdateResource()
 {
 }
 

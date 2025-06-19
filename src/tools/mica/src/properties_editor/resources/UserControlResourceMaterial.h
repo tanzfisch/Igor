@@ -47,15 +47,15 @@ public:
 
     /*! init ui
      */
-    virtual void init();
+    void onInit() override;
 
     /*! update ui with node data
      */
-    virtual void update();
+    void onUpdateUI() override;
 
     /*! update node with ui data
      */
-    virtual void updateResource();
+    void onUpdateResource() override;
 
 private:
     /*! diffuse color chooser

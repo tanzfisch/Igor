@@ -11,7 +11,7 @@ UserControlResourceMaterial::UserControlResourceMaterial(iResourceID resourceID,
 {
 }
 
-void UserControlResourceMaterial::updateResource()
+void UserControlResourceMaterial::onUpdateResource()
 {
     iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
 
@@ -57,9 +57,9 @@ void UserControlResourceMaterial::updateResource()
     iResourceManager::getInstance().saveResource(getResourceID());
 }
 
-void UserControlResourceMaterial::update()
+void UserControlResourceMaterial::onUpdateUI()
 {
-    UserControlResource::update();
+    UserControlResource::onUpdateUI();
 
     iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
 
@@ -97,9 +97,9 @@ void UserControlResourceMaterial::update()
     _ignoreUpdate = false;
 }
 
-void UserControlResourceMaterial::init()
+void UserControlResourceMaterial::onInit()
 {
-    UserControlResource::init();
+    UserControlResource::onInit();
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -192,10 +192,10 @@ void UserControlResourceMaterial::onDoUpdateShininess(const iWidgetPtr source)
         _sliderShininess->setValue(_numberChooserShininess->getValue());
     }
 
-    updateResource();
+    onUpdateResource();
 }
 
 void UserControlResourceMaterial::onDoUpdateMaterial(const iWidgetPtr source)
 {
-    updateResource();
+    onUpdateResource();
 }
