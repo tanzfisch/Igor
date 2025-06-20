@@ -31,7 +31,7 @@
 
 #include "UserControlResource.h"
 
-class UserControlResourceShaderMaterial : public UserControlResource
+class UserControlResourceShader : public UserControlResource
 {
 public:
     /*! init user control
@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlResourceShaderMaterial(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+	UserControlResourceShader(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
 	/*! does nothing
 	*/
-	~UserControlResourceShaderMaterial() = default;
+	~UserControlResourceShader() = default;
 
     /*! init ui
      */
