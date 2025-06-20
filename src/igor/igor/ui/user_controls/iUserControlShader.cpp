@@ -34,8 +34,8 @@ namespace igor
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         _picture = new iWidgetPicture(layout);
         _picture->setKeepAspectRatio(false);
-        _picture->setMaxSize(64, 64);
-        _picture->setMinSize(64, 64);
+        _picture->setMaxSize(128, 128);
+        _picture->setMinSize(128, 128);
         _picture->setCheckerBoard(true);
 
         iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);

@@ -31,7 +31,7 @@ namespace igor
         iRenderer::getInstance().setPerspective(45.0, 0.00001, 10.0);
 
         iMeshBuilder meshBuilder;
-        iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32);
+        iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32, material->hasTextures());
         meshBuilder.calcNormals(true);
         iMeshPtr sphere = meshBuilder.createMesh();
 
