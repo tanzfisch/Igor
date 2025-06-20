@@ -8,6 +8,9 @@
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/renderer/iRenderer.h>
 
+#include <iaux/data/iaConvert.h>
+using namespace iaux;
+
 namespace igor
 {
     iPixmapPtr iShaderUtils::materialToPixmap(iMaterialPtr material, uint32 width, uint32 height)
@@ -40,9 +43,10 @@ namespace igor
 
         if (shader->getRenderState(iRenderState::Instanced) == iRenderStateValue::On)
         {
-            iaMatrixf idMatrix;
+            iaMatrixf matrixf;
+            iaConvert::convert(matrix, matrixf);
             iInstancingBufferPtr instancingBuffer = iInstancingBuffer::create(std::vector<iBufferLayoutEntry>{{iShaderDataType::Matrix4x4}});
-            instancingBuffer->addInstance(sizeof(iaMatrixf), idMatrix.getData());
+            instancingBuffer->addInstance(sizeof(iaMatrixf), matrixf.getData());
             iRenderer::getInstance().drawMeshInstanced(sphere, instancingBuffer, material);
         }
         else
