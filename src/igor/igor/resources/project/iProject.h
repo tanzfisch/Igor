@@ -43,11 +43,11 @@ namespace igor
 
     /*! project scene added event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneAdded, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iSceneAdded, const iResourceID &);
 
     /*! project scene removed event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iSceneRemoved, const iResourceID &);
 
     /*! project pointer definition
      */
@@ -66,9 +66,10 @@ namespace igor
         closes active project if any
 
         \param path the given project file or folder
-        \returns project
+        \param editmode if true project will 
+        \returns project        
         */
-        void load(const iaString &path);
+        void load(const iaString &path, bool editmode = false);
 
         /*! unloads project
          */
@@ -94,10 +95,6 @@ namespace igor
          */
         const iaString getProjectFilepath() const;
 
-        /*! \returns scenes folder
-        */
-        const iaString getScenesPath() const;
-
         /*! \returns project name
          */
         const iaString &getName() const;
@@ -106,15 +103,11 @@ namespace igor
          */
         void setName(const iaString &projectName);
 
-        /*! \returns true if changes been made and not saved
-         */
-        bool hasChanges() const;
-
         /*! \returns true if a project currently is loaded
          */
         bool isLoaded() const;
 
-        /*! add scene to project
+        /*! add scene to project's root scene
 
         \param sceneID the scene to add (aka type prefab)
         \param name name of the scene
@@ -122,31 +115,27 @@ namespace igor
         */
         void addScene(const iResourceID &sceneID, const iaString &name = "scene", bool active = true);
 
-        /*! remove scene from project
+        /*! remove scene from project root scene
 
         \param sceneID the scene/prefab to remove
         */
         void removeScene(const iResourceID &sceneID);
 
-        /*! \returns list of scene references
+        /*! \returns list of all sub scenes in this project excluding root scene
          */
         const std::vector<iResourceID> &getScenes() const;
 
-        /*! \returns the project scene
+        /*! \returns the root project scene
          */
-        iEntityScenePtr getProjectScene() const;
-
-        /*! \returns true if project has a scene
-        */
-        bool hasProjectScene() const;
+        iEntityScenePtr getActiveScene() const;
 
         /*! \returns project scene added event
          */
-        iProjectSceneAddedEvent &getProjectSceneAddedEvent();
+        iSceneAddedEvent &getSceneAddedEvent();
 
         /*! \returns project scene removed event
          */
-        iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
+        iSceneRemovedEvent &getSceneRemovedEvent();
 
     private:
         /*! project folder
@@ -165,21 +154,17 @@ namespace igor
          */
         iEntityScenePtr _projectScene = nullptr;
 
-        /*! if true project configuration has changes
-         */
-        bool _hasChanges = false;
-
         /*! true if project is loaded
          */
         bool _isLoaded = false;
 
         /*! project scene added event
          */
-        iProjectSceneAddedEvent _projectSceneAddedEvent;
+        iSceneAddedEvent _sceneAddedEvent;
 
         /*! project scene added event
          */
-        iProjectSceneRemovedEvent _projectSceneRemovedEvent;
+        iSceneRemovedEvent _sceneRemovedEvent;
 
         /*! scenes referenced by project
          */

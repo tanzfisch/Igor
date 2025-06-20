@@ -151,33 +151,33 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->duplicate();
+            iProject::getInstance().getActiveScene()->duplicate();
             return true;
         }
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->cut();
+            iProject::getInstance().getActiveScene()->cut();
             return true;
         }
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->copy();
+            iProject::getInstance().getActiveScene()->copy();
             return true;
         }
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->paste();
+            iProject::getInstance().getActiveScene()->paste();
             return true;
         }
 
@@ -196,12 +196,12 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         }
 
     case iKeyCode::Delete:
-        if (iProject::getInstance().hasProjectScene())
+        if (iProject::getInstance().isLoaded())
         {
-            const auto &selection = iProject::getInstance().getProjectScene()->getSelection();
+            const auto &selection = iProject::getInstance().getActiveScene()->getSelection();
             for (const auto &entityID : selection)
             {
-                iProject::getInstance().getProjectScene()->destroyEntity(entityID);
+                iProject::getInstance().getActiveScene()->destroyEntity(entityID);
             }
             return true;
         }

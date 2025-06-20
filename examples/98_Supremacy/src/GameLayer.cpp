@@ -31,7 +31,7 @@ void GameLayer::onInit()
     iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
     iEntitySystemModule::getInstance().registerComponentType<PartyComponent>(PartyComponent::createInstance, "SupremacyComponentParty");
 
-    _entityScene = iProject::getInstance().getProjectScene();
+    _entityScene = iProject::getInstance().getActiveScene();
 
     iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 

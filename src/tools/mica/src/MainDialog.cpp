@@ -114,5 +114,5 @@ void MainDialog::onCloseProject(const iWidgetPtr source)
 void MainDialog::onPrintProjectTree(const iWidgetPtr source)
 {
     iEntityPrintTraverser print(true);
-    print.traverse(iProject::getInstance().getProjectScene());
+    print.traverse(iProject::getInstance().getActiveScene());
 } 

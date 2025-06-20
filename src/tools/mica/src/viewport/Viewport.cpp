@@ -206,7 +206,7 @@ void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         return false;
@@ -281,7 +281,7 @@ void Viewport::frameOnSelection()
         return;
     }
 
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         return;
@@ -328,7 +328,7 @@ void Viewport::renderScene()
 
 void Viewport::renderSelection()
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         return;

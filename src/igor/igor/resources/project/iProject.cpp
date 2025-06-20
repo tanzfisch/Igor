@@ -22,7 +22,7 @@ namespace igor
     static const iaString s_defaultProjectFilename = "project_config.project";
     static const iaString s_resourceDictionary = "resource_dictionary.json";
 
-    void iProject::load(const iaString &path)
+    void iProject::load(const iaString &path, bool editmode)
     {
         if (isLoaded())
         {
@@ -84,9 +84,15 @@ namespace igor
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
-        _projectSceneAddedEvent.block();
-        read(filenameConfig);
-        _projectSceneAddedEvent.unblock();
+        _sceneAddedEvent.block();
+        bool success = read(filenameConfig);
+        _sceneAddedEvent.unblock();
+
+        if (!success)
+        {
+            con_err("failed to load project from \"" << _projectFolder << "\"");
+            return;
+        }
 
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
@@ -200,14 +206,9 @@ namespace igor
         return true;
     }
 
-    iEntityScenePtr iProject::getProjectScene() const
+    iEntityScenePtr iProject::getActiveScene() const
     {
         return _projectScene;
-    }
-
-    bool iProject::hasProjectScene() const
-    {
-        return _projectScene != nullptr;
     }
 
     static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
@@ -313,11 +314,6 @@ namespace igor
         return _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
     }
 
-    const iaString iProject::getScenesPath() const
-    {
-        return _projectFolder + "scenes";
-    }
-
     const iaString &iProject::getName() const
     {
         return _projectName;
@@ -326,12 +322,6 @@ namespace igor
     void iProject::setName(const iaString &projectName)
     {
         _projectName = projectName;
-        _hasChanges = true;
-    }
-
-    bool iProject::hasChanges() const
-    {
-        return _hasChanges;
     }
 
     bool iProject::isLoaded() const
@@ -339,14 +329,14 @@ namespace igor
         return _isLoaded;
     }
 
-    iProjectSceneAddedEvent &iProject::getProjectSceneAddedEvent()
+    iSceneAddedEvent &iProject::getSceneAddedEvent()
     {
-        return _projectSceneAddedEvent;
+        return _sceneAddedEvent;
     }
 
-    iProjectSceneRemovedEvent &iProject::getProjectSceneRemovedEvent()
+    iSceneRemovedEvent &iProject::getSceneRemovedEvent()
     {
-        return _projectSceneRemovedEvent;
+        return _sceneRemovedEvent;
     }
 
     void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)
@@ -359,7 +349,7 @@ namespace igor
         }
 
         _scenes.push_back(sceneID);
-        _projectSceneAddedEvent(sceneID);
+        _sceneAddedEvent(sceneID);
 
         iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(sceneID);
         iEntityPtr entityPrefab = _projectScene->createEntity();
@@ -377,7 +367,7 @@ namespace igor
         }
 
         _scenes.erase(iter);
-        _projectSceneRemovedEvent(sceneID);
+        _sceneRemovedEvent(sceneID);
     }
 
 }; // namespace igor

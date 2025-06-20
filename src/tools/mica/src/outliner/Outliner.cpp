@@ -12,8 +12,8 @@ Outliner::Outliner()
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
     iEntitySystemModule::getInstance().getHierarchyChangedEvent().add(iHierarchyChangedDelegate(this, &Outliner::onHierarchyChanged));
     iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
-    iProject::getInstance().getProjectSceneAddedEvent().add(iProjectSceneAddedDelegate(this, &Outliner::onSceneAdded));
-    iProject::getInstance().getProjectSceneRemovedEvent().add(iProjectSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
+    iProject::getInstance().getSceneAddedEvent().add(iSceneAddedDelegate(this, &Outliner::onSceneAdded));
+    iProject::getInstance().getSceneRemovedEvent().add(iSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
@@ -79,7 +79,7 @@ void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         return;
@@ -124,7 +124,7 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         return;
@@ -352,7 +352,7 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    auto projectScene = project.getProjectScene();
+    auto projectScene = project.getActiveScene();
     if (!project.isLoaded() || projectScene == nullptr)
     {
         return;
@@ -436,7 +436,7 @@ bool Outliner::onEvent(iEvent &event)
 
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if (projectScene == nullptr)
     {
         refresh();

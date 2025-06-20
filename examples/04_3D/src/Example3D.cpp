@@ -48,7 +48,7 @@ void Example3D::onInit()
 
     iResourceManager::getInstance().saveResource(scenePrefab, "/home/martin/dev/Igor/examples/04_3D/project/scenes/main.scene");
 #else
-    getView().setScene(iProject::getInstance().getProjectScene());
+    getView().setScene(iProject::getInstance().getActiveScene());
 
     _cameraPitch = iEntityID(0x1cab7c99336dbea8);
     _cameraHeading = iEntityID(0x494714df579bf91e);
@@ -58,7 +58,7 @@ void Example3D::onInit()
 
 void Example3D::onEvent(iEvent &event)
 {
-    // TODO getView().setScene(iProject::getInstance().getProjectScene());
+    // TODO getView().setScene(iProject::getInstance().getActiveScene());
 
     // first call example base
     ExampleBase::onEvent(event);
@@ -75,7 +75,7 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
     case iKeyCode::Space:
     {
         iEntityPrintTraverser print;
-        auto scene = iProject::getInstance().getProjectScene();
+        auto scene = iProject::getInstance().getActiveScene();
         print.traverse(scene);
     }
         return true;
@@ -86,7 +86,7 @@ bool Example3D::onKeyDown(iEventKeyDown &event)
 
 bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 {
-    auto scene = iProject::getInstance().getProjectScene();
+    auto scene = iProject::getInstance().getActiveScene();
 
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();
@@ -107,7 +107,7 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 
 bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
 {
-    auto scene = iProject::getInstance().getProjectScene();
+    auto scene = iProject::getInstance().getActiveScene();
     auto translation = scene->getEntity(_camera)->getComponent<iTransformComponent>();
 
     if (event.getWheelDelta() < 0)

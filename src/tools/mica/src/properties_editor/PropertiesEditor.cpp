@@ -33,7 +33,7 @@ bool PropertiesEditor::onEvent(iEvent &event)
 
 bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getActiveScene();
     if(projectScene == nullptr)
     {
         return false;
