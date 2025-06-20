@@ -57,7 +57,6 @@ namespace igor
         }
 
         _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(_textureID));
-
         _labelID->setText(textureID.toString());
         _labelAlias->setText(iResourceManager::getInstance().getAlias(_textureID));
 

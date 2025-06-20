@@ -302,6 +302,21 @@ namespace igor
         return pixmap;
     }
 
+    bool iTextureFactory::writePixmap(iPixmapPtr pixmap, const iaString &dst)
+    {
+        char path[1024];
+        dst.getData(path, 1024);
+
+        // Write the resized image to a PNG file using stb_image_write.h
+        if (!stbi_write_png(path, pixmap->getWidth(), pixmap->getHeight(), pixmap->getBytesPerPixel(), pixmap->getData(), pixmap->getWidth() * pixmap->getBytesPerPixel()))
+        {
+            con_err("Failed to write PNG file \"" << dst << "\"");
+            return false;
+        }
+
+        return true;
+    }
+
     bool iTextureFactory::createThumbnail(const iaString &source, const iaString &destination, uint32 newWidth, uint32 newHeight, bool keepAspectRatio)
     {
         con_debug("create thumbnail \"" << source << "\" -> \"" << destination << "\" " << newWidth << "x" << newHeight);

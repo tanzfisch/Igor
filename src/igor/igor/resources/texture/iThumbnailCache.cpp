@@ -6,6 +6,7 @@
 
 #include <igor/system/iApplication.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/resources/shader/iShaderUtils.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iTextureFactory.h>
 
@@ -57,6 +58,7 @@ namespace igor
     {
         if(!iaPath::exists(filename))
         {
+            con_warn("can't generate a thumbnail for non existing file \"" << filename << "\"");
             return nullptr;
         }        
 
@@ -98,9 +100,8 @@ namespace igor
     void iThumbnailCache::generateThumbnails()
     {
         std::pair<iaString, iaString> info;
-        bool skip = false;
         _queueMutex.lock();
-        skip = _thumbnailProcessQueue.empty();
+        bool skip = _thumbnailProcessQueue.empty();
         if (!skip)
         {
             info = _thumbnailProcessQueue.front();
@@ -113,18 +114,32 @@ namespace igor
             return;
         }
 
-        iaFile file(info.first);
+        const iaFile file(info.first);
+        const iaString extension = file.getExtension();
 
-        iaString extension = file.getExtension();
+        const uint32 thumbnailWidth = 128;
+        const uint32 thumbnailHeight = 128;
 
         for (auto ex : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
         {
             if (ex == extension)
             {
-                iTextureFactory::createThumbnail(info.first, info.second);
+                iTextureFactory::createThumbnail(info.first, info.second, thumbnailWidth, thumbnailHeight);
                 return;
             }
         }
+
+        // TODO can't do this here. need separate instance of iRenderer for each thread
+        /*for (auto ex : IGOR_SUPPORTED_SHADER_EXTENSIONS)
+        {
+            if (ex == extension)
+            {
+                auto shader = iResourceManager::getInstance().loadResource<iShader>(info.first);
+                auto pixmap = iShaderUtils::shaderToPixmap(shader, thumbnailWidth, thumbnailHeight);
+                iTextureFactory::writePixmap(pixmap, info.second);
+                return;
+            }
+        }*/
 
         // TODO handle other formats
     }

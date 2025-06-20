@@ -1,5 +1,5 @@
 {	"material": {
-		"shader_material": "igor_shader_instancing_flat_shaded",
+		"shader_material": "igor_shader_material_default",
 		"diffuse": { "r": 0.269231, "g": 0.20769, "b": 0.761531},
 		"ambient": { "r": 0.265384, "g": 0.263373, "b": 0.263374},
 		"specular": { "r": 0.534616, "g": 0.434615, "b": 0.434616},

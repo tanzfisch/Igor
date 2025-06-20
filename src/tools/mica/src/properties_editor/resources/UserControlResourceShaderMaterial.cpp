@@ -9,15 +9,6 @@ UserControlResourceShaderMaterial::UserControlResourceShaderMaterial(iResourceID
 {
 }
 
-static iMeshPtr createSphere()
-{
-    iMeshBuilder meshBuilder;
-
-    iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
 void UserControlResourceShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
 {
     if (_ignoreMaterialUpdate)
@@ -25,60 +16,8 @@ void UserControlResourceShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
         return;
     }
 
-    // store current render states
-    iRenderer::getInstance().flush();
-    const iaRectanglei viewport = iRenderer::getInstance().getViewport();
-    const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-    const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
-
-    const uint32 width = 128;
-    const uint32 height = 128;
-    uint32 renderTarget = iRenderer::getInstance().createRenderTarget(width, height, iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-    iRenderer::getInstance().setRenderTarget(renderTarget);
-    iRenderer::getInstance().clearColorBuffer(iaColor4f::transparent);
-
-    iRenderer::getInstance().setViewport(0, 0, width, height);
-    iRenderer::getInstance().setPerspective(45.0, 0.00001, 10.0);
-
-    iParameters param({
-        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-        {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shader},
-        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free}, // drop it right after this use
-        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.0f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
-    });
-    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
-
-    iMeshPtr sphere = createSphere();
-
-    iaMatrixd matrix;
-    matrix.translate(0, 0, -1.5);
-    iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().drawMesh(sphere, material);
-
-    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
-
-    iRenderer::getInstance().readPixels(0, 0, width, height, iColorFormat::RGBA, pixmap->getData());
-
-    iRenderer::getInstance().setRenderTarget();
-    iRenderer::getInstance().destroyRenderTarget(renderTarget);
-
-    // restore everything
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-    iRenderer::getInstance().setViewport(viewport);
-
-    iParameters paramTex({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
-                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
-                       {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
-                       {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
-
-    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(paramTex));
+    const auto texture = iShaderUtils::shaderToTexture(shader, 256, 256);
+    _materialPicture->setTexture(texture);
 }
 
 void UserControlResourceShaderMaterial::onUpdateResource()
@@ -268,8 +207,8 @@ void UserControlResourceShaderMaterial::onInit()
     materialGroupBox->setHeaderOnly();
 
     _materialPicture = new iWidgetPicture(materialGroupBox);
-    _materialPicture->setMaxSize(128, 128);
-    _materialPicture->setMinSize(128, 128);
+    _materialPicture->setMaxSize(256, 256);
+    _materialPicture->setMinSize(256, 256);
     _materialPicture->setCheckerBoard(true);
     _materialPicture->setForeground(iaColor4f::white);
 }

@@ -7,6 +7,7 @@
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iThumbnailCache.h>
+#include <igor/resources/shader/iShaderUtils.h>
 #include <igor/data/iMimeData.h>
 #include <igor/ui/iDrag.h>
 
@@ -58,9 +59,8 @@ namespace igor
             return;
         }
 
-        /*const iaString filename = iResourceManager::getInstance().getFilename(_shaderID);
-        iaFile file(iResourceManager::getInstance().resolvePath(filename));
-        _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(file.getFullFileName()));*/
+        // TODO can't do it like this for now _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(_shaderID));
+        _picture->setTexture(iShaderUtils::shaderToTexture(iResourceManager::getInstance().loadResource<iShader>(_shaderID), 128, 128));
 
         _labelID->setText(_shaderID.toString());
         _labelAlias->setText(iResourceManager::getInstance().getAlias(_shaderID));
@@ -68,7 +68,7 @@ namespace igor
         _change(this);
     }
 
-    const iResourceID& iUserControlShader::getShaderID() const
+    const iResourceID &iUserControlShader::getShaderID() const
     {
         return _shaderID;
     }

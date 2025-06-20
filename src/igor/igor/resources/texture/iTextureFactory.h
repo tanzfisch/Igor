@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_TEXTURE_FACTORY__
-#define __IGOR_TEXTURE_FACTORY__
+#ifndef IGOR_TEXTURE_FACTORY_H
+#define IGOR_TEXTURE_FACTORY_H
 
 #include <igor/resources/iFactory.h>
 #include <igor/resources/texture/iTexture.h>
@@ -61,7 +61,15 @@ namespace igor
         \param keepAspectRatio if true thumbnail will keep aspect ratio
         \returns true if successful 
         */
-        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width = 128, uint32 height = 128, bool keepAspectRatio = true);
+        static bool createThumbnail(const iaString &source, const iaString &destination, uint32 width, uint32 height, bool keepAspectRatio = true);
+
+        /*! writes pixmap to disc
+
+        \param pixmap the given pixmap data
+        \param dst the file destination to write to
+        \returns true if successful 
+        */
+        static bool writePixmap(iPixmapPtr pixmap, const iaString &dst);
 
     private:
         /*! init members
@@ -120,4 +128,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_TEXTURE_FACTORY__
+#endif // IGOR_TEXTURE_FACTORY_H
