@@ -6,7 +6,7 @@
 
 Outliner::Outliner()
 {
-    initGUI();
+    onInitUI();
 
     iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
@@ -18,7 +18,7 @@ Outliner::Outliner()
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
 
-void Outliner::initGUI()
+void Outliner::onInitUI()
 {
     setTitle("Outliner");
     setMinWidth(350);

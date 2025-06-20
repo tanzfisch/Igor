@@ -6,7 +6,7 @@
 
 ShopDialog::ShopDialog(const iWidgetPtr parent)
 {
-	initGUI();
+	onInitUI();
 }
 
 void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const std::vector<ShopItem> &shopItems)
@@ -62,7 +62,7 @@ const ShopItem &ShopDialog::getSelection() const
 	return _shopItems[_selection];
 }
 
-void ShopDialog::initGUI()
+void ShopDialog::onInitUI()
 {
 	setMinWidth(500);
 	setMinHeight(200);

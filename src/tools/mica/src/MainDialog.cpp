@@ -6,10 +6,10 @@
 
 MainDialog::MainDialog()
 {
-    initGUI();
+    onInitUI();
 }
 
-void MainDialog::initGUI()
+void MainDialog::onInitUI()
 {
     setTitle("Mica");
     setZValue(10000);

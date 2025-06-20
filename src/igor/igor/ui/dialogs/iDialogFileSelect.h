@@ -194,7 +194,7 @@ namespace igor
 
         /*! initialized widgets
 		*/
-        void initGUI();
+        void onInitUI();
 
         /*! updates file grid entries
 		*/

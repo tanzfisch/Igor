@@ -64,6 +64,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/shader/loader/iShaderIO.h>
 #include <igor/resources/shader/iShaderFactory.h>
+#include <igor/resources/shader/iShaderUtils.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -200,7 +201,7 @@
 #include <igor/ui/user_controls/iUserControlTexture.h>
 #include <igor/ui/user_controls/iUserControlSprite.h>
 #include <igor/ui/user_controls/iUserControlMaterial.h>
-#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
+#include <igor/ui/user_controls/iUserControlShader.h>
 #include <igor/ui/user_controls/iUserControlVector.h>
 #include <igor/ui/user_controls/iUserControlMeshReference.h>
 

@@ -85,7 +85,7 @@ private:
 
     /*! init ui
      */
-    void initGUI();
+    void onInitUI();
 
     /*! triggers create project event
 

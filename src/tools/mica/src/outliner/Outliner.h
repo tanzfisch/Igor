@@ -72,7 +72,7 @@ private:
 
     /*! init user interface
      */
-    void initGUI();
+    void onInitUI();
 
     /*! handles click in tree view
 

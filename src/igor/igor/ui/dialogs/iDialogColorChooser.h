@@ -107,7 +107,7 @@ namespace igor
 		\param color the color to init with
 		\param useAlpha if true alpha value will be edited too
 		*/
-        void initGUI(const iaColor4f &color, bool useAlpha);
+        void onInitUI(const iaColor4f &color, bool useAlpha);
     };
 
     /*! dialog color chooser pointer definition

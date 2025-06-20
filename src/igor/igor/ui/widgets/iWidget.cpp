@@ -1004,7 +1004,7 @@ namespace igor
             "iUserControlFile",
             "iUserControlTexture",
             "iUserControlMaterial",
-            "iUserControlShaderMaterial",
+            "iUserControlShader",
             "iUserControlTreeView",
 
             "iDialog",

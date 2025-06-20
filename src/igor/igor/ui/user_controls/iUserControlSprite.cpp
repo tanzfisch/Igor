@@ -18,14 +18,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlSprite::~iUserControlSprite()
     {
     }
 
-    void iUserControlSprite::initGUI()
+    void iUserControlSprite::onInitUI()
     {
         iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
 

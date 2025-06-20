@@ -13,10 +13,10 @@ namespace igor
     iUserControlVector::iUserControlVector(uint32 dimensions, const iWidgetPtr parent)
         : iUserControl(iWidgetType::iUserControlVector, parent), _dimensions(dimensions)
     {
-        initGUI();
+        onInitUI();
     }
 
-    void iUserControlVector::initGUI()
+    void iUserControlVector::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);

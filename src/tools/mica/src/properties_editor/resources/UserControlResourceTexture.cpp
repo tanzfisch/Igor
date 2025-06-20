@@ -13,14 +13,14 @@ UserControlResourceTexture::~UserControlResourceTexture()
 {
 }
 
-void UserControlResourceTexture::updateResource()
+void UserControlResourceTexture::onUpdateResource()
 {
     // TODO?
 }
 
-void UserControlResourceTexture::update()
+void UserControlResourceTexture::onUpdateUI()
 {
-    UserControlResource::update();
+    UserControlResource::onUpdateUI();
 
     iTexturePtr texture = iResourceManager::getInstance().loadResource<iTexture>(getResourceID());
 
@@ -37,9 +37,9 @@ void UserControlResourceTexture::update()
     _picture->setTexture(texture);
 }
 
-void UserControlResourceTexture::init()
+void UserControlResourceTexture::onInit()
 {
-    UserControlResource::init();
+    UserControlResource::onInit();
 
     iWidgetGroupBoxPtr group = new iWidgetGroupBox(getLayout());
     group->setHorizontalAlignment(iHorizontalAlignment::Stretch);

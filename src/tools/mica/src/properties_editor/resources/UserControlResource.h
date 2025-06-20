@@ -53,15 +53,15 @@ public:
 
     /*! init ui
      */
-    virtual void init();
+    virtual void onInit();
 
     /*! update ui with node data
      */
-    virtual void update();
+    virtual void onUpdateUI();
 
     /*! update node with ui data
      */
-    virtual void updateResource();
+    virtual void onUpdateResource();
 
 protected:
     /*! \returns main layout so deriving classes can access it

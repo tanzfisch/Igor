@@ -23,7 +23,7 @@ namespace igor
 	{
 		iDialog::open(dialogCloseDelegate, true);
 
-		initGUI(title, message, radioButtonTexts, preSelection);
+		onInitUI(title, message, radioButtonTexts, preSelection);
 	}
 
 	int32 iDialogDecisionBox::getSelection() const
@@ -41,7 +41,7 @@ namespace igor
 		return -1;
 	}
 
-	void iDialogDecisionBox::initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::onInitUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		setTitle(title);
 		setVerticalAlignment(iVerticalAlignment::Center);

@@ -37,7 +37,6 @@ namespace igor
 
     namespace iMeshBuilderUtils
     {
-
         /*! adds a cylinder to the given mesh builder instance
 
         \param meshBuilder the given mesh builder instance
@@ -64,8 +63,9 @@ namespace igor
         \param meshBuilder the given mesh builder instance
         \param radius the radius of the cylinder
         \param segments the segment count of the cylinder
+        \param texCoords if true add texture coordinates
         */
-        void IGOR_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
+        void IGOR_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16, bool texCoords = false);
 
         /*! adds a box to the given mesh builder instance
 
@@ -112,8 +112,9 @@ namespace igor
         \param segmentsX the segment count along the x axis
         \param segmentsZ the segment count along the z axis
         \param normals if true add normals
+        \param texCoords if true add texture coordinates
         */
-        void IGOR_API addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX = 16, uint32 segmentsZ = 16, bool normals = true);
+        void IGOR_API addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX = 16, uint32 segmentsZ = 16, bool normals = true, bool texCoords = false);
 
         /*! adds a mesh to the mesh builder
 

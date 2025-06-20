@@ -92,7 +92,7 @@ private:
 
     /*! init ui
      */
-    void initGUI();
+    void onInitUI();
 
     /*! update ui values
     */

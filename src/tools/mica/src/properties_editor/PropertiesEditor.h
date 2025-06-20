@@ -64,7 +64,7 @@ private:
 
     /*! init UI
      */
-    void initGUI();
+    void onInitUI();
 
     /*! delete current properties UI
      */

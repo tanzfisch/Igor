@@ -47,15 +47,15 @@ public:
 
     /*! init ui
      */
-    virtual void init();
+    void onInit() override;
 
     /*! update ui with node data
      */
-    virtual void update();
+    void onUpdateUI() override;
 
     /*! update node with ui data
      */
-    virtual void updateResource();
+    void onUpdateResource() override;
 
 private:
     /*! diffuse color chooser
@@ -98,13 +98,11 @@ private:
 
     \param source the source widget of this event
     */
-    void onDoUpdateMaterial(const iWidgetPtr source);
+    void onUpdateMaterial(const iWidgetPtr source);
 
-    /*! triggers material update
-
-    \param source the source widget of this event
+    /*! update shader ui
     */
-    void onDoUpdateShininess(const iWidgetPtr source);
+    void onUpdateShaderUI();
 };
 
 #endif // MICA_USERCONTROL_RESOURCE_MATERIAL_H

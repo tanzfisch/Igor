@@ -2,86 +2,26 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include "UserControlResourceShaderMaterial.h"
+#include "UserControlResourceShader.h"
 
-UserControlResourceShaderMaterial::UserControlResourceShaderMaterial(iResourceID resourceID, const iWidgetPtr parent)
+UserControlResourceShader::UserControlResourceShader(iResourceID resourceID, const iWidgetPtr parent)
     : UserControlResource(resourceID, parent)
 {
 }
 
-static iMeshPtr createSphere()
-{
-    iMeshBuilder meshBuilder;
-
-    iMeshBuilderUtils::addSphere(meshBuilder, 0.5, 32);
-    meshBuilder.calcNormals(true);
-    return meshBuilder.createMesh();
-}
-
-void UserControlResourceShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
+void UserControlResourceShader::updateMaterialDisplay(iShaderPtr shader)
 {
     if (_ignoreMaterialUpdate)
     {
         return;
     }
 
-    // store current render states
-    iRenderer::getInstance().flush();
-    const iaRectanglei viewport = iRenderer::getInstance().getViewport();
-    const iaMatrixd projectionMatrix = iRenderer::getInstance().getProjectionMatrix();
-    const iaMatrixd modelMatrix = iRenderer::getInstance().getModelMatrix();
-
-    const uint32 width = 128;
-    const uint32 height = 128;
-    uint32 renderTarget = iRenderer::getInstance().createRenderTarget(width, height, iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
-    iRenderer::getInstance().setRenderTarget(renderTarget);
-    iRenderer::getInstance().clearColorBuffer(iaColor4f::transparent);
-
-    iRenderer::getInstance().setViewport(0, 0, width, height);
-    iRenderer::getInstance().setPerspective(45.0, 0.00001, 10.0);
-
-    iParameters param({
-        {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_MATERIAL},
-        {IGOR_RESOURCE_PARAM_GENERATE, true},
-        {IGOR_RESOURCE_PARAM_SHADER, shader},
-        {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free}, // drop it right after this use
-        {IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.5f, 0.5f, 0.5f)},
-        {IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0.0f, 0.0f, 0.0f)},
-        {IGOR_RESOURCE_PARAM_ALPHA, 1.0f},
-    });
-    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(param);
-
-    iMeshPtr sphere = createSphere();
-
-    iaMatrixd matrix;
-    matrix.translate(0, 0, -1.5);
-    iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().drawMesh(sphere, material);
-
-    iPixmapPtr pixmap = iPixmap::createPixmap(width, height, iColorFormat::RGBA);
-
-    iRenderer::getInstance().readPixels(0, 0, width, height, iColorFormat::RGBA, pixmap->getData());
-
-    iRenderer::getInstance().setRenderTarget();
-    iRenderer::getInstance().destroyRenderTarget(renderTarget);
-
-    // restore everything
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-    iRenderer::getInstance().setViewport(viewport);
-
-    iParameters paramTex({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                       {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
-                       {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
-                       {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
-                       {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
-
-    _materialPicture->setTexture(iResourceManager::getInstance().requestResource<iTexture>(paramTex));
+    auto pixmap = iShaderUtils::shaderToPixmap(shader, 256, 256);
+    auto texture = iTextureFactory::pixmapToTexture(pixmap);
+    _materialPicture->setTexture(texture);
 }
 
-void UserControlResourceShaderMaterial::updateResource()
+void UserControlResourceShader::onUpdateResource()
 {
     iShaderPtr shader = iResourceManager::getInstance().getResource<iShader>(getResourceID());
 
@@ -107,9 +47,9 @@ void UserControlResourceShaderMaterial::updateResource()
     updateMaterialDisplay(shader);
 }
 
-void UserControlResourceShaderMaterial::update()
+void UserControlResourceShader::onUpdateUI()
 {
-    UserControlResource::update();
+    UserControlResource::onUpdateUI();
 
     iShaderPtr shader = iResourceManager::getInstance().loadResource<iShader>(getResourceID());
 
@@ -131,9 +71,9 @@ void UserControlResourceShaderMaterial::update()
     updateMaterialDisplay(shader);
 }
 
-void UserControlResourceShaderMaterial::init()
+void UserControlResourceShader::onInit()
 {
-    UserControlResource::init();
+    UserControlResource::onInit();
 
     iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
@@ -156,7 +96,7 @@ void UserControlResourceShaderMaterial::init()
     labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthTest = new iWidgetCheckBox();
-    _checkBoxDepthTest->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxDepthTest->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelDepthFunction = new iWidgetLabel();
@@ -173,7 +113,7 @@ void UserControlResourceShaderMaterial::init()
     _selectBoxDepthFunc->addItem("GreaterOrEqual");
     _selectBoxDepthFunc->addItem("Always");
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _selectBoxDepthFunc->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _selectBoxDepthFunc->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _selectBoxDepthFunc->setMinWidth(200);
 
     iWidgetLabel *labelDepthMask = new iWidgetLabel();
@@ -181,7 +121,7 @@ void UserControlResourceShaderMaterial::init()
     labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxDepthMask = new iWidgetCheckBox();
-    _checkBoxDepthMask->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxDepthMask->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelBlend = new iWidgetLabel();
@@ -189,7 +129,7 @@ void UserControlResourceShaderMaterial::init()
     labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxBlend = new iWidgetCheckBox();
-    _checkBoxBlend->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxBlend->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFace = new iWidgetLabel();
@@ -197,7 +137,7 @@ void UserControlResourceShaderMaterial::init()
     labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxCullFace = new iWidgetCheckBox();
-    _checkBoxCullFace->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxCullFace->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel *labelCullFaceFunc = new iWidgetLabel();
@@ -209,14 +149,14 @@ void UserControlResourceShaderMaterial::init()
     _selectBoxCullFaceFunc->addItem("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setMinWidth(200);
-    _selectBoxCullFaceFunc->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _selectBoxCullFaceFunc->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
 
     iWidgetLabel *labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
     labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxWireframe = new iWidgetCheckBox();
-    _checkBoxWireframe->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxWireframe->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _checkBoxWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     // TODO
@@ -226,7 +166,7 @@ void UserControlResourceShaderMaterial::init()
     labelInstanced->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxInstanced = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox));
-    _checkBoxInstanced->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _checkBoxInstanced->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
 
     iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
 
@@ -241,7 +181,7 @@ void UserControlResourceShaderMaterial::init()
     _renderingOrder->setMinWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);
-    _renderingOrder->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShaderMaterial::onDoUpdateShaderMaterial));
+    _renderingOrder->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceShader::onDoUpdateShaderMaterial));
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     gridParam->addWidget(labelDepthTest, 0, 0);
@@ -268,13 +208,13 @@ void UserControlResourceShaderMaterial::init()
     materialGroupBox->setHeaderOnly();
 
     _materialPicture = new iWidgetPicture(materialGroupBox);
-    _materialPicture->setMaxSize(128, 128);
-    _materialPicture->setMinSize(128, 128);
+    _materialPicture->setMaxSize(256, 256);
+    _materialPicture->setMinSize(256, 256);
     _materialPicture->setCheckerBoard(true);
     _materialPicture->setForeground(iaColor4f::white);
 }
 
-void UserControlResourceShaderMaterial::onDoUpdateShaderMaterial(const iWidgetPtr source)
+void UserControlResourceShader::onDoUpdateShaderMaterial(const iWidgetPtr source)
 {
-    updateResource();
+    onUpdateResource();
 }

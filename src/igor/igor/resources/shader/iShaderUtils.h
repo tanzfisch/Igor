@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,69 +27,36 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_VECTOR_H
-#define IGOR_USERCONTROL_VECTOR_H
+#ifndef IGOR_SHADER_UTILS_H
+#define IGOR_SHADER_UTILS_H
 
-#include <igor/ui/user_controls/iUserControl.h>
-
-#include <igor/ui/widgets/iWidgetLineTextEdit.h>
+#include <igor/resources/shader/iShader.h>
+#include <igor/resources/material/iMaterial.h>
 
 namespace igor
 {
 
-    /*! vector 3 user control
-     */
-    class IGOR_API iUserControlVector : public iUserControl
+    class IGOR_API iShaderUtils
     {
-
     public:
- 
-        /*! ctor initializes member variables
+        /*! generates a texture with a sphere using the given shader
 
-        \param dimensions n dimensions (value 1 or greater)
-        \param parent the optional parent
+        \param shader the given shader
+        \param width width of texture
+        \param height height of texture
+        \returns generated pixmap
         */
-        iUserControlVector(uint32 dimensions, const iWidgetPtr parent = nullptr);
+        static iPixmapPtr shaderToPixmap(iShaderPtr shader, uint32 width, uint32 height);
 
-        /*! clean up
-         */
-        ~iUserControlVector() = default;
+        /*! generates a texture with a sphere using the given material
 
-        /*! \returns value for given index
-
-        \param index the dimension index
-         */
-        float64 getValue(uint32 index) const;
-
-        /*! set value for given index
-
-        \param index the dimension index
-        \param value the value to set on given index
+        \param material the given material
+        \param width width of texture
+        \param height height of texture
+        \returns generated pixmap
         */
-        void setValue(uint32 index, float32 value);
-
-    private:
-        /*! text fields
-         */
-        std::vector<iWidgetLineTextEditPtr> _textValues;
-
-        /*! dimensions
-        */
-        uint32 _dimensions;
-
-        /*! initializes the gui
-         */
-        void onInitUI();
-
-        /*! called when any value was changed
-        */
-        void onValueChanged(iWidgetPtr source);
+        static iPixmapPtr materialToPixmap(iMaterialPtr material, uint32 width, uint32 height);
     };
+}
 
-    /*! user control vector pointer definition
-     */
-    typedef iUserControlVector *iUserControlVectorPtr;
-
-} // namespace igor
-
-#endif // IGOR_USERCONTROL_VECTOR3_H
+#endif // IGOR_SHADER_UTILS_H
