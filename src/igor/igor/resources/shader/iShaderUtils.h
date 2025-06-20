@@ -31,7 +31,7 @@
 #define IGOR_SHADER_UTILS_H
 
 #include <igor/resources/shader/iShader.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/material/iMaterial.h>
 
 namespace igor
 {
@@ -48,16 +48,15 @@ namespace igor
         */
         static iPixmapPtr shaderToPixmap(iShaderPtr shader, uint32 width, uint32 height);
 
-        /*! generates a texture with a sphere using the given shader
+        /*! generates a texture with a sphere using the given material
 
-        \param shader the given shader
+        \param material the given material
         \param width width of texture
         \param height height of texture
-        \returns generated texture
+        \returns generated pixmap
         */
-        static iTexturePtr shaderToTexture(iShaderPtr shader, uint32 width, uint32 height);
+        static iPixmapPtr materialToPixmap(iMaterialPtr material, uint32 width, uint32 height);
     };
-
 }
 
 #endif // IGOR_SHADER_UTILS_H

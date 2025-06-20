@@ -16,7 +16,8 @@ void UserControlResourceShaderMaterial::updateMaterialDisplay(iShaderPtr shader)
         return;
     }
 
-    const auto texture = iShaderUtils::shaderToTexture(shader, 256, 256);
+    auto pixmap = iShaderUtils::shaderToPixmap(shader, 256, 256);
+    auto texture = iTextureFactory::pixmapToTexture(pixmap);
     _materialPicture->setTexture(texture);
 }
 

@@ -71,6 +71,15 @@ namespace igor
         */
         static bool writePixmap(iPixmapPtr pixmap, const iaString &dst);
 
+        /*! generates a texture from given pixmap
+
+        \param shader the given shader
+        \param width width of texture
+        \param height height of texture
+        \returns generated texture
+        */
+        static iTexturePtr pixmapToTexture(iPixmapPtr pixmap);        
+
     private:
         /*! init members
          */

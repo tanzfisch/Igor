@@ -129,18 +129,6 @@ namespace igor
             }
         }
 
-        // TODO can't do this here. need separate instance of iRenderer for each thread
-        /*for (auto ex : IGOR_SUPPORTED_SHADER_EXTENSIONS)
-        {
-            if (ex == extension)
-            {
-                auto shader = iResourceManager::getInstance().loadResource<iShader>(info.first);
-                auto pixmap = iShaderUtils::shaderToPixmap(shader, thumbnailWidth, thumbnailHeight);
-                iTextureFactory::writePixmap(pixmap, info.second);
-                return;
-            }
-        }*/
-
         // TODO handle other formats
     }
 }

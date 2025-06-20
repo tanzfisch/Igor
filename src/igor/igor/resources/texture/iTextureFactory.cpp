@@ -385,4 +385,20 @@ namespace igor
         return true;
     }
 
+    iTexturePtr iTextureFactory::pixmapToTexture(iPixmapPtr pixmap)
+    {
+        if (pixmap == nullptr)
+        {
+            return nullptr;
+        }
+
+        iParameters paramTex({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
+                              {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
+                              {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache},
+                              {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal},
+                              {IGOR_RESOURCE_PARAM_PIXMAP, pixmap}});
+
+        return iResourceManager::getInstance().requestResource<iTexture>(paramTex);
+    }
+
 }; // namespace igor

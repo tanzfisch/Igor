@@ -98,13 +98,11 @@ private:
 
     \param source the source widget of this event
     */
-    void onDoUpdateMaterial(const iWidgetPtr source);
+    void onUpdateMaterial(const iWidgetPtr source);
 
-    /*! triggers material update
-
-    \param source the source widget of this event
+    /*! update shader ui
     */
-    void onDoUpdateShininess(const iWidgetPtr source);
+    void onUpdateShaderUI();
 };
 
 #endif // MICA_USERCONTROL_RESOURCE_MATERIAL_H

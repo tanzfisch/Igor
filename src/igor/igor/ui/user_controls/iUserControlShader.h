@@ -34,6 +34,7 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/material/iMaterial.h>
 
 namespace igor
 {
@@ -56,13 +57,23 @@ namespace igor
 
         /*! sets the shader id
 
+        this will use default material attributes to generate a preview image
+
         \param shaderID the given shader id
         */
         void setShader(const iResourceID &shaderID);
 
+        /*! sets the shader id via material
+
+        this will use the material attributes to generate a preview image
+
+        \param material the given material
+        */
+        void setMaterial(iMaterialPtr material);
+
         /*! \returns shader id
          */
-        const iResourceID& getShaderID() const;
+        const iResourceID &getShaderID() const;
 
     private:
         /*! shader ID

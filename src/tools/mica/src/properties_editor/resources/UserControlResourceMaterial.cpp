@@ -11,6 +11,90 @@ UserControlResourceMaterial::UserControlResourceMaterial(iResourceID resourceID,
 {
 }
 
+void UserControlResourceMaterial::onInit()
+{
+    UserControlResource::onInit();
+
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
+    mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainLayout->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGroupBox *lightGroupBox = new iWidgetGroupBox(mainLayout);
+    lightGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    lightGroupBox->setText("Material");
+    lightGroupBox->setHeaderOnly();
+
+    iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, lightGroupBox);
+
+    _ambientColorChooser = new iUserControlColor(materialLayout);
+    _ambientColorChooser->setMode(iColorChooserMode::RGB);
+    _ambientColorChooser->setText("Ambient");
+    _ambientColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    _diffuseColorChooser = new iUserControlColor(materialLayout);
+    _diffuseColorChooser->setMode(iColorChooserMode::RGB);
+    _diffuseColorChooser->setText("Diffuse");
+    _diffuseColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    _specularColorChooser = new iUserControlColor(materialLayout);
+    _specularColorChooser->setMode(iColorChooserMode::RGB);
+    _specularColorChooser->setText("Specular");
+    _specularColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    _emissiveColorChooser = new iUserControlColor(materialLayout);
+    _emissiveColorChooser->setMode(iColorChooserMode::RGB);
+    _emissiveColorChooser->setText("Emissive");
+    _emissiveColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    iWidgetLabel *labelShininess = new iWidgetLabel(materialLayout);
+    labelShininess->setText("Shininess");
+    labelShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    iWidgetBoxLayoutPtr shininessLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+
+    _sliderShininess = new iWidgetSlider(shininessLayout);
+    _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _sliderShininess->setMinValue(0.0f);
+    _sliderShininess->setMaxValue(1000.0f);
+    _sliderShininess->setSteppingWheel(0.1f, 0.1f);
+    _sliderShininess->setValue(0.0f);
+    _sliderShininess->setMinWidth(220);
+    _sliderShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    _numberChooserShininess = new iWidgetNumberChooser(shininessLayout);
+    _numberChooserShininess->setMinMaxNumber(0.0f, 1000.0f);
+    _numberChooserShininess->setAfterPoint(2);
+    _numberChooserShininess->setValue(0.0f);
+    _numberChooserShininess->setMinWidth(80);
+    _numberChooserShininess->setSteppingWheel(0.1f, 0.1f);
+    _numberChooserShininess->setStepping(0.01f, 0.01f);
+    _numberChooserShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+
+    iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
+    for (int i = 0; i < 4; ++i)
+    {
+        iWidgetBoxLayoutPtr textureLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+        labelTextureUnit[i] = new iWidgetLabel(textureLayout);
+        labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
+        labelTextureUnit[i]->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+        labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
+        labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+        _textureChooser[i] = new iUserControlTexture(textureLayout);
+        _textureChooser[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+    }
+
+    iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
+    iWidgetLabelPtr shaderMaterialLabel = new iWidgetLabel(shaderMaterialLayout);
+    shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
+    shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
+    shaderMaterialLabel->setText("Shader");
+    shaderMaterialLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+    _shaderMaterialChooser = new iUserControlShader(shaderMaterialLayout);
+
+    _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onUpdateMaterial));
+}
+
 void UserControlResourceMaterial::onUpdateResource()
 {
     iMaterialPtr material = iResourceManager::getInstance().getResource<iMaterial>(getResourceID());
@@ -57,6 +141,21 @@ void UserControlResourceMaterial::onUpdateResource()
     iResourceManager::getInstance().saveResource(getResourceID());
 }
 
+void UserControlResourceMaterial::onUpdateShaderUI()
+{
+    _shaderMaterialChooser->blockEvents();
+    iMaterialPtr material = iResourceManager::getInstance().loadResource<iMaterial>(getResourceID());
+    if (material->getShader() != nullptr)
+    {
+        _shaderMaterialChooser->setMaterial(material);
+    }
+    else
+    {
+        _shaderMaterialChooser->setShader(iResourceID::getInvalid());
+    }
+    _shaderMaterialChooser->unblockEvents();
+}
+
 void UserControlResourceMaterial::onUpdateUI()
 {
     UserControlResource::onUpdateUI();
@@ -85,103 +184,12 @@ void UserControlResourceMaterial::onUpdateUI()
         }
     }
 
-    if (material->getShader() != nullptr)
-    {
-        _shaderMaterialChooser->setShader(material->getShader()->getID());
-    }
-    else
-    {
-        _shaderMaterialChooser->setShader(iResourceID::getInvalid());
-    }
-
     _ignoreUpdate = false;
+
+    onUpdateShaderUI();    
 }
 
-void UserControlResourceMaterial::onInit()
-{
-    UserControlResource::onInit();
-
-    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, getLayout());
-    mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    mainLayout->setVerticalAlignment(iVerticalAlignment::Top);
-
-    iWidgetGroupBox *lightGroupBox = new iWidgetGroupBox(mainLayout);
-    lightGroupBox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    lightGroupBox->setText("Material");
-    lightGroupBox->setHeaderOnly();
-
-    iWidgetBoxLayoutPtr materialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, lightGroupBox);
-
-    _ambientColorChooser = new iUserControlColor(materialLayout);
-    _ambientColorChooser->setMode(iColorChooserMode::RGB);
-    _ambientColorChooser->setText("Ambient");
-    _ambientColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-
-    _diffuseColorChooser = new iUserControlColor(materialLayout);
-    _diffuseColorChooser->setMode(iColorChooserMode::RGB);
-    _diffuseColorChooser->setText("Diffuse");
-    _diffuseColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-
-    _specularColorChooser = new iUserControlColor(materialLayout);
-    _specularColorChooser->setMode(iColorChooserMode::RGB);
-    _specularColorChooser->setText("Specular");
-    _specularColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-
-    _emissiveColorChooser = new iUserControlColor(materialLayout);
-    _emissiveColorChooser->setMode(iColorChooserMode::RGB);
-    _emissiveColorChooser->setText("Emissive");
-    _emissiveColorChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-
-    iWidgetLabel *labelShininess = new iWidgetLabel(materialLayout);
-    labelShininess->setText("Shininess");
-    labelShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-    iWidgetBoxLayoutPtr shininessLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
-
-    _sliderShininess = new iWidgetSlider(shininessLayout);
-    _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _sliderShininess->setMinValue(0.0f);
-    _sliderShininess->setMaxValue(1000.0f);
-    _sliderShininess->setSteppingWheel(0.1f, 0.1f);
-    _sliderShininess->setValue(0.0f);
-    _sliderShininess->setMinWidth(220);
-    _sliderShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateShininess));
-
-    _numberChooserShininess = new iWidgetNumberChooser(shininessLayout);
-    _numberChooserShininess->setMinMaxNumber(0.0f, 1000.0f);
-    _numberChooserShininess->setAfterPoint(2);
-    _numberChooserShininess->setValue(0.0f);
-    _numberChooserShininess->setMinWidth(80);
-    _numberChooserShininess->setSteppingWheel(0.1f, 0.1f);
-    _numberChooserShininess->setStepping(0.01f, 0.01f);
-    _numberChooserShininess->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateShininess));
-
-    iWidgetLabelPtr labelTextureUnit[4] = {nullptr, nullptr, nullptr, nullptr};
-    for (int i = 0; i < 4; ++i)
-    {
-        iWidgetBoxLayoutPtr textureLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
-        labelTextureUnit[i] = new iWidgetLabel(textureLayout);
-        labelTextureUnit[i]->setText(iaString("Texture ") + iaString::toString(i));
-        labelTextureUnit[i]->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-        labelTextureUnit[i]->setVerticalAlignment(iVerticalAlignment::Top);
-        labelTextureUnit[i]->setHorizontalAlignment(iHorizontalAlignment::Left);
-
-        _textureChooser[i] = new iUserControlTexture(textureLayout);
-        _textureChooser[i]->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-    }
-
-    iWidgetBoxLayoutPtr shaderMaterialLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, materialLayout);
-    iWidgetLabelPtr shaderMaterialLabel = new iWidgetLabel(shaderMaterialLayout);
-    shaderMaterialLabel->setVerticalAlignment(iVerticalAlignment::Top);
-    shaderMaterialLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-    shaderMaterialLabel->setText("Shader");
-    shaderMaterialLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-    _shaderMaterialChooser = new iUserControlShader(shaderMaterialLayout);
-
-    _shaderMaterialChooser->getChangeEvent().add(iChangeDelegate(this, &UserControlResourceMaterial::onDoUpdateMaterial));
-}
-
-void UserControlResourceMaterial::onDoUpdateShininess(const iWidgetPtr source)
+void UserControlResourceMaterial::onUpdateMaterial(const iWidgetPtr source)
 {
     if (source == _sliderShininess)
     {
@@ -191,11 +199,8 @@ void UserControlResourceMaterial::onDoUpdateShininess(const iWidgetPtr source)
     {
         _sliderShininess->setValue(_numberChooserShininess->getValue());
     }
+    
+    onUpdateShaderUI();
 
-    onUpdateResource();
-}
-
-void UserControlResourceMaterial::onDoUpdateMaterial(const iWidgetPtr source)
-{
     onUpdateResource();
 }

@@ -6,7 +6,7 @@
 
 #include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/resources/texture/iThumbnailCache.h>
+#include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/shader/iShaderUtils.h>
 #include <igor/data/iMimeData.h>
 #include <igor/ui/iDrag.h>
@@ -36,6 +36,7 @@ namespace igor
         _picture->setKeepAspectRatio(false);
         _picture->setMaxSize(64, 64);
         _picture->setMinSize(64, 64);
+        _picture->setCheckerBoard(true);
 
         iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);
         _labelID = new iWidgetLabel(labelLayout);
@@ -45,6 +46,29 @@ namespace igor
         _labelAlias = new iWidgetLabel(labelLayout);
         _labelAlias->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelAlias->setVerticalAlignment(iVerticalAlignment::Top);
+    }
+
+    void iUserControlShader::setMaterial(iMaterialPtr material)
+    {
+        if (material == nullptr ||
+            material->getShader() == nullptr ||
+            !material->getShader()->getID().isValid())
+        {
+            _shaderID = iShaderID::getInvalid();
+            _picture->setTexture(iTexturePtr());
+            _labelID->setText("");
+            _labelAlias->setText("");
+            return;
+        }
+
+        _shaderID = material->getShader()->getID();
+
+        auto texture = iTextureFactory::pixmapToTexture(iShaderUtils::materialToPixmap(material, 128, 128));
+        _picture->setTexture(texture);
+        _labelID->setText(_shaderID.toString());
+        _labelAlias->setText(iResourceManager::getInstance().getAlias(_shaderID));
+
+        _change(this);
     }
 
     void iUserControlShader::setShader(const iResourceID &shaderID)
@@ -59,9 +83,8 @@ namespace igor
             return;
         }
 
-        // TODO can't do it like this for now _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(_shaderID));
-        _picture->setTexture(iShaderUtils::shaderToTexture(iResourceManager::getInstance().loadResource<iShader>(_shaderID), 128, 128));
-
+        auto texture = iTextureFactory::pixmapToTexture(iShaderUtils::shaderToPixmap(iResourceManager::getInstance().loadResource<iShader>(_shaderID), 128, 128));
+        _picture->setTexture(texture);
         _labelID->setText(_shaderID.toString());
         _labelAlias->setText(iResourceManager::getInstance().getAlias(_shaderID));
 
