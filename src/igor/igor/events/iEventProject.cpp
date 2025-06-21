@@ -10,7 +10,7 @@ namespace igor
 {
 
     iEventProjectLoaded::iEventProjectLoaded(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 
@@ -29,7 +29,7 @@ namespace igor
     }
 
     iEventProjectUnloaded::iEventProjectUnloaded()
-        : iEvent(nullptr)
+        : iEvent(nullptr, true)
     {
     }
 

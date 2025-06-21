@@ -427,7 +427,7 @@ namespace igor
     } // see copyright notice in corresponding header file
 
     void iWidgetManager::onEvent(iEvent &event)
-    {
+    {        
         event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
         event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
         event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));

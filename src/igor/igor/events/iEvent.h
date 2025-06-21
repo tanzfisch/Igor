@@ -100,7 +100,7 @@ namespace igor
 
         \param window the window that event came from (only in case it was an event created by a window)
         */
-        iEvent(iWindowPtr window = nullptr);
+        iEvent(iWindowPtr window = nullptr, bool cantConsume = false);
 
         /*! does nothing
         */
@@ -156,24 +156,37 @@ namespace igor
                 if (func(static_cast<T &>(*this)))
                 {
                     consume();
-                    return true;
+                    return !_cantConsume;
                 }
             }
             return false;
         }   
         
+        /*! dispatch and NOT consume event
+
+        always returns false to not consume
+
+        only executes if event is of type T
+
+        \param func the given function to call with the event
+        \returns always false because it does not consume
+        */
         template <typename T, typename F>
         bool dispatch(const F &func) const
         {
-            if (!isConsumed() &&
-                getEventType() == T::getStaticType())
+            if (getEventType() == T::getStaticType())
             {
-                return func(static_cast<const T &>(*this));
+                func(static_cast<const T &>(*this));
             }
             return false;
         }
 
     private:
+
+        /*! if true this event can't be consumed
+        */
+        bool _cantConsume = false;
+
         /*! if true event was already consumed
         */
         bool _consumed = false;

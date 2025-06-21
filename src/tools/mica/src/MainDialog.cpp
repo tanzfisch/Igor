@@ -20,9 +20,10 @@ void MainDialog::onInitUI()
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
     _playStopButton = new iWidgetButton();
-    _playStopButton->setIcon("igor_icon_play_pause");
+    _playStopButton->setIcon("igor_icon_play");
     _playStopButton->setCheckable(true);
-    _playStopButton->getClickEvent().add(iClickDelegate(this, &MainDialog::onPlay));
+    _playStopButton->setChecked(false);
+    _playStopButton->getClickEvent().add(iClickDelegate(this, &MainDialog::onPlayStop));
     _playStopButton->setEnabled(false);
 
     iWidgetBoxLayoutPtr playButtonBox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
@@ -45,9 +46,11 @@ void MainDialog::onInitUI()
     vbox->addWidget(new iWidgetDockingLayout());
 }
 
-void MainDialog::onPlay(iWidgetPtr source)
+void MainDialog::onPlayStop(iWidgetPtr source)
 {
+    _playStopButton->setChecked(!_playStopButton->isChecked());
     bool playing = _playStopButton->isChecked();
+    _playStopButton->setIcon(playing ? "igor_icon_stop" : "igor_icon_play");
     iProject::getInstance().setProjectMode(playing ? iProject::iMode::Runtime : iProject::iMode::Edit);
 }
 
@@ -160,6 +163,8 @@ bool MainDialog::onProjectUnloaded(const iEventProjectUnloaded &event)
 
 bool MainDialog::onEvent(const iEvent &event)
 {
+    iWidget::onEvent(event);
+
     event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectLoaded));
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectUnloaded));
 

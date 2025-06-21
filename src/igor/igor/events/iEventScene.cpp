@@ -11,7 +11,7 @@ namespace igor
 {
 
     iEventNodeAddedToScene::iEventNodeAddedToScene(iScenePtr scene, iNodeID nodeID)
-        : iEvent(nullptr), _scene(scene), _nodeID(nodeID)
+        : iEvent(nullptr, true), _scene(scene), _nodeID(nodeID)
     {
     }
 
@@ -36,7 +36,7 @@ namespace igor
     }
 
     iEventNodeRemovedFromScene::iEventNodeRemovedFromScene(iScenePtr scene, iNodeID nodeID)
-        : iEvent(nullptr), _scene(scene), _nodeID(nodeID)
+        : iEvent(nullptr, true), _scene(scene), _nodeID(nodeID)
     {
     }
 
@@ -61,7 +61,7 @@ namespace igor
     }
 
     iEventSceneSelectionChanged::iEventSceneSelectionChanged(iScenePtr scene)
-        : iEvent(nullptr), _scene(scene)
+        : iEvent(nullptr, true), _scene(scene)
     {
     }
 

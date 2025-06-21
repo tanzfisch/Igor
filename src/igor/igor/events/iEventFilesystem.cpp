@@ -10,7 +10,7 @@ namespace igor
 {
 
     iEventFileCreated::iEventFileCreated(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 
@@ -29,7 +29,7 @@ namespace igor
     }
 
     iEventFileDeleted::iEventFileDeleted(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 
@@ -48,7 +48,7 @@ namespace igor
     }
 
     iEventFileMovedFrom::iEventFileMovedFrom(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 
@@ -67,7 +67,7 @@ namespace igor
     }
 
     iEventFileMovedTo::iEventFileMovedTo(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 
@@ -86,7 +86,7 @@ namespace igor
     }
 
     iEventFileChanged::iEventFileChanged(const iaString &filename)
-        : iEvent(nullptr), _filename(filename)
+        : iEvent(nullptr, true), _filename(filename)
     {
     }
 

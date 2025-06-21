@@ -135,7 +135,7 @@ private:
 
     /*! on play button pressed
      */
-    void onPlay(iWidgetPtr source);
+    void onPlayStop(iWidgetPtr source);
 
     /*! called on any other event
      */
