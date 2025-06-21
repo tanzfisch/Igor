@@ -83,6 +83,10 @@ private:
      */
     CloseProjectEvent _closeProject;
 
+    /*! play button
+     */
+    iWidgetButtonPtr _playStopButton = nullptr;
+
     /*! init ui
      */
     void onInitUI();
@@ -121,13 +125,35 @@ private:
 
     \param source the event source
      */
-    void onPrintProjectTree(const iWidgetPtr source);      
+    void onPrintProjectTree(const iWidgetPtr source);
 
     /*! on pre recent project menu open
 
     \param menu the recent project menu
     */
     void onRecentProjectOpen(iWidgetMenuPtr menu);
+
+    /*! on play button pressed
+     */
+    void onPlay(iWidgetPtr source);
+
+    /*! called on any other event
+     */
+    bool onEvent(iEvent &event) override;
+
+    /*! on project loaded event
+
+    \param event the event data
+    \returns true if event was consumed
+    */
+    bool onProjectLoaded(iEventProjectLoaded &event);
+
+    /*! on project unloaded event
+
+    \param event the event data
+    \returns true if event was consumed
+    */
+    bool onProjectUnloaded(iEventProjectUnloaded &event);
 };
 
 #endif // MICA_MAIN_LAYOUT_H

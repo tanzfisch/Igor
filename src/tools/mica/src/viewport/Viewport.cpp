@@ -78,7 +78,6 @@ Viewport::Viewport()
     _buttonXYZ->setChecked(_renderOverlayGrid);
     buttonLayout->addWidget(_buttonXYZ);
 
-
     _buttonBounds = new iWidgetButton();
     _buttonBounds->setIcon("igor_icon_bounds");
     _buttonBounds->setTooltip("On/Off mesh bounds [F12]");
@@ -206,7 +205,7 @@ void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
 {
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return false;
@@ -281,7 +280,7 @@ void Viewport::frameOnSelection()
         return;
     }
 
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -328,7 +327,7 @@ void Viewport::renderScene()
 
 void Viewport::renderSelection()
 {
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;

@@ -111,7 +111,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().unload();
-    iProject::getInstance().load(_fileDialog.getFullPath());
+    iProject::getInstance().load(_fileDialog.getFullPath(), iProject::iMode::Edit);
 }
 
 bool UILayer::onProjectLoaded(iEventProjectLoaded &event)
@@ -153,7 +153,7 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
             iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getActiveScene()->duplicate();
+            iProject::getInstance().getRootScene()->duplicate();
             return true;
         }
 
@@ -161,7 +161,7 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
             iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getActiveScene()->cut();
+            iProject::getInstance().getRootScene()->cut();
             return true;
         }
 
@@ -169,7 +169,7 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
             iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getActiveScene()->copy();
+            iProject::getInstance().getRootScene()->copy();
             return true;
         }
 
@@ -177,7 +177,7 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
             iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getActiveScene()->paste();
+            iProject::getInstance().getRootScene()->paste();
             return true;
         }
 
@@ -198,10 +198,10 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::Delete:
         if (iProject::getInstance().isLoaded())
         {
-            const auto &selection = iProject::getInstance().getActiveScene()->getSelection();
+            const auto &selection = iProject::getInstance().getRootScene()->getSelection();
             for (const auto &entityID : selection)
             {
-                iProject::getInstance().getActiveScene()->destroyEntity(entityID);
+                iProject::getInstance().getRootScene()->destroyEntity(entityID);
             }
             return true;
         }

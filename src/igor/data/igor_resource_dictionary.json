@@ -126,8 +126,38 @@
         "source": "icons/right.png"
     },
     {
+        "alias": "igor_icon_play",
+        "id": "0x35adfe63223fe94f",
+        "internal": true,
+        "source": "icons/play.png"
+    },
+    {
+        "alias": "igor_icon_play_pause",
+        "id": "0x3fe94f13af52f322",
+        "internal": true,
+        "source": "icons/play_pause.png"
+    },
+    {
+        "alias": "igor_icon_stop",
+        "id": "0xa41fcd64ffe63223",
+        "internal": true,
+        "source": "icons/play.png"
+    },    
+    {
+        "alias": "igor_icon_pause",
+        "id": "0x3223fe94f123f316",
+        "internal": true,
+        "source": "icons/pause.png"
+    },
+    {
+        "alias": "igor_icon_reset",
+        "id": "0x35adfe24adf14561",
+        "internal": true,
+        "source": "icons/reset.png"
+    },
+    {
         "alias": "igor_icon_right_small",
-        "id": "0xae5b9bdaf567133",
+        "id": "0xae5b9bdaf5671333",
         "internal": true,
         "source": "icons/right_small.png"
     },

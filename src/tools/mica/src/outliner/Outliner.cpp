@@ -79,7 +79,7 @@ void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -124,7 +124,7 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -352,7 +352,7 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    auto projectScene = project.getActiveScene();
+    auto projectScene = project.getRootScene();
     if (!project.isLoaded() || projectScene == nullptr)
     {
         return;
@@ -436,7 +436,7 @@ bool Outliner::onEvent(iEvent &event)
 
 bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
 {
-    auto projectScene = iProject::getInstance().getActiveScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         refresh();

@@ -61,15 +61,27 @@ namespace igor
         friend class iModule<iProject>;
 
     public:
+
+        /*! project mode
+        */
+        enum class iMode
+        {
+            Edit,
+            Runtime
+        };  
+
         /*! opens project
 
         closes active project if any
 
         \param path the given project file or folder
-        \param editmode if true project will 
         \returns project        
         */
-        void load(const iaString &path, bool editmode = false);
+        void load(const iaString &path, iMode mode = iMode::Runtime);
+
+        /*! \returns true if a project currently is loaded
+         */
+        bool isLoaded() const;
 
         /*! unloads project
          */
@@ -103,10 +115,6 @@ namespace igor
          */
         void setName(const iaString &projectName);
 
-        /*! \returns true if a project currently is loaded
-         */
-        bool isLoaded() const;
-
         /*! add scene to project's root scene
 
         \param sceneID the scene to add (aka type prefab)
@@ -121,21 +129,29 @@ namespace igor
         */
         void removeScene(const iResourceID &sceneID);
 
-        /*! \returns list of all sub scenes in this project excluding root scene
-         */
-        const std::vector<iResourceID> &getScenes() const;
-
-        /*! \returns the root project scene
-         */
-        iEntityScenePtr getActiveScene() const;
-
         /*! \returns project scene added event
          */
         iSceneAddedEvent &getSceneAddedEvent();
 
         /*! \returns project scene removed event
          */
-        iSceneRemovedEvent &getSceneRemovedEvent();
+        iSceneRemovedEvent &getSceneRemovedEvent();        
+
+        /*! \returns list of all sub scenes in this project excluding root scene
+         */
+        const std::vector<iResourceID> &getScenes() const;
+
+        /*! \returns the active root project scene
+         */
+        iEntityScenePtr getRootScene() const;
+
+        /*! sets project mode
+
+        this changes which copy of the root scene is used from here onwards
+
+        \param mode the mode to switch to
+        */
+        void setProjectMode(iMode mode);
 
     private:
         /*! project folder
@@ -152,7 +168,15 @@ namespace igor
 
         /*! the root project scene all other scenes get added to as prefabs
          */
-        iEntityScenePtr _projectScene = nullptr;
+        iEntityScenePtr _activeScene = nullptr;
+
+        /*! the edit mode scene
+        */
+        iEntityScenePtr _editScene = nullptr;
+
+        /*! the runtime mode scene
+        */
+        iEntityScenePtr _runtimeScene = nullptr;
 
         /*! true if project is loaded
          */
@@ -168,7 +192,11 @@ namespace igor
 
         /*! scenes referenced by project
          */
-        std::vector<iResourceID> _scenes;
+        std::vector<iResourceID> _scenes;      
+
+        /*! current project mode
+        */
+        iMode _mode = iMode::Runtime;
 
         /*! loads project
          */
