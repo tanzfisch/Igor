@@ -139,21 +139,21 @@ private:
 
     /*! called on any other event
      */
-    bool onEvent(iEvent &event) override;
+    bool onEvent(const iEvent &event) override;
 
     /*! on project loaded event
 
     \param event the event data
     \returns true if event was consumed
     */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    bool onProjectLoaded(const iEventProjectLoaded &event);
 
     /*! on project unloaded event
 
     \param event the event data
     \returns true if event was consumed
     */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    bool onProjectUnloaded(const iEventProjectUnloaded &event);
 };
 
 #endif // MICA_MAIN_LAYOUT_H

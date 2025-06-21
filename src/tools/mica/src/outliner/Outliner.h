@@ -146,11 +146,11 @@ private:
 
     /*! called when project was loaded
      */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    bool onProjectLoaded(const iEventProjectLoaded &event);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    bool onProjectUnloaded(const iEventProjectUnloaded &event);
 
     /*! called when user want's to load a scene
      */
@@ -185,7 +185,7 @@ private:
 
     \param event the event
     */
-    bool onEvent(iEvent &event) override;
+    bool onEvent(const iEvent &event) override;
 
     /*! handle selection change
      */

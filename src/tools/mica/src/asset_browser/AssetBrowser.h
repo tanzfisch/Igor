@@ -182,7 +182,7 @@ private:
 
     \param event the event
     */
-    bool onEvent(iEvent &event) override;
+    bool onEvent(const iEvent &event) override;
 
 };
 

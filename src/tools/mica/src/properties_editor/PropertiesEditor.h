@@ -74,15 +74,15 @@ private:
 
     \param event the event
     */
-    bool onEvent(iEvent &event) override;
+    bool onEvent(const iEvent &event) override;
 
     /*! called when project was loaded
      */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    bool onProjectLoaded(const iEventProjectLoaded &event);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    bool onProjectUnloaded(const iEventProjectUnloaded &event);
 
     /*! handle selection change
      */

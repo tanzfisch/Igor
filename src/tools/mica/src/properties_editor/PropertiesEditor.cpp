@@ -21,7 +21,7 @@ void PropertiesEditor::onInitUI()
     _scroll = new iWidgetScroll(this);
 }
 
-bool PropertiesEditor::onEvent(iEvent &event)
+bool PropertiesEditor::onEvent(const iEvent &event)
 {
     iWidget::onEvent(event);
 
@@ -31,7 +31,7 @@ bool PropertiesEditor::onEvent(iEvent &event)
     return false;
 }
 
-bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
+bool PropertiesEditor::onProjectLoaded(const iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getRootScene();
     if(projectScene == nullptr)
@@ -44,7 +44,7 @@ bool PropertiesEditor::onProjectLoaded(iEventProjectLoaded &event)
     return false;
 }
 
-bool PropertiesEditor::onProjectUnloaded(iEventProjectUnloaded &event)
+bool PropertiesEditor::onProjectUnloaded(const iEventProjectUnloaded &event)
 {
     deinitProperties();
 

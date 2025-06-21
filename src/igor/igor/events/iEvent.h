@@ -110,7 +110,7 @@ namespace igor
 
         \param kind the given kind
         */
-        bool isOfKind(const iEventKind kind);
+        bool isOfKind(const iEventKind kind) const;
 
         /*! \returns event type
         */
@@ -140,7 +140,7 @@ namespace igor
         */
         void consume();
 
-        /*! dispatch event
+        /*! dispatch and consume event
 
         only executes if event is of type T
 
@@ -158,6 +158,17 @@ namespace igor
                     consume();
                     return true;
                 }
+            }
+            return false;
+        }   
+        
+        template <typename T, typename F>
+        bool dispatch(const F &func) const
+        {
+            if (!isConsumed() &&
+                getEventType() == T::getStaticType())
+            {
+                return func(static_cast<const T &>(*this));
             }
             return false;
         }

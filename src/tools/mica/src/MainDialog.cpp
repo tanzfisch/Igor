@@ -146,19 +146,19 @@ void MainDialog::onPrintProjectTree(const iWidgetPtr source)
     print.traverse(iProject::getInstance().getRootScene());
 }
 
-bool MainDialog::onProjectLoaded(iEventProjectLoaded &event)
+bool MainDialog::onProjectLoaded(const iEventProjectLoaded &event)
 {
     _playStopButton->setEnabled(true);
     return false;
 }
 
-bool MainDialog::onProjectUnloaded(iEventProjectUnloaded &event)
+bool MainDialog::onProjectUnloaded(const iEventProjectUnloaded &event)
 {
     _playStopButton->setEnabled(false);
     return false;
 }
 
-bool MainDialog::onEvent(iEvent &event)
+bool MainDialog::onEvent(const iEvent &event)
 {
     event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectLoaded));
     event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectUnloaded));

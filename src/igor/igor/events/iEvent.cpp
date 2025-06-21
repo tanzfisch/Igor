@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    bool iEvent::isOfKind(const iEventKind kind)
+    bool iEvent::isOfKind(const iEventKind kind) const
     {
         return getEventKindMask() & (iEventKindMask)kind;
     }

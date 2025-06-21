@@ -841,7 +841,7 @@ namespace igor
 
         \param event the event
         */
-        virtual bool onEvent(iEvent &event);
+        virtual bool onEvent(const iEvent &event);
 
         /*! handles incoming mouse wheel event
 

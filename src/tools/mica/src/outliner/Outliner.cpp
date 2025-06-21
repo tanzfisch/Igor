@@ -424,7 +424,7 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
     refresh();
 }
 
-bool Outliner::onEvent(iEvent &event)
+bool Outliner::onEvent(const iEvent &event)
 {
     iWidget::onEvent(event);
 
@@ -434,7 +434,7 @@ bool Outliner::onEvent(iEvent &event)
     return false;
 }
 
-bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
+bool Outliner::onProjectLoaded(const iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
@@ -461,7 +461,7 @@ bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
     return false;
 }
 
-bool Outliner::onProjectUnloaded(iEventProjectUnloaded &event)
+bool Outliner::onProjectUnloaded(const iEventProjectUnloaded &event)
 {
     refresh();
     return false;

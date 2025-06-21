@@ -272,7 +272,7 @@ void AssetBrowser::update(const iaPath &dir, iItemPtr item)
     }
 }
 
-bool AssetBrowser::onEvent(iEvent &event)
+bool AssetBrowser::onEvent(const iEvent &event)
 {
     iWidget::onEvent(event);
 

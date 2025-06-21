@@ -124,7 +124,7 @@ namespace igor
     void iActionLoadProject::execute(const iActionContext &context)
     {
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
-        iProject::getInstance().load(actionContext->getPath(), iProject::iMode::Edit);
+        iProject::getInstance().load(actionContext->getPath());
     }   
 
    iActionCreateSprite::iActionCreateSprite()

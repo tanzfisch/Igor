@@ -203,7 +203,7 @@ void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
     }
 }
 
-bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
+bool Viewport::onProjectLoaded(const iEventProjectLoaded &event)
 {
     auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
@@ -243,7 +243,7 @@ bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
     return false;
 }
 
-bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
+bool Viewport::onProjectUnloaded(const iEventProjectUnloaded &event)
 {
     _viewportScene->getView().setScene(iEntitySceneID::getInvalid());
     _cameraArc = nullptr;
@@ -690,7 +690,7 @@ void Viewport::draw()
     }
 }
 
-bool Viewport::onEvent(iEvent &event)
+bool Viewport::onEvent(const iEvent &event)
 {
     iWidget::onEvent(event);
 
