@@ -591,8 +591,16 @@ namespace igor
 
     void iView::setOverrideCamera(iEntityPtr camera)
     {
-        _overrideSceneID = camera->getScene()->getID();
-        _overrideCameraID = camera->getID();
+        if (camera == nullptr)
+        {
+            _overrideSceneID = iEntitySceneID::getInvalid();
+            _overrideCameraID = iEntityID::getInvalid();
+        }
+        else
+        {
+            _overrideSceneID = camera->getScene()->getID();
+            _overrideCameraID = camera->getID();
+        }
     }
 
 }; // namespace igor

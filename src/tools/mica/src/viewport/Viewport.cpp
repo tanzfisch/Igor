@@ -125,26 +125,46 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         return;
     }
 
-    const auto &entitySceneID = _viewportScene->getView().getSceneID();
-    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
-    if (entityScene == nullptr)
+    auto viewportScene = iEntitySystemModule::getInstance().getScene(_viewportScene->getView().getSceneID());
+    if (viewportScene == nullptr)
     {
         return;
     }
 
-    auto cameras = entityScene->getCameras();
-    for (const auto &camera : cameras)
+    _viewportScene->getView().setOverrideCamera(nullptr);
+
+    auto viewportCameras = viewportScene->getCameras();
+    for (const auto &camera : viewportCameras)
     {
         if (camera->getID() == actionContext->getEntities()[0])
         {
             camera->setActive(true);
-            _viewportOverlay->getView().setOverrideCamera(camera);
         }
         else
         {
             camera->setActive(false);
         }
     }
+
+    auto overlayScene = iEntitySystemModule::getInstance().getScene(_viewportOverlay->getView().getSceneID());
+    if (overlayScene == nullptr)
+    {
+        return;
+    }
+
+    auto overlayCameras = overlayScene->getCameras();
+    for (const auto &camera : overlayCameras)
+    {
+        if (camera->getID() == actionContext->getEntities()[0])
+        {
+            camera->setActive(true);
+            _viewportScene->getView().setOverrideCamera(camera);
+        }
+        else
+        {
+            camera->setActive(false);
+        }
+    }    
 }
 
 void Viewport::onContextMenu(iWidgetPtr source)
@@ -160,23 +180,21 @@ void Viewport::onContextMenu(iWidgetPtr source)
     }
 
     auto cameras = entityScene->getCameras();
+
+    auto overlayScene = iEntitySystemModule::getInstance().getScene(_cameraArc->getEntitySceneID());
+    auto arcCamera = overlayScene->getEntity(_cameraArc->getCameraID());
+    cameras.push_back(arcCamera);
+
     if (cameras.size() > 1)
     {
         iWidgetMenuPtr camMenu = new iWidgetMenu("Camera");
         _contextMenu.addMenu(camMenu);
 
-        bool skipFirst = true;
         for (const auto &camera : cameras)
         {
-            // skip first because it is the active camera
-            if (skipFirst)
-            {
-                skipFirst = false;
-                continue;
-            }
             std::vector<iEntityID> cameraID = {camera->getID()};
-            const auto &entitySceneID = _viewportScene->getView().getSceneID();
-            iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(entitySceneID, cameraID);
+            const auto &cameraSceneID = camera->getScene()->getID();
+            iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(cameraSceneID, cameraID);
             iaString description = iaString("Switch to ") + camera->getName() + " camera";
             camMenu->addCallback(iClickDelegate(this, &Viewport::onChangeCamera), camera->getName(), description, "", true, actionContext);
         }
