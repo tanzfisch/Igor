@@ -4,6 +4,7 @@
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
+#include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/iEntitySystemModule.h>
 
 namespace igor
@@ -46,7 +47,8 @@ namespace igor
         copy->setParent(_currentEntity);
 
         _currentEntity = copy;
-        return true;
+
+        return copy->getComponent<iPrefabComponent>() == nullptr;
     }
 
     void iEntityCopyTraverser::postOrderVisit(iEntityPtr entity)

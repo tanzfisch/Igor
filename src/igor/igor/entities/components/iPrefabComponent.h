@@ -37,7 +37,7 @@ namespace igor
 {
     /*! octree component
      */
-    class iPrefabComponent : public iEntityComponent
+    class IGOR_API iPrefabComponent : public iEntityComponent
     {
     public:
         /*! default ctor
