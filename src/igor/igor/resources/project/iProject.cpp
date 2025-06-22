@@ -80,7 +80,7 @@ namespace igor
                 iEntitySystemModule::getInstance().deactivateScene(_editScene);
             }
 
-            _runtimeScene = iEntitySystemModule::getInstance().createScene();
+            _runtimeScene = iEntitySystemModule::getInstance().createScene("runtime");
 
             iEntityCopyTraverser copyTraverser(_runtimeScene);
 
@@ -147,7 +147,7 @@ namespace igor
             return;
         }
 
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
+        const iaString filenameConfig = getProjectFilepath();
         const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);

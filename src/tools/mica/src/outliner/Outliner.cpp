@@ -352,11 +352,12 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    auto projectScene = project.getRootScene();
-    if (!project.isLoaded() || projectScene == nullptr)
+    if (!project.isLoaded())
     {
         return;
     }
+
+    auto projectScene = project.getRootScene();
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
