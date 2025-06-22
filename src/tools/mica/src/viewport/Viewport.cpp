@@ -214,32 +214,10 @@ bool Viewport::onProjectLoaded(const iEventProjectLoaded &event)
     projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Viewport::onSelectionChanged));
 
     _viewportScene->getView().setScene(projectScene->getID());
-    _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
 
-    if (projectScene->getActiveCamera() != nullptr)
-    {
-        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera());
-    }
-    else
-    {
-        // TODO this is a workarround for now until active camera returns the right camera after loading the project
-
-        auto entities = projectScene->getEntities();
-        for (const auto &entity : entities)
-        {
-            if (!entity->isActive() ||
-                entity->getComponent<iCameraComponent>() == nullptr ||
-                entity->getComponent<iTransformComponent>() == nullptr)
-            {
-                continue;
-            }
-
-            _viewportOverlay->getView().setOverrideCamera(entity);
-
-            break;
-        }
-    }
-
+    _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
+    _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
+    
     return false;
 }
 

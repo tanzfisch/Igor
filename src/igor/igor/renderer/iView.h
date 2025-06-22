@@ -106,11 +106,20 @@ namespace igor
         */
         void setOverrideCamera(iEntityPtr camera);
 
+        /*! specifies a camera to override the active cam of the scene by id
+
+        camera is allowed to not be from the same scene as the view scene
+
+        \param sceneID scene id to use
+        \param cameraID camera entity id to use
+        */
+        void setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID);
+
         /*! \returns effective camera
 
         either the scene's active camera or the override camera if set
         */
-        const iEntityPtr getCamera() const;        
+        const iEntityPtr getCamera() const;
 
         /*! sets name of view
 
@@ -146,7 +155,7 @@ namespace igor
 
         /*! \returns viewport in pixels
          */
-        const iaRectanglei& getViewport() const;
+        const iaRectanglei &getViewport() const;
 
         /*! activates perspective mode and sets the view_angle
 
@@ -445,7 +454,7 @@ namespace igor
 
         /*! override camera scene id
          */
-        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();  
+        iEntitySceneID _overrideSceneID = iEntitySceneID::getInvalid();
 
         /*! sets the z index of this view. will be used by window to determine the render order
 

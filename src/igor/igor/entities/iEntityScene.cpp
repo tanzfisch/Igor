@@ -210,8 +210,12 @@ namespace igor
         {
             entity->_id = id;
         }
+
         _mutex.lock();
-        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+        if (_entities.find(entity->getID()) != _entities.end())
+        {
+            con_err("Entity id collision " << entity->getID());
+        }
 
         _entities[entity->getID()] = entity;
         entity->_scene = this;
@@ -495,8 +499,8 @@ namespace igor
             return;
         }
 
-        std::vector<iaUUID> IDs = {1};                               // 1 means this is a cut operation
-        IDs.push_back(sceneID);                                      // scene id
+        std::vector<iaUUID> IDs = {1};                           // 1 means this is a cut operation
+        IDs.push_back(sceneID);                                  // scene id
         IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
         iClipboard::getInstance().copyEntityIDs(IDs);
     }
@@ -510,8 +514,8 @@ namespace igor
             return;
         }
 
-        std::vector<iaUUID> IDs = {0};                               // 0 means this is a copy operation
-        IDs.push_back(sceneID);                                      // scene id
+        std::vector<iaUUID> IDs = {0};                           // 0 means this is a copy operation
+        IDs.push_back(sceneID);                                  // scene id
         IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
         iClipboard::getInstance().copyEntityIDs(IDs);
     }
@@ -527,23 +531,23 @@ namespace igor
     }
 
     void iEntityScene::paste(const iEntitySceneID &sceneID, const iEntityID &entityID)
-    {            
+    {
         auto dstScene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if(dstScene == nullptr)
+        if (dstScene == nullptr)
         {
             return;
         }
         auto dstEntity = dstScene->getEntity(entityID);
-        if(dstEntity == nullptr)
+        if (dstEntity == nullptr)
         {
             return;
         }
 
         std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
-        if(IDs.size() < 3)
+        if (IDs.size() < 3)
         {
             return;
-        }         
+        }
         bool move = IDs[0].isValid();
         auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
         for (int i = 2; i < IDs.size(); ++i)
@@ -552,7 +556,7 @@ namespace igor
 
             iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
 
-            if(move)
+            if (move)
             {
                 srcScene->destroyEntity(srcEntity);
             }
@@ -561,7 +565,7 @@ namespace igor
 
     void iEntityScene::paste()
     {
-        if(_selection.size() != 1)
+        if (_selection.size() != 1)
         {
             return;
         }
@@ -572,21 +576,21 @@ namespace igor
     void iEntityScene::duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
     {
         auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if(scene == nullptr)
+        if (scene == nullptr)
         {
             return;
         }
 
-        for(const auto &entityID : entities)
+        for (const auto &entityID : entities)
         {
             auto entity = scene->getEntity(entityID);
-            if(entity == nullptr)
+            if (entity == nullptr)
             {
                 continue;
             }
 
             auto parent = entity->getParent();
-            if(parent == nullptr)
+            if (parent == nullptr)
             {
                 continue;
             }
@@ -601,4 +605,3 @@ namespace igor
     }
 
 } // igor
-

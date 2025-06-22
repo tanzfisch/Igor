@@ -572,10 +572,6 @@ iEntityID GameLayer::createCamera()
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
-    //iEntityPrintTraverser print;
-    //print.traverse(_entityScene);
-
-
     // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
     iEntityPtr entity = _entityScene->createEntity("camera");
 

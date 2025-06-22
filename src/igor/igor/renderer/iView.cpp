@@ -583,11 +583,14 @@ namespace igor
         return _embedded;
     }
 
+    void iView::setOverrideCamera(const iEntitySceneID &sceneID, const iEntityID &cameraID)
+    {
+        _overrideSceneID = sceneID;
+        _overrideCameraID = cameraID;
+    }
+
     void iView::setOverrideCamera(iEntityPtr camera)
     {
-        con_assert(camera != nullptr, "zero pointer");
-        con_assert(camera->getComponent<iCameraComponent>() != nullptr, "no camera component");
-
         _overrideSceneID = camera->getScene()->getID();
         _overrideCameraID = camera->getID();
     }

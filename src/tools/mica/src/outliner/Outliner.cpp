@@ -359,6 +359,11 @@ void Outliner::populateTree()
 
     auto projectScene = project.getRootScene();
 
+    con_endl("populateTree");
+    iEntityPrintTraverser print;
+    print.traverse(projectScene);
+    con_endl("\n" << print.getOutput());
+
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     auto rootItem = _itemData->getItem(iItemPath(""));

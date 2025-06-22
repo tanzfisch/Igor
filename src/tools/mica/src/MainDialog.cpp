@@ -147,6 +147,7 @@ void MainDialog::onPrintProjectTree(const iWidgetPtr source)
 {
     iEntityPrintTraverser print(true);
     print.traverse(iProject::getInstance().getRootScene());
+    con_endl("\n" << print.getOutput());
 }
 
 bool MainDialog::onProjectLoaded(const iEventProjectLoaded &event)
