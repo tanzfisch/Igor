@@ -70,19 +70,19 @@ private:
      */
     void deinitProperties();
 
-    /*! handles incoming generic event
-
-    \param event the event
-    */
-    bool onEvent(iEvent &event) override;
-
     /*! called when project was loaded
+
+    \param projectfile the project file loaded
      */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    void onProjectLoaded(const iaString &projectfile);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    void onProjectUnloaded();
+
+    /*! called when project was reloaded
+     */
+    void onProjectReloaded();
 
     /*! handle selection change
      */

@@ -4,14 +4,12 @@
 
 #include <igor/resources/project/iProject.h>
 
-#include <igor/events/iEventProject.h>
-#include <igor/system/iApplication.h>
 #include <igor/utils/iJson.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
+#include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <iaux/system/iaPath.h>
-#include <iaux/system/iaFile.h>
 
 #include <filesystem>
 
@@ -22,7 +20,7 @@ namespace igor
     static const iaString s_defaultProjectFilename = "project_config.project";
     static const iaString s_resourceDictionary = "resource_dictionary.json";
 
-    void iProject::load(const iaString &path)
+    void iProject::load(const iaString &path, iMode mode)
     {
         if (isLoaded())
         {
@@ -42,6 +40,75 @@ namespace igor
         }
 
         load();
+
+        _mode = mode;
+        if (_mode == iMode::Edit)
+        {
+            _editScene = _activeScene;
+        }
+        else
+        {
+            _runtimeScene = _activeScene;
+        }
+    }
+
+    void iProject::setMode(iMode mode)
+    {
+        if (!isLoaded() ||
+            _mode == mode)
+        {
+            return;
+        }
+
+        if (mode == iMode::Edit &&
+            _editScene == nullptr)
+        {
+            con_err("edit mode is only available if it was selected during project load");
+            return;
+        }        
+
+        _mode = mode;
+
+        // right now this assumes that there will only ever be two states
+        if (_mode == iMode::Runtime)
+        {            
+            if (_editScene != nullptr)
+            {
+                iEntitySystemModule::getInstance().deactivateScene(_editScene);
+            }
+
+            _runtimeScene = iEntitySystemModule::getInstance().createScene("runtime");
+
+            iEntityCopyTraverser copyTraverser(_runtimeScene);
+
+            const auto &children = _editScene->getRootEntity()->getChildren();
+            const auto &inactiveChildren = _editScene->getRootEntity()->getInactiveChildren();
+
+            for (const auto &child : children)
+            {
+                copyTraverser.traverse(child);
+            }
+            for (const auto &child : inactiveChildren)
+            {
+                copyTraverser.traverse(child);
+            }
+
+            _activeScene = _runtimeScene;
+        }
+        else
+        {
+            if (_runtimeScene != nullptr)
+            {
+                iEntitySystemModule::getInstance().destroyScene(_runtimeScene->getID());
+                _runtimeScene = nullptr;
+            }
+
+            _activeScene = _editScene;
+        }
+
+        iEntitySystemModule::getInstance().activateScene(_activeScene);
+
+        _projectReloadedEvent();
     }
 
     void iProject::create(const iaString &path)
@@ -79,19 +146,25 @@ namespace igor
             return;
         }
 
-        const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
+        const iaString projectFile = getProjectFilepath();
         const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
-        _projectSceneAddedEvent.block();
-        read(filenameConfig);
-        _projectSceneAddedEvent.unblock();
+        _sceneAddedEvent.block();
+        bool success = read(projectFile);
+        _sceneAddedEvent.unblock();
+
+        if (!success)
+        {
+            con_err("failed to load project from \"" << _projectFolder << "\"");
+            return;
+        }
 
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
 
-        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectLoaded(filenameConfig)));
+        _projectLoadedEvent(projectFile);
     }
 
     void iProject::unload()
@@ -107,10 +180,10 @@ namespace igor
         }
         _scenes.clear();
 
-        if (_projectScene != nullptr)
+        if (_activeScene != nullptr)
         {
-            iEntitySystemModule::getInstance().destroyScene(_projectScene->getID());
-            _projectScene = nullptr;
+            iEntitySystemModule::getInstance().destroyScene(_activeScene->getID());
+            _activeScene = nullptr;
         }
 
         iResourceManager::getInstance().removeSearchPath(_projectFolder);
@@ -120,11 +193,16 @@ namespace igor
         _projectName = "";
 
         _isLoaded = false;
-        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectUnloaded()));
+        _projectUnloadedEvent();
     }
 
     void iProject::save()
     {
+        if(_mode != iProject::iMode::Edit)
+        {
+            return;
+        }
+
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
         const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + s_resourceDictionary;
 
@@ -145,40 +223,40 @@ namespace igor
 
         if (!projectJson.contains("projectScene"))
         {
-            _projectScene = iEntitySystemModule::getInstance().createScene("project_scene");
-            iEntitySystemModule::getInstance().activateScene(_projectScene);
+            _activeScene = iEntitySystemModule::getInstance().createScene("project_scene");
+            iEntitySystemModule::getInstance().activateScene(_activeScene);
             return true;
         }
 
         json projectSceneJson = projectJson["projectScene"];
         const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
 
-        _projectScene = iEntitySystemModule::getInstance().createScene("project_scene", projectSceneID, false);
-        iEntitySystemModule::getInstance().activateScene(_projectScene);
+        _activeScene = iEntitySystemModule::getInstance().createScene("project_scene", projectSceneID, false);
+        iEntitySystemModule::getInstance().activateScene(_activeScene);
 
         if (projectSceneJson.contains("systems"))
         {
             const auto systems = projectSceneJson["systems"].get<std::vector<iaString>>();
             for (const auto &system : systems)
             {
-                _projectScene->addSystem(system);
+                _activeScene->addSystem(system);
             }
         }
 
         if (projectSceneJson.contains("quadtree"))
         {
             json quadtreeJson = projectSceneJson["quadtree"];
-            _projectScene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
-                                              quadtreeJson["splitThreshold"].get<uint32>(),
-                                              quadtreeJson["maxDepth"].get<uint32>());
+            _activeScene->initializeQuadtree(quadtreeJson["area"].get<iaRectangled>(),
+                                             quadtreeJson["splitThreshold"].get<uint32>(),
+                                             quadtreeJson["maxDepth"].get<uint32>());
         }
 
         if (projectSceneJson.contains("octree"))
         {
             json octreeJson = projectSceneJson["octree"];
-            _projectScene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
-                                            octreeJson["splitThreshold"].get<uint32>(),
-                                            octreeJson["maxDepth"].get<uint32>());
+            _activeScene->initializeOctree(octreeJson["volume"].get<iAACubed>(),
+                                           octreeJson["splitThreshold"].get<uint32>(),
+                                           octreeJson["maxDepth"].get<uint32>());
         }
 
         if (projectJson.contains("scenes"))
@@ -200,17 +278,34 @@ namespace igor
         return true;
     }
 
-    iEntityScenePtr iProject::getProjectScene() const
+    iEntityScenePtr iProject::getRootScene() const
     {
-        return _projectScene;
+        return _activeScene;
     }
 
-    bool iProject::hasProjectScene() const
+    void iProject::saveScene(iEntityPtr prefabEntity)
     {
-        return _projectScene != nullptr;
+        auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
+        auto prefab = prefabComp->getPrefab();
+        auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+        prefabScene->clear();
+
+        iEntityCopyTraverser traverser(prefabScene->getRootEntity(), true);
+
+        for (const auto entity : prefabEntity->getChildren())
+        {
+            traverser.traverse(entity);
+        }
+
+        for (const auto entity : prefabEntity->getInactiveChildren())
+        {
+            traverser.traverse(entity);
+        }
+
+        iResourceManager::getInstance().saveResource(prefab->getID());
     }
 
-    static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
+    void iProject::writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
     {
         for (auto entity : entities)
         {
@@ -220,13 +315,7 @@ namespace igor
                 continue;
             }
 
-            auto prefab = prefabComponent->getPrefab();
-            if (prefab == nullptr)
-            {
-                continue;
-            }
-
-            iResourceManager::getInstance().saveResource(prefabComponent->getPrefab()->getID());
+            saveScene(entity);
 
             json sceneJson =
                 {
@@ -252,33 +341,33 @@ namespace igor
         }
 
         json scenesJson = json::array();
-        iEntityPtr root = _projectScene->getRootEntity();
+        iEntityPtr root = _activeScene->getRootEntity();
         writeScenes(root->getChildren(), scenesJson);
         writeScenes(root->getInactiveChildren(), scenesJson);
 
         json systemsJson = json::array();
-        for (const auto &system : _projectScene->getSystems())
+        for (const auto &system : _activeScene->getSystems())
         {
             systemsJson.push_back(system);
         }
 
         json projectSceneJson =
             {
-                {"id", _projectScene->getID()},
+                {"id", _activeScene->getID()},
                 {"systems", systemsJson}};
 
-        if (_projectScene->hasQuadtree())
+        if (_activeScene->hasQuadtree())
         {
-            auto quadtree = _projectScene->getQuadtree();
+            auto quadtree = _activeScene->getQuadtree();
             projectSceneJson["quadtree"] = {
                 {"area", quadtree.getArea()},
                 {"splitThreshold", quadtree.getSplitThreshold()},
                 {"maxDepth", quadtree.getMaxDepth()}};
         }
 
-        if (_projectScene->hasOctree())
+        if (_activeScene->hasOctree())
         {
-            auto octree = _projectScene->getOctree();
+            auto octree = _activeScene->getOctree();
             projectSceneJson["octree"] = {
                 {"volume", octree.getVolume()},
                 {"splitThreshold", octree.getSplitThreshold()},
@@ -313,11 +402,6 @@ namespace igor
         return _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
     }
 
-    const iaString iProject::getScenesPath() const
-    {
-        return _projectFolder + "scenes";
-    }
-
     const iaString &iProject::getName() const
     {
         return _projectName;
@@ -326,12 +410,6 @@ namespace igor
     void iProject::setName(const iaString &projectName)
     {
         _projectName = projectName;
-        _hasChanges = true;
-    }
-
-    bool iProject::hasChanges() const
-    {
-        return _hasChanges;
     }
 
     bool iProject::isLoaded() const
@@ -339,14 +417,29 @@ namespace igor
         return _isLoaded;
     }
 
-    iProjectSceneAddedEvent &iProject::getProjectSceneAddedEvent()
+    iSceneAddedEvent &iProject::getSceneAddedEvent()
     {
-        return _projectSceneAddedEvent;
+        return _sceneAddedEvent;
     }
 
-    iProjectSceneRemovedEvent &iProject::getProjectSceneRemovedEvent()
+    iSceneRemovedEvent &iProject::getSceneRemovedEvent()
     {
-        return _projectSceneRemovedEvent;
+        return _sceneRemovedEvent;
+    }
+
+    iProjectLoadedEvent &iProject::getProjectLoadedEvent()
+    {
+        return _projectLoadedEvent;
+    }
+
+    iProjectReloadedEvent &iProject::getProjectReloadedEvent()
+    {
+        return _projectReloadedEvent;
+    }
+
+    iProjectUnloadedEvent &iProject::getProjectUnloadedEvent()
+    {
+        return _projectUnloadedEvent;
     }
 
     void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)
@@ -359,10 +452,10 @@ namespace igor
         }
 
         _scenes.push_back(sceneID);
-        _projectSceneAddedEvent(sceneID);
+        _sceneAddedEvent(sceneID);
 
         iPrefabPtr prefab = iResourceManager::getInstance().requestResource<iPrefab>(sceneID);
-        iEntityPtr entityPrefab = _projectScene->createEntity();
+        iEntityPtr entityPrefab = _activeScene->createEntity();
         entityPrefab->setName(name);
         entityPrefab->addComponent(new iPrefabComponent(prefab));
         entityPrefab->setActive(active);
@@ -377,7 +470,6 @@ namespace igor
         }
 
         _scenes.erase(iter);
-        _projectSceneRemovedEvent(sceneID);
+        _sceneRemovedEvent(sceneID);
     }
-
 }; // namespace igor

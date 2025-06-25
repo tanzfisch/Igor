@@ -7,6 +7,9 @@
 MainDialog::MainDialog()
 {
     onInitUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &MainDialog::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &MainDialog::onProjectUnloaded));
 }
 
 void MainDialog::onInitUI()
@@ -19,22 +22,54 @@ void MainDialog::onInitUI()
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
     setVerticalAlignment(iVerticalAlignment::Stretch);
 
+    _playStopButton = new iWidgetButton();
+    _playStopButton->setIcon("igor_icon_play");
+    _playStopButton->setCheckable(true);
+    _playStopButton->setChecked(false);
+    _playStopButton->getClickEvent().add(iClickDelegate(this, &MainDialog::onPlayStop));
+    _playStopButton->setEnabled(false);
+
+    iWidgetBoxLayoutPtr playButtonBox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal);
+    playButtonBox->setHorizontalAlignment(iHorizontalAlignment::Right);
+    playButtonBox->setVerticalAlignment(iVerticalAlignment::Stretch);
+    playButtonBox->addWidget(_playStopButton);
+
+    iWidgetGridLayoutPtr mainMenuLayout = new iWidgetGridLayout();
+    mainMenuLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    mainMenuLayout->setVerticalAlignment(iVerticalAlignment::Top);
+    mainMenuLayout->appendColumns(1);
+    mainMenuLayout->addWidget(createMenu(), 0, 0);
+    mainMenuLayout->addWidget(playButtonBox, 1, 0);
+
     iWidgetBoxLayoutPtr vbox = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     vbox->setStretchIndex(1);
     vbox->setHorizontalAlignment(iHorizontalAlignment::Stretch);
     vbox->setVerticalAlignment(iVerticalAlignment::Stretch);
-    vbox->addWidget(createMenu());
+    vbox->addWidget(mainMenuLayout);
     vbox->addWidget(new iWidgetDockingLayout());
+}
+
+void MainDialog::onPlayStop(iWidgetPtr source)
+{
+    _playStopButton->setChecked(!_playStopButton->isChecked());
+    bool playing = _playStopButton->isChecked();
+    _playStopButton->setIcon(playing ? "igor_icon_stop" : "igor_icon_play");
+
+    if (playing)
+    {
+        iProject::getInstance().save();
+    }
+    iProject::getInstance().setMode(playing ? iProject::iMode::Runtime : iProject::iMode::Edit);
 }
 
 void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
 {
     menu->clear();
-    if(iConfig::getInstance().hasValue("mica.recentProjects"))
+    if (iConfig::getInstance().hasValue("mica.recentProjects"))
     {
         const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
 
-        for(const auto &project : recent)
+        for (const auto &project : recent)
         {
             iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(project);
             menu->addAction("igor:load_project", actionContext);
@@ -45,6 +80,7 @@ void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
 iWidgetMenuBarPtr MainDialog::createMenu()
 {
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
+    menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
     fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "Create Project", "Create a new project");
@@ -61,8 +97,12 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     menuBar->addMenu(fileMenu);
 
     iWidgetMenuPtr editMenu = new iWidgetMenu("Edit");
-    // TODO
+    // TODO copy paste etc
     menuBar->addMenu(editMenu);
+
+    iWidgetMenuPtr viewMenu = new iWidgetMenu("View");
+    // TODO move viewport buttons in here
+    menuBar->addMenu(viewMenu);
 
     iWidgetMenuPtr projectMenu = new iWidgetMenu("Project");
     projectMenu->addCallback(iClickDelegate(this, &MainDialog::onPrintProjectTree), "Log Project Tree", "Logs the current project tree to the console");
@@ -114,5 +154,17 @@ void MainDialog::onCloseProject(const iWidgetPtr source)
 void MainDialog::onPrintProjectTree(const iWidgetPtr source)
 {
     iEntityPrintTraverser print(true);
-    print.traverse(iProject::getInstance().getProjectScene());
-} 
+    print.traverse(iProject::getInstance().getRootScene());
+    con_endl("\n"
+             << print.getOutput());
+}
+
+void MainDialog::onProjectLoaded(const iaString &projectfile)
+{
+    _playStopButton->setEnabled(true);
+}
+
+void MainDialog::onProjectUnloaded()
+{
+    _playStopButton->setEnabled(false);
+}

@@ -175,7 +175,13 @@ void TransformOverlay::onUpdate()
         return;
     }
 
-    auto camTransformComp = entityScene->getActiveCamera()->getComponent<iTransformComponent>();
+    auto activeCamera = entityScene->getActiveCamera();
+    if(activeCamera == nullptr)
+    {
+        return;
+    }
+
+    auto camTransformComp = activeCamera->getComponent<iTransformComponent>();
     auto camWorldPosition = camTransformComp->getWorldPosition();
     auto camWorldOrientation = camTransformComp->getWorldOrientation();
 

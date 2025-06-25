@@ -5,10 +5,15 @@
 #include "CameraArc.h"
 
 CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
-    : _entitySceneID(entitySceneID), _entityID(entityID)
+    : _entitySceneID(entitySceneID)
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
+
+    if(!entityID.isValid())
+    {
+        _entityID = scene->getRootEntity()->getID();
+    }
 
     auto anchor = scene->getEntity(_entityID);
     con_assert(anchor != nullptr, "anchor not found");
@@ -159,3 +164,13 @@ iaVector3d CameraArc::getCenterOfInterest() const
 
     return transform->getPosition();
 }
+
+    const iEntitySceneID CameraArc::getEntitySceneID() const
+    {
+        return _entitySceneID;
+    }
+
+    const iEntityID CameraArc::getCameraID() const
+    {
+        return _cameraID;
+    }

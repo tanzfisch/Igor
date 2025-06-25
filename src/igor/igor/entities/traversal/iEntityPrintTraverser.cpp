@@ -32,6 +32,7 @@ namespace igor
     void iEntityPrintTraverser::preTraverse()
     {
         _indentation = 0;
+        _stream.clear();
     }
 
     static iaString cleanupTypeName(const iaString &text)
@@ -77,15 +78,15 @@ namespace igor
 
     bool iEntityPrintTraverser::preOrderVisit(iEntityPtr entity)
     {
-        con_endl(getIndent(_indentation) << " _______________________________________________________________");
-        con_endl(getIndent(_indentation) << "| " << entity->getID() << " \"" << entity->getName() << "\" " << (entity->isActive() ? "Active" : "Inactive"));
+        _stream << getIndent(_indentation) << " _______________________________________________________________" << std::endl;
+        _stream << getIndent(_indentation) << "| " << entity->getID() << " \"" << entity->getName() << "\" " << (entity->isActive() ? "Active" : "Inactive") << std::endl;
 
         for (const auto &compType : entity->getComponentTypes())
         {
             auto component = entity->getComponent(compType);
             con_assert(component != nullptr, "zero pointer");
 
-            con_endl(getIndent(_indentation) << "|  * " << cleanupTypeName(compType.name()) << " " << component->getID() << " " << component->getState());
+            _stream << getIndent(_indentation) << "|  * " << cleanupTypeName(compType.name()) << " " << component->getID() << " " << component->getState() << std::endl;
 
             if (_verbose)
             {
@@ -108,6 +109,11 @@ namespace igor
     void iEntityPrintTraverser::postTraverse()
     {
         con_assert(_indentation == 0, "invalid indentation");
+    }
+
+    const iaString iEntityPrintTraverser::getOutput() const
+    {
+        return iaString(_stream.str().c_str());
     }
 
 } // namespace igor

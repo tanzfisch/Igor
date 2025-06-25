@@ -40,13 +40,13 @@ namespace igor
     void iCircleComponent::setOffset(const iaVector2d &offset)
     {
         _offset = offset;
-        setDirty();
+        increaseVersion();
     }
 
     void iCircleComponent::setRadius(float64 radius)
     {
         _radius = radius;
-        setDirty();
+        increaseVersion();
     }
 
     iEntityComponentPtr iCircleComponent::getCopy()

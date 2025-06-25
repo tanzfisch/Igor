@@ -120,13 +120,6 @@ private:
     \returns true if event was consumed
     */
     bool onKeyDown(iEventKeyDown &event);
-
-    /*! on project loaded event
-
-    \param event the event data
-    \returns true if event was consumed
-    */
-    bool onProjectLoaded(iEventProjectLoaded &event);
 };
 
 #endif // MICA_UILAYER_H

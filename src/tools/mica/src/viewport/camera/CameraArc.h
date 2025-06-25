@@ -42,7 +42,7 @@ public:
     \param entitySceneID the scene to use this camera in
     \param entityID the anchor entity to attach this camera to
     */
-    CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID);
+    CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID = iEntityID::getInvalid());
 
     ~CameraArc();
 
@@ -91,6 +91,14 @@ public:
     \param[out] matrix the returing world matrix of the camera
     */
     void getWorldTransformation(iaMatrixd &matrix) const;
+
+    /*! \returns camera scene id
+    */
+    const iEntitySceneID getEntitySceneID() const;
+
+    /*! \returns camera entity id
+    */
+    const iEntityID getCameraID() const;
 
 private:
     /*! entity scene to use

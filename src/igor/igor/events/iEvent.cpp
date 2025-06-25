@@ -7,12 +7,12 @@
 namespace igor
 {
 
-    iEvent::iEvent(iWindowPtr window)
-        : _window(window)
+    iEvent::iEvent(iWindowPtr window, bool cantConsume)
+        : _window(window), _cantConsume(cantConsume)
     {
     }
 
-    bool iEvent::isOfKind(const iEventKind kind)
+    bool iEvent::isOfKind(const iEventKind kind) const
     {
         return getEventKindMask() & (iEventKindMask)kind;
     }
@@ -24,6 +24,10 @@ namespace igor
 
     void iEvent::consume()
     {
+        if(_cantConsume)
+        {
+            return;
+        }
         _consumed = true;
     }
 

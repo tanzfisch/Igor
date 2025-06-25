@@ -31,6 +31,8 @@
 
 #include <igor/entities/traversal/iEntityTraverser.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -48,6 +50,10 @@ namespace igor
          */
         ~iEntityPrintTraverser() = default;
 
+        /*! \returns generated output
+        */
+        const iaString getOutput() const;
+
     private:      
         /*! keeps track of indentation
         */
@@ -56,6 +62,10 @@ namespace igor
         /*! if true output is less verbose
         */
         bool _verbose;
+
+        /*! stream for storage
+        */
+        std::wstringstream _stream;
 
         /*! is called before traversal
 

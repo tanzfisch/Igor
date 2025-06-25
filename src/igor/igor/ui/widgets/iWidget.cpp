@@ -609,7 +609,7 @@ namespace igor
         return false;
     }
 
-    bool iWidget::onEvent(iEvent &event)
+    bool iWidget::onEvent(const iEvent &event)
     {
         if (!isEnabled())
         {

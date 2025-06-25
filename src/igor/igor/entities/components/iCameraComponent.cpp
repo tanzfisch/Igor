@@ -45,7 +45,7 @@ namespace igor
     void iCameraComponent::setViewportRelative(const iaRectangled &rect)
     {
         _viewport = rect;
-        setDirty();
+        increaseVersion();
     }
 
     const iaRectangled &iCameraComponent::getViewport() const
@@ -59,7 +59,7 @@ namespace igor
 
         _fieldOfView = viewAngel;
         _projection = iProjectionType::Perspective;
-        setDirty();
+        increaseVersion();
     }
 
     float64 iCameraComponent::getFieldOfView() const
@@ -74,14 +74,14 @@ namespace igor
         _bottomOrtho = bottom;
         _topOrtho = top;
         _projection = iProjectionType::Orthogonal;
-        setDirty();
+        increaseVersion();
     }
 
     void iCameraComponent::setClipPlanes(float32 nearPlain, float32 farPlain)
     {
         _clipNear = nearPlain;
         _clipFar = farPlain;
-        setDirty();
+        increaseVersion();
     }
 
     float64 iCameraComponent::getNearPlane() const
@@ -96,7 +96,7 @@ namespace igor
     void iCameraComponent::setClearColorActive(bool active)
     {
         _clearColorActive = active;
-        setDirty();
+        increaseVersion();
     }
 
     bool iCameraComponent::isClearColorActive() const
@@ -107,13 +107,13 @@ namespace igor
     void iCameraComponent::setClearColor(const iaColor4f &color)
     {
         _clearColor = color;
-        setDirty();
+        increaseVersion();
     }
 
     void iCameraComponent::setClearColor(float32 r, float32 g, float32 b, float32 a)
     {
         _clearColor.set(r, g, b, a);
-        setDirty();
+        increaseVersion();
     }
 
     const iaColor4f &iCameraComponent::getClearColor() const
@@ -124,7 +124,7 @@ namespace igor
     void iCameraComponent::setClearDepthActive(bool active)
     {
         _clearDepthActive = active;
-        setDirty();
+        increaseVersion();
     }
 
     bool iCameraComponent::isClearDepthActive() const
@@ -135,7 +135,7 @@ namespace igor
     void iCameraComponent::setClearDepth(float32 depth)
     {
         _clearDepth = depth;
-        setDirty();
+        increaseVersion();
     }
 
     float32 iCameraComponent::getClearDepth() const

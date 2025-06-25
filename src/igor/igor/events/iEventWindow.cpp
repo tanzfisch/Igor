@@ -10,17 +10,17 @@ namespace igor
 {
 
     iEventWindowClose::iEventWindowClose(iWindowPtr window)
-        : iEvent(window)
+        : iEvent(window, true)
     {
     }
 
     iEventWindowOpen::iEventWindowOpen(iWindowPtr window)
-        : iEvent(window)
+        : iEvent(window, true)
     {
     }
 
     iEventWindowResize::iEventWindowResize(iWindowPtr window, int32 width, int32 height)
-        : iEvent(window), _width(width), _height(height)
+        : iEvent(window, true), _width(width), _height(height)
     {
     }
 

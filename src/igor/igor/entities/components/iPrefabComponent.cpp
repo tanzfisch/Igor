@@ -55,7 +55,7 @@ namespace igor
     {
         con_assert(getState() == iEntityComponentState::Unloaded, "invalid state");
         _prefab = prefab;
-        setDirty();
+        increaseVersion();
     }
 
     iPrefabPtr iPrefabComponent::getPrefab() const

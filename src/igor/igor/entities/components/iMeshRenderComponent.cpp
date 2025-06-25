@@ -37,13 +37,13 @@ namespace igor
     void iMeshRenderComponent::addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
     {
         _meshReferences.emplace_back(mesh, material, offset);
-        setDirty();
+        increaseVersion();
     }
 
     void iMeshRenderComponent::onUnLoad(iEntityPtr entity)
     {
         _meshReferences.clear();
-        setDirty();
+        increaseVersion();
     }
 
     void iMeshRenderComponent::findAndAddMeshs(iNodePtr node)
@@ -60,7 +60,7 @@ namespace igor
             findAndAddMeshs(child);
         }
 
-        setDirty();
+        increaseVersion();
     }
 
     bool iMeshRenderComponent::onLoad(iEntityPtr entity, bool &asyncLoad)

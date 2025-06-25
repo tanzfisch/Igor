@@ -11,6 +11,10 @@ AssetBrowser::AssetBrowser()
     _itemData = std::make_unique<iItemData>();
 
     initUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &AssetBrowser::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &AssetBrowser::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &AssetBrowser::onProjectReloaded));
 }
 
 AssetBrowser::~AssetBrowser()
@@ -272,7 +276,7 @@ void AssetBrowser::update(const iaPath &dir, iItemPtr item)
     }
 }
 
-bool AssetBrowser::onEvent(iEvent &event)
+bool AssetBrowser::onEvent(const iEvent &event)
 {
     iWidget::onEvent(event);
 
@@ -321,4 +325,17 @@ const iaString &AssetBrowser::getProjectPath() const
 ResourceSelectionChangedEvent &AssetBrowser::getResourceSelectionChangedEvent()
 {
     return _resourceSelectionChanged;
+}
+
+void AssetBrowser::onProjectLoaded(const iaString &projectfile)
+{
+    setProjectFolder(iProject::getInstance().getProjectPath());
+}
+
+void AssetBrowser::onProjectUnloaded()
+{
+}
+
+void AssetBrowser::onProjectReloaded()
+{
 }

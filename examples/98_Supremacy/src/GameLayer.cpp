@@ -31,7 +31,7 @@ void GameLayer::onInit()
     iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
     iEntitySystemModule::getInstance().registerComponentType<PartyComponent>(PartyComponent::createInstance, "SupremacyComponentParty");
 
-    _entityScene = iProject::getInstance().getProjectScene();
+    _entityScene = iProject::getInstance().getRootScene();
 
     iaRandom::setSeed(iaTime::getNow().getMicroseconds());
 
@@ -571,10 +571,6 @@ iEntityID GameLayer::createCamera()
     iEntityPtr player = _entityScene->getEntity(_playerID);
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
-
-    //iEntityPrintTraverser print;
-    //print.traverse(_entityScene);
-
 
     // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
     iEntityPtr entity = _entityScene->createEntity("camera");

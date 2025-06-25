@@ -111,13 +111,7 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().unload();
-    iProject::getInstance().load(_fileDialog.getFullPath());
-}
-
-bool UILayer::onProjectLoaded(iEventProjectLoaded &event)
-{
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
-    return false;
+    iProject::getInstance().load(_fileDialog.getFullPath(), iProject::iMode::Edit);
 }
 
 void UILayer::onSaveProject()
@@ -135,7 +129,6 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(UILayer::onProjectLoaded));
 }
 
 bool UILayer::onKeyDown(iEventKeyDown &event)
@@ -151,33 +144,33 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->duplicate();
+            iProject::getInstance().getRootScene()->duplicate();
             return true;
         }
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->cut();
+            iProject::getInstance().getRootScene()->cut();
             return true;
         }
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->copy();
+            iProject::getInstance().getRootScene()->copy();
             return true;
         }
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->paste();
+            iProject::getInstance().getRootScene()->paste();
             return true;
         }
 
@@ -196,12 +189,12 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         }
 
     case iKeyCode::Delete:
-        if (iProject::getInstance().hasProjectScene())
+        if (iProject::getInstance().isLoaded())
         {
-            const auto &selection = iProject::getInstance().getProjectScene()->getSelection();
+            const auto &selection = iProject::getInstance().getRootScene()->getSelection();
             for (const auto &entityID : selection)
             {
-                iProject::getInstance().getProjectScene()->destroyEntity(entityID);
+                iProject::getInstance().getRootScene()->destroyEntity(entityID);
             }
             return true;
         }

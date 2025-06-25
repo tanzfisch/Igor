@@ -55,36 +55,36 @@ namespace igor
     void iSpriteRenderComponent::setSprite(iSpritePtr sprite)
     {
         _sprite = sprite;
-        setDirty();
+        increaseVersion();
     }
 
     void iSpriteRenderComponent::setSize(const iaVector2d &size)
     {
         _size = size;
-        setDirty();
+        increaseVersion();
     }
 
     void iSpriteRenderComponent::setColor(const iaColor4f &color)
     {
         _color = color;
-        setDirty();
+        increaseVersion();
     }
 
     void iSpriteRenderComponent::setZIndex(int32 zIndex)
     {
         _zIndex = zIndex;
-        setDirty();
+        increaseVersion();
     }
 
     void iSpriteRenderComponent::setRenderMode(iSpriteRenderComponent::iRenderMode mode)
     {
         _renderMode = mode;
-        setDirty();
+        increaseVersion();
     }
 
     void iSpriteRenderComponent::setFrameIndex(int32 frameIndex)
     {
         _frameIndex = frameIndex;
-        setDirty();
+        increaseVersion();
     }
 }

@@ -8,6 +8,7 @@ Changelog                           {#changelog}
 - #448 renamed all the resource related user controls in Mica
 - #410 improved UserControlMaterial in Mica and dependencies
 - Introduced iShaderUtils
+- #451 added play button
 
 0.45.0
 ------

@@ -12,6 +12,15 @@ static const float64 s_wheelSensitivity = 1.2;
 
 Viewport::Viewport()
 {
+    onInitUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Viewport::onProjectReloaded));
+}
+
+void Viewport::onInitUI()
+{
     setTitle("Viewport");
     setHeaderEnabled(false);
     setDockable(true);
@@ -78,7 +87,6 @@ Viewport::Viewport()
     _buttonXYZ->setChecked(_renderOverlayGrid);
     buttonLayout->addWidget(_buttonXYZ);
 
-
     _buttonBounds = new iWidgetButton();
     _buttonBounds->setIcon("igor_icon_bounds");
     _buttonBounds->setTooltip("On/Off mesh bounds [F12]");
@@ -126,20 +134,40 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         return;
     }
 
-    const auto &entitySceneID = _viewportScene->getView().getSceneID();
-    auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
-    if (entityScene == nullptr)
+    auto viewportScene = iEntitySystemModule::getInstance().getScene(_viewportScene->getView().getSceneID());
+    if (viewportScene == nullptr)
     {
         return;
     }
 
-    auto cameras = entityScene->getCameras();
-    for (const auto &camera : cameras)
+    _viewportScene->getView().setOverrideCamera(nullptr);
+
+    auto viewportCameras = viewportScene->getCameras();
+    for (const auto &camera : viewportCameras)
     {
         if (camera->getID() == actionContext->getEntities()[0])
         {
             camera->setActive(true);
-            _viewportOverlay->getView().setOverrideCamera(camera);
+        }
+        else
+        {
+            camera->setActive(false);
+        }
+    }
+
+    auto overlayScene = iEntitySystemModule::getInstance().getScene(_viewportOverlay->getView().getSceneID());
+    if (overlayScene == nullptr)
+    {
+        return;
+    }
+
+    auto overlayCameras = overlayScene->getCameras();
+    for (const auto &camera : overlayCameras)
+    {
+        if (camera->getID() == actionContext->getEntities()[0])
+        {
+            camera->setActive(true);
+            _viewportScene->getView().setOverrideCamera(camera);
         }
         else
         {
@@ -161,23 +189,21 @@ void Viewport::onContextMenu(iWidgetPtr source)
     }
 
     auto cameras = entityScene->getCameras();
+
+    auto overlayScene = iEntitySystemModule::getInstance().getScene(_cameraArc->getEntitySceneID());
+    auto arcCamera = overlayScene->getEntity(_cameraArc->getCameraID());
+    cameras.push_back(arcCamera);
+
     if (cameras.size() > 1)
     {
         iWidgetMenuPtr camMenu = new iWidgetMenu("Camera");
         _contextMenu.addMenu(camMenu);
 
-        bool skipFirst = true;
         for (const auto &camera : cameras)
         {
-            // skip first because it is the active camera
-            if (skipFirst)
-            {
-                skipFirst = false;
-                continue;
-            }
             std::vector<iEntityID> cameraID = {camera->getID()};
-            const auto &entitySceneID = _viewportScene->getView().getSceneID();
-            iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(entitySceneID, cameraID);
+            const auto &cameraSceneID = camera->getScene()->getID();
+            iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(cameraSceneID, cameraID);
             iaString description = iaString("Switch to ") + camera->getName() + " camera";
             camMenu->addCallback(iClickDelegate(this, &Viewport::onChangeCamera), camera->getName(), description, "", true, actionContext);
         }
@@ -204,54 +230,38 @@ void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
     }
 }
 
-bool Viewport::onProjectLoaded(iEventProjectLoaded &event)
+void Viewport::onProjectLoaded(const iaString &projectfile)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
-    if (projectScene == nullptr)
-    {
-        return false;
-    }
-
-    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Viewport::onSelectionChanged));
+    auto projectScene = iProject::getInstance().getRootScene();
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
 
     _viewportScene->getView().setScene(projectScene->getID());
-    _cameraArc = std::make_unique<CameraArc>(projectScene->getID(), projectScene->getRootEntity()->getID());
 
-    if (projectScene->getActiveCamera() != nullptr)
-    {
-        _viewportOverlay->getView().setOverrideCamera(projectScene->getActiveCamera());
-    }
-    else
-    {
-        // TODO this is a workarround for now until active camera returns the right camera after loading the project
+    _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
+    _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
 
-        auto entities = projectScene->getEntities();
-        for (const auto &entity : entities)
-        {
-            if (!entity->isActive() ||
-                entity->getComponent<iCameraComponent>() == nullptr ||
-                entity->getComponent<iTransformComponent>() == nullptr)
-            {
-                continue;
-            }
-
-            _viewportOverlay->getView().setOverrideCamera(entity);
-
-            break;
-        }
-    }
-
-    return false;
+    setOverlayMode(OverlayMode::None);
 }
 
-bool Viewport::onProjectUnloaded(iEventProjectUnloaded &event)
+void Viewport::onProjectUnloaded()
 {
     _viewportScene->getView().setScene(iEntitySceneID::getInvalid());
     _cameraArc = nullptr;
 
     setOverlayMode(OverlayMode::None);
+}
 
-    return false;
+void Viewport::onProjectReloaded()
+{
+    auto projectScene = iProject::getInstance().getRootScene();
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
+
+    _viewportScene->getView().setScene(projectScene->getID());
+
+    _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
+    _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
+
+    setOverlayMode(OverlayMode::None);
 }
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)
@@ -281,7 +291,7 @@ void Viewport::frameOnSelection()
         return;
     }
 
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -328,7 +338,7 @@ void Viewport::renderScene()
 
 void Viewport::renderSelection()
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -689,16 +699,6 @@ void Viewport::draw()
     {
         child->draw();
     }
-}
-
-bool Viewport::onEvent(iEvent &event)
-{
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectUnloaded));
-
-    return false;
 }
 
 void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
