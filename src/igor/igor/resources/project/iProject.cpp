@@ -4,15 +4,12 @@
 
 #include <igor/resources/project/iProject.h>
 
-#include <igor/events/iEventProject.h>
-#include <igor/system/iApplication.h>
 #include <igor/utils/iJson.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
 #include <iaux/system/iaPath.h>
-#include <iaux/system/iaFile.h>
 
 #include <filesystem>
 
@@ -55,7 +52,7 @@ namespace igor
         }
     }
 
-    void iProject::setProjectMode(iMode mode)
+    void iProject::setMode(iMode mode)
     {
         if (!isLoaded() ||
             _mode == mode)
@@ -68,13 +65,13 @@ namespace igor
         {
             con_err("edit mode is only available if it was selected during project load");
             return;
-        }
+        }        
 
         _mode = mode;
 
         // right now this assumes that there will only ever be two states
         if (_mode == iMode::Runtime)
-        {
+        {            
             if (_editScene != nullptr)
             {
                 iEntitySystemModule::getInstance().deactivateScene(_editScene);
@@ -110,6 +107,8 @@ namespace igor
         }
 
         iEntitySystemModule::getInstance().activateScene(_activeScene);
+
+        _projectReloadedEvent();
     }
 
     void iProject::create(const iaString &path)
@@ -147,13 +146,13 @@ namespace igor
             return;
         }
 
-        const iaString filenameConfig = getProjectFilepath();
+        const iaString projectFile = getProjectFilepath();
         const iaString filenameDictionary = s_resourceDictionary;
         iResourceManager::getInstance().addSearchPath(_projectFolder);
         iResourceManager::getInstance().loadResourceDictionary(filenameDictionary);
 
         _sceneAddedEvent.block();
-        bool success = read(filenameConfig);
+        bool success = read(projectFile);
         _sceneAddedEvent.unblock();
 
         if (!success)
@@ -165,7 +164,7 @@ namespace igor
         _isLoaded = true;
         con_info("loaded project \"" << getName() << "\"");
 
-        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectLoaded(filenameConfig)));
+        _projectLoadedEvent(projectFile);
     }
 
     void iProject::unload()
@@ -194,11 +193,16 @@ namespace igor
         _projectName = "";
 
         _isLoaded = false;
-        iApplication::getInstance().onEvent(iEventPtr(new iEventProjectUnloaded()));
+        _projectUnloadedEvent();
     }
 
     void iProject::save()
     {
+        if(_mode != iProject::iMode::Edit)
+        {
+            return;
+        }
+
         const iaString filenameConfig = _projectFolder + IGOR_PATHSEPARATOR + _projectFile;
         const iaString filenameDictionary = _projectFolder + IGOR_PATHSEPARATOR + s_resourceDictionary;
 
@@ -421,6 +425,21 @@ namespace igor
     iSceneRemovedEvent &iProject::getSceneRemovedEvent()
     {
         return _sceneRemovedEvent;
+    }
+
+    iProjectLoadedEvent &iProject::getProjectLoadedEvent()
+    {
+        return _projectLoadedEvent;
+    }
+
+    iProjectReloadedEvent &iProject::getProjectReloadedEvent()
+    {
+        return _projectReloadedEvent;
+    }
+
+    iProjectUnloadedEvent &iProject::getProjectUnloadedEvent()
+    {
+        return _projectUnloadedEvent;
     }
 
     void iProject::addScene(const iResourceID &sceneID, const iaString &name, bool active)

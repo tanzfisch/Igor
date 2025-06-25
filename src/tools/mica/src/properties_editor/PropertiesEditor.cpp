@@ -7,6 +7,10 @@
 PropertiesEditor::PropertiesEditor()
 {
     onInitUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &PropertiesEditor::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &PropertiesEditor::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &PropertiesEditor::onProjectReloaded));
 }
 
 void PropertiesEditor::onInitUI()
@@ -21,34 +25,21 @@ void PropertiesEditor::onInitUI()
     _scroll = new iWidgetScroll(this);
 }
 
-bool PropertiesEditor::onEvent(const iEvent &event)
-{
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(PropertiesEditor::onProjectUnloaded));
-
-    return false;
-}
-
-bool PropertiesEditor::onProjectLoaded(const iEventProjectLoaded &event)
+void PropertiesEditor::onProjectLoaded(const iaString &projectfile)
 {
     auto projectScene = iProject::getInstance().getRootScene();
-    if(projectScene == nullptr)
-    {
-        return false;
-    }
-    
-    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &PropertiesEditor::onSelectionChanged));
-
-    return false;
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &PropertiesEditor::onSelectionChanged));
 }
 
-bool PropertiesEditor::onProjectUnloaded(const iEventProjectUnloaded &event)
+void PropertiesEditor::onProjectUnloaded()
 {
     deinitProperties();
+}
 
-    return false;
+void PropertiesEditor::onProjectReloaded()
+{
+    auto projectScene = iProject::getInstance().getRootScene();
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &PropertiesEditor::onSelectionChanged));
 }
 
 void PropertiesEditor::onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)

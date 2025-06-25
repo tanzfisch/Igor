@@ -485,7 +485,7 @@ namespace igor
         _entitySelectionChangedEvent(getID(), _selection);
     }
 
-    iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
+    iEntitySelectionChangeEvent &iEntityScene::getEntitySelectionChangeEvent()
     {
         return _entitySelectionChangedEvent;
     }
@@ -602,6 +602,16 @@ namespace igor
     void iEntityScene::duplicate()
     {
         duplicate(getID(), _selection);
+    }
+
+    void iEntityScene::onDeactivate()
+    {
+        _entitySelectionChangedEvent.block(true);
+    }
+
+    void iEntityScene::onActivate()
+    {
+        _entitySelectionChangedEvent.block(false);
     }
 
 } // igor

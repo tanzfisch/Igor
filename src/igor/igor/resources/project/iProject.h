@@ -49,6 +49,18 @@ namespace igor
      */
     IGOR_EVENT_DEFINITION(iSceneRemoved, const iResourceID &);
 
+    /*! project loaded event
+     */
+    IGOR_EVENT_DEFINITION(iProjectLoaded, const iaString &);
+
+    /*! project reloaded event ie after a project mode change
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectReloaded);
+
+    /*! project unloaded
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
+
     /*! project pointer definition
      */
     class iProject;
@@ -61,21 +73,20 @@ namespace igor
         friend class iModule<iProject>;
 
     public:
-
         /*! project mode
-        */
+         */
         enum class iMode
         {
             Edit,
             Runtime
-        };  
+        };
 
         /*! opens project
 
         closes active project if any
 
         \param path the given project file or folder
-        \returns project        
+        \returns project
         */
         void load(const iaString &path, iMode mode = iMode::Runtime);
 
@@ -135,7 +146,19 @@ namespace igor
 
         /*! \returns project scene removed event
          */
-        iSceneRemovedEvent &getSceneRemovedEvent();        
+        iSceneRemovedEvent &getSceneRemovedEvent();
+
+        /*! \return project loaded event
+         */
+        iProjectLoadedEvent &getProjectLoadedEvent();
+
+        /*! \return project reloaded event
+         */
+        iProjectReloadedEvent &getProjectReloadedEvent();
+
+        /*! \return project unloaded event
+         */
+        iProjectUnloadedEvent &getProjectUnloadedEvent();
 
         /*! \returns list of all sub scenes in this project excluding root scene
          */
@@ -151,7 +174,7 @@ namespace igor
 
         \param mode the mode to switch to
         */
-        void setProjectMode(iMode mode);
+        void setMode(iMode mode);
 
     private:
         /*! project folder
@@ -159,7 +182,7 @@ namespace igor
         iaString _projectFolder;
 
         /*! project file
-        */
+         */
         iaString _projectFile;
 
         /*! project name
@@ -171,11 +194,11 @@ namespace igor
         iEntityScenePtr _activeScene = nullptr;
 
         /*! the edit mode scene
-        */
+         */
         iEntityScenePtr _editScene = nullptr;
 
         /*! the runtime mode scene
-        */
+         */
         iEntityScenePtr _runtimeScene = nullptr;
 
         /*! true if project is loaded
@@ -190,12 +213,24 @@ namespace igor
          */
         iSceneRemovedEvent _sceneRemovedEvent;
 
+        /*! project loaded event
+         */
+        iProjectLoadedEvent _projectLoadedEvent;
+
+        /*! project reloaded event
+         */
+        iProjectReloadedEvent _projectReloadedEvent;
+
+        /*! project unloaded event
+         */
+        iProjectUnloadedEvent _projectUnloadedEvent;
+
         /*! scenes referenced by project
          */
-        std::vector<iResourceID> _scenes;      
+        std::vector<iResourceID> _scenes;
 
         /*! current project mode
-        */
+         */
         iMode _mode = iMode::Runtime;
 
         /*! loads project

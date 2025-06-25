@@ -12,8 +12,12 @@ Outliner::Outliner()
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
     iEntitySystemModule::getInstance().getHierarchyChangedEvent().add(iHierarchyChangedDelegate(this, &Outliner::onHierarchyChanged));
     iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
+
     iProject::getInstance().getSceneAddedEvent().add(iSceneAddedDelegate(this, &Outliner::onSceneAdded));
     iProject::getInstance().getSceneRemovedEvent().add(iSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Outliner::onProjectReloaded));
 
     iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
 }
@@ -359,11 +363,6 @@ void Outliner::populateTree()
 
     auto projectScene = project.getRootScene();
 
-    con_endl("populateTree");
-    iEntityPrintTraverser print;
-    print.traverse(projectScene);
-    con_endl("\n" << print.getOutput());
-
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
     auto rootItem = _itemData->getItem(iItemPath(""));
@@ -430,26 +429,15 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
     refresh();
 }
 
-bool Outliner::onEvent(const iEvent &event)
-{
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
-
-    return false;
-}
-
-bool Outliner::onProjectLoaded(const iEventProjectLoaded &event)
+void Outliner::onProjectLoaded(const iaString &projectfile)
 {
     auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         refresh();
-        return false;
     }
 
-    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Outliner::onSelectionChanged));
 
     refresh();
 
@@ -463,14 +451,16 @@ bool Outliner::onProjectLoaded(const iEventProjectLoaded &event)
         iConfig::getInstance().setValue("mica.recentProjects", recent);
         iConfig::getInstance().write();
     }
-
-    return false;
 }
 
-bool Outliner::onProjectUnloaded(const iEventProjectUnloaded &event)
+void Outliner::onProjectUnloaded()
 {
     refresh();
-    return false;
+}
+
+void Outliner::onProjectReloaded()
+{
+    refresh();
 }
 
 void Outliner::onEntityNameChanged(iEntityPtr entity)

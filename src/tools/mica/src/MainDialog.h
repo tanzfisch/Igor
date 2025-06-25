@@ -137,23 +137,15 @@ private:
      */
     void onPlayStop(iWidgetPtr source);
 
-    /*! called on any other event
-     */
-    bool onEvent(const iEvent &event) override;
-
     /*! on project loaded event
 
-    \param event the event data
-    \returns true if event was consumed
+    \param projectfile the project file loaded
     */
-    bool onProjectLoaded(const iEventProjectLoaded &event);
+    void onProjectLoaded(const iaString &projectfile);
 
     /*! on project unloaded event
-
-    \param event the event data
-    \returns true if event was consumed
     */
-    bool onProjectUnloaded(const iEventProjectUnloaded &event);
+    void onProjectUnloaded();
 };
 
 #endif // MICA_MAIN_LAYOUT_H

@@ -114,12 +114,6 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     iProject::getInstance().load(_fileDialog.getFullPath(), iProject::iMode::Edit);
 }
 
-bool UILayer::onProjectLoaded(iEventProjectLoaded &event)
-{
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
-    return false;
-}
-
 void UILayer::onSaveProject()
 {
     iProject::getInstance().save();
@@ -135,7 +129,6 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(UILayer::onProjectLoaded));
 }
 
 bool UILayer::onKeyDown(iEventKeyDown &event)

@@ -146,11 +146,15 @@ private:
 
     /*! called when project was loaded
      */
-    bool onProjectLoaded(const iEventProjectLoaded &event);
+    void onProjectLoaded(const iaString &projectfile);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(const iEventProjectUnloaded &event);
+    void onProjectUnloaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectReloaded();
 
     /*! called when user want's to load a scene
      */
@@ -180,12 +184,6 @@ private:
     \param active if true this subscene will be displayed as active
     */
     void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
-
-    /*! handles incoming generic event
-
-    \param event the event
-    */
-    bool onEvent(const iEvent &event) override;
 
     /*! handle selection change
      */

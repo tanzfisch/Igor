@@ -7,6 +7,9 @@
 MainDialog::MainDialog()
 {
     onInitUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &MainDialog::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &MainDialog::onProjectUnloaded));
 }
 
 void MainDialog::onInitUI()
@@ -51,7 +54,12 @@ void MainDialog::onPlayStop(iWidgetPtr source)
     _playStopButton->setChecked(!_playStopButton->isChecked());
     bool playing = _playStopButton->isChecked();
     _playStopButton->setIcon(playing ? "igor_icon_stop" : "igor_icon_play");
-    iProject::getInstance().setProjectMode(playing ? iProject::iMode::Runtime : iProject::iMode::Edit);
+
+    if (playing)
+    {
+        iProject::getInstance().save();
+    }
+    iProject::getInstance().setMode(playing ? iProject::iMode::Runtime : iProject::iMode::Edit);
 }
 
 void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
@@ -147,27 +155,16 @@ void MainDialog::onPrintProjectTree(const iWidgetPtr source)
 {
     iEntityPrintTraverser print(true);
     print.traverse(iProject::getInstance().getRootScene());
-    con_endl("\n" << print.getOutput());
+    con_endl("\n"
+             << print.getOutput());
 }
 
-bool MainDialog::onProjectLoaded(const iEventProjectLoaded &event)
+void MainDialog::onProjectLoaded(const iaString &projectfile)
 {
     _playStopButton->setEnabled(true);
-    return false;
 }
 
-bool MainDialog::onProjectUnloaded(const iEventProjectUnloaded &event)
+void MainDialog::onProjectUnloaded()
 {
     _playStopButton->setEnabled(false);
-    return false;
-}
-
-bool MainDialog::onEvent(const iEvent &event)
-{
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(MainDialog::onProjectUnloaded));
-
-    return false;
 }

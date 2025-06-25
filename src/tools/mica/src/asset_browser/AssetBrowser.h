@@ -165,7 +165,6 @@ private:
     */
    void onSelectionChangedTree(const iWidgetPtr source);
 
-
     /*! handle context menu event
 
     \param source the source widget of this event
@@ -184,6 +183,17 @@ private:
     */
     bool onEvent(const iEvent &event) override;
 
+    /*! called when project was loaded
+     */
+    void onProjectLoaded(const iaString &projectfile);
+
+    /*! called when project was unloaded
+     */
+    void onProjectUnloaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectReloaded();    
 };
 
 #endif // ASSET_BROWSER_H

@@ -12,6 +12,15 @@ static const float64 s_wheelSensitivity = 1.2;
 
 Viewport::Viewport()
 {
+    onInitUI();
+
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Viewport::onProjectReloaded));
+}
+
+void Viewport::onInitUI()
+{
     setTitle("Viewport");
     setHeaderEnabled(false);
     setDockable(true);
@@ -164,7 +173,7 @@ void Viewport::onChangeCamera(iWidgetPtr source)
         {
             camera->setActive(false);
         }
-    }    
+    }
 }
 
 void Viewport::onContextMenu(iWidgetPtr source)
@@ -221,32 +230,38 @@ void Viewport::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
     }
 }
 
-bool Viewport::onProjectLoaded(const iEventProjectLoaded &event)
+void Viewport::onProjectLoaded(const iaString &projectfile)
 {
     auto projectScene = iProject::getInstance().getRootScene();
-    if (projectScene == nullptr)
-    {
-        return false;
-    }
-
-    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Viewport::onSelectionChanged));
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
 
     _viewportScene->getView().setScene(projectScene->getID());
 
     _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
     _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
-    
-    return false;
+
+    setOverlayMode(OverlayMode::None);
 }
 
-bool Viewport::onProjectUnloaded(const iEventProjectUnloaded &event)
+void Viewport::onProjectUnloaded()
 {
     _viewportScene->getView().setScene(iEntitySceneID::getInvalid());
     _cameraArc = nullptr;
 
     setOverlayMode(OverlayMode::None);
+}
 
-    return false;
+void Viewport::onProjectReloaded()
+{
+    auto projectScene = iProject::getInstance().getRootScene();
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
+
+    _viewportScene->getView().setScene(projectScene->getID());
+
+    _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
+    _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
+
+    setOverlayMode(OverlayMode::None);
 }
 
 void Viewport::onResourceLoaded(const iResourceID resourceID)
@@ -684,16 +699,6 @@ void Viewport::draw()
     {
         child->draw();
     }
-}
-
-bool Viewport::onEvent(const iEvent &event)
-{
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Viewport::onProjectUnloaded));
-
-    return false;
 }
 
 void Viewport::onDragMove(iDrag &drag, const iaVector2f &mousePos)
