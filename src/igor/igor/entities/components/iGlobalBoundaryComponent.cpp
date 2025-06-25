@@ -37,7 +37,7 @@ namespace igor
     void iGlobalBoundaryComponent::setType(iGlobalBoundaryType type)
     {
         _type = type;
-        setDirty();
+        increaseVersion();
     }
 
     std::vector<iaString> iGlobalBoundaryComponent::getInfo() const

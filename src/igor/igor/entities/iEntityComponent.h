@@ -163,10 +163,7 @@ namespace igor
 
         /*! sets component dirty by increasing version
          */
-        IGOR_INLINE void setDirty()
-        {
-            _version++;
-        }
+        void increaseVersion();
 
         /*! \returns version
          */

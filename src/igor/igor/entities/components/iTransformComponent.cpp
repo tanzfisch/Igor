@@ -41,7 +41,7 @@ namespace igor
         if (_transform._position != position)
         {
             _transform._position = position;
-            setDirty();
+            increaseVersion();
             _entity->setDirtyHierarchy();
         }
     }
@@ -66,7 +66,7 @@ namespace igor
         if (_transform._orientation != orientation)
         {
             _transform._orientation = orientation;
-            setDirty();
+            increaseVersion();
             _entity->setDirtyHierarchy();
         }
     }
@@ -74,7 +74,7 @@ namespace igor
     void iTransformComponent::rotate(const iaQuaterniond &rotate)
     {
         _transform._orientation *= rotate;
-        setDirty();
+        increaseVersion();
         _entity->setDirtyHierarchy();
     }
 
@@ -93,7 +93,7 @@ namespace igor
         if (_transform._scale != scale)
         {
             _transform._scale = scale;
-            setDirty();
+            increaseVersion();
             _entity->setDirtyHierarchy();
         }
     }

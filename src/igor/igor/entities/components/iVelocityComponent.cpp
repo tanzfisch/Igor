@@ -26,13 +26,13 @@ namespace igor
     void iVelocityComponent::setVelocity(const iaVector3d &velocity)
     {
         _velocity = velocity;
-        setDirty();
+        increaseVersion();
     }
 
     void iVelocityComponent::setAngularVelocity(const iaVector3d &angularVelocity)
     {
         _angularVelocity = angularVelocity;
-        setDirty();
+        increaseVersion();
     }
 
     std::vector<iaString> iVelocityComponent::getInfo() const

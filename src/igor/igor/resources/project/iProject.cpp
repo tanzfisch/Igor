@@ -279,7 +279,29 @@ namespace igor
         return _activeScene;
     }
 
-    static void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
+    void iProject::saveScene(iEntityPtr prefabEntity)
+    {
+        auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
+        auto prefab = prefabComp->getPrefab();
+        auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
+        prefabScene->clear();
+
+        iEntityCopyTraverser traverser(prefabScene->getRootEntity(), true);
+
+        for (const auto entity : prefabEntity->getChildren())
+        {
+            traverser.traverse(entity);
+        }
+
+        for (const auto entity : prefabEntity->getInactiveChildren())
+        {
+            traverser.traverse(entity);
+        }
+
+        iResourceManager::getInstance().saveResource(prefab->getID());
+    }
+
+    void iProject::writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson)
     {
         for (auto entity : entities)
         {
@@ -289,13 +311,7 @@ namespace igor
                 continue;
             }
 
-            auto prefab = prefabComponent->getPrefab();
-            if (prefab == nullptr)
-            {
-                continue;
-            }
-
-            iResourceManager::getInstance().saveResource(prefabComponent->getPrefab()->getID());
+            saveScene(entity);
 
             json sceneJson =
                 {

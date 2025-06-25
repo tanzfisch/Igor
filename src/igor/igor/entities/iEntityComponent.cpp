@@ -60,6 +60,11 @@ namespace igor
         return result;
     }
 
+    void iEntityComponent::increaseVersion()
+    {
+        _version++;
+    }
+
     uint16 iEntityComponent::getVersion() const
     {
         return _version;

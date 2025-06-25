@@ -219,6 +219,19 @@ namespace igor
         \param filename the project configuration file
         */
         bool write(const iaString &filename);
+
+        /*! save prefab if it has changed
+
+        \param prefabEntity entity with prefab component
+        */
+        void saveScene(iEntityPtr prefabEntity);
+
+        /*! helper function to write scenes in to json
+
+        \param entities list of prefab entities
+        \param scenesJson json
+        */
+        void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson);
     };
 
 } // namespace igor

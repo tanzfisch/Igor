@@ -44,13 +44,13 @@ namespace igor
     void iMeshReferenceComponent::setModel(iModelPtr model)
     {
         _model = model;
-        setDirty();
+        increaseVersion();
     }
 
     void iMeshReferenceComponent::setMeshPaths(const std::vector<iaString> &meshPaths)
     {
         _meshPaths = meshPaths;
-        setDirty();
+        increaseVersion();
     }
 
     const std::vector<iaString> &iMeshReferenceComponent::getMeshPaths() const
