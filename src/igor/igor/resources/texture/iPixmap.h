@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PIXMAP__
-#define __IGOR_PIXMAP__
+#ifndef IGOR_PIXMAP_H
+#define IGOR_PIXMAP_H
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -65,7 +65,7 @@ namespace igor
         \param height height of pixmap in pixel
         \param colorFormat the color format of the pixmap
         */
-        static iPixmapPtr createPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
+        static iPixmapPtr createPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data = nullptr);
 
         /*! loads pixmap from file
 
@@ -89,12 +89,6 @@ namespace igor
         /*! \returns color format in use
          */
         iColorFormat getColorFormat() const;
-
-        /*! sets pixmap data
-
-        \param data
-        */
-        void setData(uint8 *data);
 
         /*! \returns pointer to pixel data
          */
@@ -223,10 +217,11 @@ namespace igor
         \param width width of pixmap in pixel
         \param height height of pixmap in pixel
         \param colorFormat the color format of the pixmap
+        \param data pixel data
         */
-        iPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
+        iPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data = nullptr);
     };
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_PIXMAP_H

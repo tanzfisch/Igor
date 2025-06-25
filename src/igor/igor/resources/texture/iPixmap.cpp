@@ -17,9 +17,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iPixmapPtr iPixmap::createPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
+    iPixmapPtr iPixmap::createPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data)
     {
-        return iPixmapPtr(new iPixmap(width, height, colorFormat));
+        return iPixmapPtr(new iPixmap(width, height, colorFormat, data));
     }
 
     iPixmapPtr iPixmap::loadPixmap(const iaString &filename)
@@ -27,7 +27,7 @@ namespace igor
         return iTextureFactory::loadPixmap(filename);
     }
 
-    iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
+    iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data)
     {
         _colorFormat = colorFormat;
         _width = width;
@@ -49,16 +49,17 @@ namespace igor
             break;
         };
 
-        uint64 size = _width * _height * _bytesPerPixel;
+        const uint64 size = _width * _height * _bytesPerPixel;
+        con_assert(size > 0, "invalid size");
+        _data = new uint8[size];
 
-        if (size > 0)
-        {
-            _data = new uint8[size];
+        if (data == nullptr)
+        {            
             memset(_data, 0, size);
         }
         else
         {
-            con_err("invalid parameters");
+            memcpy(_data, data, size);
         }
     }
 
@@ -68,29 +69,6 @@ namespace igor
         {
             delete[] _data;
             _data = nullptr;
-        }
-    }
-
-    void iPixmap::setData(uint8 *data)
-    {
-        if (!data)
-            return;
-        if (!_bytesPerPixel)
-            return;
-
-        uint64 size = _width * _height * _bytesPerPixel;
-        if (size > 0)
-        {
-            if (_data == nullptr)
-            {
-                _data = new uint8[size];
-            }
-
-            memcpy(_data, data, size);
-        }
-        else
-        {
-            con_err("inconsistant data");
         }
     }
 
