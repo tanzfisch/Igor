@@ -141,7 +141,7 @@
         "alias": "igor_icon_stop",
         "id": "0xa41fcd64ffe63223",
         "internal": true,
-        "source": "icons/play.png"
+        "source": "icons/stop.png"
     },    
     {
         "alias": "igor_icon_pause",
