@@ -254,12 +254,20 @@ void Viewport::onProjectUnloaded()
 void Viewport::onProjectReloaded()
 {
     auto projectScene = iProject::getInstance().getRootScene();
-    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
-
     _viewportScene->getView().setScene(projectScene->getID());
 
-    _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
-    _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
+    if (iProject::getInstance().getMode() == iProject::iMode::Runtime)
+    {
+        _viewportScene->getView().setOverrideCamera(nullptr);
+        auto cam = projectScene->getActiveCamera();
+    }
+    else
+    {
+        projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Viewport::onSelectionChanged));
+
+        _cameraArc = std::make_unique<CameraArc>(_viewportOverlay->getView().getSceneID());
+        _viewportScene->getView().setOverrideCamera(_cameraArc->getEntitySceneID(), _cameraArc->getCameraID());
+    }
 
     setOverlayMode(OverlayMode::None);
 }
