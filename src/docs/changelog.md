@@ -10,6 +10,7 @@ Changelog                           {#changelog}
 - Introduced iShaderUtils
 - #451 added play button
 - #375 cleaned up iPixmap interface and reduced it to a minimum
+- #362 removed iwidget::getKeyboardFocusWidget. It was not used
 
 0.45.0
 ------

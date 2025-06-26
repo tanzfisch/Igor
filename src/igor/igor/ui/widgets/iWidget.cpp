@@ -148,11 +148,6 @@ namespace igor
         return _tooltip;
     }
 
-    iWidgetPtr iWidget::getKeyboardFocusWidget()
-    {
-        return _keyboardFocus;
-    }
-
     iaString iWidget::getInfo() const
     {
         std::wstringstream stream;
