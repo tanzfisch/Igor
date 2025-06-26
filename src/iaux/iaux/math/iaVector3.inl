@@ -69,11 +69,11 @@ IGOR_INLINE iaVector3<T> iaVector3<T>::operator-(const iaVector3<T> &a) const
 }
 
 template <class T>
-bool iaVector3<T>::operator==(const iaVector3<T> &a) const
+bool iaVector3<T>::operator==(const iaVector3<T> &other) const
 {
-    if (_x == a._x &&
-        _y == a._y &&
-        _z == a._z)
+    if (_x == other._x &&
+        _y == other._y &&
+        _z == other._z)
     {
         return true;
     }
@@ -84,11 +84,11 @@ bool iaVector3<T>::operator==(const iaVector3<T> &a) const
 }
 
 template <class T>
-bool iaVector3<T>::operator!=(const iaVector3<T> &a) const
+bool iaVector3<T>::operator!=(const iaVector3<T> &other) const
 {
-    if (_x != a._x ||
-        _y != a._y ||
-        _z != a._z)
+    if (_x != other._x ||
+        _y != other._y ||
+        _z != other._z)
     {
         return true;
     }
@@ -242,7 +242,7 @@ IGOR_INLINE void iaVector3<T>::negate()
 template <class T>
 void iaVector3<T>::normalize()
 {
-    if(_x == 0 && _y == 0 && _z == 0)
+    if (_x == 0 && _y == 0 && _z == 0)
     {
         return;
     }

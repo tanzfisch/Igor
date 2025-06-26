@@ -96,3 +96,47 @@ void iaColor4<T>::operator*(float32 factor)
     result._b = _b * factor;
     result._a = _a * factor;
 }
+
+template <class T>
+T &iaColor4<T>::operator[](int i)
+{
+    return (&_r)[i];
+}
+
+template <class T>
+const T &iaColor4<T>::operator[](int i) const
+{
+    return (&_r)[i];
+}
+
+template <class T>
+bool iaColor4<T>::operator==(const iaColor4<T> &other) const
+{
+    if (_r == other._r &&
+        _g == other._g &&
+        _b == other._b &&
+        _a == other._a)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <class T>
+bool iaColor4<T>::operator!=(const iaColor4<T> &other) const
+{
+    if (_r != other._r ||
+        _g != other._g ||
+        _b != other._b ||
+        _a != other._a)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

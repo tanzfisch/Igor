@@ -73,3 +73,45 @@ void iaColor3<T>::operator*=(float32 value)
     _g = static_cast<T>(static_cast<float32>(_g) * value);
     _b = static_cast<T>(static_cast<float32>(_b) * value);
 }
+
+template <class T>
+T &iaColor3<T>::operator[](int i)
+{
+    return (&_r)[i];
+}
+
+template <class T>
+const T &iaColor3<T>::operator[](int i) const
+{
+    return (&_r)[i];
+}
+
+template <class T>
+bool iaColor3<T>::operator==(const iaColor3<T> &other) const
+{
+    if (_r == other._r &&
+        _g == other._g &&
+        _b == other._b)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <class T>
+bool iaColor3<T>::operator!=(const iaColor3<T> &other) const
+{
+    if (_r != other._r ||
+        _g != other._g ||
+        _b != other._b)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

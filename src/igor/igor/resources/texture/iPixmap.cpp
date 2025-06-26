@@ -54,7 +54,7 @@ namespace igor
         _data = new uint8[size];
 
         if (data == nullptr)
-        {            
+        {
             memset(_data, 0, size);
         }
         else
@@ -97,168 +97,56 @@ namespace igor
         return _colorFormat;
     }
 
-    uint32 iPixmap::getPixel(uint32 x, uint32 y) const
-    {
-        con_assert(x < _width && y < _height, "parameter out of range");
-        con_assert(_bytesPerPixel == 4, "only 4 byte per pixel supported in this function");
-        con_assert(_data != nullptr, "invalid data");
-
-        return ((uint32 *)_data)[y * _width + x];
-    }
-
-    void iPixmap::setPixel(uint32 x, uint32 y, uint32 color)
-    {
-        con_assert(x < _width && y < _height, "parameter out of range");
-        con_assert(_bytesPerPixel == 4, "only 4 byte per pixel supported in this function");
-        con_assert(_data != nullptr, "invalid data");
-
-        ((uint32 *)_data)[y * _width + x] = color;
-    }
-
-    uint8 iPixmap::getPixel(uint32 x, uint32 y, uint8 colorChannel) const
-    {
-        con_assert(x < _width && y < _height && colorChannel < _bytesPerPixel, "parameter out of range");
-        con_assert(_data != nullptr, "invalid data");
-
-        return _data[(y * _width + x) * _bytesPerPixel + colorChannel];
-    }
-
-    void iPixmap::setPixel(uint32 x, uint32 y, uint8 colorChannel, uint8 value)
-    {
-        con_assert(x < _width && y < _height && colorChannel < _bytesPerPixel, "parameter out of range");
-        con_assert(_data != nullptr, "invalid data");
-
-        _data[(y * _width + x) * _bytesPerPixel + colorChannel] = value;
-    }
-
-    void iPixmap::setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b)
-    {
-        con_assert(x < _width && y < _height, "parameter out of range");
-        con_assert(_data != nullptr && _bytesPerPixel == 3, "invalid data");
-
-        _data[(y * _width + x) * _bytesPerPixel + 0] = r;
-        _data[(y * _width + x) * _bytesPerPixel + 1] = g;
-        _data[(y * _width + x) * _bytesPerPixel + 2] = b;
-    }
-
-    void iPixmap::setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a)
-    {
-        con_assert(x < _width && y < _height, "parameter out of range");
-        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
-
-        uint64 pos = (y * _width + x) * _bytesPerPixel;
-
-        _data[pos++] = r;
-        _data[pos++] = g;
-        _data[pos++] = b;
-        _data[pos++] = a;
-    }
-
-    void iPixmap::getPixel(float64 x, float64 y, iaColor4f &color) const
-    {
-        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
-        iaColor4c temp;
-
-        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
-
-        temp._r = _data[pos++];
-        temp._g = _data[pos++];
-        temp._b = _data[pos++];
-        temp._a = _data[pos++];
-
-        iaConvert::convert(temp, color);
-    }
-
-    void iPixmap::getPixelBiLinear(float64 x, float64 y, iaColor4f &color) const
-    {
-        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
-        iaColor4c c;
-        iaColor4f c1;
-        iaColor4f c2;
-        iaColor4f c3;
-        iaColor4f c4;
-
-        uint64 xi = static_cast<uint64>(x);
-        uint64 yi = static_cast<uint64>(y);
-
-        float64 dx = x - static_cast<float64>(xi);
-        float64 dy = y - static_cast<float64>(yi);
-
-        uint64 pos = (yi * _width + xi) * _bytesPerPixel;
-
-        c._r = _data[pos++];
-        c._g = _data[pos++];
-        c._b = _data[pos++];
-        c._a = _data[pos++];
-
-        iaConvert::convert(c, c1);
-
-        c._r = _data[pos++];
-        c._g = _data[pos++];
-        c._b = _data[pos++];
-        c._a = _data[pos++];
-
-        iaConvert::convert(c, c2);
-
-        c3 = iaMath::lerp(c2, c1, dx);
-
-        yi++;
-        pos = (yi * _width + xi) * _bytesPerPixel;
-
-        c._r = _data[pos++];
-        c._g = _data[pos++];
-        c._b = _data[pos++];
-        c._a = _data[pos++];
-
-        iaConvert::convert(c, c1);
-
-        c._r = _data[pos++];
-        c._g = _data[pos++];
-        c._b = _data[pos++];
-        c._a = _data[pos++];
-
-        iaConvert::convert(c, c2);
-
-        c4 = iaMath::lerp(c2, c1, dx);
-
-        color = iaMath::lerp(c4, c3, dy);
-    }
-
-    void iPixmap::getPixel(float64 x, float64 y, iaColor4c &color) const
+    const iaColor4c iPixmap::getPixelRGBA(float64 x, float64 y) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
 
         uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
 
+        iaColor4c color;
         color._r = _data[pos++];
         color._g = _data[pos++];
         color._b = _data[pos++];
         color._a = _data[pos++];
+
+        return color;
     }
 
-    void iPixmap::getPixel(float64 x, float64 y, iaColor3f &color) const
-    {
-        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
-        iaColor3c temp;
-
-        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
-
-        temp._r = _data[pos++];
-        temp._g = _data[pos++];
-        temp._b = _data[pos++];
-
-        iaConvert::convert(temp, color);
-    }
-
-    void iPixmap::getPixel(float64 x, float64 y, iaColor3c &color) const
+    void iPixmap::setPixel(float64 x, float64 y, const iaColor4c &color)
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
 
         uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
 
+        _data[pos++] = color._r;
+        _data[pos++] = color._g;
+        _data[pos++] = color._b;
+        _data[pos++] = color._a;
+    }    
+
+    const iaColor3c iPixmap::getPixelRGB(float64 x, float64 y) const
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 3, "invalid data");        
+
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+
+        iaColor3c color;
         color._r = _data[pos++];
         color._g = _data[pos++];
         color._b = _data[pos++];
+
+        return color;
     }
+
+    void iPixmap::setPixel(float64 x, float64 y, const iaColor3c &color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 3, "invalid data");
+
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+
+        _data[pos++] = color._r;
+        _data[pos++] = color._g;
+        _data[pos++] = color._b;
+    }    
 
 }; // namespace igor
