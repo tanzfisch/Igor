@@ -112,10 +112,36 @@ namespace iaux
         */
         void operator*(float32 factor);       
 
+        /*! comparison of two colors
+
+        \param other the other color to compare with
+        \returns true if colors are equal
+        */
+        bool operator==(const iaColor3<T> &other) const;
+
+        /*! comparison of two colors
+
+        \param other the other color to compare with
+        \returns true if colors are NOT equal
+        */
+        bool operator!=(const iaColor3<T> &other) const;        
+
         /*! \returns random color (opaque)
         */
         static iaColor3<T> random();
 
+        /*! \returns component value by index (const version)
+
+        \param i index of component
+        */
+        const T &operator[](int i) const;
+
+        /*! \returns component value by index
+
+        \param i index of component
+        */
+        T &operator[](int i);    
+        
         static IAUX_API_IMPORT_ONLY const iaColor3<T> white;
         static IAUX_API_IMPORT_ONLY const iaColor3<T> lightGray;
         static IAUX_API_IMPORT_ONLY const iaColor3<T> gray;

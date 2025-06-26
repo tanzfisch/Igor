@@ -158,17 +158,17 @@ namespace iaux
 
         /*! comparison of two vectors
 
-        \param a the second vector to compare this vector with
+        \param other the second vector to compare this vector with
         \returns true if vectors are equal
         */
-        bool operator==(const iaVector3<T> &a) const;
+        bool operator==(const iaVector3<T> &other) const;
 
         /*! negated comparison of two vectors
 
-        \param a the second vector to compare this vector with
+        \param v the second vector to compare this vector with
         \returns true if vectors are not equal
         */
-        bool operator!=(const iaVector3<T> &a) const;
+        bool operator!=(const iaVector3<T> &other) const;
 
         /*! \returns component value by index (const version)
 

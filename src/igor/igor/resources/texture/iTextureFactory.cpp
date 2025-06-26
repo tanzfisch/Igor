@@ -290,8 +290,7 @@ namespace igor
             con_warn("unsupported color format");
         };
 
-        pixmap = iPixmap::createPixmap(width, height, colorFormat);
-        pixmap->setData(textureData);
+        pixmap = iPixmap::createPixmap(width, height, colorFormat, textureData);
 
         con_trace("loaded texture as pixmap \"" << fullPath << "\" [" << width << ":" << height << "] ");
 

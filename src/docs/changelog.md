@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - #410 improved UserControlMaterial in Mica and dependencies
 - Introduced iShaderUtils
 - #451 added play button
+- #375 cleaned up iPixmap interface and reduced it to a minimum
 
 0.45.0
 ------
