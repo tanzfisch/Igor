@@ -16,7 +16,7 @@ Viewport::Viewport()
 
     iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Viewport::onProjectLoaded));
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Viewport::onProjectUnloaded));
-    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Viewport::onProjectReloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Viewport::onProjectReloaded), false, iaExecuteType::NextFrameMainThread);
 }
 
 void Viewport::onInitUI()
@@ -63,7 +63,7 @@ void Viewport::onInitUI()
 
     _materialOrientationOverlay = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_orientation_plane");
 
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, true);
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Viewport::onResourceLoaded), false, iaExecuteType::NextFrameMainThread);
 
     _materialCelShading = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_cellshading_yellow");
     _materialBoundingBox = iResourceManager::getInstance().loadResource<iShader>("igor_shader_material_bounding_box");
@@ -259,7 +259,6 @@ void Viewport::onProjectReloaded()
     if (iProject::getInstance().getMode() == iProject::iMode::Runtime)
     {
         _viewportScene->getView().setOverrideCamera(nullptr);
-        auto cam = projectScene->getActiveCamera();
     }
     else
     {
@@ -342,6 +341,11 @@ void Viewport::frameOnSelection()
 void Viewport::renderScene()
 {
     renderSelection();
+
+    if (iProject::getInstance().isLoaded())
+    {
+        auto cam = iProject::getInstance().getRootScene()->getActiveCamera();
+    }
 }
 
 void Viewport::renderSelection()
@@ -387,6 +391,11 @@ void Viewport::renderSelection()
 
 void Viewport::renderOverlay()
 {
+    if(iProject::getInstance().getMode() == iProject::iMode::Runtime)
+    {
+        return;
+    }
+
     if (_renderOverlayGrid)
     {
         renderOverlayGrid();

@@ -208,7 +208,7 @@ void AssetBrowser::onUpdateGridView()
             return;
         }
 
-        iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded), false, true);
+        iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &AssetBrowser::onResourceLoaded), false, iaExecuteType::NextFrameMainThread);
 
         const iaString relativePath = iaPath::getRelativePath(projectDir.getAbsolutePath(), file.getFullFileName());
         _currentFocussedResource = iResourceManager::getInstance().getResourceID(relativePath);

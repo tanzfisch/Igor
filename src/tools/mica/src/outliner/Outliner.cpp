@@ -19,7 +19,7 @@ Outliner::Outliner()
     iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
     iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Outliner::onProjectReloaded));
 
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, iaExecuteType::NextFrameMainThread);
 }
 
 void Outliner::onInitUI()
