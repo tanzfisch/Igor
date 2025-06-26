@@ -176,6 +176,10 @@ namespace igor
         */
         void setMode(iMode mode);
 
+        /*! \returns current project mode
+        */
+        iProject::iMode getMode() const;
+
     private:
         /*! project folder
          */

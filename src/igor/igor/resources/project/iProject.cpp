@@ -52,6 +52,11 @@ namespace igor
         }
     }
 
+    iProject::iMode iProject::getMode() const
+    {
+        return _mode;
+    }
+
     void iProject::setMode(iMode mode)
     {
         if (!isLoaded() ||
