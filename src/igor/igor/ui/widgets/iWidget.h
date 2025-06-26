@@ -506,10 +506,6 @@ namespace igor
          */
         iaString getInfo() const;
 
-        /*! \returns the widget that is currently in focus
-         */
-        static iWidgetPtr getKeyboardFocusWidget();
-
         /*! sets the tooltip text
 
         \param text the tooltip text
