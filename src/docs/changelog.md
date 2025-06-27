@@ -8,7 +8,7 @@ Changelog                           {#changelog}
 - #448 renamed all the resource related user controls in Mica
 - #410 improved UserControlMaterial in Mica and dependencies
 - Introduced iShaderUtils
-- #451 added play button
+- #451, #454 added play button
 - #375 cleaned up iPixmap interface and reduced it to a minimum
 - #362 removed iwidget::getKeyboardFocusWidget. It was not used
 

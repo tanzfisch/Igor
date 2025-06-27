@@ -23,15 +23,15 @@ CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entit
     _cameraCOIID = coi->getID();
 
     auto heading = scene->createEntity("mica_camera_arc_heading");
-    heading->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    heading->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(iaVector3d(0, _cameraHeading, 0))));
     _cameraHeadingID = heading->getID();
 
     auto pitch = scene->createEntity("mica_camera_arc_pitch");
-    pitch->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    pitch->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(iaVector3d(_cameraPitch, 0, 0))));
     _cameraPitchID = pitch->getID();
 
     auto distance = scene->createEntity("mica_camera_arc_distance");
-    distance->addComponent(new iTransformComponent(iaVector3d(0, 0, 10)));
+    distance->addComponent(new iTransformComponent(iaVector3d(0, 0, 50)));
     _cameraDistanceID = distance->getID();
 
     auto camera = scene->createEntity("mica_camera_arc_camera");

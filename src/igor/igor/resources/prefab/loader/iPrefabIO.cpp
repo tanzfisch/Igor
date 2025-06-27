@@ -17,11 +17,31 @@
 #include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
 
 #include <fstream>
 
 namespace igor
 {
+    static void readAnimation(iEntityPtr entity, const json &componentJson)
+    {
+        iAnimationComponent *component = new iAnimationComponent();
+        entity->addComponent(component);
+
+        /*component->setPosition(componentJson["position"].get<iaVector3d>());
+        component->setOrientation(iaQuaterniond::fromEuler(componentJson["orientation"].get<iaVector3d>()));
+        component->setScale(componentJson["scale"].get<iaVector3d>());*/
+    }
+
+    static void writeAnimation(json &componentJson, iAnimationComponent *component)
+    {
+        // component->get
+
+        /*componentJson["position"] = component->getPosition();
+        componentJson["orientation"] = component->getOrientation().toEuler();
+        componentJson["scale"] = component->getScale();*/
+    }
+
     static void readTransform(iEntityPtr entity, const json &componentJson)
     {
         iTransformComponent *component = new iTransformComponent();
@@ -60,8 +80,8 @@ namespace igor
             component->setOrthogonal(
                 componentJson["orthoLeft"].get<float32>(),
                 componentJson["orthoRight"].get<float32>(),
-                componentJson["orthoTop"].get<float32>(),
-                componentJson["orthoBottom"].get<float32>());
+                componentJson["orthoBottom"].get<float32>(),
+                componentJson["orthoTop"].get<float32>());
         }
     }
 

@@ -52,6 +52,11 @@ namespace igor
         }
     }
 
+    iProject::iMode iProject::getMode() const
+    {
+        return _mode;
+    }
+
     void iProject::setMode(iMode mode)
     {
         if (!isLoaded() ||
@@ -286,6 +291,7 @@ namespace igor
     void iProject::saveScene(iEntityPtr prefabEntity)
     {
         auto prefabComp = prefabEntity->getComponent<iPrefabComponent>();
+        con_assert(prefabComp != nullptr, "must have prefab component");
         auto prefab = prefabComp->getPrefab();
         auto prefabScene = iEntitySystemModule::getInstance().getScene(prefab->getSceneID());
         prefabScene->clear();

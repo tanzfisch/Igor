@@ -2211,4 +2211,44 @@ namespace igor
         return _data->_colorIDShader;
     }
 
+    void iRenderer::printDebugInfo() const
+    {
+        std::wstringstream stream;
+        stream << std::endl
+               << "==== Renderer Debug Info ====" << std::endl;
+
+        stream << "Queues: Points(" << _data->_points._vertexCount << ")";
+        stream << " Lines(" << _data->_lines._vertexCount << ")";
+        stream << " Triangles(" << _data->_triangles._vertexCount << ")";
+        stream << " Quads(" << _data->_quads._vertexCount << ")";
+        stream << " Textured Quads(" << _data->_texQuads._vertexCount << ")" << std::endl;
+
+        stream << "Model Matrix:" << std::endl;
+        stream << _data->_modelMatrix << std::endl;
+        stream << "View Matrix:" << std::endl;
+        stream << _data->_viewMatrix << std::endl;
+        stream << "Projection Matrix:" << std::endl;
+        stream << _data->_projectionMatrix << std::endl;
+        stream << "Cam Matrix:" << std::endl;
+        stream << _data->_camMatrix << std::endl;
+
+        stream << "Viewport: " << _data->_viewport << std::endl;
+        stream << "RenderTargetID: " << _data->_currentRenderTarget << std::endl;
+        stream << "RenderTargetCount: " << _data->_renderTargets.size() << std::endl;
+
+        stream << "Lights: " << _data->_lights.size() << std::endl;
+
+        stream << "KeepRenderOrder: " << (_data->_keepRenderOrder ? "On" : "Off") << std::endl;
+        stream << "WireframeEnabled: " << (_data->_wireframeEnabled ? "On" : "Off") << std::endl;
+
+        stream << "LineWidth: " << _data->_lineWidth << std::endl;
+        stream << "PointSize: " << _data->_pointSize << std::endl;
+
+        stream << "Font: " << _data->_font->getTexture()->getSource() << std::endl;
+        stream << "FontSize: " << _data->_fontSize << std::endl;
+        stream << "FontLineHeight: " << _data->_fontLineHeight << std::endl;
+
+        con_endl(stream.str().c_str());
+    }
+
 }
