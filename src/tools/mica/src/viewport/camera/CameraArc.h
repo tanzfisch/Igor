@@ -131,11 +131,11 @@ private:
 
     /*! heading in rad
      */
-    float64 _cameraHeading = 0;
+    float64 _cameraHeading = 45.0 * IGOR_GRAD2RAD;
 
     /*! pitch in rad
      */
-    float64 _cameraPitch = 0;
+    float64 _cameraPitch = -25.0 * IGOR_GRAD2RAD;
 };
 
 /*! camera arc pointer definition

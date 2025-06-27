@@ -55,7 +55,17 @@ namespace igor
 
         delete _root;
 
-        flushQueues();
+        int32 maxdepth = 200;
+        while (!_entities.empty() && maxdepth > 0)
+        {
+            flushQueues();
+            maxdepth--;
+        }
+
+        if(maxdepth == 0)
+        {
+            con_err("could not clear scene");
+        }
 
         _root = new iEntity("root");
         _root->_scene = this;

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CLIP__
-#define __IGOR_CLIP__
+#ifndef IGOR_CLIP_H
+#define IGOR_CLIP_H
 
 #include <igor/resources/animation/iAnimation.h>
 
@@ -190,4 +190,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // __IGOR_CLIP__
+#endif // IGOR_CLIP_H

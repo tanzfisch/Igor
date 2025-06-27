@@ -818,6 +818,10 @@ namespace igor
          */
         void flush();
 
+        /*! prints some of the internal states
+        */
+        void printDebugInfo() const;
+
     private:
         /*! internal render data
          */

@@ -391,7 +391,7 @@ void Viewport::renderSelection()
 
 void Viewport::renderOverlay()
 {
-    if(iProject::getInstance().getMode() == iProject::iMode::Runtime)
+    if (iProject::getInstance().getMode() == iProject::iMode::Runtime)
     {
         return;
     }
