@@ -11,6 +11,7 @@ Changelog                           {#changelog}
 - #451, #454 added play button
 - #375 cleaned up iPixmap interface and reduced it to a minimum
 - #362 removed iwidget::getKeyboardFocusWidget. It was not used
+- #306 using ChaiScript for scripting
 
 0.45.0
 ------

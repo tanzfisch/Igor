@@ -118,6 +118,10 @@ set_target_properties(clip PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET clip PROPERTY FOLDER ${VENDOR_FOLDER}/clip)
 set(CLIP_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/clip")
 
+# Chaiscript
+add_subdirectory(vendor/ChaiScript EXCLUDE_FROM_ALL)
+set(CHAISCRIPT_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/ChaiScript/include")
+
 # nlohmann json
 message(STATUS "nlohmann json")
 set(JSON_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/nlohmann/")
@@ -133,14 +137,6 @@ set(STB_IMAGE_HEADERS_DIR ${STB_IMAGE_SRC_DIR})
 set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h" "${STB_IMAGE_HEADERS_DIR}stb_image_write.h" "${STB_IMAGE_HEADERS_DIR}stb_image_resize2.h")
 list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
 source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR} "\\vendor\\stb_image\\")
-
-# EnTT
-message(STATUS "EnTT")
-set(ENTT_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/entt/")
-set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
-set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
-list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
-source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
 
 # Igor Aux
 add_subdirectory(src/iaux)
