@@ -220,7 +220,9 @@ namespace igor
         const auto &camViewport = cameraComponent->getViewport();
 
         auto transformComponent = camera->getComponent<iTransformComponent>();
-        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+        auto camWorldMatrix = transformComponent->getWorldMatrix();
+
+        camWorldMatrix *= cameraComponent->getOffset().getMatrix();
 
         iaRectanglei rect;
         rect.setX(_viewport.getX() + camViewport.getX() * static_cast<float32>(_viewport.getWidth()) + 0.5f);

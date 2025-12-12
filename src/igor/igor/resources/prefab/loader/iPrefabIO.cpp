@@ -83,6 +83,17 @@ namespace igor
                 componentJson["orthoBottom"].get<float32>(),
                 componentJson["orthoTop"].get<float32>());
         }
+
+        if (componentJson.contains("offsetPosition"))
+        {
+            iaTransformd offset;
+
+            offset._position = componentJson["offsetPosition"].get<iaVector3d>();
+            offset._orientation.fromEuler(componentJson["offsetOrientation"].get<iaVector3d>());
+            offset._scale = componentJson["offsetScale"].get<iaVector3d>();
+
+            component->setOffset(offset);
+        }
     }
 
     static void writeCamera(json &componentJson, iCameraComponent *component)
@@ -100,6 +111,14 @@ namespace igor
         componentJson["orthoRight"] = component->getRightOrtho();
         componentJson["orthoTop"] = component->getTopOrtho();
         componentJson["orthoBottom"] = component->getBottomOrtho();
+        if (component->getOffset().hasTranslation() ||
+            component->getOffset().hasRotation() ||
+            component->getOffset().hasScale())
+        {
+            componentJson["offsetPosition"] = component->getOffset()._position;
+            componentJson["offsetOrientation"] = component->getOffset()._orientation.toEuler();
+            componentJson["offsetScale"] = component->getOffset()._scale;
+        }
     }
 
     static void readSphere(iEntityPtr entity, const json &componentJson)

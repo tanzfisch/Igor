@@ -194,7 +194,7 @@ namespace igor
 
         /*! adds behaviour to entity
 
-        \param behaviour the behaviour to be added
+        \param behaviour the behaviour delegate to be added
         \param userData user data added to behaviour
         \param name the name of the behaviour
         \param priority execution priority (low = 0, default = 100, high = ...)

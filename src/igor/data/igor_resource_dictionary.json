@@ -342,6 +342,18 @@
         "source": "textures/checker.png"
     },
     {
+        "alias": "igor_texture_white",
+        "id": "0x5d257080abbb2075",
+        "internal": true,
+        "source": "textures/white.png"
+    },
+    {
+        "alias": "igor_texture_black",
+        "id": "0x5d257080abbb2076",
+        "internal": true,
+        "source": "textures/black.png"
+    },
+    {
         "alias": "igor_icon_group",
         "id": "0x5dd98e8408918295",
         "internal": true,

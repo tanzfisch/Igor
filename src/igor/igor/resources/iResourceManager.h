@@ -285,8 +285,6 @@ namespace igor
 
         /*! loads resource dictionary
 
-        this will append resources to existing dictionary
-
         \param filename filename to resource dictionary
         */
         void loadResourceDictionary(const iaString &filename);
@@ -298,8 +296,6 @@ namespace igor
         void saveResourceDictionary(const iaString &filename);
 
         /*! clear resource dictionary
-
-        (means it will only contain igor internal resources)
         */
         void clearResourceDictionary();
 

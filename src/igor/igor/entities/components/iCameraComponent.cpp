@@ -39,6 +39,7 @@ namespace igor
         component->_rightOrtho = _rightOrtho;
         component->_topOrtho = _topOrtho;
         component->_bottomOrtho = _bottomOrtho;
+        component->_offset = _offset;
         return component;
     }
 
@@ -179,8 +180,22 @@ namespace igor
         result.push_back(iaString("Clear color: ") + iaString::toString(_clearColor._r) + ", " + iaString::toString(_clearColor._g) + ", " + iaString::toString(_clearColor._b) + ", " + iaString::toString(_clearColor._a) + " [" + (_clearColorActive ? "On" : "Off") + "]");
         result.push_back(iaString("Clear depth: ") + iaString::toString(_clearDepth) + " [" + (_clearDepthActive ? "On" : "Off") + "]");
         result.push_back(iaString("Ortho: ") + iaString::toString(_leftOrtho) + ", " + iaString::toString(_rightOrtho) + ", " + iaString::toString(_bottomOrtho) + ", " + iaString::toString(_topOrtho));
+        result.push_back(iaString("Offset Pos: ") + iaString::toString(_offset._position._x) + ", " + iaString::toString(_offset._position._y) + ", " + iaString::toString(_offset._position._z));
+        const auto euler = _offset._orientation.toEuler();
+        result.push_back(iaString("Offset Ori: ") + iaString::toString(euler._x) + ", " + iaString::toString(euler._y) + ", " + iaString::toString(euler._z));
+        result.push_back(iaString("Offset Scale: ") + iaString::toString(_offset._scale._x) + ", " + iaString::toString(_offset._scale._y) + ", " + iaString::toString(_offset._scale._z));
 
         return result;
+    }
+
+    void iCameraComponent::setOffset(const iaTransformd &offset)
+    {
+        _offset = offset;
+    }
+
+    const iaTransformd &iCameraComponent::getOffset() const
+    {
+        return _offset;
     }
 
 }

@@ -31,6 +31,9 @@
 
 #include <igor/entities/iEntity.h>
 
+#include <iaux/math/iaTransform.h>
+using namespace iaux;
+
 namespace igor
 {
     /*! projection type definition
@@ -175,7 +178,17 @@ namespace igor
 
         /*! \returns a set of info strings
          */
-        std::vector<iaString> getInfo() const override;        
+        std::vector<iaString> getInfo() const override;
+
+        /*! sets camera offset
+
+        \param offset the offset to apply on top of the camera position when used
+        */
+        void setOffset(const iaTransformd &offset);
+
+        /*! \returns camera offset
+         */
+        const iaTransformd &getOffset() const;
 
     private:
         /*! viewport
@@ -224,11 +237,15 @@ namespace igor
 
         /*! bottom value used for orthogonal projection
          */
-        float64 _bottomOrtho = -1.0;        
+        float64 _bottomOrtho = -1.0;
 
         /*! top value used for orthogonal projection
          */
         float64 _topOrtho = 1.0;
+
+        /*! camera offset
+         */
+        iaTransformd _offset;
 
         /*! \returns a copy of this component
          */
@@ -236,8 +253,8 @@ namespace igor
     };
 
     /*! camera component pointer definition
-    */
-    typedef iCameraComponent* iCameraComponentPtr;
+     */
+    typedef iCameraComponent *iCameraComponentPtr;
 
 }
 

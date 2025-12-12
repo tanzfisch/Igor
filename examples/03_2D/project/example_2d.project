@@ -1,3 +1,17 @@
 {
-    "projectName": "Example 2D"
+    "projectName": "Example 2D",
+    "projectScene": {
+        "id": "0xf06985b672f9521d",
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_transform_system",
+            "igor_behaviour_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    },
+    "scenes": []
 }

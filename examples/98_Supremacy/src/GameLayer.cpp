@@ -573,18 +573,18 @@ iEntityID GameLayer::createCamera()
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
     // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
-    iEntityPtr entity = _entityScene->createEntity("camera");
+    iEntityPtr camera = _entityScene->createEntity("camera");
 
-    entity->addComponent(new iTransformComponent(playerTransform->getPosition()));
-    entity->addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
+    camera->addComponent(new iTransformComponent(playerTransform->getPosition()));
+    camera->addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
 
-    auto cameraComponent = entity->addComponent(new iCameraComponent());
+    auto cameraComponent = camera->addComponent(new iCameraComponent());
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
     cameraComponent->setClearDepthActive(false);    
 
-    return entity->getID();
+    return camera->getID();
 }
 
 void GameLayer::createBackground()

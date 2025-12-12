@@ -89,7 +89,7 @@ void Example2D::initMandelbrotTexture()
                 iterations++;
             }
 
-            pixmap->setPixelRGBA(x, y, 0xff, 0xff, 0xff, iterations * 2);
+            pixmap->setPixel(x, y, iaColor4c(0xff, 0xff, 0xff, iterations * 2));
         }
     }
 
