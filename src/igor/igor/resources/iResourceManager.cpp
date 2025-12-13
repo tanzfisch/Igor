@@ -8,6 +8,7 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
+#include <igor/resources/script/iScriptFactory.h>
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
@@ -50,6 +51,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iPrefabFactory()));
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
+        registerFactory(iFactoryPtr(new iScriptFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iMaterialFactory()));
         registerFactory(iFactoryPtr(new iShaderFactory()));

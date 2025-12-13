@@ -6,10 +6,6 @@
 
 #include <igor/resources/sprite/loader/iSpriteIO.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
-
-#include <iaux/system/iaFile.h>
-using namespace iaux;
 
 namespace igor
 {

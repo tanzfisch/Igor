@@ -4,8 +4,6 @@
 
 #include <igor/resources/sprite/iSprite.h>
 
-#include <igor/resources/iResourceManager.h>
-
 namespace igor
 {
 

@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2025 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/scripting/iScriptEngine.h>
+#include <igor/resources/script/iScriptEngine.h>
 
 #include <iaux/system/iaConsole.h>
 
@@ -11,14 +11,16 @@
 namespace igor
 {
 
-    void print(const std::string &t_name) {
+    void print(const std::string &t_name)
+    {
         con_endl(t_name.c_str());
     }
 
-    void printInfo(const std::string &t_name) {
+    void printInfo(const std::string &t_name)
+    {
         con_info(t_name.c_str());
     }
-    
+
     class iScriptEngineImpl
     {
         friend class iScriptEngine;
@@ -59,7 +61,7 @@ namespace igor
         }
         catch (...)
         {
-            con_err("internal error chaiscript");
+            con_err("could not add variable \"" << name << "\"");
         }
     }
 
@@ -72,7 +74,7 @@ namespace igor
         }
         catch (...)
         {
-            con_err("internal error chaiscript");
+            con_err("could not add constant \"" << name << "\"");
         }
     }
 
@@ -85,7 +87,7 @@ namespace igor
         }
         catch (...)
         {
-            con_err("internal error chaiscript");
+            con_err("could not add function \"" << name << "\"");
         }
     }
 
@@ -98,19 +100,22 @@ namespace igor
         }
         catch (...)
         {
-            con_err("internal error chaiscript");
+            con_err("could not add method \"" << name << "\"");
         }
     }
 
-    void iScriptEngine::executeScript(const std::string &filename)
+    void iScriptEngine::executeScript(const iaString &filename)
     {
+        char temp[1024];
+        filename.getData(temp, 1024);
+
         try
         {
-            _impl->_chai.use(filename);
+            _impl->_chai.use(temp);
         }
         catch (const chaiscript::exception::eval_error &e)
         {
-            throw std::runtime_error("Script load error '" + filename + "':\n" + e.pretty_print());
+            con_err("load error '" << filename << "': " << e.pretty_print().c_str());
         }
     }
 
@@ -122,7 +127,7 @@ namespace igor
         }
         catch (const chaiscript::exception::eval_error &e)
         {
-            throw std::runtime_error("Eval error:\n" + e.pretty_print());
+            con_err("eval error: " << e.pretty_print().c_str());
         }
     }
 }

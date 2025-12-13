@@ -34,6 +34,7 @@
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/sound/iSound.h>
 #include <igor/resources/sprite/iSprite.h>
+#include <igor/resources/script/iScript.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/shader/iShader.h>

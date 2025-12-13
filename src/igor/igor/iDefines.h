@@ -64,6 +64,7 @@ extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supp
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS;     //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS;     //! supported file extensions for sounds
 extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS;    //! supported file extensions for prefabs and scenes
+extern const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS;    //! supported file extensions for scripts
 
 /*! \returns true if given extension fits supported model extensions
     \param ext extension to test
@@ -79,6 +80,7 @@ extern const iaString IGOR_RESOURCE_SOUND;     //! sound resource name
 extern const iaString IGOR_RESOURCE_SPRITE;    //! sprite resource name
 extern const iaString IGOR_RESOURCE_MODEL;     //! model resource name
 extern const iaString IGOR_RESOURCE_PREFAB;    //! prefab resource name
+extern const iaString IGOR_RESOURCE_SCRIPT;    //! script resource name
 
 // resource parameters
 extern const iaString IGOR_RESOURCE_PARAM_ID;                 //! resource parameter id

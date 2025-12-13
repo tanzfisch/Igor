@@ -18,6 +18,7 @@ const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json
 const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS = {"chai"};
 
 const iaString IGOR_RESOURCE_SHADER = "shader";
 const iaString IGOR_RESOURCE_MATERIAL = "material";
@@ -27,6 +28,7 @@ const iaString IGOR_RESOURCE_SOUND = "sound";
 const iaString IGOR_RESOURCE_SPRITE = "sprite";
 const iaString IGOR_RESOURCE_MODEL = "model";
 const iaString IGOR_RESOURCE_PREFAB = "prefab";
+const iaString IGOR_RESOURCE_SCRIPT = "script";
 
 const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
 const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
@@ -224,7 +226,7 @@ namespace igor
         iEntitySystemModule::createInstance();
         iProject::createInstance();
         iClipboard::createInstance();      
-        iScriptEngine::createInstance();  
+        iScriptEngine::createInstance();
     }
 
     void destroyModules()

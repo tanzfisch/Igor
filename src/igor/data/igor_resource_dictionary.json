@@ -688,5 +688,11 @@
         "id": "0xff8f44440bb7b46e",
         "internal": true,
         "source": "icons/addTransformation.png"
+    },
+    {
+        "alias": "igor_script_hello_world",
+        "id": "0xf134a69cd157b46a",
+        "internal": true,
+        "source": "scripts/hello_world.chai"
     }
 ]

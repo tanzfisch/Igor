@@ -78,7 +78,7 @@ namespace igor
         
         \param filename the given script to run
         */
-        void executeScript(const std::string& filename);
+        void executeScript(const iaString& filename);
 
         /*! run given script from string
 

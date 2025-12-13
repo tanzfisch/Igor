@@ -497,3 +497,70 @@ inline iPrefabPtr iResourceManager::getResource(const iaString &alias)
     iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias);
     return std::dynamic_pointer_cast<iPrefab>(getResource(param));
 }
+
+
+
+/////////7
+
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SCRIPT, "incorrect parameter");
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iParameters &param)
+{
+    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SCRIPT, "incorrect parameter");
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::createResource()
+{
+    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT}}));
+    return std::dynamic_pointer_cast<iScript>(createResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::getResource(const iResourceID &id)
+{
+    return std::dynamic_pointer_cast<iScript>(getResource(id));
+}
+
+template <>
+inline iScriptPtr iResourceManager::getResource(const iaString &alias)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias);
+    return std::dynamic_pointer_cast<iScript>(getResource(param));
+}

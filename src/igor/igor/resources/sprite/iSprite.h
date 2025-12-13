@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE__
-#define __IGOR_SPRITE__
+#ifndef IGOR_SPRITE_H
+#define IGOR_SPRITE_H
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -132,4 +132,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_SPRITE__
+#endif // IGOR_SPRITE_H
