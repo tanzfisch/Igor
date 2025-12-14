@@ -49,11 +49,11 @@ public:
      */
     void onInit() override;
 
-    /*! update ui with node data
+    /*! update ui with resource data
      */
     void onUpdateUI() override;
 
-    /*! update node with ui data
+    /*! update resource with ui data
      */
     void onUpdateResource() override;
 

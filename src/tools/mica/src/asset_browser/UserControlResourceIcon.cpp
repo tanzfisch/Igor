@@ -146,6 +146,10 @@ void UserControlResourceIcon::updateUI()
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sprite");
         }
+        else if (type == "script")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_script");
+        }
         else if (type == "model")
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_model");

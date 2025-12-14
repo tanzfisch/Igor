@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef MICA_USERCONTROL_RESOURCE_TEXTURE_H
-#define MICA_USERCONTROL_RESOURCE_TEXTURE_H
+#ifndef MICA_USERCONTROL_RESOURCE_SCRIPT_H
+#define MICA_USERCONTROL_RESOURCE_SCRIPT_H
 
 #include "UserControlResource.h"
 
-class UserControlResourceTexture : public UserControlResource
+class UserControlResourceScript : public UserControlResource
 {
 public:
     /*! init user control
@@ -39,11 +39,11 @@ public:
     \param resourceID the resource id to use
     \param parent the optional parent widget
     */
-	UserControlResourceTexture(iResourceID resourceID, const iWidgetPtr parent = nullptr);
+    UserControlResourceScript(iResourceID resourceID, const iWidgetPtr parent = nullptr);
 
-	/*! cleanup
-	*/
-	~UserControlResourceTexture();
+    /*! does nothing
+     */
+    ~UserControlResourceScript() = default;
 
     /*! init ui
      */
@@ -57,16 +57,6 @@ public:
      */
     void onUpdateResource() override;
 
-private:
-
-	/*! display the texture
-	*/
-	iWidgetPicturePtr _picture;
-
-	/*! label with texture information
-	*/
-	iWidgetLabelPtr _infoLabel;
-	
 };
 
-#endif // MICA_USERCONTROL_RESOURCE_TEXTURE_H
+#endif // MICA_USERCONTROL_RESOURCE_SCRIPT_H

@@ -36,7 +36,7 @@ namespace igor
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
 
         iPrefabPtr resource = iResourceManager::getInstance().createResource<iPrefab>();
-        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_scene.scene";
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "scene.scene";
         path = iaPath::generateUniqueFilename(path);        
         iResourceManager::getInstance().saveResource(resource, path);
 
@@ -67,7 +67,7 @@ namespace igor
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
 
         iMaterialPtr resource = iResourceManager::getInstance().createResource<iMaterial>();
-        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_material.mat";
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "material.mat";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
@@ -96,7 +96,7 @@ namespace igor
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
 
         iShaderPtr resource = iResourceManager::getInstance().createResource<iShader>();
-        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_shader.shader";
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "shader.shader";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
@@ -130,7 +130,7 @@ namespace igor
    iActionCreateSprite::iActionCreateSprite()
         : iAction("igor:create_sprite")
     {
-        // setIcon("");
+        setIcon("igor_icon_sprite");
         setDescription("Create sprite", "Create a new sprite");
     }
 
@@ -150,11 +150,39 @@ namespace igor
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
 
         iSpritePtr resource = iResourceManager::getInstance().createResource<iSprite>();
-        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "my_sprite.sprite";
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "sprite.sprite";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        
 
+    iActionCreateScript::iActionCreateScript()
+        : iAction("igor:create_script")
+    {
+        setIcon("igor_icon_script");
+        setDescription("Create script", "Create a new script");
+    }
+
+    bool iActionCreateScript::isCompatible(const iActionContext &context)
+    {
+        const iFilesystemActionContext *actionContext = dynamic_cast<const iFilesystemActionContext *>(&context);
+        if (actionContext == nullptr)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    void iActionCreateScript::execute(const iActionContext &context)
+    {
+        const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
+
+        iScriptPtr resource = iResourceManager::getInstance().createResource<iScript>();
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "script.chai";
+        path = iaPath::generateUniqueFilename(path);
+        iResourceManager::getInstance().saveResource(resource, path);
+        iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
+    }       
 
 } // namespace igor

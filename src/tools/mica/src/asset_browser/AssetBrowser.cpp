@@ -92,6 +92,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     createMenu->addAction("igor:create_material", actionContext);
     createMenu->addAction("igor:create_shader", actionContext);
     createMenu->addAction("igor:create_sprite", actionContext);
+    createMenu->addAction("igor:create_script", actionContext);
 
     // TODO create all the assets
 
