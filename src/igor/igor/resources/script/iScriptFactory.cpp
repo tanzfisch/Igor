@@ -49,7 +49,7 @@ namespace igor
         std::stringstream buffer;
         buffer << file.rdbuf();
 
-        script->setScript(buffer.str());
+        script->setScript(iaString(buffer.str().c_str()));
 
         file.close();
 
@@ -60,6 +60,12 @@ namespace igor
     {
         // nothing else to do here
     }
+
+    static std::string wstringToUtf8(const std::wstring &wstr)
+    {
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.to_bytes(wstr);
+    }        
 
     bool iScriptFactory::saveResource(iResourcePtr resource, const iaString &filename)
     {
@@ -96,7 +102,7 @@ namespace igor
             return false;
         }
 
-        file << script->getScript();
+        file << wstringToUtf8(script->getScript().getData());
 
         file.close();
 

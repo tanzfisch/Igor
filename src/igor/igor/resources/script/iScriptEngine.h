@@ -31,6 +31,9 @@
 
 #include <igor/resources/module/iModule.h>
 
+#include <iaux/data/iaString.h>
+using namespace iaux;
+
 namespace igor
 {
     class iScriptEngineImpl;
@@ -47,7 +50,7 @@ namespace igor
         \param name the name used in script
         */
         template <typename T>
-        void addVariable(T &var, const std::string &name);
+        void addVariable(T &var, const iaString &name);
 
         /*! register global const variable
 
@@ -55,7 +58,7 @@ namespace igor
         \param name the name used in script
         */
         template<typename T>
-        void addConst(const T& var, const std::string& name);
+        void addConst(const T& var, const iaString& name);
 
         /*! register a function
 
@@ -63,7 +66,7 @@ namespace igor
         \param name the name of the function in script
         */
         template<typename F>
-        void addFunction(F&& func, const std::string& name);
+        void addFunction(F&& func, const iaString& name);
 
         /*! register object + method
 
@@ -72,7 +75,7 @@ namespace igor
         \param name the name of the object and method in script
         */
         template<typename T, typename... Args>
-        void addMethod(T* obj, void (T::*method)(Args...), const std::string& name);
+        void addMethod(T* obj, void (T::*method)(Args...), const iaString& name);
 
         /*! load and run given script from file
         
@@ -84,7 +87,7 @@ namespace igor
 
         \param script the script to run
         */
-        void execute(const std::string& script);
+        void execute(const iaString& script);
 
     private:
         /*! pimpl

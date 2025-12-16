@@ -45,9 +45,9 @@ namespace igor
         return _behaviors;
     }
 
-    void iBehaviourComponent::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
+    void iBehaviourComponent::addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority)
     {
-        _behaviors.push_back({delegate, userData, name, priority});
+        _behaviors.push_back({delegate, name, priority});
     }
 
     void iBehaviourComponent::removeBehaviour(const iBehaviourDelegate &delegate)
@@ -73,7 +73,7 @@ namespace igor
                 continue;
             }
 
-            behaviourData._delegate(getEntity(), behaviourData._userData);
+            behaviourData._delegate(getEntity());
         }
     }
 }

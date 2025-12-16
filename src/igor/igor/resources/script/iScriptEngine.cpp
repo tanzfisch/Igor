@@ -8,8 +8,15 @@
 
 #include <chaiscript/chaiscript.hpp>
 
+#include <codecvt>
+
 namespace igor
 {
+    static std::string wstringToUtf8(const std::wstring &wstr)
+    {
+        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+        return converter.to_bytes(wstr);
+    }
 
     void print(const std::string &t_name)
     {
@@ -53,11 +60,11 @@ namespace igor
     }
 
     template <typename T>
-    void iScriptEngine::addVariable(T &var, const std::string &name)
+    void iScriptEngine::addVariable(T &var, const iaString &name)
     {
         try
         {
-            _impl->_chai.add(chaiscript::var(&var), name);
+            _impl->_chai.add(chaiscript::var(&var), wstringToUtf8(name.getData()));
         }
         catch (...)
         {
@@ -66,11 +73,11 @@ namespace igor
     }
 
     template <typename T>
-    void iScriptEngine::addConst(const T &var, const std::string &name)
+    void iScriptEngine::addConst(const T &var, const iaString &name)
     {
         try
         {
-            _impl->_chai.add(chaiscript::const_var(&var), name);
+            _impl->_chai.add(chaiscript::const_var(&var), wstringToUtf8(name.getData()));
         }
         catch (...)
         {
@@ -79,11 +86,11 @@ namespace igor
     }
 
     template <typename F>
-    void iScriptEngine::addFunction(F &&func, const std::string &name)
+    void iScriptEngine::addFunction(F &&func, const iaString &name)
     {
         try
         {
-            _impl->_chai.add(chaiscript::fun(std::forward<F>(func)), name);
+            _impl->_chai.add(chaiscript::fun(std::forward<F>(func)), wstringToUtf8(name.getData()));
         }
         catch (...)
         {
@@ -92,11 +99,11 @@ namespace igor
     }
 
     template <typename T, typename... Args>
-    void iScriptEngine::addMethod(T *obj, void (T::*method)(Args...), const std::string &name)
+    void iScriptEngine::addMethod(T *obj, void (T::*method)(Args...), const iaString &name)
     {
         try
         {
-            _impl->_chai.add(chaiscript::fun(method, obj), name);
+            _impl->_chai.add(chaiscript::fun(method, obj), wstringToUtf8(name.getData()));
         }
         catch (...)
         {
@@ -106,12 +113,9 @@ namespace igor
 
     void iScriptEngine::executeScript(const iaString &filename)
     {
-        char temp[1024];
-        filename.getData(temp, 1024);
-
         try
         {
-            _impl->_chai.use(temp);
+            _impl->_chai.use(wstringToUtf8(filename.getData()));
         }
         catch (const chaiscript::exception::eval_error &e)
         {
@@ -119,15 +123,16 @@ namespace igor
         }
     }
 
-    void iScriptEngine::execute(const std::string &code)
+    void iScriptEngine::execute(const iaString &code)
     {
         try
         {
-            _impl->_chai.eval(code);
+            _impl->_chai.eval(wstringToUtf8(code.getData()));
         }
         catch (const chaiscript::exception::eval_error &e)
         {
             con_err("eval error: " << e.pretty_print().c_str());
         }
+        
     }
 }

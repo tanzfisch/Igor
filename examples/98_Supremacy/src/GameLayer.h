@@ -313,39 +313,39 @@ private:
 
     /*! handles player movement
      */
-    void onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData);
+    void onPlayerMovementBehaviour(iEntityPtr entity);
 
     /*! handles camera movement
      */
-    void onCameraFollowPlayer(iEntityPtr entity, std::any &userData);
+    void onCameraFollowPlayer(iEntityPtr entity);
 
     /*! aquire target
      */
-    void onAquireTarget(iEntityPtr entity, std::any &userData);
+    void onAquireTarget(iEntityPtr entity);
 
     /*! update orientation of projectiles
      */
-    void onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData);
+    void onUpdateProjectileOrientation(iEntityPtr entity);
 
     /*! check for collisions
      */
-    void onCheckCollision(iEntityPtr entity, std::any &userData);
+    void onCheckCollision(iEntityPtr entity);
 
     /*! aim/follow target
      */
-    void onFollowTarget(iEntityPtr entity, std::any &userData);
+    void onFollowTarget(iEntityPtr entity);
 
     /*! check for collisions
      */
-    void onUpdateCollision(iEntityPtr entity, std::any &userData);
+    void onUpdateCollision(iEntityPtr entity);
 
     /*! fire weapon if possible
      */
-    void onUpdateWeapon(iEntityPtr entity, std::any &userData);
+    void onUpdateWeapon(iEntityPtr entity);
 
     /*! collision check
      */
-    void onUpdateRange(iEntityPtr entity, std::any &userData);
+    void onUpdateRange(iEntityPtr entity);
 
     /*! create the shop
      */

@@ -21,12 +21,12 @@ namespace igor
         iScriptEngine::getInstance().execute(_script);
     }
 
-    void iScript::setScript(const std::string &script)
+    void iScript::setScript(const iaString &script)
     {
         _script = script;
     }
 
-    const std::string &iScript::getScript() const
+    const iaString &iScript::getScript() const
     {
         return _script;
     }

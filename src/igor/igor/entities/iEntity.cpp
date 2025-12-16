@@ -305,7 +305,7 @@ namespace igor
         return _name;
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
+    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority)
     {
         iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
         if (behaviourComponent == nullptr)
@@ -313,7 +313,7 @@ namespace igor
             behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
         }
 
-        behaviourComponent->addBehaviour(delegate, userData, name, priority);
+        behaviourComponent->addBehaviour(delegate, name, priority);
     }
 
     void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)

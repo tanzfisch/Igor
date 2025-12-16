@@ -31,6 +31,9 @@
 
 #include <igor/resources/iResource.h>
 
+#include <iaux/data/iaString.h>
+using namespace iaux;
+
 namespace igor
 {
 
@@ -46,11 +49,11 @@ namespace igor
 
         \param script the script to set
         */
-        void setScript(const std::string &script);
+        void setScript(const iaString &script);
 
         /*! \returns script
         */
-        const std::string &getScript() const;
+        const iaString &getScript() const;
 
         /*! executes script
          */
@@ -59,7 +62,7 @@ namespace igor
     private:
         /*! the script
          */
-        std::string _script;
+        iaString _script;
 
         /*! ctor initializes member variables
 

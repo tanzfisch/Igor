@@ -34,8 +34,6 @@
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
-#include <any>
-
 namespace igor
 {
     class iEntity;
@@ -43,7 +41,7 @@ namespace igor
 
     /*! behaviour delegate definition
      */
-    IGOR_DELEGATE_DEFINITION(iBehaviour, iEntityPtr, std::any &);
+    IGOR_DELEGATE_DEFINITION(iBehaviour, iEntityPtr);
 
     /*! behaviour data
      */
@@ -52,10 +50,6 @@ namespace igor
         /*! delegate to be executed with given entity and user data
          */
         iBehaviourDelegate _delegate;
-
-        /*! user data
-         */
-        std::any _userData;
 
         /*! optional name of behaviour
          */
@@ -94,11 +88,10 @@ namespace igor
         /*! adds behaviour
 
         \param behaviour the behaviour to be added
-        \param userData user data added to behaviour
         \param name the name of the behaviour
         \param priority execution priority (low = 0, default = 100, high = 255)
         */
-        void addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority);
+        void addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority);
 
         /*! removes behaviour from entity
 

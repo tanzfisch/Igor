@@ -195,11 +195,10 @@ namespace igor
         /*! adds behaviour to entity
 
         \param behaviour the behaviour delegate to be added
-        \param userData user data added to behaviour
         \param name the name of the behaviour
         \param priority execution priority (low = 0, default = 100, high = ...)
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "", uint8 priority = 100);
+        void addBehaviour(const iBehaviourDelegate &behaviour, const iaString &name = "", uint8 priority = 100);
 
         /*! removes behaviour from entity
 
