@@ -570,8 +570,12 @@ iEntityID GameLayer::createCamera()
 
     camera->addComponent(new iTransformComponent(playerTransform->getPosition()));
 
+    const iaString script = R"delim(
+print("hello foo bar")
+    )delim";
+
     iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT},
-                       {IGOR_RESOURCE_PARAM_SCRIPT, L"print(\"hello foo\")"},
+                       {IGOR_RESOURCE_PARAM_SCRIPT, script},
                        {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
     iScriptPtr followPlayer = iResourceManager::getInstance().loadResource<iScript>(param);
