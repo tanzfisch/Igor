@@ -547,7 +547,7 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity)
     const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
 
     if (!(std::abs(diff._x) > width ||
-        std::abs(diff._y) > height))
+          std::abs(diff._y) > height))
     {
         offset._position._x -= diff._x;
         offset._position._y -= diff._y;
@@ -566,17 +566,24 @@ iEntityID GameLayer::createCamera()
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
-    // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
     iEntityPtr camera = _entityScene->createEntity("camera");
 
     camera->addComponent(new iTransformComponent(playerTransform->getPosition()));
-    camera->addBehaviour({this, &GameLayer::onCameraFollowPlayer});
+
+    iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT},
+                       {IGOR_RESOURCE_PARAM_SCRIPT, L"print(\"hello foo\")"},
+                       {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
+
+    iScriptPtr followPlayer = iResourceManager::getInstance().loadResource<iScript>(param);
+
+    // camera->addBehaviour({this, &GameLayer::onCameraFollowPlayer});
+    camera->addBehaviour(followPlayer);
 
     auto cameraComponent = camera->addComponent(new iCameraComponent());
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
-    cameraComponent->setClearDepthActive(false);    
+    cameraComponent->setClearDepthActive(false);
 
     return camera->getID();
 }
@@ -612,7 +619,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
 }
 
 void GameLayer::onLiftShop()
-{    
+{
     iEntityPtr shop = _entityScene->getEntity(_shop);
     if (shop == nullptr)
     {
@@ -630,7 +637,7 @@ void GameLayer::onLandShop(const iaTime &time)
         player == nullptr)
     {
         return;
-    }    
+    }
 
     auto playerTransformComponent = player->getComponent<iTransformComponent>();
     auto shopTransformComponent = shop->getComponent<iTransformComponent>();
@@ -655,7 +662,7 @@ void GameLayer::createShop()
     shop->setActive(false); // TODO need to figure out why we can't deactivate after adding iSpriteRenderComponent
 
     _shop = shop->getID();
-    shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
+    shop->addComponent(new iTransformComponent(iaVector3d(300, 300, 0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("sprite_shop")));
@@ -1097,7 +1104,7 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
 void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity)
 {
     auto velocityComp = entity->getComponent<iVelocityComponent>();
-    if(velocityComp->getAngularVelocity().zero())
+    if (velocityComp->getAngularVelocity().zero())
     {
         return;
     }

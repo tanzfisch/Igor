@@ -14,6 +14,7 @@ namespace igor
     iScript::iScript(const iParameters &parameters)
         : iResource(parameters)
     {
+        _script = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SCRIPT, "");
     }
 
     void iScript::execute()

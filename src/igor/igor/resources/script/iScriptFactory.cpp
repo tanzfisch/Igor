@@ -17,6 +17,7 @@ namespace igor
     iResourcePtr iScriptFactory::createResource()
     {
         iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT},
+                           {IGOR_RESOURCE_PARAM_SCRIPT, L"print(\"hello Igor\")"},
                            {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
 
         return createResource(param);
@@ -65,7 +66,7 @@ namespace igor
     {
         std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
         return converter.to_bytes(wstr);
-    }        
+    }
 
     bool iScriptFactory::saveResource(iResourcePtr resource, const iaString &filename)
     {

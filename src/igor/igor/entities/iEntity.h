@@ -200,6 +200,14 @@ namespace igor
         */
         void addBehaviour(const iBehaviourDelegate &behaviour, const iaString &name = "", uint8 priority = 100);
 
+        /*! adds script behaviour to entity
+
+        \param behaviour the behaviour script to be added
+        \param name the name of the behaviour
+        \param priority execution priority (low = 0, default = 100, high = ...)
+        */
+        void addBehaviour(const iScriptPtr behaviour, const iaString &name = "", uint8 priority = 100);
+
         /*! removes behaviour from entity
 
         \param behaviour the behaviour to be removed

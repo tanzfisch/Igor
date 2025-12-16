@@ -305,6 +305,17 @@ namespace igor
         return _name;
     }
 
+    void iEntity::addBehaviour(const iScriptPtr behaviour, const iaString &name, uint8 priority)
+    {
+        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
+        if (behaviourComponent == nullptr)
+        {
+            behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
+        }
+
+        behaviourComponent->addBehaviour(behaviour, name, priority);
+    }
+
     void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority)
     {
         iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();

@@ -117,6 +117,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH;      //! resource param
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT;     //! resource parameter texture height
 extern const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR;      //! resource parameter primary color
 extern const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR;    //! resource parameter secondary color
+extern const iaString IGOR_RESOURCE_PARAM_SCRIPT;             //! resource parameter script
 
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameter texture unit 0
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameter texture unit 1

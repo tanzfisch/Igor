@@ -30,6 +30,7 @@
 #define IGOR_BEHAVIOUR_COMPONENT_H
 
 #include <igor/entities/iEntityComponent.h>
+#include <igor/resources/script/iScript.h>
 
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
@@ -50,6 +51,10 @@ namespace igor
         /*! delegate to be executed with given entity and user data
          */
         iBehaviourDelegate _delegate;
+
+        /*! behaviour script
+        */
+        iScriptPtr _script;
 
         /*! optional name of behaviour
          */
@@ -85,13 +90,21 @@ namespace igor
          */
         const std::vector<iBehaviourData> &getBehaviors() const;
 
-        /*! adds behaviour
+        /*! adds behaviour from code
 
-        \param behaviour the behaviour to be added
+        \param behaviour the behaviour to add
         \param name the name of the behaviour
         \param priority execution priority (low = 0, default = 100, high = 255)
         */
         void addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority);
+
+        /*! adds behaviour from script
+
+        \param behaviour the behaviour script to add
+        \param name the name of the behaviour
+        \param priority execution priority (low = 0, default = 100, high = 255)
+        */
+        void addBehaviour(const iScriptPtr behaviour, const iaString &name, uint8 priority);
 
         /*! removes behaviour from entity
 
