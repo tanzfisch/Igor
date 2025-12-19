@@ -9,6 +9,7 @@
 #include "resources/UserControlResourceMaterial.h"
 #include "resources/UserControlResourceScript.h"
 #include "resources/UserControlResourceTexture.h"
+#include "resources/UserControlResourceSprite.h"
 
 #include "entities/UserControlEntity.h"
 
@@ -74,6 +75,10 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
     else if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
         userControl = new UserControlResourceTexture(resourceID, _layout);
+    }
+    else if (resourceType == IGOR_RESOURCE_SPRITE)
+    {
+        userControl = new UserControlResourceSprite(resourceID, _layout);
     }
 
     if (userControl == nullptr)

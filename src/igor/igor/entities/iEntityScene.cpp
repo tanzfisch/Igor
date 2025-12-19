@@ -194,7 +194,7 @@ namespace igor
         _mutex.lock();
         if (_entities.find(entity->getID()) != _entities.end())
         {
-            con_err("Entity ID collision " << entity->getID());
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
         }
 
         _entities[entity->getID()] = entity;
@@ -224,7 +224,7 @@ namespace igor
         _mutex.lock();
         if (_entities.find(entity->getID()) != _entities.end())
         {
-            con_err("Entity id collision " << entity->getID());
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
         }
 
         _entities[entity->getID()] = entity;

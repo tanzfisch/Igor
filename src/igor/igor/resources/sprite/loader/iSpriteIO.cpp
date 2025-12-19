@@ -49,14 +49,15 @@ namespace igor
         }
         json spriteJson = data["sprite"];
 
-        if (!spriteJson.contains("texture"))
+        if (spriteJson.contains("texture"))
         {
-            con_err("incompatible data");
-            return false;
+            sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(spriteJson["texture"].get<iaString>());
         }
-        iaString texture = spriteJson["texture"].get<iaString>();
-        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
-
+        else
+        {
+            sprite->_texture = nullptr;
+        }
+        
         // TODO pixelPerUnit
         uint32 pixelPerUnit = iJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
 

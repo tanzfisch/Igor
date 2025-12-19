@@ -49,6 +49,8 @@ namespace igor
     struct iBehaviourData
     {
         /*! delegate to be executed with given entity and user data
+
+        deprecated in future only use scripts
          */
         iBehaviourDelegate _delegate;
 
@@ -59,10 +61,6 @@ namespace igor
         /*! optional name of behaviour
          */
         iaString _name;
-
-        /*! execution priority
-         */
-        uint8 _priority;
     };
 
     /*! behaviour component
@@ -94,17 +92,15 @@ namespace igor
 
         \param behaviour the behaviour to add
         \param name the name of the behaviour
-        \param priority execution priority (low = 0, default = 100, high = 255)
         */
-        void addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority);
+        void addBehaviour(const iBehaviourDelegate &delegate, const iaString &name);
 
         /*! adds behaviour from script
 
         \param behaviour the behaviour script to add
         \param name the name of the behaviour
-        \param priority execution priority (low = 0, default = 100, high = 255)
         */
-        void addBehaviour(const iScriptPtr behaviour, const iaString &name, uint8 priority);
+        void addBehaviour(const iScriptPtr behaviour, const iaString &name);
 
         /*! removes behaviour from entity
 

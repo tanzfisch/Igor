@@ -48,8 +48,8 @@ namespace igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth;
-		int32 minHeight;
+		int32 minWidth = 0;
+		int32 minHeight = 0;
 
 		if (isGrowingByContent())
 		{
@@ -62,7 +62,7 @@ namespace igor
 
 		updateMinSize(minWidth, minHeight);
 
-		const float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
+		const float32 aspect = static_cast<float32>(_minWidth) / static_cast<float32>(_minHeight);
 
 		if (_minWidth > _maxWidth)
 		{

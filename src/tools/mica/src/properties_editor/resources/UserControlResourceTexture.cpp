@@ -59,4 +59,5 @@ void UserControlResourceTexture::onInit()
     _picture->setCheckerBoard(true);
     _picture->setHorizontalAlignment(iHorizontalAlignment::Center);
     _picture->setMaxSize(256, 256);
+    _picture->setMinSize(256, 256);
 }

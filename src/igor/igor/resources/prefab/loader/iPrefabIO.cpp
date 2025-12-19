@@ -206,7 +206,10 @@ namespace igor
         iSpriteRenderComponentPtr component = new iSpriteRenderComponent();
         entity->addComponent(component);
 
-        component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        if(componentJson.contains("sprite"))
+        {
+            component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        }
         component->setSize(componentJson["size"].get<iaVector2d>());
         component->setColor(componentJson["color"].get<iaColor4f>());
         component->setZIndex(componentJson["zIndex"].get<int>());

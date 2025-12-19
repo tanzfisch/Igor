@@ -45,14 +45,14 @@ namespace igor
         return _behaviors;
     }
 
-    void iBehaviourComponent::addBehaviour(const iScriptPtr behaviour, const iaString &name, uint8 priority)
+    void iBehaviourComponent::addBehaviour(const iScriptPtr behaviour, const iaString &name)
     {
-        _behaviors.push_back({nullptr, behaviour, name, priority});
+        _behaviors.push_back({nullptr, behaviour, name});
     }
 
-    void iBehaviourComponent::addBehaviour(const iBehaviourDelegate &delegate, const iaString &name, uint8 priority)
+    void iBehaviourComponent::addBehaviour(const iBehaviourDelegate &delegate, const iaString &name)
     {
-        _behaviors.push_back({delegate, nullptr, name, priority});
+        _behaviors.push_back({delegate, nullptr, name});
     }
 
     void iBehaviourComponent::removeBehaviour(const iBehaviourDelegate &delegate)
