@@ -142,6 +142,9 @@ namespace igor
         con_info("created project in \"" << path << "\"");
 
         load();
+
+        _mode = iMode::Edit;
+        _editScene = _activeScene;        
     }
 
     void iProject::load()
