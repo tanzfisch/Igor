@@ -444,13 +444,22 @@ void Outliner::onProjectLoaded(const iaString &projectfile)
     auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
     const auto &projectPath = iProject::getInstance().getProjectFilepath();
 
-    auto iter = std::find(recent.begin(), recent.end(), projectPath);
-    if (iter == recent.end())
+    auto iter = recent.begin();
+    while (iter != recent.end())
     {
-        recent.insert(recent.begin(), projectPath);
-        iConfig::getInstance().setValue("mica.recentProjects", recent);
-        iConfig::getInstance().write();
+        if (*iter == projectPath)
+        {
+            iter = recent.erase(iter);
+        }
+        else
+        {
+            iter++;
+        }
     }
+
+    recent.insert(recent.begin(), projectPath);
+    iConfig::getInstance().setValue("mica.recentProjects", recent);
+    iConfig::getInstance().write();
 }
 
 void Outliner::onProjectUnloaded()
