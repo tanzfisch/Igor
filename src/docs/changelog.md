@@ -14,6 +14,9 @@ Changelog                           {#changelog}
 - #306 using ChaiScript for scripting
 - added offset to camera component
 - #457 TODO
+- fixed recent projects order
+- fixed edit mode issue after project creation
+- fixed window closing on all client events
 
 0.45.0
 ------

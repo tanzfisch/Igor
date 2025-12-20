@@ -841,6 +841,8 @@ namespace igor
             os_event._display = _display;
             os_event._visual = _visual;
 
+            const Atom wm_delete_window = XInternAtom(_display, "WM_DELETE_WINDOW", False);
+
             while (pending())
             {
                 XNextEvent(_display, &os_event._event);
@@ -867,7 +869,10 @@ namespace igor
                         break;
 
                     case ClientMessage:
-                        closeEvent();
+                        if ((Atom)os_event._event.xclient.data.l[0] == wm_delete_window)
+                        {
+                            closeEvent();
+                        }
                         return;
                     default:;
                     }
