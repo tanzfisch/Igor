@@ -122,7 +122,7 @@ namespace igor
 
         /*! select box dialog used for the unfold effect
 		*/
-        iDialogIndexMenu *_selectBox = nullptr;
+        std::unique_ptr<iDialogIndexMenu> _selectBox;
 
         /*! appearance state of the button
 		*/

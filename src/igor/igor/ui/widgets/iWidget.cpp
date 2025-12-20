@@ -28,7 +28,7 @@ namespace igor
         if (parent != nullptr)
         {
             parent->addWidget(this);
-        }        
+        }
     }
 
     iWidget::~iWidget()
@@ -38,7 +38,7 @@ namespace igor
             resetKeyboardFocus();
         }
 
-        if(hasParent())
+        if (hasParent())
         {
             getParent()->removeWidget(this);
         }
@@ -152,12 +152,15 @@ namespace igor
     {
         std::wstringstream stream;
 
-        stream << getWidgetType() << " [" << _id << "] (" << _absoluteX << ", " << _absoluteY << ", " << _actualWidth << ", " << _actualHeight << ") ";
-
-        if (!hasParent())
+        stream << getWidgetType() << " [";
+        if(hasParent())
         {
-            stream << ", no parent";
+            stream << getParentID() << "/";
         }
+        stream << _id << "]";
+        
+        stream << " enabled: " << (_enabled ? "true" : "false");
+        stream << " visible: " << (_visible ? "true" : "false");
 
         return iaString(stream.str().c_str());
     }
@@ -998,9 +1001,12 @@ namespace igor
             "iUserControlColor",
             "iUserControlFile",
             "iUserControlTexture",
+            "iUserControlSprite",
             "iUserControlMaterial",
             "iUserControlShader",
             "iUserControlTreeView",
+            "iUserControlVector",
+            "iUserControlMeshReference",
 
             "iDialog",
             "iDialogColorChooser",

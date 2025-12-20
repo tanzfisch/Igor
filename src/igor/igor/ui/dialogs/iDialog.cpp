@@ -21,7 +21,7 @@ namespace igor
         : iWidget(type, iWidgetKind::Dialog, nullptr)
     {
         setEnabled(false); // TODO dialogs should be enabled and visible by default
-        setVisible(false);
+        setVisible(false);        
         setMinWidth(100);
         setMinHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
@@ -86,7 +86,7 @@ namespace igor
     {
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
-        setVisible();
+        setVisible();        
         putInFront();
 
         if (modal)
@@ -108,6 +108,8 @@ namespace igor
         iWidgetManager::getInstance().closeDialog(this);
 
         _isOpen = false;
+
+        clear();
     }
 
     bool iDialog::isOpen() const

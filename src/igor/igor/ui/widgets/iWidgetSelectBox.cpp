@@ -27,11 +27,6 @@ namespace igor
 
     iWidgetSelectBox::~iWidgetSelectBox()
     {
-        if (_selectBox != nullptr)
-        {
-            delete _selectBox;
-            _selectBox = nullptr;
-        }
     }
 
     void iWidgetSelectBox::calcMinSize()
@@ -110,11 +105,7 @@ namespace igor
         {
             _buttonState = iWidgetState::Standby;
 
-            if (_selectBox == nullptr)
-            {
-                _selectBox = new iDialogIndexMenu();
-            }
-
+            _selectBox = std::make_unique<iDialogIndexMenu>();
             _selectBox->setMinWidth(getActualWidth());
             _selectBox->setX(getActualPosX() + 2);
             _selectBox->setY(getActualPosY() + getActualHeight() + 2);
@@ -143,8 +134,6 @@ namespace igor
         }
 
         _change(this);
-
-        delete _selectBox;
         _selectBox = nullptr;
     }
 
