@@ -19,6 +19,7 @@ Changelog                           {#changelog}
 - fixed window closing on all client events
 - clear dialogs on close to prevent duplicate widgets leading to mem leak
 - fixed issue with widget type print
+- introduced iWidget/iDialog reset
 
 0.45.0
 ------

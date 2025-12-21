@@ -7,20 +7,21 @@
 DialogComponentTypeSelection::DialogComponentTypeSelection(const iWidgetPtr parent)
 	: iDialog(iWidgetType::iDialog, parent), _selectedTypeIndex(typeid(void))
 {
-}
-
-void DialogComponentTypeSelection::open(iDialogCloseDelegate dialogCloseDelegate)
-{
 	setTitle("Select Component Type");
 	setVerticalAlignment(iVerticalAlignment::Center);
 	setHorizontalAlignment(iHorizontalAlignment::Center);
 	setResizeable(false);
 
 	setMinWidth(20);
-	setMinHeight(20);
+	setMinHeight(20);	
 
 	onInitUI();
+}
 
+void DialogComponentTypeSelection::open(iDialogCloseDelegate dialogCloseDelegate)
+{
+	reset();
+	
 	iDialog::open(dialogCloseDelegate, true);
 }
 

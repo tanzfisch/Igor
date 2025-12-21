@@ -82,11 +82,16 @@ namespace igor
         return _returnState;
     }
 
-    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
+    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal, bool reset)
     {
+        if(reset)
+        {
+            iDialog::reset();
+        }
+
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
-        setVisible();        
+        setVisible();
         putInFront();
 
         if (modal)
@@ -108,8 +113,6 @@ namespace igor
         iWidgetManager::getInstance().closeDialog(this);
 
         _isOpen = false;
-
-        clear();
     }
 
     bool iDialog::isOpen() const

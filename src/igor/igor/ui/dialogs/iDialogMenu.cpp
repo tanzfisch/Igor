@@ -24,9 +24,9 @@ namespace igor
         init();
     }
 
-    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
+    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, bool modal, bool reset)
     {
-        iDialog::open(dialogCloseDelegate, modal);
+        iDialog::open(dialogCloseDelegate, modal, reset);
         putInFront();
     }
 

@@ -526,6 +526,14 @@ namespace igor
          */
         virtual void clear();
 
+        /*! resets values on given widget
+
+        This can mean different things for different derivatives of iWidget
+
+        (usefull when reusing an existing dialog/widget)
+        */
+        virtual void reset();
+
         /*! sets wether or not this widget ignores if a child already consumed an event
 
         \param value if true this widget ignores if a child already has consumed an event

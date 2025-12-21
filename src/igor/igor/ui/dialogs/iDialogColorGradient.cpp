@@ -26,9 +26,9 @@ namespace igor
 		initUI();
 	}
 
-	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
+	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, bool modal, bool reset)
 	{
-		iDialog::open(dialogCloseDelegate, modal);
+		iDialog::open(dialogCloseDelegate, modal, reset);
 
 		setEnabled();
 		setVisible();

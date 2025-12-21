@@ -59,8 +59,9 @@ namespace igor
 
 		\param dialogCloseDelegate closing delegate
         \param modal if true dialog opens modal
+        \param reset if true reset dialog and all it's children
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true) override;
+        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true, bool reset = true) override;
 
         /*! sets color gradient
 

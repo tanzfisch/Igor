@@ -67,9 +67,13 @@ namespace igor
 
         /*! clears all entries
 
-		Attention! if you used user data you have to delete it your self
+		Attention! if you used user data you may have to delete it your self
 		*/
         void clear();
+
+        /*! reset selection to default
+        */
+        void reset();
 
         /*! sets selection by index
 
@@ -114,7 +118,7 @@ namespace igor
 
 		-1 stand for no selection
 		*/
-        int32 _currentSelection = -1;
+        int32 _selectedIndex = -1;
 
         /*! true: if the select box is unfoldet
 		*/

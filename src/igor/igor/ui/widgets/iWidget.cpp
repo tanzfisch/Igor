@@ -48,6 +48,14 @@ namespace igor
         iWidgetManager::getInstance().unregisterWidget(this);
     }
 
+    void iWidget::reset()
+    {
+        for (const auto child : _children)
+        {
+            child->reset();
+        }
+    }
+
     void iWidget::clear()
     {
         clearChildren();

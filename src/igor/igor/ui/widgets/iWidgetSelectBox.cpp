@@ -130,7 +130,7 @@ namespace igor
 
         if (index != -1)
         {
-            _currentSelection = index;
+            _selectedIndex = index;
         }
 
         _change(this);
@@ -158,7 +158,7 @@ namespace igor
 
         if (key < _entries.size() || key == -1)
         {
-            _currentSelection = key;
+            _selectedIndex = key;
         }
     }
 
@@ -167,10 +167,15 @@ namespace igor
         return static_cast<uint32>(_entries.size());
     }
 
+    void iWidgetSelectBox::reset()
+    {
+        _selectedIndex = -1;
+    }
+
     void iWidgetSelectBox::clear()
     {
-        _entries.clear();
-        _currentSelection = -1;
+        reset();
+        _entries.clear();        
     }
 
     void iWidgetSelectBox::addItem(const iaString &entryText, const std::any &userData)
@@ -180,9 +185,9 @@ namespace igor
 
     const std::any iWidgetSelectBox::getSelectedUserData() const
     {
-        if (_currentSelection != -1)
+        if (_selectedIndex != -1)
         {
-            return _entries[_currentSelection].second;
+            return _entries[_selectedIndex].second;
         }
         else
         {
@@ -192,17 +197,17 @@ namespace igor
 
     uint32 iWidgetSelectBox::getSelectedIndex() const
     {
-        return _currentSelection;
+        return _selectedIndex;
     }
 
     iaString iWidgetSelectBox::getSelectedValue() const
     {
-        if(_currentSelection >= _entries.size())
+        if(_selectedIndex >= _entries.size())
         {
             return iaString();
         }
 
-        return _entries[_currentSelection].first;
+        return _entries[_selectedIndex].first;
     }
 
     iWidgetState iWidgetSelectBox::getButtonState() const
