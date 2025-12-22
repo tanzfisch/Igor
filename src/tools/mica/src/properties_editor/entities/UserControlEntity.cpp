@@ -8,6 +8,7 @@
 #include "components/UserControlComponentSpriteRender.h"
 #include "components/UserControlComponentAnimation.h"
 #include "components/UserControlComponentCamera.h"
+#include "components/UserControlComponentScript.h"
 #include "components/UserControlComponentCircle.h"
 #include "components/UserControlComponentSphere.h"
 #include "components/UserControlComponentLight.h"
@@ -205,6 +206,14 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
+    auto script = entity->getComponent<iScriptComponent>();
+    if (script != nullptr)
+    {
+        UserControlComponentBehaviour *userControl = new UserControlComponentBehaviour(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }    
+
     auto circle = entity->getComponent<iCircleComponent>();
     if (circle != nullptr)
     {
@@ -245,14 +254,6 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
-    auto octree = entity->getComponent<iOctreeComponent>();
-    if (octree != nullptr)
-    {
-        UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
-        userControl->onInit();
-        userControl->onUpdateUI();
-    }
-
     auto prefab = entity->getComponent<iPrefabComponent>();
     if (prefab != nullptr)
     {
@@ -269,6 +270,14 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
+    auto octree = entity->getComponent<iOctreeComponent>();
+    if (octree != nullptr)
+    {
+        UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+        
     _ignoreUpdate = false;
 }
 

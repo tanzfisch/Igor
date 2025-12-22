@@ -141,7 +141,7 @@ namespace igor
 		*/
         iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
 
-        /*! flat to handle change event trigger behaviour
+        /*! flat to handle change event trigger script
 		*/
         bool _triggerChangeAtOnce = false;
 

@@ -14,7 +14,7 @@ Changelog                           {#changelog}
 - #306 using ChaiScript for scripting
 - added offset to camera component
 - #457 adding script support to Mica
-- fixed recent projects order
+- fixed recent projects handling
 - fixed edit mode issue after project creation
 - fixed window closing on all client events
 - clear dialogs on close to prevent duplicate widgets leading to mem leak

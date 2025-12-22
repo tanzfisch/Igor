@@ -588,7 +588,7 @@ namespace igor
     {
         if (!getChildren().empty())
         {
-            con_warn("undefined behaviour if adding more then one widget");
+            con_warn("undefined script if adding more then one widget");
         }
 
         iWidget::addWidget(widget);

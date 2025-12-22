@@ -313,7 +313,7 @@ private:
 
     /*! handles player movement
      */
-    void onPlayerMovementBehaviour(iEntityPtr entity);
+    void onPlayerMovement(iEntityPtr entity);
 
     /*! handles camera movement
      */

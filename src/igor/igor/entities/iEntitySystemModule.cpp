@@ -5,7 +5,7 @@
 #include <igor/entities/iEntitySystemModule.h>
 
 #include <igor/entities/systems/iAnimationSystem.h>
-#include <igor/entities/systems/iBehaviourSystem.h>
+#include <igor/entities/systems/iScriptSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
@@ -47,7 +47,7 @@ namespace igor
         registerComponentType<iCircleComponent>(iCircleComponent::createInstance, iCircleComponent::getTypeName());
         registerComponentType<iSphereComponent>(iSphereComponent::createInstance, iSphereComponent::getTypeName());
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
-        registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, iBehaviourComponent::getTypeName());
+        registerComponentType<iScriptComponent>(iScriptComponent::createInstance, iScriptComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
         registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());        
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());
@@ -56,7 +56,7 @@ namespace igor
         registerComponentType<iPrefabComponent>(iPrefabComponent::createInstance, iPrefabComponent::getTypeName());
 
         registerSystemType(iAnimationSystem::createInstance, iAnimationSystem::getTypeName());
-        registerSystemType(iBehaviourSystem::createInstance, iBehaviourSystem::getTypeName());
+        registerSystemType(iScriptSystem::createInstance, iScriptSystem::getTypeName());
         registerSystemType(iCameraSystem::createInstance, iCameraSystem::getTypeName());
         registerSystemType(iLightSystem::createInstance, iLightSystem::getTypeName());
         registerSystemType(iMeshRenderSystem::createInstance, iMeshRenderSystem::getTypeName());
@@ -116,9 +116,9 @@ namespace igor
         scene->addSystem(iVelocitySystem::getTypeName());
         scene->addSystem(iTransformSystem::getTypeName());
 
-        // running behaviour after transforms and update of oc/quad trees so behaviour system can rely on it
-        // this will lead to position changes by the behaviour systems show up one frame late
-        scene->addSystem(iBehaviourSystem::getTypeName());
+        // running script after transforms and update of oc/quad trees so script system can rely on it
+        // this will lead to position changes by the script systems show up one frame late
+        scene->addSystem(iScriptSystem::getTypeName());
 
         scene->addSystem(iCameraSystem::getTypeName());
         scene->addSystem(iLightSystem::getTypeName());

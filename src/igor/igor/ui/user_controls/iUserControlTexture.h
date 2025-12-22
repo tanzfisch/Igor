@@ -61,7 +61,7 @@ namespace igor
 
         /*! \returns texture id
          */
-        iResourceID getID() const;
+        const iResourceID& getID() const;
 
     private:
         /*! texture id

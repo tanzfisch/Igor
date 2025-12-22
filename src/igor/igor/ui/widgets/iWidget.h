@@ -169,6 +169,7 @@ namespace igor
         iUserControlTreeView,
         iUserControlVector,
         iUserControlMeshReference,
+        iUserControlScript,
 
         iDialog,
         iDialogColorChooser,

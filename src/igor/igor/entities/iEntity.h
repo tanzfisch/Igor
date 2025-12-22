@@ -29,7 +29,7 @@
 #ifndef IGOR_ENTITY_H
 #define IGOR_ENTITY_H
 
-#include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/iEntityIDPath.h>
 
 #include <unordered_map>
@@ -192,25 +192,25 @@ namespace igor
         template <typename T>
         void reloadComponent();
 
-        /*! adds behaviour to entity
+        /*! adds script to entity
 
-        \param behaviour the behaviour delegate to be added
-        \param name the name of the behaviour
+        \param script the script delegate to be added
+        \param name the name of the script
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const iaString &name = "");
+        void addScript(const iScriptDelegate &script, const iaString &name = "");
 
-        /*! adds script behaviour to entity
+        /*! adds script script to entity
 
-        \param behaviour the behaviour script to be added
-        \param name the name of the behaviour
+        \param script the script script to be added
+        \param name the name of the script
         */
-        void addBehaviour(const iScriptPtr behaviour, const iaString &name = "");
+        void addScript(const iScriptPtr script, const iaString &name = "");
 
-        /*! removes behaviour from entity
+        /*! removes script from entity
 
-        \param behaviour the behaviour to be removed
+        \param script the script to be removed
         */
-        void removeBehaviour(const iBehaviourDelegate &behaviour);
+        void removeScript(const iScriptDelegate &script);
 
         /*! removes all components
          */

@@ -382,7 +382,7 @@ template <class T>
 iaQuaternion<T> slerp(iaQuaternion<T> a, iaQuaternion<T> b, T t)
 {
     // Only unit quaternions are valid rotations.
-    // Normalize to avoid undefined behavior.
+    // Normalize to avoid undefined script.
     a.normalize();
     b.normalize();
 

@@ -68,12 +68,22 @@ void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
     if (iConfig::getInstance().hasValue("mica.recentProjects"))
     {
         const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+        std::vector<iaString> cleanup;
 
         for (const auto &project : recent)
         {
+            if(!iaPath::exists(project))
+            {
+                continue;
+            }
+
+            cleanup.push_back(project);
+
             iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(project);
             menu->addAction("igor:load_project", actionContext);
         }
+
+        iConfig::getInstance().setValue("mica.recentProjects", cleanup);
     }
 }
 

@@ -26,47 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_BEHAVIOUR_SYSTEM_H
-#define IGOR_BEHAVIOUR_SYSTEM_H
+#ifndef USERCONTROL_COMPONENT_BEHAVIOUR_H
+#define USERCONTROL_COMPONENT_BEHAVIOUR_H
 
-#include <igor/entities/iEntitySystem.h>
+#include "UserControlComponent.h"
 
-namespace igor
+class UserControlComponentBehaviour : public UserControlComponent
 {
+public:
+    /*! init user control
 
-	/*! behaviour system
-	 */
-	class iBehaviourSystem : public iEntitySystem
-	{
-	public:
-		/*! init types
-		 */
-		iBehaviourSystem();
+    \param scene the given scene
+    \param entity the given entity
+    \param parent the optional parent widget
+    */
+    UserControlComponentBehaviour(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
-        /*! creates instance of this system type
-         */
-        static iEntitySystemPtr createInstance();
-		
-        /*! \returns type name of system
-         */
-        static const iaString &getTypeName();
+    /*! does nothing
+     */
+    virtual ~UserControlComponentBehaviour() = default;
 
-		/*! updates system
+    /*! init ui
+     */
+    void onInit() override;
 
-		\param context the update context
-		 */
-		void onUpdate(const iEntitySceneUpdateContext &context) override;
+    /*! update ui with node data
+     */
+    void onUpdateUI() override;
 
-		/*! \returns processing stage this system want's to run in
-		 */
-		iEntitySystemStage getStage() const override;
+    /*! update entity
+     */
+    void onUpdateComponent() override;
 
-	private:
-		/*! a view on some entities
-		 */
-		iEntityViewPtr _view;
-	};
+private:
 
-} // igor
+    /*! called when component is supposed to be destroyed
 
-#endif // IGOR_BEHAVIOUR_SYSTEM_H
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;
+};
+
+#endif // USERCONTROL_COMPONENT_BEHAVIOUR_H

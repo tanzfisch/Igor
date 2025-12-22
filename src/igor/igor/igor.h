@@ -133,7 +133,7 @@
 #include <igor/entities/components/iLightComponent.h>
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
-#include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>

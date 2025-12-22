@@ -1,4 +1,3 @@
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -27,26 +26,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_ANIMATION_SYSTEM_H
-#define IGOR_ANIMATION_SYSTEM_H
+#ifndef IGOR_BEHAVIOUR_SYSTEM_H
+#define IGOR_BEHAVIOUR_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
-#include <igor/entities/components/iTransformComponent.h>
-#include <igor/entities/components/iSpriteRenderComponent.h>
-#include <igor/entities/components/iAnimationComponent.h>
-
 namespace igor
-{	
+{
 
 	/*! script system
-	*/
-	class iAnimationSystem : public iEntitySystem
+	 */
+	class iScriptSystem : public iEntitySystem
 	{
 	public:
 		/*! init types
-		*/
-		iAnimationSystem();
+		 */
+		iScriptSystem();
 
         /*! creates instance of this system type
          */
@@ -63,30 +58,15 @@ namespace igor
 		void onUpdate(const iEntitySceneUpdateContext &context) override;
 
 		/*! \returns processing stage this system want's to run in
-		*/
+		 */
 		iEntitySystemStage getStage() const override;
 
-	private: 
-
-		/*! a view on entities with animated transform
-		*/
-		iEntityViewPtr _viewTransform;
-
-		/*! a view on entities with animated sprite
-		*/
-		iEntityViewPtr _viewSprite;
-
-		/*! update transform
-		*/
-		void onUpdateTransform(const iaTime &time, iAnimationComponentPtr animationComp, iTransformComponentPtr transformComp);
-
-		/*! update sprite
-		*/
-		void onUpdateSprite(const iaTime &time, iAnimationComponentPtr animationComp, iSpriteRenderComponentPtr spriteRenderComp);
-
-		float64 mapTime(const iaTime &time, iAnimationComponentPtr animationComp, iClipPtr clip, iaStateMachine::iaEvent lastEvent);
+	private:
+		/*! a view on some entities
+		 */
+		iEntityViewPtr _view;
 	};
 
 } // igor
 
-#endif // IGOR_ANIMATION_SYSTEM_H
+#endif // IGOR_BEHAVIOUR_SYSTEM_H

@@ -69,7 +69,7 @@ namespace igor
         /*! opens dialog in load mode
 
 		\param closeDelegate delegate called after dialog was closed
-        \param purpose the purpose that drives the appearance and behaviour of the dialog
+        \param purpose the purpose that drives the appearance and script of the dialog
 		\param path the path to start with
         \param extensions list of extension to show in dialog. If empty all extensions are allowed
 		*/

@@ -26,21 +26,20 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_USERCONTROL_MATERIAL_H
-#define IGOR_USERCONTROL_MATERIAL_H
+#ifndef IGOR_USERCONTROL_SCRIPT_H
+#define IGOR_USERCONTROL_SCRIPT_H
 
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/resources/texture/iTexture.h>
 
 namespace igor
 {
 
-    /*! User control material chooser
+    /*! User control script
      */
-    class IGOR_API iUserControlMaterial : public iUserControl
+    class IGOR_API iUserControlScript : public iUserControl
     {
 
     public:
@@ -48,38 +47,38 @@ namespace igor
 
         \param parent the optional parent
         */
-        iUserControlMaterial(const iWidgetPtr parent = nullptr);
+        iUserControlScript(const iWidgetPtr parent = nullptr);
 
         /*! clean up
          */
-        ~iUserControlMaterial();
+        ~iUserControlScript();
 
-        /*! sets the material id
+        /*! sets the script id
 
-        \param materialID the given material id
+        \param scriptID the given script id
         */
-        void setID(iResourceID materialID);
+        void setID(iResourceID scriptID);
 
-        /*! \returns material id
+        /*! \returns script id
          */
         const iResourceID& getID() const;
 
     private:
-        /*! material ID
+        /*! script id
          */
-        iResourceID _materialID;
+        iResourceID _scriptID;
 
-        /*! label material id
+        /*! label script id
          */
         iWidgetLabelPtr _labelID;
 
-        /*! material alias
+        /*! label alias
          */
         iWidgetLabelPtr _labelAlias;
 
-        /*! displays the selected material
+        /*! label source file
          */
-        iWidgetPicturePtr _picture;
+        iWidgetLabelPtr _labelSrcFile;
 
         /*! initialize gui elements
          */
@@ -100,10 +99,10 @@ namespace igor
         void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
     };
 
-    /*! user control material chooser pointer definition
+    /*! user control script pointer definition
      */
-    typedef iUserControlMaterial *iUserControlMaterialPtr;
+    typedef iUserControlScript *iUserControlScriptPtr;
 
 } // namespace igor
 
-#endif // IGOR_USERCONTROL_MATERIAL_H
+#endif // IGOR_USERCONTROL_SCRIPT_H

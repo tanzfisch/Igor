@@ -321,10 +321,10 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
 
-    entity->addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
-    entity->addBehaviour({this, &GameLayer::onAquireTarget});
-    entity->addBehaviour({this, &GameLayer::onUpdateCollision});
-    entity->addBehaviour({this, &GameLayer::onUpdateWeapon});
+    entity->addScript({this, &GameLayer::onPlayerMovement});
+    entity->addScript({this, &GameLayer::onAquireTarget});
+    entity->addScript({this, &GameLayer::onUpdateCollision});
+    entity->addScript({this, &GameLayer::onUpdateWeapon});
 
     entity->addComponent(new ExperienceComponent());
     entity->addComponent(new CoinsComponent());
@@ -340,7 +340,7 @@ iEntityID GameLayer::createPlayer()
     return entity->getID();
 }
 
-void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity)
+void GameLayer::onPlayerMovement(iEntityPtr entity)
 {
     auto velocityComponent = entity->getComponent<iVelocityComponent>();
     auto modifier = entity->getComponent<ModifierComponent>();
@@ -580,8 +580,8 @@ print("hello foo bar")
 
     iScriptPtr followPlayer = iResourceManager::getInstance().loadResource<iScript>(param);
 
-    // camera->addBehaviour({this, &GameLayer::onCameraFollowPlayer});
-    camera->addBehaviour(followPlayer);
+    // camera->addScript({this, &GameLayer::onCameraFollowPlayer});
+    camera->addScript(followPlayer);
 
     auto cameraComponent = camera->addComponent(new iCameraComponent());
 
@@ -677,8 +677,8 @@ void GameLayer::createShop()
     shop->addComponent(new WeaponComponent(_weapons["Minigun"]));
     shop->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     shop->addComponent(new iQuadtreeComponent());
-    shop->addBehaviour({this, &GameLayer::onAquireTarget});
-    shop->addBehaviour({this, &GameLayer::onUpdateWeapon});
+    shop->addScript({this, &GameLayer::onAquireTarget});
+    shop->addScript({this, &GameLayer::onUpdateWeapon});
 
     auto animationComp = shop->addComponent(new iAnimationComponent());
     animationComp->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
@@ -794,8 +794,8 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit->addComponent(new TargetComponent(target));
     unit->addComponent(new ExperienceGainComponent(enemyClass._xpDrop));
     unit->addComponent(new DamageComponent(enemyClass._damage));
-    unit->addBehaviour({this, &GameLayer::onCheckCollision});
-    unit->addBehaviour({this, &GameLayer::onFollowTarget});
+    unit->addScript({this, &GameLayer::onCheckCollision});
+    unit->addScript({this, &GameLayer::onFollowTarget});
     // unit->setMotionInteractionType(iMotionInteractionType::Divert);
 
     // add shadow
@@ -1250,8 +1250,8 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet->addComponent(new iQuadtreeComponent());
         bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->_config._damageFactor));
         bullet->addComponent(new HealthComponent(100.0f, true));
-        bullet->addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});
-        bullet->addBehaviour({this, &GameLayer::onCheckCollision});
+        bullet->addScript({this, &GameLayer::onUpdateProjectileOrientation});
+        bullet->addScript({this, &GameLayer::onCheckCollision});
     }
 }
 

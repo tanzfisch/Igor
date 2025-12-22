@@ -63,7 +63,7 @@ namespace igor
         _change(this);
     }
 
-    iResourceID iUserControlTexture::getID() const
+    const iResourceID& iUserControlTexture::getID() const
     {
         return _textureID;
     }

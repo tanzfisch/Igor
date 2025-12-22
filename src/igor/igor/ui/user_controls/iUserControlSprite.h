@@ -61,7 +61,7 @@ namespace igor
 
         /*! \returns sprite id
          */
-        iResourceID getID() const;
+        const iResourceID& getID() const;
 
     private:
         /*! sprite id

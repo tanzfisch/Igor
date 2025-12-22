@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_BEHAVIOUR_COMPONENT_H
-#define IGOR_BEHAVIOUR_COMPONENT_H
+#ifndef IGOR_SCRIPT_COMPONENT_H
+#define IGOR_SCRIPT_COMPONENT_H
 
 #include <igor/entities/iEntityComponent.h>
 #include <igor/resources/script/iScript.h>
@@ -40,37 +40,37 @@ namespace igor
     class iEntity;
     typedef iEntity *iEntityPtr;
 
-    /*! behaviour delegate definition
+    /*! script delegate definition
      */
-    IGOR_DELEGATE_DEFINITION(iBehaviour, iEntityPtr);
+    IGOR_DELEGATE_DEFINITION(iScript, iEntityPtr);
 
-    /*! behaviour data
+    /*! script data
      */
-    struct iBehaviourData
+    struct iScriptData
     {
         /*! delegate to be executed with given entity and user data
 
         deprecated in future only use scripts
          */
-        iBehaviourDelegate _delegate;
+        iScriptDelegate _delegate;
 
-        /*! behaviour script
+        /*! script script
         */
         iScriptPtr _script;
 
-        /*! optional name of behaviour
+        /*! optional name of script
          */
         iaString _name;
     };
 
-    /*! behaviour component
+    /*! script component
      */
-    class iBehaviourComponent : public iEntityComponent
+    class iScriptComponent : public iEntityComponent
     {
     public:
         /*! ctor
          */
-        iBehaviourComponent();
+        iScriptComponent();
 
         /*! creates instance of this component type
          */
@@ -84,38 +84,38 @@ namespace igor
          */
         std::vector<iaString> getInfo() const override;
 
-        /*! \returns behaviours
+        /*! \returns scripts
          */
-        const std::vector<iBehaviourData> &getBehaviors() const;
+        const std::vector<iScriptData> &getScripts() const;
 
-        /*! adds behaviour from code
+        /*! adds script from code
 
-        \param behaviour the behaviour to add
-        \param name the name of the behaviour
+        \param script the script to add
+        \param name the name of the script
         */
-        void addBehaviour(const iBehaviourDelegate &delegate, const iaString &name);
+        void addScript(const iScriptDelegate &delegate, const iaString &name);
 
-        /*! adds behaviour from script
+        /*! adds script from script
 
-        \param behaviour the behaviour script to add
-        \param name the name of the behaviour
+        \param script the script script to add
+        \param name the name of the script
         */
-        void addBehaviour(const iScriptPtr behaviour, const iaString &name);
+        void addScript(const iScriptPtr script, const iaString &name);
 
-        /*! removes behaviour from entity
+        /*! removes script from entity
 
-        \param behaviour the behaviour to be removed
+        \param script the script to be removed
         */
-        void removeBehaviour(const iBehaviourDelegate &delegate);
+        void removeScript(const iScriptDelegate &delegate);
 
         /*! executes all behaviours
          */
         void execute();
 
     private:
-        /*! behaviors
+        /*! scripts
          */
-        std::vector<iBehaviourData> _behaviors;
+        std::vector<iScriptData> _scripts;
 
         /*! \returns a copy of this component
          */
@@ -123,4 +123,4 @@ namespace igor
     };
 }
 
-#endif // IGOR_BEHAVIOUR_COMPONENT_H
+#endif // IGOR_SCRIPT_COMPONENT_H

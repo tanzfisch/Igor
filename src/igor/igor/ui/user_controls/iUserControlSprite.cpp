@@ -101,7 +101,7 @@ namespace igor
         _change(this);
     }
 
-    iResourceID iUserControlSprite::getID() const
+    const iResourceID& iUserControlSprite::getID() const
     {
         return _spriteID;
     }
