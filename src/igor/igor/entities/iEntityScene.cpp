@@ -380,6 +380,11 @@ namespace igor
     {
         iEntitySystemPtr system = iEntitySystemModule::getInstance().createSystem(systemName);
 
+        if(system == nullptr)
+        {
+            return;
+        }
+
         _systemsMutex.lock();
         auto &stage = _systems[(int)system->getStage()];
 

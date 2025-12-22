@@ -31,7 +31,7 @@
 
 #include "UserControlComponent.h"
 
-class UserControlComponentBehaviour : public UserControlComponent
+class UserControlComponentScript : public UserControlComponent
 {
 public:
     /*! init user control
@@ -40,11 +40,11 @@ public:
     \param entity the given entity
     \param parent the optional parent widget
     */
-    UserControlComponentBehaviour(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+    UserControlComponentScript(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
     /*! does nothing
      */
-    virtual ~UserControlComponentBehaviour() = default;
+    virtual ~UserControlComponentScript() = default;
 
     /*! init ui
      */

@@ -26,33 +26,24 @@ namespace igor
 
     void iUserControlScript::onInitUI()
     {
-        iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
-
-        iWidgetBoxLayoutPtr spriteLabelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, mainLayout);
-        auto labelSprite = new iWidgetLabel(spriteLabelLayout);
-        labelSprite->setText("Sprite");
-        labelSprite->setHorizontalAlignment(iHorizontalAlignment::Left);
-        labelSprite->setVerticalAlignment(iVerticalAlignment::Top);
-
-        _labelID = new iWidgetLabel(spriteLabelLayout);
+        iWidgetBoxLayoutPtr scriptLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
+        _labelID = new iWidgetLabel(scriptLayout);
         _labelID->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelID->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _labelAlias = new iWidgetLabel(spriteLabelLayout);
+        _labelAlias = new iWidgetLabel(scriptLayout);
         _labelAlias->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelAlias->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _labelSrcFile = new iWidgetLabel(spriteLabelLayout);
+        _labelSrcFile = new iWidgetLabel(scriptLayout);
         _labelSrcFile->setHorizontalAlignment(iHorizontalAlignment::Left);
         _labelSrcFile->setVerticalAlignment(iVerticalAlignment::Top);
-
-        // TODO add edit button?
     }
 
     void iUserControlScript::setID(iResourceID scriptID)
     {
         _scriptID = scriptID;
-        _labelID->setText("");
+        _labelID->setText("...");
         _labelAlias->setText("");
         _labelSrcFile->setText("");
 
@@ -61,7 +52,7 @@ namespace igor
             return;
         }
 
-        auto script = iResourceManager::getInstance().loadResource<iSprite>(_scriptID);
+        auto script = iResourceManager::getInstance().loadResource<iScript>(_scriptID);
         if (script == nullptr)
         {
             return;

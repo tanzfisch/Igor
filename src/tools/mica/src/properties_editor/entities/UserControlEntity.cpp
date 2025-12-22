@@ -209,7 +209,7 @@ void UserControlEntity::update()
     auto script = entity->getComponent<iScriptComponent>();
     if (script != nullptr)
     {
-        UserControlComponentBehaviour *userControl = new UserControlComponentBehaviour(_sceneID, _entityID, _componentsLayout);
+        UserControlComponentScript *userControl = new UserControlComponentScript(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
     }    

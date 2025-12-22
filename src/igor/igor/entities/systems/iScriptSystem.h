@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_BEHAVIOUR_SYSTEM_H
-#define IGOR_BEHAVIOUR_SYSTEM_H
+#ifndef IGOR_SCRIPT_SYSTEM_H
+#define IGOR_SCRIPT_SYSTEM_H
 
 #include <igor/entities/iEntitySystem.h>
 
@@ -69,4 +69,4 @@ namespace igor
 
 } // igor
 
-#endif // IGOR_BEHAVIOUR_SYSTEM_H
+#endif // IGOR_SCRIPT_SYSTEM_H

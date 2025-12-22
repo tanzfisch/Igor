@@ -70,6 +70,8 @@ namespace igor
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "material.mat";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
+
+        path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }    
     
@@ -99,6 +101,8 @@ namespace igor
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "shader.shader";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
+
+        path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        
 
@@ -153,6 +157,8 @@ namespace igor
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "sprite.sprite";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
+
+        path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }        
 
@@ -182,6 +188,8 @@ namespace igor
         auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "script.chai";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
+
+        path = iaPath::getRelativePath(iProject::getInstance().getProjectPath(), path);
         iResourceManager::getInstance().addToDictionary(path, "", resource->getID());
     }       
 

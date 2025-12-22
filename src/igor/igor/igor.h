@@ -201,6 +201,7 @@
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 #include <igor/ui/user_controls/iUserControlTexture.h>
 #include <igor/ui/user_controls/iUserControlSprite.h>
+#include <igor/ui/user_controls/iUserControlScript.h>
 #include <igor/ui/user_controls/iUserControlMaterial.h>
 #include <igor/ui/user_controls/iUserControlShader.h>
 #include <igor/ui/user_controls/iUserControlVector.h>

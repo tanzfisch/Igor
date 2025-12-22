@@ -6,36 +6,37 @@
 
 #include <igor/entities/components/iScriptComponent.h>
 
-UserControlComponentBehaviour::UserControlComponentBehaviour(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
+UserControlComponentScript::UserControlComponentScript(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent)
     : UserControlComponent(scene, entity, "Script", parent)
 {
 }
 
-void UserControlComponentBehaviour::onInit()
+void UserControlComponentScript::onInit()
 {
     UserControlComponent::onInit();
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr viewportLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
-    viewportLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
-    viewportLayout->setStretchIndex(1);
-    iWidgetLabelPtr labelViewport = new iWidgetLabel(viewportLayout);
-    labelViewport->setText("Viewport");
-    labelViewport->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-    labelViewport->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetBoxLayoutPtr scriptLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
+    scriptLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
+    scriptLayout->setStretchIndex(1);
 
+    iWidgetButtonPtr editButton = new iWidgetButton(scriptLayout);
+    editButton->setText("edit");
+    editButton->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+    editButton->setHorizontalAlignment(iHorizontalAlignment::Left);
 
+    new iUserControlScript(scriptLayout);
 }
 
-void UserControlComponentBehaviour::onUpdateUI()
+void UserControlComponentScript::onUpdateUI()
 {
 
 
     _ignoreUpdate = false;
 }
 
-void UserControlComponentBehaviour::onUpdateComponent()
+void UserControlComponentScript::onUpdateComponent()
 {
     if (_ignoreUpdate)
     {
@@ -44,7 +45,7 @@ void UserControlComponentBehaviour::onUpdateComponent()
 
 }
 
-void UserControlComponentBehaviour::onDestroyComponent(iEntityPtr entity)
+void UserControlComponentScript::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
