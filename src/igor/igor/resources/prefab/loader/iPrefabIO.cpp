@@ -18,6 +18,7 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
 
 #include <fstream>
 
@@ -84,7 +85,9 @@ namespace igor
                 componentJson["orthoTop"].get<float32>());
         }
 
-        if (componentJson.contains("offsetPosition"))
+        if (componentJson.contains("offsetPosition") &&
+            componentJson.contains("offsetOrientation") &&
+            componentJson.contains("offsetScale"))
         {
             iaTransformd offset;
 
@@ -206,7 +209,7 @@ namespace igor
         iSpriteRenderComponentPtr component = new iSpriteRenderComponent();
         entity->addComponent(component);
 
-        if(componentJson.contains("sprite"))
+        if (componentJson.contains("sprite"))
         {
             component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
         }
@@ -228,6 +231,42 @@ namespace igor
         componentJson["zIndex"] = (int)component->getZIndex();
         componentJson["mode"] = (int)component->getRenderMode();
         componentJson["frame"] = (int)component->getFrameIndex();
+    }
+
+    static void readScript(iEntityPtr entity, const json &componentJson)
+    {
+        iScriptComponentPtr component = new iScriptComponent();
+        entity->addComponent(component);
+
+        if (componentJson.contains("scripts"))
+        {
+            const auto scriptsJson = componentJson["scripts"];
+
+            for (const auto &scriptJson : scriptsJson)
+            {
+                iScriptPtr script = iResourceManager::getInstance().loadResource<iScript>(scriptJson.get<iaUUID>());
+                if (script != nullptr)
+                {
+                    component->addScript(script);
+                }
+            }
+        }
+    }
+
+    static void writeScript(json &componentJson, iScriptComponentPtr component)
+    {
+        const auto &scripts = component->getScripts();
+        json scriptsJson = json::array();
+
+        for (const auto &script : scripts)
+        {
+            scriptsJson.push_back(script._script->getID());
+        }
+
+        if (!scriptsJson.empty())
+        {
+            componentJson["scripts"] = scriptsJson;
+        }
     }
 
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
@@ -255,6 +294,7 @@ namespace igor
             {"meshRender", readMeshRender},
             {"light", readLight},
             {"spriteRender", readSpriteRender},
+            {"script", readScript},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -413,6 +453,16 @@ namespace igor
                 json componentJson;
                 componentJson["componentType"] = "spriteRender";
                 writeSpriteRender(componentJson, spriteRender);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iScriptComponentPtr script = dynamic_cast<iScriptComponentPtr>(component);
+            if (script != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "script";
+                writeScript(componentJson, script);
                 componentsJson.push_back(componentJson);
                 continue;
             }

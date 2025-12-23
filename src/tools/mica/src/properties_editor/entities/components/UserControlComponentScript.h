@@ -65,6 +65,20 @@ private:
     \param entity the entity to destroy the component from
      */
     void onDestroyComponent(iEntityPtr entity) override;
+
+    /*! drag move handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+
+    /*! drop handle
+
+    \param drag the drag data
+    \param mousePos the current mouse pos
+    */
+    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;    
 };
 
 #endif // USERCONTROL_COMPONENT_BEHAVIOUR_H

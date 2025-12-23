@@ -57,10 +57,6 @@ namespace igor
         /*! script script
         */
         iScriptPtr _script;
-
-        /*! optional name of script
-         */
-        iaString _name;
     };
 
     /*! script component
@@ -91,16 +87,15 @@ namespace igor
         /*! adds script from code
 
         \param script the script to add
-        \param name the name of the script
         */
-        void addScript(const iScriptDelegate &delegate, const iaString &name);
+        void addScript(const iScriptDelegate &delegate);
 
         /*! adds script from script
 
         \param script the script script to add
         \param name the name of the script
         */
-        void addScript(const iScriptPtr script, const iaString &name);
+        void addScript(const iScriptPtr script);
 
         /*! removes script from entity
 
@@ -121,6 +116,10 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! script component pointer definition
+    */
+    typedef iScriptComponent* iScriptComponentPtr;
 }
 
 #endif // IGOR_SCRIPT_COMPONENT_H

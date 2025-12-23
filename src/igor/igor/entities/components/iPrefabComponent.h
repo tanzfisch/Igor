@@ -90,6 +90,10 @@ namespace igor
         iEntityComponentPtr getCopy() override;
     };
 
+    /*! prefab component pointe definition
+    */
+    typedef iPrefabComponent* iPrefabComponentPtr;
+
 }
 
 #endif // #define IGOR_PREFAB_COMPONENT_H

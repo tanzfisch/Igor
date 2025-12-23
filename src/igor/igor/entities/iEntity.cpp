@@ -305,7 +305,7 @@ namespace igor
         return _name;
     }
 
-    void iEntity::addScript(const iScriptPtr script, const iaString &name)
+    void iEntity::addScript(const iScriptPtr script)
     {
         iScriptComponent *scriptComponent = getComponent<iScriptComponent>();
         if (scriptComponent == nullptr)
@@ -313,10 +313,10 @@ namespace igor
             scriptComponent = static_cast<iScriptComponent *>(addComponent(new iScriptComponent()));
         }
 
-        scriptComponent->addScript(script, name);
+        scriptComponent->addScript(script);
     }
 
-    void iEntity::addScript(const iScriptDelegate &delegate, const iaString &name)
+    void iEntity::addScript(const iScriptDelegate &delegate)
     {
         iScriptComponent *scriptComponent = getComponent<iScriptComponent>();
         if (scriptComponent == nullptr)
@@ -324,7 +324,7 @@ namespace igor
             scriptComponent = static_cast<iScriptComponent *>(addComponent(new iScriptComponent()));
         }
 
-        scriptComponent->addScript(delegate, name);
+        scriptComponent->addScript(delegate);
     }
 
     void iEntity::removeScript(const iScriptDelegate &delegate)

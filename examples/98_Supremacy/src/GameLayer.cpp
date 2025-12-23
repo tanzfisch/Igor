@@ -580,7 +580,7 @@ print("hello foo bar")
 
     iScriptPtr followPlayer = iResourceManager::getInstance().loadResource<iScript>(param);
 
-    // camera->addScript({this, &GameLayer::onCameraFollowPlayer});
+    camera->addScript({this, &GameLayer::onCameraFollowPlayer});
     camera->addScript(followPlayer);
 
     auto cameraComponent = camera->addComponent(new iCameraComponent());

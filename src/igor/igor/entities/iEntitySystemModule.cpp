@@ -233,7 +233,7 @@ namespace igor
         if (maxUpdateCount <= 0)
         {
             _simulationFrameTime = currentTime;
-            con_trace("Loosing frames");
+            con_debug("loosing frames");
         }
 
         uint64 entityCount = 0;

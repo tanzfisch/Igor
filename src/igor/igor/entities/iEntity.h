@@ -197,14 +197,14 @@ namespace igor
         \param script the script delegate to be added
         \param name the name of the script
         */
-        void addScript(const iScriptDelegate &script, const iaString &name = "");
+        void addScript(const iScriptDelegate &script);
 
         /*! adds script script to entity
 
         \param script the script script to be added
         \param name the name of the script
         */
-        void addScript(const iScriptPtr script, const iaString &name = "");
+        void addScript(const iScriptPtr script);
 
         /*! removes script from entity
 

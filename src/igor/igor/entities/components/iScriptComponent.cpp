@@ -34,7 +34,7 @@ namespace igor
 
         for (const auto &script : _scripts)
         {
-            result.push_back(script._name);
+            result.push_back(script._script->getID().toString());
         }
 
         return result;
@@ -45,14 +45,14 @@ namespace igor
         return _scripts;
     }
 
-    void iScriptComponent::addScript(const iScriptPtr script, const iaString &name)
+    void iScriptComponent::addScript(const iScriptPtr script)
     {
-        _scripts.push_back({nullptr, script, name});
+        _scripts.push_back({nullptr, script});
     }
 
-    void iScriptComponent::addScript(const iScriptDelegate &delegate, const iaString &name)
+    void iScriptComponent::addScript(const iScriptDelegate &delegate)
     {
-        _scripts.push_back({delegate, nullptr, name});
+        _scripts.push_back({delegate, nullptr});
     }
 
     void iScriptComponent::removeScript(const iScriptDelegate &delegate)

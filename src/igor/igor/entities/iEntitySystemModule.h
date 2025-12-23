@@ -114,13 +114,13 @@ namespace igor
 
         /*! triggers pre render update stage with given scene
 
-        \param scene the given scene to update/render
+        \param scene the given scene to update
          */
         void onPreRender(iEntityScenePtr scene);
 
         /*! triggers render update stage with given scene
 
-        \param scene the given scene to update/render
+        \param scene the given scene to render
          */
         void onRender(iEntityScenePtr scene);
 
