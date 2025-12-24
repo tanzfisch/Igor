@@ -109,8 +109,10 @@ namespace igor
         void destroyScene(const iEntitySceneID &sceneID);
 
         /*! updates all scenes and cleans up scene lists
+
+        \param runtime if true it is running the update stage as well
          */
-        void onUpdate();
+        void onUpdate(bool runtime);
 
         /*! triggers pre render update stage with given scene
 

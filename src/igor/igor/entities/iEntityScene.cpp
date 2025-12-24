@@ -107,7 +107,7 @@ namespace igor
     {
         con_assert((int)stageIndex < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if (stageIndex == iEntitySystemStage::Update)
+        if (stageIndex == iEntitySystemStage::System)
         {
             flushQueues();
         }

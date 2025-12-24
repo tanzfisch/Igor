@@ -11,6 +11,7 @@
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/renderer/iView.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/resources/project/iProject.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -139,7 +140,7 @@ namespace igor
         IGOR_PROFILER_END(application);
 
         IGOR_PROFILER_BEGIN(entities);
-        iEntitySystemModule::getInstance().onUpdate();
+        iEntitySystemModule::getInstance().onUpdate(iProject::getInstance().getMode() == iProject::iMode::Runtime);
         IGOR_PROFILER_END(entities);
 
         IGOR_PROFILER_BEGIN(nodes);

@@ -29,7 +29,7 @@ namespace igor
 
     iEntitySystemStage iTransformSystem::getStage() const
     {
-        return iEntitySystemStage::Update;
+        return iEntitySystemStage::System;
     }
 
     void iTransformSystem::onUpdate(const iEntitySceneUpdateContext &context)
