@@ -18,14 +18,14 @@ namespace igor
         return converter.to_bytes(wstr);
     }
 
-    void print(const std::string &t_name)
+    static void print(const std::string &message)
     {
-        con_endl(t_name.c_str());
+        con_endl(message.c_str());
     }
 
-    void printInfo(const std::string &t_name)
+    static void printInfo(const std::string &message)
     {
-        con_info(t_name.c_str());
+        con_info(message.c_str());
     }
 
     class iScriptEngineImpl
@@ -37,6 +37,11 @@ namespace igor
         {
             _chai.add(chaiscript::fun(&print), "print");
             _chai.add(chaiscript::fun(&printInfo), "printInfo");
+
+            // _chai.add(chaiscript::var(&var), wstringToUtf8(name.getData()));
+            // _chai.add(chaiscript::const_var(&var), wstringToUtf8(name.getData()));
+            // _chai.add(chaiscript::fun(&printInfo), "printInfo");
+            // _chai.add(chaiscript::fun(method, obj), wstringToUtf8(name.getData()));
         }
 
     private:
@@ -47,7 +52,7 @@ namespace igor
 
     iScriptEngine::iScriptEngine()
     {
-        _impl = new iScriptEngineImpl();
+        _impl = std::make_unique<iScriptEngineImpl>();
 
         _impl->_chai.eval(R"(
             printInfo("ChaiScript initialized");
@@ -56,59 +61,6 @@ namespace igor
 
     iScriptEngine::~iScriptEngine()
     {
-        delete _impl;
-    }
-
-    template <typename T>
-    void iScriptEngine::addVariable(T &var, const iaString &name)
-    {
-        try
-        {
-            _impl->_chai.add(chaiscript::var(&var), wstringToUtf8(name.getData()));
-        }
-        catch (...)
-        {
-            con_err("could not add variable \"" << name << "\"");
-        }
-    }
-
-    template <typename T>
-    void iScriptEngine::addConst(const T &var, const iaString &name)
-    {
-        try
-        {
-            _impl->_chai.add(chaiscript::const_var(&var), wstringToUtf8(name.getData()));
-        }
-        catch (...)
-        {
-            con_err("could not add constant \"" << name << "\"");
-        }
-    }
-
-    template <typename F>
-    void iScriptEngine::addFunction(F &&func, const iaString &name)
-    {
-        try
-        {
-            _impl->_chai.add(chaiscript::fun(std::forward<F>(func)), wstringToUtf8(name.getData()));
-        }
-        catch (...)
-        {
-            con_err("could not add function \"" << name << "\"");
-        }
-    }
-
-    template <typename T, typename... Args>
-    void iScriptEngine::addMethod(T *obj, void (T::*method)(Args...), const iaString &name)
-    {
-        try
-        {
-            _impl->_chai.add(chaiscript::fun(method, obj), wstringToUtf8(name.getData()));
-        }
-        catch (...)
-        {
-            con_err("could not add method \"" << name << "\"");
-        }
     }
 
     void iScriptEngine::executeScript(const iaString &filename)
@@ -133,6 +85,5 @@ namespace igor
         {
             con_err("eval error: " << e.pretty_print().c_str());
         }
-        
     }
 }

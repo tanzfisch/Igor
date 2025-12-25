@@ -44,62 +44,29 @@ namespace igor
         friend class iModule<iScriptEngine>;
 
     public:
-        /*! register global variable
-
-        \param var reference to variable
-        \param name the name used in script
-        */
-        template <typename T>
-        void addVariable(T &var, const iaString &name);
-
-        /*! register global const variable
-
-        \param var reference to const variable
-        \param name the name used in script
-        */
-        template<typename T>
-        void addConst(const T& var, const iaString& name);
-
-        /*! register a function
-
-        \param func the function pointer
-        \param name the name of the function in script
-        */
-        template<typename F>
-        void addFunction(F&& func, const iaString& name);
-
-        /*! register object + method
-
-        \param obj the object instance
-        \param method the method
-        \param name the name of the object and method in script
-        */
-        template<typename T, typename... Args>
-        void addMethod(T* obj, void (T::*method)(Args...), const iaString& name);
-
         /*! load and run given script from file
-        
+
         \param filename the given script to run
         */
-        void executeScript(const iaString& filename);
+        void executeScript(const iaString &filename);
 
         /*! run given script from string
 
         \param script the script to run
         */
-        void execute(const iaString& script);
+        void execute(const iaString &script);
 
     private:
         /*! pimpl
          */
-        iScriptEngineImpl *_impl;
+        std::unique_ptr<iScriptEngineImpl> _impl;
 
         /*! init members
-        */
+         */
         iScriptEngine();
 
         /*! cleanup
-        */
+         */
         virtual ~iScriptEngine();
     };
 }
