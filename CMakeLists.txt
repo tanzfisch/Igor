@@ -124,14 +124,11 @@ ExternalProject_Add(
     LuaJIT_external
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vendor/LuaJIT
     CONFIGURE_COMMAND ""
-    BUILD_COMMAND make -C <SOURCE_DIR>   # Use placeholder, cleaner and reliable
+    BUILD_COMMAND make -C <SOURCE_DIR> CFLAGS+=-fPIC
     BUILD_IN_SOURCE ON
     INSTALL_COMMAND ""
     BUILD_ALWAYS OFF
-    # Crucial: Use the placeholder <SOURCE_DIR> here
     BUILD_BYPRODUCTS "<SOURCE_DIR>/src/libluajit.a"
-    # Optional: also track the executable if you ever import it
-    # BUILD_BYPRODUCTS "<SOURCE_DIR>/src/libluajit.a" "<SOURCE_DIR>/src/luajit"
 )
 
 ExternalProject_Get_Property(LuaJIT_external SOURCE_DIR)
@@ -215,7 +212,7 @@ elseif(IS_MSVC)
     target_compile_options(mica PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
-target_link_libraries(mica PRIVATE igor iaux ompf)
+target_link_libraries(mica PRIVATE igor iaux ompf LuaJIT)
 target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR})
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})
