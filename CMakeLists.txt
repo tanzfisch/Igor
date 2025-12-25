@@ -10,6 +10,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # include some modules
 include(CreateMSVCFilters)
 include(GetGitRevisionDescription)
+include(ExternalProject)
 
 # get git version tag
 git_describe(VERSION --tags)
@@ -118,9 +119,34 @@ set_target_properties(clip PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET clip PROPERTY FOLDER ${VENDOR_FOLDER}/clip)
 set(CLIP_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/clip")
 
-# Chaiscript
-add_subdirectory(vendor/ChaiScript EXCLUDE_FROM_ALL)
-set(CHAISCRIPT_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/ChaiScript/include")
+# LuaJIT
+ExternalProject_Add(
+    LuaJIT_external
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vendor/LuaJIT
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND make -C <SOURCE_DIR>   # Use placeholder, cleaner and reliable
+    BUILD_IN_SOURCE ON
+    INSTALL_COMMAND ""
+    BUILD_ALWAYS OFF
+    # Crucial: Use the placeholder <SOURCE_DIR> here
+    BUILD_BYPRODUCTS "<SOURCE_DIR>/src/libluajit.a"
+    # Optional: also track the executable if you ever import it
+    # BUILD_BYPRODUCTS "<SOURCE_DIR>/src/libluajit.a" "<SOURCE_DIR>/src/luajit"
+)
+
+ExternalProject_Get_Property(LuaJIT_external SOURCE_DIR)
+set(LUAJIT_SOURCE_DIR ${SOURCE_DIR})
+
+add_library(LuaJIT STATIC IMPORTED GLOBAL)
+add_dependencies(LuaJIT LuaJIT_external)  # Ensure LuaJIT builds first
+
+set(LUAJIT_HEADERS_DIR "${LUAJIT_SOURCE_DIR}/src")
+
+set_target_properties(LuaJIT PROPERTIES
+    IMPORTED_LOCATION "${LUAJIT_SOURCE_DIR}/src/libluajit.a"
+    INTERFACE_INCLUDE_DIRECTORIES "${LUAJIT_SOURCE_DIR}/src"
+)
+
 
 # nlohmann json
 message(STATUS "nlohmann json")

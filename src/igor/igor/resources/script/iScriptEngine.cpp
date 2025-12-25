@@ -6,7 +6,11 @@
 
 #include <iaux/system/iaConsole.h>
 
-#include <chaiscript/chaiscript.hpp>
+extern "C" {
+    #include <luajit.h>
+    #include <lauxlib.h>
+    #include <lualib.h>
+}
 
 #include <codecvt>
 
