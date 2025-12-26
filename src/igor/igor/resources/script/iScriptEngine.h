@@ -41,6 +41,7 @@ namespace igor
     class IGOR_API iScriptEngine : public iModule<iScriptEngine>
     {
 
+        friend class iThread;
         friend class iModule<iScriptEngine>;
 
     public:
@@ -60,6 +61,10 @@ namespace igor
         /*! pimpl
          */
         std::unique_ptr<iScriptEngineImpl> _impl;
+
+        /*! registers current thread to the script engine
+        */
+        void registerThread();
 
         /*! init members
          */

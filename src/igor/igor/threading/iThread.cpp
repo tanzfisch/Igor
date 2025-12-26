@@ -5,7 +5,8 @@
 #include <igor/threading/iThread.h>
 
 #include <igor/physics/iPhysics.h>
-#include <iaux/system/iaConsole.h>
+#include <igor/resources/script/iScriptEngine.h>
+
 
 namespace igor
 {
@@ -24,6 +25,7 @@ namespace igor
     {
         iaThread::init();
         _worldID = iPhysics::getInstance().createWorld()->getID();
+        iScriptEngine::getInstance().registerThread();
     }
 
     void iThread::deinit()
