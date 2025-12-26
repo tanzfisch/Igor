@@ -4,6 +4,8 @@
 
 #include <igor/entities/components/iScriptComponent.h>
 
+#include <igor/resources/script/iScriptEngine.h>
+
 namespace igor
 {
     iScriptComponent::iScriptComponent()
@@ -75,7 +77,8 @@ namespace igor
         {
             if(scriptData._script != nullptr)
             {
-                scriptData._script->execute();
+                // TODO set values for entity
+                iScriptEngine::getInstance().execute(scriptData._script->getScript());
             }
             else if (scriptData._delegate.isValid())
             {

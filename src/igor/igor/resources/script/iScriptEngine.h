@@ -45,12 +45,6 @@ namespace igor
         friend class iModule<iScriptEngine>;
 
     public:
-        /*! load and run given script from file
-
-        \param filename the given script to run
-        */
-        void executeScript(const iaString &filename);
-
         /*! run given script from string
 
         \param script the script to run

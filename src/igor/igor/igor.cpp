@@ -18,7 +18,7 @@ const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json
 const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
-const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS = {"chai"};
+const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS = {"lua"};
 
 const iaString IGOR_RESOURCE_SHADER = "shader";
 const iaString IGOR_RESOURCE_MATERIAL = "material";

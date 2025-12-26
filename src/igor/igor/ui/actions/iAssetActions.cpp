@@ -185,7 +185,7 @@ namespace igor
         const iFilesystemActionContext *actionContext = static_cast<const iFilesystemActionContext *>(&context);
 
         iScriptPtr resource = iResourceManager::getInstance().createResource<iScript>();
-        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "script.chai";
+        auto path = actionContext->getPath() + IGOR_PATHSEPARATOR + "script.lua";
         path = iaPath::generateUniqueFilename(path);
         iResourceManager::getInstance().saveResource(resource, path);
 

@@ -86,7 +86,7 @@
     },
     {
         "id": "0x37e0bf39543e5caa",
-        "source": "scripts/script.chai"
+        "source": "scripts/script.lua"
     },
     {
         "alias": "texture_supremacy_shop_item_uzi",
@@ -194,7 +194,7 @@
     },
     {
         "id": "0x8852426092669544",
-        "source": "/home/martin/dev/Igor/examples/98_Supremacy/project/scripts/script.chai"
+        "source": "/home/martin/dev/Igor/examples/98_Supremacy/project/scripts/script.lua"
     },
     {
         "alias": "texture_supremacy_drone",

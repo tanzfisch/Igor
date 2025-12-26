@@ -54,7 +54,8 @@ namespace igor
             auto lua = _lua[std::this_thread::get_id()];
             if (luaL_dostring(lua, script))
             {
-                con_err("script: " << lua_tostring(lua, -1));
+                const auto error = lua_tostring(lua, -1);
+                con_err("script: " << (error != nullptr ? error : "unknown error"));
                 lua_pop(lua, 1);
                 return false;
             }

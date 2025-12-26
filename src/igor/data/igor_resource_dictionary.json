@@ -321,7 +321,7 @@
         "alias": "igor_icon_script",
         "id": "0x1dcfd2c3b8a9a410",
         "internal": true,
-        "source": "icons/chai.png"
+        "source": "icons/lua.png"
     },    
     {
         "alias": "igor_icon_project",
@@ -717,6 +717,6 @@
         "alias": "igor_script_hello_world",
         "id": "0xf134a69cd157b46a",
         "internal": true,
-        "source": "scripts/hello_world.chai"
+        "source": "scripts/hello_world.lua"
     }
 ]
