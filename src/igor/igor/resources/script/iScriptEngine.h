@@ -49,7 +49,7 @@ namespace igor
 
         \param script the script to run
         */
-        void execute(const iaString &script);
+        void execute(const char* script);
 
     private:
         /*! pimpl

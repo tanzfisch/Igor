@@ -55,6 +55,7 @@ namespace igor
             if (luaL_dostring(lua, script))
             {
                 const auto error = lua_tostring(lua, -1);
+                con_endl(script);
                 con_err("script: " << (error != nullptr ? error : "unknown error"));
                 lua_pop(lua, 1);
                 return false;
@@ -104,8 +105,8 @@ namespace igor
         _impl->registerThread();
     }
 
-    void iScriptEngine::execute(const iaString &script)
+    void iScriptEngine::execute(const char* script)
     {
-        _impl->execute(wstringToUtf8(script.getData()).c_str());
+        _impl->execute(script);
     }
 }

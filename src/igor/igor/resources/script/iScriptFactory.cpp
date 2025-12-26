@@ -103,7 +103,7 @@ namespace igor
             return false;
         }
 
-        file << wstringToUtf8(script->getScript().getData());
+        file << script->getScript();
 
         file.close();
 

@@ -14,22 +14,30 @@ namespace igor
     iScript::iScript(const iParameters &parameters)
         : iResource(parameters)
     {
-        _script = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SCRIPT, "");
+        const iaString script = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SCRIPT, "");
+
+        int len = script.getLength() + 1;
+        _script.resize(len);
+        script.getData(&_script[0], len);
+        _script[len] = 0;
     }
 
     void iScript::execute()
     {
-        iScriptEngine::getInstance().execute(_script);
+        iScriptEngine::getInstance().execute(getScript());
     }
 
     void iScript::setScript(const iaString &script)
     {
-        _script = script;
+        int len = script.getLength() + 1;
+        _script.resize(len);
+        script.getData(&_script[0], len);
+        _script[len] = 0;
     }
 
-    const iaString &iScript::getScript() const
+    const char* iScript::getScript() const
     {
-        return _script;
+        return _script.c_str();
     }
 
 }; // namespace igor

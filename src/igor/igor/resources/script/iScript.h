@@ -53,7 +53,7 @@ namespace igor
 
         /*! \returns script
         */
-        const iaString &getScript() const;
+        const char* getScript() const;
 
         /*! executes script
          */
@@ -62,7 +62,7 @@ namespace igor
     private:
         /*! the script
          */
-        iaString _script;
+        std::string _script;
 
         /*! ctor initializes member variables
 
