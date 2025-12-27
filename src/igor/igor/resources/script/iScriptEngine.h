@@ -75,11 +75,11 @@ namespace igor
 
         \param functionRef the function reference to call
         */
-        void callEntityInit(iEntityPtr entity, const iScriptData &scriptData);
-        void callEntityUpdate(iEntityPtr entity, const iScriptData &scriptData);
-        void callEntityFinal(iEntityPtr entity, const iScriptData &scriptData);
-        void callEntityMessage(iEntityPtr entity, const iScriptData &scriptData);
-        void callEntityEvent(iEntityPtr entity, const iScriptData &scriptData);
+        void callEntityInit(iEntityPtr entity, iScriptData &scriptData);
+        void callEntityUpdate(iEntityPtr entity, iScriptData &scriptData);
+        void callEntityFinal(iEntityPtr entity, iScriptData &scriptData);
+        void callEntityMessage(iEntityPtr entity, iScriptData &scriptData);
+        void callEntityEvent(iEntityPtr entity, iScriptData &scriptData);
 
         /*! registers current thread to the script engine
          */

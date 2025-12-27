@@ -348,21 +348,22 @@ namespace igor
         scriptData._eventRef = LUA_NOREF;
     }
 
-    void iScriptEngine::callEntityInit(iEntityPtr entity, const iScriptData &scriptData)
+    void iScriptEngine::callEntityInit(iEntityPtr entity, iScriptData &scriptData)
     {
         _impl->executeInit(scriptData._initRef);
+        scriptData._scriptState = iEntityScriptState::Update;
     }
-    void iScriptEngine::callEntityUpdate(iEntityPtr entity, const iScriptData &scriptData)
+    void iScriptEngine::callEntityUpdate(iEntityPtr entity, iScriptData &scriptData)
     {
         _impl->executeUpdate(scriptData._updateRef);
     }
-    void iScriptEngine::callEntityFinal(iEntityPtr entity, const iScriptData &scriptData)
+    void iScriptEngine::callEntityFinal(iEntityPtr entity, iScriptData &scriptData)
     {
     }
-    void iScriptEngine::callEntityMessage(iEntityPtr entity, const iScriptData &scriptData)
+    void iScriptEngine::callEntityMessage(iEntityPtr entity, iScriptData &scriptData)
     {
     }
-    void iScriptEngine::callEntityEvent(iEntityPtr entity, const iScriptData &scriptData)
+    void iScriptEngine::callEntityEvent(iEntityPtr entity, iScriptData &scriptData)
     {
     }
 }

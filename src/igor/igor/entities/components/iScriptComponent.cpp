@@ -84,8 +84,7 @@ namespace igor
 
                     if (iScriptEngine::getInstance().initEntityScript(getEntity(), scriptData))
                     {
-                        iScriptEngine::getInstance().callEntityInit(getEntity(), scriptData);
-                        scriptData._scriptState = iEntityScriptState::Update;
+                        iScriptEngine::getInstance().callEntityInit(getEntity(), scriptData);                        
                     }
                     break;
                 case iEntityScriptState::Update:
