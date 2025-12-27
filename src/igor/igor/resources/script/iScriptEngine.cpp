@@ -224,7 +224,7 @@ namespace igor
                 lua_pop(lua, 1);
             }
         }
-        
+
         void executeUpdate(int updateRef)
         {
             con_assert(updateRef != LUA_NOREF, "invalid function reference");
@@ -237,7 +237,7 @@ namespace igor
             auto lua = _lua[std::this_thread::get_id()];
 
             lua_rawgeti(lua, LUA_REGISTRYINDEX, updateRef);
-            lua_pushnumber(lua, 9); // TODO push self aka entity
+            lua_pushnumber(lua, 9);  // TODO push self aka entity
             lua_pushnumber(lua, 11); // TODO push time or a context
             if (lua_pcall(lua, 2, 0, 0) != 0)
             {
@@ -331,34 +331,38 @@ namespace igor
         _impl->execute(script);
     }
 
-    bool iScriptEngine::initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef)
+    bool iScriptEngine::initEntityScript(iEntityPtr entity, iScriptData &scriptData)
     {
-        return _impl->initEntityScript(script, envRef, initRef, updateRef, finalRef, messageRef, eventRef);
+        return _impl->initEntityScript(scriptData._script->getScript(), scriptData._envRef, scriptData._initRef, scriptData._updateRef, scriptData._finalRef, scriptData._messageRef, scriptData._eventRef);
     }
 
-    void iScriptEngine::deinitEntityScript(int envIndex)
+    void iScriptEngine::deinitEntityScript(iEntityPtr entity, iScriptData &scriptData)
     {
-        _impl->deinitEntityScript(envIndex);
+        _impl->deinitEntityScript(scriptData._envRef);
+
+        scriptData._envRef = LUA_NOREF;
+        scriptData._initRef = LUA_NOREF;
+        scriptData._updateRef = LUA_NOREF;
+        scriptData._finalRef = LUA_NOREF;
+        scriptData._messageRef = LUA_NOREF;
+        scriptData._eventRef = LUA_NOREF;
     }
 
-        void iScriptEngine::callEntityInit(iEntityPtr entity, int initRef)
-        {
-            _impl->executeInit(initRef);
-        }
-        void iScriptEngine::callEntityUpdate(iEntityPtr entity, int updateRef)
-        {
-            _impl->executeUpdate(updateRef);
-        }
-        void iScriptEngine::callEntityFinal(iEntityPtr entity, int finalRef)
-        {
-            
-        }
-        void iScriptEngine::callEntityMessage(iEntityPtr entity, int messageRef)
-        {
-            
-        }
-        void iScriptEngine::callEntityEvent(iEntityPtr entity, int eventRef)
-        {
-            
-        }        
+    void iScriptEngine::callEntityInit(iEntityPtr entity, const iScriptData &scriptData)
+    {
+        _impl->executeInit(scriptData._initRef);
+    }
+    void iScriptEngine::callEntityUpdate(iEntityPtr entity, const iScriptData &scriptData)
+    {
+        _impl->executeUpdate(scriptData._updateRef);
+    }
+    void iScriptEngine::callEntityFinal(iEntityPtr entity, const iScriptData &scriptData)
+    {
+    }
+    void iScriptEngine::callEntityMessage(iEntityPtr entity, const iScriptData &scriptData)
+    {
+    }
+    void iScriptEngine::callEntityEvent(iEntityPtr entity, const iScriptData &scriptData)
+    {
+    }
 }

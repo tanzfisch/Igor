@@ -82,23 +82,17 @@ namespace igor
                 case iEntityScriptState::Init:
                     con_assert_sticky(scriptData._envRef == IGOR_LUA_NOREF, "already initialized environment");
 
-                    if (iScriptEngine::getInstance().initEntityScript(scriptData._script->getScript(),
-                                                                      scriptData._envRef,
-                                                                      scriptData._initRef,
-                                                                      scriptData._updateRef,
-                                                                      scriptData._finalRef,
-                                                                      scriptData._messageRef,
-                                                                      scriptData._eventRef))
+                    if (iScriptEngine::getInstance().initEntityScript(getEntity(), scriptData))
                     {
-                        iScriptEngine::getInstance().callEntityInit(getEntity(), scriptData._initRef);
+                        iScriptEngine::getInstance().callEntityInit(getEntity(), scriptData);
                         scriptData._scriptState = iEntityScriptState::Update;
                     }
                     break;
                 case iEntityScriptState::Update:
-                    iScriptEngine::getInstance().callEntityUpdate(getEntity(), scriptData._updateRef);
+                    iScriptEngine::getInstance().callEntityUpdate(getEntity(), scriptData);
                     break;
                 case iEntityScriptState::Final:
-                    iScriptEngine::getInstance().callEntityFinal(getEntity(), scriptData._finalRef);
+                    iScriptEngine::getInstance().callEntityFinal(getEntity(), scriptData);
                     break;
                 case iEntityScriptState::Stop:
                     break;

@@ -42,6 +42,7 @@ namespace igor
     class IGOR_API iScriptEngine : public iModule<iScriptEngine>
     {
 
+        friend class iScriptComponent;
         friend class iThread;
         friend class iModule<iScriptEngine>;
 
@@ -52,33 +53,33 @@ namespace igor
         */
         void execute(const char *script);
 
+    private:
+        /*! pimpl
+         */
+        std::unique_ptr<iScriptEngineImpl> _impl;
+
         /*! initialize script for entity
 
         \param script the script to run
         \returns the script environment handle
         */
-        bool initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef);
+        bool initEntityScript(iEntityPtr entity, iScriptData &scriptData);
 
         /*! deinitialize script for entity
 
         \param envRef environment handle to clean up script
         */
-        void deinitEntityScript(int envRef);
+        void deinitEntityScript(iEntityPtr entity, iScriptData &scriptData);
 
         /*! execute function in given script environment
 
         \param functionRef the function reference to call
         */
-        void callEntityInit(iEntityPtr entity, int initRef);
-        void callEntityUpdate(iEntityPtr entity, int updateRef);
-        void callEntityFinal(iEntityPtr entity, int finalRef);
-        void callEntityMessage(iEntityPtr entity, int messageRef);
-        void callEntityEvent(iEntityPtr entity, int eventRef);
-
-    private:
-        /*! pimpl
-         */
-        std::unique_ptr<iScriptEngineImpl> _impl;
+        void callEntityInit(iEntityPtr entity, const iScriptData &scriptData);
+        void callEntityUpdate(iEntityPtr entity, const iScriptData &scriptData);
+        void callEntityFinal(iEntityPtr entity, const iScriptData &scriptData);
+        void callEntityMessage(iEntityPtr entity, const iScriptData &scriptData);
+        void callEntityEvent(iEntityPtr entity, const iScriptData &scriptData);
 
         /*! registers current thread to the script engine
          */
