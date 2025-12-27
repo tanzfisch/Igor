@@ -218,7 +218,7 @@ namespace igor
         iActionManager::createInstance();
         iMouse::createInstance();
         iKeyboard::createInstance();
-        iPhysics::createInstance();
+        // iPhysics::createInstance();
         iRenderer::createInstance();
         iWidgetManager::createInstance();
         iSceneFactory::createInstance();

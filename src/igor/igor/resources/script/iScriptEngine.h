@@ -30,6 +30,7 @@
 #define IGOR_SCRIPT_ENGINE_H
 
 #include <igor/resources/module/iModule.h>
+#include <igor/entities/iEntity.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -49,7 +50,30 @@ namespace igor
 
         \param script the script to run
         */
-        void execute(const char* script);
+        void execute(const char *script);
+
+        /*! initialize script for entity
+
+        \param script the script to run
+        \returns the script environment handle
+        */
+        bool initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef);
+
+        /*! deinitialize script for entity
+
+        \param envRef environment handle to clean up script
+        */
+        void deinitEntityScript(int envRef);
+
+        /*! execute function in given script environment
+
+        \param functionRef the function reference to call
+        */
+        void callEntityInit(iEntityPtr entity, int initRef);
+        void callEntityUpdate(iEntityPtr entity, int updateRef);
+        void callEntityFinal(iEntityPtr entity, int finalRef);
+        void callEntityMessage(iEntityPtr entity, int messageRef);
+        void callEntityEvent(iEntityPtr entity, int eventRef);
 
     private:
         /*! pimpl
@@ -57,7 +81,7 @@ namespace igor
         std::unique_ptr<iScriptEngineImpl> _impl;
 
         /*! registers current thread to the script engine
-        */
+         */
         void registerThread();
 
         /*! init members

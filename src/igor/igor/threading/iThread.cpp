@@ -24,13 +24,13 @@ namespace igor
     void iThread::init()
     {
         iaThread::init();
-        _worldID = iPhysics::getInstance().createWorld()->getID();
+        // _worldID = iPhysics::getInstance().createWorld()->getID();
         iScriptEngine::getInstance().registerThread();
     }
 
     void iThread::deinit()
     {
-        iPhysics::getInstance().destroyWorld(_worldID);
+        // iPhysics::getInstance().destroyWorld(_worldID);
         iaThread::deinit();
     }
 

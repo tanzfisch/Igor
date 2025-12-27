@@ -40,6 +40,20 @@ namespace igor
         return 0;
     }
 
+    static int printWarning(lua_State *lua)
+    {
+        const auto message = luaL_checkstring(lua, 1);
+        con_warn(message);
+        return 0;
+    }
+
+    static int printError(lua_State *lua)
+    {
+        const auto message = luaL_checkstring(lua, 1);
+        con_err(message);
+        return 0;
+    }
+
     class iScriptEngineImpl
     {
         friend class iScriptEngine;
@@ -64,6 +78,174 @@ namespace igor
             return true;
         }
 
+        void printStack(lua_State *lua)
+        {
+            iaConsole::getInstance() << LOCK;
+            iaConsole::getInstance().printHeader(iaLogLevel::Debug);
+            iaConsole::getInstance() << iaForegroundColor::Gray;
+
+            int count = lua_gettop(lua);
+
+            if (count > 0)
+            {
+                iaConsole::getInstance() << "lua stack:" << endl;
+
+                int index = -1;
+                for (int i = 0; i < count; ++i)
+                {
+                    int type = lua_type(lua, index);
+                    iaConsole::getInstance() << __IGOR_LOGGING_TAB__ << "[" << index << "] " << lua_typename(lua, type);
+
+                    switch (type)
+                    {
+                    case LUA_TSTRING:
+                        iaConsole::getInstance() << " " << lua_tostring(lua, index);
+                        break;
+                    case LUA_TBOOLEAN:
+                        iaConsole::getInstance() << " " << (lua_toboolean(lua, index) ? "true" : "false");
+                        break;
+                    case LUA_TNUMBER:
+                        iaConsole::getInstance() << " " << lua_tonumber(lua, index);
+                        break;
+                    case LUA_TTABLE:
+                        lua_getmetatable(lua, index);
+                        if (lua_istable(lua, index))
+                        {
+                            iaConsole::getInstance() << " (has metatable)";
+                        }
+                        break;
+                    }
+
+                    index--;
+
+                    iaConsole::getInstance() << endl;
+                }
+            }
+            else
+            {
+                iaConsole::getInstance() << "lua stack: empty" << endl;
+            }
+
+            iaConsole::getInstance() << UNLOCK;
+        }
+
+        bool initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef)
+        {
+            auto lua = _lua[std::this_thread::get_id()];
+
+            lua_newtable(lua);
+            envRef = luaL_ref(lua, LUA_REGISTRYINDEX);
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, envRef);
+
+            exposeGlobals(lua); // assumes this sets fields on -1 (the env table)
+
+            // 3. Wrap and load script
+            std::string wrappedScript =
+                "local env = ... \n"
+                "return function() \n"
+                "    setfenv(1, env) \n" +
+                std::string(script) +
+                "\nend";
+
+            if (luaL_loadstring(lua, wrappedScript.c_str()) != 0)
+            {
+                con_err("failed to load: " << lua_tostring(lua, -1));
+                lua_pop(lua, 2);
+                return false;
+            }
+
+            // push env
+            lua_pushvalue(lua, -2);
+            // call wrapper function
+            if (lua_pcall(lua, 1, 1, 0) != 0)
+            {
+                con_err("pcall wrapper failed: " << lua_tostring(lua, -1));
+                lua_pop(lua, 2); // error + env
+                return false;
+            }
+
+            // call wrapped function
+            if (lua_pcall(lua, 0, 0, 0) != 0)
+            {
+                con_err("script execution failed: " << lua_tostring(lua, -1));
+                lua_pop(lua, 2); // error + env
+                return false;
+            }
+
+            auto getFunctionRef = [&](const char *name, int &ref)
+            {
+                lua_getfield(lua, -1, name); // push env[name]
+                if (lua_isfunction(lua, -1))
+                {
+                    ref = luaL_ref(lua, LUA_REGISTRYINDEX); // pop and store
+                }
+                else
+                {
+                    lua_pop(lua, 1); // remove nil
+                    ref = LUA_NOREF;
+                    con_err("script does not contain " << name << " function");
+                }
+            };
+
+            getFunctionRef("onInit", initRef);
+            getFunctionRef("onUpdate", updateRef);
+            getFunctionRef("onFinal", finalRef);
+            getFunctionRef("onMessage", messageRef);
+            getFunctionRef("onEvent", eventRef);
+
+            lua_pop(lua, 1);
+
+            return true;
+        }
+
+        void deinitEntityScript(int envIndex)
+        {
+            auto lua = _lua[std::this_thread::get_id()];
+
+            // TODO
+        }
+
+        void executeInit(int initRef)
+        {
+            con_assert(initRef != LUA_NOREF, "invalid function reference");
+            if (initRef == LUA_NOREF)
+            {
+                con_err("invalid function reference");
+                return;
+            }
+
+            auto lua = _lua[std::this_thread::get_id()];
+
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, initRef);
+            lua_pushnumber(lua, 9); // TODO push self aka entity
+            if (lua_pcall(lua, 1, 0, 0) != 0)
+            {
+                con_err("function call error: " << lua_tostring(lua, -1));
+                lua_pop(lua, 1);
+            }
+        }
+        
+        void executeUpdate(int updateRef)
+        {
+            con_assert(updateRef != LUA_NOREF, "invalid function reference");
+            if (updateRef == LUA_NOREF)
+            {
+                con_err("invalid function reference");
+                return;
+            }
+
+            auto lua = _lua[std::this_thread::get_id()];
+
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, updateRef);
+            lua_pushnumber(lua, 9); // TODO push self aka entity
+            lua_pushnumber(lua, 11); // TODO push time or a context
+            if (lua_pcall(lua, 2, 0, 0) != 0)
+            {
+                con_err("function call error: " << lua_tostring(lua, -1));
+                lua_pop(lua, 1);
+            }
+        }
+
         void registerThread()
         {
             lua_State *lua = luaL_newstate();
@@ -73,14 +255,54 @@ namespace igor
 
             luaL_openlibs(lua);
 
-            lua_pushcfunction(lua, print);
-            lua_setglobal(lua, "con_endl");
-
-            lua_pushcfunction(lua, printInfo);
-            lua_setglobal(lua, "con_info");
+            createGlobals(lua);
         }
 
     private:
+        void createGlobals(lua_State *lua)
+        {
+            lua_pushcfunction(lua, print);
+            lua_setglobal(lua, "con_endl");
+
+            lua_pushcfunction(lua, print);
+            lua_setglobal(lua, "print");
+
+            lua_pushcfunction(lua, printInfo);
+            lua_setglobal(lua, "con_info");
+
+            lua_pushcfunction(lua, printWarning);
+            lua_setglobal(lua, "con_warn");
+
+            lua_pushcfunction(lua, printError);
+            lua_setglobal(lua, "con_err");
+        }
+
+        void exposeGlobal(lua_State *lua, const char *symbol)
+        {
+            lua_getglobal(lua, symbol);
+            if (lua_isnil(lua, -1))
+            {
+                con_warn("can't find symbol " << symbol);
+                lua_pop(lua, 1);
+            }
+            else
+            {
+                lua_setfield(lua, -2, symbol);
+            }
+        }
+
+        void exposeGlobals(lua_State *lua)
+        {
+            exposeGlobal(lua, "con_endl");
+            exposeGlobal(lua, "print");
+            exposeGlobal(lua, "con_info");
+            exposeGlobal(lua, "con_warn");
+            exposeGlobal(lua, "con_err");
+            exposeGlobal(lua, "math");
+            exposeGlobal(lua, "table");
+            exposeGlobal(lua, "string");
+        }
+
         /*! lua instance
          */
         std::unordered_map<std::thread::id, lua_State *> _lua;
@@ -97,7 +319,6 @@ namespace igor
 
     iScriptEngine::~iScriptEngine()
     {
-
     }
 
     void iScriptEngine::registerThread()
@@ -105,8 +326,39 @@ namespace igor
         _impl->registerThread();
     }
 
-    void iScriptEngine::execute(const char* script)
+    void iScriptEngine::execute(const char *script)
     {
         _impl->execute(script);
     }
+
+    bool iScriptEngine::initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef)
+    {
+        return _impl->initEntityScript(script, envRef, initRef, updateRef, finalRef, messageRef, eventRef);
+    }
+
+    void iScriptEngine::deinitEntityScript(int envIndex)
+    {
+        _impl->deinitEntityScript(envIndex);
+    }
+
+        void iScriptEngine::callEntityInit(iEntityPtr entity, int initRef)
+        {
+            _impl->executeInit(initRef);
+        }
+        void iScriptEngine::callEntityUpdate(iEntityPtr entity, int updateRef)
+        {
+            _impl->executeUpdate(updateRef);
+        }
+        void iScriptEngine::callEntityFinal(iEntityPtr entity, int finalRef)
+        {
+            
+        }
+        void iScriptEngine::callEntityMessage(iEntityPtr entity, int messageRef)
+        {
+            
+        }
+        void iScriptEngine::callEntityEvent(iEntityPtr entity, int eventRef)
+        {
+            
+        }        
 }

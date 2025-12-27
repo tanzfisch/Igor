@@ -35,6 +35,8 @@
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
+#define IGOR_LUA_NOREF -2
+
 namespace igor
 {
     class iEntity;
@@ -43,6 +45,21 @@ namespace igor
     /*! script delegate definition
      */
     IGOR_DELEGATE_DEFINITION(iScript, iEntityPtr);
+
+    /*! basically means which state to trigger next beginning with Init
+
+    Init -> Update -> Final -> Stop
+             ^  |
+             |__|
+
+    */
+    enum class iEntityScriptState
+    {
+        Init,   //! triggers onInit(self) in script
+        Update, //! triggers onUpdate(self, dt) in script
+        Final,  //! triggers onFinal(self) in script
+        Stop    //! cleanup script env
+    };
 
     /*! script data
      */
@@ -55,8 +72,21 @@ namespace igor
         iScriptDelegate _delegate;
 
         /*! script script
-        */
+         */
         iScriptPtr _script;
+
+        /*! which state to trigger next inside the script
+         */
+        iEntityScriptState _scriptState = iEntityScriptState::Init;
+
+        /*! script environment table reference
+        */
+        int _envRef = IGOR_LUA_NOREF;
+        int _initRef = IGOR_LUA_NOREF;
+        int _updateRef = IGOR_LUA_NOREF;
+        int _finalRef = IGOR_LUA_NOREF;
+        int _messageRef = IGOR_LUA_NOREF;
+        int _eventRef = IGOR_LUA_NOREF;
     };
 
     /*! script component
@@ -118,8 +148,8 @@ namespace igor
     };
 
     /*! script component pointer definition
-    */
-    typedef iScriptComponent* iScriptComponentPtr;
+     */
+    typedef iScriptComponent *iScriptComponentPtr;
 }
 
 #endif // IGOR_SCRIPT_COMPONENT_H
