@@ -10,6 +10,3 @@
 [submodule "vendor/LuaJIT"]
 	path = vendor/LuaJIT
 	url = https://github.com/LuaJIT/LuaJIT.git
-[submodule "vendor/LuaBridge"]
-	path = vendor/LuaBridge
-	url = https://github.com/vinniefalco/LuaBridge.git
