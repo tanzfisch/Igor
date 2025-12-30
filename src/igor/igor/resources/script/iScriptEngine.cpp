@@ -28,6 +28,23 @@ namespace igor
         return converter.to_bytes(wstr);
     }
 
+    static std::string toStdString(const iaString &text)
+    {
+        const wchar_t *wideData = text.getData();
+        int64 charCount = text.getLength();
+
+        // Direct conversion: wchar_t (usually 16-bit or 32-bit) → char (truncate to 8-bit)
+        std::string result;
+        result.reserve(charCount);
+
+        for (int64 i = 0; i < charCount; ++i)
+        {
+            result += static_cast<char>(wideData[i]);
+        }
+
+        return result;
+    }
+
     static int print(lua_State *lua)
     {
         const auto message = luaL_checkstring(lua, 1);
@@ -136,10 +153,15 @@ namespace igor
             auto lua = _lua[std::this_thread::get_id()];
 
             luabridge::LuaRef entityTable = luabridge::newTable(lua);
+
+            // Critical: Inherit ALL globals via metatable
+            entityTable.push(lua);                     // push our env table
+            luabridge::getGlobal(lua, "_G").push(lua); // push global _G
+            lua_setmetatable(lua, -2);                 // setmetatable(env, _G)
+
             exposeGlobals(lua, entityTable);
 
             entityTable["entity"] = entity;
-            entityTable.push(lua);
 
             envRef = luaL_ref(lua, LUA_REGISTRYINDEX);
             lua_rawgeti(lua, LUA_REGISTRYINDEX, envRef);
@@ -282,19 +304,9 @@ namespace igor
             luaL_openlibs(lua);
 
             createGlobals(lua);
-            registerClasses(lua);
         }
 
     private:
-        void registerClasses(lua_State *lua)
-        {
-            luabridge::getGlobalNamespace(lua)
-                .beginClass<iEntity>("iEntity")
-                .addFunction("getID", &iEntity::getID)
-                .addFunction("getName", &iEntity::getName)
-                .endClass();
-        }
-
         void createGlobals(lua_State *lua)
         {
             lua_pushcfunction(lua, print);
@@ -313,46 +325,50 @@ namespace igor
             lua_setglobal(lua, "con_err");
         }
 
-        void exposeGlobal(lua_State *lua, const char *symbol)
-        {
-            lua_getglobal(lua, symbol);
-            if (lua_isnil(lua, -1))
-            {
-                con_warn("can't find symbol " << symbol);
-                lua_pop(lua, 1);
-            }
-            else
-            {
-                lua_setfield(lua, -2, symbol);
-            }
-        }
-
         void exposeGlobals(lua_State *lua, luabridge::LuaRef entityTable)
         {
-            exposeGlobal(lua, "con_endl");
-            exposeGlobal(lua, "print");
-            exposeGlobal(lua, "con_info");
-            exposeGlobal(lua, "con_warn");
-            exposeGlobal(lua, "con_err");
+            auto copyGlobal = [&](const char *name)
+            {
+                entityTable[name] = luabridge::getGlobal(lua, name);
+            };
 
-            entityTable["type"] = luabridge::getGlobal(lua, "type");
-            entityTable["tostring"] = luabridge::getGlobal(lua, "tostring");
-            entityTable["pairs"] = luabridge::getGlobal(lua, "pairs");
-            entityTable["math"] = luabridge::getGlobal(lua, "math");
-            entityTable["table"] = luabridge::getGlobal(lua, "table");
-            entityTable["string"] = luabridge::getGlobal(lua, "string");
-            entityTable["pcall"] = luabridge::getGlobal(lua, "pcall");
-            entityTable["xpcall"] = luabridge::getGlobal(lua, "xpcall");
-            entityTable["assert"] = luabridge::getGlobal(lua, "assert");
-            entityTable["error"] = luabridge::getGlobal(lua, "error");
-            entityTable["select"] = luabridge::getGlobal(lua, "select");
+            copyGlobal("type");
+            copyGlobal("tostring");
+            copyGlobal("pairs");
+            copyGlobal("ipairs");
+            copyGlobal("next");
+            copyGlobal("select");
+            copyGlobal("unpack"); // or table.unpack in 5.2+
 
-            luabridge::getGlobalNamespace(lua)  // <-- KEY: pass the env table!
+            copyGlobal("pcall");
+            copyGlobal("xpcall");
+            copyGlobal("assert");
+            copyGlobal("error");
+
+            copyGlobal("math");
+            copyGlobal("string");
+            copyGlobal("table");
+
+            auto pushCustom = [&](const char *name, lua_CFunction fn)
+            {
+                lua_pushcfunction(lua, fn);
+                entityTable[name] = luabridge::LuaRef::fromStack(lua, -1);
+                lua_pop(lua, 1);
+            };
+
+            pushCustom("print", print);
+            pushCustom("con_endl", print);
+            pushCustom("con_info", printInfo);
+            pushCustom("con_warn", printWarning);
+            pushCustom("con_err", printError);
+
+            luabridge::getGlobalNamespace(lua)
                 .beginClass<iEntity>("iEntity")
-                .addFunction("getID", &iEntity::getID)
-                .addFunction("getName", &iEntity::getName)
-                .endClass();            
-
+                .addFunction("getID", [](const iEntityPtr entity)
+                             { return toStdString(entity->getID().toString()); })
+                .addFunction("getName", [](const iEntityPtr entity)
+                             { return toStdString(entity->getName()); })
+                .endClass();
         }
 
         /*! lua instance
