@@ -80,7 +80,7 @@ namespace igor
             return true;
         }
 
-        void printStack(lua_State *lua)
+        void debugStack(lua_State *lua)
         {
             iaConsole::getInstance() << LOCK;
             iaConsole::getInstance().printHeader(iaLogLevel::Debug);
@@ -131,15 +131,20 @@ namespace igor
             iaConsole::getInstance() << UNLOCK;
         }
 
-        bool initEntityScript(const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef)
+        bool initEntityScript(iEntityPtr entity, const char *script, int &envRef, int &initRef, int &updateRef, int &finalRef, int &messageRef, int &eventRef)
         {
             auto lua = _lua[std::this_thread::get_id()];
 
-            lua_newtable(lua);
+            luabridge::LuaRef entityTable = luabridge::newTable(lua);
+            exposeGlobals(lua, entityTable);
+
+            entityTable["entity"] = entity;
+            entityTable.push(lua);
+
             envRef = luaL_ref(lua, LUA_REGISTRYINDEX);
             lua_rawgeti(lua, LUA_REGISTRYINDEX, envRef);
 
-            exposeGlobals(lua); // assumes this sets fields on -1 (the env table)
+            _entityTables[entity] = envRef;
 
             // 3. Wrap and load script
             std::string wrappedScript =
@@ -227,7 +232,26 @@ namespace igor
             }
         }
 
-        void executeUpdate(int updateRef)
+        void executeUpdate(int updateRef, iEntityPtr entity, double dt = 0.0) // Add entity and optional params
+        {
+            if (updateRef == LUA_NOREF)
+                return;
+
+            auto lua = _lua[std::this_thread::get_id()];
+
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, updateRef);
+            int envRef = _entityTables[entity];
+            lua_rawgeti(lua, LUA_REGISTRYINDEX, envRef);
+            lua_pushnumber(lua, dt);
+
+            if (lua_pcall(lua, 2, 0, 0) != 0)
+            {
+                con_err("function call error: " << lua_tostring(lua, -1));
+                lua_pop(lua, 1);
+            }
+        }
+
+        /*void executeUpdate(int updateRef)
         {
             con_assert(updateRef != LUA_NOREF, "invalid function reference");
             if (updateRef == LUA_NOREF)
@@ -239,14 +263,14 @@ namespace igor
             auto lua = _lua[std::this_thread::get_id()];
 
             lua_rawgeti(lua, LUA_REGISTRYINDEX, updateRef);
-            lua_pushnumber(lua, 9);  // TODO push self aka entity
+            lua_push(lua, 9);        // TODO push self aka entity
             lua_pushnumber(lua, 11); // TODO push time or a context
             if (lua_pcall(lua, 2, 0, 0) != 0)
             {
                 con_err("function call error: " << lua_tostring(lua, -1));
                 lua_pop(lua, 1);
             }
-        }
+        }*/
 
         void registerThread()
         {
@@ -258,9 +282,19 @@ namespace igor
             luaL_openlibs(lua);
 
             createGlobals(lua);
+            registerClasses(lua);
         }
 
     private:
+        void registerClasses(lua_State *lua)
+        {
+            luabridge::getGlobalNamespace(lua)
+                .beginClass<iEntity>("iEntity")
+                .addFunction("getID", &iEntity::getID)
+                .addFunction("getName", &iEntity::getName)
+                .endClass();
+        }
+
         void createGlobals(lua_State *lua)
         {
             lua_pushcfunction(lua, print);
@@ -293,21 +327,41 @@ namespace igor
             }
         }
 
-        void exposeGlobals(lua_State *lua)
+        void exposeGlobals(lua_State *lua, luabridge::LuaRef entityTable)
         {
             exposeGlobal(lua, "con_endl");
             exposeGlobal(lua, "print");
             exposeGlobal(lua, "con_info");
             exposeGlobal(lua, "con_warn");
             exposeGlobal(lua, "con_err");
-            exposeGlobal(lua, "math");
-            exposeGlobal(lua, "table");
-            exposeGlobal(lua, "string");
+
+            entityTable["type"] = luabridge::getGlobal(lua, "type");
+            entityTable["tostring"] = luabridge::getGlobal(lua, "tostring");
+            entityTable["pairs"] = luabridge::getGlobal(lua, "pairs");
+            entityTable["math"] = luabridge::getGlobal(lua, "math");
+            entityTable["table"] = luabridge::getGlobal(lua, "table");
+            entityTable["string"] = luabridge::getGlobal(lua, "string");
+            entityTable["pcall"] = luabridge::getGlobal(lua, "pcall");
+            entityTable["xpcall"] = luabridge::getGlobal(lua, "xpcall");
+            entityTable["assert"] = luabridge::getGlobal(lua, "assert");
+            entityTable["error"] = luabridge::getGlobal(lua, "error");
+            entityTable["select"] = luabridge::getGlobal(lua, "select");
+
+            luabridge::getGlobalNamespace(lua)  // <-- KEY: pass the env table!
+                .beginClass<iEntity>("iEntity")
+                .addFunction("getID", &iEntity::getID)
+                .addFunction("getName", &iEntity::getName)
+                .endClass();            
+
         }
 
         /*! lua instance
          */
         std::unordered_map<std::thread::id, lua_State *> _lua;
+
+        /*! lua tables for entities
+         */
+        std::unordered_map<iEntityPtr, int> _entityTables;
     };
 
     iScriptEngine::iScriptEngine()
@@ -335,7 +389,7 @@ namespace igor
 
     bool iScriptEngine::initEntityScript(iEntityPtr entity, iScriptData &scriptData)
     {
-        return _impl->initEntityScript(scriptData._script->getScript(), scriptData._envRef, scriptData._initRef, scriptData._updateRef, scriptData._finalRef, scriptData._messageRef, scriptData._eventRef);
+        return _impl->initEntityScript(entity, scriptData._script->getScript(), scriptData._envRef, scriptData._initRef, scriptData._updateRef, scriptData._finalRef, scriptData._messageRef, scriptData._eventRef);
     }
 
     void iScriptEngine::deinitEntityScript(iEntityPtr entity, iScriptData &scriptData)
@@ -357,7 +411,7 @@ namespace igor
     }
     void iScriptEngine::callEntityUpdate(iEntityPtr entity, iScriptData &scriptData)
     {
-        _impl->executeUpdate(scriptData._updateRef);
+        _impl->executeUpdate(scriptData._updateRef, entity);
     }
     void iScriptEngine::callEntityFinal(iEntityPtr entity, iScriptData &scriptData)
     {
