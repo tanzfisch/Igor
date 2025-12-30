@@ -34,11 +34,11 @@ target_compile_features(igor PRIVATE cxx_std_17)
 
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} -D_NEWTON_USE_DOUBLE)        
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL newton clip LuaJIT)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL newton clip LuaJIT LuaBridge)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC)
     target_compile_options(igor PRIVATE "/MP" "/FS")
-    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 OpenAL newton clip LuaJIT)
+    target_link_libraries(igor PUBLIC iaux TinyXML PRIVATE Glad ompf OpenGL32 glu32 OpenAL newton clip LuaJIT LuaBridge)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})

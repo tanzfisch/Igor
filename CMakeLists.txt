@@ -144,6 +144,8 @@ set_target_properties(LuaJIT PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES "${LUAJIT_SOURCE_DIR}/src"
 )
 
+# LuaBridge
+add_subdirectory(vendor/LuaBridge)
 
 # nlohmann json
 message(STATUS "nlohmann json")

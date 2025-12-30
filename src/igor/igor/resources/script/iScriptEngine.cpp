@@ -14,6 +14,8 @@ extern "C"
 #include <lualib.h>
 }
 
+#include <LuaBridge/LuaBridge.h>
+
 #include <codecvt>
 #include <unordered_map>
 #include <thread>
