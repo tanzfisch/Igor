@@ -1,0 +1,107 @@
+{
+    "entityScene": {
+        "entities": [
+            {
+                "active": true,
+                "components": [
+                    {
+                        "clearColor": {
+                            "a": 1.0,
+                            "b": 0.5,
+                            "g": 0.5,
+                            "r": 0.5
+                        },
+                        "clearColorActive": true,
+                        "clearDepth": 1.0,
+                        "clearDepthActive": true,
+                        "clipFar": 10000.0,
+                        "clipNear": 1.0,
+                        "componentType": "camera",
+                        "fov": 45.0,
+                        "orthoBottom": 10.0,
+                        "orthoLeft": -10.0,
+                        "orthoRight": 10.0,
+                        "orthoTop": -10.0,
+                        "perspective": false,
+                        "viewport": {
+                            "height": 1.0,
+                            "width": 1.0,
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0x8b956c90a04e9aa6",
+                "name": "cam"
+            },
+            {
+                "active": true,
+                "components": [
+                    {
+                        "componentType": "script",
+                        "scripts": [
+                            "0x818b1b47f9ca029a"
+                        ]
+                    },
+                    {
+                        "color": {
+                            "a": 1.0,
+                            "b": 1.0,
+                            "g": 1.0,
+                            "r": 1.0
+                        },
+                        "componentType": "spriteRender",
+                        "frame": 0,
+                        "mode": 0,
+                        "size": {
+                            "x": 4.0,
+                            "y": 4.0
+                        },
+                        "sprite": "0xb0197f005dd6c07f",
+                        "zIndex": 0
+                    },
+                    {
+                        "componentType": "transform",
+                        "orientation": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                ],
+                "id": "0xd7bb365bae3c20d3",
+                "name": "player"
+            }
+        ],
+        "id": "0x24ab59d14743ed82",
+        "name": ""
+    }
+}

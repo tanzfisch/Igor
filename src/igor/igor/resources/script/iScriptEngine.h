@@ -63,23 +63,23 @@ namespace igor
         \param script the script to run
         \returns the script environment handle
         */
-        bool initEntityScript(iEntityPtr entity, iScriptData &scriptData);
+        bool initEntityScript(iEntityPtr entity, iScriptPtr script);
 
         /*! deinitialize script for entity
 
         \param envRef environment handle to clean up script
         */
-        void deinitEntityScript(iEntityPtr entity, iScriptData &scriptData);
+        bool deinitEntityScript(iEntityPtr entity);
 
         /*! execute function in given script environment
 
         \param functionRef the function reference to call
         */
-        void callEntityInit(iEntityPtr entity, iScriptData &scriptData);
-        void callEntityUpdate(iEntityPtr entity, iScriptData &scriptData);
-        void callEntityFinal(iEntityPtr entity, iScriptData &scriptData);
-        void callEntityMessage(iEntityPtr entity, iScriptData &scriptData);
-        void callEntityEvent(iEntityPtr entity, iScriptData &scriptData);
+        bool callEntityInit(iEntityPtr entity);
+        bool callEntityUpdate(iEntityPtr entity);
+        bool callEntityFinal(iEntityPtr entity);
+        bool callEntityMessage(iEntityPtr entity);
+        bool callEntityEvent(iEntityPtr entity);
 
         /*! registers current thread to the script engine
          */

@@ -80,20 +80,37 @@ namespace igor
                 switch (scriptData._scriptState)
                 {
                 case iEntityScriptState::Init:
-                    con_assert_sticky(scriptData._envRef == IGOR_LUA_NOREF, "already initialized environment");
-
-                    if (iScriptEngine::getInstance().initEntityScript(getEntity(), scriptData))
+                    if (!iScriptEngine::getInstance().initEntityScript(getEntity(), scriptData._script))
                     {
-                        iScriptEngine::getInstance().callEntityInit(getEntity(), scriptData);                        
+                        con_err("failed to init entity scripts for " << getEntity()->getID());
+                    }
+                    else
+                    {
+                        if (!iScriptEngine::getInstance().callEntityInit(getEntity()))
+                        {
+                            con_err("failed to run entity init script for " << getEntity()->getID());
+                        }
+                        else
+                        {
+                            scriptData._scriptState = iEntityScriptState::Update;
+                        }
                     }
                     break;
                 case iEntityScriptState::Update:
-                    iScriptEngine::getInstance().callEntityUpdate(getEntity(), scriptData);
+                    if (!iScriptEngine::getInstance().callEntityUpdate(getEntity()))
+                    {
+                        con_err("failed to run entity update script for " << getEntity()->getID());
+                    }
                     break;
                 case iEntityScriptState::Final:
-                    iScriptEngine::getInstance().callEntityFinal(getEntity(), scriptData);
+                    if (!iScriptEngine::getInstance().callEntityFinal(getEntity()))
+                    {
+                        con_err("failed to run entity final script for " << getEntity()->getID());
+                    }
+                    scriptData._scriptState = iEntityScriptState::Stop;
                     break;
                 case iEntityScriptState::Stop:
+                    iScriptEngine::getInstance().deinitEntityScript(getEntity());
                     break;
                 };
             }

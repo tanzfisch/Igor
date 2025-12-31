@@ -105,6 +105,10 @@ namespace igor
         }
     };
 
+    /*! velocity component pointer definition
+     */
+    typedef iVelocityComponent *iVelocityComponentPtr;    
+
 }
 
 #endif // IGOR_VELOCITY_COMPONENT_H

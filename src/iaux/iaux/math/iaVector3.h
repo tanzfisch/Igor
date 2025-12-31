@@ -39,12 +39,12 @@ namespace iaux
 {
 
     /*! 3d vector class
-    */
+     */
     template <typename T>
     struct IAUX_API_EXPORT_ONLY iaVector3
     {
         /*! does nothing
-        */
+         */
         iaVector3() = default;
 
         /*! initializes member variables
@@ -55,17 +55,16 @@ namespace iaux
         */
         iaVector3(T x, T y, T z);
 
-
         /*! x component
-        */
+         */
         T _x = static_cast<T>(0);
 
         /*! y component
-        */
+         */
         T _y = static_cast<T>(0);
 
         /*! z component
-        */
+         */
         T _z = static_cast<T>(0);
 
         /*! vector addition
@@ -154,7 +153,7 @@ namespace iaux
 
         \param vec vector to multiply this vector with
         */
-        void operator*=(const iaVector3<T> &vec);        
+        void operator*=(const iaVector3<T> &vec);
 
         /*! comparison of two vectors
 
@@ -191,15 +190,15 @@ namespace iaux
         void set(T x, T y, T z);
 
         /*! \returns length of vector
-        */
+         */
         T length() const;
 
         /*! \returns quadratic length of vector
-        */
+         */
         T length2() const;
 
         /*! \returns true if vector has zero length
-        */
+         */
         bool zero() const;
 
         /*! \returns distance between two vectors
@@ -229,33 +228,33 @@ namespace iaux
         iaVector3<T> reject(const iaVector3<T> &v);
 
         /*! \returns angle beween to vectors in radians
-        */
+         */
         T angle(const iaVector3<T> &a) const;
 
         /*! returns angle relative to XZ plane
-        */
+         */
         T angleXZ() const;
 
         /*! normalizes the vector
-        */
+         */
         void normalize();
 
         /*! negates the vector
-        */
+         */
         void negate();
 
         /*! \retruns pointer to internal data
-        */
+         */
         const T *getData() const;
 
         /*! \returns pointer to internal data
-        */
+         */
         T *getData();
 
         /*! converts the vector in to given type of vector
 
-		\returns vector for given type
-		*/
+        \returns vector for given type
+        */
         template <class T2>
         iaVector3<T2> convert() const;
     };
@@ -272,19 +271,19 @@ namespace iaux
 #include <iaux/math/iaVector3.inl>
 
     /*! float32 3d vector
-    */
+     */
     typedef iaVector3<float32> iaVector3f;
 
     /*! float64 3d vector
-    */
+     */
     typedef iaVector3<float64> iaVector3d;
 
     /*! int32 3d vector
-    */
+     */
     typedef iaVector3<int32> iaVector3i;
 
     /*! int64 3d vector
-    */
+     */
     typedef iaVector3<int64> iaVector3I;
 
 }; // namespace iaux

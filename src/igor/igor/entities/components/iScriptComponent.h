@@ -53,6 +53,7 @@ namespace igor
              |__|
 
     */
+   // TODO maybe move this in to iScriptEngine
     enum class iEntityScriptState
     {
         Init,   //! triggers onInit(self) in script
@@ -78,15 +79,6 @@ namespace igor
         /*! which state to trigger next inside the script
          */
         iEntityScriptState _scriptState = iEntityScriptState::Init;
-
-        /*! script environment table reference
-        */
-        int _envRef = IGOR_LUA_NOREF;
-        int _initRef = IGOR_LUA_NOREF;
-        int _updateRef = IGOR_LUA_NOREF;
-        int _finalRef = IGOR_LUA_NOREF;
-        int _messageRef = IGOR_LUA_NOREF;
-        int _eventRef = IGOR_LUA_NOREF;
     };
 
     /*! script component
