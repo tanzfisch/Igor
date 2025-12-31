@@ -282,99 +282,14 @@ namespace igor
             _lua[std::this_thread::get_id()] = lua;
 
             luaL_openlibs(lua);
-
-            createGlobals(lua);
         }
 
     private:
-        void createGlobals(lua_State *lua)
+        void exposeEntity(lua_State *lua)
         {
-            lua_pushcfunction(lua, print);
-            lua_setglobal(lua, "con_endl");
-
-            lua_pushcfunction(lua, print);
-            lua_setglobal(lua, "print");
-
-            lua_pushcfunction(lua, printInfo);
-            lua_setglobal(lua, "con_info");
-
-            lua_pushcfunction(lua, printWarning);
-            lua_setglobal(lua, "con_warn");
-
-            lua_pushcfunction(lua, printError);
-            lua_setglobal(lua, "con_err");
-        }
-
-        void exposeGlobals(lua_State *lua, luabridge::LuaRef entityTable)
-        {
-            auto copyGlobal = [&](const char *name)
-            {
-                entityTable[name] = luabridge::getGlobal(lua, name);
-            };
-
-            copyGlobal("type");
-            copyGlobal("tostring");
-            copyGlobal("pairs");
-            copyGlobal("ipairs");
-            copyGlobal("next");
-            copyGlobal("select");
-            copyGlobal("unpack"); // or table.unpack in 5.2+
-
-            copyGlobal("pcall");
-            copyGlobal("xpcall");
-            copyGlobal("assert");
-            copyGlobal("error");
-
-            copyGlobal("math");
-            copyGlobal("string");
-            copyGlobal("table");
-
-            auto pushCustom = [&](const char *name, lua_CFunction fn)
-            {
-                lua_pushcfunction(lua, fn);
-                entityTable[name] = luabridge::LuaRef::fromStack(lua, -1);
-                lua_pop(lua, 1);
-            };
-
-            pushCustom("print", print);
-            pushCustom("con_endl", print);
-            pushCustom("con_info", printInfo);
-            pushCustom("con_warn", printWarning);
-            pushCustom("con_err", printError);
-
-            luabridge::getGlobalNamespace(lua)
-                .beginClass<iaVector3d>("Vector3")
-                .addFunction("__add", [](const iaVector3d &self, const iaVector3d &other) -> iaVector3d
-                             { return self + other; })
-                .addProperty("x", [](iaVector3d &self) -> float64
-                             { return self._x; }, [](iaVector3d &self, float64 value)
-                             { self._x = value; })
-                .addProperty("y", [](iaVector3d &self) -> float64
-                             { return self._y; }, [](iaVector3d &self, float64 value)
-                             { self._y = value; })
-                .addProperty("z", [](iaVector3d &self) -> float64
-                             { return self._z; }, [](iaVector3d &self, float64 value)
-                             { self._z = value; })
-                .addFunction("length", &iaVector3d::length)
-                .addFunction("length2", &iaVector3d::length2)
-                .addFunction("dot", &iaVector3d::dot)
-                .addFunction("distance", &iaVector3d::distance)
-                .addFunction("normalize", &iaVector3d::normalize)
-                .addFunction("set", &iaVector3d::set)
-                .addFunction("__tostring", [](const iaVector3d &v) -> std::string
-                             {
-            char buf[128];
-            snprintf(buf, sizeof(buf), "Vector3(%.3f, %.3f, %.3f)", v._x, v._y, v._z);
-            return std::string(buf); })
-                .endClass()
-                .addFunction("Vector3", [](float64 x, float64 y, float64 z) -> iaVector3d
-                             { return iaVector3d(x, y, z); })
-                .addFunction("Vector3", []() -> iaVector3d
-                             { return iaVector3d(0, 0, 0); })
-
-                .beginClass<iEntity>("iEntity")
-                .addFunction("getID", [](const iEntityPtr entity)
-                             { return toStdString(entity->getID().toString()); })
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua).beginNamespace("igor").beginClass<iEntity>("iEntity").addFunction("getID", [](const iEntityPtr entity)
+                                                                                                                    { return toStdString(entity->getID().toString()); })
                 .addFunction("getName", [](const iEntityPtr entity)
                              { return toStdString(entity->getName()); })
                 .addFunction("getTransformComponent", [](iEntityPtr entity) -> iTransformComponentPtr
@@ -397,7 +312,90 @@ namespace igor
                              { return velocityComp->getAngularVelocity(); })
                 .addFunction("setAngularVelocity", [](iVelocityComponentPtr velocityComp, const iaVector3d &velocity)
                              { velocityComp->setAngularVelocity(velocity); })
-                .endClass();
+                .endClass()
+                .endNamespace();
+        }
+
+        void exposeVector3(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iaVector3d>("Vector3")
+                .addConstructor<void(), void(float64, float64, float64)>()
+                .addProperty("x", [](iaVector3d &self) -> float64
+                             { return self._x; }, [](iaVector3d &self, float64 value)
+                             { self._x = value; })
+                .addProperty("y", [](iaVector3d &self) -> float64
+                             { return self._y; }, [](iaVector3d &self, float64 value)
+                             { self._y = value; })
+                .addProperty("z", [](iaVector3d &self) -> float64
+                             { return self._z; }, [](iaVector3d &self, float64 value)
+                             { self._z = value; })
+
+                .addFunction("__add", [](const iaVector3d &self, const iaVector3d &other) -> iaVector3d
+                             { return self + other; })
+
+                .addFunction("length", [](iaVector3d &self) -> float64
+                             { return self.length(); })
+                .addFunction("length2", [](iaVector3d &self) -> float64
+                             { return self.length2(); })
+                .addFunction("dot", &iaVector3d::dot)
+                .addFunction("distance", &iaVector3d::distance)
+                .addFunction("normalize", &iaVector3d::normalize)
+                .addFunction("set", &iaVector3d::set)
+                .addFunction("__tostring", [](const iaVector3d &v) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "Vector3(%.3f, %.3f, %.3f)", v._x, v._y, v._z);
+                                return std::string(buf); })
+                .endClass()
+                .endNamespace();
+        }
+
+        void exposeGlobalFunctions(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .addFunction("meaning", []() -> double
+                             { return 42.0; })
+                .addFunction("print", [](const std::string &message)
+                             { con_endl(message.c_str()); })
+                .addFunction("con_endl", [](const std::string &message)
+                             { con_endl(message.c_str()); })
+                .addFunction("con_info", [](const std::string &message)
+                             { con_info(message.c_str()); })
+                .addFunction("con_warn", [](const std::string &message)
+                             { con_warn(message.c_str()); })
+                .addFunction("con_err", [](const std::string &message)
+                             { con_err(message.c_str()); })
+                .addFunction("error", [](const std::string &message)
+                             { con_err(message.c_str()); });
+        }
+
+        void exposeGlobals(lua_State *lua, luabridge::LuaRef entityTable)
+        {
+            auto copyGlobal = [&](const char *name)
+            {
+                entityTable[name] = luabridge::getGlobal(lua, name);
+            };
+
+            copyGlobal("type");
+            copyGlobal("tostring");
+            copyGlobal("pairs");
+            copyGlobal("ipairs");
+            copyGlobal("next");
+            copyGlobal("select");
+            copyGlobal("unpack");
+            copyGlobal("pcall");
+            copyGlobal("xpcall");
+            copyGlobal("assert");
+            copyGlobal("math");
+            copyGlobal("string");
+
+            exposeVector3(lua);
+            exposeEntity(lua);
+            exposeGlobalFunctions(lua);
         }
 
         /*! lua instance per thread
