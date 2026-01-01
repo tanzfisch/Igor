@@ -14,6 +14,7 @@ end
 function onUpdate(self, dt)
     local transformComp = self.entity:getTransformComponent()
     local velocityComp = self.entity:getVelocityComponent()
+
     if transformComp and velocityComp then
         local pos = transformComp:getPosition()
         local vel = velocityComp:getVelocity()
@@ -28,8 +29,6 @@ function onUpdate(self, dt)
         end
         velocityComp:setVelocity(vel)
         velocityComp:setAngularVelocity(angVel)
-
-        con_endl(tostring(transformComp:getWorldMatrix()))
     end
 
     local spriteComp = self.entity:getSpriteRenderComponent()

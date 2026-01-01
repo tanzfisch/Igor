@@ -325,8 +325,11 @@ namespace igor
         void exposeEntity(lua_State *lua)
         {
             // can't use getGlobalNamespace because we need the wrapped table and not the global one
-            luabridge::getNamespaceFromStack(lua).beginNamespace("igor").beginClass<iEntity>("iEntity").addFunction("getID", [](const iEntityPtr entity)
-                                                                                                                    { return toStdString(entity->getID().toString()); })
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iEntity>("iEntity")
+                .addFunction("getID", [](const iEntityPtr entity)
+                             { return toStdString(entity->getID().toString()); })
                 .addFunction("getName", [](const iEntityPtr entity)
                              { return toStdString(entity->getName()); })
                 .addFunction("getTransformComponent", [](iEntityPtr entity) -> iTransformComponentPtr
@@ -335,24 +338,40 @@ namespace igor
                              { return dynamic_cast<iVelocityComponentPtr>(entity->getComponent(typeid(iVelocityComponent))); })
                 .addFunction("getSpriteRenderComponent", [](iEntityPtr entity) -> iSpriteRenderComponentPtr
                              { return dynamic_cast<iSpriteRenderComponentPtr>(entity->getComponent(typeid(iSpriteRenderComponent))); })
+                .addFunction("__tostring", [](iEntityPtr entity) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "Entity(%s, %s)", toStdString(entity->getID().toString()), toStdString(entity->getName()));
+                                return std::string(buf); })
                 .endClass()
 
                 .beginClass<iTransformComponent>("iTransformComponent")
-                .addFunction("getWorldMatrix", [](const iTransformComponentPtr transformComp) -> iaMatrixd
+                .addFunction("getWorldMatrix", [](iTransformComponentPtr transformComp) -> iaMatrixd
                              { return transformComp->getWorldMatrix(); })
-                .addFunction("getPosition", [](const iTransformComponentPtr transformComp) -> iaVector3d
+                .addFunction("getPosition", [](iTransformComponentPtr transformComp) -> iaVector3d
                              { return transformComp->getPosition(); })
                 .addFunction("setPosition", [](iTransformComponentPtr transformComp, const iaVector3d &pos)
                              { transformComp->setPosition(pos); })
-                .addFunction("getWorldPosition", [](const iTransformComponentPtr transformComp) -> iaVector3d
+                .addFunction("getWorldPosition", [](iTransformComponentPtr transformComp) -> iaVector3d
                              { return transformComp->getWorldPosition(); })
-
-                .addFunction("getOrientation", [](const iTransformComponentPtr transformComp) -> iaQuaterniond
+                .addFunction("getOrientation", [](iTransformComponentPtr transformComp) -> iaQuaterniond
                              { return transformComp->getOrientation(); })
                 .addFunction("setOrientation", [](iTransformComponentPtr transformComp, const iaQuaterniond &ori)
                              { transformComp->setOrientation(ori); })
-                .addFunction("getWorldOrientation", [](const iTransformComponentPtr transformComp) -> iaQuaterniond
+                .addFunction("getWorldOrientation", [](iTransformComponentPtr transformComp) -> iaQuaterniond
                              { return transformComp->getWorldOrientation(); })
+
+                .addFunction("getScale", [](iTransformComponentPtr transformComp) -> iaVector3d
+                             { return transformComp->getScale(); })
+                .addFunction("setScale", [](iTransformComponentPtr transformComp, const iaVector3d &vec)
+                             { transformComp->setScale(vec); })
+                .addFunction("getWorldScale", [](iTransformComponentPtr transformComp) -> iaVector3d
+                             { return transformComp->getWorldScale(); })
+                .addFunction("__tostring", [](iTransformComponentPtr transformComp) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "TransformComponent(%s)", toStdString(transformComp->getID().toString()).c_str());
+                                return std::string(buf); })
                 .endClass()
 
                 .beginClass<iSpriteRenderComponent>("iSpriteRenderComponent")
@@ -376,6 +395,11 @@ namespace igor
                              { return spriteComp->getFrameIndex(); })
                 .addFunction("setFrameIndex", [](iSpriteRenderComponentPtr spriteComp, int32 mode)
                              { spriteComp->setFrameIndex(mode); })
+                .addFunction("__tostring", [](iSpriteRenderComponentPtr spriteComp) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "SpriteRenderComponent(%s)", toStdString(spriteComp->getID().toString()).c_str());
+                                return std::string(buf); })                          
                 .endClass()
 
                 .beginClass<iVelocityComponent>("iVelocityComponent")
@@ -387,6 +411,11 @@ namespace igor
                              { return velocityComp->getAngularVelocity(); })
                 .addFunction("setAngularVelocity", [](iVelocityComponentPtr velocityComp, const iaVector3d &velocity)
                              { velocityComp->setAngularVelocity(velocity); })
+                .addFunction("__tostring", [](iVelocityComponentPtr velocityComp) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "VelocityComponent(%s)", toStdString(velocityComp->getID().toString()).c_str());
+                                return std::string(buf); })                               
                 .endClass()
                 .endNamespace();
         }
