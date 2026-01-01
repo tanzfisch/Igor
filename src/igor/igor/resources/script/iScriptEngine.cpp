@@ -6,6 +6,7 @@
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
+#include <igor/entities/components/iSpriteRenderComponent.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -332,13 +333,28 @@ namespace igor
                              { return dynamic_cast<iTransformComponentPtr>(entity->getComponent(typeid(iTransformComponent))); })
                 .addFunction("getVelocityComponent", [](iEntityPtr entity) -> iVelocityComponentPtr
                              { return dynamic_cast<iVelocityComponentPtr>(entity->getComponent(typeid(iVelocityComponent))); })
+                .addFunction("getSpriteRenderComponent", [](iEntityPtr entity) -> iSpriteRenderComponentPtr
+                             { return dynamic_cast<iSpriteRenderComponentPtr>(entity->getComponent(typeid(iSpriteRenderComponent))); })
                 .endClass()
+
                 .beginClass<iTransformComponent>("iTransformComponent")
                 .addFunction("getPosition", [](const iTransformComponentPtr transformComp) -> iaVector3d
                              { return transformComp->getPosition(); })
                 .addFunction("setPosition", [](iTransformComponentPtr transformComp, const iaVector3d &pos)
                              { transformComp->setPosition(pos); })
                 .endClass()
+
+                .beginClass<iSpriteRenderComponent>("iSpriteRenderComponent")
+                .addFunction("getSize", [](const iSpriteRenderComponentPtr spriteComp) -> iaVector2d
+                             { return spriteComp->getSize(); })
+                .addFunction("setSize", [](iSpriteRenderComponentPtr spriteComp, const iaVector2d &size)
+                             { spriteComp->setSize(size); })
+                .addFunction("getColor", [](const iSpriteRenderComponentPtr spriteComp) -> iaColor4f
+                             { return spriteComp->getColor(); })
+                .addFunction("setColor", [](iSpriteRenderComponentPtr spriteComp, const iaColor4f &color)
+                             { spriteComp->setColor(color); })
+                .endClass()
+
                 .beginClass<iVelocityComponent>("iVelocityComponent")
                 .addFunction("getVelocity", [](const iVelocityComponentPtr velocityComp) -> iaVector3d
                              { return velocityComp->getVelocity(); })
@@ -349,6 +365,45 @@ namespace igor
                 .addFunction("setAngularVelocity", [](iVelocityComponentPtr velocityComp, const iaVector3d &velocity)
                              { velocityComp->setAngularVelocity(velocity); })
                 .endClass()
+                .endNamespace();
+        }
+
+        void exposeColor4(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iaColor4f>("Color4")
+                .addConstructor<void(), void(float32, float32, float32, float32)>()
+                .addProperty("r", [](iaColor4f &self) -> float32
+                             { return self._r; }, [](iaColor4f &self, float32 value)
+                             { self._r = value; })
+                .addProperty("g", [](iaColor4f &self) -> float32
+                             { return self._g; }, [](iaColor4f &self, float32 value)
+                             { self._g = value; })
+                .addProperty("b", [](iaColor4f &self) -> float32
+                             { return self._b; }, [](iaColor4f &self, float32 value)
+                             { self._b = value; })
+                .addProperty("a", [](iaColor4f &self) -> float32
+                             { return self._a; }, [](iaColor4f &self, float32 value)
+                             { self._a = value; })
+                .addFunction("__add", [](const iaColor4f &self, const iaColor4f &other) -> iaColor4f
+                             { return self + other; })
+                .addFunction("__sub", [](const iaColor4f &self, const iaColor4f &other) -> iaColor4f
+                             { return self - other; })
+                .addFunction("__mul", [](const iaColor4f &col, float32 s) -> iaColor4f
+                             { return col * s; })
+                .addFunction("__eq", &iaColor4f::operator==)
+                .addFunction("__tostring", [](const iaColor4f &col) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "Color4(%.3f, %.3f, %.3f, %.3f)", col._r, col._g, col._b, col._a);
+                                return std::string(buf); })
+                .endClass()
+                .beginNamespace("Color4")
+                .addFunction("random", []() -> iaColor4f
+                             { return iaColor4f::random(); })
+                .endNamespace()
                 .endNamespace();
         }
 
@@ -401,6 +456,58 @@ namespace igor
                 .endNamespace();
         }
 
+        void exposeVector2(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iaVector2d>("Vector2")
+                .addConstructor<void(), void(float64, float64)>()
+                .addProperty("x", [](iaVector2d &self) -> float64
+                             { return self._x; }, [](iaVector2d &self, float64 value)
+                             { self._x = value; })
+                .addProperty("y", [](iaVector2d &self) -> float64
+                             { return self._y; }, [](iaVector2d &self, float64 value)
+                             { self._y = value; })
+                .addFunction("length", [](const iaVector2d &self) -> float64
+                             { return self.length(); })
+                .addFunction("length2", [](const iaVector2d &self) -> float64
+                             { return self.length2(); })
+                .addFunction("distance", [](const iaVector2d &self, const iaVector2d &other) -> float64
+                             { return self.distance(other); })
+                .addFunction("distance2", [](const iaVector2d &self, const iaVector2d &other) -> float64
+                             { return self.distance2(other); })
+                .addFunction("angle", [](const iaVector2d &self) -> float64
+                             { return self.angle(); })
+                .addFunction("angle", [](const iaVector2d &self, const iaVector2d &other) -> float64
+                             { return self.angle(other); })
+                .addFunction("rotate", [](iaVector2d &self, float64 angle)
+                             { self.rotateXY(angle); })
+                .addFunction("negate", [](iaVector2d &self)
+                             { return self.negate(); })
+                .addFunction("normalize", [](iaVector2d &self)
+                             { return self.normalize(); })
+                .addFunction("dot", [](const iaVector2d &self, const iaVector2d &other) -> float64
+                             { return self.dot(other); })
+                .addFunction("normalize", &iaVector2d::normalize)
+                .addFunction("__add", [](const iaVector2d &self, const iaVector2d &other) -> iaVector2d
+                             { return self + other; })
+                .addFunction("__sub", [](const iaVector2d &self, const iaVector2d &other) -> iaVector2d
+                             { return self - other; })
+                .addFunction("__mul", [](const iaVector2d &vec, float64 s) -> iaVector2d
+                             { return vec * s; })
+                .addFunction("__div", [](const iaVector2d &vec, float64 s) -> iaVector2d
+                             { return vec / s; })
+                .addFunction("__eq", &iaVector2d::operator==)
+                .addFunction("__tostring", [](const iaVector2d &v) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "Vector2(%.3f, %.3f)", v._x, v._y);
+                                return std::string(buf); })
+                .endClass()
+                .endNamespace();
+        }
+
         void exposeGlobalFunctions(lua_State *lua)
         {
             // can't use getGlobalNamespace because we need the wrapped table and not the global one
@@ -441,7 +548,9 @@ namespace igor
             copyGlobal("math");
             copyGlobal("string");
 
+            exposeVector2(lua);
             exposeVector3(lua);
+            exposeColor4(lua);
             exposeEntity(lua);
             exposeGlobalFunctions(lua);
         }

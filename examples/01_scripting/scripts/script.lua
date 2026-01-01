@@ -29,6 +29,13 @@ function onUpdate(self, dt)
         velocityComp:setVelocity(vel)
         velocityComp:setAngularVelocity(angVel)
     end
+
+    local spriteComp = self.entity:getSpriteRenderComponent()
+    if spriteComp then
+        local size = igor.Vector2(1,1) * (3 + math.random() * 0.3)
+        spriteComp:setSize(size)
+        spriteComp:setColor(igor.Color4.random() * 0.5 + igor.Color4(0.5,0.5,0.5,1))
+    end
 end
 
 function onFinal()
