@@ -368,18 +368,30 @@ namespace igor
                 .addProperty("z", [](iaVector3d &self) -> float64
                              { return self._z; }, [](iaVector3d &self, float64 value)
                              { self._z = value; })
-
+                .addFunction("length", [](const iaVector3d &self) -> float64
+                             { return self.length(); })
+                .addFunction("length2", [](const iaVector3d &self) -> float64
+                             { return self.length2(); })
+                .addFunction("distance", [](const iaVector3d &self, const iaVector3d &other) -> float64
+                             { return self.distance(other); })
+                .addFunction("distance2", [](const iaVector3d &self, const iaVector3d &other) -> float64
+                             { return self.distance2(other); })
+                .addFunction("angle", [](const iaVector3d &self, const iaVector3d &other) -> float64
+                             { return self.angle(other); })
+                .addFunction("normalize", [](iaVector3d &self)
+                             { return self.normalize(); })
+                .addFunction("dot", [](const iaVector3d &self, const iaVector3d &other) -> float64
+                             { return self.dot(other); })
+                .addFunction("normalize", &iaVector3d::normalize)
                 .addFunction("__add", [](const iaVector3d &self, const iaVector3d &other) -> iaVector3d
                              { return self + other; })
-
-                .addFunction("length", [](iaVector3d &self) -> float64
-                             { return self.length(); })
-                .addFunction("length2", [](iaVector3d &self) -> float64
-                             { return self.length2(); })
-                .addFunction("dot", &iaVector3d::dot)
-                .addFunction("distance", &iaVector3d::distance)
-                .addFunction("normalize", &iaVector3d::normalize)
-                .addFunction("set", &iaVector3d::set)
+                .addFunction("__sub", [](const iaVector3d &self, const iaVector3d &other) -> iaVector3d
+                             { return self - other; })
+                .addFunction("__mul", [](const iaVector3d &vec, float64 s) -> iaVector3d
+                             { return vec * s; })
+                .addFunction("__div", [](const iaVector3d &vec, float64 s) -> iaVector3d
+                             { return vec / s; })
+                .addFunction("__eq", &iaVector3d::operator==)
                 .addFunction("__tostring", [](const iaVector3d &v) -> std::string
                              {
                                 char buf[128];
