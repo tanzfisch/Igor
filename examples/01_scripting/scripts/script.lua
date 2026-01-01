@@ -10,8 +10,8 @@ function onInit(self)
         velocityComp:setAngularVelocity(angVel)
     end
 
-    local a = igor.Vector3()
-    local b = igor.Vector3(1,2,3)
+    local a = igor.Vector3(1,2,3)
+    local b = igor.Vector3(0,1,1)
     con_endl(tostring(a));
     con_endl(tostring(a.x));
     con_endl(tostring(a:length()));

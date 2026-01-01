@@ -83,12 +83,14 @@ namespace igor
                     if (!iScriptEngine::getInstance().initEntityScript(getEntity(), scriptData._script))
                     {
                         con_err("failed to init entity scripts for " << getEntity()->getID());
+                        scriptData._scriptState = iEntityScriptState::Stop;
                     }
                     else
                     {
                         if (!iScriptEngine::getInstance().callEntityInit(getEntity()))
                         {
                             con_err("failed to run entity init script for " << getEntity()->getID());
+                            scriptData._scriptState = iEntityScriptState::Stop;
                         }
                         else
                         {
@@ -100,6 +102,7 @@ namespace igor
                     if (!iScriptEngine::getInstance().callEntityUpdate(getEntity()))
                     {
                         con_err("failed to run entity update script for " << getEntity()->getID());
+                        scriptData._scriptState = iEntityScriptState::Stop;
                     }
                     break;
                 case iEntityScriptState::Final:
@@ -111,6 +114,11 @@ namespace igor
                     break;
                 case iEntityScriptState::Stop:
                     iScriptEngine::getInstance().deinitEntityScript(getEntity());
+                    scriptData._scriptState = iEntityScriptState::End;
+                    break;
+
+                case iEntityScriptState::End:
+                default:
                     break;
                 };
             }

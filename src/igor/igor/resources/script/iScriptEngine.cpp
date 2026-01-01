@@ -99,6 +99,36 @@ namespace igor
             return true;
         }
 
+        void prettyPrintError(lua_State *lua, iScriptPtr script)
+        {
+            constexpr int WRAPPER_LINE_OFFSET = 3;
+
+            std::string err = lua_tostring(lua, -1);
+
+            size_t pos = 0;
+            while ((pos = err.find(":", pos)) != std::string::npos)
+            {
+                size_t lineStart = err.find_first_of("0123456789", pos + 1);
+                if (lineStart != std::string::npos)
+                {
+                    size_t lineEnd = err.find(":", lineStart);
+                    if (lineEnd != std::string::npos)
+                    {
+                        std::string lineNumStr = err.substr(lineStart, lineEnd - lineStart);
+                        int lineNum = std::stoi(lineNumStr);
+                        int adjusted = lineNum - WRAPPER_LINE_OFFSET;
+                        if (adjusted > 0)
+                        {
+                            err.replace(lineStart, lineEnd - lineStart, std::to_string(adjusted));
+                        }
+                    }
+                }
+                pos += 1;
+            }
+
+            con_err("Script error: " << err.c_str() << " in " << script->getInfo());
+        }
+
         void debugStack(lua_State *lua)
         {
             iaConsole::getInstance() << LOCK;
@@ -181,6 +211,7 @@ namespace igor
             entityTable["entity"] = entity;
 
             iEntityData entityData;
+            entityData._script = script;
             entityData._envRef = luaL_ref(lua, LUA_REGISTRYINDEX);
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._envRef);
 
@@ -194,7 +225,8 @@ namespace igor
 
             if (luaL_loadstring(lua, wrappedScript.c_str()) != 0)
             {
-                con_err("failed to load: " << lua_tostring(lua, -1));
+                // con_err("failed to load: " << lua_tostring(lua, -1));
+                prettyPrintError(lua, script);
                 lua_pop(lua, 2);
                 return false;
             }
@@ -204,7 +236,8 @@ namespace igor
             // call wrapper function
             if (lua_pcall(lua, 1, 1, 0) != 0)
             {
-                con_err("pcall wrapper failed: " << lua_tostring(lua, -1));
+                // con_err("pcall wrapper failed: " << lua_tostring(lua, -1));
+                prettyPrintError(lua, script);
                 lua_pop(lua, 2); // error + env
                 return false;
             }
@@ -212,7 +245,8 @@ namespace igor
             // call wrapped function
             if (lua_pcall(lua, 0, 0, 0) != 0)
             {
-                con_err("script execution failed: " << lua_tostring(lua, -1));
+                // con_err("script execution failed: " << lua_tostring(lua, -1));
+                prettyPrintError(lua, script);
                 lua_pop(lua, 2); // error + env
                 return false;
             }
@@ -247,7 +281,8 @@ namespace igor
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._envRef);
             if (lua_pcall(lua, 1, 0, 0) != 0)
             {
-                con_err("function call error: " << lua_tostring(lua, -1));
+                // con_err("function call error: " << lua_tostring(lua, -1));
+                prettyPrintError(lua, entityData._script);
                 lua_pop(lua, 1);
                 return false;
             }
@@ -266,7 +301,8 @@ namespace igor
 
             if (lua_pcall(lua, 2, 0, 0) != 0)
             {
-                con_err("function call error: " << lua_tostring(lua, -1));
+                // con_err("function call error: " << lua_tostring(lua, -1));
+                prettyPrintError(lua, entityData._script);
                 lua_pop(lua, 1);
                 return false;
             }
@@ -407,6 +443,7 @@ namespace igor
         // TODO currently only one thread is effectively used. Make sure entity data is also threadsafe
         struct iEntityData
         {
+            iScriptPtr _script;
             int _envRef = IGOR_LUA_NOREF;     //! script environment table reference
             int _initRef = IGOR_LUA_NOREF;    //! script init function reference
             int _updateRef = IGOR_LUA_NOREF;  //! script update function reference

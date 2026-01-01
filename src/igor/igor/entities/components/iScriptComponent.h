@@ -59,7 +59,8 @@ namespace igor
         Init,   //! triggers onInit(self) in script
         Update, //! triggers onUpdate(self, dt) in script
         Final,  //! triggers onFinal(self) in script
-        Stop    //! cleanup script env
+        Stop,    //! cleanup script env
+        End    //! nothing to do
     };
 
     /*! script data
