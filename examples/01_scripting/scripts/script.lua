@@ -28,6 +28,8 @@ function onUpdate(self, dt)
         end
         velocityComp:setVelocity(vel)
         velocityComp:setAngularVelocity(angVel)
+
+        con_endl(tostring(transformComp:getWorldMatrix()))
     end
 
     local spriteComp = self.entity:getSpriteRenderComponent()

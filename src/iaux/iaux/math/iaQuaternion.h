@@ -173,7 +173,7 @@ namespace iaux
         \returns the resulting quaternion
         \param other the right hand side quaternion
         */
-        const iaQuaternion<T> operator+(const iaQuaternion<T> &other);
+        iaQuaternion<T> operator+(const iaQuaternion<T> &other) const;
 
         /*! add one quaternion to this quaternion
 
@@ -187,7 +187,7 @@ namespace iaux
         \returns the resulting quaternion
         \param other the right hand side quaternion
         */
-        const iaQuaternion<T> operator-(const iaQuaternion<T> &other);
+        iaQuaternion<T> operator-(const iaQuaternion<T> &other) const;
 
         /*! subtracts one quaternion from the other
 
@@ -201,7 +201,7 @@ namespace iaux
         \param other the right hand side quaternion
         \returns the resulting quaternion
         */
-        const iaQuaternion<T> operator*(const iaQuaternion<T> &other) const;
+        iaQuaternion<T> operator*(const iaQuaternion<T> &other) const;
 
         /*! multiply one quaternion with an other one
 
@@ -215,7 +215,7 @@ namespace iaux
         \param scalar right hand side the scalar value
         \returns resulting quaternion
         */
-        const iaQuaternion<T> operator*(T scalar);
+        iaQuaternion<T> operator*(T scalar) const;
 
         /*! multiplies quaternion with scalar
 
@@ -225,7 +225,7 @@ namespace iaux
 
         // TODO inverse
         // https://stackoverflow.com/questions/6689967/calculate-quaternion-inverse
-        const iaQuaternion<T> inverse() const;
+        iaQuaternion<T> inverse() const;
 
         /*! rotates a given vector
 
@@ -236,7 +236,7 @@ namespace iaux
 
         /*! \returns a normalized quaternion
          */
-        const iaQuaternion<T> normalize() const;
+        iaQuaternion<T> normalize() const;
 
         /*! dot product 
         */

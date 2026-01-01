@@ -145,7 +145,7 @@ namespace iaux
 
 		/*! matrix multiplication
 		 */
-		iaMatrix operator*(const iaMatrix &other);
+		iaMatrix operator*(const iaMatrix &other) const;
 
 		/*! matrix multiplication
 		 */
@@ -211,7 +211,7 @@ namespace iaux
 		*/
 		void perspective(T fov, T aspect, T nearPlain, T farPlain);
 
-		/*! calculates a othogonal projection matrix
+		/*! calculates a orthogonal projection matrix
 
 		\param left the left value
 		\param right the right value

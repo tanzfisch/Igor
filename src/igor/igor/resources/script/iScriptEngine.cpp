@@ -338,10 +338,21 @@ namespace igor
                 .endClass()
 
                 .beginClass<iTransformComponent>("iTransformComponent")
+                .addFunction("getWorldMatrix", [](const iTransformComponentPtr transformComp) -> iaMatrixd
+                             { return transformComp->getWorldMatrix(); })
                 .addFunction("getPosition", [](const iTransformComponentPtr transformComp) -> iaVector3d
                              { return transformComp->getPosition(); })
                 .addFunction("setPosition", [](iTransformComponentPtr transformComp, const iaVector3d &pos)
                              { transformComp->setPosition(pos); })
+                .addFunction("getWorldPosition", [](const iTransformComponentPtr transformComp) -> iaVector3d
+                             { return transformComp->getWorldPosition(); })
+
+                .addFunction("getOrientation", [](const iTransformComponentPtr transformComp) -> iaQuaterniond
+                             { return transformComp->getOrientation(); })
+                .addFunction("setOrientation", [](iTransformComponentPtr transformComp, const iaQuaterniond &ori)
+                             { transformComp->setOrientation(ori); })
+                .addFunction("getWorldOrientation", [](const iTransformComponentPtr transformComp) -> iaQuaterniond
+                             { return transformComp->getWorldOrientation(); })
                 .endClass()
 
                 .beginClass<iSpriteRenderComponent>("iSpriteRenderComponent")
@@ -364,8 +375,8 @@ namespace igor
                 .addFunction("getFrameIndex", [](const iSpriteRenderComponentPtr spriteComp) -> int32
                              { return spriteComp->getFrameIndex(); })
                 .addFunction("setFrameIndex", [](iSpriteRenderComponentPtr spriteComp, int32 mode)
-                             { spriteComp->setFrameIndex(mode); })                             
-                .endClass()            
+                             { spriteComp->setFrameIndex(mode); })
+                .endClass()
 
                 .beginClass<iVelocityComponent>("iVelocityComponent")
                 .addFunction("getVelocity", [](const iVelocityComponentPtr velocityComp) -> iaVector3d
@@ -468,6 +479,147 @@ namespace igor
                 .endNamespace();
         }
 
+        void exposeQuaternion(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iaQuaterniond>("Quaternion")
+                .addConstructor<void(), void(const iaQuaterniond &), void(float32, float32, float32), void(float32, float32, float32, float32)>()
+                .addProperty("w", [](iaQuaterniond &self) -> float64
+                             { return self._w; }, [](iaQuaterniond &self, float64 value)
+                             { self._w = value; })
+                .addProperty("x", [](iaQuaterniond &self) -> float64
+                             { return self._x; }, [](iaQuaterniond &self, float64 value)
+                             { self._x = value; })
+                .addProperty("y", [](iaQuaterniond &self) -> float64
+                             { return self._y; }, [](iaQuaterniond &self, float64 value)
+                             { self._y = value; })
+                .addProperty("z", [](iaQuaterniond &self) -> float64
+                             { return self._z; }, [](iaQuaterniond &self, float64 value)
+                             { self._z = value; })
+
+                .addFunction("__eq", &iaQuaterniond::operator==)
+                .addFunction("__mul", [](const iaQuaterniond &self, const iaQuaterniond &other) -> iaQuaterniond
+                             { return self * other; })
+                .addFunction("__add", [](const iaQuaterniond &self, const iaQuaterniond &other) -> iaQuaterniond
+                             { return self + other; })
+                .addFunction("__sub", [](const iaQuaterniond &self, const iaQuaterniond &other) -> iaQuaterniond
+                             { return self - other; })
+                .addFunction("scale", [](const iaQuaterniond &self, float64 scalar) -> iaQuaterniond
+                             { return self * scalar; })
+
+                .addFunction("identity", [](iaQuaterniond &self)
+                             { self.identity(); })
+                .addFunction("negate", [](iaQuaterniond &self)
+                             { self.negate(); })
+
+                .addFunction("normalize", [](iaQuaterniond &self) -> iaQuaterniond
+                             { return self.normalize(); })
+                .addFunction("inverse", [](iaQuaterniond &self) -> iaQuaterniond
+                             { return self.inverse(); })
+
+                .addFunction("__tostring", [](const iaQuaterniond &self) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "Quaternion(%.3f, %.3f, %.3f, %.3f)", self._w, self._x, self._y, self._z);
+                                return std::string(buf); })
+                .endClass()
+
+                .beginNamespace("Quaternion")
+                .addFunction("fromEuler", [](const iaVector3d &vec) -> iaQuaterniond
+                             { return iaQuaterniond::fromEuler(vec); })
+                .addFunction("toEuler", [](const iaQuaterniond &self) -> iaVector3d
+                             { return self.toEuler(); })
+                .addFunction("toMatrix", [](const iaQuaterniond &self) -> iaMatrixd
+                             { return self.toMatrix(); })
+                .addFunction("dot", [](const iaQuaterniond &self, const iaQuaterniond &other) -> float64
+                             { return dotProduct(self, other); })
+                .addFunction("slerp", [](const iaQuaterniond &self, const iaQuaterniond &other, float64 t) -> iaQuaterniond
+                             { return slerp(self, other, t); })
+                .endNamespace()
+                .endNamespace();
+        }
+
+        void exposeMatrix(lua_State *lua)
+        {
+            // can't use getGlobalNamespace because we need the wrapped table and not the global one
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginClass<iaMatrixd>("Matrix")
+                .addConstructor<void()>()
+                .addProperty("right", [](iaMatrixd &self) -> iaVector3d
+                             { return self._right; }, [](iaMatrixd &self, iaVector3d vec)
+                             { self._right = vec; })
+                .addProperty("top", [](iaMatrixd &self) -> iaVector3d
+                             { return self._top; }, [](iaMatrixd &self, iaVector3d vec)
+                             { self._top = vec; })
+                .addProperty("depth", [](iaMatrixd &self) -> iaVector3d
+                             { return self._depth; }, [](iaMatrixd &self, iaVector3d vec)
+                             { self._depth = vec; })
+                .addProperty("pos", [](iaMatrixd &self) -> iaVector3d
+                             { return self._pos; }, [](iaMatrixd &self, iaVector3d vec)
+                             { self._pos = vec; })
+                .addProperty("w0", [](iaMatrixd &self) -> float64
+                             { return self._w0; }, [](iaMatrixd &self, float64 value)
+                             { self._w0 = value; })
+                .addProperty("w1", [](iaMatrixd &self) -> float64
+                             { return self._w1; }, [](iaMatrixd &self, float64 value)
+                             { self._w1 = value; })
+                .addProperty("w2", [](iaMatrixd &self) -> float64
+                             { return self._w2; }, [](iaMatrixd &self, float64 value)
+                             { self._w2 = value; })
+                .addProperty("w3", [](iaMatrixd &self) -> float64
+                             { return self._w3; }, [](iaMatrixd &self, float64 value)
+                             { self._w3 = value; })
+
+                .addFunction("__index", [](const iaMatrixd &self, int i) -> float64
+                             { return self[i]; })
+                .addFunction("__newindex", [](iaMatrixd &self, int i, float64 value)
+                             { self[i] = value; })
+
+                .addFunction("__eq", &iaMatrixd::operator==)
+                .addFunction("__mul", [](const iaMatrixd &matrix, const iaMatrixd &other) -> iaMatrixd
+                             { return matrix * other; })
+
+                .addFunction("project", [](const iaMatrixd &matrix, const iaVector3d &vec) -> iaVector3d
+                             { return matrix * vec; })
+                .addFunction("project", [](const iaMatrixd &matrix, const iaVector4d &vec) -> iaVector4d
+                             { return matrix * vec; })
+                .addFunction("identity", [](iaMatrixd &matrix)
+                             { matrix.identity(); })
+                .addFunction("invert", [](iaMatrixd &matrix)
+                             { matrix.invert(); })
+                .addFunction("transpose", [](iaMatrixd &matrix)
+                             { matrix.transpose(); })
+                .addFunction("lookAt", [](iaMatrixd &matrix, const iaVector3d &eye, const iaVector3d &coi, const iaVector3d &top)
+                             { matrix.lookAt(eye, coi, top); })
+                .addFunction("frustum", [](iaMatrixd &matrix, float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain)
+                             { matrix.frustum(left, right, bottom, top, nearPlain, farPlain); })
+                .addFunction("perspective", [](iaMatrixd &matrix, float64 fov, float64 aspect, float64 nearPlain, float64 farPlain)
+                             { matrix.perspective(fov, aspect, nearPlain, farPlain); })
+                .addFunction("ortho", [](iaMatrixd &matrix, float64 left, float64 right, float64 bottom, float64 top, float64 nearPlain, float64 farPlain)
+                             { matrix.ortho(left, right, bottom, top, nearPlain, farPlain); })
+                .addFunction("translate", [](iaMatrixd &matrix, const iaVector3d &vec)
+                             { matrix.translate(vec); })
+                .addFunction("scale", [](iaMatrixd &matrix, const iaVector3d &vec)
+                             { matrix.scale(vec); })
+                .addFunction("rotate", [](iaMatrixd &matrix, const iaVector3d &vec)
+                             { matrix.rotate(vec); })
+                .addFunction("__tostring", [](const iaMatrixd &m) -> std::string
+                             {
+                                char buf[256];
+                                snprintf(buf, sizeof(buf),
+                                    "Matrix4[%.3f,%.3f,%.3f,%.3f, %.3f,%.3f,%.3f,%.3f, %.3f,%.3f,%.3f,%.3f, %.3f,%.3f,%.3f,%.3f]",
+                                    m[0], m[1], m[2], m[3],
+                                    m[4], m[5], m[6], m[7],
+                                    m[8], m[9], m[10], m[11],
+                                    m[12], m[13], m[14], m[15]);
+                                return buf; })
+                .endClass()
+                .endNamespace();
+        }
+
         void exposeVector2(lua_State *lua)
         {
             // can't use getGlobalNamespace because we need the wrapped table and not the global one
@@ -562,6 +714,8 @@ namespace igor
 
             exposeVector2(lua);
             exposeVector3(lua);
+            exposeMatrix(lua);
+            exposeQuaternion(lua);
             exposeColor4(lua);
             exposeEntity(lua);
             exposeGlobalFunctions(lua);

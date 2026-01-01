@@ -78,7 +78,7 @@ IGOR_INLINE iaVector4<T> iaMatrix<T>::operator*(const iaVector4<T> &a) const
 }
 
 template <class T>
-IGOR_INLINE iaMatrix<T> iaMatrix<T>::operator*(const iaMatrix<T> &m)
+IGOR_INLINE iaMatrix<T> iaMatrix<T>::operator*(const iaMatrix<T> &m) const
 {
     iaMatrix<T> matrix;
 
