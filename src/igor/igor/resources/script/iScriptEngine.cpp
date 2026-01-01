@@ -353,7 +353,19 @@ namespace igor
                              { return spriteComp->getColor(); })
                 .addFunction("setColor", [](iSpriteRenderComponentPtr spriteComp, const iaColor4f &color)
                              { spriteComp->setColor(color); })
-                .endClass()
+                .addFunction("getZIndex", [](const iSpriteRenderComponentPtr spriteComp) -> int32
+                             { return spriteComp->getZIndex(); })
+                .addFunction("setZIndex", [](iSpriteRenderComponentPtr spriteComp, int32 index)
+                             { spriteComp->setZIndex(index); })
+                .addFunction("getRenderMode", [](const iSpriteRenderComponentPtr spriteComp) -> int32
+                             { return static_cast<int32>(spriteComp->getRenderMode()); })
+                .addFunction("setRenderMode", [](iSpriteRenderComponentPtr spriteComp, int32 mode)
+                             { spriteComp->setRenderMode(static_cast<iSpriteRenderComponent::iRenderMode>(mode)); })
+                .addFunction("getFrameIndex", [](const iSpriteRenderComponentPtr spriteComp) -> int32
+                             { return spriteComp->getFrameIndex(); })
+                .addFunction("setFrameIndex", [](iSpriteRenderComponentPtr spriteComp, int32 mode)
+                             { spriteComp->setFrameIndex(mode); })                             
+                .endClass()            
 
                 .beginClass<iVelocityComponent>("iVelocityComponent")
                 .addFunction("getVelocity", [](const iVelocityComponentPtr velocityComp) -> iaVector3d

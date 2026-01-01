@@ -35,6 +35,9 @@ function onUpdate(self, dt)
         local size = igor.Vector2(1,1) * (3 + math.random() * 0.3)
         spriteComp:setSize(size)
         spriteComp:setColor(igor.Color4.random() * 0.5 + igor.Color4(0.5,0.5,0.5,1))
+        local frameIndex = spriteComp:getFrameIndex()
+        frameIndex = (frameIndex + 1) % 4
+        spriteComp:setFrameIndex(frameIndex)
     end
 end
 
