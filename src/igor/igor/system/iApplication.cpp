@@ -148,7 +148,7 @@ namespace igor
         IGOR_PROFILER_END(nodes);
 
         IGOR_PROFILER_BEGIN(physics);
-        // iPhysics::getInstance().onUpdate();
+        iPhysics::getInstance().onUpdate();
         IGOR_PROFILER_END(physics);
 
         draw();
@@ -166,12 +166,12 @@ namespace igor
         if (_paused)
         {
             iTimer::getInstance().stop();
-            // iPhysics::getInstance().stop();
+            iPhysics::getInstance().stop();
         }
         else
         {
             iTimer::getInstance().start();
-            // iPhysics::getInstance().start();
+            iPhysics::getInstance().start();
         }
     }
 

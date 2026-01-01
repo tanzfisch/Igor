@@ -95,7 +95,7 @@ void UserControlComponentCircle::onUpdateComponent()
         return;
     }
 
-    iCircleComponent *component = entity->getComponent<iCircleComponent>();
+    iCircleComponentPtr component = entity->getComponent<iCircleComponent>();
     if (component == nullptr)
     {
         return;

@@ -95,6 +95,19 @@
                             "y": 1.0,
                             "z": 1.0
                         }
+                    },
+                    {
+                        "angularVelocity": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "componentType": "velocity",
+                        "velocity": {
+                            "x": 0.1,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
                     }
                 ],
                 "id": "0xd7bb365bae3c20d3",

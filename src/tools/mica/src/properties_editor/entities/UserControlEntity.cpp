@@ -17,6 +17,7 @@
 #include "components/UserControlComponentOctree.h"
 #include "components/UserControlComponentQuadtree.h"
 #include "components/UserControlComponentPrefab.h"
+#include "components/UserControlComponentVelocity.h"
 
 #include "../../MicaDefines.h"
 
@@ -218,6 +219,14 @@ void UserControlEntity::update()
     if (circle != nullptr)
     {
         UserControlComponentCircle *userControl = new UserControlComponentCircle(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto velocity = entity->getComponent<iVelocityComponent>();
+    if (velocity != nullptr)
+    {
+        UserControlComponentVelocity *userControl = new UserControlComponentVelocity(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
     }

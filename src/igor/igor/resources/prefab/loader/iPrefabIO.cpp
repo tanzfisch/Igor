@@ -19,6 +19,7 @@
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
 #include <igor/entities/components/iScriptComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
 
 #include <fstream>
 
@@ -269,6 +270,21 @@ namespace igor
         }
     }
 
+    static void readVelocity(iEntityPtr entity, const json &componentJson)
+    {
+        iVelocityComponentPtr component = new iVelocityComponent();
+        entity->addComponent(component);
+
+        component->setVelocity(componentJson["velocity"].get<iaVector3d>());
+        component->setAngularVelocity(componentJson["angularVelocity"].get<iaVector3d>());
+    }
+
+    static void writeVelocity(json &componentJson, iVelocityComponentPtr component)
+    {
+        componentJson["velocity"] = component->getVelocity();
+        componentJson["angularVelocity"] = component->getAngularVelocity();
+    }    
+
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
         if (!entityJson.contains("parent"))
@@ -295,6 +311,7 @@ namespace igor
             {"light", readLight},
             {"spriteRender", readSpriteRender},
             {"script", readScript},
+            {"velocity", readVelocity},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -463,6 +480,16 @@ namespace igor
                 json componentJson;
                 componentJson["componentType"] = "script";
                 writeScript(componentJson, script);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iVelocityComponentPtr velocity = dynamic_cast<iVelocityComponentPtr>(component);
+            if (velocity != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "velocity";
+                writeVelocity(componentJson, velocity);
                 componentsJson.push_back(componentJson);
                 continue;
             }

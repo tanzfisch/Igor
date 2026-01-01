@@ -78,7 +78,7 @@ namespace igor
 
         /*! \returns a set of info strings
          */
-        std::vector<iaString> getInfo() const override;        
+        std::vector<iaString> getInfo() const override;
 
     private:
         /*! the circles radius
@@ -93,6 +93,10 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! circle component pointer definition
+    */
+    typedef iCircleComponent *iCircleComponentPtr;
 }
 
 #endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H

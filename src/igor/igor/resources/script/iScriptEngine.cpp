@@ -91,7 +91,6 @@ namespace igor
             if (luaL_dostring(lua, script))
             {
                 const auto error = lua_tostring(lua, -1);
-                con_endl(script);
                 con_err("script: " << (error != nullptr ? error : "unknown error"));
                 lua_pop(lua, 1);
                 return false;
@@ -777,9 +776,6 @@ namespace igor
     {
         _impl = std::make_unique<iScriptEngineImpl>();
         _impl->registerThread();
-
-        const char *script = R"(con_info("LuaJIT initialized!"))";
-        _impl->execute(script);
     }
 
     iScriptEngine::~iScriptEngine()
