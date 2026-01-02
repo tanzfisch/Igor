@@ -17,7 +17,7 @@ namespace igor
         if (!_id.isValid())
         {
             const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-            if(generate)
+            if (generate)
             {
                 _id = iaUUID::getMarked();
             }
@@ -112,6 +112,12 @@ namespace igor
     const iaString &iResource::getSource() const
     {
         return _source;
+    }
+
+    bool iResource::hasSource() const
+    {
+        const auto path = iResourceManager::getInstance().resolvePath(getSource());
+        return iaPath::exists(path);
     }
 
     iResourceCacheMode iResource::getCacheMode() const

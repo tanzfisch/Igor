@@ -90,6 +90,10 @@ namespace igor
         */
         const iaString &getSource() const;
 
+        /*! \returns true if the resources has a file source
+        */
+        bool hasSource() const;
+
         /*! \returns info string
          */
         const iaString getInfo() const;

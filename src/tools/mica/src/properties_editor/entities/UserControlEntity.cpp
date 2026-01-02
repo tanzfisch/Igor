@@ -34,7 +34,7 @@ void UserControlEntity::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);    
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetGroupBoxPtr entityGroupBox = new iWidgetGroupBox(mainLayout);
@@ -197,7 +197,7 @@ void UserControlEntity::update()
         UserControlComponentAnimation *userControl = new UserControlComponentAnimation(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
-    }    
+    }
 
     auto camera = entity->getComponent<iCameraComponent>();
     if (camera != nullptr)
@@ -213,7 +213,7 @@ void UserControlEntity::update()
         UserControlComponentScript *userControl = new UserControlComponentScript(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
-    }    
+    }
 
     auto circle = entity->getComponent<iCircleComponent>();
     if (circle != nullptr)
@@ -286,7 +286,7 @@ void UserControlEntity::update()
         userControl->onInit();
         userControl->onUpdateUI();
     }
-        
+
     _ignoreUpdate = false;
 }
 
@@ -334,4 +334,3 @@ void UserControlEntity::onNameChanged(iWidgetPtr source)
 {
     updateEntity();
 }
-

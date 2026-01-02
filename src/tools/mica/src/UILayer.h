@@ -34,6 +34,7 @@
 #include "MainDialog.h"
 #include "properties_editor/PropertiesEditor.h"
 #include "viewport/Viewport.h"
+#include "settings/Settings.h"
 
 /*! ui layer handling all widget things
  */
@@ -57,6 +58,10 @@ private:
     /*! entities outliner
      */
     Outliner *_outliner = nullptr;
+
+    /*! settings dialog
+    */
+    Settings *_settings = nullptr;
 
     /*! the asset browser
      */
@@ -89,6 +94,10 @@ private:
     /*! closes the current project
      */
     void onCloseProject();
+
+    /*! opens settings dialog
+    */
+    void onOpenSettings();
 
     /*! handles closing the create project dialog
 

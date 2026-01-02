@@ -26,66 +26,55 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef USERCONTROL_COMPONENT_BEHAVIOUR_H
-#define USERCONTROL_COMPONENT_BEHAVIOUR_H
+#ifndef MICA_SETTINGS_H
+#define MICA_SETTINGS_H
 
-#include "UserControlComponent.h"
+#include <igor/igor.h>
+using namespace igor;
 
-class UserControlComponentScript : public UserControlComponent
+/*! the asset browser
+ */
+class Settings : public iDialog
 {
-public:
-    /*! init user control
+    friend class iWidgetManager;
 
-    \param scene the given scene
-    \param entity the given entity
-    \param parent the optional parent widget
-    */
-    UserControlComponentScript(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
+public:
+    /*! init UI
+     */
+    Settings();
 
     /*! does nothing
      */
-    virtual ~UserControlComponentScript() = default;
+    ~Settings();
 
-    /*! init ui
+    /*! open dialog
      */
-    void onInit() override;
-
-    /*! update ui with node data
-     */
-    void onUpdateUI() override;
-
-    /*! update entity
-     */
-    void onUpdateComponent() override;
+    void open();
 
 private:
-    /*! layout holding scripts
+    /*! text field script editor
      */
-    iWidgetBoxLayoutPtr _scriptLayout;
+    iWidgetLineTextEditPtr _scriptEditor = nullptr;
 
-    /*! called when component is supposed to be destroyed
-
-    \param entity the entity to destroy the component from
+    /*! init UI
      */
-    void onDestroyComponent(iEntityPtr entity) override;
+    void init();
 
-    /*! drag move handle
+    /*! on save settings
+     */
+    void onOk(iWidgetPtr source);
 
-    \param drag the drag data
-    \param mousePos the current mouse pos
+    /*! on cancel
+     */
+    void onCancel(iWidgetPtr source);
+
+    /*! read settings
     */
-    void onDragMove(iDrag &drag, const iaVector2f &mousePos) override;
+    void readSettings();
 
-    /*! drop handle
-
-    \param drag the drag data
-    \param mousePos the current mouse pos
+    /*! write settings
     */
-    void onDrop(const iDrag &drag, const iaVector2f &mousePos) override;
-
-    /*! edit button click event handler
-    */
-    void onClickEditEvent(iWidgetPtr source);
+    void writeSettings();
 };
 
-#endif // USERCONTROL_COMPONENT_BEHAVIOUR_H
+#endif // MICA_SETTINGS_H

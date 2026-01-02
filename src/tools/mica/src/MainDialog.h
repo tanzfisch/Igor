@@ -36,6 +36,7 @@ IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(CloseProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(OpenSettings);
 
 /*! main dialog
  */
@@ -66,6 +67,10 @@ public:
      */
     CloseProjectEvent &getCloseProjectEvent();
 
+    /*! \returns open settings event
+     */
+    CloseProjectEvent &getOpenSettingsEvent();
+
 private:
     /*! create project event
      */
@@ -82,6 +87,10 @@ private:
     /*! save project event
      */
     CloseProjectEvent _closeProject;
+
+    /*! open settings event
+     */
+    OpenSettingsEvent _openSettings;
 
     /*! play button
      */
@@ -115,6 +124,10 @@ private:
     */
     void onCloseProject(const iWidgetPtr source);
 
+    /*! triggers open settings event
+     */
+    void onOpenSettings(const iWidgetPtr source);
+
     /*! creates main application menu
 
     \returns created menu
@@ -144,7 +157,7 @@ private:
     void onProjectLoaded(const iaString &projectfile);
 
     /*! on project unloaded event
-    */
+     */
     void onProjectUnloaded();
 };
 

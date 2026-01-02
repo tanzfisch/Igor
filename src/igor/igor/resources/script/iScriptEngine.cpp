@@ -26,28 +26,6 @@ extern "C"
 
 namespace igor
 {
-    static std::string wstringToUtf8(const std::wstring &wstr)
-    {
-        std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-        return converter.to_bytes(wstr);
-    }
-
-    static std::string toStdString(const iaString &text)
-    {
-        const wchar_t *wideData = text.getData();
-        int64 charCount = text.getLength();
-
-        std::string result;
-        result.reserve(charCount);
-
-        for (int64 i = 0; i < charCount; ++i)
-        {
-            result += static_cast<char>(wideData[i]);
-        }
-
-        return result;
-    }
-
     static int print(lua_State *lua)
     {
         const auto message = luaL_checkstring(lua, 1);
@@ -328,9 +306,9 @@ namespace igor
                 .beginNamespace("igor")
                 .beginClass<iEntity>("iEntity")
                 .addFunction("getID", [](const iEntityPtr entity)
-                             { return toStdString(entity->getID().toString()); })
+                             { return iaString::toStdString(entity->getID().toString()); })
                 .addFunction("getName", [](const iEntityPtr entity)
-                             { return toStdString(entity->getName()); })
+                             { return iaString::toStdString(entity->getName()); })
                 .addFunction("getTransformComponent", [](iEntityPtr entity) -> iTransformComponentPtr
                              { return dynamic_cast<iTransformComponentPtr>(entity->getComponent(typeid(iTransformComponent))); })
                 .addFunction("getVelocityComponent", [](iEntityPtr entity) -> iVelocityComponentPtr
@@ -340,7 +318,7 @@ namespace igor
                 .addFunction("__tostring", [](iEntityPtr entity) -> std::string
                              {
                                 char buf[128];
-                                snprintf(buf, sizeof(buf), "Entity(%s, %s)", toStdString(entity->getID().toString()), toStdString(entity->getName()));
+                                snprintf(buf, sizeof(buf), "Entity(%s, %s)", iaString::toStdString(entity->getID().toString()), iaString::toStdString(entity->getName()));
                                 return std::string(buf); })
                 .endClass()
 
@@ -369,7 +347,7 @@ namespace igor
                 .addFunction("__tostring", [](iTransformComponentPtr transformComp) -> std::string
                              {
                                 char buf[128];
-                                snprintf(buf, sizeof(buf), "TransformComponent(%s)", toStdString(transformComp->getID().toString()).c_str());
+                                snprintf(buf, sizeof(buf), "TransformComponent(%s)", iaString::toStdString(transformComp->getID().toString()).c_str());
                                 return std::string(buf); })
                 .endClass()
 
@@ -397,7 +375,7 @@ namespace igor
                 .addFunction("__tostring", [](iSpriteRenderComponentPtr spriteComp) -> std::string
                              {
                                 char buf[128];
-                                snprintf(buf, sizeof(buf), "SpriteRenderComponent(%s)", toStdString(spriteComp->getID().toString()).c_str());
+                                snprintf(buf, sizeof(buf), "SpriteRenderComponent(%s)", iaString::toStdString(spriteComp->getID().toString()).c_str());
                                 return std::string(buf); })                          
                 .endClass()
 
@@ -413,7 +391,7 @@ namespace igor
                 .addFunction("__tostring", [](iVelocityComponentPtr velocityComp) -> std::string
                              {
                                 char buf[128];
-                                snprintf(buf, sizeof(buf), "VelocityComponent(%s)", toStdString(velocityComp->getID().toString()).c_str());
+                                snprintf(buf, sizeof(buf), "VelocityComponent(%s)", iaString::toStdString(velocityComp->getID().toString()).c_str());
                                 return std::string(buf); })                               
                 .endClass()
                 .endNamespace();

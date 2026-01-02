@@ -494,6 +494,13 @@ namespace iaux
         template <class T>
         static iaString toString(const iaQuaternion<T> &q, int afterPoint = 4);
 
+        /*! iaString to std::string
+
+        \param text the input string
+        \returns std::string
+        */
+        static std::string toStdString(const iaString &text);
+
         /*! human readabile number
 
         3000 -> 3k
