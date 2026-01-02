@@ -8,6 +8,8 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 
+#include <igor/system/iKeyboard.h>
+
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
@@ -299,6 +301,151 @@ namespace igor
         }
 
     private:
+        void exposeEnums(lua_State *lua)
+        {
+            // clang-format off
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                    .beginNamespace("RenderMode")
+                        .addProperty("Simple", +[] { return iSpriteRenderComponent::iRenderMode::Simple; })
+                        .addProperty("Tiled", +[] { return iSpriteRenderComponent::iRenderMode::Tiled; })
+                    .endNamespace()
+                .endNamespace();
+
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                    .beginNamespace("KeyCode")
+                        .addProperty("Undefined", +[] { return static_cast<int>(iKeyCode::Undefined); })
+                        .addProperty("Backspace", +[] { return static_cast<int>(iKeyCode::Backspace); })
+                        .addProperty("Tab", +[] { return static_cast<int>(iKeyCode::Tab); })
+                        .addProperty("Return", +[] { return static_cast<int>(iKeyCode::Return); })
+                        .addProperty("LShift", +[] { return static_cast<int>(iKeyCode::LShift); })
+                        .addProperty("LControl", +[] { return static_cast<int>(iKeyCode::LControl); })
+                        .addProperty("Break", +[] { return static_cast<int>(iKeyCode::Break); })
+                        .addProperty("CapsLock", +[] { return static_cast<int>(iKeyCode::CapsLock); })
+                        .addProperty("ESC", +[] { return static_cast<int>(iKeyCode::ESC); })
+                        .addProperty("Space", +[] { return static_cast<int>(iKeyCode::Space); })
+                        .addProperty("PgUp", +[] { return static_cast<int>(iKeyCode::PgUp); })
+                        .addProperty("PgDown", +[] { return static_cast<int>(iKeyCode::PgDown); })
+                        .addProperty("End", +[] { return static_cast<int>(iKeyCode::End); })
+                        .addProperty("Home", +[] { return static_cast<int>(iKeyCode::Home); })
+                        .addProperty("Left", +[] { return static_cast<int>(iKeyCode::Left); })
+                        .addProperty("Up", +[] { return static_cast<int>(iKeyCode::Up); })
+                        .addProperty("Right", +[] { return static_cast<int>(iKeyCode::Right); })
+                        .addProperty("Down", +[] { return static_cast<int>(iKeyCode::Down); })
+                        .addProperty("Insert", +[] { return static_cast<int>(iKeyCode::Insert); })
+                        .addProperty("Delete", +[] { return static_cast<int>(iKeyCode::Delete); })
+                        .addProperty("Zero", +[] { return static_cast<int>(iKeyCode::Zero); })
+                        .addProperty("One", +[] { return static_cast<int>(iKeyCode::One); })
+                        .addProperty("Two", +[] { return static_cast<int>(iKeyCode::Two); })
+                        .addProperty("Three", +[] { return static_cast<int>(iKeyCode::Three); })
+                        .addProperty("Four", +[] { return static_cast<int>(iKeyCode::Four); })
+                        .addProperty("Five", +[] { return static_cast<int>(iKeyCode::Five); })
+                        .addProperty("Six", +[] { return static_cast<int>(iKeyCode::Six); })
+                        .addProperty("Seven", +[] { return static_cast<int>(iKeyCode::Seven); })
+                        .addProperty("Eight", +[] { return static_cast<int>(iKeyCode::Eight); })
+                        .addProperty("Nine", +[] { return static_cast<int>(iKeyCode::Nine); })
+                        .addProperty("A", +[] { return static_cast<int>(iKeyCode::A); })
+                        .addProperty("B", +[] { return static_cast<int>(iKeyCode::B); })
+                        .addProperty("C", +[] { return static_cast<int>(iKeyCode::C); })
+                        .addProperty("D", +[] { return static_cast<int>(iKeyCode::D); })
+                        .addProperty("E", +[] { return static_cast<int>(iKeyCode::E); })
+                        .addProperty("F", +[] { return static_cast<int>(iKeyCode::F); })
+                        .addProperty("G", +[] { return static_cast<int>(iKeyCode::G); })
+                        .addProperty("H", +[] { return static_cast<int>(iKeyCode::H); })
+                        .addProperty("I", +[] { return static_cast<int>(iKeyCode::I); })
+                        .addProperty("J", +[] { return static_cast<int>(iKeyCode::J); })
+                        .addProperty("K", +[] { return static_cast<int>(iKeyCode::K); })
+                        .addProperty("L", +[] { return static_cast<int>(iKeyCode::L); })
+                        .addProperty("M", +[] { return static_cast<int>(iKeyCode::M); })
+                        .addProperty("N", +[] { return static_cast<int>(iKeyCode::N); })
+                        .addProperty("O", +[] { return static_cast<int>(iKeyCode::O); })
+                        .addProperty("P", +[] { return static_cast<int>(iKeyCode::P); })
+                        .addProperty("Q", +[] { return static_cast<int>(iKeyCode::Q); })
+                        .addProperty("R", +[] { return static_cast<int>(iKeyCode::R); })
+                        .addProperty("S", +[] { return static_cast<int>(iKeyCode::S); })
+                        .addProperty("T", +[] { return static_cast<int>(iKeyCode::T); })
+                        .addProperty("U", +[] { return static_cast<int>(iKeyCode::U); })
+                        .addProperty("V", +[] { return static_cast<int>(iKeyCode::V); })
+                        .addProperty("W", +[] { return static_cast<int>(iKeyCode::W); })
+                        .addProperty("X", +[] { return static_cast<int>(iKeyCode::X); })
+                        .addProperty("Y", +[] { return static_cast<int>(iKeyCode::Y); })
+                        .addProperty("Z", +[] { return static_cast<int>(iKeyCode::Z); })
+                        .addProperty("SuperLeft", +[] { return static_cast<int>(iKeyCode::SuperLeft); })
+                        .addProperty("SuperRight", +[] { return static_cast<int>(iKeyCode::SuperRight); })
+                        .addProperty("SuperContext", +[] { return static_cast<int>(iKeyCode::SuperContext); })
+                        .addProperty("NP_Zero", +[] { return static_cast<int>(iKeyCode::NP_Zero); })
+                        .addProperty("NP_One", +[] { return static_cast<int>(iKeyCode::NP_One); })
+                        .addProperty("NP_Two", +[] { return static_cast<int>(iKeyCode::NP_Two); })
+                        .addProperty("NP_Three", +[] { return static_cast<int>(iKeyCode::NP_Three); })
+                        .addProperty("NP_Four", +[] { return static_cast<int>(iKeyCode::NP_Four); })
+                        .addProperty("NP_Five", +[] { return static_cast<int>(iKeyCode::NP_Five); })
+                        .addProperty("NP_Six", +[] { return static_cast<int>(iKeyCode::NP_Six); })
+                        .addProperty("NP_Seven", +[] { return static_cast<int>(iKeyCode::NP_Seven); })
+                        .addProperty("NP_Eight", +[] { return static_cast<int>(iKeyCode::NP_Eight); })
+                        .addProperty("NP_Nine", +[] { return static_cast<int>(iKeyCode::NP_Nine); })
+                        .addProperty("NP_Multiply", +[] { return static_cast<int>(iKeyCode::NP_Multiply); })
+                        .addProperty("NP_Add", +[] { return static_cast<int>(iKeyCode::NP_Add); })
+                        .addProperty("NP_Subtract", +[] { return static_cast<int>(iKeyCode::NP_Subtract); })
+                        .addProperty("NP_Decimal", +[] { return static_cast<int>(iKeyCode::NP_Decimal); })
+                        .addProperty("NP_Divide", +[] { return static_cast<int>(iKeyCode::NP_Divide); })
+                        .addProperty("F1", +[] { return static_cast<int>(iKeyCode::F1); })
+                        .addProperty("F2", +[] { return static_cast<int>(iKeyCode::F2); })
+                        .addProperty("F3", +[] { return static_cast<int>(iKeyCode::F3); })
+                        .addProperty("F4", +[] { return static_cast<int>(iKeyCode::F4); })
+                        .addProperty("F5", +[] { return static_cast<int>(iKeyCode::F5); })
+                        .addProperty("F6", +[] { return static_cast<int>(iKeyCode::F6); })
+                        .addProperty("F7", +[] { return static_cast<int>(iKeyCode::F7); })
+                        .addProperty("F8", +[] { return static_cast<int>(iKeyCode::F8); })
+                        .addProperty("F9", +[] { return static_cast<int>(iKeyCode::F9); })
+                        .addProperty("F10", +[] { return static_cast<int>(iKeyCode::F10); })
+                        .addProperty("F11", +[] { return static_cast<int>(iKeyCode::F11); })
+                        .addProperty("F12", +[] { return static_cast<int>(iKeyCode::F12); })
+                        .addProperty("F13", +[] { return static_cast<int>(iKeyCode::F13); })
+                        .addProperty("F14", +[] { return static_cast<int>(iKeyCode::F14); })
+                        .addProperty("F15", +[] { return static_cast<int>(iKeyCode::F15); })
+                        .addProperty("F16", +[] { return static_cast<int>(iKeyCode::F16); })
+                        .addProperty("F17", +[] { return static_cast<int>(iKeyCode::F17); })
+                        .addProperty("F18", +[] { return static_cast<int>(iKeyCode::F18); })
+                        .addProperty("F19", +[] { return static_cast<int>(iKeyCode::F19); })
+                        .addProperty("F20", +[] { return static_cast<int>(iKeyCode::F20); })
+                        .addProperty("F21", +[] { return static_cast<int>(iKeyCode::F21); })
+                        .addProperty("F22", +[] { return static_cast<int>(iKeyCode::F22); })
+                        .addProperty("F23", +[] { return static_cast<int>(iKeyCode::F23); })
+                        .addProperty("F24", +[] { return static_cast<int>(iKeyCode::F24); })
+                        .addProperty("NumLock", +[] { return static_cast<int>(iKeyCode::NumLock); })
+                        .addProperty("ScrollLock", +[] { return static_cast<int>(iKeyCode::ScrollLock); })
+                        .addProperty("OEM1", +[] { return static_cast<int>(iKeyCode::OEM1); })
+                        .addProperty("OEMPlus", +[] { return static_cast<int>(iKeyCode::OEMPlus); })
+                        .addProperty("OEMComma", +[] { return static_cast<int>(iKeyCode::OEMComma); })
+                        .addProperty("OEMMinus", +[] { return static_cast<int>(iKeyCode::OEMMinus); })
+                        .addProperty("OEMPeriod", +[] { return static_cast<int>(iKeyCode::OEMPeriod); })
+                        .addProperty("OEM2", +[] { return static_cast<int>(iKeyCode::OEM2); })
+                        .addProperty("OEM3", +[] { return static_cast<int>(iKeyCode::OEM3); })
+                        .addProperty("OEM4", +[] { return static_cast<int>(iKeyCode::OEM4); })
+                        .addProperty("OEM5", +[] { return static_cast<int>(iKeyCode::OEM5); })
+                        .addProperty("OEM6", +[] { return static_cast<int>(iKeyCode::OEM6); })
+                        .addProperty("OEM7", +[] { return static_cast<int>(iKeyCode::OEM7); })
+                        .addProperty("OEM102", +[] { return static_cast<int>(iKeyCode::OEM102); })
+                        .addProperty("RControl", +[] { return static_cast<int>(iKeyCode::RControl); })
+                        .addProperty("AltGr", +[] { return static_cast<int>(iKeyCode::AltGr); })
+                        .addProperty("Alt", +[] { return static_cast<int>(iKeyCode::Alt); })
+                        .addProperty("Print", +[] { return static_cast<int>(iKeyCode::Print); })
+                        .addProperty("RShift", +[] { return static_cast<int>(iKeyCode::RShift); })
+                        .addProperty("Enter", +[] { return static_cast<int>(iKeyCode::Enter); })
+                        .addProperty("MouseLeft", +[] { return static_cast<int>(iKeyCode::MouseLeft); })
+                        .addProperty("MouseMiddle", +[] { return static_cast<int>(iKeyCode::MouseMiddle); })
+                        .addProperty("MouseRight", +[] { return static_cast<int>(iKeyCode::MouseRight); })
+                        .addProperty("MouseButton4", +[] { return static_cast<int>(iKeyCode::MouseButton4); })
+                        .addProperty("MouseButton5", +[] { return static_cast<int>(iKeyCode::MouseButton5); })
+                        .addProperty("MouseWheelUp", +[] { return static_cast<int>(iKeyCode::MouseWheelUp); })
+                        .addProperty("MouseWheelDown", +[] { return static_cast<int>(iKeyCode::MouseWheelDown); })
+                        .addProperty("KeyCodeCount", +[] { return static_cast<int>(iKeyCode::KeyCodeCount); })
+                    .endNamespace()
+                .endNamespace();
+            // clang-format on
+        }
+
         void exposeEntity(lua_State *lua)
         {
             // can't use getGlobalNamespace because we need the wrapped table and not the global one
@@ -376,7 +523,7 @@ namespace igor
                              {
                                 char buf[128];
                                 snprintf(buf, sizeof(buf), "SpriteRenderComponent(%s)", iaString::toStdString(spriteComp->getID().toString()).c_str());
-                                return std::string(buf); })                          
+                                return std::string(buf); })
                 .endClass()
 
                 .beginClass<iVelocityComponent>("iVelocityComponent")
@@ -392,7 +539,7 @@ namespace igor
                              {
                                 char buf[128];
                                 snprintf(buf, sizeof(buf), "VelocityComponent(%s)", iaString::toStdString(velocityComp->getID().toString()).c_str());
-                                return std::string(buf); })                               
+                                return std::string(buf); })
                 .endClass()
                 .endNamespace();
         }
@@ -678,6 +825,27 @@ namespace igor
                 .endNamespace();
         }
 
+        void exposeKeyboard(lua_State *lua)
+        {
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginNamespace("Keyboard")
+                .addFunction("keyPressed", []() -> bool
+                             { return iKeyboard::getInstance().keyPressed(); })
+                .addFunction("keyPressed", [](int keyCode) -> bool
+                             { return iKeyboard::getInstance().keyPressed(static_cast<iKeyCode>(keyCode)); })
+                .addFunction("getKeyCode", [](const std::string &keyName) -> int
+                             { return static_cast<int>(iKeyboard::getInstance().getKeyCode(keyName.c_str())); })
+                .addFunction("getKeyName", [](int keyCode) -> std::string
+                             { return iaString::toStdString(iKeyboard::getInstance().getKeyName(static_cast<iKeyCode>(keyCode))); })
+                .endNamespace()
+                .endNamespace();
+        }
+
+        void exposeMouse(lua_State *lua)
+        {
+        }
+
         void exposeGlobalFunctions(lua_State *lua)
         {
             // can't use getGlobalNamespace because we need the wrapped table and not the global one
@@ -718,6 +886,8 @@ namespace igor
             copyGlobal("math");
             copyGlobal("string");
 
+            exposeEnums(lua);
+
             exposeVector2(lua);
             exposeVector3(lua);
             exposeMatrix(lua);
@@ -725,6 +895,8 @@ namespace igor
             exposeColor4(lua);
             exposeEntity(lua);
             exposeGlobalFunctions(lua);
+            exposeKeyboard(lua);
+            exposeMouse(lua);
         }
 
         /*! lua instance per thread

@@ -1,12 +1,8 @@
 function onInit(self)
     local velocityComp = self.entity:getVelocityComponent()
     if velocityComp then
-        local vel = velocityComp:getVelocity()
         local angVel = velocityComp:getAngularVelocity()
-        vel.x = 0.15
-        vel.y = 0.12
         angVel.z = 0.01
-        velocityComp:setVelocity(vel)
         velocityComp:setAngularVelocity(angVel)
     end
 end
@@ -17,28 +13,27 @@ function onUpdate(self, dt)
 
     if transformComp and velocityComp then
         local pos = transformComp:getPosition()
-        local vel = velocityComp:getVelocity()
-        local angVel = velocityComp:getAngularVelocity()
-        if pos.x > 9 or pos.x < -9 then
-            vel.x = -vel.x
-            angVel.z = -angVel.z
-        end
-        if pos.y > 9 or pos.y < -9 then
-            vel.y = -vel.y
-            angVel.z = -angVel.z
-        end
-        velocityComp:setVelocity(vel)
-        velocityComp:setAngularVelocity(angVel)
-    end
+        local vel = igor.Vector3()
 
-    local spriteComp = self.entity:getSpriteRenderComponent()
-    if spriteComp then
-        local size = igor.Vector2(1,1) * (3 + math.random() * 0.3)
-        spriteComp:setSize(size)
-        spriteComp:setColor(igor.Color4.random() * 0.5 + igor.Color4(0.5,0.5,0.5,1))
-        local frameIndex = spriteComp:getFrameIndex()
-        frameIndex = (frameIndex + 1) % 4
-        spriteComp:setFrameIndex(frameIndex)
+        if igor.Keyboard.keyPressed(igor.KeyCode.W) then
+            vel.y = vel.y - 1.0
+        end
+
+        if igor.Keyboard.keyPressed(igor.KeyCode.A) then
+            vel.x = vel.x - 1.0
+        end
+
+        if igor.Keyboard.keyPressed(igor.KeyCode.S) then
+            vel.y = vel.y + 1.0
+        end
+
+        if igor.Keyboard.keyPressed(igor.KeyCode.D) then
+            vel.x = vel.x + 1.0
+        end
+
+        vel:normalize()
+        vel = vel * 0.1
+        velocityComp:setVelocity(vel)
     end
 end
 
