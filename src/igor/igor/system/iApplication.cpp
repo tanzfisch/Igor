@@ -92,9 +92,11 @@ namespace igor
         {
             iEvent &event = *eventPtr;
 
+            // only log the less noisy events for trace
             if (event.getEventType() != iEventType::iEventMouseMove &&
                 event.getEventType() != iEventType::iEventNodeAddedToScene &&
-                event.getEventType() != iEventType::iEventNodeRemovedFromScene)
+                event.getEventType() != iEventType::iEventNodeRemovedFromScene &&
+                event.getEventType() != iEventType::iEventWindowResize)
             {
                 con_trace("dispatch event: " << event);
             }
