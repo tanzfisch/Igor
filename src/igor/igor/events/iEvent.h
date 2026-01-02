@@ -63,6 +63,7 @@ namespace igor
 
         iEventFileCreated,
         iEventFileDeleted,
+        iEventFolderDeleted,
         iEventFileMovedFrom,
         iEventFileMovedTo,
         iEventFileChanged,
