@@ -157,7 +157,7 @@ namespace igor
 
         if (_sliderButton._mouseDown)
         {
-            float32 scrollDelta = static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(getActualWidth());
+            float32 scrollDelta = static_cast<float32>(iMouse::getInstance().getDeltaPosition()._x) / static_cast<float32>(getActualWidth());
             setValue(_value + static_cast<float32>(_max - _min) * scrollDelta);
         }
 

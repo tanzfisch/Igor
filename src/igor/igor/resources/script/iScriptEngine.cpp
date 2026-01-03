@@ -9,8 +9,9 @@
 #include <igor/entities/components/iSpriteRenderComponent.h>
 
 #include <igor/system/iKeyboard.h>
-
+#include <igor/system/iMouse.h>
 #include <iaux/system/iaConsole.h>
+#include <iaux/data/iaConvert.h>
 using namespace iaux;
 
 extern "C"
@@ -844,6 +845,35 @@ namespace igor
 
         void exposeMouse(lua_State *lua)
         {
+            luabridge::getNamespaceFromStack(lua)
+                .beginNamespace("igor")
+                .beginNamespace("Mouse")
+                .addFunction("setCenter", []()
+                             { iMouse::getInstance().setCenter(); })
+                .addFunction("setPosition", [](const iaVector2d &pos)
+                             { iMouse::getInstance().setPosition(pos.convert<float32>()); })
+                .addFunction("getPosition", []() -> iaVector2d
+                             { return iMouse::getInstance().getPosition().convert<float64>(); })
+                .addFunction("getDeltaPosition", []() -> iaVector2d
+                             { return iMouse::getInstance().getDeltaPosition().convert<float64>(); })
+                .addFunction("getRightButton", []() -> bool
+                             { return iMouse::getInstance().getRightButton(); })
+                .addFunction("getLeftButton", []() -> bool
+                             { return iMouse::getInstance().getLeftButton(); })
+                .addFunction("getMiddleButton", []() -> bool
+                             { return iMouse::getInstance().getMiddleButton(); })
+                .addFunction("getButton4", []() -> bool
+                             { return iMouse::getInstance().getButton4(); })
+                .addFunction("getButton5", []() -> bool
+                             { return iMouse::getInstance().getButton5(); })
+                .addFunction("hideCursor", [](bool hide)
+                             { iMouse::getInstance().hideCursor(hide); })
+                .addFunction("setCursor", [](int setCursor)
+                             { iMouse::getInstance().setCursor(static_cast<iMouseCursorType>(setCursor)); })
+                .addFunction("resetCursor", []()
+                             { iMouse::getInstance().resetCursor(); })
+                .endNamespace()
+                .endNamespace();              
         }
 
         void exposeGlobalFunctions(lua_State *lua)

@@ -1243,13 +1243,7 @@ namespace igor
 
     const iaMatrixf iRenderer::getMVP() const
     {
-        iaMatrixf matrix;
-        for (int i = 0; i < 16; ++i)
-        {
-            matrix[i] = _data->_modelViewProjectionMatrix[i];
-        }
-
-        return matrix;
+        return _data->_modelViewProjectionMatrix.convert<float32>();
     }
 
     void iRenderer::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
@@ -1921,34 +1915,18 @@ namespace igor
 
         if (_data->_currentShader->hasModelViewMatrix())
         {
-            iaMatrixf modelView;
-            for (int i = 0; i < 16; ++i)
-            {
-                modelView[i] = _data->_modelViewMatrix[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW, modelView);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW, _data->_modelViewMatrix.convert<float32>());
         }
 
         if (_data->_currentShader->hasViewProjectionMatrix())
         {
             iaMatrixd vpd = _data->_projectionMatrix * _data->_viewMatrix;
-            iaMatrixf viewProjection;
-
-            for (int i = 0; i < 16; ++i)
-            {
-                viewProjection[i] = vpd[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);
+            _data->_currentShader->setMatrix(UNIFORM_VIEW_PROJECTION, vpd.convert<float32>());
         }
 
         if (_data->_currentShader->hasModelMatrix())
         {
-            iaMatrixf model;
-            for (int i = 0; i < 16; ++i)
-            {
-                model[i] = _data->_modelMatrix[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_MODEL, model);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL, _data->_modelMatrix.convert<float32>());
         }
 
         if (_data->_currentShader->hasSolidColor())

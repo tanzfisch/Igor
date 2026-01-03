@@ -281,7 +281,7 @@ namespace igor
         {
             _widgetState = iWidgetState::Pressed;
             _motionState = calcMotionState(_lastMousePos);
-            _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+            _lastMousePos = iMouse::getInstance().getPosition();
 
             putInFront();
 

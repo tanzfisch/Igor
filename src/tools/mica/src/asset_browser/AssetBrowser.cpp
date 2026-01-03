@@ -76,7 +76,7 @@ void AssetBrowser::initUI()
 void AssetBrowser::OnContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     if (_currentPath.isEmpty())
     {

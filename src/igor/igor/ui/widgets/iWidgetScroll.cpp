@@ -224,7 +224,7 @@ namespace igor
         {
             if (!_children.empty())
             {
-                _hscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
+                _hscroll += static_cast<float32>(iMouse::getInstance().getDeltaPosition()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
                 _hscroll = std::max(0.0f, std::min(1.0f, _hscroll));
             }
         }
@@ -233,7 +233,7 @@ namespace igor
         {
             if (!_children.empty())
             {
-                _vscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
+                _vscroll += static_cast<float32>(iMouse::getInstance().getDeltaPosition()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
                 _vscroll = std::max(0.0f, std::min(1.0f, _vscroll));
             }
         }

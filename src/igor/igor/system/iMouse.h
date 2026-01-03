@@ -105,11 +105,11 @@ namespace igor
 
         origin is top left 
         */
-        const iaVector2f& getPos() const;
+        const iaVector2f& getPosition() const;
 
         /*! \returns the delta mouse movement since last mouse update.
         */
-        iaVector2f getPosDelta() const;
+        iaVector2f getDeltaPosition() const;
 
         /*! \returns true: right mouse button is pressed; false: right mouse button is not pressed
         */

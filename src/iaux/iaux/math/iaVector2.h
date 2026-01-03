@@ -271,7 +271,7 @@ namespace iaux
 
     /*! int64 2d vector
      */
-    typedef iaVector2<int64> iaVector2I;
+    typedef iaVector2<int64> iaVector2I;    
 
 }; // namespace iaux
 

@@ -579,12 +579,12 @@ namespace igor
         _impl->hideCursor(hide);
     }
 
-    const iaVector2f &iMouse::getPos() const
+    const iaVector2f &iMouse::getPosition() const
     {
         return _impl->_pos;
     }
 
-    iaVector2f iMouse::getPosDelta() const
+    iaVector2f iMouse::getDeltaPosition() const
     {
         return _impl->_pos - _impl->_lastMousePos;
     }

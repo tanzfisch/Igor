@@ -179,7 +179,7 @@ void Viewport::onChangeCamera(iWidgetPtr source)
 void Viewport::onContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     const auto &entitySceneID = _viewportScene->getView().getSceneID();
     auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
@@ -576,7 +576,7 @@ bool Viewport::onMouseKeyUp(const iEventMouseKeyUp &event)
             auto entityScene = iEntitySystemModule::getInstance().getScene(entitySceneID);
             if (entityScene != nullptr)
             {
-                auto entityID = getEntityIDAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+                auto entityID = getEntityIDAt(iMouse::getInstance().getPosition()._x, iMouse::getInstance().getPosition()._y);
                 auto entity = entityScene->getEntity(entityID);
                 if (entity == nullptr)
                 {

@@ -410,8 +410,7 @@ namespace igor
 
         if (inDrag())
         {
-            const auto pos = iMouse::getInstance().getPos();
-            _currentTheme->drawDrag(iaVector2f(pos._x, pos._y), getDrag());
+            _currentTheme->drawDrag(iMouse::getInstance().getPosition(), getDrag());
         }
     }
 

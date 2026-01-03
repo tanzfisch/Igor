@@ -8,11 +8,9 @@ function onInit(self)
 end
 
 function onUpdate(self, dt)
-    local transformComp = self.entity:getTransformComponent()
     local velocityComp = self.entity:getVelocityComponent()
 
-    if transformComp and velocityComp then
-        local pos = transformComp:getPosition()
+    if velocityComp then
         local vel = igor.Vector3()
 
         if igor.Keyboard.keyPressed(igor.KeyCode.W) then

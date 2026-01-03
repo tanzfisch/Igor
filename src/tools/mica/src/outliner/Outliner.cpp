@@ -201,7 +201,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(projectScene->getID(), entities);
 
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     if (!entities.empty())
     {
