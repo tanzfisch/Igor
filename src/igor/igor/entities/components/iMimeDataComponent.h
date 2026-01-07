@@ -26,28 +26,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_SPHERE_COLLISION_3D_COMPONENT_H
-#define IGOR_SPHERE_COLLISION_3D_COMPONENT_H
+#ifndef IGOR_MIME_DATA_COMPONENT_H
+#define IGOR_MIME_DATA_COMPONENT_H
 
-#include <igor/entities/iEntity.h>
+#include <igor/entities/iEntityComponent.h>
+#include <igor/data/iMimeData.h>
 
 namespace igor
 {
-    /*! 3D sphere collision component
+    /*! mime data component
      */
-    class iSphereComponent : public iEntityComponent
+    class iMimeDataComponent : public iEntityComponent
     {
     public:
-        /*! default ctor
-         */
-        iSphereComponent() = default;
-
         /*! ctor
          */
-        iSphereComponent(float64 radius, const iaVector3d &offset = iaVector3d())
-            : _radius(radius), _offset(offset)
-        {
-        }
+        iMimeDataComponent();
 
         /*! creates instance of this component type
          */
@@ -57,44 +51,27 @@ namespace igor
          */
         static const iaString &getTypeName();
 
-        /*! \returns the sphere's radius
-         */
-        float64 getRadius() const;
-
-        /*! sets radius
-
-        \param radius the radius to set
-         */
-        void setRadius(float64 radius);
-
-        /*! \returns the offset position
-         */
-        const iaVector3d &getOffset() const;
-
-        /*! sets offset
-
-        \param offset the offset to set
-         */
-        void setOffset(const iaVector3d &offset);
-
         /*! \returns a set of info strings
          */
         std::vector<iaString> getInfo() const override;
 
-    private:
-        /*! the sphere's radius
-         */
-        float64 _radius;
+        /*! \returns mime data
+        */
+        iMimeData& getMimeData();
 
-        /*! the offset position
+    private:
+        /*! mime data
          */
-        iaVector3d _offset;
+        iMimeData _data;
 
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
 
+    /*! script component pointer definition
+     */
+    typedef iMimeDataComponent *iMimeDataComponentPtr;
 }
 
-#endif // IGOR_SPHERE_COLLISION_3D_COMPONENT_H
+#endif // IGOR_MIME_DATA_COMPONENT_H

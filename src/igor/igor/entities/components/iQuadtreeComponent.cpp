@@ -13,7 +13,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iQuadtreeComponent::createInstance()
+    iEntityComponentPtr iQuadtreeComponent::createInstance()
     {
         return new iQuadtreeComponent();
     }

@@ -14,7 +14,7 @@ namespace igor
         return component;
     }
 
-    iEntityComponent *iSphereComponent::createInstance()
+    iEntityComponentPtr iSphereComponent::createInstance()
     {
         return new iSphereComponent();
     }

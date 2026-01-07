@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iScriptComponent::createInstance()
+    iEntityComponentPtr iScriptComponent::createInstance()
     {
         return new iScriptComponent();
     }

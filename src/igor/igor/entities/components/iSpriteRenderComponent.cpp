@@ -11,7 +11,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iSpriteRenderComponent::createInstance()
+    iEntityComponentPtr iSpriteRenderComponent::createInstance()
     {
         return new iSpriteRenderComponent();
     }

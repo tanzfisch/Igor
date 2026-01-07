@@ -11,7 +11,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iGlobalBoundaryComponent::createInstance()
+    iEntityComponentPtr iGlobalBoundaryComponent::createInstance()
     {
         return new iGlobalBoundaryComponent();
     }

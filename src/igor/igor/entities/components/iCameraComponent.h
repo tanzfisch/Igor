@@ -55,7 +55,7 @@ namespace igor
 
         /*! creates instance of this component type
          */
-        static iEntityComponent *createInstance();
+        static iEntityComponentPtr createInstance();
 
         /*! \returns type name of component
          */

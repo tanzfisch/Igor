@@ -19,7 +19,10 @@
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
 #include <igor/entities/components/iScriptComponent.h>
+#include <igor/entities/components/iMimeDataComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
+
+#include <base64.hpp>
 
 #include <fstream>
 
@@ -59,6 +62,48 @@ namespace igor
         componentJson["position"] = component->getPosition();
         componentJson["orientation"] = component->getOrientation().toEuler();
         componentJson["scale"] = component->getScale();
+    }
+
+    static void writeMimeData(json &componentJson, iMimeDataComponent *component)
+    {
+        const auto mimeData = component->getMimeData();
+        const auto types = mimeData.getTypes();
+
+        json mimeDataJson = json::array();
+
+        for (const auto &type : types)
+        {
+            uint8 *data = nullptr;
+            uint32 dataSize = 0;
+            mimeData.getData(type, &data, dataSize);
+
+            std::string base64 = base64::to_base64(std::string_view(reinterpret_cast<char *>(data), dataSize));
+            mimeDataJson.push_back({type, base64});
+        }
+
+        componentJson["mimeData"] = mimeDataJson;
+    }
+
+    static void readMimeData(iEntityPtr entity, const json &componentJson)
+    {
+        iMimeDataComponent *component = new iMimeDataComponent();
+        entity->addComponent(component);
+
+        if (!componentJson.contains("mimeData"))
+        {
+            return;
+        }
+
+        auto &mimeData = component->getMimeData();
+
+        const auto mimeDataJson = componentJson["mimeData"];
+        for (const auto &dataJson : mimeDataJson)
+        {
+            const auto &key = dataJson[0].get<iaString>();
+            const auto &data = base64::from_base64(dataJson[0].get<std::string>());
+
+            mimeData.setData(key, reinterpret_cast<const uint8*>(data.data()), data.size());
+        }
     }
 
     static void readCamera(iEntityPtr entity, const json &componentJson)
@@ -241,15 +286,17 @@ namespace igor
 
         if (componentJson.contains("scripts"))
         {
-            const auto scriptsJson = componentJson["scripts"];
+            return;
+        }
 
-            for (const auto &scriptJson : scriptsJson)
+        const auto scriptsJson = componentJson["scripts"];
+
+        for (const auto &scriptJson : scriptsJson)
+        {
+            iScriptPtr script = iResourceManager::getInstance().loadResource<iScript>(scriptJson.get<iaUUID>());
+            if (script != nullptr)
             {
-                iScriptPtr script = iResourceManager::getInstance().loadResource<iScript>(scriptJson.get<iaUUID>());
-                if (script != nullptr)
-                {
-                    component->addScript(script);
-                }
+                component->addScript(script);
             }
         }
     }
@@ -283,7 +330,7 @@ namespace igor
     {
         componentJson["velocity"] = component->getVelocity();
         componentJson["angularVelocity"] = component->getAngularVelocity();
-    }    
+    }
 
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
     {
@@ -312,6 +359,7 @@ namespace igor
             {"spriteRender", readSpriteRender},
             {"script", readScript},
             {"velocity", readVelocity},
+            {"mimeData", readMimeData},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -394,12 +442,22 @@ namespace igor
         {
             const auto component = entity->getComponent(typeIndex);
 
-            iTransformComponent *transform = dynamic_cast<iTransformComponent *>(component);
+            iTransformComponentPtr transform = dynamic_cast<iTransformComponentPtr>(component);
             if (transform != nullptr)
             {
                 json componentJson;
                 componentJson["componentType"] = "transform";
                 writeTransform(componentJson, transform);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iMimeDataComponentPtr mimeData = dynamic_cast<iMimeDataComponentPtr>(component);
+            if (mimeData != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "mimeData";
+                writeMimeData(componentJson, mimeData);
                 componentsJson.push_back(componentJson);
                 continue;
             }

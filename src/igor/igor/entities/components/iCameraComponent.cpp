@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iCameraComponent::createInstance()
+    iEntityComponentPtr iCameraComponent::createInstance()
     {
         return new iCameraComponent();
     }

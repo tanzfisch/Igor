@@ -22,7 +22,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iLightComponent::createInstance()
+    iEntityComponentPtr iLightComponent::createInstance()
     {
         return new iLightComponent();
     }

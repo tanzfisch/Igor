@@ -12,7 +12,7 @@ namespace igor
         
     }
 
-    iEntityComponent *iMeshReferenceComponent::createInstance()
+    iEntityComponentPtr iMeshReferenceComponent::createInstance()
     {
         return new iMeshReferenceComponent();
     }

@@ -13,7 +13,7 @@ namespace igor
         _transform._scale = scale;
     }
 
-    iEntityComponent *iTransformComponent::createInstance()
+    iEntityComponentPtr iTransformComponent::createInstance()
     {
         return new iTransformComponent();
     }

@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iOctreeComponent::createInstance()
+    iEntityComponentPtr iOctreeComponent::createInstance()
     {
         return new iOctreeComponent();
     }

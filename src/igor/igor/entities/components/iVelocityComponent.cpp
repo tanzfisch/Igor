@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iVelocityComponent::createInstance()
+    iEntityComponentPtr iVelocityComponent::createInstance()
     {
         return new iVelocityComponent();
     }

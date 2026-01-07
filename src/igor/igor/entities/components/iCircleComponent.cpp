@@ -11,7 +11,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iCircleComponent::createInstance()
+    iEntityComponentPtr iCircleComponent::createInstance()
     {
         return new iCircleComponent();
     }    

@@ -13,7 +13,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iPrefabComponent::createInstance()
+    iEntityComponentPtr iPrefabComponent::createInstance()
     {
         return new iPrefabComponent();
     }

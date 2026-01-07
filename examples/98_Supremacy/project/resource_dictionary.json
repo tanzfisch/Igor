@@ -81,12 +81,13 @@
     },
     {
         "alias": "texture_supremacy_broccoli",
-        "id": "0x37863a3de2c50482",
+        "id": "0x37863a3de2c50482",        
         "source": "textures/broccoli.png"
     },
     {
+        "alias": "script_player_movement",
         "id": "0x37e0bf39543e5caa",
-        "source": "scripts/script.lua"
+        "source": "scripts/playerMovement.lua"
     },
     {
         "alias": "texture_supremacy_shop_item_uzi",

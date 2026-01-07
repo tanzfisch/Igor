@@ -13,3 +13,6 @@
 [submodule "vendor/LuaBridge3"]
 	path = vendor/LuaBridge3
 	url = https://github.com/kunitoki/LuaBridge3.git
+[submodule "vendor/base64"]
+	path = vendor/base64
+	url = https://github.com/tobiaslocker/base64.git

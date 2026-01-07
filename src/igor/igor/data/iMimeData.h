@@ -71,6 +71,10 @@ namespace igor
         */
         bool hasType(const iaString &mimeType) const;
 
+        /*! \returns list of all contained types
+        */
+        const std::vector<iaString> getTypes() const;
+
         /*! sets text for mime type "text/plain"
 
         \param text the text to set

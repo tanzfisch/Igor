@@ -27,6 +27,7 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
+#include <igor/entities/components/iMimeDataComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
@@ -48,6 +49,7 @@ namespace igor
         registerComponentType<iSphereComponent>(iSphereComponent::createInstance, iSphereComponent::getTypeName());
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
         registerComponentType<iScriptComponent>(iScriptComponent::createInstance, iScriptComponent::getTypeName());
+        registerComponentType<iMimeDataComponent>(iMimeDataComponent::createInstance, iMimeDataComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
         registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());

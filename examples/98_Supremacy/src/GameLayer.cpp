@@ -321,7 +321,7 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
 
-    entity->addScript({this, &GameLayer::onPlayerMovement});
+    entity->addScript(iResourceManager::getInstance().loadResource<iScript>("script_player_movement"));
     entity->addScript({this, &GameLayer::onAquireTarget});
     entity->addScript({this, &GameLayer::onUpdateCollision});
     entity->addScript({this, &GameLayer::onUpdateWeapon});
@@ -570,19 +570,7 @@ iEntityID GameLayer::createCamera()
 
     camera->addComponent(new iTransformComponent(playerTransform->getPosition()));
 
-    const iaString script = R"delim(
-print("hello foo bar")
-    )delim";
-
-    iParameters param({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT},
-                       {IGOR_RESOURCE_PARAM_SCRIPT, script},
-                       {IGOR_RESOURCE_PARAM_ID, iaUUID()}});
-
-    iScriptPtr followPlayer = iResourceManager::getInstance().loadResource<iScript>(param);
-
     camera->addScript({this, &GameLayer::onCameraFollowPlayer});
-    camera->addScript(followPlayer);
-
     auto cameraComponent = camera->addComponent(new iCameraComponent());
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);

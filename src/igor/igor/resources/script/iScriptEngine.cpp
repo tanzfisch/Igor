@@ -161,18 +161,17 @@ namespace igor
             iaConsole::getInstance() << UNLOCK;
         }
 
-        void getFunctionRef(lua_State *lua, const char *name, int &ref)
+        int getFunctionRef(lua_State *lua, const char *name)
         {
-            lua_getfield(lua, -1, name); // push env[name]
+            lua_getfield(lua, -1, name);
             if (lua_isfunction(lua, -1))
             {
-                ref = luaL_ref(lua, LUA_REGISTRYINDEX); // pop and store
+                return luaL_ref(lua, LUA_REGISTRYINDEX);
             }
             else
             {
-                lua_pop(lua, 1); // remove nil
-                ref = LUA_NOREF;
-                con_err("script does not contain " << name << " function");
+                lua_pop(lua, 1);
+                return LUA_NOREF;
             }
         }
 
@@ -232,11 +231,11 @@ namespace igor
                 return false;
             }
 
-            getFunctionRef(lua, "onInit", entityData._initRef);
-            getFunctionRef(lua, "onUpdate", entityData._updateRef);
-            getFunctionRef(lua, "onFinal", entityData._finalRef);
-            getFunctionRef(lua, "onMessage", entityData._messageRef);
-            getFunctionRef(lua, "onEvent", entityData._eventRef);
+            entityData._initRef = getFunctionRef(lua, "onInit");
+            entityData._updateRef = getFunctionRef(lua, "onUpdate");
+            entityData._finalRef = getFunctionRef(lua, "onFinal");
+            entityData._messageRef = getFunctionRef(lua, "onMessage");
+            entityData._eventRef = getFunctionRef(lua, "onEvent");
             _entityTables[entity] = entityData;
 
             lua_pop(lua, 1);
@@ -255,8 +254,13 @@ namespace igor
 
         bool executeInit(iEntityPtr entity)
         {
-            auto lua = _lua[std::this_thread::get_id()];
             const auto &entityData = _entityTables[entity];
+            if(entityData._initRef == LUA_NOREF)
+            {
+                return true;
+            }
+
+            auto lua = _lua[std::this_thread::get_id()];
 
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._initRef);
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._envRef);
@@ -273,8 +277,13 @@ namespace igor
 
         bool executeUpdate(iEntityPtr entity, double dt = 0.0) // Add entity and optional params
         {
-            auto lua = _lua[std::this_thread::get_id()];
             const auto &entityData = _entityTables[entity];
+            if(entityData._updateRef == LUA_NOREF)
+            {
+                return true;
+            }
+
+            auto lua = _lua[std::this_thread::get_id()];
 
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._updateRef);
             lua_rawgeti(lua, LUA_REGISTRYINDEX, entityData._envRef);
@@ -994,16 +1003,16 @@ namespace igor
 
     bool iScriptEngine::callEntityFinal(iEntityPtr entity)
     {
-        return _impl->executeUpdate(entity);
+        return false;
     }
 
     bool iScriptEngine::callEntityMessage(iEntityPtr entity)
     {
-        return _impl->executeUpdate(entity);
+        return false;
     }
 
     bool iScriptEngine::callEntityEvent(iEntityPtr entity)
     {
-        return _impl->executeUpdate(entity);
+        return false;
     }
 }

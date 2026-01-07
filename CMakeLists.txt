@@ -147,6 +147,9 @@ set_target_properties(LuaJIT PROPERTIES
 # LuaBridge
 add_subdirectory(vendor/LuaBridge3)
 
+# base64
+add_subdirectory(vendor/base64)
+
 # nlohmann json
 message(STATUS "nlohmann json")
 set(JSON_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/nlohmann/")

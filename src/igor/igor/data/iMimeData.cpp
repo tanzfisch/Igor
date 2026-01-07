@@ -149,4 +149,15 @@ namespace igor
 
         return true;
     }
+
+    const std::vector<iaString> iMimeData::getTypes() const
+    {
+        std::vector<iaString> result;
+        for (auto &pair : _data)
+        {
+            result.push_back(pair.first);
+        }
+
+        return result;
+    }
 }

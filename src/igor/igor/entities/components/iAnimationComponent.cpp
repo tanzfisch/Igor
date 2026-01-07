@@ -11,7 +11,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iAnimationComponent::createInstance()
+    iEntityComponentPtr iAnimationComponent::createInstance()
     {
         return new iAnimationComponent();
     }

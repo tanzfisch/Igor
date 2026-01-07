@@ -135,6 +135,7 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
+#include <igor/entities/components/iMimeDataComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 #include <igor/entities/traversal/iEntityPrintTraverser.h>
