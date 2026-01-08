@@ -1,5 +1,14 @@
 function onUpdate(self, dt)
     local velocityComp = self.entity:getVelocityComponent()
+    local userDataComp = self.entity:getUserDataComponent()
+
+    local walkSpeedFactor = 1.0
+
+    if userDataComp then
+        walkSpeedFactor = userDataComp:getFloat64("walkSpeedFactor")
+    end
+
+    con_endl("walkSpeedFactor " .. tostring(walkSpeedFactor));
 
     if velocityComp then
         local vel = igor.Vector3()
@@ -21,7 +30,7 @@ function onUpdate(self, dt)
         end
 
         vel:normalize()
-        vel = vel * 1.0
+        vel = vel * walkSpeedFactor
         velocityComp:setVelocity(vel)
     end
 end

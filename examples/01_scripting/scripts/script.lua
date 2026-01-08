@@ -1,4 +1,5 @@
 function onInit(self)
+    con_endl("init")
     local velocityComp = self.entity:getVelocityComponent()
     if velocityComp then
         local angVel = velocityComp:getAngularVelocity()
@@ -8,7 +9,15 @@ function onInit(self)
 end
 
 function onUpdate(self, dt)
+    con_endl("update")
     local velocityComp = self.entity:getVelocityComponent()
+    local userDataComp = self.entity:getUserDataComponent()
+
+    local speed = 1.0
+
+    if userDataComp then
+        speed = userDataComp:getFloat64("speed")
+    end
 
     if velocityComp then
         local vel = igor.Vector3()
@@ -30,7 +39,7 @@ function onUpdate(self, dt)
         end
 
         vel:normalize()
-        vel = vel * 0.1
+        vel = vel * speed
         velocityComp:setVelocity(vel)
     end
 end

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2025 by Martin A. Loga
+//    (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -310,10 +310,6 @@ private:
     \param enemyClass the class of the unit
     */
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
-
-    /*! handles player movement
-     */
-    void onPlayerMovement(iEntityPtr entity);
 
     /*! handles camera movement
      */

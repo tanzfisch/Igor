@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -135,7 +135,7 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
-#include <igor/entities/components/iMimeDataComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 #include <igor/entities/traversal/iEntityPrintTraverser.h>

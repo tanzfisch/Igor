@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -36,12 +36,12 @@ namespace igor
 {
     /*! mime data component
      */
-    class iMimeDataComponent : public iEntityComponent
+    class IGOR_API iUserDataComponent : public iEntityComponent
     {
     public:
         /*! ctor
          */
-        iMimeDataComponent();
+        iUserDataComponent();
 
         /*! creates instance of this component type
          */
@@ -55,9 +55,32 @@ namespace igor
          */
         std::vector<iaString> getInfo() const override;
 
-        /*! \returns mime data
+        /*! set value for given key
+
+        key "name" is a reserved key. Every item has a name
+
+        \param key to set
+        \param value to set
         */
-        iMimeData& getMimeData();
+        template <typename T>
+        void setValue(const iaString &key, const T &value);
+
+        /*! \returns value for given key
+
+        key "name" is a reserved key. Every item has a name
+
+        \param key the given key
+        */
+        template <typename T>
+        T getValue(const iaString &key) const;
+
+        /*! \returns true if there is a value for given key
+         */
+        bool hasValue(const iaString &key) const;
+
+        /*! \returns mime data
+         */
+        iMimeData &getData();
 
     private:
         /*! mime data
@@ -69,9 +92,11 @@ namespace igor
         iEntityComponentPtr getCopy() override;
     };
 
+#include <igor/entities/components/iUserDataComponent.inl>
+
     /*! script component pointer definition
      */
-    typedef iMimeDataComponent *iMimeDataComponentPtr;
+    typedef iUserDataComponent *iUserDataComponentPtr;
 }
 
 #endif // IGOR_MIME_DATA_COMPONENT_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntitySystemModule.h>
@@ -27,7 +27,7 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
-#include <igor/entities/components/iMimeDataComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
@@ -49,7 +49,7 @@ namespace igor
         registerComponentType<iSphereComponent>(iSphereComponent::createInstance, iSphereComponent::getTypeName());
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
         registerComponentType<iScriptComponent>(iScriptComponent::createInstance, iScriptComponent::getTypeName());
-        registerComponentType<iMimeDataComponent>(iMimeDataComponent::createInstance, iMimeDataComponent::getTypeName());
+        registerComponentType<iUserDataComponent>(iUserDataComponent::createInstance, iUserDataComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
         registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());

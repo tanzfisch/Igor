@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/script/iScriptEngine.h>
@@ -7,6 +7,7 @@
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iMouse.h>
@@ -472,6 +473,8 @@ namespace igor
                              { return dynamic_cast<iVelocityComponentPtr>(entity->getComponent(typeid(iVelocityComponent))); })
                 .addFunction("getSpriteRenderComponent", [](iEntityPtr entity) -> iSpriteRenderComponentPtr
                              { return dynamic_cast<iSpriteRenderComponentPtr>(entity->getComponent(typeid(iSpriteRenderComponent))); })
+                .addFunction("getUserDataComponent", [](iEntityPtr entity) -> iUserDataComponentPtr
+                             { return dynamic_cast<iUserDataComponentPtr>(entity->getComponent(typeid(iUserDataComponent))); })
                 .addFunction("__tostring", [](iEntityPtr entity) -> std::string
                              {
                                 char buf[128];
@@ -533,6 +536,28 @@ namespace igor
                              {
                                 char buf[128];
                                 snprintf(buf, sizeof(buf), "SpriteRenderComponent(%s)", iaString::toStdString(spriteComp->getID().toString()).c_str());
+                                return std::string(buf); })
+                .endClass()
+
+                .beginClass<iUserDataComponent>("iUserDataComponent")
+                .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, int64 value)
+                             { userDataComp->setValue<int64>(key.c_str(), value); })
+                .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, float64 value)
+                             { userDataComp->setValue<float64>(key.c_str(), value); })
+                .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, bool value)
+                             { userDataComp->setValue<bool>(key.c_str(), value); })
+                .addFunction("hasValue", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> bool
+                             { return userDataComp->hasValue(key.c_str()); })
+                .addFunction("getInt64", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> int64
+                             { return userDataComp->getValue<int64>(key.c_str()); })
+                .addFunction("getFloat64", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> float64
+                             { return userDataComp->getValue<float64>(key.c_str()); })
+                .addFunction("getBool", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> bool
+                             { return userDataComp->getValue<bool>(key.c_str()); })
+                .addFunction("__tostring", [](iUserDataComponentPtr userDataComp) -> std::string
+                             {
+                                char buf[128];
+                                snprintf(buf, sizeof(buf), "UserDataComponent(%s)", iaString::toStdString(userDataComp->getID().toString()).c_str());
                                 return std::string(buf); })
                 .endClass()
 

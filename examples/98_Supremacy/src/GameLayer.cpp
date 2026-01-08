@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "GameLayer.h"
@@ -304,7 +304,7 @@ iEntityID GameLayer::createPlayer()
     // init player
     iEntityPtr entity = _entityScene->createEntity("player");
 
-    iTransformComponent *transform = static_cast<iTransformComponent *>(entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0))));
+    iTransformComponentPtr transform = entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)));
     entity->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     entity->addComponent(new iVelocityComponent(iaVector3d(0, 0, 0)));
 
@@ -320,6 +320,16 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new HealthComponent(100.0f));
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
+
+    iUserDataComponentPtr userData = entity->addComponent(new iUserDataComponent());
+    userData->setValue<float64>("damageFactor", 1.0);
+    userData->setValue<float64>("attackIntervalFactor", 1.0);
+    userData->setValue<float64>("criticalHitChanceFactor", 1.0);
+    userData->setValue<float64>("criticalHitDamageFactor", 1.0);
+    userData->setValue<float64>("splashDamageRangeFactor", 1.0);
+    userData->setValue<float64>("walkSpeedFactor", 1.0);
+    userData->setValue<float64>("projectileSpeedFactor", 1.0);
+    userData->setValue<float64>("projectileRangeFactor", 1.0);    
 
     entity->addScript(iResourceManager::getInstance().loadResource<iScript>("script_player_movement"));
     entity->addScript({this, &GameLayer::onAquireTarget});
@@ -338,39 +348,6 @@ iEntityID GameLayer::createPlayer()
     shadow->setParent(entity->getID());
 
     return entity->getID();
-}
-
-void GameLayer::onPlayerMovement(iEntityPtr entity)
-{
-    auto velocityComponent = entity->getComponent<iVelocityComponent>();
-    auto modifier = entity->getComponent<ModifierComponent>();
-
-    iaVector3d velocity;
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::W))
-    {
-        velocity._y -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::A))
-    {
-        velocity._x -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::S))
-    {
-        velocity._y += 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::D))
-    {
-        velocity._x += 1.0;
-    }
-
-    velocity.normalize();
-    velocity *= modifier->_config._walkSpeedFactor;
-
-    velocityComponent->setVelocity(velocity);
 }
 
 void GameLayer::onAquireTarget(iEntityPtr entity)

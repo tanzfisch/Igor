@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/prefab/loader/iPrefabIO.h>
@@ -19,7 +19,7 @@
 #include <igor/entities/components/iMeshReferenceComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
 #include <igor/entities/components/iScriptComponent.h>
-#include <igor/entities/components/iMimeDataComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
 
 #include <base64.hpp>
@@ -64,9 +64,9 @@ namespace igor
         componentJson["scale"] = component->getScale();
     }
 
-    static void writeMimeData(json &componentJson, iMimeDataComponent *component)
+    static void writeUserData(json &componentJson, iUserDataComponent *component)
     {
-        const auto mimeData = component->getMimeData();
+        const auto mimeData = component->getData();
         const auto types = mimeData.getTypes();
 
         json mimeDataJson = json::array();
@@ -84,9 +84,9 @@ namespace igor
         componentJson["mimeData"] = mimeDataJson;
     }
 
-    static void readMimeData(iEntityPtr entity, const json &componentJson)
+    static void readUserData(iEntityPtr entity, const json &componentJson)
     {
-        iMimeDataComponent *component = new iMimeDataComponent();
+        iUserDataComponent *component = new iUserDataComponent();
         entity->addComponent(component);
 
         if (!componentJson.contains("mimeData"))
@@ -94,7 +94,7 @@ namespace igor
             return;
         }
 
-        auto &mimeData = component->getMimeData();
+        auto &mimeData = component->getData();
 
         const auto mimeDataJson = componentJson["mimeData"];
         for (const auto &dataJson : mimeDataJson)
@@ -284,7 +284,7 @@ namespace igor
         iScriptComponentPtr component = new iScriptComponent();
         entity->addComponent(component);
 
-        if (componentJson.contains("scripts"))
+        if (!componentJson.contains("scripts"))
         {
             return;
         }
@@ -359,7 +359,7 @@ namespace igor
             {"spriteRender", readSpriteRender},
             {"script", readScript},
             {"velocity", readVelocity},
-            {"mimeData", readMimeData},
+            {"mimeData", readUserData},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -452,12 +452,12 @@ namespace igor
                 continue;
             }
 
-            iMimeDataComponentPtr mimeData = dynamic_cast<iMimeDataComponentPtr>(component);
+            iUserDataComponentPtr mimeData = dynamic_cast<iUserDataComponentPtr>(component);
             if (mimeData != nullptr)
             {
                 json componentJson;
                 componentJson["componentType"] = "mimeData";
-                writeMimeData(componentJson, mimeData);
+                writeUserData(componentJson, mimeData);
                 componentsJson.push_back(componentJson);
                 continue;
             }
