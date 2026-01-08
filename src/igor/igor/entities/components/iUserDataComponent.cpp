@@ -5,6 +5,7 @@
 #include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/resources/script/iScriptEngine.h>
+#include <igor/utils/iAny.h>
 
 namespace igor
 {
@@ -33,21 +34,23 @@ namespace igor
     std::vector<iaString> iUserDataComponent::getInfo() const
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
-        
-        const auto types = _data.getTypes();
-        result.insert(result.end(), types.begin(), types.end());
-
+    
+        for(const auto &pair : _data.getParameters())
+        {
+            iaString text = pair.first + ":" + iAny::toString(pair.second);
+        }
+    
         return result;
     }
 
-    iMimeData& iUserDataComponent::getData()
+    iParameters& iUserDataComponent::getData()
     {
         return _data;
     }
 
     bool iUserDataComponent::hasValue(const iaString &key) const
     {
-        return _data.hasType(key);
+        return _data.hasParameter(key);
     }
 
 }

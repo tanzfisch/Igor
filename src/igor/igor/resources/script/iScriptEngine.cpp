@@ -541,11 +541,11 @@ namespace igor
 
                 .beginClass<iUserDataComponent>("iUserDataComponent")
                 .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, int64 value)
-                             { userDataComp->setValue<int64>(key.c_str(), value); })
+                             { userDataComp->setValue(key.c_str(), value); })
                 .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, float64 value)
-                             { userDataComp->setValue<float64>(key.c_str(), value); })
+                             { userDataComp->setValue(key.c_str(), value); })
                 .addFunction("setValue", [](const iUserDataComponentPtr userDataComp, const std::string &key, bool value)
-                             { userDataComp->setValue<bool>(key.c_str(), value); })
+                             { userDataComp->setValue(key.c_str(), value); })
                 .addFunction("hasValue", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> bool
                              { return userDataComp->hasValue(key.c_str()); })
                 .addFunction("getInt64", [](const iUserDataComponentPtr userDataComp, const std::string &key) -> int64

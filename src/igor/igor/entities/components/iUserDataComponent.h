@@ -30,7 +30,7 @@
 #define IGOR_MIME_DATA_COMPONENT_H
 
 #include <igor/entities/iEntityComponent.h>
-#include <igor/data/iMimeData.h>
+#include <igor/data/iParameters.h>
 
 namespace igor
 {
@@ -55,16 +55,6 @@ namespace igor
          */
         std::vector<iaString> getInfo() const override;
 
-        /*! set value for given key
-
-        key "name" is a reserved key. Every item has a name
-
-        \param key to set
-        \param value to set
-        */
-        template <typename T>
-        void setValue(const iaString &key, const T &value);
-
         /*! \returns value for given key
 
         key "name" is a reserved key. Every item has a name
@@ -72,27 +62,40 @@ namespace igor
         \param key the given key
         */
         template <typename T>
-        T getValue(const iaString &key) const;
+        T getValue(const iaString &key, const T &defaultValue = T()) const
+        {
+            return _data.getParameter<T>(key, defaultValue);
+        }
 
         /*! \returns true if there is a value for given key
          */
         bool hasValue(const iaString &key) const;
 
-        /*! \returns mime data
+        /*! set value for given key
+
+        key "name" is a reserved key. Every item has a name
+
+        \param key to set
+        \param value to set
+        */
+        void setValue(const iaString &key, const std::any value)
+        {
+            _data.setParameter(key, value);
+        }
+
+        /*! \returns data
          */
-        iMimeData &getData();
+        iParameters &getData();
 
     private:
-        /*! mime data
-         */
-        iMimeData _data;
+        /*! use parameters under the hood
+        */
+        iParameters _data;
 
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
-
-#include <igor/entities/components/iUserDataComponent.inl>
 
     /*! script component pointer definition
      */

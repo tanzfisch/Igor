@@ -6,6 +6,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/utils/iAny.h>
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
@@ -21,8 +22,6 @@
 #include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/components/iUserDataComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
-
-#include <base64.hpp>
 
 #include <fstream>
 
@@ -66,22 +65,20 @@ namespace igor
 
     static void writeUserData(json &componentJson, iUserDataComponent *component)
     {
-        const auto mimeData = component->getData();
-        const auto types = mimeData.getTypes();
+        const auto userData = component->getData();
 
         json mimeDataJson = json::array();
 
-        for (const auto &type : types)
+        for (const auto &pair : userData.getParameters())
         {
-            uint8 *data = nullptr;
-            uint32 dataSize = 0;
-            mimeData.getData(type, &data, dataSize);
-
-            std::string base64 = base64::to_base64(std::string_view(reinterpret_cast<char *>(data), dataSize));
-            mimeDataJson.push_back({type, base64});
+            mimeDataJson.push_back({
+                {"key", pair.first},
+                {"type", iAny::toString(pair.second.type())},
+                {"value", iAny::toString(pair.second)}
+            });
         }
 
-        componentJson["mimeData"] = mimeDataJson;
+        componentJson["data"] = mimeDataJson;
     }
 
     static void readUserData(iEntityPtr entity, const json &componentJson)
@@ -89,20 +86,17 @@ namespace igor
         iUserDataComponent *component = new iUserDataComponent();
         entity->addComponent(component);
 
-        if (!componentJson.contains("mimeData"))
+        if (!componentJson.contains("userData"))
         {
             return;
         }
 
         auto &mimeData = component->getData();
 
-        const auto mimeDataJson = componentJson["mimeData"];
+        const auto mimeDataJson = componentJson["userData"];
         for (const auto &dataJson : mimeDataJson)
         {
-            const auto &key = dataJson[0].get<iaString>();
-            const auto &data = base64::from_base64(dataJson[0].get<std::string>());
-
-            mimeData.setData(key, reinterpret_cast<const uint8*>(data.data()), data.size());
+            // TODO
         }
     }
 
@@ -456,7 +450,7 @@ namespace igor
             if (mimeData != nullptr)
             {
                 json componentJson;
-                componentJson["componentType"] = "mimeData";
+                componentJson["componentType"] = "userData";
                 writeUserData(componentJson, mimeData);
                 componentsJson.push_back(componentJson);
                 continue;

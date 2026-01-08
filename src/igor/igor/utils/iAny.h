@@ -32,6 +32,8 @@
 
 #include <igor/iDefines.h>
 
+#include <iaux/data/iaString.h>
+
 #include <any>
 #include <unordered_map>
 #include <functional>
@@ -59,6 +61,22 @@ namespace igor
         */
         template <typename T>
         void add();
+
+        /*! turn any value in to string
+
+        works only for known types
+
+        \param value the any value
+        \returns string of value
+        */
+        static iaString toString(const std::any &value);
+
+        /*! turn type info in to string
+
+        \param typeInfo the type info
+        \returns string of type info
+        */
+        static iaString toString(const std::type_info &typeInfo);
 
     private:
         /*! registered types

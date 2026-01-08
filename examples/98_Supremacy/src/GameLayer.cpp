@@ -321,14 +321,14 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new DamageComponent(0.0f));
 
     iUserDataComponentPtr userData = entity->addComponent(new iUserDataComponent());
-    userData->setValue<float64>("damageFactor", 1.0);
-    userData->setValue<float64>("attackIntervalFactor", 1.0);
-    userData->setValue<float64>("criticalHitChanceFactor", 1.0);
-    userData->setValue<float64>("criticalHitDamageFactor", 1.0);
-    userData->setValue<float64>("splashDamageRangeFactor", 1.0);
-    userData->setValue<float64>("walkSpeedFactor", 1.0);
-    userData->setValue<float64>("projectileSpeedFactor", 1.0);
-    userData->setValue<float64>("projectileRangeFactor", 1.0);    
+    userData->setValue("damageFactor", 1.0);
+    userData->setValue("attackIntervalFactor", 1.0);
+    userData->setValue("criticalHitChanceFactor", 1.0);
+    userData->setValue("criticalHitDamageFactor", 1.0);
+    userData->setValue("splashDamageRangeFactor", 1.0);
+    userData->setValue("walkSpeedFactor", 1.0);
+    userData->setValue("projectileSpeedFactor", 1.0);
+    userData->setValue("projectileRangeFactor", 1.0);    
 
     entity->addScript(iResourceManager::getInstance().loadResource<iScript>("script_player_movement"));
     entity->addScript({this, &GameLayer::onAquireTarget});
@@ -638,14 +638,14 @@ void GameLayer::createShop()
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
 
     iUserDataComponentPtr userData = shop->addComponent(new iUserDataComponent());
-    userData->setValue<float64>("damageFactor", 1.0);
-    userData->setValue<float64>("attackIntervalFactor", 1.0);
-    userData->setValue<float64>("criticalHitChanceFactor", 1.0);
-    userData->setValue<float64>("criticalHitDamageFactor", 1.0);
-    userData->setValue<float64>("splashDamageRangeFactor", 1.0);
-    userData->setValue<float64>("walkSpeedFactor", 1.0);
-    userData->setValue<float64>("projectileSpeedFactor", 1.0);
-    userData->setValue<float64>("projectileRangeFactor", 0.5);  
+    userData->setValue("damageFactor", 1.0);
+    userData->setValue("attackIntervalFactor", 1.0);
+    userData->setValue("criticalHitChanceFactor", 1.0);
+    userData->setValue("criticalHitDamageFactor", 1.0);
+    userData->setValue("splashDamageRangeFactor", 1.0);
+    userData->setValue("walkSpeedFactor", 1.0);
+    userData->setValue("projectileSpeedFactor", 1.0);
+    userData->setValue("projectileRangeFactor", 0.5);  
 
     shop->addComponent(new WeaponComponent(_weapons["Minigun"]));
     shop->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
@@ -1467,14 +1467,14 @@ void GameLayer::upgrade(iEntityPtr entity, const UpgradeConfiguration &upgradeCo
 
     auto userData = entity->getComponent<iUserDataComponent>();
 
-    userData->setValue<float64>("damageFactor", userData->getValue<float64>("damageFactor") + upgradeConfiguration._damageFactor);
-    userData->setValue<float64>("attackIntervalFactor", userData->getValue<float64>("attackIntervalFactor") + upgradeConfiguration._attackIntervalFactor);
-    userData->setValue<float64>("criticalHitChanceFactor", userData->getValue<float64>("criticalHitChanceFactor") + upgradeConfiguration._criticalHitChanceFactor);
-    userData->setValue<float64>("criticalHitDamageFactor", userData->getValue<float64>("criticalHitDamageFactor") + upgradeConfiguration._criticalHitDamageFactor);
-    userData->setValue<float64>("splashDamageRangeFactor", userData->getValue<float64>("splashDamageRangeFactor") + upgradeConfiguration._damageFactor);
-    userData->setValue<float64>("walkSpeedFactor", userData->getValue<float64>("walkSpeedFactor") + upgradeConfiguration._walkSpeedFactor);
-    userData->setValue<float64>("projectileSpeedFactor", userData->getValue<float64>("projectileSpeedFactor") + upgradeConfiguration._projectileSpeedFactor);
-    userData->setValue<float64>("projectileRangeFactor", userData->getValue<float64>("projectileRangeFactor") + upgradeConfiguration._projectileRangeFactor);
+    userData->setValue("damageFactor", userData->getValue<float64>("damageFactor") + upgradeConfiguration._damageFactor);
+    userData->setValue("attackIntervalFactor", userData->getValue<float64>("attackIntervalFactor") + upgradeConfiguration._attackIntervalFactor);
+    userData->setValue("criticalHitChanceFactor", userData->getValue<float64>("criticalHitChanceFactor") + upgradeConfiguration._criticalHitChanceFactor);
+    userData->setValue("criticalHitDamageFactor", userData->getValue<float64>("criticalHitDamageFactor") + upgradeConfiguration._criticalHitDamageFactor);
+    userData->setValue("splashDamageRangeFactor", userData->getValue<float64>("splashDamageRangeFactor") + upgradeConfiguration._damageFactor);
+    userData->setValue("walkSpeedFactor", userData->getValue<float64>("walkSpeedFactor") + upgradeConfiguration._walkSpeedFactor);
+    userData->setValue("projectileSpeedFactor", userData->getValue<float64>("projectileSpeedFactor") + upgradeConfiguration._projectileSpeedFactor);
+    userData->setValue("projectileRangeFactor", userData->getValue<float64>("projectileRangeFactor") + upgradeConfiguration._projectileRangeFactor);
 }
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)
