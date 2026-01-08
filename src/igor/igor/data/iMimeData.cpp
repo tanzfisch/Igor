@@ -13,7 +13,15 @@ namespace igor
 
     void iMimeData::setData(const iaString &mimeType, const uint8 *data, uint32 dataSize)
     {
-        _data.emplace(std::make_pair(mimeType, iMimeDataBuffer(data, dataSize)));
+        auto iter = _data.find(mimeType);
+        if (iter == _data.end())
+        {
+            _data.emplace(std::make_pair(mimeType, iMimeDataBuffer(data, dataSize)));
+        }
+        else
+        {
+            iter->second.set(data, dataSize);
+        }
     }
 
     void iMimeData::getData(const iaString &mimeType, uint8 **data, uint32 &dataSize) const

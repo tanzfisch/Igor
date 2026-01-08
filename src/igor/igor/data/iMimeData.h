@@ -160,6 +160,18 @@ namespace igor
                 std::memcpy(_data, other._data, _dataSize);
             }
 
+            void set(const uint8 *data, uint32 dataSize)
+            {
+                if(_data != nullptr)
+                {
+                    delete[] _data;
+                }
+
+                _dataSize = dataSize;
+                _data = new uint8[dataSize];
+                std::memcpy(_data, data, dataSize);
+            }
+
             iMimeDataBuffer &operator=(const iMimeDataBuffer &other)
             {
                 if (this == &other)

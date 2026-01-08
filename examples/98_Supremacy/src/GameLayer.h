@@ -367,7 +367,7 @@ private:
     \param weapon the weapon to use
     \param modifier modifiers on the weapon to use
     */
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const ModifierComponent *modifier);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const iUserDataComponent *modifier);
 
     /*! spawns stuff
      */
