@@ -59,6 +59,11 @@ public:
     void onUpdateComponent() override;
 
 private:
+
+    /*! data list layout
+    */
+    iWidgetBoxLayoutPtr _dataLayout;
+
     /*! called when component is supposed to be destroyed
 
     \param entity the entity to destroy the component from

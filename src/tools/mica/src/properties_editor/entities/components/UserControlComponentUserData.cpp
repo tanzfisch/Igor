@@ -17,7 +17,8 @@ void UserControlComponentUserData::onInit()
 
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    // TODO
+    _dataLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
+    _dataLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 }
 
 void UserControlComponentUserData::onUpdateUI()
@@ -42,7 +43,9 @@ void UserControlComponentUserData::onUpdateUI()
 
     _ignoreUpdate = true;
 
-    // TODO
+    _dataLayout->clear();
+
+    
 
     _ignoreUpdate = false;
 }
