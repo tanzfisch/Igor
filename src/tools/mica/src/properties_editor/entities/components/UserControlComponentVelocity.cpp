@@ -118,5 +118,5 @@ void UserControlComponentVelocity::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iCircleComponent>();
+    entity->destroyComponent<iVelocityComponent>();
 }

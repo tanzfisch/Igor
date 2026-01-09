@@ -94,5 +94,5 @@ void UserControlComponentAnimation::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iCircleComponent>();
+    entity->destroyComponent<iAnimationComponent>();
 }

@@ -18,6 +18,7 @@
 #include "components/UserControlComponentQuadtree.h"
 #include "components/UserControlComponentPrefab.h"
 #include "components/UserControlComponentVelocity.h"
+#include "components/UserControlComponentUserData.h"
 
 #include "../../MicaDefines.h"
 
@@ -227,6 +228,14 @@ void UserControlEntity::update()
     if (velocity != nullptr)
     {
         UserControlComponentVelocity *userControl = new UserControlComponentVelocity(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto userData = entity->getComponent<iUserDataComponent>();
+    if (userData != nullptr)
+    {
+        UserControlComponentUserData *userControl = new UserControlComponentUserData(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
     }

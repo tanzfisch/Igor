@@ -127,5 +127,5 @@ void UserControlComponentMeshRender::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iMeshReferenceComponent>();
+    entity->destroyComponent<iMeshRenderComponent>();
 }
