@@ -6,7 +6,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
-#include <igor/utils/iAny.h>
+#include <igor/utils/iAnyUtil.h>
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
@@ -73,8 +73,8 @@ namespace igor
         {
             mimeDataJson.push_back({
                 {"key", pair.first},
-                {"type", iAny::toString(pair.second.type())},
-                {"value", iAny::toString(pair.second)}
+                {"type", iAnyUtil::toString(pair.second.type())},
+                {"value", iAnyUtil::toString(pair.second)}
             });
         }
 
@@ -385,7 +385,7 @@ namespace igor
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
     {
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.contains("entityScene"))
         {

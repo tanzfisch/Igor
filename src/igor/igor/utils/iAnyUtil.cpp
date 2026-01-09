@@ -2,24 +2,24 @@
 // (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header stream
 
-#include <igor/utils/iAny.h>
+#include <igor/utils/iAnyUtil.h>
 
 namespace igor
 {
 
-    iAny &iAny::getInstance()
+    iAnyUtil &iAnyUtil::getInstance()
     {
-        static iAny _instance;
+        static iAnyUtil _instance;
         return _instance;
     }
 
-    iAny::iAny()
+    iAnyUtil::iAnyUtil()
     {
         add<iLightType>();
         add<iaAxis>();
     }
 
-    bool iAny::compare(const std::any &a, const std::any &b) const
+    bool iAnyUtil::compare(const std::any &a, const std::any &b) const 
     {
         if (a.type() != b.type())
         {
@@ -36,7 +36,7 @@ namespace igor
         return false;
     }
 
-    iaString iAny::toString(const std::type_info &typeInfo)
+    iaString iAnyUtil::toString(const std::type_info &typeInfo)
     {
         static std::unordered_map<std::type_index, iaString> typeToString = {
             {typeid(void), "void"},
@@ -84,7 +84,7 @@ namespace igor
         return typeToString[typeInfo];
     }
 
-    iaString iAny::toString(const std::any &value)
+    iaString iAnyUtil::toString(const std::any &value)
     {
         if (value.type() == typeid(iaString))
         {

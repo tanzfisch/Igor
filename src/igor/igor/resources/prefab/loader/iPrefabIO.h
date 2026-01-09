@@ -31,7 +31,7 @@
 
 #include <igor/resources/prefab/iPrefab.h>
 
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 namespace igor
 {

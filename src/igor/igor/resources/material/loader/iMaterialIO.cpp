@@ -7,7 +7,7 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 #include <fstream>
 #include <iostream>
@@ -16,7 +16,7 @@ namespace igor
 {
     bool iMaterialIO::read(const iaString &filename, const iMaterialPtr &material)
     {
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.contains("material"))
         {

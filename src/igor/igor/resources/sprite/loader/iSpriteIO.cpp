@@ -7,7 +7,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 #include <iaux/system/iaFile.h>
 
@@ -40,7 +40,7 @@ namespace igor
 
         sprite->_frames.clear();
 
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.contains("sprite"))
         {
@@ -59,7 +59,7 @@ namespace igor
         }
         
         // TODO pixelPerUnit
-        uint32 pixelPerUnit = iJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
+        uint32 pixelPerUnit = iJsonUtil::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
 
         if (!spriteJson.contains("frames"))
         {
@@ -81,7 +81,7 @@ namespace igor
             iaVector2f size = frame["size"].get<iaVector2f>();
             iaVector2f pivot = frame["pivot"].get<iaVector2f>();
 
-            bool pixel = iJson::getValue<bool>(frame, "pixel", false);
+            bool pixel = iJsonUtil::getValue<bool>(frame, "pixel", false);
 
             sprite->addFrame(pos, size, pivot, pixel);
         }

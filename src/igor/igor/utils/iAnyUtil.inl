@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header stream
 
 template <typename T>
-void iAny::add()
+void iAnyUtil::add()
 {
     auto typeIndex = std::type_index(typeid(T));
     _comparators[typeIndex] = [](const std::any &a, const std::any &b) -> bool

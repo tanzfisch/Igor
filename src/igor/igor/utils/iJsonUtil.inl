@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header stream
 
 template <typename T>
-const T iJson::getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue)
+const T iJsonUtil::getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue)
 {
     char temp[128];
     elementName.getData(temp, 128);

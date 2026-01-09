@@ -27,8 +27,8 @@
 // contact: igorgameengine@protonmail.com
 
 // https://wiki.lspace.org/Igor ;-)
-#ifndef IGOR_ANY_H
-#define IGOR_ANY_H
+#ifndef IGOR_ANY_UTIL_H
+#define IGOR_ANY_UTIL_H
 
 #include <igor/iDefines.h>
 
@@ -42,12 +42,12 @@
 namespace igor
 {
 
-    class IGOR_API iAny
+    class IGOR_API iAnyUtil
     {
     public:
         /*! \returns instance of singleton
          */
-        static iAny &getInstance();
+        static iAnyUtil &getInstance();
 
         /*! compare two any
 
@@ -58,7 +58,7 @@ namespace igor
         bool compare(const std::any &a, const std::any &b) const;
 
         /*! add types for comparison
-        */
+         */
         template <typename T>
         void add();
 
@@ -85,11 +85,11 @@ namespace igor
 
         /*! init
          */
-        iAny();
+        iAnyUtil();
     };
 
-#include <igor/utils/iAny.inl>
+#include <igor/utils/iAnyUtil.inl>
 
 }
 
-#endif // IGOR_UTILS_H
+#endif // IGOR_ANY_UTIL_H

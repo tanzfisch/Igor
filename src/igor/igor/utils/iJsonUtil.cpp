@@ -2,11 +2,11 @@
 // (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header stream
 
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 namespace igor
 {
-    json iJson::parse(const iaString &filename)
+    json iJsonUtil::parse(const iaString &filename)
     {
         json result;
 

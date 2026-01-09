@@ -5,7 +5,7 @@
 #include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/resources/script/iScriptEngine.h>
-#include <igor/utils/iAny.h>
+#include <igor/utils/iAnyUtil.h>
 
 namespace igor
 {
@@ -37,7 +37,7 @@ namespace igor
     
         for(const auto &pair : _data.getParameters())
         {
-            iaString text = pair.first + ":" + iAny::toString(pair.second);
+            iaString text = pair.first + ":" + iAnyUtil::toString(pair.second);
         }
     
         return result;

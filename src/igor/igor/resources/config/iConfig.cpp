@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 namespace igor
 {
@@ -74,7 +74,7 @@ namespace igor
     {
         _filename = filename;
 
-        json data = iJson::parse(_filename);
+        json data = iJsonUtil::parse(_filename);
 
         for (const auto &element : data.items())
         {

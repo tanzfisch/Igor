@@ -47,7 +47,7 @@ namespace igor
 {
     /*! helper class to access json values
      */
-    class iJson
+    class iJsonUtil
     {
     public:
         template <typename T>
@@ -72,7 +72,7 @@ namespace igor
      */
     void from_json(const json &j, iAACubed &cube);     
 
-#include <igor/utils/iJson.inl>
+#include <igor/utils/iJsonUtil.inl>
 }
 
 namespace iaux

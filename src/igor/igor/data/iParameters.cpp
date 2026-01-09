@@ -7,7 +7,7 @@
 #include <igor/data/iFrustum.h>
 #include <igor/renderer/utils/iRendererDefines.h>
 #include <igor/resources/shader/iShader.h>
-#include <igor/utils/iAny.h>
+#include <igor/utils/iAnyUtil.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>
@@ -66,7 +66,7 @@ namespace igor
 
     IAUX_API std::wostream &operator<<(std::wostream &stream, const std::any &any)
     {
-        stream << iAny::toString(any);
+        stream << iAnyUtil::toString(any);
         return stream;
     }
 

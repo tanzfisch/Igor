@@ -5,7 +5,7 @@
 #include <igor/resources/animation/iAnimationFactory.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 #include <iaux/system/iaFile.h>
 using namespace iaux;
@@ -88,7 +88,7 @@ namespace igor
 
     bool iAnimationFactory::load(const iaString &filename, iAnimationPtr animation)
     {
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.is_array())
         {
@@ -113,8 +113,8 @@ namespace igor
             }
             json framesJson = animationJson["frames"];
 
-            const iaString keyFrameType = iJson::getValue<iaString>(animationJson, "keyFrameType", "int");
-            const iaString target = iJson::getValue<iaString>(animationJson, "target", "FrameIndex");
+            const iaString keyFrameType = iJsonUtil::getValue<iaString>(animationJson, "keyFrameType", "int");
+            const iaString target = iJsonUtil::getValue<iaString>(animationJson, "target", "FrameIndex");
 
             iInterpolationMode interpolationMode = iInterpolationMode::None;
             if (animationJson.contains("interpolationMode"))
