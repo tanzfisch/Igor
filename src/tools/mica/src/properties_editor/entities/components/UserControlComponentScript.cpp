@@ -22,49 +22,57 @@ void UserControlComponentScript::onInit()
     _scriptLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 }
 
-void UserControlComponentScript::onUpdateUI()
+void UserControlComponentScript::emptyUI()
 {
     _scriptLayout->clear();
+    new iWidgetSpacer(100, 40, true, _scriptLayout);
+}
 
+void UserControlComponentScript::onUpdateUI()
+{
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
     {
+        emptyUI();
         return;
     }
 
     iEntityPtr entity = scene->getEntity(_entityID);
     if (entity == nullptr)
     {
+        emptyUI();
         return;
     }
 
     iScriptComponentPtr component = entity->getComponent<iScriptComponent>();
     if (component == nullptr)
     {
+        emptyUI();
         return;
     }
 
     if (component->getScripts().empty())
     {
-        new iWidgetSpacer(100, 40, true, _scriptLayout);
+        emptyUI();
+        return;
     }
-    else
-    {
-        for (const auto &script : component->getScripts())
-        {
-            iWidgetBoxLayoutPtr scriptLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _scriptLayout);
-            iWidgetButtonPtr editButton = new iWidgetButton(scriptLayout);
-            editButton->setText("edit");
-            editButton->setEnabled(script._script->hasSource());
-            editButton->setUserData(script._script->getID());
-            editButton->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-            editButton->setVerticalAlignment(iVerticalAlignment::Top);
-            editButton->setHorizontalAlignment(iHorizontalAlignment::Left);
-            editButton->getClickEvent().add(iClickDelegate(this, &UserControlComponentScript::onClickEditEvent));
 
-            auto userControlScript = new iUserControlScript(scriptLayout);
-            userControlScript->setID(script._script->getID());
-        }
+    _ignoreUpdate = true;
+
+    for (const auto &script : component->getScripts())
+    {
+        iWidgetBoxLayoutPtr scriptLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _scriptLayout);
+        iWidgetButtonPtr editButton = new iWidgetButton(scriptLayout);
+        editButton->setText("edit");
+        editButton->setEnabled(script._script->hasSource());
+        editButton->setUserData(script._script->getID());
+        editButton->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+        editButton->setVerticalAlignment(iVerticalAlignment::Top);
+        editButton->setHorizontalAlignment(iHorizontalAlignment::Left);
+        editButton->getClickEvent().add(iClickDelegate(this, &UserControlComponentScript::onClickEditEvent));
+
+        auto userControlScript = new iUserControlScript(scriptLayout);
+        userControlScript->setID(script._script->getID());
     }
 
     _ignoreUpdate = false;
@@ -75,7 +83,7 @@ void UserControlComponentScript::onClickEditEvent(iWidgetPtr source)
     const auto &resourceID = std::any_cast<iResourceID>(source->getUserData());
 
     const auto &script = iResourceManager::getInstance().getResource<iScript>(resourceID);
-    if(script == nullptr)
+    if (script == nullptr)
     {
         return;
     }
@@ -87,11 +95,14 @@ void UserControlComponentScript::onClickEditEvent(iWidgetPtr source)
     {
         editor = iaString::toStdString(iConfig::getInstance().getValue("mica.scriptEditor"));
     }
-    
+
     std::string command;
-    if (!editor.empty()) {
+    if (!editor.empty())
+    {
         command = std::string(editor) + " \"" + iaString::toStdString(resolvedPath) + "\"";
-    } else {
+    }
+    else
+    {
         command = "xdg-open \"" + iaString::toStdString(resolvedPath) + "\"";
     }
 

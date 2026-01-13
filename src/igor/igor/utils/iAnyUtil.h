@@ -42,6 +42,39 @@
 namespace igor
 {
 
+    /*! types known to iAnyUtil
+    */
+    enum class iAnyUtilType
+    {
+        Unknown,
+        Void,
+        Bool,
+        uint8,
+        int8,
+        uint16,
+        int16,
+        uint32,
+        int32,
+        uint64,
+        int64,
+        float32,
+        float64,
+        std_string,
+        iaString,
+        iaVector2f,
+        iaVector2d,
+        iaVector2i,
+        iaVector2I,
+        iaVector3f,
+        iaVector3d,
+        iaVector3i,
+        iaVector3I,
+        iaVector4f,
+        iaVector4d,
+        iaVector4i,
+        iaVector4I
+    };
+
     class IGOR_API iAnyUtil
     {
     public:
@@ -77,6 +110,12 @@ namespace igor
         \returns string of type info
         */
         static iaString toString(const std::type_info &typeInfo);
+
+        /*! \returns enum for given type info
+
+        \param typeInfo the given type info
+        */
+        static iAnyUtilType toEnum(const std::type_info &typeInfo);
 
     private:
         /*! registered types

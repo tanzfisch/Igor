@@ -83,7 +83,7 @@ namespace igor
 
         /*! \returns all parameters
         */
-        const iParametersMap& getParameters() const;
+        const iParametersMap& getData() const;
 
     private:
         /*! parameters

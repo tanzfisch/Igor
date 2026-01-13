@@ -69,7 +69,7 @@ namespace igor
 
         json mimeDataJson = json::array();
 
-        for (const auto &pair : userData.getParameters())
+        for (const auto &pair : userData.getData())
         {
             mimeDataJson.push_back({
                 {"key", pair.first},

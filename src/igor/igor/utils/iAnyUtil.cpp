@@ -7,6 +7,62 @@
 namespace igor
 {
 
+    static std::unordered_map<std::type_index, iAnyUtilType> s_typeToEnum = {
+        {typeid(void), iAnyUtilType::Void},
+        {typeid(bool), iAnyUtilType::Bool},
+        {typeid(std::string), iAnyUtilType::std_string},
+        {typeid(iaString), iAnyUtilType::iaString},
+        {typeid(int8), iAnyUtilType::int8},
+        {typeid(uint8), iAnyUtilType::uint8},
+        {typeid(int16), iAnyUtilType::int16},
+        {typeid(uint16), iAnyUtilType::uint16},
+        {typeid(int32), iAnyUtilType::int32},
+        {typeid(uint32), iAnyUtilType::uint32},
+        {typeid(int64), iAnyUtilType::int64},
+        {typeid(uint64), iAnyUtilType::uint64},
+        {typeid(float32), iAnyUtilType::float32},
+        {typeid(float64), iAnyUtilType::float64},
+        {typeid(iaVector2f), iAnyUtilType::iaVector2f},
+        {typeid(iaVector2d), iAnyUtilType::iaVector2d},
+        {typeid(iaVector2i), iAnyUtilType::iaVector2i},
+        {typeid(iaVector2I), iAnyUtilType::iaVector2I},
+        {typeid(iaVector3f), iAnyUtilType::iaVector3f},
+        {typeid(iaVector3d), iAnyUtilType::iaVector3d},
+        {typeid(iaVector3i), iAnyUtilType::iaVector3i},
+        {typeid(iaVector3I), iAnyUtilType::iaVector3I},
+        {typeid(iaVector4f), iAnyUtilType::iaVector4f},
+        {typeid(iaVector4d), iAnyUtilType::iaVector4d},
+        {typeid(iaVector4i), iAnyUtilType::iaVector4i},
+        {typeid(iaVector4I), iAnyUtilType::iaVector4I}};
+
+    static std::unordered_map<std::type_index, iaString> s_typeToString = {
+        {typeid(void), "void"},
+        {typeid(bool), "bool"},
+        {typeid(std::string), "std::string"},
+        {typeid(iaString), "iaString"},
+        {typeid(int8), "int8"},
+        {typeid(uint8), "uint8"},
+        {typeid(int16), "int16"},
+        {typeid(uint16), "uint16"},
+        {typeid(int32), "int32"},
+        {typeid(uint32), "uint32"},
+        {typeid(int64), "int64"},
+        {typeid(uint64), "uint64"},
+        {typeid(float32), "float32"},
+        {typeid(float64), "float64"},
+        {typeid(iaVector2f), "iaVector2f"},
+        {typeid(iaVector2d), "iaVector2d"},
+        {typeid(iaVector2i), "iaVector2i"},
+        {typeid(iaVector2I), "iaVector2I"},
+        {typeid(iaVector3f), "iaVector3f"},
+        {typeid(iaVector3d), "iaVector3d"},
+        {typeid(iaVector3i), "iaVector3i"},
+        {typeid(iaVector3I), "iaVector3I"},
+        {typeid(iaVector4f), "iaVector4f"},
+        {typeid(iaVector4d), "iaVector4d"},
+        {typeid(iaVector4i), "iaVector4i"},
+        {typeid(iaVector4I), "iaVector4I"}};
+
     iAnyUtil &iAnyUtil::getInstance()
     {
         static iAnyUtil _instance;
@@ -19,7 +75,7 @@ namespace igor
         add<iaAxis>();
     }
 
-    bool iAnyUtil::compare(const std::any &a, const std::any &b) const 
+    bool iAnyUtil::compare(const std::any &a, const std::any &b) const
     {
         if (a.type() != b.type())
         {
@@ -38,54 +94,33 @@ namespace igor
 
     iaString iAnyUtil::toString(const std::type_info &typeInfo)
     {
-        static std::unordered_map<std::type_index, iaString> typeToString = {
-            {typeid(void), "void"},
-            {typeid(bool), "bool"},
-            {typeid(char), "char"},
-            {typeid(signed char), "signed char"},
-            {typeid(unsigned char), "unsigned char"},
-            {typeid(short), "short"},
-            {typeid(unsigned short), "unsigned short"},
-            {typeid(int), "int"},
-            {typeid(unsigned int), "unsigned"},
-            {typeid(long), "long"},
-            {typeid(unsigned long), "unsigned long"},
-            {typeid(long long), "long long"},
-            {typeid(unsigned long long), "unsigned long long"},
-            {typeid(float), "float"},
-            {typeid(double), "double"},
-            {typeid(long double), "long double"},
-            {typeid(std::string), "std::string"},
-            {typeid(iaString), "iaString"},
-            {typeid(int8), "int8"},
-            {typeid(uint8), "uint8"},
-            {typeid(int16), "int16"},
-            {typeid(uint16), "uint16"},
-            {typeid(int32), "int32"},
-            {typeid(uint32), "uint32"},
-            {typeid(int64), "int64"},
-            {typeid(uint64), "uint64"},
-            {typeid(float32), "float32"},
-            {typeid(float64), "float64"},
-            {typeid(iaVector2f), "iaVector2f"},
-            {typeid(iaVector2d), "iaVector2d"},
-            {typeid(iaVector2i), "iaVector2i"},
-            {typeid(iaVector2I), "iaVector2I"},
-            {typeid(iaVector3f), "iaVector3f"},
-            {typeid(iaVector3d), "iaVector3d"},
-            {typeid(iaVector3i), "iaVector3i"},
-            {typeid(iaVector3I), "iaVector3I"},
-            {typeid(iaVector4f), "iaVector4f"},
-            {typeid(iaVector4d), "iaVector4d"},
-            {typeid(iaVector4i), "iaVector4i"},
-            {typeid(iaVector4I), "iaVector4I"}
-        };
+        const auto iter = s_typeToString.find(typeInfo);
+        if (iter == s_typeToString.end())
+        {
+            return "Unknown";
+        }
 
-        return typeToString[typeInfo];
+        return iter->second;
+    }
+
+    iAnyUtilType iAnyUtil::toEnum(const std::type_info &typeInfo)
+    {
+        const auto iter = s_typeToEnum.find(typeInfo);
+        if (iter == s_typeToEnum.end())
+        {
+            return iAnyUtilType::Unknown;
+        }
+
+        return iter->second;
     }
 
     iaString iAnyUtil::toString(const std::any &value)
     {
+        if (toEnum(value.type()) == iAnyUtilType::Unknown)
+        {
+            return "unknown type";
+        }
+
         if (value.type() == typeid(iaString))
         {
             return std::any_cast<iaString>(value);
@@ -181,10 +216,6 @@ namespace igor
         else if (value.type() == typeid(iaVector4I))
         {
             return iaString::toString(std::any_cast<iaVector4I>(value));
-        }
-        else
-        {
-            return "unknown type";
         }
     }
 }

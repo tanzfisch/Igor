@@ -1015,7 +1015,8 @@ namespace igor
             "iUserControlTreeView",
             "iUserControlVector",
             "iUserControlMeshReference",
-            "iUserControlMeshScript",
+            "iUserControlScript",
+            "iUserControlParameter",
 
             "iDialog",
             "iDialogColorChooser",

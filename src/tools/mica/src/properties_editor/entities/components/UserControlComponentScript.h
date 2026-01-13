@@ -86,6 +86,10 @@ private:
     /*! edit button click event handler
     */
     void onClickEditEvent(iWidgetPtr source);
+
+    /*! empty the ui
+    */
+    void emptyUI();
 };
 
 #endif // USERCONTROL_COMPONENT_BEHAVIOUR_H

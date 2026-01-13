@@ -59,7 +59,7 @@ namespace igor
         }
     }
 
-    const std::unordered_map<iaString, std::any> &iParameters::getParameters() const
+    const std::unordered_map<iaString, std::any> &iParameters::getData() const
     {
         return _parameters;
     }
@@ -75,9 +75,9 @@ namespace igor
         stream << std::endl
                << __IGOR_LOGGING_TAB__ << std::setfill(L' ');
 
-        for (const auto &param : parameters.getParameters())
+        for (const auto &param : parameters.getData())
         {
-            stream << std::right << std::setw(20) << param.first << " | " << std::left << std::setw(50) << param.second << std::endl
+            stream << std::right << std::setw(40) << param.first << " | " << param.second << " (" << iAnyUtil::toString(param.second.type()) << ")" << std::endl
                    << __IGOR_LOGGING_TAB__;
         }
 

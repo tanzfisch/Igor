@@ -35,7 +35,7 @@ namespace igor
     {
         std::vector<iaString> result = iEntityComponent::getInfo();
     
-        for(const auto &pair : _data.getParameters())
+        for(const auto &pair : _data.getData())
         {
             iaString text = pair.first + ":" + iAnyUtil::toString(pair.second);
         }
