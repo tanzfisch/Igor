@@ -13,7 +13,6 @@ namespace igor
     {
         const static iaString text[] = {
             L"Unknown",
-            L"Void",
             L"Bool",
             L"uint8",
             L"int8",
@@ -45,7 +44,6 @@ namespace igor
     }
 
     static std::unordered_map<std::type_index, iAnyType> s_typeIndexToAnyType = {
-        {typeid(void), iAnyType::Void},
         {typeid(bool), iAnyType::Bool},
         {typeid(std::string), iAnyType::std_string},
         {typeid(std::wstring), iAnyType::std_wstring},
@@ -78,6 +76,67 @@ namespace igor
         _data = value._data;
     }
 
+    std::any iAny::getAny(const iAnyType &type)
+    {
+        con_assert(type != iAnyType::Unknown, "unknown type");
+
+        switch (type)
+        {
+        case iAnyType::Bool:
+            return false;
+        case iAnyType::uint8:
+            return uint8();
+        case iAnyType::int8:
+            return int8();
+        case iAnyType::uint16:
+            return uint16();
+        case iAnyType::int16:
+            return int16();
+        case iAnyType::uint32:
+            return uint32();
+        case iAnyType::int32:
+            return int32();
+        case iAnyType::uint64:
+            return uint64();
+        case iAnyType::int64:
+            return int64();
+        case iAnyType::float32:
+            return float32();
+        case iAnyType::float64:
+            return float64();
+        case iAnyType::std_string:
+            return std::string();
+        case iAnyType::std_wstring:
+            return std::wstring();
+        case iAnyType::iaString:
+            return iaString();
+        case iAnyType::iaVector2f:
+            return iaVector2f();
+        case iAnyType::iaVector2d:
+            return iaVector2d();
+        case iAnyType::iaVector2i:
+            return iaVector2i();
+        case iAnyType::iaVector2I:
+            return iaVector2I();
+        case iAnyType::iaVector3f:
+            return iaVector3f();
+        case iAnyType::iaVector3d:
+            return iaVector3d();
+        case iAnyType::iaVector3i:
+            return iaVector3i();
+        case iAnyType::iaVector3I:
+            return iaVector3I();
+        case iAnyType::iaVector4f:
+            return iaVector4f();
+        case iAnyType::iaVector4d:
+            return iaVector4d();
+        case iAnyType::iaVector4i:
+            return iaVector4i();
+        case iAnyType::iaVector4I:
+            return iaVector4I();
+        }
+    }
+
     iaString iAny::toString() const
     {
         switch (getType())
@@ -85,8 +144,6 @@ namespace igor
         case iAnyType::Unknown:
         default:
             return "unknown type";
-        case iAnyType::Void:
-            return "void";
         case iAnyType::Bool:
             return (std::any_cast<bool>(_data) ? "true" : "false");
         case iAnyType::uint8:

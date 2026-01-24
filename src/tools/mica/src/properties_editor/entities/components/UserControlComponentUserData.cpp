@@ -82,9 +82,16 @@ void UserControlComponentUserData::onDialogClosed(iDialogPtr source)
         return;
     }
 
-    auto parameters = component->getData();
-    // TODO add field with generated name component->add
-    
+    int index = 0;
+    iaString newKey = "parameter";
+    while(component->hasValue(newKey + iaString::toString(index)))
+    {
+        index++;
+    }
+
+    component->setValue(newKey + iaString::toString(index), iAny::getAny(type));
+
+    onUpdateUI();
 }
 
 void UserControlComponentUserData::emptyUI()
@@ -123,9 +130,10 @@ void UserControlComponentUserData::onUpdateUI()
     {
         auto parameterLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _dataLayout);
 
-        auto nameTextEdit = new iWidgetTextEdit(parameterLayout);
+        auto nameTextEdit = new iWidgetLineTextEdit(parameterLayout);
         nameTextEdit->setText(pair.first);
         nameTextEdit->setMinWidth(MICA_REGULAR_LABEL_SIZE);
+        //nameTextEdit->get
         auto typeLabel = new iWidgetLabel(parameterLayout);
         typeLabel->setText(toString(pair.second.getType()));
         typeLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);

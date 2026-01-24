@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_WIDGETLINETEXTEDIT_H
-#define IGOR_WIDGETLINETEXTEDIT_H
+#ifndef IGOR_WIDGET_LINE_TEXT_EDIT_H
+#define IGOR_WIDGET_LINE_TEXT_EDIT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -223,4 +223,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // IGOR_WIDGETLINETEXTEDIT_H
+#endif // IGOR_WIDGET_LINE_TEXT_EDIT_H

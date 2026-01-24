@@ -91,15 +91,22 @@ namespace igor
 		selectionLayout->setHorizontalAlignment(iHorizontalAlignment::Left);
 		selectionLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
-		if (selectionTexts.size() < 6)
+		if (selectionTexts.size() < 10 || 
+			style == iDialogDecisionBoxStyle::RadioButtons)
 		{
 			iWidgetCheckBox::beginRadioButtonGroup();
 			for (const auto &text : selectionTexts)
 			{
-				iWidgetCheckBox *checkBox = new iWidgetCheckBox(selectionLayout);
+				iWidgetBoxLayoutPtr checkboxLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, selectionLayout);
+				checkboxLayout->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+				iWidgetLabelPtr label = new iWidgetLabel(checkboxLayout);
+				label->setText(text);
+				label->setMinWidth(100);
+
+				iWidgetCheckBoxPtr checkBox = new iWidgetCheckBox(checkboxLayout);
 				_radioButtons.push_back(checkBox);
-				checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
-				checkBox->setText(text);
+				
 
 				if (preSelection == _radioButtons.size() - 1)
 				{

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CHECKBOXWIDGET__
-#define __IGOR_CHECKBOXWIDGET__
+#ifndef IGOR_CHECKBOX_WIDGET_H
+#define IGOR_CHECKBOX_WIDGET_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -36,59 +36,45 @@
 namespace igor
 {
 
-    class iTextureFont;
-
-    /*! check box widget
-	*/
+    /*! check box widget (or radio button)
+     */
     class IGOR_API iWidgetCheckBox : public iWidget
     {
 
     public:
         /*! ctor initializes member variables
 
-		\param parent the optional parent
-		*/
+        \param parent the optional parent
+        */
         iWidgetCheckBox(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         virtual ~iWidgetCheckBox() = default;
 
         /*! beginns a radio button group
 
-		every check box that is created afterwards will be added to the same radio button group
-		*/
+        every check box that is created afterwards will be added to the same radio button group
+        */
         static void beginRadioButtonGroup();
 
         /*! ends the radio button group
-		*/
+         */
         static void endRadioButtonGroup();
-
-        /*! set text of check box
-		*/
-        void setText(const iaString &buttontext);
-
-        /*! \retruns text of check box
-		*/
-        const iaString &getText() const;
 
         /*! sets the checked flag
 
-		\param check bolean value to set if check box is checked
-		*/
+        \param check bolean value to set if check box is checked
+        */
         void setChecked(bool check = true);
 
         /*! \returns true: if checked
-		*/
+         */
         bool isChecked();
 
     protected:
-        /*! check box text
-		*/
-        iaString _text;
-
         /*! boolean if check box is checked or not
-		*/
+         */
         bool _checked = false;
 
         /*! handles mouse key up events
@@ -99,19 +85,19 @@ namespace igor
         bool onMouseKeyUp(const iEventMouseKeyUp &event) override;
 
         /*! if check box is part of a radio button group. this is the group
-		*/
+         */
         std::vector<iWidgetCheckBox *> _radioButtons;
 
         /*! flag to determine if the next check box created is part of a radio button group
-		*/
+         */
         static bool _generatingRadioButtonGroup;
 
         /*! radio button stack while creating a radio button group
-		*/
+         */
         static std::vector<iWidgetCheckBox *> _currentRadioButtons;
 
         /*! updates size based on it's content
-		*/
+         */
         void calcMinSize() override;
 
         /*! draws the widget
@@ -120,8 +106,8 @@ namespace igor
     };
 
     /*! checkbox pointer definition
-    */
+     */
     typedef iWidgetCheckBox *iWidgetCheckBoxPtr;
 } // namespace igor
 
-#endif // __IGOR_CHECKBOXWIDGET__
+#endif // IGOR_CHECKBOX_WIDGET_H

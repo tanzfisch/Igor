@@ -44,7 +44,6 @@ namespace igor
     enum class iAnyType
     {
         Unknown,
-        Void,
         Bool,
         uint8,
         int8,
@@ -76,7 +75,7 @@ namespace igor
     /*! \returns name of given enum value
     \param value the given value
     */
-    iaString IGOR_API toString(const iAnyType &value);
+    iaString IGOR_API toString(const iAnyType &type);
 
     /*! a wrapper for std::any that is aware of igor types
      */
@@ -120,6 +119,12 @@ namespace igor
         /*! \returns data
          */
         const std::any &getData() const;
+
+        /*! \returns default any for given type
+
+        \param type the given type
+        */
+        static std::any getAny(const iAnyType &type);
 
     private:
         /*! data
