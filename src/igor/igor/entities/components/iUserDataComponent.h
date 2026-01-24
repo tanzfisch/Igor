@@ -64,7 +64,7 @@ namespace igor
         template <typename T>
         T getValue(const iaString &key, const T &defaultValue = T()) const
         {
-            return _data.getParameter<T>(key, defaultValue);
+            return _data.getParameterValue<T>(key, defaultValue);
         }
 
         /*! \returns true if there is a value for given key

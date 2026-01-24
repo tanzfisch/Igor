@@ -171,7 +171,7 @@
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
 #include <igor/ui/dialogs/iDialogGraph.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/ui/dialogs/iDialogDropDownMenu.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
 

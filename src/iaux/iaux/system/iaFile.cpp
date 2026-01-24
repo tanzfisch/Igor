@@ -250,15 +250,19 @@ namespace iaux
         return true;
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode)
+    iaString toString(const iaFileOpenMode &value)
     {
-        const static std::wstring text[] = {
+        const static iaString text[] = {
             L"read",
             L"write",
             L"read&write"};
 
-        stream << text[static_cast<int>(mode)];
+        return text[static_cast<int>(value)];
+    }
 
+    std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode)
+    {
+        stream << toString(mode);
         return stream;
     }
 

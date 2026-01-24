@@ -6,7 +6,7 @@
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
-#include <igor/utils/iAnyUtil.h>
+#include <igor/data/iAny.h>
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
@@ -73,8 +73,8 @@ namespace igor
         {
             mimeDataJson.push_back({
                 {"key", pair.first},
-                {"type", iAnyUtil::toString(pair.second.type())},
-                {"value", iAnyUtil::toString(pair.second)}
+                {"type", toString(pair.second.getType())},
+                {"value", pair.second.toString()}
             });
         }
 

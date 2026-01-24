@@ -7,9 +7,9 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/ui/dialogs/iDialogDropDownMenu.h>
 #include <igor/data/iIntersection.h>
-#include <igor/utils/iAnyUtil.h>
+#include <igor/data/iAny.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -105,7 +105,7 @@ namespace igor
         {
             _buttonState = iWidgetState::Standby;
 
-            _selectBox = std::make_unique<iDialogIndexMenu>();
+            _selectBox = std::make_unique<iDialogDropDownMenu>();
             _selectBox->setMinWidth(getActualWidth());
             _selectBox->setX(getActualPosX() + 2);
             _selectBox->setY(getActualPosY() + getActualHeight() + 2);
@@ -125,7 +125,7 @@ namespace igor
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
     {
-        iDialogIndexMenuPtr dialogMenu = static_cast<iDialogIndexMenuPtr>(dialog);
+        iDialogDropDownMenuPtr dialogMenu = static_cast<iDialogDropDownMenuPtr>(dialog);
         auto index = dialogMenu->getSelectionIndex();
 
         if (index != -1)
@@ -142,7 +142,7 @@ namespace igor
         uint32 index = 0;
         for(const auto &pair :_entries)   
         {
-            if(iAnyUtil::getInstance().compare(userData, pair.second))
+            if(iAny::compare(userData, pair.second))
             {
                 setSelection(index);
                 return;

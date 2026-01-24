@@ -178,7 +178,7 @@ namespace igor
         iDialogDecisionBox,
         iDialogFileSelect,
         iDialogGraph,
-        iDialogIndexMenu,
+        iDialogDropDownMenu,
         iDialogMenu,
         iDialogMessageBox
     };

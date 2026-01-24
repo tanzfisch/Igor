@@ -36,13 +36,13 @@ namespace igor
     {
         iTexturePtr texture = std::dynamic_pointer_cast<iTexture>(resource);
         const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        const bool generate = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             return generateTexture(texture, parameters);
         }
 
-        iPixmapPtr pixmap = parameters.getParameter<iPixmapPtr>(IGOR_RESOURCE_PARAM_PIXMAP, nullptr);
+        iPixmapPtr pixmap = parameters.getParameterValue<iPixmapPtr>(IGOR_RESOURCE_PARAM_PIXMAP, nullptr);
         if (pixmap != nullptr)
         {
             return pixmapToTexture(pixmap, texture);
@@ -95,17 +95,17 @@ namespace igor
 
     bool iTextureFactory::generateTexture(iTexturePtr texture, const iParameters &parameters)
     {
-        const iTexturePattern pattern = parameters.getParameter<iTexturePattern>(IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor);
-        const iaColor4f primaryf = parameters.getParameter<iaColor4f>(IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::white);
-        const iaColor4f secondaryf = parameters.getParameter<iaColor4f>(IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::black);
+        const iTexturePattern pattern = parameters.getParameterValue<iTexturePattern>(IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor);
+        const iaColor4f primaryf = parameters.getParameterValue<iaColor4f>(IGOR_RESOURCE_PARAM_PRIMARY_COLOR, iaColor4f::white);
+        const iaColor4f secondaryf = parameters.getParameterValue<iaColor4f>(IGOR_RESOURCE_PARAM_SECONDARY_COLOR, iaColor4f::black);
 
         iaColor4c primary;
         iaConvert::convert(primaryf, primary);
         iaColor4c secondary;
         iaConvert::convert(secondaryf, secondary);
 
-        const uint32 width = parameters.getParameter<int32>(IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1);
-        const uint32 height = parameters.getParameter<int32>(IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1);
+        const uint32 width = parameters.getParameterValue<int32>(IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1);
+        const uint32 height = parameters.getParameterValue<int32>(IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1);
         const uint32 bpp = 4;
 
         uint8 *data = new uint8[width * height * bpp];
@@ -224,7 +224,7 @@ namespace igor
     {
         iaString hashData;
 
-        iTextureWrapMode wrapMode = parameters.getParameter<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
+        iTextureWrapMode wrapMode = parameters.getParameterValue<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
         switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:
@@ -238,7 +238,7 @@ namespace igor
             break;
         }
 
-        iTextureBuildMode buildMode = parameters.getParameter<iTextureBuildMode>("textureBuildMode", iTextureBuildMode::Mipmapped);
+        iTextureBuildMode buildMode = parameters.getParameterValue<iTextureBuildMode>("textureBuildMode", iTextureBuildMode::Mipmapped);
         if (buildMode == iTextureBuildMode::Mipmapped)
         {
             hashData += "M";

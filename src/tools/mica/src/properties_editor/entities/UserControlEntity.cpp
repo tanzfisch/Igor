@@ -28,7 +28,7 @@ UserControlEntity::UserControlEntity(iEntitySceneID sceneID, iEntityID entityID,
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID()) != nullptr, "invalid scene id");
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID())->getEntity(entityID) != nullptr, "invalid entity id");
 
-    _componentSelectionDialog = std::make_unique<DialogComponentTypeSelection>();
+    _componentSelectionDialog = std::make_unique<iDialogDecisionBox>();
 }
 
 void UserControlEntity::init()
@@ -138,7 +138,9 @@ void UserControlEntity::onDialogClosed(iDialogPtr source)
 
     const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
 
-    auto iter = componentTypes.find(_componentSelectionDialog->getSelectedTypeIndex());
+    int selectedIndex = _componentSelectionDialog->getSelection();
+
+    auto iter = componentTypes.find(_typeIndices[selectedIndex]);
     if (iter == componentTypes.end())
     {
         return;
@@ -151,7 +153,18 @@ void UserControlEntity::onDialogClosed(iDialogPtr source)
 
 void UserControlEntity::onAddComponentClicked(iWidgetPtr source)
 {
-    _componentSelectionDialog->open(iDialogCloseDelegate(this, &UserControlEntity::onDialogClosed));
+    const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
+    std::vector<iaString> selectionTexts;
+    _typeIndices.clear();
+
+	for (const auto &componentType : componentTypes)
+	{
+		selectionTexts.push_back(componentType.second._typeName);
+        _typeIndices.push_back(componentType.first);
+	}
+
+    _componentSelectionDialog->open(iDialogCloseDelegate(this, &UserControlEntity::onDialogClosed),
+                                    "Component Type Selection", "Select component type to add to entity", selectionTexts);
 }
 
 void UserControlEntity::update()

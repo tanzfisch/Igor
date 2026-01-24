@@ -461,38 +461,38 @@ namespace iaux
         /*! transforms a 2d vector to a iaString
 
         \param vec the vector
-        \param afterPoint defines how many digits after the point for each component
+        \param afterPointOrBase after point or base based on
         \returns the string
         */
         template <class T>
-        static iaString toString(const iaVector2<T> &vec, int afterPoint = 4);
+        static iaString toString(const iaVector2<T> &vec, int afterPointOrBase = 10);
 
         /*! transforms a 3d vector to a iaString
 
         \param vec the vector
-        \param afterPoint defines how many digits after the point for each component
+        \param afterPointOrBase after point or base based on
         \returns the string
         */
         template <class T>
-        static iaString toString(const iaVector3<T> &vec, int afterPoint = 4);
+        static iaString toString(const iaVector3<T> &vec, int afterPointOrBase = 10);
 
         /*! transforms a 4d vector to a iaString
 
         \param vec the vector
-        \param afterPoint defines how many digits after the point for each component
+        \param afterPointOrBase after point or base based on
         \returns the string
         */
         template <class T>
-        static iaString toString(const iaVector4<T> &vec, int afterPoint = 4);
+        static iaString toString(const iaVector4<T> &vec, int afterPointOrBase = 10);
 
         /*! transforms a quaternion to a iaString
 
         \param vec the vector
-        \param afterPoint defines how many digits after the point for each component
+        \param afterPointOrBase after point or base based on
         \returns the string
         */
         template <class T>
-        static iaString toString(const iaQuaternion<T> &q, int afterPoint = 4);
+        static iaString toString(const iaQuaternion<T> &q, int afterPointOrBase = 10);
 
         /*! iaString to std::string
 

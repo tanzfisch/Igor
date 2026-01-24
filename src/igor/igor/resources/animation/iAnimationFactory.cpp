@@ -30,10 +30,10 @@ namespace igor
 
         // TODO load from file once there is a file format. and then override data from files with additional parameters
 
-        const auto translateAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("translateAnimation");
-        const auto rotateAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("rotateAnimation");
-        const auto scaleAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("scaleAnimation");
-        const auto spriteAnimation = parameters.getParameter<iaKeyFrameGraphui>("spriteAnimation");
+        const auto translateAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("translateAnimation");
+        const auto rotateAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("rotateAnimation");
+        const auto scaleAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("scaleAnimation");
+        const auto spriteAnimation = parameters.getParameterValue<iaKeyFrameGraphui>("spriteAnimation");
 
         bool directData = false;
 

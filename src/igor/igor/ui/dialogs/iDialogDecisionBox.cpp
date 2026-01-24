@@ -7,8 +7,10 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/layouts/iWidgetGridLayout.h>
+#include <igor/ui/layouts/iWidgetBoxLayout.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
+#include <igor/ui/widgets/iWidgetSelectBox.h>
 #include <igor/ui/iWidgetManager.h>
 
 namespace igor
@@ -19,15 +21,20 @@ namespace igor
 	{
 	}
 
-	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, const std::vector<iaString> &selectionTexts, int32 preSelection, iDialogDecisionBoxStyle style)
 	{
 		iDialog::open(dialogCloseDelegate, true);
 
-		onInitUI(title, message, radioButtonTexts, preSelection);
+		onInitUI(title, message, selectionTexts, preSelection, style);
 	}
 
 	int32 iDialogDecisionBox::getSelection() const
 	{
+		if(_selectBox != nullptr)
+		{
+			return _selectBox->getSelectedIndex();
+		}
+
 		int32 i = 0;
 		for (auto radioButton : _radioButtons)
 		{
@@ -41,11 +48,13 @@ namespace igor
 		return -1;
 	}
 
-	void iDialogDecisionBox::onInitUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::onInitUI(const iaString &title, const iaString &message, const std::vector<iaString> &selectionTexts, int32 preSelection, iDialogDecisionBoxStyle style)
 	{
+		con_assert_sticky(preSelection == -1 || preSelection < selectionTexts.size(), "index out range");
+
 		setTitle(title);
 		setVerticalAlignment(iVerticalAlignment::Center);
-		setHorizontalAlignment(iHorizontalAlignment::Center);		
+		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setResizeable(false);
 
 		setEnabled();
@@ -78,38 +87,42 @@ namespace igor
 		cancelButton->setText("Cancel");
 		cancelButton->getClickEvent().add(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-		iWidgetGridLayoutPtr radioGrid = new iWidgetGridLayout();
-		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
-		radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
-		radioGrid->setCellSpacing(4);
+		iWidgetBoxLayoutPtr selectionLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical);
+		selectionLayout->setHorizontalAlignment(iHorizontalAlignment::Left);
+		selectionLayout->setVerticalAlignment(iVerticalAlignment::Top);
 
-		iWidgetCheckBox::beginRadioButtonGroup();
-		int i = 0;
-		auto iter = radioButtonTexts.begin();
-		while (iter != radioButtonTexts.end())
+		if (selectionTexts.size() < 6)
 		{
-			iWidgetCheckBox *checkBox = new iWidgetCheckBox();
-			_radioButtons.push_back(checkBox);
-			checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
-			checkBox->setText((*iter));
-			radioGrid->addWidget(checkBox, 0, i);
-
-			if (preSelection == i)
+			iWidgetCheckBox::beginRadioButtonGroup();
+			for (const auto &text : selectionTexts)
 			{
-				checkBox->setChecked();
-			}
+				iWidgetCheckBox *checkBox = new iWidgetCheckBox(selectionLayout);
+				_radioButtons.push_back(checkBox);
+				checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
+				checkBox->setText(text);
 
-			i++;
-			iter++;
+				if (preSelection == _radioButtons.size() - 1)
+				{
+					checkBox->setChecked();
+				}
+			}
+			iWidgetCheckBox::endRadioButtonGroup();
 		}
-		iWidgetCheckBox::endRadioButtonGroup();
+		else
+		{
+			_selectBox = new iWidgetSelectBox(selectionLayout);
+			for (const auto &text : selectionTexts)
+			{
+				_selectBox->addItem(text);
+			}			
+			_selectBox->setSelection(preSelection);
+		}
 
 		addWidget(grid);
 
 		grid->addWidget(messageLabel, 0, 0);
 		grid->addWidget(new iWidgetSpacer(280, 1), 0, 1);
-		grid->addWidget(radioGrid, 0, 2);
+		grid->addWidget(selectionLayout, 0, 2);
 		grid->addWidget(new iWidgetSpacer(280, 1), 0, 3);
 		grid->addWidget(buttonGrid, 0, 4);
 

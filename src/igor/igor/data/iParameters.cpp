@@ -7,7 +7,7 @@
 #include <igor/data/iFrustum.h>
 #include <igor/renderer/utils/iRendererDefines.h>
 #include <igor/resources/shader/iShader.h>
-#include <igor/utils/iAnyUtil.h>
+#include <igor/data/iAny.h>
 
 #include <iaux/data/iaUUID.h>
 #include <iaux/data/iaColor3.h>
@@ -22,7 +22,7 @@
 namespace igor
 {
 
-    iParameters::iParameters(const std::unordered_map<iaString, std::any> &parameters)
+    iParameters::iParameters(const iParametersMap &parameters)
     {
         for (const auto &pair : parameters)
         {
@@ -30,44 +30,42 @@ namespace igor
         }
     }
 
+    void iParameters::setParameter(const iaString &name, const iAny &value)
+    {
+        _parameters[name] = value;
+    }
+
+    const iAny &iParameters::getParameter(const iaString &name, const iAny &defaultValue) const
+    {
+        auto iter = _parameters.find(name);
+        if (iter == _parameters.end())
+        {
+            return defaultValue;
+        }
+
+        return iter->second;
+    }
+
     bool iParameters::hasParameter(const iaString &name) const
     {
         return _parameters.find(name) != _parameters.end();
     }
 
-    void iParameters::setParameter(const iaString &name, const std::any value)
+    iAnyType iParameters::getParameterType(const iaString &name) const
     {
-        if (value.type() == typeid(const char *))
+        auto iter = _parameters.find(name);
+        if (iter == _parameters.end())
         {
-            _parameters[name] = iaString(std::any_cast<const char *>(value));
+            con_err("parameter \"" << name << "\" not found");
+            return iAnyType::Unknown;
         }
-        else if (value.type() == typeid(const wchar_t *))
-        {
-            _parameters[name] = iaString(std::any_cast<const wchar_t *>(value));
-        }
-        else if (value.type() == typeid(std::string))
-        {
-            _parameters[name] = iaString(std::any_cast<std::string>(value).c_str());
-        }
-        else if (value.type() == typeid(std::wstring))
-        {
-            _parameters[name] = iaString(std::any_cast<std::wstring>(value).c_str());
-        }
-        else
-        {
-            _parameters[name] = value;
-        }
+
+        return iter->second.getType();
     }
 
-    const std::unordered_map<iaString, std::any> &iParameters::getData() const
+    const iParametersMap &iParameters::getData() const
     {
         return _parameters;
-    }
-
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const std::any &any)
-    {
-        stream << iAnyUtil::toString(any);
-        return stream;
     }
 
     std::wostream &operator<<(std::wostream &stream, const iParameters &parameters)
@@ -77,7 +75,7 @@ namespace igor
 
         for (const auto &param : parameters.getData())
         {
-            stream << std::right << std::setw(40) << param.first << " | " << param.second << " (" << iAnyUtil::toString(param.second.type()) << ")" << std::endl
+            stream << std::right << std::setw(40) << param.first << " | " << param.second << " (" << toString(param.second.getType()) << ")" << std::endl
                    << __IGOR_LOGGING_TAB__;
         }
 

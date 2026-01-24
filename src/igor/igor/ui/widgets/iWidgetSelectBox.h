@@ -40,7 +40,7 @@ namespace igor
     typedef iDialog *iDialogPtr;
     class iTextureFont;
     class iWidgetManager;
-    class iDialogIndexMenu;
+    class iDialogDropDownMenu;
 
     /*! select box widget
 	*/
@@ -126,7 +126,7 @@ namespace igor
 
         /*! select box dialog used for the unfold effect
 		*/
-        std::unique_ptr<iDialogIndexMenu> _selectBox;
+        std::unique_ptr<iDialogDropDownMenu> _selectBox;
 
         /*! appearance state of the button
 		*/

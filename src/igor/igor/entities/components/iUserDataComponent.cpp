@@ -5,7 +5,7 @@
 #include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/resources/script/iScriptEngine.h>
-#include <igor/utils/iAnyUtil.h>
+#include <igor/data/iAny.h>
 
 namespace igor
 {
@@ -37,7 +37,9 @@ namespace igor
     
         for(const auto &pair : _data.getData())
         {
-            iaString text = pair.first + ":" + iAnyUtil::toString(pair.second);
+            std::wstringstream stream;
+            stream << std::right << std::setw(40) << pair.first << " | " << pair.second.toString() << " (" << toString(pair.second.getType()) << ")";
+            result.push_back(stream.str().c_str());
         }
     
         return result;

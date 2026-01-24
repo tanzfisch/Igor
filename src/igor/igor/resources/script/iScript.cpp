@@ -14,7 +14,7 @@ namespace igor
     iScript::iScript(const iParameters &parameters)
         : iResource(parameters)
     {
-        const iaString script = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SCRIPT, "");
+        const iaString script = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SCRIPT, "");
 
         int len = script.getLength() + 1;
         _script.resize(len);

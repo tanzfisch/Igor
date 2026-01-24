@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGINDEXMENU__
-#define __IGOR_DIALOGINDEXMENU__
+#ifndef IGOR_DIALOG_INDEX_MENU_H
+#define IGOR_DIALOG_INDEX_MENU_H
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -40,13 +40,13 @@ namespace igor
 
     /*! event triggered when dialog index menu closes
      */
-    IGOR_EVENT_DEFINITION(iDialogIndexMenuClose, int32);
+    IGOR_EVENT_DEFINITION(iDialogDropDownMenuClose, int32);
 
-    /*! pull down menu
+    /*! pull down menu for iWidgetSelectBox
 
     \deprecated remove this
     */
-    class IGOR_API iDialogIndexMenu : public iDialog
+    class IGOR_API iDialogDropDownMenu : public iDialog
     {
 
     public:
@@ -54,11 +54,11 @@ namespace igor
 
         \param parent the parent of this widget
         */
-        iDialogIndexMenu(const iWidgetPtr parent = nullptr);
+        iDialogDropDownMenu(const iWidgetPtr parent = nullptr);
 
         /*! deinitializes gui
          */
-        virtual ~iDialogIndexMenu() = default;
+        virtual ~iDialogDropDownMenu() = default;
 
         /*! opens dialog
 
@@ -88,7 +88,7 @@ namespace igor
     private:
         /*! the close event
          */
-        iDialogIndexMenuCloseEvent _selectBoxCloseEvent;
+        iDialogDropDownMenuCloseEvent _selectBoxCloseEvent;
 
         /*! the return value of the selection box
 
@@ -124,8 +124,8 @@ namespace igor
 
     /*! dialog menu pointer definition
      */
-    typedef iDialogIndexMenu *iDialogIndexMenuPtr;
+    typedef iDialogDropDownMenu *iDialogDropDownMenuPtr;
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGINDEXMENU__
+#endif // IGOR_DIALOG_INDEX_MENU_H

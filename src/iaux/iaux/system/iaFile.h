@@ -48,6 +48,11 @@ namespace iaux
         ReadWriteBinary
     };
 
+    /*! \returns name of given enum value
+    \param value the given value
+    */
+    iaString IAUX_API toString(const iaFileOpenMode &value);
+
     /*! prints the file open mode in the console
 
     \param stream the stream to log to

@@ -35,16 +35,13 @@
 #include <iaux/data/iaString.h>
 
 #include <any>
-#include <unordered_map>
-#include <functional>
-#include <typeindex>
 
 namespace igor
 {
 
-    /*! types known to iAnyUtil
-    */
-    enum class iAnyUtilType
+    /*! types known to iAny
+     */
+    enum class iAnyType
     {
         Unknown,
         Void,
@@ -60,6 +57,7 @@ namespace igor
         float32,
         float64,
         std_string,
+        std_wstring,
         iaString,
         iaVector2f,
         iaVector2d,
@@ -75,12 +73,41 @@ namespace igor
         iaVector4I
     };
 
-    class IGOR_API iAnyUtil
+    /*! \returns name of given enum value
+    \param value the given value
+    */
+    iaString IGOR_API toString(const iAnyType &value);
+
+    /*! a wrapper for std::any that is aware of igor types
+     */
+    class IGOR_API iAny
     {
     public:
-        /*! \returns instance of singleton
+        /*! default ctor
          */
-        static iAnyUtil &getInstance();
+        iAny() = default;
+
+        /*! copy ctor
+         */
+        iAny(const iAny &value);
+
+        template <class T>
+        iAny(T &&value);
+
+        /*! \returns value for given type
+         */
+        template <typename T>
+        T getValue() const;
+
+        /*! \returns value as string if known type
+
+        this is for readability not for preserving information
+         */
+        iaString toString() const;
+
+        /*! \returns type of any
+         */
+        iAnyType getType() const;
 
         /*! compare two any
 
@@ -88,46 +115,26 @@ namespace igor
         \param b second any
         \returns true if types and values match
         */
-        bool compare(const std::any &a, const std::any &b) const;
+        static bool compare(const iAny &a, const iAny &b);
 
-        /*! add types for comparison
+        /*! \returns data
          */
-        template <typename T>
-        void add();
-
-        /*! turn any value in to string
-
-        works only for known types
-
-        \param value the any value
-        \returns string of value
-        */
-        static iaString toString(const std::any &value);
-
-        /*! turn type info in to string
-
-        \param typeInfo the type info
-        \returns string of type info
-        */
-        static iaString toString(const std::type_info &typeInfo);
-
-        /*! \returns enum for given type info
-
-        \param typeInfo the given type info
-        */
-        static iAnyUtilType toEnum(const std::type_info &typeInfo);
+        const std::any &getData() const;
 
     private:
-        /*! registered types
+        /*! data
          */
-        std::unordered_map<std::type_index, std::function<bool(const std::any &, const std::any &)>> _comparators;
-
-        /*! init
-         */
-        iAnyUtil();
+        std::any _data;
     };
 
-#include <igor/utils/iAnyUtil.inl>
+#include <igor/data/iAny.inl>
+
+    /*! stream operator for iAny
+
+    \param stream the stresm
+    \param any the value
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iAny &any);
 
 }
 

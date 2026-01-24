@@ -214,7 +214,7 @@ namespace igor
         if (parameters.hasParameter(key))
         {
             stream << "\t\t\t\t<Parameter key=\"" << key << "\" value=\"";
-            stream << parameters.getParameter<ParameterType>(key) << "\"/>\n";
+            stream << parameters.getParameterValue<ParameterType>(key) << "\"/>\n";
         }
     }
 
@@ -246,13 +246,13 @@ namespace igor
 
     static bool matchingType(iFactoryPtr factory, const iParameters &parameters)
     {
-        if (parameters.getParameter<iaString>("type") == factory->getType())
+        if (parameters.getParameterValue<iaString>("type") == factory->getType())
         {
             return true;
         }
 
-        if (matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
-            matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
+        if (matchingFilename(factory, parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
+            matchingFilename(factory, parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
         {
             return true;
         }
@@ -262,7 +262,7 @@ namespace igor
 
     iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
-        const iaString type = parameters.getParameter<iaString>("type", "");
+        const iaString type = parameters.getParameterValue<iaString>("type", "");
 
         if (type.isEmpty())
         {
@@ -294,7 +294,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceID id = parameters.getParameter<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
+        const iResourceID id = parameters.getParameterValue<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
 
         return getResource(id);
     }
@@ -348,9 +348,9 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
-            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            const iaString id = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
             return nullptr;
         }
@@ -370,8 +370,8 @@ namespace igor
             _loadingQueue.push_back(result);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
 
         if (currentCacheMode < cacheMode)
         {
@@ -397,7 +397,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
         if (requestedCacheMode > iResourceCacheMode::DontCache)
         {
             _resources[result->getID()] = result;
@@ -421,14 +421,14 @@ namespace igor
         iResourceID id;
          if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
-            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            const iaString id = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString source = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << source << "\"");
             return nullptr;
         }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         bool loadNow = false;
         iResourcePtr result;
 
@@ -449,7 +449,7 @@ namespace igor
             {
                 con_trace("cache hit " << result->getType() << " " << result->getInfo());
 
-                const iaString type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
+                const iaString type = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
                 if(result->getType() != type)
                 {
                     con_err("resource id collision " << result->getID() << " " << type << " vs " << result->getType());
@@ -483,7 +483,7 @@ namespace igor
             _resourceProcessedEvent(result->getID());
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         if (currentCacheMode < requestedCacheMode)
         {
             result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, requestedCacheMode);

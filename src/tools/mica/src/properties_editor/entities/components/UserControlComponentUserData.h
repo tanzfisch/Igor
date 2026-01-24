@@ -63,6 +63,10 @@ private:
      */
     iWidgetBoxLayoutPtr _dataLayout;
 
+    /*! data type selection dialog
+    */
+    std::unique_ptr<iDialogDecisionBox> _typeSelectionDialog;
+
     /*! called when component is supposed to be destroyed
 
     \param entity the entity to destroy the component from
@@ -76,6 +80,10 @@ private:
     /*! handling click on add button
     */
     void onClickAdd(iWidgetPtr source);
+
+    /*! handle on dialog closed
+    */
+    void onDialogClosed(iDialogPtr source);
 };
 
 #endif // USERCONTROL_COMPONENT_USER_DATA_H

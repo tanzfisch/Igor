@@ -18,10 +18,10 @@ iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
 
 iNodePtr VoxelTerrainMeshGenerator::importData(const iParameters &parameters)
 {
-    const iaString &sectionName = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-    iVoxelData *voxelData = parameters.getParameter<iVoxelData *>("voxelData", nullptr);
-    const bool keepMesh = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
-    iShaderPtr terrainShader = parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
+    const iaString &sectionName = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+    iVoxelData *voxelData = parameters.getParameterValue<iVoxelData *>("voxelData", nullptr);
+    const bool keepMesh = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
+    iShaderPtr terrainShader = parameters.getParameterValue<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
 
     const int64 width = voxelData->getWidth() - 1;
     const int64 depth = voxelData->getDepth() - 1;

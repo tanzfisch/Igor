@@ -61,7 +61,7 @@ namespace igor
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
         const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        const bool generate = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             // already done during createResource
