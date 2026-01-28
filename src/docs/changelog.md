@@ -20,6 +20,8 @@ Changelog                           {#changelog}
 - clear dialogs on close to prevent duplicate widgets leading to mem leak
 - fixed issue with widget type print
 - introduced iWidget/iDialog reset
+- introduces iUserDataComponent
+- made iAny more useful
 
 0.45.0
 ------
