@@ -18,7 +18,7 @@ var classigor_1_1i_dialog =
     [ "onMouseKeyDown", "classigor_1_1i_dialog.html#a5e781f6d144bd27c90faeedc09b9345d", null ],
     [ "onMouseKeyUp", "classigor_1_1i_dialog.html#ac1a3e7179b6d860e59fa4393e9418226", null ],
     [ "onMouseMove", "classigor_1_1i_dialog.html#ab46edf16334980f080d6b8b27d46b32b", null ],
-    [ "open", "classigor_1_1i_dialog.html#a7862918283aa6c1d5b9bd082ffe6bc06", null ],
+    [ "open", "classigor_1_1i_dialog.html#ae7eec28858f083c1aa66c5028b51636e", null ],
     [ "putInFront", "classigor_1_1i_dialog.html#a69fd0e09dbaf928df4a6f1fe2e75d253", null ],
     [ "setAcceptESCToClose", "classigor_1_1i_dialog.html#a58271a292889843176f091a1201894bb", null ],
     [ "setDockable", "classigor_1_1i_dialog.html#ae193168c3e3fb34397b548b844884ca1", null ],

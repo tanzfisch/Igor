@@ -2,10 +2,10 @@ var classigor_1_1i_mouse =
 [
     [ "getButton4", "classigor_1_1i_mouse.html#a65ec5cfad8f3a74cc5daea0e6a02fb5b", null ],
     [ "getButton5", "classigor_1_1i_mouse.html#a0d4c833cde5353e660bea4a33dbc3a4a", null ],
+    [ "getDeltaPosition", "classigor_1_1i_mouse.html#ae55a7d2d877af155d8232164e4f85b44", null ],
     [ "getLeftButton", "classigor_1_1i_mouse.html#a6e76fd0fa4ce9131c4d961b33f51359d", null ],
     [ "getMiddleButton", "classigor_1_1i_mouse.html#abbfc2a341b217eb938138e9ea4ba2db8", null ],
-    [ "getPos", "classigor_1_1i_mouse.html#aadcbe63e81a8acac4ec881dedfc299b2", null ],
-    [ "getPosDelta", "classigor_1_1i_mouse.html#a030686152a1ebcbb710ca489ec936fbd", null ],
+    [ "getPosition", "classigor_1_1i_mouse.html#a67d1ae1e8f7f62da6d0c18b36b924a4b", null ],
     [ "getRightButton", "classigor_1_1i_mouse.html#abcfef33066b41914789b614beda92925", null ],
     [ "getWindow", "classigor_1_1i_mouse.html#a4321ae10737d4c3a454749defd18f553", null ],
     [ "hideCursor", "classigor_1_1i_mouse.html#ae54081078edc7c97bb932f9afe0c6309", null ],

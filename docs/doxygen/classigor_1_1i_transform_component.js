@@ -2,7 +2,7 @@ var classigor_1_1i_transform_component =
 [
     [ "iTransformComponent", "classigor_1_1i_transform_component.html#a4155cbd30ebfab97de902a55dc6bd415", null ],
     [ "iTransformComponent", "classigor_1_1i_transform_component.html#a07a1d588f886ffe0a4363e56ce2f0357", null ],
-    [ "createInstance", "classigor_1_1i_transform_component.html#a05fcf8fee8dff0ba3587c6b8d761b9ed", null ],
+    [ "createInstance", "classigor_1_1i_transform_component.html#ab49d98aef4df29392b0e87cadc53c448", null ],
     [ "getInfo", "classigor_1_1i_transform_component.html#a21f7f663d7850623d4e5c57ee30544e7", null ],
     [ "getOrientation", "classigor_1_1i_transform_component.html#ae925e5da19304a7ae998bb825c709b0b", null ],
     [ "getPosition", "classigor_1_1i_transform_component.html#aec6950167b55597f40091588e1547917", null ],

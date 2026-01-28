@@ -8,6 +8,7 @@ var i_entity_system_8h =
     [ "iRenderEnginePtr", "i_entity_system_8h.html#a377d95cbc0905ad07d2e9c80a36d2d63", null ],
     [ "iEntitySystemStage", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851", [
       [ "Update", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a06933067aafd48425d67bcb01bba5cb6", null ],
+      [ "System", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851aa45da96d0bf6575970f2d27af22be28a", null ],
       [ "PreRender", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a9f8f53680b26c10da3b993add473b9e0", null ],
       [ "Render", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a5e520da5341f2fec6d3bbfe7ef357922", null ],
       [ "StageCount", "i_entity_system_8h.html#a49f0f6a3a2e9b4a7a4a4c57752f82851a2c6024adc4e3d644f5771cc5712272fb", null ]

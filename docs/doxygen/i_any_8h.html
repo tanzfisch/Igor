@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.9.4"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: /home/martin/dev/Igor/src/igor/igor/utils/iAny.h File Reference</title>
+		<title>Igor: /home/martin/dev/Igor/src/igor/igor/data/iAny.h File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -87,16 +87,16 @@ $(document).ready(function(){initNavTree('i_any_8h.html',''); initResizable(); }
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">iAny.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
 <code>#include &lt;any&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;typeindex&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_any_8inl.html">igor/utils/iAny.inl</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_any_8inl.html">igor/data/iAny.inl</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -108,13 +108,60 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceigor"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html">igor</a></td></tr>
 <tr class="memdesc:namespaceigor"><td class="mdescLeft">&#160;</td><td class="mdescRight">item data entity id <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a68a9bfa924424ff9e0a556f8467a7041"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041">igor::iAnyType</a> { <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a88183b946cc5f0e8c96b2e66e1c74a7e">igor::Unknown</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ac26f15e86e3de4c398a8273272aba034">igor::Bool</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a5f423e669d0a8f4ab7c4c3e6da27161a">igor::uint8</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a27c006cc56b1ba88f960cf8b5144fcac">igor::int8</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041aa00ef2ef85ff67b7b39339886f19044f">igor::uint16</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ace80d5ec65b1d2a2f1049eadc100db23">igor::int16</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a3de84ad0700f2a1571f633d399e1900e">igor::uint32</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a0241adbbd83925f051b694d40f02747f">igor::int32</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a2e8d31865e5d4b9d8611e1b991baed07">igor::uint64</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041aff9b3f96d37353c528517bc3656a00a8">igor::int64</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ad33ec2b0bbea6d471a4706cea030e1e3">igor::float32</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041afb7fa22ede616c04c68a7663d0f81e92">igor::float64</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ac3a2dc02713d65905ccc6b57de8c36af">igor::std_string</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ac9420ebcd47f861cfa5804bbfd4762d8">igor::std_wstring</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a71015390fe92baa1027fbbeb596633d6">igor::iaString</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a7f6292977c17760b8f541cb9a21d525f">igor::iaVector2f</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ab6d38082494f3ad84b18a63eed2fbd5b">igor::iaVector2d</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ac01a0db94346a35920f5a058b8aa9829">igor::iaVector2i</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a8d72d6ce2f25a455613cd9e4d69b7027">igor::iaVector2I</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ada7e137dae2ae1788920a0582d7b9b99">igor::iaVector3f</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a29c05b700a4a24997d41e535120f80fd">igor::iaVector3d</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a91f4113a80bd6559dd6d7f763b9ed68b">igor::iaVector3i</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a6e7724e932dcbcaa7450baf95d226e07">igor::iaVector3I</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a9e63a84984d2a888c802140d44de4d43">igor::iaVector4f</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041a8d4e2634ca465fa72bd751c8657d6d0d">igor::iaVector4d</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ad9fc35cc9066991213c853a9ff6dded0">igor::iaVector4i</a>
+, <a class="el" href="namespaceigor.html#a68a9bfa924424ff9e0a556f8467a7041ad2be208d76c23eba5250885acf2a0331">igor::iaVector4I</a>
+<br />
+ }</td></tr>
+<tr class="separator:a68a9bfa924424ff9e0a556f8467a7041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6fd5446ea337fabc7eb817a3e153dfa1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a6fd5446ea337fabc7eb817a3e153dfa1">igor::toString</a> (const iAnyType &amp;value)</td></tr>
+<tr class="separator:a6fd5446ea337fabc7eb817a3e153dfa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e0aa6df57f4912231f73f096eb6e8d"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aa9e0aa6df57f4912231f73f096eb6e8d">igor::operator&lt;&lt;</a> (std::wostream &amp;stream, const iAny &amp;any)</td></tr>
+<tr class="separator:aa9e0aa6df57f4912231f73f096eb6e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_176d7210e59a090dc0e5dfa36c541b9f.html">utils</a></li><li class="navelem"><a class="el" href="i_any_8h.html">iAny.h</a></li>
+				<li class="navelem"><a class="el" href="dir_d894fa9681194a2649327099c43d8582.html">igor</a></li><li class="navelem"><a class="el" href="dir_ff63218eb8d6b76bf6f3638bd523226b.html">igor</a></li><li class="navelem"><a class="el" href="dir_b9bc800c5eeb123b0cfb1fef5c168ecc.html">data</a></li><li class="navelem"><a class="el" href="i_any_8h.html">iAny.h</a></li>
 				<li class="footer">
 					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.9.4.

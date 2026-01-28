@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -109,6 +109,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae8b8bd7c20a7ba6f8b1d2337b790c47f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbe2e5394c798dd5e1cf79a7383d9b37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_view.html#afbe2e5394c798dd5e1cf79a7383d9b37">setOverrideCamera</a> (<a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> camera)</td></tr>
 <tr class="separator:afbe2e5394c798dd5e1cf79a7383d9b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3503db0a5beb3c496f98e8ed88f34479"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_view.html#a3503db0a5beb3c496f98e8ed88f34479">setOverrideCamera</a> (const <a class="el" href="namespaceigor.html#a516be3f1c118b0bee95d42cbc932b33c">iEntitySceneID</a> &amp;sceneID, const <a class="el" href="namespaceigor.html#ac39ee096f36a86cd5a3984e499123619">iEntityID</a> &amp;cameraID)</td></tr>
+<tr class="separator:a3503db0a5beb3c496f98e8ed88f34479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cd67f6d72f719c32d9a207029b7eb40"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_view.html#a4cd67f6d72f719c32d9a207029b7eb40">getCamera</a> () const</td></tr>
 <tr class="separator:a4cd67f6d72f719c32d9a207029b7eb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af44bb9ea4ccbf362b9c3f569cf2b628c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_view.html#af44bb9ea4ccbf362b9c3f569cf2b628c">setName</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name)</td></tr>
@@ -1058,8 +1060,45 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a3503db0a5beb3c496f98e8ed88f34479" name="a3503db0a5beb3c496f98e8ed88f34479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3503db0a5beb3c496f98e8ed88f34479">&#9670;&nbsp;</a></span>setOverrideCamera() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iView::setOverrideCamera </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#a516be3f1c118b0bee95d42cbc932b33c">iEntitySceneID</a> &amp;&#160;</td>
+          <td class="paramname"><em>sceneID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#ac39ee096f36a86cd5a3984e499123619">iEntityID</a> &amp;&#160;</td>
+          <td class="paramname"><em>cameraID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >specifies a camera to override the active cam of the scene by id</p>
+<p >camera is allowed to not be from the same scene as the view scene</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sceneID</td><td>scene id to use </td></tr>
+    <tr><td class="paramname">cameraID</td><td>camera entity id to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="afbe2e5394c798dd5e1cf79a7383d9b37" name="afbe2e5394c798dd5e1cf79a7383d9b37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbe2e5394c798dd5e1cf79a7383d9b37">&#9670;&nbsp;</a></span>setOverrideCamera()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afbe2e5394c798dd5e1cf79a7383d9b37">&#9670;&nbsp;</a></span>setOverrideCamera() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -117,6 +117,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afda5c0f4b0de068d9a6e92424fcf4c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1730e421cb7060d373bd7499f30d856b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#a1730e421cb7060d373bd7499f30d856b">operator*</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> factor)</td></tr>
 <tr class="separator:a1730e421cb7060d373bd7499f30d856b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ec5455af4874fb41ae90a03ee18f492"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#a0ec5455af4874fb41ae90a03ee18f492">operator==</a> (const <a class="el" href="classiaux_1_1ia_color3.html">iaColor3</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:a0ec5455af4874fb41ae90a03ee18f492"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace2061ec86a0589888fd08130e46229e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#ace2061ec86a0589888fd08130e46229e">operator!=</a> (const <a class="el" href="classiaux_1_1ia_color3.html">iaColor3</a>&lt; T &gt; &amp;other) const</td></tr>
+<tr class="separator:ace2061ec86a0589888fd08130e46229e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a7dbd7653855f98286e72be81b2e86"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#a02a7dbd7653855f98286e72be81b2e86">operator[]</a> (int i) const</td></tr>
+<tr class="separator:a02a7dbd7653855f98286e72be81b2e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c11e6b01ce7b3e1a8c3435354b641e"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#a41c11e6b01ce7b3e1a8c3435354b641e">operator[]</a> (int i)</td></tr>
+<tr class="separator:a41c11e6b01ce7b3e1a8c3435354b641e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa54ce390474053de4c7f0c7f40debc57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#aa54ce390474053de4c7f0c7f40debc57">iaColor3</a> ()</td></tr>
 <tr class="separator:aa54ce390474053de4c7f0c7f40debc57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebeeaf4541b1e1b616afe8b27a12753c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_color3.html#aebeeaf4541b1e1b616afe8b27a12753c">iaColor3</a> ()</td></tr>
@@ -879,6 +887,34 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a id="ace2061ec86a0589888fd08130e46229e" name="ace2061ec86a0589888fd08130e46229e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace2061ec86a0589888fd08130e46229e">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaColor3::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_color3.html">iaColor3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >comparison of two colors</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other color to compare with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if colors are NOT equal </dd></dl>
+
+</div>
+</div>
 <a id="a1730e421cb7060d373bd7499f30d856b" name="a1730e421cb7060d373bd7499f30d856b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1730e421cb7060d373bd7499f30d856b">&#9670;&nbsp;</a></span>operator*()</h2>
 
@@ -996,6 +1032,88 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 <p >assignment operator</p>
 <p >\parm color the color to copy </p>
+
+</div>
+</div>
+<a id="a0ec5455af4874fb41ae90a03ee18f492" name="a0ec5455af4874fb41ae90a03ee18f492"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ec5455af4874fb41ae90a03ee18f492">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaColor3::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_color3.html">iaColor3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >comparison of two colors</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other color to compare with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if colors are equal </dd></dl>
+
+</div>
+</div>
+<a id="a41c11e6b01ce7b3e1a8c3435354b641e" name="a41c11e6b01ce7b3e1a8c3435354b641e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c11e6b01ce7b3e1a8c3435354b641e">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; iaColor3::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>component value by index</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>index of component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a02a7dbd7653855f98286e72be81b2e86" name="a02a7dbd7653855f98286e72be81b2e86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a7dbd7653855f98286e72be81b2e86">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; iaColor3::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>component value by index (const version)</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>index of component </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

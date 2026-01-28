@@ -10,6 +10,7 @@ var classigor_1_1i_resource =
     [ "getParameters", "classigor_1_1i_resource.html#ab37f31e3ffeb408b83eb2feaefb89948", null ],
     [ "getSource", "classigor_1_1i_resource.html#a20e6b532625188a6a74a81d6d55f8559", null ],
     [ "getType", "classigor_1_1i_resource.html#ab58117a528b75779f1fe80e2448af206", null ],
+    [ "hasSource", "classigor_1_1i_resource.html#aa0751b849fcd932d1dd5a160b8ae030d", null ],
     [ "isProcessed", "classigor_1_1i_resource.html#a078f4eeab65a0ccb2d3aad067a59d673", null ],
     [ "isQuiet", "classigor_1_1i_resource.html#a5fd30abaa7a9bff395a005d8d073959e", null ],
     [ "isValid", "classigor_1_1i_resource.html#ac43963f25d38391bbbb1a7adf58b5f39", null ],

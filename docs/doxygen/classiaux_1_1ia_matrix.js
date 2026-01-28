@@ -17,7 +17,7 @@ var classiaux_1_1ia_matrix =
     [ "move", "classiaux_1_1ia_matrix.html#aab0282cb03fd49c5938151c089d1b607", null ],
     [ "move", "classiaux_1_1ia_matrix.html#a0cbacda869d06d2804e4f6aacda5bb55", null ],
     [ "operator!=", "classiaux_1_1ia_matrix.html#abe50dcc5503f4924b2f135abd3c82746", null ],
-    [ "operator*", "classiaux_1_1ia_matrix.html#abd6fb4660818b43ece35a6873204929f", null ],
+    [ "operator*", "classiaux_1_1ia_matrix.html#a23a553d954ef43d7e453ed02439a049f", null ],
     [ "operator*", "classiaux_1_1ia_matrix.html#a12209ea8c23864582d3de70409105a04", null ],
     [ "operator*", "classiaux_1_1ia_matrix.html#ab2599f6a9a8af1769771d5eeb20d9e6e", null ],
     [ "operator*=", "classiaux_1_1ia_matrix.html#a77fac0369d5cfc3e6ec9851360ad67e0", null ],

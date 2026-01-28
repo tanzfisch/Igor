@@ -1,7 +1,7 @@
 var classigor_1_1i_light_component =
 [
     [ "iLightComponent", "classigor_1_1i_light_component.html#aab2a758de898d0fae8ab1abf4419ba18", null ],
-    [ "createInstance", "classigor_1_1i_light_component.html#a7201b46babdf011f2127e6be58944a18", null ],
+    [ "createInstance", "classigor_1_1i_light_component.html#a9b20e9847ee38fcde79aefb49b192c89", null ],
     [ "getAmbient", "classigor_1_1i_light_component.html#aa4dd37b954800cd0b2901a4a9bd01220", null ],
     [ "getDiffuse", "classigor_1_1i_light_component.html#a4a6b1361f62e6c5b2c994b69b653287a", null ],
     [ "getInfo", "classigor_1_1i_light_component.html#a3b143deab815d00c6ecf6619066d4ea4", null ],

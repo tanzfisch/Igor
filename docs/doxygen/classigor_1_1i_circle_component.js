@@ -2,7 +2,7 @@ var classigor_1_1i_circle_component =
 [
     [ "iCircleComponent", "classigor_1_1i_circle_component.html#aa689d398474e24efaae33ffb6e45d1b3", null ],
     [ "iCircleComponent", "classigor_1_1i_circle_component.html#ad057a302f4cfc393831c82b8549f5a81", null ],
-    [ "createInstance", "classigor_1_1i_circle_component.html#ad67008769820796d41a56b462fb8e2d9", null ],
+    [ "createInstance", "classigor_1_1i_circle_component.html#ad9928073c06a9d564d8d046a458f07e9", null ],
     [ "getInfo", "classigor_1_1i_circle_component.html#a595fca4e406fe170de980e58c1787a56", null ],
     [ "getOffset", "classigor_1_1i_circle_component.html#a72808c419dc28eb5ee9006e966f505a9", null ],
     [ "getRadius", "classigor_1_1i_circle_component.html#ae806ef58709b09e631ee16e40780d9be", null ],

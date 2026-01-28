@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -98,8 +98,10 @@ $(document).ready(function(){initNavTree('classigor_1_1i_entity_copy_traverser.h
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acc6e7a8d8ef247da9184f7e21e5c80d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_copy_traverser.html#acc6e7a8d8ef247da9184f7e21e5c80d5">iEntityCopyTraverser</a> (const <a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> &amp;targetEntity, bool copyIDs)</td></tr>
-<tr class="separator:acc6e7a8d8ef247da9184f7e21e5c80d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf0660f5540529084dc09a594e074a35"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_copy_traverser.html#acf0660f5540529084dc09a594e074a35">iEntityCopyTraverser</a> (const <a class="el" href="namespaceigor.html#a0348f8f0f18c8f1617ed3e20f56c1fd1">iEntityPtr</a> &amp;targetEntity, bool copyIDs=true)</td></tr>
+<tr class="separator:acf0660f5540529084dc09a594e074a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c40145d5eae6167a778a639bed0716"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_copy_traverser.html#a76c40145d5eae6167a778a639bed0716">iEntityCopyTraverser</a> (const <a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> &amp;targetScene, bool copyIDs=true)</td></tr>
+<tr class="separator:a76c40145d5eae6167a778a639bed0716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3616360102f3b8dee00b079d93298332"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_copy_traverser.html#a3616360102f3b8dee00b079d93298332">~iEntityCopyTraverser</a> ()=default</td></tr>
 <tr class="separator:a3616360102f3b8dee00b079d93298332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classigor_1_1i_entity_traverser"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classigor_1_1i_entity_traverser')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classigor_1_1i_entity_traverser.html">igor::iEntityTraverser</a></td></tr>
@@ -133,8 +135,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >entity copy traverser </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acc6e7a8d8ef247da9184f7e21e5c80d5" name="acc6e7a8d8ef247da9184f7e21e5c80d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc6e7a8d8ef247da9184f7e21e5c80d5">&#9670;&nbsp;</a></span>iEntityCopyTraverser()</h2>
+<a id="acf0660f5540529084dc09a594e074a35" name="acf0660f5540529084dc09a594e074a35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf0660f5540529084dc09a594e074a35">&#9670;&nbsp;</a></span>iEntityCopyTraverser() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,7 +151,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>copyIDs</em>&#160;</td>
+          <td class="paramname"><em>copyIDs</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -161,7 +163,43 @@ Additional Inherited Members</h2></td></tr>
 <p >copy hierarchy of entities to given target entity</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td>the given target entity </td></tr>
+    <tr><td class="paramname">targetEntity</td><td>the given target entity </td></tr>
+    <tr><td class="paramname">copyIDs</td><td>if true entity IDs will be copied </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a76c40145d5eae6167a778a639bed0716" name="a76c40145d5eae6167a778a639bed0716"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c40145d5eae6167a778a639bed0716">&#9670;&nbsp;</a></span>iEntityCopyTraverser() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">igor::iEntityCopyTraverser::iEntityCopyTraverser </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> &amp;&#160;</td>
+          <td class="paramname"><em>targetScene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>copyIDs</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >copy hierarchy of entities to root of given target scene</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">targetScene</td><td>the given target scene </td></tr>
     <tr><td class="paramname">copyIDs</td><td>if true entity IDs will be copied </td></tr>
   </table>
   </dd>
