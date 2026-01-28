@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -116,8 +116,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7aa3c46c63d210330d00b64197087277"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_keyboard.html#a7aa3c46c63d210330d00b64197087277">getKeyCode</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;keyname)</td></tr>
-<tr class="separator:a7aa3c46c63d210330d00b64197087277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a522c59b1813f2f3b95daceda691394"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_keyboard.html#a9a522c59b1813f2f3b95daceda691394">getKeyCode</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;keyName)</td></tr>
+<tr class="separator:a9a522c59b1813f2f3b95daceda691394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8e70d34877dcdbab32025af50ae21f1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_keyboard.html#ae8e70d34877dcdbab32025af50ae21f1">getKeyName</a> (<a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> keyCode)</td></tr>
+<tr class="separator:ae8e70d34877dcdbab32025af50ae21f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classigor_1_1i_module"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classigor_1_1i_module')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classigor_1_1i_module.html">igor::iModule&lt; iKeyboard &gt;</a></td></tr>
 <tr class="memitem:ae31ee943dee35af00b41bf8ef042f579 inherit pub_static_methods_classigor_1_1i_module"><td class="memItemLeft" align="right" valign="top">static IGOR_INLINE <a class="el" href="classigor_1_1i_keyboard.html">iKeyboard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_module.html#ae31ee943dee35af00b41bf8ef042f579">getInstance</a> ()</td></tr>
 <tr class="separator:ae31ee943dee35af00b41bf8ef042f579 inherit pub_static_methods_classigor_1_1i_module"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,8 +147,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p >Handles keyboard specific os events and triggers Igor events.</p>
 <p >It also stores key states for later use </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7aa3c46c63d210330d00b64197087277" name="a7aa3c46c63d210330d00b64197087277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7aa3c46c63d210330d00b64197087277">&#9670;&nbsp;</a></span>getKeyCode()</h2>
+<a id="a9a522c59b1813f2f3b95daceda691394" name="a9a522c59b1813f2f3b95daceda691394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a522c59b1813f2f3b95daceda691394">&#9670;&nbsp;</a></span>getKeyCode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -158,7 +160,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname"><a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> igor::iKeyboard::getKeyCode </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>keyname</em></td><td>)</td>
+          <td class="paramname"><em>keyName</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -171,11 +173,44 @@ Additional Inherited Members</h2></td></tr>
 <p >returns key code</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">keycode</td><td>key name </td></tr>
+    <tr><td class="paramname">keyName</td><td>key name </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>key code </dd></dl>
+
+</div>
+</div>
+<a id="ae8e70d34877dcdbab32025af50ae21f1" name="ae8e70d34877dcdbab32025af50ae21f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8e70d34877dcdbab32025af50ae21f1">&#9670;&nbsp;</a></span>getKeyName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iKeyboard::getKeyName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a>&#160;</td>
+          <td class="paramname"><em>keyCode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>key name for given key code</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyCode</td><td>given key code </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

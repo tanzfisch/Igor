@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -122,8 +122,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event.html">iaEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_event_pool.html">iaEventPool</a></td></tr>
@@ -142,6 +140,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_matrix2_d.html">iaMatrix2D</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_mutex.html">iaMutex</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_path.html">iaPath</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_quaternion.html">iaQuaternion</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,6 +342,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:afd3b2f5259d1874dee17bd422cea56fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdb03e02df33a0c092d0d4878fc170d1"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1">iaExecuteType</a> { <a class="el" href="namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1afd83e0ccb3e6312a62f888dd496dd0a5">Immediately</a>
+, <a class="el" href="namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1a97b313021e7406bbedff6b43c98e7a92">NextFrameMainThread</a>
+ }</td></tr>
+<tr class="separator:abdb03e02df33a0c092d0d4878fc170d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5db3a03d362f3a8606d971b88e0d0a2c"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c">iaFileOpenMode</a> { <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2ca087df96b394ba2f8b205fa9452fe2473">ReadBinary</a>
 , <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2caf3de1e6f327fc28e955c698773c74045">WriteBinary</a>
 , <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2ca4f6a08276e8d1a3e7385f1442a8a92fa">ReadWriteBinary</a>
@@ -423,10 +427,6 @@ Functions</h2></td></tr>
 <tr class="separator:a85493f7208d5ae4ec01d6227d4b3626f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa799480d224f50a2395a39d11fe90e1a"><td class="memItemLeft" align="right" valign="top">IGOR_INLINE <a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#aa799480d224f50a2395a39d11fe90e1a">applicationTime</a> (<a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;console)</td></tr>
 <tr class="separator:aa799480d224f50a2395a39d11fe90e1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab5401c6611f093d074d6de62bad0b3e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#aab5401c6611f093d074d6de62bad0b3e">fileMatch</a> (const std::filesystem::directory_entry &amp;entry, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;searchPattern)</td></tr>
-<tr class="separator:aab5401c6611f093d074d6de62bad0b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65efa8656a3fa912d57d9f269918f1da"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a65efa8656a3fa912d57d9f269918f1da">operator&lt;&lt;</a> (std::wostream &amp;stream, const <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &amp;dir)</td></tr>
-<tr class="separator:a65efa8656a3fa912d57d9f269918f1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2868399805db6aa51c9700d850e3ef0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ac2868399805db6aa51c9700d850e3ef0"><td class="memTemplItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ac2868399805db6aa51c9700d850e3ef0">operator&lt;&lt;</a> (std::wostream &amp;stream, const <a class="el" href="classiaux_1_1ia_delegate.html">iaDelegate</a>&lt; T &gt; &amp;delegate)</td></tr>
 <tr class="separator:ac2868399805db6aa51c9700d850e3ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,69 +436,75 @@ Functions</h2></td></tr>
 <tr class="separator:a698943d3946678cc2e93cf0a2a9780f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a377ea03aff7c5760f6d7bf880299ca76"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a377ea03aff7c5760f6d7bf880299ca76">isWriteable</a> (const <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c">iaFileOpenMode</a> &amp;mode)</td></tr>
 <tr class="separator:a377ea03aff7c5760f6d7bf880299ca76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8853c47557fc31b00fc5a84e1d5a8c2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a8853c47557fc31b00fc5a84e1d5a8c2c">toString</a> (const <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c">iaFileOpenMode</a> &amp;value)</td></tr>
+<tr class="separator:a8853c47557fc31b00fc5a84e1d5a8c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34bca877062d63171cbb00feb8b4ebd8"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a34bca877062d63171cbb00feb8b4ebd8">operator&lt;&lt;</a> (std::wostream &amp;stream, const <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c">iaFileOpenMode</a> &amp;mode)</td></tr>
 <tr class="separator:a34bca877062d63171cbb00feb8b4ebd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a684264407ac98d541b9e0e953b7b7630"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a684264407ac98d541b9e0e953b7b7630">operator&lt;&lt;</a> (std::wostream &amp;stream, const <a class="el" href="classiaux_1_1ia_path.html">iaPath</a> &amp;dir)</td></tr>
+<tr class="separator:a684264407ac98d541b9e0e953b7b7630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab5401c6611f093d074d6de62bad0b3e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#aab5401c6611f093d074d6de62bad0b3e">fileMatch</a> (const std::filesystem::directory_entry &amp;entry, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;searchPattern)</td></tr>
+<tr class="separator:aab5401c6611f093d074d6de62bad0b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9b0a4003fe51b9de40fdcd18e5e0999"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#af9b0a4003fe51b9de40fdcd18e5e0999">getCallStack</a> (std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt; &amp;callStack)</td></tr>
 <tr class="separator:af9b0a4003fe51b9de40fdcd18e5e0999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52c2fe18dcc83d063e3f5908b643d280"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a52c2fe18dcc83d063e3f5908b643d280">threadFunc</a> (void *data)</td></tr>
 <tr class="separator:a52c2fe18dcc83d063e3f5908b643d280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e11fd612229fab81e32840a2e6a58ed"><td class="memItemLeft" align="right" valign="top">IGOR_INLINE std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a4e11fd612229fab81e32840a2e6a58ed">operator&lt;&lt;</a> (std::wostream &amp;ostr, const <a class="el" href="classiaux_1_1ia_time.html">iaTime</a> &amp;time)</td></tr>
 <tr class="separator:a4e11fd612229fab81e32840a2e6a58ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad23ffe893477e2b1f6b7ace78b40a59b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ad23ffe893477e2b1f6b7ace78b40a59b">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a> &amp;uuid)</td></tr>
+<tr class="memitem:ad23ffe893477e2b1f6b7ace78b40a59b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ad23ffe893477e2b1f6b7ace78b40a59b">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a> &amp;uuid)</td></tr>
 <tr class="separator:ad23ffe893477e2b1f6b7ace78b40a59b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af83584a914757d43d185a6276f0a6ac7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#af83584a914757d43d185a6276f0a6ac7">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a> &amp;uuid)</td></tr>
+<tr class="memitem:af83584a914757d43d185a6276f0a6ac7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#af83584a914757d43d185a6276f0a6ac7">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classiaux_1_1ia_u_u_i_d.html">iaUUID</a> &amp;uuid)</td></tr>
 <tr class="separator:af83584a914757d43d185a6276f0a6ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a30630b1a6362617a46fe7f6671fb1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a0a30630b1a6362617a46fe7f6671fb1c">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
+<tr class="memitem:a0a30630b1a6362617a46fe7f6671fb1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a0a30630b1a6362617a46fe7f6671fb1c">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
 <tr class="separator:a0a30630b1a6362617a46fe7f6671fb1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb4be90c93c1bffe687f4f09fe627ad7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#adb4be90c93c1bffe687f4f09fe627ad7">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
+<tr class="memitem:adb4be90c93c1bffe687f4f09fe627ad7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#adb4be90c93c1bffe687f4f09fe627ad7">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
 <tr class="separator:adb4be90c93c1bffe687f4f09fe627ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33b62d4de6bf964956c94ce9d9317333"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a33b62d4de6bf964956c94ce9d9317333">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;vec)</td></tr>
+<tr class="memitem:a33b62d4de6bf964956c94ce9d9317333"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a33b62d4de6bf964956c94ce9d9317333">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;vec)</td></tr>
 <tr class="separator:a33b62d4de6bf964956c94ce9d9317333"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31affcb1a3591e643e9423ab159fd848"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a31affcb1a3591e643e9423ab159fd848">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;vec)</td></tr>
+<tr class="memitem:a31affcb1a3591e643e9423ab159fd848"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a31affcb1a3591e643e9423ab159fd848">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a1ecc0f33fdf438e00c57f3ea5e470de5">iaVector2f</a> &amp;vec)</td></tr>
 <tr class="separator:a31affcb1a3591e643e9423ab159fd848"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a275fc917dbd27092e5473e0ec72e559d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a275fc917dbd27092e5473e0ec72e559d">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;vec)</td></tr>
+<tr class="memitem:a275fc917dbd27092e5473e0ec72e559d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a275fc917dbd27092e5473e0ec72e559d">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;vec)</td></tr>
 <tr class="separator:a275fc917dbd27092e5473e0ec72e559d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7c49b6451d34ac913cb199275affbfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab7c49b6451d34ac913cb199275affbfa">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;vec)</td></tr>
+<tr class="memitem:ab7c49b6451d34ac913cb199275affbfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab7c49b6451d34ac913cb199275affbfa">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;vec)</td></tr>
 <tr class="separator:ab7c49b6451d34ac913cb199275affbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bd7c713108f7b087076fdc9bfb9682b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a7bd7c713108f7b087076fdc9bfb9682b">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a755f79770a0fbc3283e3eb32e758c664">iaVector4f</a> &amp;vec)</td></tr>
+<tr class="memitem:a7bd7c713108f7b087076fdc9bfb9682b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a7bd7c713108f7b087076fdc9bfb9682b">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a755f79770a0fbc3283e3eb32e758c664">iaVector4f</a> &amp;vec)</td></tr>
 <tr class="separator:a7bd7c713108f7b087076fdc9bfb9682b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addaed4c3dcac50847a1fc8cfdf589fcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#addaed4c3dcac50847a1fc8cfdf589fcb">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a755f79770a0fbc3283e3eb32e758c664">iaVector4f</a> &amp;vec)</td></tr>
+<tr class="memitem:addaed4c3dcac50847a1fc8cfdf589fcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#addaed4c3dcac50847a1fc8cfdf589fcb">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a755f79770a0fbc3283e3eb32e758c664">iaVector4f</a> &amp;vec)</td></tr>
 <tr class="separator:addaed4c3dcac50847a1fc8cfdf589fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49e5d25a9778b296f8446b1abb163d35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a49e5d25a9778b296f8446b1abb163d35">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a112b7231bf9b60e4fbc30db6517b249b">iaQuaternionf</a> &amp;vec)</td></tr>
+<tr class="memitem:a49e5d25a9778b296f8446b1abb163d35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a49e5d25a9778b296f8446b1abb163d35">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a112b7231bf9b60e4fbc30db6517b249b">iaQuaternionf</a> &amp;vec)</td></tr>
 <tr class="separator:a49e5d25a9778b296f8446b1abb163d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a672c860166ae6acb8c4185a11f35c6dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a672c860166ae6acb8c4185a11f35c6dc">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a112b7231bf9b60e4fbc30db6517b249b">iaQuaternionf</a> &amp;vec)</td></tr>
+<tr class="memitem:a672c860166ae6acb8c4185a11f35c6dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a672c860166ae6acb8c4185a11f35c6dc">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a112b7231bf9b60e4fbc30db6517b249b">iaQuaternionf</a> &amp;vec)</td></tr>
 <tr class="separator:a672c860166ae6acb8c4185a11f35c6dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00b28bb5ff201c7b670cde2e46e31e36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a00b28bb5ff201c7b670cde2e46e31e36">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a16943652861e9f2686bf27d83dfe2e82">iaVector2d</a> &amp;vec)</td></tr>
+<tr class="memitem:a00b28bb5ff201c7b670cde2e46e31e36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a00b28bb5ff201c7b670cde2e46e31e36">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a16943652861e9f2686bf27d83dfe2e82">iaVector2d</a> &amp;vec)</td></tr>
 <tr class="separator:a00b28bb5ff201c7b670cde2e46e31e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b707d772453c0775dfc0078253c2cc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a3b707d772453c0775dfc0078253c2cc3">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a16943652861e9f2686bf27d83dfe2e82">iaVector2d</a> &amp;vec)</td></tr>
+<tr class="memitem:a3b707d772453c0775dfc0078253c2cc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a3b707d772453c0775dfc0078253c2cc3">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a16943652861e9f2686bf27d83dfe2e82">iaVector2d</a> &amp;vec)</td></tr>
 <tr class="separator:a3b707d772453c0775dfc0078253c2cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38acd0d45addc781b8b3f98e0ac903a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a38acd0d45addc781b8b3f98e0ac903a9">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;vec)</td></tr>
+<tr class="memitem:a38acd0d45addc781b8b3f98e0ac903a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a38acd0d45addc781b8b3f98e0ac903a9">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;vec)</td></tr>
 <tr class="separator:a38acd0d45addc781b8b3f98e0ac903a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b08c6cf4ae7b879dfd7b3b914f07fb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a3b08c6cf4ae7b879dfd7b3b914f07fb0">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;vec)</td></tr>
+<tr class="memitem:a3b08c6cf4ae7b879dfd7b3b914f07fb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a3b08c6cf4ae7b879dfd7b3b914f07fb0">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> &amp;vec)</td></tr>
 <tr class="separator:a3b08c6cf4ae7b879dfd7b3b914f07fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2597a30f19d31c3c3ef7996649a75a95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2597a30f19d31c3c3ef7996649a75a95">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#aad5f03640ee7c6023751d38db967f5b2">iaVector4d</a> &amp;vec)</td></tr>
+<tr class="memitem:a2597a30f19d31c3c3ef7996649a75a95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2597a30f19d31c3c3ef7996649a75a95">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#aad5f03640ee7c6023751d38db967f5b2">iaVector4d</a> &amp;vec)</td></tr>
 <tr class="separator:a2597a30f19d31c3c3ef7996649a75a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4aaa6e00750610f247cebe30fc3d0ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ae4aaa6e00750610f247cebe30fc3d0ae">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#aad5f03640ee7c6023751d38db967f5b2">iaVector4d</a> &amp;vec)</td></tr>
+<tr class="memitem:ae4aaa6e00750610f247cebe30fc3d0ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ae4aaa6e00750610f247cebe30fc3d0ae">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#aad5f03640ee7c6023751d38db967f5b2">iaVector4d</a> &amp;vec)</td></tr>
 <tr class="separator:ae4aaa6e00750610f247cebe30fc3d0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c2b6a7ea2c1950eb8bf06b0a602a0c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2c2b6a7ea2c1950eb8bf06b0a602a0c1">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ac78973c3fff5f55e1d6f6ddfed912ae7">iaQuaterniond</a> &amp;vec)</td></tr>
+<tr class="memitem:a2c2b6a7ea2c1950eb8bf06b0a602a0c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2c2b6a7ea2c1950eb8bf06b0a602a0c1">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ac78973c3fff5f55e1d6f6ddfed912ae7">iaQuaterniond</a> &amp;vec)</td></tr>
 <tr class="separator:a2c2b6a7ea2c1950eb8bf06b0a602a0c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61f1dceec7fe1b3721b3a844b8ae8a41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a61f1dceec7fe1b3721b3a844b8ae8a41">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ac78973c3fff5f55e1d6f6ddfed912ae7">iaQuaterniond</a> &amp;vec)</td></tr>
+<tr class="memitem:a61f1dceec7fe1b3721b3a844b8ae8a41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a61f1dceec7fe1b3721b3a844b8ae8a41">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ac78973c3fff5f55e1d6f6ddfed912ae7">iaQuaterniond</a> &amp;vec)</td></tr>
 <tr class="separator:a61f1dceec7fe1b3721b3a844b8ae8a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0f4497e14b449f31709a446641b6f24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab0f4497e14b449f31709a446641b6f24">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;color)</td></tr>
+<tr class="memitem:ab0f4497e14b449f31709a446641b6f24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab0f4497e14b449f31709a446641b6f24">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;color)</td></tr>
 <tr class="separator:ab0f4497e14b449f31709a446641b6f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2df0b1e65e28773c9150fc2722f838ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2df0b1e65e28773c9150fc2722f838ff">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;color)</td></tr>
+<tr class="memitem:a2df0b1e65e28773c9150fc2722f838ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a2df0b1e65e28773c9150fc2722f838ff">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#ac68cb51f2f814fc1db9d4214a54fdc9f">iaColor3f</a> &amp;color)</td></tr>
 <tr class="separator:a2df0b1e65e28773c9150fc2722f838ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8100009522dfb748a316d031e3fafb29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a8100009522dfb748a316d031e3fafb29">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> &amp;color)</td></tr>
+<tr class="memitem:a8100009522dfb748a316d031e3fafb29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a8100009522dfb748a316d031e3fafb29">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> &amp;color)</td></tr>
 <tr class="separator:a8100009522dfb748a316d031e3fafb29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab07ef182f0a9cee26364f5aa4a887b19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab07ef182f0a9cee26364f5aa4a887b19">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> &amp;color)</td></tr>
+<tr class="memitem:ab07ef182f0a9cee26364f5aa4a887b19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab07ef182f0a9cee26364f5aa4a887b19">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a> &amp;color)</td></tr>
 <tr class="separator:ab07ef182f0a9cee26364f5aa4a887b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1608c4b709ab0f7bbb8138e1d3080d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a1608c4b709ab0f7bbb8138e1d3080d7b">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#abbc91a75b9686202fb24625894ce02e8">iaRectanglef</a> &amp;rect)</td></tr>
+<tr class="memitem:a1608c4b709ab0f7bbb8138e1d3080d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a1608c4b709ab0f7bbb8138e1d3080d7b">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#abbc91a75b9686202fb24625894ce02e8">iaRectanglef</a> &amp;rect)</td></tr>
 <tr class="separator:a1608c4b709ab0f7bbb8138e1d3080d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab83e3be980d14763a7a73349f48009ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab83e3be980d14763a7a73349f48009ee">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#abbc91a75b9686202fb24625894ce02e8">iaRectanglef</a> &amp;rect)</td></tr>
+<tr class="memitem:ab83e3be980d14763a7a73349f48009ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab83e3be980d14763a7a73349f48009ee">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#abbc91a75b9686202fb24625894ce02e8">iaRectanglef</a> &amp;rect)</td></tr>
 <tr class="separator:ab83e3be980d14763a7a73349f48009ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfe1b318b0877cd1498fa33894f3afbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#abfe1b318b0877cd1498fa33894f3afbd">to_json</a> (<a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a9d83b8c1fdd28f476c9189cdd3e030b7">iaRectangled</a> &amp;rect)</td></tr>
+<tr class="memitem:abfe1b318b0877cd1498fa33894f3afbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#abfe1b318b0877cd1498fa33894f3afbd">to_json</a> (<a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, const <a class="el" href="namespaceiaux.html#a9d83b8c1fdd28f476c9189cdd3e030b7">iaRectangled</a> &amp;rect)</td></tr>
 <tr class="separator:abfe1b318b0877cd1498fa33894f3afbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a415983a446689e0bc48c127100613cbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a415983a446689e0bc48c127100613cbd">from_json</a> (const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a9d83b8c1fdd28f476c9189cdd3e030b7">iaRectangled</a> &amp;rect)</td></tr>
+<tr class="memitem:a415983a446689e0bc48c127100613cbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a415983a446689e0bc48c127100613cbd">from_json</a> (const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;j, <a class="el" href="namespaceiaux.html#a9d83b8c1fdd28f476c9189cdd3e030b7">iaRectangled</a> &amp;rect)</td></tr>
 <tr class="separator:a415983a446689e0bc48c127100613cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -1343,6 +1349,33 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVE
 
 </div>
 </div>
+<a id="abdb03e02df33a0c092d0d4878fc170d1" name="abdb03e02df33a0c092d0d4878fc170d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdb03e02df33a0c092d0d4878fc170d1">&#9670;&nbsp;</a></span>iaExecuteType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1">iaux::iaExecuteType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >when to execute a delegate </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abdb03e02df33a0c092d0d4878fc170d1afd83e0ccb3e6312a62f888dd496dd0a5" name="abdb03e02df33a0c092d0d4878fc170d1afd83e0ccb3e6312a62f888dd496dd0a5"></a>Immediately&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abdb03e02df33a0c092d0d4878fc170d1a97b313021e7406bbedff6b43c98e7a92" name="abdb03e02df33a0c092d0d4878fc170d1a97b313021e7406bbedff6b43c98e7a92"></a>NextFrameMainThread&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a5db3a03d362f3a8606d971b88e0d0a2c" name="a5db3a03d362f3a8606d971b88e0d0a2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5db3a03d362f3a8606d971b88e0d0a2c">&#9670;&nbsp;</a></span>iaFileOpenMode</h2>
 
@@ -1721,7 +1754,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1750,7 +1783,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1779,7 +1812,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1808,7 +1841,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1837,7 +1870,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1866,7 +1899,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1895,7 +1928,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1924,7 +1957,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1953,7 +1986,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -1982,7 +2015,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -2011,7 +2044,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -2040,7 +2073,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -2069,7 +2102,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -2098,7 +2131,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::from_json </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -2701,45 +2734,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a65efa8656a3fa912d57d9f269918f1da" name="a65efa8656a3fa912d57d9f269918f1da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65efa8656a3fa912d57d9f269918f1da">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[6/14]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">IAUX_API std::wostream &amp; iaux::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::wostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &amp;&#160;</td>
-          <td class="paramname"><em>dir</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >stream operator</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>the destination </td></tr>
-    <tr><td class="paramname">dir</td><td>the directory to stream </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>the resulting stream </dd></dl>
-
-</div>
-</div>
 <a id="a34bca877062d63171cbb00feb8b4ebd8" name="a34bca877062d63171cbb00feb8b4ebd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34bca877062d63171cbb00feb8b4ebd8">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[7/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34bca877062d63171cbb00feb8b4ebd8">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[6/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2776,7 +2772,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a8c286b903f78dd850081bf730ef493cd" name="a8c286b903f78dd850081bf730ef493cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c286b903f78dd850081bf730ef493cd">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[8/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c286b903f78dd850081bf730ef493cd">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[7/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2813,7 +2809,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a7c4239d9191c86540932f951bd6749c8" name="a7c4239d9191c86540932f951bd6749c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c4239d9191c86540932f951bd6749c8">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[9/14]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c4239d9191c86540932f951bd6749c8">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[8/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2844,6 +2840,43 @@ template&lt;class T &gt; </div>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the destination </td></tr>
     <tr><td class="paramname">m</td><td>the matrix to stream </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the resulting stream </dd></dl>
+
+</div>
+</div>
+<a id="a684264407ac98d541b9e0e953b7b7630" name="a684264407ac98d541b9e0e953b7b7630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a684264407ac98d541b9e0e953b7b7630">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[9/14]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">IAUX_API std::wostream &amp; iaux::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::wostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_path.html">iaPath</a> &amp;&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >stream operator</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>the destination </td></tr>
+    <tr><td class="paramname">dir</td><td>the directory to stream </td></tr>
   </table>
   </dd>
 </dl>
@@ -3178,7 +3211,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3207,7 +3240,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3236,7 +3269,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3265,7 +3298,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3294,7 +3327,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3323,7 +3356,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3352,7 +3385,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3381,7 +3414,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3410,7 +3443,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3439,7 +3472,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3468,7 +3501,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3497,7 +3530,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3526,7 +3559,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3555,7 +3588,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void iaux::to_json </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="i_json_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="i_json_util_8h.html#ab701e3ac61a85b337ec5c1abaad6742d">json</a> &amp;&#160;</td>
           <td class="paramname"><em>j</em>, </td>
         </tr>
         <tr>
@@ -3572,6 +3605,31 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 <p >iaVector4f to json </p>
+
+</div>
+</div>
+<a id="a8853c47557fc31b00fc5a84e1d5a8c2c" name="a8853c47557fc31b00fc5a84e1d5a8c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8853c47557fc31b00fc5a84e1d5a8c2c">&#9670;&nbsp;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_string.html">iaString</a> IAUX_API iaux::toString </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c">iaFileOpenMode</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>name of given enum value </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>the given value </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

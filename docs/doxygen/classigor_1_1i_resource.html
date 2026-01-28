@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_resource.html',''); ini
 
 <p><code>#include &lt;iResource.h&gt;</code></p>
 
-<p>Inherited by <a class="el" href="classigor_1_1i_animation.html">igor::iAnimation</a>, <a class="el" href="classigor_1_1i_material.html">igor::iMaterial</a>, <a class="el" href="classigor_1_1i_model.html">igor::iModel</a>, <a class="el" href="classigor_1_1i_prefab.html">igor::iPrefab</a>, <a class="el" href="classigor_1_1i_shader.html">igor::iShader</a>, <a class="el" href="classigor_1_1i_sound.html">igor::iSound</a>, <a class="el" href="classigor_1_1i_sprite.html">igor::iSprite</a>, and <a class="el" href="classigor_1_1i_texture.html">igor::iTexture</a>.</p>
+<p>Inherited by <a class="el" href="classigor_1_1i_animation.html">igor::iAnimation</a>, <a class="el" href="classigor_1_1i_material.html">igor::iMaterial</a>, <a class="el" href="classigor_1_1i_model.html">igor::iModel</a>, <a class="el" href="classigor_1_1i_prefab.html">igor::iPrefab</a>, <a class="el" href="classigor_1_1i_script.html">igor::iScript</a>, <a class="el" href="classigor_1_1i_shader.html">igor::iShader</a>, <a class="el" href="classigor_1_1i_sound.html">igor::iSound</a>, <a class="el" href="classigor_1_1i_sprite.html">igor::iSprite</a>, and <a class="el" href="classigor_1_1i_texture.html">igor::iTexture</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -111,6 +111,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5fd30abaa7a9bff395a005d8d073959e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20e6b532625188a6a74a81d6d55f8559"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a20e6b532625188a6a74a81d6d55f8559">getSource</a> () const</td></tr>
 <tr class="separator:a20e6b532625188a6a74a81d6d55f8559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0751b849fcd932d1dd5a160b8ae030d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#aa0751b849fcd932d1dd5a160b8ae030d">hasSource</a> () const</td></tr>
+<tr class="separator:aa0751b849fcd932d1dd5a160b8ae030d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae742a9fa7266c9f6f989c66d462e900e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#ae742a9fa7266c9f6f989c66d462e900e">getInfo</a> () const</td></tr>
 <tr class="separator:ae742a9fa7266c9f6f989c66d462e900e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3d2b460b9f732c3103a4ff5082b662"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_resource.html#a6a3d2b460b9f732c3103a4ff5082b662">getID</a> () const</td></tr>
@@ -380,6 +382,24 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the resource type </dd></dl>
+
+</div>
+</div>
+<a id="aa0751b849fcd932d1dd5a160b8ae030d" name="aa0751b849fcd932d1dd5a160b8ae030d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0751b849fcd932d1dd5a160b8ae030d">&#9670;&nbsp;</a></span>hasSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iResource::hasSource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if the resources has a file source </dd></dl>
 
 </div>
 </div>

@@ -1,7 +1,6 @@
 var functions_rela =
 [
     [ "a", "functions_rela.html", null ],
-    [ "af", "functions_rela_a.html", null ],
     [ "an", "functions_rela_a.html", null ],
     [ "ap", "functions_rela_a.html", null ],
     [ "as", "functions_rela_a.html", null ],
@@ -37,6 +36,7 @@ var functions_rela =
     [ "t", "functions_rela_t.html", null ],
     [ "ta", "functions_rela_t.html", null ],
     [ "te", "functions_rela_t.html", null ],
+    [ "th", "functions_rela_t.html", null ],
     [ "ti", "functions_rela_t.html", null ],
     [ "tr", "functions_rela_t.html", null ],
     [ "u", "functions_rela_u.html", null ],

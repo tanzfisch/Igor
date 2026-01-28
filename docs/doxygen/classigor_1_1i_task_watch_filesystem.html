@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -136,10 +136,10 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa1b949c72ee9f87d16c2e4972140f8fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_watch_filesystem.html#aa1b949c72ee9f87d16c2e4972140f8fc">run</a> () override</td></tr>
 <tr class="separator:aa1b949c72ee9f87d16c2e4972140f8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7d07e60515e00b8e8dae80cc8531023"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_watch_filesystem.html#ae7d07e60515e00b8e8dae80cc8531023">watchDir</a> (const <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &amp;dir)</td></tr>
-<tr class="separator:ae7d07e60515e00b8e8dae80cc8531023"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d7cda2d3ea3e69bd9cfbfff8a5bcc79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_watch_filesystem.html#a3d7cda2d3ea3e69bd9cfbfff8a5bcc79">onWatchDir</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;dir)</td></tr>
-<tr class="separator:a3d7cda2d3ea3e69bd9cfbfff8a5bcc79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04ef42790229993565e039bf2ed0bdbb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_watch_filesystem.html#a04ef42790229993565e039bf2ed0bdbb">watchDir</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path)</td></tr>
+<tr class="separator:a04ef42790229993565e039bf2ed0bdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25e1da550b8d759ef8a638bdfb6d2d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task_watch_filesystem.html#aa25e1da550b8d759ef8a638bdfb6d2d5">unwatchDir</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path)</td></tr>
+<tr class="separator:aa25e1da550b8d759ef8a638bdfb6d2d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classigor_1_1i_task"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classigor_1_1i_task')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classigor_1_1i_task.html">igor::iTask</a></td></tr>
 <tr class="memitem:a2fe15afa74096ff01019d5b772dd87ac inherit pro_methods_classigor_1_1i_task"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_task.html#a2fe15afa74096ff01019d5b772dd87ac">setRepeating</a> (bool repeat)</td></tr>
 <tr class="separator:a2fe15afa74096ff01019d5b772dd87ac inherit pro_methods_classigor_1_1i_task"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -267,40 +267,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a3d7cda2d3ea3e69bd9cfbfff8a5bcc79" name="a3d7cda2d3ea3e69bd9cfbfff8a5bcc79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d7cda2d3ea3e69bd9cfbfff8a5bcc79">&#9670;&nbsp;</a></span>onWatchDir()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iTaskWatchFilesystem::onWatchDir </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>dir</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >handle created directory event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>the created directory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if successful </dd></dl>
-
-</div>
-</div>
 <a id="aa1b949c72ee9f87d16c2e4972140f8fc" name="aa1b949c72ee9f87d16c2e4972140f8fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1b949c72ee9f87d16c2e4972140f8fc">&#9670;&nbsp;</a></span>run()</h2>
 
@@ -329,8 +295,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae7d07e60515e00b8e8dae80cc8531023" name="ae7d07e60515e00b8e8dae80cc8531023"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7d07e60515e00b8e8dae80cc8531023">&#9670;&nbsp;</a></span>watchDir()</h2>
+<a id="aa25e1da550b8d759ef8a638bdfb6d2d5" name="aa25e1da550b8d759ef8a638bdfb6d2d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25e1da550b8d759ef8a638bdfb6d2d5">&#9670;&nbsp;</a></span>unwatchDir()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,10 +305,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int igor::iTaskWatchFilesystem::watchDir </td>
+          <td class="memname">void igor::iTaskWatchFilesystem::unwatchDir </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_directory.html">iaDirectory</a> &amp;&#160;</td>
-          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -352,13 +318,47 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p >watch given directory for changes</p>
+<p >stop watching given path</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dir</td><td>the given directory </td></tr>
+    <tr><td class="paramname">path</td><td>given path to stop watching </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a04ef42790229993565e039bf2ed0bdbb" name="a04ef42790229993565e039bf2ed0bdbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ef42790229993565e039bf2ed0bdbb">&#9670;&nbsp;</a></span>watchDir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool igor::iTaskWatchFilesystem::watchDir </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >handle created directory event</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>the created directory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if successful </dd></dl>
 
 </div>
 </div>

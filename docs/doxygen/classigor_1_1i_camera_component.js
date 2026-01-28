@@ -1,7 +1,7 @@
 var classigor_1_1i_camera_component =
 [
     [ "iCameraComponent", "classigor_1_1i_camera_component.html#a59f82cf749fe2497f5e5d28e0d7eb9f2", null ],
-    [ "createInstance", "classigor_1_1i_camera_component.html#a457fc3dca57013918c12315c773e2bac", null ],
+    [ "createInstance", "classigor_1_1i_camera_component.html#a2851c47b0fef56d9d4d11066a5ecf84c", null ],
     [ "getBottomOrtho", "classigor_1_1i_camera_component.html#ad6cebccdc36f6bbe29dcff5fbd227365", null ],
     [ "getClearColor", "classigor_1_1i_camera_component.html#a5101ef7f78f547b7eb5ab198a6aa68f6", null ],
     [ "getClearDepth", "classigor_1_1i_camera_component.html#ad6e512612283d6fa042d39c38544e1b7", null ],
@@ -10,6 +10,7 @@ var classigor_1_1i_camera_component =
     [ "getInfo", "classigor_1_1i_camera_component.html#accd860220beef8cfa5da08240d74fdd4", null ],
     [ "getLeftOrtho", "classigor_1_1i_camera_component.html#ad6bded704452144acce37acfd97f6639", null ],
     [ "getNearPlane", "classigor_1_1i_camera_component.html#aea5564e324f5678b25375c63389cc11d", null ],
+    [ "getOffset", "classigor_1_1i_camera_component.html#a6817499ece89e53c2735597281c2f2c1", null ],
     [ "getProjectionType", "classigor_1_1i_camera_component.html#ac0c711a2e8bacefc9a8a6fac1e3014c4", null ],
     [ "getRightOrtho", "classigor_1_1i_camera_component.html#ac5467f72ea9a414507cb68804676dc53", null ],
     [ "getTopOrtho", "classigor_1_1i_camera_component.html#ada595fe4401784f39965855befe254d0", null ],
@@ -23,6 +24,7 @@ var classigor_1_1i_camera_component =
     [ "setClearDepth", "classigor_1_1i_camera_component.html#aefdeea4f2fc1424853bef58a3d342b02", null ],
     [ "setClearDepthActive", "classigor_1_1i_camera_component.html#a32bd35c892ec3e682b3aee1fba9f2cde", null ],
     [ "setClipPlanes", "classigor_1_1i_camera_component.html#a840179f4b8d5dfa2515f1a00a25894ec", null ],
+    [ "setOffset", "classigor_1_1i_camera_component.html#a4da0aa75a9bf1b349461b542fbbd03de", null ],
     [ "setOrthogonal", "classigor_1_1i_camera_component.html#af59c5c82530b1071af6e44599824acea", null ],
     [ "setPerspective", "classigor_1_1i_camera_component.html#ab0e6c275749063a25fdfdfe266e967cb", null ],
     [ "setViewportRelative", "classigor_1_1i_camera_component.html#a047d2a3813c444b057587e41030a454f", null ]

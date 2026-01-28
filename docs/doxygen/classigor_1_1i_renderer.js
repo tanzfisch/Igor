@@ -111,6 +111,7 @@ var classigor_1_1i_renderer =
     [ "isIgnoringRenderOrder", "classigor_1_1i_renderer.html#adeed10b3e778bc96e3bc4a61b27eb661", null ],
     [ "isStencilTestActive", "classigor_1_1i_renderer.html#ad3514933ded44447a0925f34e877ba08", null ],
     [ "isWireframeEnabled", "classigor_1_1i_renderer.html#a87c661606842cd492bff50628f841a34", null ],
+    [ "printDebugInfo", "classigor_1_1i_renderer.html#a142aa2fb498915d2dcb18365b99ae7e2", null ],
     [ "project", "classigor_1_1i_renderer.html#a76dd28ba6074a166857740dc0705857f", null ],
     [ "readPixels", "classigor_1_1i_renderer.html#ad0c6395454d7a938113aeb648eecd2f5", null ],
     [ "setColor", "classigor_1_1i_renderer.html#ab7044798787b2eca3ba7d2c44d237707", null ],
