@@ -1,12 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UpgradeDialog.h"
 
 UpgradeDialog::UpgradeDialog(const iWidgetPtr parent)
 {
-	initGUI();
+	onInitUI();
 }
 
 void UpgradeDialog::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<UpgradeConfiguration> &upgrades)
@@ -48,7 +48,7 @@ void UpgradeDialog::updateGUI()
 	_button3->setBackgroundTexture(config3._icon);
 }
 
-void UpgradeDialog::initGUI()
+void UpgradeDialog::onInitUI()
 {
 	setMinWidth(500);
 	setMinHeight(100);

@@ -1,11 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaFile.h>
 
 #include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 
 #include <filesystem>
 
@@ -75,7 +75,7 @@ namespace iaux
         _mode = mode;
 
         // if it does not exist and we don't want to write it abort
-        if (!exists() && !isWriteable(_mode))
+        if (!iaPath::exists(_filename) && !isWriteable(_mode))
         {
             return false;
         }
@@ -90,161 +90,34 @@ namespace iaux
         return true;
     }
 
-    void iaFile::rename(const iaString &newFileName, bool replaceExisting)
-    {
-        std::filesystem::path oldPath(_filename.getData());
-        std::filesystem::path newPath(newFileName.getData());
-
-        std::error_code error;
-        std::filesystem::rename(oldPath, newPath, error);
-
-        if (error)
-        {
-            con_err("cant rename file: " << getFullFileName() << " to: " << newFileName);
-        }
-    }
-
-    iaFile iaFile::copy(const iaString &newFileName) const
-    {
-        std::filesystem::path fromPath(_filename.getData());
-        std::filesystem::path toPath(newFileName.getData());
-
-        std::error_code error;
-        std::filesystem::copy(fromPath, toPath, error);
-
-        if (error)
-        {
-            con_err("cant copy file: " << getFullFileName() << " to: " << newFileName);
-        }
-
-        return iaFile(newFileName);
-    }
-
-    bool iaFile::exists() const
-    {
-        return iaFile::exists(getFullFileName());
-    }
-
-    iaString iaFile::generateUniqueFilename(const iaString &filename)
-    {
-        const iaFile file(filename);
-        const iaString extension = file.getExtension();
-        const iaString stem = file.getStem();
-        const iaString path = file.getPath();
-
-        auto result = filename;
-
-        int index = 1;
-        while (exists(result)) {
-            result = path + stem + iaString::toString(index) + '.' + extension;
-            ++index;
-        }
-
-        return result;
-    }
-
-    bool iaFile::exists(const iaString &filename)
-    {
-        if (filename.isEmpty())
-        {
-            return false;
-        }
-
-        std::filesystem::path path(filename.getData());
-        if(!std::filesystem::is_directory(path) && std::filesystem::exists(path))
-        {
-            return true;
-        }
-
-        const iaString fullDir = iaDirectory::getCurrentDirectory() + IGOR_PATHSEPARATOR + filename;
-
-        std::filesystem::path fspath2(fullDir.getData());
-        return !std::filesystem::is_directory(fspath2) && std::filesystem::exists(fspath2);
-    }
-
-    bool iaFile::remove(const iaString &filename)
-    {
-        if (!exists(filename))
-        {
-            return false;
-        }
-
-        return std::filesystem::remove(filename.getData());
-    }
-
     iaTime iaFile::getLastModifiedTime() const
     {
-        return getLastModifiedTime(getFullFileName());
+        return iaPath::getLastModifiedTime(_filename);
     }
 
-    iaTime iaFile::getLastModifiedTime(const iaString &filename)
-    {
-        const auto lastModifiedTime = std::filesystem::last_write_time(filename.getData());
-        const auto duration = lastModifiedTime.time_since_epoch();
-        const int64 ms = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
-
-        return iaTime::fromMicroseconds(ms);
-    }
-
-    iaString iaFile::getPath() const
-    {
-        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
-
-        if (pos != iaString::INVALID_POSITION)
-        {
-            return _filename.getSubString(0, pos + 1);
-        }
-        else
-        {
-            return _filename;
-        }
-    }
-
-    iaString iaFile::getFileName() const
-    {
-        int64 pos = _filename.findLastOf(IGOR_PATHSEPARATOR);
-
-        if (pos != iaString::INVALID_POSITION)
-        {
-            return _filename.getSubString(pos + 1, iaString::INVALID_POSITION);
-        }
-        else
-        {
-            return "";
-        }
-    }
-
-    iaString iaFile::getStem() const
-    {
-        iaString stem = getFileName();
-
-        int64 pos = stem.findLastOf('.');
-
-        if (pos != iaString::INVALID_POSITION &&
-            pos > 0)
-        {
-            return stem.getSubString(0, pos);
-        }
-
-        return stem;
-    }
-
-    iaString iaFile::getFullFileName() const
+    const iaString iaFile::getFullFileName() const
     {
         return _filename;
     }
 
-    iaString iaFile::getExtension() const
+    const iaString iaFile::getParentPath() const
     {
-        int64 pos = _filename.findLastOf('.');
+        return iaPath::getParentPath(_filename);
+    }
 
-        if (pos != iaString::INVALID_POSITION &&
-            pos < _filename.getLength())
-        {
-            return _filename.getSubString(pos + 1, iaString::INVALID_POSITION);
-        }
+    const iaString iaFile::getName() const
+    {
+        return iaPath::getName(_filename);
+    }
 
-        return "";
+    const iaString iaFile::getStem() const
+    {
+        return iaPath::getStem(_filename);
+    }
+
+    const iaString iaFile::getExtension() const
+    {
+        return iaPath::getExtension(_filename);
     }
 
     void iaFile::close()
@@ -377,15 +250,19 @@ namespace iaux
         return true;
     }
 
-    std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode)
+    iaString toString(const iaFileOpenMode &value)
     {
-        const static std::wstring text[] = {
+        const static iaString text[] = {
             L"read",
             L"write",
             L"read&write"};
 
-        stream << text[static_cast<int>(mode)];
+        return text[static_cast<int>(value)];
+    }
 
+    std::wostream &operator<<(std::wostream &stream, const iaFileOpenMode &mode)
+    {
+        stream << toString(mode);
         return stream;
     }
 

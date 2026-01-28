@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResource.h>
@@ -16,8 +16,8 @@ namespace igor
         // if there is no id specified we need a new one
         if (!_id.isValid())
         {
-            const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
-            if(generate)
+            const bool generate = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+            if (generate)
             {
                 _id = iaUUID::getMarked();
             }
@@ -27,30 +27,30 @@ namespace igor
             }
         }
 
-        _alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-        _source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+        _alias = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+        _source = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
 
-        _type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE);
-        _cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
-        _quiet = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
+        _type = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE);
+        _cacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
+        _quiet = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_QUIET, false);
     }
 
     bool iResource::extractID(const iParameters &parameters, iResourceID &id)
     {
-        id = parameters.getParameter<iResourceID>("id", IGOR_INVALID_ID);
+        id = parameters.getParameterValue<iResourceID>("id", IGOR_INVALID_ID);
         if (id.isValid())
         {
             return true;
         }
 
-        const iaString alias = parameters.getParameter<iaString>("alias", "");
+        const iaString alias = parameters.getParameterValue<iaString>("alias", "");
         id = iResourceManager::getInstance().getResourceID(alias);
         if (id.isValid())
         {
             return true;
         }
 
-        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+        const iaString filename = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         if (!filename.isEmpty())
         {
             // if there is no id but a file name make sure the id is based on the filename
@@ -58,7 +58,7 @@ namespace igor
             return true;
         }
 
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        const bool generate = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             // no id expected
@@ -112,6 +112,12 @@ namespace igor
     const iaString &iResource::getSource() const
     {
         return _source;
+    }
+
+    bool iResource::hasSource() const
+    {
+        const auto path = iResourceManager::getInstance().resolvePath(getSource());
+        return iaPath::exists(path);
     }
 
     iResourceCacheMode iResource::getCacheMode() const

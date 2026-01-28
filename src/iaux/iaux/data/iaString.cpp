@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header stream
 
 #include <iaux/data/iaString.h>
@@ -1456,6 +1456,22 @@ namespace iaux
         std::wregex star_replace(L"\\*");
         std::wregex questionmark_replace(L"\\?");
         return iaString(std::regex_replace(std::regex_replace(regexStr, star_replace, L".*"), questionmark_replace, L".").c_str());
+    }
+
+    std::string iaString::toStdString(const iaString &text)
+    {
+        const wchar_t *wideData = text.getData();
+        int64 charCount = text.getLength();
+
+        std::string result;
+        result.reserve(charCount);
+
+        for (int64 i = 0; i < charCount; ++i)
+        {
+            result += static_cast<char>(wideData[i]);
+        }
+
+        return result;
     }
 
 } // namespace iaux

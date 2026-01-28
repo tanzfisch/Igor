@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -165,10 +165,12 @@ namespace igor
         iUserControlTexture,
         iUserControlSprite,
         iUserControlMaterial,
-        iUserControlShaderMaterial,
+        iUserControlShader,
         iUserControlTreeView,
         iUserControlVector,
         iUserControlMeshReference,
+        iUserControlScript,
+        iUserControlParameter,
 
         iDialog,
         iDialogColorChooser,
@@ -176,7 +178,7 @@ namespace igor
         iDialogDecisionBox,
         iDialogFileSelect,
         iDialogGraph,
-        iDialogIndexMenu,
+        iDialogDropDownMenu,
         iDialogMenu,
         iDialogMessageBox
     };
@@ -506,10 +508,6 @@ namespace igor
          */
         iaString getInfo() const;
 
-        /*! \returns the widget that is currently in focus
-         */
-        static iWidgetPtr getKeyboardFocusWidget();
-
         /*! sets the tooltip text
 
         \param text the tooltip text
@@ -529,6 +527,14 @@ namespace igor
         This can mean different things for different derivatives of iWidget
          */
         virtual void clear();
+
+        /*! resets values on given widget
+
+        This can mean different things for different derivatives of iWidget
+
+        (usefull when reusing an existing dialog/widget)
+        */
+        virtual void reset();
 
         /*! sets wether or not this widget ignores if a child already consumed an event
 
@@ -841,7 +847,7 @@ namespace igor
 
         \param event the event
         */
-        virtual bool onEvent(iEvent &event);
+        virtual bool onEvent(const iEvent &event);
 
         /*! handles incoming mouse wheel event
 

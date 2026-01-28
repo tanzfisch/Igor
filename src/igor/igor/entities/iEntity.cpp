@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
@@ -305,35 +305,46 @@ namespace igor
         return _name;
     }
 
-    void iEntity::addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority)
+    void iEntity::addScript(const iScriptPtr script)
     {
-        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
-        if (behaviourComponent == nullptr)
+        iScriptComponent *scriptComponent = getComponent<iScriptComponent>();
+        if (scriptComponent == nullptr)
         {
-            behaviourComponent = static_cast<iBehaviourComponent *>(addComponent(new iBehaviourComponent()));
+            scriptComponent = static_cast<iScriptComponent *>(addComponent(new iScriptComponent()));
         }
 
-        behaviourComponent->addBehaviour(delegate, userData, name, priority);
+        scriptComponent->addScript(script);
     }
 
-    void iEntity::removeBehaviour(const iBehaviourDelegate &delegate)
+    void iEntity::addScript(const iScriptDelegate &delegate)
     {
-        iBehaviourComponent *behaviourComponent = getComponent<iBehaviourComponent>();
-
-        if (behaviourComponent == nullptr)
+        iScriptComponent *scriptComponent = getComponent<iScriptComponent>();
+        if (scriptComponent == nullptr)
         {
-            con_err("no behaviour component available");
+            scriptComponent = static_cast<iScriptComponent *>(addComponent(new iScriptComponent()));
+        }
+
+        scriptComponent->addScript(delegate);
+    }
+
+    void iEntity::removeScript(const iScriptDelegate &delegate)
+    {
+        iScriptComponent *scriptComponent = getComponent<iScriptComponent>();
+
+        if (scriptComponent == nullptr)
+        {
+            con_err("no script component available");
             return;
         }
 
-        behaviourComponent->removeBehaviour(delegate);
+        scriptComponent->removeScript(delegate);
 
-        if (!behaviourComponent->getBehaviors().empty())
+        if (!scriptComponent->getScripts().empty())
         {
             return;
         }
 
-        destroyComponent<iBehaviourComponent>();
+        destroyComponent<iScriptComponent>();
     }
 
     iEntityScenePtr iEntity::getScene() const

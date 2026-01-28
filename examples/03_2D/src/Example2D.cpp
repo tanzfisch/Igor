@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "Example2D.h"
@@ -89,7 +89,7 @@ void Example2D::initMandelbrotTexture()
                 iterations++;
             }
 
-            pixmap->setPixelRGBA(x, y, 0xff, 0xff, 0xff, iterations * 2);
+            pixmap->setPixel(x, y, iaColor4c(0xff, 0xff, 0xff, iterations * 2));
         }
     }
 

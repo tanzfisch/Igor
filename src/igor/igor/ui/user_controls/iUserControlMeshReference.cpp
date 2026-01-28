@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlMeshReference.h>
@@ -21,14 +21,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlMeshReference::~iUserControlMeshReference()
     {
     }
 
-    void iUserControlMeshReference::initGUI()
+    void iUserControlMeshReference::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         // TODO thumbnail picture would be great

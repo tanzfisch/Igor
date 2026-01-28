@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -72,7 +72,7 @@ private:
 
     /*! init user interface
      */
-    void initGUI();
+    void onInitUI();
 
     /*! handles click in tree view
 
@@ -146,11 +146,15 @@ private:
 
     /*! called when project was loaded
      */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    void onProjectLoaded(const iaString &projectfile);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    void onProjectUnloaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectReloaded();
 
     /*! called when user want's to load a scene
      */
@@ -180,12 +184,6 @@ private:
     \param active if true this subscene will be displayed as active
     */
     void populateSubScenes(const std::vector<iEntityPtr> &children, bool active);
-
-    /*! handles incoming generic event
-
-    \param event the event
-    */
-    bool onEvent(iEvent &event) override;
 
     /*! handle selection change
      */

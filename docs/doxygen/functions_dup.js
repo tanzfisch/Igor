@@ -19,7 +19,6 @@ var functions_dup =
     [ "au", "functions_a.html", null ],
     [ "av", "functions_a.html", null ],
     [ "b", "functions_b.html", null ],
-    [ "be", "functions_b.html", null ],
     [ "bu", "functions_b.html", null ],
     [ "c", "functions_c.html", null ],
     [ "ca", "functions_c.html", null ],

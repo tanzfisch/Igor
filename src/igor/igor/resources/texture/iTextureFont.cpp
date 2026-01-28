@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureFont.h>
@@ -91,7 +91,7 @@ namespace igor
                     {
                         for (long pos_y = tex_y * offy; pos_y < tex_y * offy + offy; pos_y++)
                         {
-                            if (_pixmap->getPixel(pos_x, pos_y, borderchannel) > colorMaskThreshold)
+                            if (_pixmap->getPixelRGBA(pos_x, pos_y)[borderchannel] > colorMaskThreshold)
                             {
                                 if (!firstfound)
                                 {
@@ -115,7 +115,7 @@ namespace igor
                     {
                         for (long pos_y = tex_y * offy; pos_y < tex_y * offy + offy; pos_y++)
                         {
-                            if (_pixmap->getPixel(pos_x, pos_y, 3) != 0)
+                            if (_pixmap->getPixelRGBA(pos_x, pos_y)[3] != 0)
                             {
                                 if (!firstfound)
                                 {

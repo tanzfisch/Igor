@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iCircleComponent.h>
@@ -11,7 +11,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iCircleComponent::createInstance()
+    iEntityComponentPtr iCircleComponent::createInstance()
     {
         return new iCircleComponent();
     }    
@@ -40,13 +40,13 @@ namespace igor
     void iCircleComponent::setOffset(const iaVector2d &offset)
     {
         _offset = offset;
-        setDirty();
+        increaseVersion();
     }
 
     void iCircleComponent::setRadius(float64 radius)
     {
         _radius = radius;
-        setDirty();
+        increaseVersion();
     }
 
     iEntityComponentPtr iCircleComponent::getCopy()

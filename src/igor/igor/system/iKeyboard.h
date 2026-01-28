@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -62,10 +62,16 @@ namespace igor
 
         /*! returns key code
 
-		\param keycode key name
+		\param keyName key name
 		\return key code
 		*/
-        static iKeyCode getKeyCode(const iaString &keyname);
+        static iKeyCode getKeyCode(const iaString &keyName);
+
+        /*! \returns key name for given key code
+
+        \param keyCode given key code
+        */
+        static iaString getKeyName(iKeyCode keyCode);
 
         /*! \returns pointer to corresponding window
         if it returns nullptr the listener was not registered to a window yet

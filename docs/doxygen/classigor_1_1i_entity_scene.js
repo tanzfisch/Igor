@@ -19,7 +19,7 @@ var classigor_1_1i_entity_scene =
     [ "getCameras", "classigor_1_1i_entity_scene.html#a4187c7e87876dad5068a3f47eaa5c9cc", null ],
     [ "getEntities", "classigor_1_1i_entity_scene.html#a2c72ebd407748ce9b925e4cb97f497e6", null ],
     [ "getEntity", "classigor_1_1i_entity_scene.html#ae1aa365d2647ce909b6cfbb6e15f171b", null ],
-    [ "getEntitySelectionChangedEvent", "classigor_1_1i_entity_scene.html#a496abc3c75e2bf2804c25e4979ebf9ff", null ],
+    [ "getEntitySelectionChangeEvent", "classigor_1_1i_entity_scene.html#a95a01fc24eb91410226d33cceca9a7dd", null ],
     [ "getID", "classigor_1_1i_entity_scene.html#a521d6ab4f92f7d0cea18611939f5603b", null ],
     [ "getName", "classigor_1_1i_entity_scene.html#ae1e04194b5b7e97b92583384b74e89ae", null ],
     [ "getOctree", "classigor_1_1i_entity_scene.html#a0f2983188beed2571fe8091adf08d542", null ],

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -81,7 +81,8 @@ namespace igor
 	 */
 	enum class iEntitySystemStage
 	{
-		Update,	   // everything that can be done before render. might get called multiple times per render frame
+		Update,
+		System,	   // everything that can be done before render. might get called multiple times per render frame
 		PreRender, // called once before render
 		Render,	   // special cases that need to be run after camera was setup and actually do render things
 		StageCount

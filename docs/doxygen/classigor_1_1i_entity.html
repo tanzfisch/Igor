@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -150,10 +150,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6180bf13eb601914d5b78fbaaaef85cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a6180bf13eb601914d5b78fbaaaef85cf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#a6180bf13eb601914d5b78fbaaaef85cf">reloadComponent</a> ()</td></tr>
 <tr class="separator:a6180bf13eb601914d5b78fbaaaef85cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab38f143523bb15764a53ab1a3225bbc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#ab38f143523bb15764a53ab1a3225bbc8">addBehaviour</a> (const iBehaviourDelegate &amp;behaviour, const std::any &amp;userData=std::any(), const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;&quot;, <a class="el" href="ia_defines_8h.html#a33a5e996e7a90acefb8b1c0bea47e365">uint8</a> priority=100)</td></tr>
-<tr class="separator:ab38f143523bb15764a53ab1a3225bbc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46acdc86303f200d180e808bcdb5db51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#a46acdc86303f200d180e808bcdb5db51">removeBehaviour</a> (const iBehaviourDelegate &amp;behaviour)</td></tr>
-<tr class="separator:a46acdc86303f200d180e808bcdb5db51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20899dd8a3afe02aad272779e88e3d19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#a20899dd8a3afe02aad272779e88e3d19">addScript</a> (const iScriptDelegate &amp;script)</td></tr>
+<tr class="separator:a20899dd8a3afe02aad272779e88e3d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1f0de49e092661ec7f5446fdfd6c9a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#aa1f0de49e092661ec7f5446fdfd6c9a2">addScript</a> (const <a class="el" href="namespaceigor.html#ac579f9d999dd8e254ab9b4e28a475c64">iScriptPtr</a> script)</td></tr>
+<tr class="separator:aa1f0de49e092661ec7f5446fdfd6c9a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab136a96581ff55831c21a27f5e5b347c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#ab136a96581ff55831c21a27f5e5b347c">removeScript</a> (const iScriptDelegate &amp;script)</td></tr>
+<tr class="separator:ab136a96581ff55831c21a27f5e5b347c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bbdcbbd9697a0df41e14f4788f5c56e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#a1bbdcbbd9697a0df41e14f4788f5c56e">clearComponents</a> ()</td></tr>
 <tr class="separator:a1bbdcbbd9697a0df41e14f4788f5c56e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add70571dd9eef5a42eebc5ff813ae232"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity.html#add70571dd9eef5a42eebc5ff813ae232">isHierarchyDirty</a> () const</td></tr>
@@ -193,56 +195,6 @@ Friends</h2></td></tr>
 <div class="textblock"><p >entity definition</p>
 <p >Igor uses the terms entity, component and system but it is not a classic entity component system or ECS. An entity is a hierarchical element in the scene with parents and children. It behaves more like a game object. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab38f143523bb15764a53ab1a3225bbc8" name="ab38f143523bb15764a53ab1a3225bbc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab38f143523bb15764a53ab1a3225bbc8">&#9670;&nbsp;</a></span>addBehaviour()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iEntity::addBehaviour </td>
-          <td>(</td>
-          <td class="paramtype">const iBehaviourDelegate &amp;&#160;</td>
-          <td class="paramname"><em>behaviour</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::any &amp;&#160;</td>
-          <td class="paramname"><em>userData</em> = <code>std::any()</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#a33a5e996e7a90acefb8b1c0bea47e365">uint8</a>&#160;</td>
-          <td class="paramname"><em>priority</em> = <code>100</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >adds behaviour to entity</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">behaviour</td><td>the behaviour to be added </td></tr>
-    <tr><td class="paramname">userData</td><td>user data added to behaviour </td></tr>
-    <tr><td class="paramname">name</td><td>the name of the behaviour </td></tr>
-    <tr><td class="paramname">priority</td><td>execution priority (low = 0, default = 100, high = ...) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a2e4fbb9074f4a8e2d09df889eb5b31e1" name="a2e4fbb9074f4a8e2d09df889eb5b31e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e4fbb9074f4a8e2d09df889eb5b31e1">&#9670;&nbsp;</a></span>addComponent() <span class="overload">[1/3]</span></h2>
 
@@ -326,6 +278,58 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20899dd8a3afe02aad272779e88e3d19" name="a20899dd8a3afe02aad272779e88e3d19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20899dd8a3afe02aad272779e88e3d19">&#9670;&nbsp;</a></span>addScript() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntity::addScript </td>
+          <td>(</td>
+          <td class="paramtype">const iScriptDelegate &amp;&#160;</td>
+          <td class="paramname"><em>script</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >adds script to entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">script</td><td>the script delegate to be added </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the script </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa1f0de49e092661ec7f5446fdfd6c9a2" name="aa1f0de49e092661ec7f5446fdfd6c9a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f0de49e092661ec7f5446fdfd6c9a2">&#9670;&nbsp;</a></span>addScript() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntity::addScript </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceigor.html#ac579f9d999dd8e254ab9b4e28a475c64">iScriptPtr</a>&#160;</td>
+          <td class="paramname"><em>script</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >adds script script to entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">script</td><td>the script script to be added </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the script </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -758,31 +762,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a46acdc86303f200d180e808bcdb5db51" name="a46acdc86303f200d180e808bcdb5db51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46acdc86303f200d180e808bcdb5db51">&#9670;&nbsp;</a></span>removeBehaviour()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iEntity::removeBehaviour </td>
-          <td>(</td>
-          <td class="paramtype">const iBehaviourDelegate &amp;&#160;</td>
-          <td class="paramname"><em>behaviour</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p >removes behaviour from entity</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">behaviour</td><td>the behaviour to be removed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="af305d07c7a9025634b253480f7071a1e" name="af305d07c7a9025634b253480f7071a1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af305d07c7a9025634b253480f7071a1e">&#9670;&nbsp;</a></span>removeParent()</h2>
 
@@ -798,6 +777,31 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 <p >removes parent connection </p>
+
+</div>
+</div>
+<a id="ab136a96581ff55831c21a27f5e5b347c" name="ab136a96581ff55831c21a27f5e5b347c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab136a96581ff55831c21a27f5e5b347c">&#9670;&nbsp;</a></span>removeScript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iEntity::removeScript </td>
+          <td>(</td>
+          <td class="paramtype">const iScriptDelegate &amp;&#160;</td>
+          <td class="paramname"><em>script</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >removes script from entity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">script</td><td>the script to be removed </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

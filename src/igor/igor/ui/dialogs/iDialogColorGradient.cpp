@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogColorGradient.h>
@@ -26,9 +26,9 @@ namespace igor
 		initUI();
 	}
 
-	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
+	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, bool modal, bool reset)
 	{
-		iDialog::open(dialogCloseDelegate, modal);
+		iDialog::open(dialogCloseDelegate, modal, reset);
 
 		setEnabled();
 		setVisible();

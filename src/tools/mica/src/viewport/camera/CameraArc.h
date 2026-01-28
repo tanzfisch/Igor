@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -42,7 +42,7 @@ public:
     \param entitySceneID the scene to use this camera in
     \param entityID the anchor entity to attach this camera to
     */
-    CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID);
+    CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID = iEntityID::getInvalid());
 
     ~CameraArc();
 
@@ -92,6 +92,14 @@ public:
     */
     void getWorldTransformation(iaMatrixd &matrix) const;
 
+    /*! \returns camera scene id
+    */
+    const iEntitySceneID getEntitySceneID() const;
+
+    /*! \returns camera entity id
+    */
+    const iEntityID getCameraID() const;
+
 private:
     /*! entity scene to use
      */
@@ -123,11 +131,11 @@ private:
 
     /*! heading in rad
      */
-    float64 _cameraHeading = 0;
+    float64 _cameraHeading = 45.0 * IGOR_GRAD2RAD;
 
     /*! pitch in rad
      */
-    float64 _cameraPitch = 0;
+    float64 _cameraPitch = -25.0 * IGOR_GRAD2RAD;
 };
 
 /*! camera arc pointer definition

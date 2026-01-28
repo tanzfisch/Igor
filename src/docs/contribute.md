@@ -76,6 +76,8 @@ For making a release do the following steps.
 
 7. Create a tag with the new version number on master and push master, develop and the new tag
 
+8. backup copy of latest tag
+
 Make a Patch Release
 --------------------
 

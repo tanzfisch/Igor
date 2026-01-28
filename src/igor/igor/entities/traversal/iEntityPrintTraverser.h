@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -31,6 +31,8 @@
 
 #include <igor/entities/traversal/iEntityTraverser.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -48,6 +50,10 @@ namespace igor
          */
         ~iEntityPrintTraverser() = default;
 
+        /*! \returns generated output
+        */
+        const iaString getOutput() const;
+
     private:      
         /*! keeps track of indentation
         */
@@ -56,6 +62,10 @@ namespace igor
         /*! if true output is less verbose
         */
         bool _verbose;
+
+        /*! stream for storage
+        */
+        std::wstringstream _stream;
 
         /*! is called before traversal
 

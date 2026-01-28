@@ -1,11 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/prefab/loader/iPrefabIO.h>
 
 #include <igor/resources/iResourceManager.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/data/iAny.h>
 
 #include <igor/entities/components/iTransformComponent.h>
 #include <igor/entities/components/iCameraComponent.h>
@@ -17,11 +18,34 @@
 #include <igor/entities/components/iSphereComponent.h>
 #include <igor/entities/components/iSpriteRenderComponent.h>
 #include <igor/entities/components/iMeshReferenceComponent.h>
+#include <igor/entities/components/iAnimationComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
+#include <igor/entities/components/iVelocityComponent.h>
 
 #include <fstream>
 
 namespace igor
 {
+    static void readAnimation(iEntityPtr entity, const json &componentJson)
+    {
+        iAnimationComponent *component = new iAnimationComponent();
+        entity->addComponent(component);
+
+        /*component->setPosition(componentJson["position"].get<iaVector3d>());
+        component->setOrientation(iaQuaterniond::fromEuler(componentJson["orientation"].get<iaVector3d>()));
+        component->setScale(componentJson["scale"].get<iaVector3d>());*/
+    }
+
+    static void writeAnimation(json &componentJson, iAnimationComponent *component)
+    {
+        // component->get
+
+        /*componentJson["position"] = component->getPosition();
+        componentJson["orientation"] = component->getOrientation().toEuler();
+        componentJson["scale"] = component->getScale();*/
+    }
+
     static void readTransform(iEntityPtr entity, const json &componentJson)
     {
         iTransformComponent *component = new iTransformComponent();
@@ -37,6 +61,43 @@ namespace igor
         componentJson["position"] = component->getPosition();
         componentJson["orientation"] = component->getOrientation().toEuler();
         componentJson["scale"] = component->getScale();
+    }
+
+    static void writeUserData(json &componentJson, iUserDataComponent *component)
+    {
+        const auto userData = component->getData();
+
+        json mimeDataJson = json::array();
+
+        for (const auto &pair : userData.getData())
+        {
+            mimeDataJson.push_back({
+                {"key", pair.first},
+                {"type", toString(pair.second.getType())},
+                {"value", pair.second.toString()}
+            });
+        }
+
+        componentJson["data"] = mimeDataJson;
+    }
+
+    static void readUserData(iEntityPtr entity, const json &componentJson)
+    {
+        iUserDataComponent *component = new iUserDataComponent();
+        entity->addComponent(component);
+
+        if (!componentJson.contains("userData"))
+        {
+            return;
+        }
+
+        auto &mimeData = component->getData();
+
+        const auto mimeDataJson = componentJson["userData"];
+        for (const auto &dataJson : mimeDataJson)
+        {
+            // TODO
+        }
     }
 
     static void readCamera(iEntityPtr entity, const json &componentJson)
@@ -60,8 +121,21 @@ namespace igor
             component->setOrthogonal(
                 componentJson["orthoLeft"].get<float32>(),
                 componentJson["orthoRight"].get<float32>(),
-                componentJson["orthoTop"].get<float32>(),
-                componentJson["orthoBottom"].get<float32>());
+                componentJson["orthoBottom"].get<float32>(),
+                componentJson["orthoTop"].get<float32>());
+        }
+
+        if (componentJson.contains("offsetPosition") &&
+            componentJson.contains("offsetOrientation") &&
+            componentJson.contains("offsetScale"))
+        {
+            iaTransformd offset;
+
+            offset._position = componentJson["offsetPosition"].get<iaVector3d>();
+            offset._orientation.fromEuler(componentJson["offsetOrientation"].get<iaVector3d>());
+            offset._scale = componentJson["offsetScale"].get<iaVector3d>();
+
+            component->setOffset(offset);
         }
     }
 
@@ -80,6 +154,14 @@ namespace igor
         componentJson["orthoRight"] = component->getRightOrtho();
         componentJson["orthoTop"] = component->getTopOrtho();
         componentJson["orthoBottom"] = component->getBottomOrtho();
+        if (component->getOffset().hasTranslation() ||
+            component->getOffset().hasRotation() ||
+            component->getOffset().hasScale())
+        {
+            componentJson["offsetPosition"] = component->getOffset()._position;
+            componentJson["offsetOrientation"] = component->getOffset()._orientation.toEuler();
+            componentJson["offsetScale"] = component->getOffset()._scale;
+        }
     }
 
     static void readSphere(iEntityPtr entity, const json &componentJson)
@@ -167,7 +249,10 @@ namespace igor
         iSpriteRenderComponentPtr component = new iSpriteRenderComponent();
         entity->addComponent(component);
 
-        component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        if (componentJson.contains("sprite"))
+        {
+            component->setSprite(iResourceManager::getInstance().requestResource<iSprite>(componentJson["sprite"].get<iaUUID>()));
+        }
         component->setSize(componentJson["size"].get<iaVector2d>());
         component->setColor(componentJson["color"].get<iaColor4f>());
         component->setZIndex(componentJson["zIndex"].get<int>());
@@ -186,6 +271,59 @@ namespace igor
         componentJson["zIndex"] = (int)component->getZIndex();
         componentJson["mode"] = (int)component->getRenderMode();
         componentJson["frame"] = (int)component->getFrameIndex();
+    }
+
+    static void readScript(iEntityPtr entity, const json &componentJson)
+    {
+        iScriptComponentPtr component = new iScriptComponent();
+        entity->addComponent(component);
+
+        if (!componentJson.contains("scripts"))
+        {
+            return;
+        }
+
+        const auto scriptsJson = componentJson["scripts"];
+
+        for (const auto &scriptJson : scriptsJson)
+        {
+            iScriptPtr script = iResourceManager::getInstance().loadResource<iScript>(scriptJson.get<iaUUID>());
+            if (script != nullptr)
+            {
+                component->addScript(script);
+            }
+        }
+    }
+
+    static void writeScript(json &componentJson, iScriptComponentPtr component)
+    {
+        const auto &scripts = component->getScripts();
+        json scriptsJson = json::array();
+
+        for (const auto &script : scripts)
+        {
+            scriptsJson.push_back(script._script->getID());
+        }
+
+        if (!scriptsJson.empty())
+        {
+            componentJson["scripts"] = scriptsJson;
+        }
+    }
+
+    static void readVelocity(iEntityPtr entity, const json &componentJson)
+    {
+        iVelocityComponentPtr component = new iVelocityComponent();
+        entity->addComponent(component);
+
+        component->setVelocity(componentJson["velocity"].get<iaVector3d>());
+        component->setAngularVelocity(componentJson["angularVelocity"].get<iaVector3d>());
+    }
+
+    static void writeVelocity(json &componentJson, iVelocityComponentPtr component)
+    {
+        componentJson["velocity"] = component->getVelocity();
+        componentJson["angularVelocity"] = component->getAngularVelocity();
     }
 
     void iPrefabIO::connectEntity(iEntityScenePtr scene, const json &entityJson)
@@ -213,6 +351,9 @@ namespace igor
             {"meshRender", readMeshRender},
             {"light", readLight},
             {"spriteRender", readSpriteRender},
+            {"script", readScript},
+            {"velocity", readVelocity},
+            {"mimeData", readUserData},
             {"meshReference", readMeshReference}};
 
         const iaString entityName = entityJson["name"].get<iaString>();
@@ -244,7 +385,7 @@ namespace igor
 
     bool iPrefabIO::read(const iaString &filename, const iPrefabPtr &prefab)
     {
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.contains("entityScene"))
         {
@@ -295,12 +436,22 @@ namespace igor
         {
             const auto component = entity->getComponent(typeIndex);
 
-            iTransformComponent *transform = dynamic_cast<iTransformComponent *>(component);
+            iTransformComponentPtr transform = dynamic_cast<iTransformComponentPtr>(component);
             if (transform != nullptr)
             {
                 json componentJson;
                 componentJson["componentType"] = "transform";
                 writeTransform(componentJson, transform);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iUserDataComponentPtr mimeData = dynamic_cast<iUserDataComponentPtr>(component);
+            if (mimeData != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "userData";
+                writeUserData(componentJson, mimeData);
                 componentsJson.push_back(componentJson);
                 continue;
             }
@@ -371,6 +522,26 @@ namespace igor
                 json componentJson;
                 componentJson["componentType"] = "spriteRender";
                 writeSpriteRender(componentJson, spriteRender);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iScriptComponentPtr script = dynamic_cast<iScriptComponentPtr>(component);
+            if (script != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "script";
+                writeScript(componentJson, script);
+                componentsJson.push_back(componentJson);
+                continue;
+            }
+
+            iVelocityComponentPtr velocity = dynamic_cast<iVelocityComponentPtr>(component);
+            if (velocity != nullptr)
+            {
+                json componentJson;
+                componentJson["componentType"] = "velocity";
+                writeVelocity(componentJson, velocity);
                 componentsJson.push_back(componentJson);
                 continue;
             }

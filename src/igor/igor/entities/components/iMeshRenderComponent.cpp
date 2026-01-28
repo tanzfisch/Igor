@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iMeshRenderComponent.h>
@@ -16,7 +16,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iMeshRenderComponent::createInstance()
+    iEntityComponentPtr iMeshRenderComponent::createInstance()
     {
         return new iMeshRenderComponent();
     }
@@ -37,13 +37,13 @@ namespace igor
     void iMeshRenderComponent::addMesh(iMeshPtr mesh, iMaterialPtr material, const iaMatrixd &offset)
     {
         _meshReferences.emplace_back(mesh, material, offset);
-        setDirty();
+        increaseVersion();
     }
 
     void iMeshRenderComponent::onUnLoad(iEntityPtr entity)
     {
         _meshReferences.clear();
-        setDirty();
+        increaseVersion();
     }
 
     void iMeshRenderComponent::findAndAddMeshs(iNodePtr node)
@@ -60,7 +60,7 @@ namespace igor
             findAndAddMeshs(child);
         }
 
-        setDirty();
+        increaseVersion();
     }
 
     bool iMeshRenderComponent::onLoad(iEntityPtr entity, bool &asyncLoad)

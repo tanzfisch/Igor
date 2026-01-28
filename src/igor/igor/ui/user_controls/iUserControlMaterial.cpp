@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlMaterial.h>
@@ -21,14 +21,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlMaterial::~iUserControlMaterial()
     {
     }
 
-    void iUserControlMaterial::initGUI()
+    void iUserControlMaterial::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);
@@ -60,18 +60,13 @@ namespace igor
             return;
         }
 
-        // TODO 
-        /*const iaString filename = iResourceManager::getInstance().getFilename(_materialID);
-        iaFile file(iResourceManager::getInstance().resolvePath(filename));
-        _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(file.getFullFileName()));*/
-
         _labelID->setText(_materialID.toString());
         _labelAlias->setText(iResourceManager::getInstance().getAlias(_materialID));
 
         _change(this);
     }
 
-    iResourceID iUserControlMaterial::getID() const
+    const iResourceID& iUserControlMaterial::getID() const
     {
         return _materialID;
     }

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -145,7 +145,7 @@ namespace iaux
 
 		/*! matrix multiplication
 		 */
-		iaMatrix operator*(const iaMatrix &other);
+		iaMatrix operator*(const iaMatrix &other) const;
 
 		/*! matrix multiplication
 		 */
@@ -211,7 +211,7 @@ namespace iaux
 		*/
 		void perspective(T fov, T aspect, T nearPlain, T farPlain);
 
-		/*! calculates a othogonal projection matrix
+		/*! calculates a orthogonal projection matrix
 
 		\param left the left value
 		\param right the right value

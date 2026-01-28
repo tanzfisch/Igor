@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iApplication.h>
@@ -11,6 +11,7 @@
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/renderer/iView.h>
 #include <igor/entities/iEntitySystemModule.h>
+#include <igor/resources/project/iProject.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -91,9 +92,11 @@ namespace igor
         {
             iEvent &event = *eventPtr;
 
+            // only log the less noisy events for trace
             if (event.getEventType() != iEventType::iEventMouseMove &&
                 event.getEventType() != iEventType::iEventNodeAddedToScene &&
-                event.getEventType() != iEventType::iEventNodeRemovedFromScene)
+                event.getEventType() != iEventType::iEventNodeRemovedFromScene &&
+                event.getEventType() != iEventType::iEventWindowResize)
             {
                 con_trace("dispatch event: " << event);
             }
@@ -139,7 +142,7 @@ namespace igor
         IGOR_PROFILER_END(application);
 
         IGOR_PROFILER_BEGIN(entities);
-        iEntitySystemModule::getInstance().onUpdate();
+        iEntitySystemModule::getInstance().onUpdate(iProject::getInstance().getMode() == iProject::iMode::Runtime);
         IGOR_PROFILER_END(entities);
 
         IGOR_PROFILER_BEGIN(nodes);

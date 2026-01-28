@@ -1,11 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntitySystemModule.h>
 
 #include <igor/entities/systems/iAnimationSystem.h>
-#include <igor/entities/systems/iBehaviourSystem.h>
+#include <igor/entities/systems/iScriptSystem.h>
 #include <igor/entities/systems/iSpriteRenderSystem.h>
 #include <igor/entities/systems/iTransformSystem.h>
 #include <igor/entities/systems/iVelocitySystem.h>
@@ -27,6 +27,7 @@
 #include <igor/entities/components/iVelocityComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
 #include <igor/entities/components/iAnimationComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
 
@@ -47,16 +48,17 @@ namespace igor
         registerComponentType<iCircleComponent>(iCircleComponent::createInstance, iCircleComponent::getTypeName());
         registerComponentType<iSphereComponent>(iSphereComponent::createInstance, iSphereComponent::getTypeName());
         registerComponentType<iVelocityComponent>(iVelocityComponent::createInstance, iVelocityComponent::getTypeName());
-        registerComponentType<iBehaviourComponent>(iBehaviourComponent::createInstance, iBehaviourComponent::getTypeName());
+        registerComponentType<iScriptComponent>(iScriptComponent::createInstance, iScriptComponent::getTypeName());
+        registerComponentType<iUserDataComponent>(iUserDataComponent::createInstance, iUserDataComponent::getTypeName());
         registerComponentType<iGlobalBoundaryComponent>(iGlobalBoundaryComponent::createInstance, iGlobalBoundaryComponent::getTypeName());
-        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());        
+        registerComponentType<iCameraComponent>(iCameraComponent::createInstance, iCameraComponent::getTypeName());
         registerComponentType<iAnimationComponent>(iAnimationComponent::createInstance, iAnimationComponent::getTypeName());
         registerComponentType<iMeshRenderComponent>(iMeshRenderComponent::createInstance, iMeshRenderComponent::getTypeName());
         registerComponentType<iMeshReferenceComponent>(iMeshReferenceComponent::createInstance, iMeshReferenceComponent::getTypeName());
         registerComponentType<iPrefabComponent>(iPrefabComponent::createInstance, iPrefabComponent::getTypeName());
 
         registerSystemType(iAnimationSystem::createInstance, iAnimationSystem::getTypeName());
-        registerSystemType(iBehaviourSystem::createInstance, iBehaviourSystem::getTypeName());
+        registerSystemType(iScriptSystem::createInstance, iScriptSystem::getTypeName());
         registerSystemType(iCameraSystem::createInstance, iCameraSystem::getTypeName());
         registerSystemType(iLightSystem::createInstance, iLightSystem::getTypeName());
         registerSystemType(iMeshRenderSystem::createInstance, iMeshRenderSystem::getTypeName());
@@ -111,20 +113,17 @@ namespace igor
             return scene;
         }
 
-        scene->addSystem(iAnimationSystem::getTypeName());
+        scene->addSystem(iScriptSystem::getTypeName()); // update
+        scene->addSystem(iAnimationSystem::getTypeName()); // update
+        scene->addSystem(iVelocitySystem::getTypeName()); // update
 
-        scene->addSystem(iVelocitySystem::getTypeName());
-        scene->addSystem(iTransformSystem::getTypeName());
+        scene->addSystem(iTransformSystem::getTypeName()); // system
 
-        // running behaviour after transforms and update of oc/quad trees so behaviour system can rely on it
-        // this will lead to position changes by the behaviour systems show up one frame late
-        scene->addSystem(iBehaviourSystem::getTypeName());
-
-        scene->addSystem(iCameraSystem::getTypeName());
-        scene->addSystem(iLightSystem::getTypeName());
-        scene->addSystem(iMeshRenderSystem::getTypeName());
-
-        scene->addSystem(iSpriteRenderSystem::getTypeName());
+        scene->addSystem(iCameraSystem::getTypeName()); // pre render
+        scene->addSystem(iMeshRenderSystem::getTypeName()); // pre render
+        
+        scene->addSystem(iLightSystem::getTypeName()); // render       
+        scene->addSystem(iSpriteRenderSystem::getTypeName()); // render
 
         return scene;
     }
@@ -155,7 +154,7 @@ namespace igor
 
     iEntityScenePtr iEntitySystemModule::getScene(const iEntitySceneID &sceneID)
     {
-        iEntityScenePtr result = nullptr;        
+        iEntityScenePtr result = nullptr;
 
         _mutex.lock();
         auto iter = _scenes.find(sceneID);
@@ -208,7 +207,7 @@ namespace igor
         return _simulationRate;
     }
 
-    void iEntitySystemModule::onUpdate()
+    void iEntitySystemModule::onUpdate(bool runtime)
     {
         const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
         const iaTime currentTime = iTimer::getInstance().getTime();
@@ -224,7 +223,12 @@ namespace igor
         {
             for (auto scene : scenes)
             {
-                scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
+                scene->onUpdate(_simulationFrameTime, iEntitySystemStage::System);
+
+                if (runtime)
+                {
+                    scene->onUpdate(_simulationFrameTime, iEntitySystemStage::Update);
+                }
             }
             _simulationFrameTime += timeDelta;
             maxUpdateCount--;
@@ -233,7 +237,7 @@ namespace igor
         if (maxUpdateCount <= 0)
         {
             _simulationFrameTime = currentTime;
-            con_trace("Loosing frames");
+            con_debug("loosing frames");
         }
 
         uint64 entityCount = 0;
@@ -349,7 +353,7 @@ namespace igor
 
     void iEntitySystemModule::insert(iEntityPtr srcEntity, iEntityPtr dstEntity)
     {
-        if(srcEntity == dstEntity)
+        if (srcEntity == dstEntity)
         {
             con_err("Can't copy on it self");
             return;

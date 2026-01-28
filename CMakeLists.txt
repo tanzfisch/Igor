@@ -10,6 +10,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # include some modules
 include(CreateMSVCFilters)
 include(GetGitRevisionDescription)
+include(ExternalProject)
 
 # get git version tag
 git_describe(VERSION --tags)
@@ -118,6 +119,37 @@ set_target_properties(clip PROPERTIES POSITION_INDEPENDENT_CODE ON)
 set_property(TARGET clip PROPERTY FOLDER ${VENDOR_FOLDER}/clip)
 set(CLIP_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/clip")
 
+# LuaJIT
+ExternalProject_Add(
+    LuaJIT_external
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vendor/LuaJIT
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND make -C <SOURCE_DIR> CFLAGS+=-fPIC
+    BUILD_IN_SOURCE ON
+    INSTALL_COMMAND ""
+    BUILD_ALWAYS OFF
+    BUILD_BYPRODUCTS "<SOURCE_DIR>/src/libluajit.a"
+)
+
+ExternalProject_Get_Property(LuaJIT_external SOURCE_DIR)
+set(LUAJIT_SOURCE_DIR ${SOURCE_DIR})
+
+add_library(LuaJIT STATIC IMPORTED GLOBAL)
+add_dependencies(LuaJIT LuaJIT_external)  # Ensure LuaJIT builds first
+
+set(LUAJIT_HEADERS_DIR "${LUAJIT_SOURCE_DIR}/src")
+
+set_target_properties(LuaJIT PROPERTIES
+    IMPORTED_LOCATION "${LUAJIT_SOURCE_DIR}/src/libluajit.a"
+    INTERFACE_INCLUDE_DIRECTORIES "${LUAJIT_SOURCE_DIR}/src"
+)
+
+# LuaBridge
+add_subdirectory(vendor/LuaBridge3)
+
+# base64
+add_subdirectory(vendor/base64)
+
 # nlohmann json
 message(STATUS "nlohmann json")
 set(JSON_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/nlohmann/")
@@ -133,14 +165,6 @@ set(STB_IMAGE_HEADERS_DIR ${STB_IMAGE_SRC_DIR})
 set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h" "${STB_IMAGE_HEADERS_DIR}stb_image_write.h" "${STB_IMAGE_HEADERS_DIR}stb_image_resize2.h")
 list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
 source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR} "\\vendor\\stb_image\\")
-
-# EnTT
-message(STATUS "EnTT")
-set(ENTT_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/entt/")
-set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
-set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
-list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
-source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
 
 # Igor Aux
 add_subdirectory(src/iaux)
@@ -193,7 +217,7 @@ elseif(IS_MSVC)
     target_compile_options(mica PRIVATE "/std:c++20" "/MP" "/FS")
 endif()
 
-target_link_libraries(mica PRIVATE igor iaux ompf)
+target_link_libraries(mica PRIVATE igor iaux ompf LuaJIT)
 target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR})
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})

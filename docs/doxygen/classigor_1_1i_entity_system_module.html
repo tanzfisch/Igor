@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -109,8 +109,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a593e545a8fe47042cdb0cf912f948278"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e69c1779a2e26d6bbbe64d13fdaf16b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system_module.html#a3e69c1779a2e26d6bbbe64d13fdaf16b">destroyScene</a> (const <a class="el" href="namespaceigor.html#a516be3f1c118b0bee95d42cbc932b33c">iEntitySceneID</a> &amp;sceneID)</td></tr>
 <tr class="separator:a3e69c1779a2e26d6bbbe64d13fdaf16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72336d8b96452c773454f14d689e874e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system_module.html#a72336d8b96452c773454f14d689e874e">onUpdate</a> ()</td></tr>
-<tr class="separator:a72336d8b96452c773454f14d689e874e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a680b125d32e0d500f2f843b778668b29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system_module.html#a680b125d32e0d500f2f843b778668b29">onUpdate</a> (bool runtime)</td></tr>
+<tr class="separator:a680b125d32e0d500f2f843b778668b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38542c93e5d1885bd86cb096261ab556"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system_module.html#a38542c93e5d1885bd86cb096261ab556">onPreRender</a> (<a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> scene)</td></tr>
 <tr class="separator:a38542c93e5d1885bd86cb096261ab556"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7e1c713fadf5a9dfb10526678892d25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_entity_system_module.html#ab7e1c713fadf5a9dfb10526678892d25">onRender</a> (<a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> scene)</td></tr>
@@ -669,7 +669,7 @@ Additional Inherited Members</h2></td></tr>
 <p >triggers pre render update stage with given scene</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>the given scene to update/render </td></tr>
+    <tr><td class="paramname">scene</td><td>the given scene to update </td></tr>
   </table>
   </dd>
 </dl>
@@ -694,15 +694,15 @@ Additional Inherited Members</h2></td></tr>
 <p >triggers render update stage with given scene</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>the given scene to update/render </td></tr>
+    <tr><td class="paramname">scene</td><td>the given scene to render </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a72336d8b96452c773454f14d689e874e" name="a72336d8b96452c773454f14d689e874e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72336d8b96452c773454f14d689e874e">&#9670;&nbsp;</a></span>onUpdate()</h2>
+<a id="a680b125d32e0d500f2f843b778668b29" name="a680b125d32e0d500f2f843b778668b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a680b125d32e0d500f2f843b778668b29">&#9670;&nbsp;</a></span>onUpdate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -710,12 +710,19 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void igor::iEntitySystemModule::onUpdate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>runtime</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >updates all scenes and cleans up scene lists </p>
+<p >updates all scenes and cleans up scene lists</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">runtime</td><td>if true it is running the update stage as well </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

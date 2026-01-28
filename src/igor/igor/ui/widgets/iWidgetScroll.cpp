@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetScroll.h>
@@ -224,7 +224,7 @@ namespace igor
         {
             if (!_children.empty())
             {
-                _hscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
+                _hscroll += static_cast<float32>(iMouse::getInstance().getDeltaPosition()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
                 _hscroll = std::max(0.0f, std::min(1.0f, _hscroll));
             }
         }
@@ -233,7 +233,7 @@ namespace igor
         {
             if (!_children.empty())
             {
-                _vscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
+                _vscroll += static_cast<float32>(iMouse::getInstance().getDeltaPosition()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
                 _vscroll = std::max(0.0f, std::min(1.0f, _vscroll));
             }
         }
@@ -588,7 +588,7 @@ namespace igor
     {
         if (!getChildren().empty())
         {
-            con_warn("undefined behaviour if adding more then one widget");
+            con_warn("undefined script if adding more then one widget");
         }
 
         iWidget::addWidget(widget);

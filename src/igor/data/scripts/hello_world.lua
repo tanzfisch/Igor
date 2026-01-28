@@ -1,0 +1,1 @@
+con_endl("ChaiScript initialized")

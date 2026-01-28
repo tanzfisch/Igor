@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iLightComponent.h>
@@ -22,7 +22,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iLightComponent::createInstance()
+    iEntityComponentPtr iLightComponent::createInstance()
     {
         return new iLightComponent();
     }
@@ -46,7 +46,7 @@ namespace igor
     void iLightComponent::setType(iLightType type)
     {
         _type = type;
-        setDirty();
+        increaseVersion();
     }
 
     iLightType iLightComponent::getType() const
@@ -77,7 +77,7 @@ namespace igor
     void iLightComponent::setAmbient(const iaColor3f &color)
     {
         _ambient = color;
-        setDirty();
+        increaseVersion();
     }
 
     iaColor3f &iLightComponent::getDiffuse()
@@ -88,7 +88,7 @@ namespace igor
     void iLightComponent::setDiffuse(const iaColor3f &color)
     {
         _diffuse = color;
-        setDirty();
+        increaseVersion();
     }
 
     iaColor3f &iLightComponent::getSpecular()
@@ -99,7 +99,7 @@ namespace igor
     void iLightComponent::setSpecular(const iaColor3f &color)
     {
         _specular = color;
-        setDirty();
+        increaseVersion();
     }
 
     std::vector<iaString> iLightComponent::getInfo() const

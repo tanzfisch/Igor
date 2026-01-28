@@ -1,6 +1,28 @@
 Changelog                           {#changelog}
 =========
 
+0.46.0
+------
+
+- #439 refactor of iaDirectory/iaFile to iaPath/iaFile
+- #448 renamed all the resource related user controls in Mica
+- #410 improved UserControlMaterial in Mica and dependencies
+- Introduced iShaderUtils
+- #451, #454 added play button
+- #375 cleaned up iPixmap interface and reduced it to a minimum
+- #362 removed iwidget::getKeyboardFocusWidget. It was not used
+- #306 using ChaiScript for scripting
+- added offset to camera component
+- #457 adding script support to Mica
+- fixed recent projects handling
+- fixed edit mode issue after project creation
+- fixed window closing on all client events
+- clear dialogs on close to prevent duplicate widgets leading to mem leak
+- fixed issue with widget type print
+- introduced iWidget/iDialog reset
+- introduces iUserDataComponent
+- made iAny more useful
+
 0.45.0
 ------
 
@@ -10,7 +32,7 @@ Most examples do not work anymore. Focus was on Mica and Supremacy
 - #414 reintroducing home brew entity system (it's something like a game object component thingy)
 - IGOR_MAX_ENTITY_COMPONENT_TYPES is 64 but can be overridden 
 - added random interface to iaColor3 and iaColor4
-- iaDirectory and iaFile do not automatically fix a paths anymore
+- iaPath and iaFile do not automatically fix a paths anymore
 - #407 more renaming iShaderMaterial to iShader and related
 - removed widget example since Mica covers all you need to know about widgets in Igor
 - #374 using float32 for mouse position to reduce conversions

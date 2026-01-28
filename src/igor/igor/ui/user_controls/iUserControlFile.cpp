@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlFile.h>
@@ -21,7 +21,7 @@ namespace igor
     iUserControlFile::iUserControlFile(const iWidgetPtr parent)
         : iUserControl(iWidgetType::iUserControlFile, parent)
     {
-        initGUI();
+        onInitUI();
     }
 
     iUserControlFile::~iUserControlFile()
@@ -86,7 +86,7 @@ namespace igor
     }
     IGOR_ENABLE_WARNING(4100)
 
-    void iUserControlFile::initGUI()
+    void iUserControlFile::onInitUI()
     {
         iWidgetGridLayoutPtr grid = new iWidgetGridLayout(this);
         grid->appendColumns(1);

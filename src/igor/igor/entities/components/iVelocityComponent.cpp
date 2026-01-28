@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iVelocityComponent.h>
@@ -12,7 +12,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iVelocityComponent::createInstance()
+    iEntityComponentPtr iVelocityComponent::createInstance()
     {
         return new iVelocityComponent();
     }
@@ -26,13 +26,13 @@ namespace igor
     void iVelocityComponent::setVelocity(const iaVector3d &velocity)
     {
         _velocity = velocity;
-        setDirty();
+        increaseVersion();
     }
 
     void iVelocityComponent::setAngularVelocity(const iaVector3d &angularVelocity)
     {
         _angularVelocity = angularVelocity;
-        setDirty();
+        increaseVersion();
     }
 
     std::vector<iaString> iVelocityComponent::getInfo() const

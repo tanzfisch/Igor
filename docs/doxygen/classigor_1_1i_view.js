@@ -36,6 +36,7 @@ var classigor_1_1i_view =
     [ "setName", "classigor_1_1i_view.html#af44bb9ea4ccbf362b9c3f569cf2b628c", null ],
     [ "setOctreeVisible", "classigor_1_1i_view.html#ada3b9e0b641a3e9c91dbb14a54b048c9", null ],
     [ "setOrthogonal", "classigor_1_1i_view.html#af6ac154f62d493251b898063a6f2b840", null ],
+    [ "setOverrideCamera", "classigor_1_1i_view.html#a3503db0a5beb3c496f98e8ed88f34479", null ],
     [ "setOverrideCamera", "classigor_1_1i_view.html#afbe2e5394c798dd5e1cf79a7383d9b37", null ],
     [ "setPerspective", "classigor_1_1i_view.html#a6d222957761e94296c6001c9c061e064", null ],
     [ "setScene", "classigor_1_1i_view.html#a37db9a797cff8d2528ccf3b275a5fa8b", null ],

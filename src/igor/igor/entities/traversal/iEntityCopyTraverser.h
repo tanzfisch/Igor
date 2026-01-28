@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -42,10 +42,17 @@ namespace igor
     public:
         /*! copy hierarchy of entities to given target entity
 
-        \param entity the given target entity
+        \param targetEntity the given target entity
         \param copyIDs if true entity IDs will be copied
          */
-        iEntityCopyTraverser(const iEntityPtr &targetEntity, bool copyIDs);
+        iEntityCopyTraverser(const iEntityPtr &targetEntity, bool copyIDs = true);
+
+        /*! copy hierarchy of entities to root of given target scene
+
+        \param targetScene the given target scene
+        \param copyIDs if true entity IDs will be copied
+         */
+        iEntityCopyTraverser(const iEntityScenePtr &targetScene, bool copyIDs = true);
 
         /*! does nothing
          */

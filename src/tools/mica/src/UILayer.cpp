@@ -1,6 +1,6 @@
 
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
@@ -35,10 +35,13 @@ void UILayer::onInit()
     _viewport->setEnabled();
     _viewport->setVisible();
 
+    _settings = new Settings();
+
     _mainDialog->getCreateProjectEvent().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _mainDialog->getLoadProjectEvent().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
     _mainDialog->getSaveProjectEvent().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
     _mainDialog->getCloseProjectEvent().add(SaveProjectDelegate(this, &UILayer::onCloseProject));
+    _mainDialog->getOpenSettingsEvent().add(SaveProjectDelegate(this, &UILayer::onOpenSettings));
 
     // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
@@ -84,7 +87,7 @@ void UILayer::onDeinit()
 
 void UILayer::onCreateProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaDirectory::getCurrentDirectory());
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onCreateProjectDialogClosed), iFileDialogPurpose::SelectFolder, iaPath::getCurrentDirectory());
 }
 
 void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
@@ -100,7 +103,7 @@ void UILayer::onCreateProjectDialogClosed(iDialogPtr dialog)
 
 void UILayer::onLoadProject()
 {
-    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaDirectory::getCurrentDirectory(), {"project"});
+    _fileDialog.open(iDialogCloseDelegate(this, &UILayer::onLoadProjectDialogClosed), iFileDialogPurpose::Load, iaPath::getCurrentDirectory(), {"project"});
 }
 
 void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
@@ -111,18 +114,17 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
     }
 
     iProject::getInstance().unload();
-    iProject::getInstance().load(_fileDialog.getFullPath());
-}
-
-bool UILayer::onProjectLoaded(iEventProjectLoaded &event)
-{
-    _assetBrowser->setProjectFolder(iProject::getInstance().getProjectPath());
-    return false;
+    iProject::getInstance().load(_fileDialog.getFullPath(), iProject::iMode::Edit);
 }
 
 void UILayer::onSaveProject()
 {
     iProject::getInstance().save();
+}
+
+void UILayer::onOpenSettings()
+{
+    _settings->open();
 }
 
 void UILayer::onCloseProject()
@@ -135,7 +137,6 @@ void UILayer::onEvent(iEvent &event)
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(UILayer::onProjectLoaded));
 }
 
 bool UILayer::onKeyDown(iEventKeyDown &event)
@@ -151,33 +152,33 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->duplicate();
+            iProject::getInstance().getRootScene()->duplicate();
             return true;
         }
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->cut();
+            iProject::getInstance().getRootScene()->cut();
             return true;
         }
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->copy();
+            iProject::getInstance().getRootScene()->copy();
             return true;
         }
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().keyPressed(iKeyCode::LControl) &&
-            iProject::getInstance().hasProjectScene())
+            iProject::getInstance().isLoaded())
         {
-            iProject::getInstance().getProjectScene()->paste();
+            iProject::getInstance().getRootScene()->paste();
             return true;
         }
 
@@ -196,12 +197,12 @@ bool UILayer::onKeyDown(iEventKeyDown &event)
         }
 
     case iKeyCode::Delete:
-        if (iProject::getInstance().hasProjectScene())
+        if (iProject::getInstance().isLoaded())
         {
-            const auto &selection = iProject::getInstance().getProjectScene()->getSelection();
+            const auto &selection = iProject::getInstance().getRootScene()->getSelection();
             for (const auto &entityID : selection)
             {
-                iProject::getInstance().getProjectScene()->destroyEntity(entityID);
+                iProject::getInstance().getRootScene()->destroyEntity(entityID);
             }
             return true;
         }

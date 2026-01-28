@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
@@ -8,7 +8,7 @@ namespace igor
 {
     namespace iMeshBuilderUtils
     {
-        void addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX, uint32 segmentsZ, bool normals)
+        void addPlane(iMeshBuilder &meshBuilder, float32 width, float32 depth, uint32 segmentsX, uint32 segmentsZ, bool normals, bool texCoords)
         {
             uint32 offsetIndex = meshBuilder.getVertexCount();
             const float32 xPos = -width * 0.5f;
@@ -16,32 +16,49 @@ namespace igor
             const float32 xStepping = width / segmentsX;
             const float32 zStepping = depth / segmentsZ;
 
-            for (int z = 0; z < segmentsX + 1; ++z)
+            // Create vertices with texture coordinates
+            for (uint32 z = 0; z <= segmentsZ; ++z)
             {
-                for (int x = 0; x < segmentsX + 1; ++x)
+                float v = float32(z) / segmentsZ;
+
+                for (uint32 x = 0; x <= segmentsX; ++x)
                 {
-                    auto index = meshBuilder.addVertex(iaVector3f(xPos + x * xStepping, 0, zPos + z * zStepping));
+                    float u = float32(x) / segmentsX;
+
+                    iaVector3f pos(xPos + x * xStepping, 0.0f, zPos + z * zStepping);
+                    uint32 index = meshBuilder.addVertex(pos);
+
                     if (normals)
                     {
                         meshBuilder.setNormal(index, iaVector3f(0.0f, 1.0f, 0.0f));
                     }
+
+                    if (texCoords)
+                    {
+                        meshBuilder.setTexCoord(index, iaVector2f(u, v), 0);
+                    }
                 }
             }
 
-            for (int z = 0; z < segmentsX; ++z)
+            // Add triangles
+            for (uint32 z = 0; z < segmentsZ; ++z)
             {
-                for (int x = 0; x < segmentsX; ++x)
+                for (uint32 x = 0; x < segmentsX; ++x)
                 {
-                    meshBuilder.addTriangle(1, 0, segmentsX + 1, offsetIndex);
-                    meshBuilder.addTriangle(segmentsX + 1, segmentsX + 2, 1, offsetIndex);
+                    uint32 i0 = offsetIndex + z * (segmentsX + 1) + x;
+                    uint32 i1 = i0 + 1;
+                    uint32 i2 = i0 + (segmentsX + 1);
+                    uint32 i3 = i2 + 1;
 
-                    offsetIndex++;
+                    // Triangle 1: i0, i2, i1
+                    meshBuilder.addTriangle(i0, i2, i1, 0);
+                    // Triangle 2: i1, i2, i3
+                    meshBuilder.addTriangle(i1, i2, i3, 0);
                 }
-                offsetIndex++;
             }
         }
 
-        void addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments)
+        void addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments, bool texCoords)
         {
             con_assert(segments >= 4, "parameters out of range");
             con_assert(radius > 0.0f, "parameters out of range");
@@ -56,22 +73,40 @@ namespace igor
             {
                 float v = level * stepLat;
                 float sinvr = sin(v) * radius;
+                float texV = 1.0f - (float32(level) / segments); // flip V to match top-down texture mapping
 
                 for (uint32 segment = 0; segment < segments; ++segment)
                 {
                     float u = segment * stepLon;
 
                     iaVector3f vec(cos(u) * sinvr, cos(v) * radius, sin(u) * sinvr);
-                    meshBuilder.addVertex(vec);
+                    uint32 index = meshBuilder.addVertex(vec);
                     vec.normalize();
-                    meshBuilder.setNormal(meshBuilder.getVertexCount() - 1, vec);
+                    meshBuilder.setNormal(index, vec);
+                    float texU = float32(segment) / segments;
+
+                    if (texCoords)
+                    {
+                        meshBuilder.setTexCoord(index, iaVector2f(texU, texV), 0);
+                    }
                 }
             }
 
+            // bottom pole
             uint32 bottomIndex = meshBuilder.addVertex(iaVector3f(0, -radius, 0));
             meshBuilder.setNormal(bottomIndex, iaVector3f(0, -1, 0));
+            if (texCoords)
+            {
+                meshBuilder.setTexCoord(bottomIndex, iaVector2f(0.5f, 0.0f), 0); // bottom center
+            }
+
+            // top pole
             uint32 topIndex = meshBuilder.addVertex(iaVector3f(0, radius, 0));
-            meshBuilder.setNormal(topIndex, iaVector3f(0, -1, 0));
+            meshBuilder.setNormal(topIndex, iaVector3f(0, 1, 0));
+            if (texCoords)
+            {
+                meshBuilder.setTexCoord(topIndex, iaVector2f(0.5f, 1.0f), 0); // top center
+            }
 
             // top and bottom triangles
             uint32 topOffset = bottomIndex - segments;
@@ -88,8 +123,13 @@ namespace igor
 
                 for (uint32 segment = 0; segment < segments; ++segment)
                 {
-                    meshBuilder.addTriangle(segment, (segment + 1) % segments, segment + segments, offsetIndex + levelOffset);
-                    meshBuilder.addTriangle(segment + segments, (segment + 1) % segments, (segment + 1) % segments + segments, offsetIndex + levelOffset);
+                    uint32 i0 = offsetIndex + levelOffset + segment;
+                    uint32 i1 = offsetIndex + levelOffset + (segment + 1) % segments;
+                    uint32 i2 = i0 + segments;
+                    uint32 i3 = i1 + segments;
+
+                    meshBuilder.addTriangle(i0, i1, i2, 0);
+                    meshBuilder.addTriangle(i2, i1, i3, 0);
                 }
             }
         }

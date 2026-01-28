@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_PIXMAP__
-#define __IGOR_PIXMAP__
+#ifndef IGOR_PIXMAP_H
+#define IGOR_PIXMAP_H
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -65,7 +65,7 @@ namespace igor
         \param height height of pixmap in pixel
         \param colorFormat the color format of the pixmap
         */
-        static iPixmapPtr createPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
+        static iPixmapPtr createPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data = nullptr);
 
         /*! loads pixmap from file
 
@@ -90,54 +90,9 @@ namespace igor
          */
         iColorFormat getColorFormat() const;
 
-        /*! sets pixmap data
-
-        \param data
-        */
-        void setData(uint8 *data);
-
-        /*! \returns pointer to pixel data
+        /*! \returns raw pixel data
          */
         uint8 *getData() const;
-
-        /*! \returns pixel value from given position
-
-        \param x x coordinate
-        \param x y coordinate
-        */
-        uint32 getPixel(uint32 x, uint32 y) const;
-
-        /*! sets pixel value at given position
-
-        \param x x coordinate
-        \param x y coordinate
-        \param color the color to set
-        */
-        void setPixel(uint32 x, uint32 y, uint32 color);
-
-        /*! same as getPixel but returns type iaColor4f
-
-        \param x x coordinate
-        \param x y coordinate
-        \param[out] color the returned color
-        */
-        void getPixel(float64 x, float64 y, iaColor4f &color) const;
-
-        /*! same as getPixel but uses bilinear filter to calculate returned color
-
-        \param x x coordinate
-        \param x y coordinate
-        \param[out] color the returned color
-        */
-        void getPixelBiLinear(float64 x, float64 y, iaColor4f &color) const;
-
-        /*! same as getPixel but returns type iaColor3f
-
-        \param x x coordinate
-        \param x y coordinate
-        \param[out] color the returned color
-        */
-        void getPixel(float64 x, float64 y, iaColor3f &color) const;
 
         /*! same as getPixel but returns type iaColor4c
 
@@ -145,7 +100,7 @@ namespace igor
         \param x y coordinate
         \param[out] color the returned color
         */
-        void getPixel(float64 x, float64 y, iaColor4c &color) const;
+        const iaColor4c getPixelRGBA(float64 x, float64 y) const;
 
         /*! same as getPixel but returns type iaColor3c
 
@@ -153,45 +108,23 @@ namespace igor
         \param x y coordinate
         \param[out] color the returned color
         */
-        void getPixel(float64 x, float64 y, iaColor3c &color) const;
+        const iaColor3c getPixelRGB(float64 x, float64 y) const;
 
-        /*! \returns value of color channel at given position
-
-        \param x x coordinate
-        \param x y coordinate
-        \param colorChannel the chosen color channel
-        */
-        uint8 getPixel(uint32 x, uint32 y, uint8 colorChannel) const;
-
-        /*! sets color channel at given position
+        /*! same as setPixel but returns type iaColor4c
 
         \param x x coordinate
         \param x y coordinate
-        \param colorChannel the chosen color channel
-        \param value the new color channel value
+        \param[out] color the returned color
         */
-        void setPixel(uint32 x, uint32 y, uint8 colorChannel, uint8 value);
+        void setPixel(float64 x, float64 y, const iaColor4c &color);
 
-        /*! sets pixel color at given position
+        /*! same as setPixel but returns type iaColor3c
 
         \param x x coordinate
         \param x y coordinate
-        \param r red color channel
-        \param g green color channel
-        \param b blur color channel
+        \param[out] color the returned color
         */
-        void setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b);
-
-        /*! sets pixel color at given position
-
-        \param x x coordinate
-        \param x y coordinate
-        \param r red color channel
-        \param g green color channel
-        \param b blur color channel
-        \param a alpha color channel
-        */
-        void setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a);
+        void setPixel(float64 x, float64 y, const iaColor3c &color);
 
     private:
         /*! pixmap width
@@ -223,10 +156,11 @@ namespace igor
         \param width width of pixmap in pixel
         \param height height of pixmap in pixel
         \param colorFormat the color format of the pixmap
+        \param data pixel data
         */
-        iPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
+        iPixmap(uint32 width, uint32 height, iColorFormat colorFormat, uint8 *data = nullptr);
     };
 
 }; // namespace igor
 
-#endif
+#endif // IGOR_PIXMAP_H

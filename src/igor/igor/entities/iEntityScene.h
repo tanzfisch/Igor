@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -50,7 +50,7 @@ namespace igor
 
 	/*! entity selection change event
 	 */
-	IGOR_EVENT_DEFINITION(iEntitySelectionChanged, const iEntitySceneID &, const std::vector<iEntityID> &);
+	IGOR_EVENT_DEFINITION(iEntitySelectionChange, const iEntitySceneID &, const std::vector<iEntityID> &);
 
 	/*! entity scene
 	 */
@@ -211,7 +211,7 @@ namespace igor
 
 		/*! \returns entity selection change event
 		 */
-		iEntitySelectionChangedEvent &getEntitySelectionChangedEvent();
+		iEntitySelectionChangeEvent &getEntitySelectionChangeEvent();
 
 		/*! cut selected entities
 		 */
@@ -332,7 +332,7 @@ namespace igor
 
 		/*! the entity selection changed event
 		 */
-		iEntitySelectionChangedEvent _entitySelectionChangedEvent;
+		iEntitySelectionChangeEvent _entitySelectionChangedEvent;
 
 		/*! sets render engine
 
@@ -384,6 +384,15 @@ namespace igor
 		\param entity the entity that has changed it's components
 		*/
 		void onEntityStructureChanged(iEntityPtr entity);
+
+		/*! called when scene was deactivated
+		*/
+		void onDeactivate();
+
+		/*! called when scene was activated
+		*/
+		void onActivate();
+
 	};
 
 } // igor

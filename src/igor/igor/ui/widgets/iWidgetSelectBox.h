@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -40,7 +40,7 @@ namespace igor
     typedef iDialog *iDialogPtr;
     class iTextureFont;
     class iWidgetManager;
-    class iDialogIndexMenu;
+    class iDialogDropDownMenu;
 
     /*! select box widget
 	*/
@@ -67,9 +67,13 @@ namespace igor
 
         /*! clears all entries
 
-		Attention! if you used user data you have to delete it your self
+		Attention! if you used user data you may have to delete it your self
 		*/
         void clear();
+
+        /*! reset selection to default
+        */
+        void reset();
 
         /*! sets selection by index
 
@@ -114,7 +118,7 @@ namespace igor
 
 		-1 stand for no selection
 		*/
-        int32 _currentSelection = -1;
+        int32 _selectedIndex = -1;
 
         /*! true: if the select box is unfoldet
 		*/
@@ -122,7 +126,7 @@ namespace igor
 
         /*! select box dialog used for the unfold effect
 		*/
-        iDialogIndexMenu *_selectBox = nullptr;
+        std::unique_ptr<iDialogDropDownMenu> _selectBox;
 
         /*! appearance state of the button
 		*/

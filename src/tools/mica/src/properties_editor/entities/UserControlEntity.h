@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,8 @@
 #ifndef USERCONTROL_ENTITY_H
 #define USERCONTROL_ENTITY_H
 
-#include "DialogComponentTypeSelection.h"
+#include <igor/igor.h>
+using namespace igor;
 
 class UserControlEntity : public iUserControl
 {
@@ -100,10 +101,14 @@ private:
     /*! add button
     */
     iWidgetButtonPtr _addComponent = nullptr;
+    
+    /*! indexed type indices
+    */
+    std::vector<std::type_index> _typeIndices;
 
     /*! component type selection dialog
     */
-    std::unique_ptr<DialogComponentTypeSelection> _componentSelectionDialog;
+    std::unique_ptr<iDialogDecisionBox> _componentSelectionDialog;
 
     /*! called on add component button clicked
 

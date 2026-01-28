@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlSprite.h>
@@ -18,14 +18,14 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlSprite::~iUserControlSprite()
     {
     }
 
-    void iUserControlSprite::initGUI()
+    void iUserControlSprite::onInitUI()
     {
         iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
 
@@ -101,7 +101,7 @@ namespace igor
         _change(this);
     }
 
-    iResourceID iUserControlSprite::getID() const
+    const iResourceID& iUserControlSprite::getID() const
     {
         return _spriteID;
     }

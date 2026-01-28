@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTexture.h>
@@ -20,8 +20,8 @@ namespace igor
     iTexture::iTexture(const iParameters &parameters)
         : iResource(parameters)
     {
-        _wrapMode = parameters.getParameter<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
-        _buildMode = parameters.getParameter<iTextureBuildMode>(IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Mipmapped);
+        _wrapMode = parameters.getParameterValue<iTextureWrapMode>(IGOR_RESOURCE_PARAM_TEXTURE_WRAP_MODE, iTextureWrapMode::Repeat);
+        _buildMode = parameters.getParameterValue<iTextureBuildMode>(IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Mipmapped);
     }
 
     void iTexture::bind(uint32 textureUnit)

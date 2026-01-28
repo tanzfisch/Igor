@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlComponentCircle.h"
@@ -95,7 +95,7 @@ void UserControlComponentCircle::onUpdateComponent()
         return;
     }
 
-    iCircleComponent *component = entity->getComponent<iCircleComponent>();
+    iCircleComponentPtr component = entity->getComponent<iCircleComponent>();
     if (component == nullptr)
     {
         return;

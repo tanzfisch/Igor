@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -36,6 +36,7 @@ IGOR_EVENT_DEFINITION_NO_ARGS(CreateProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(LoadProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(SaveProject);
 IGOR_EVENT_DEFINITION_NO_ARGS(CloseProject);
+IGOR_EVENT_DEFINITION_NO_ARGS(OpenSettings);
 
 /*! main dialog
  */
@@ -66,6 +67,10 @@ public:
      */
     CloseProjectEvent &getCloseProjectEvent();
 
+    /*! \returns open settings event
+     */
+    CloseProjectEvent &getOpenSettingsEvent();
+
 private:
     /*! create project event
      */
@@ -83,9 +88,17 @@ private:
      */
     CloseProjectEvent _closeProject;
 
+    /*! open settings event
+     */
+    OpenSettingsEvent _openSettings;
+
+    /*! play button
+     */
+    iWidgetButtonPtr _playStopButton = nullptr;
+
     /*! init ui
      */
-    void initGUI();
+    void onInitUI();
 
     /*! triggers create project event
 
@@ -111,6 +124,10 @@ private:
     */
     void onCloseProject(const iWidgetPtr source);
 
+    /*! triggers open settings event
+     */
+    void onOpenSettings(const iWidgetPtr source);
+
     /*! creates main application menu
 
     \returns created menu
@@ -121,13 +138,27 @@ private:
 
     \param source the event source
      */
-    void onPrintProjectTree(const iWidgetPtr source);      
+    void onPrintProjectTree(const iWidgetPtr source);
 
     /*! on pre recent project menu open
 
     \param menu the recent project menu
     */
     void onRecentProjectOpen(iWidgetMenuPtr menu);
+
+    /*! on play button pressed
+     */
+    void onPlayStop(iWidgetPtr source);
+
+    /*! on project loaded event
+
+    \param projectfile the project file loaded
+    */
+    void onProjectLoaded(const iaString &projectfile);
+
+    /*! on project unloaded event
+     */
+    void onProjectUnloaded();
 };
 
 #endif // MICA_MAIN_LAYOUT_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
@@ -55,7 +55,17 @@ namespace igor
 
         delete _root;
 
-        flushQueues();
+        int32 maxdepth = 200;
+        while (!_entities.empty() && maxdepth > 0)
+        {
+            flushQueues();
+            maxdepth--;
+        }
+
+        if(maxdepth == 0)
+        {
+            con_err("could not clear scene");
+        }
 
         _root = new iEntity("root");
         _root->_scene = this;
@@ -97,7 +107,7 @@ namespace igor
     {
         con_assert((int)stageIndex < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if (stageIndex == iEntitySystemStage::Update)
+        if (stageIndex == iEntitySystemStage::System)
         {
             flushQueues();
         }
@@ -184,7 +194,7 @@ namespace igor
         _mutex.lock();
         if (_entities.find(entity->getID()) != _entities.end())
         {
-            con_err("Entity ID collision " << entity->getID());
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
         }
 
         _entities[entity->getID()] = entity;
@@ -210,8 +220,12 @@ namespace igor
         {
             entity->_id = id;
         }
+
         _mutex.lock();
-        con_assert(_entities.find(entity->getID()) == _entities.end(), "id collision");
+        if (_entities.find(entity->getID()) != _entities.end())
+        {
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
+        }
 
         _entities[entity->getID()] = entity;
         entity->_scene = this;
@@ -366,6 +380,11 @@ namespace igor
     {
         iEntitySystemPtr system = iEntitySystemModule::getInstance().createSystem(systemName);
 
+        if(system == nullptr)
+        {
+            return;
+        }
+
         _systemsMutex.lock();
         auto &stage = _systems[(int)system->getStage()];
 
@@ -481,7 +500,7 @@ namespace igor
         _entitySelectionChangedEvent(getID(), _selection);
     }
 
-    iEntitySelectionChangedEvent &iEntityScene::getEntitySelectionChangedEvent()
+    iEntitySelectionChangeEvent &iEntityScene::getEntitySelectionChangeEvent()
     {
         return _entitySelectionChangedEvent;
     }
@@ -495,8 +514,8 @@ namespace igor
             return;
         }
 
-        std::vector<iaUUID> IDs = {1};                               // 1 means this is a cut operation
-        IDs.push_back(sceneID);                                      // scene id
+        std::vector<iaUUID> IDs = {1};                           // 1 means this is a cut operation
+        IDs.push_back(sceneID);                                  // scene id
         IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
         iClipboard::getInstance().copyEntityIDs(IDs);
     }
@@ -510,8 +529,8 @@ namespace igor
             return;
         }
 
-        std::vector<iaUUID> IDs = {0};                               // 0 means this is a copy operation
-        IDs.push_back(sceneID);                                      // scene id
+        std::vector<iaUUID> IDs = {0};                           // 0 means this is a copy operation
+        IDs.push_back(sceneID);                                  // scene id
         IDs.insert(IDs.end(), entities.begin(), entities.end()); // selected entities
         iClipboard::getInstance().copyEntityIDs(IDs);
     }
@@ -527,23 +546,23 @@ namespace igor
     }
 
     void iEntityScene::paste(const iEntitySceneID &sceneID, const iEntityID &entityID)
-    {            
+    {
         auto dstScene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if(dstScene == nullptr)
+        if (dstScene == nullptr)
         {
             return;
         }
         auto dstEntity = dstScene->getEntity(entityID);
-        if(dstEntity == nullptr)
+        if (dstEntity == nullptr)
         {
             return;
         }
 
         std::vector<iaUUID> IDs = iClipboard::getInstance().pasteEntityIDs();
-        if(IDs.size() < 3)
+        if (IDs.size() < 3)
         {
             return;
-        }         
+        }
         bool move = IDs[0].isValid();
         auto srcScene = iEntitySystemModule::getInstance().getScene(IDs[1]);
         for (int i = 2; i < IDs.size(); ++i)
@@ -552,7 +571,7 @@ namespace igor
 
             iEntitySystemModule::getInstance().insert(srcEntity, dstEntity);
 
-            if(move)
+            if (move)
             {
                 srcScene->destroyEntity(srcEntity);
             }
@@ -561,7 +580,7 @@ namespace igor
 
     void iEntityScene::paste()
     {
-        if(_selection.size() != 1)
+        if (_selection.size() != 1)
         {
             return;
         }
@@ -572,21 +591,21 @@ namespace igor
     void iEntityScene::duplicate(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities)
     {
         auto scene = iEntitySystemModule::getInstance().getScene(sceneID);
-        if(scene == nullptr)
+        if (scene == nullptr)
         {
             return;
         }
 
-        for(const auto &entityID : entities)
+        for (const auto &entityID : entities)
         {
             auto entity = scene->getEntity(entityID);
-            if(entity == nullptr)
+            if (entity == nullptr)
             {
                 continue;
             }
 
             auto parent = entity->getParent();
-            if(parent == nullptr)
+            if (parent == nullptr)
             {
                 continue;
             }
@@ -600,5 +619,14 @@ namespace igor
         duplicate(getID(), _selection);
     }
 
-} // igor
+    void iEntityScene::onDeactivate()
+    {
+        _entitySelectionChangedEvent.block(true);
+    }
 
+    void iEntityScene::onActivate()
+    {
+        _entitySelectionChangedEvent.block(false);
+    }
+
+} // igor

@@ -1,7 +1,7 @@
 var classigor_1_1i_velocity_component =
 [
     [ "iVelocityComponent", "classigor_1_1i_velocity_component.html#a0303b2f0c937b316ff95b69c63f4038b", null ],
-    [ "createInstance", "classigor_1_1i_velocity_component.html#a079136ed7ccadaec80783fac748b4739", null ],
+    [ "createInstance", "classigor_1_1i_velocity_component.html#a21501783d8317d8937dbb155511e5f0f", null ],
     [ "getAngularVelocity", "classigor_1_1i_velocity_component.html#a8c6207a0f86179d09df2bad8d3853ff2", null ],
     [ "getInfo", "classigor_1_1i_velocity_component.html#a1c410728f11532aea6b6110caaabb6a0", null ],
     [ "getTypeName", "classigor_1_1i_velocity_component.html#a69700e9188758595d7957f503326f3dc", null ],

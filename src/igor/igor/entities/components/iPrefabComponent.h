@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -37,7 +37,7 @@ namespace igor
 {
     /*! octree component
      */
-    class iPrefabComponent : public iEntityComponent
+    class IGOR_API iPrefabComponent : public iEntityComponent
     {
     public:
         /*! default ctor
@@ -52,7 +52,7 @@ namespace igor
 
         /*! creates instance of this component type
          */
-        static iEntityComponent *createInstance();
+        static iEntityComponentPtr createInstance();
 
         /*! \returns type name of component
          */
@@ -89,6 +89,10 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! prefab component pointe definition
+    */
+    typedef iPrefabComponent* iPrefabComponentPtr;
 
 }
 

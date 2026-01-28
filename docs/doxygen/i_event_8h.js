@@ -33,6 +33,7 @@ var i_event_8h =
       [ "iEventSceneSelectionChanged", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da85f66bbf5f80f249311e5bc94e628379", null ],
       [ "iEventFileCreated", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da266ab9748d4b22f1e9a0055b8ce0c3f8", null ],
       [ "iEventFileDeleted", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da08dd8c733c5fe18edbaddbd5ce657d78", null ],
+      [ "iEventFolderDeleted", "i_event_8h.html#a504f0931de9d9729518c78c53d39710daaccfb4ef4f72d9e5b8e4aa3b83da8ce7", null ],
       [ "iEventFileMovedFrom", "i_event_8h.html#a504f0931de9d9729518c78c53d39710dacea3c9d59809a254895a8ca4a6bf1c8f", null ],
       [ "iEventFileMovedTo", "i_event_8h.html#a504f0931de9d9729518c78c53d39710dadac711fe7dee404d6b7b173e03a2c5ea", null ],
       [ "iEventFileChanged", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da5af7b83bc0ed3b58aee2cafc5cc75f2a", null ],

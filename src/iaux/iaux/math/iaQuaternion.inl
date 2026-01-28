@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <class T>
@@ -112,7 +112,7 @@ iaQuaternion<T>::iaQuaternion(const iaQuaternion<T> &other)
 }
 
 template <class T>
-const iaQuaternion<T> iaQuaternion<T>::operator*(T scalar)
+iaQuaternion<T> iaQuaternion<T>::operator*(T scalar) const
 {
     return {
         _w * scalar,
@@ -226,7 +226,7 @@ bool iaQuaternion<T>::operator!=(const iaQuaternion<T> &other) const
 }
 
 template <class T>
-const iaQuaternion<T> iaQuaternion<T>::operator+(const iaQuaternion<T> &other)
+iaQuaternion<T> iaQuaternion<T>::operator+(const iaQuaternion<T> &other) const
 {
     return {_w + other._w,
             _x + other._x,
@@ -245,7 +245,7 @@ iaQuaternion<T> &iaQuaternion<T>::operator+=(const iaQuaternion<T> &other)
 }
 
 template <class T>
-const iaQuaternion<T> iaQuaternion<T>::operator-(const iaQuaternion<T> &other)
+iaQuaternion<T> iaQuaternion<T>::operator-(const iaQuaternion<T> &other) const
 {
     return {_w - other._w,
             _x - other._x,
@@ -264,7 +264,7 @@ iaQuaternion<T> &iaQuaternion<T>::operator-=(const iaQuaternion<T> &other)
 }
 
 template <class T>
-const iaQuaternion<T> iaQuaternion<T>::operator*(const iaQuaternion<T> &other) const
+iaQuaternion<T> iaQuaternion<T>::operator*(const iaQuaternion<T> &other) const
 {
     return iaQuaternion<T>(*this) *= other;
 }
@@ -366,7 +366,7 @@ IGOR_INLINE T *iaQuaternion<T>::getData()
 }
 
 template <class T>
-IGOR_INLINE const iaQuaternion<T> iaQuaternion<T>::normalize() const
+IGOR_INLINE iaQuaternion<T> iaQuaternion<T>::normalize() const
 {
     const T d = 1.0 / norm();
     return {_w * d, _x * d, _y * d, _z * d};
@@ -382,7 +382,7 @@ template <class T>
 iaQuaternion<T> slerp(iaQuaternion<T> a, iaQuaternion<T> b, T t)
 {
     // Only unit quaternions are valid rotations.
-    // Normalize to avoid undefined behavior.
+    // Normalize to avoid undefined script.
     a.normalize();
     b.normalize();
 
@@ -435,7 +435,7 @@ T iaQuaternion<T>::magnitude2() const
 }
 
 template <class T>
-const iaQuaternion<T> iaQuaternion<T>::inverse() const
+iaQuaternion<T> iaQuaternion<T>::inverse() const
 {
     T mag = magnitude2();
     if (mag == 0.0)

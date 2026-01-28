@@ -1,6 +1,6 @@
 
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetSplitter.h>
@@ -289,7 +289,7 @@ namespace igor
         {
             _widgetState = iWidgetState::Pressed;
             _splitterState = calcSplitterState(getLastMousePos());
-            _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+            _lastMousePos = iMouse::getInstance().getPosition();
 
             if (_splitterState != iSplitterState::Inactive)
             {
@@ -689,7 +689,7 @@ namespace igor
         _displayCenter = false;
         _displayEdges = false;
 
-        iaVector2f pos(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+        iaVector2f pos(iMouse::getInstance().getPosition());
 
         if (!iIntersection::intersects(pos, getActualRect()))
         {

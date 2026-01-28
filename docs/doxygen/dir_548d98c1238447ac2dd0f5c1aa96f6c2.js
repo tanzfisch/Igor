@@ -4,5 +4,7 @@ var dir_548d98c1238447ac2dd0f5c1aa96f6c2 =
     [ "iShader.cpp", "i_shader_8cpp.html", "i_shader_8cpp" ],
     [ "iShader.h", "i_shader_8h.html", "i_shader_8h" ],
     [ "iShaderFactory.cpp", "i_shader_factory_8cpp.html", null ],
-    [ "iShaderFactory.h", "i_shader_factory_8h.html", "i_shader_factory_8h" ]
+    [ "iShaderFactory.h", "i_shader_factory_8h.html", "i_shader_factory_8h" ],
+    [ "iShaderUtils.cpp", "i_shader_utils_8cpp.html", null ],
+    [ "iShaderUtils.h", "i_shader_utils_8h.html", "i_shader_utils_8h" ]
 ];

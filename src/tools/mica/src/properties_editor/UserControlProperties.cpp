@@ -1,13 +1,15 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlProperties.h"
 
 #include "resources/UserControlResource.h"
-#include "resources/UserControlShaderMaterial.h"
-#include "resources/UserControlMaterial.h"
-#include "resources/UserControlTexture.h"
+#include "resources/UserControlResourceShader.h"
+#include "resources/UserControlResourceMaterial.h"
+#include "resources/UserControlResourceScript.h"
+#include "resources/UserControlResourceTexture.h"
+#include "resources/UserControlResourceSprite.h"
 
 #include "entities/UserControlEntity.h"
 
@@ -60,15 +62,23 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
 
     if (resourceType == IGOR_RESOURCE_SHADER)
     {
-        userControl = new UserControlShaderMaterial(resourceID, _layout);
+        userControl = new UserControlResourceShader(resourceID, _layout);
     }
     if (resourceType == IGOR_RESOURCE_MATERIAL)
     {
-        userControl = new UserControlMaterial(resourceID, _layout);
+        userControl = new UserControlResourceMaterial(resourceID, _layout);
     }
+    if (resourceType == IGOR_RESOURCE_SCRIPT)
+    {
+        userControl = new UserControlResourceScript(resourceID, _layout);
+    }    
     else if (resourceType == IGOR_RESOURCE_TEXTURE)
     {
-        userControl = new UserControlTexture(resourceID, _layout);
+        userControl = new UserControlResourceTexture(resourceID, _layout);
+    }
+    else if (resourceType == IGOR_RESOURCE_SPRITE)
+    {
+        userControl = new UserControlResourceSprite(resourceID, _layout);
     }
 
     if (userControl == nullptr)
@@ -76,6 +86,6 @@ void UserControlProperties::initResourceUI(const iResourceID &resourceID)
         userControl = new UserControlResource(resourceID, _layout);
     }
 
-    userControl->init();
-    userControl->update();
+    userControl->onInit();
+    userControl->onUpdateUI();
 }

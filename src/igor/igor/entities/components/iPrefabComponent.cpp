@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iPrefabComponent.h>
@@ -13,7 +13,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iPrefabComponent::createInstance()
+    iEntityComponentPtr iPrefabComponent::createInstance()
     {
         return new iPrefabComponent();
     }
@@ -55,7 +55,7 @@ namespace igor
     {
         con_assert(getState() == iEntityComponentState::Unloaded, "invalid state");
         _prefab = prefab;
-        setDirty();
+        increaseVersion();
     }
 
     iPrefabPtr iPrefabComponent::getPrefab() const

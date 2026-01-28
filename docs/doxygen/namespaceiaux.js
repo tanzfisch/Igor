@@ -78,7 +78,6 @@ var namespaceiaux =
     [ "iaConvert", "classiaux_1_1ia_convert.html", "classiaux_1_1ia_convert" ],
     [ "iaDate", "classiaux_1_1ia_date.html", "classiaux_1_1ia_date" ],
     [ "iaDelegate", "classiaux_1_1ia_delegate.html", "classiaux_1_1ia_delegate" ],
-    [ "iaDirectory", "classiaux_1_1ia_directory.html", "classiaux_1_1ia_directory" ],
     [ "iaEvent", "classiaux_1_1ia_event.html", "classiaux_1_1ia_event" ],
     [ "iaEventPool", "classiaux_1_1ia_event_pool.html", "classiaux_1_1ia_event_pool" ],
     [ "iaFile", "classiaux_1_1ia_file.html", "classiaux_1_1ia_file" ],
@@ -88,6 +87,7 @@ var namespaceiaux =
     [ "iaMatrix", "classiaux_1_1ia_matrix.html", "classiaux_1_1ia_matrix" ],
     [ "iaMatrix2D", "classiaux_1_1ia_matrix2_d.html", "classiaux_1_1ia_matrix2_d" ],
     [ "iaMutex", "classiaux_1_1ia_mutex.html", "classiaux_1_1ia_mutex" ],
+    [ "iaPath", "classiaux_1_1ia_path.html", "classiaux_1_1ia_path" ],
     [ "iaQuaternion", "classiaux_1_1ia_quaternion.html", "classiaux_1_1ia_quaternion" ],
     [ "iaRandom", "classiaux_1_1ia_random.html", "classiaux_1_1ia_random" ],
     [ "iaRandomNumberGenerator", "classiaux_1_1ia_random_number_generator.html", "classiaux_1_1ia_random_number_generator" ],
@@ -165,6 +165,10 @@ var namespaceiaux =
       [ "X", "namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383", null ],
       [ "Y", "namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0", null ],
       [ "Z", "namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba21c2e59531c8710156d34a3c30ac81d5", null ]
+    ] ],
+    [ "iaExecuteType", "namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1", [
+      [ "Immediately", "namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1afd83e0ccb3e6312a62f888dd496dd0a5", null ],
+      [ "NextFrameMainThread", "namespaceiaux.html#abdb03e02df33a0c092d0d4878fc170d1a97b313021e7406bbedff6b43c98e7a92", null ]
     ] ],
     [ "iaFileOpenMode", "namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2c", [
       [ "ReadBinary", "namespaceiaux.html#a5db3a03d362f3a8606d971b88e0d0a2ca087df96b394ba2f8b205fa9452fe2473", null ],
@@ -247,10 +251,10 @@ var namespaceiaux =
     [ "operator<<", "namespaceiaux.html#ab0eabc55ddb1954fa84b20c760724c42", null ],
     [ "operator<<", "namespaceiaux.html#a4e11fd612229fab81e32840a2e6a58ed", null ],
     [ "operator<<", "namespaceiaux.html#ac2868399805db6aa51c9700d850e3ef0", null ],
-    [ "operator<<", "namespaceiaux.html#a65efa8656a3fa912d57d9f269918f1da", null ],
     [ "operator<<", "namespaceiaux.html#a34bca877062d63171cbb00feb8b4ebd8", null ],
     [ "operator<<", "namespaceiaux.html#a8c286b903f78dd850081bf730ef493cd", null ],
     [ "operator<<", "namespaceiaux.html#a7c4239d9191c86540932f951bd6749c8", null ],
+    [ "operator<<", "namespaceiaux.html#a684264407ac98d541b9e0e953b7b7630", null ],
     [ "operator<<", "namespaceiaux.html#abc2bac27a2668236b6105c839efd41b5", null ],
     [ "operator<<", "namespaceiaux.html#a1b57cbc4d7734a3a585e10f6ec836691", null ],
     [ "operator<<", "namespaceiaux.html#aa4ce31854b2b0ead0e7ec725868a8534", null ],
@@ -275,6 +279,7 @@ var namespaceiaux =
     [ "to_json", "namespaceiaux.html#a275fc917dbd27092e5473e0ec72e559d", null ],
     [ "to_json", "namespaceiaux.html#a2597a30f19d31c3c3ef7996649a75a95", null ],
     [ "to_json", "namespaceiaux.html#a7bd7c713108f7b087076fdc9bfb9682b", null ],
+    [ "toString", "namespaceiaux.html#a8853c47557fc31b00fc5a84e1d5a8c2c", null ],
     [ "UNLOCK", "namespaceiaux.html#a85493f7208d5ae4ec01d6227d4b3626f", null ],
     [ "_randomNumberGenerator", "namespaceiaux.html#a703cd6c86c847adbe3a7d1712f112b15", null ],
     [ "iaConsole", "namespaceiaux.html#abc82355706630fc42170f31da49c8a6c", null ],

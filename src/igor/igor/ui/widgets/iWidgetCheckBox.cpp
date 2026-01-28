@@ -1,12 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
-#include <igor/resources/texture/iTextureFont.h>
 
 namespace igor
 {
@@ -91,32 +90,9 @@ namespace igor
 		return _checked;
 	}
 
-	void iWidgetCheckBox::setText(const iaString &text)
-	{
-		_text = text;
-	}
-
 	void iWidgetCheckBox::calcMinSize()
 	{
-		int32 minWidth = 0;
-		int32 minHeight = 0;
-
-		if (_growsByContent &&
-			!_text.isEmpty())
-		{
-			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-			minHeight = static_cast<int32>(fontSize * 1.5f);
-
-			int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + fontSize * 3.0f);
-			minWidth = textWidth;
-		}
-
-		updateMinSize(minWidth, minHeight);
-	}
-
-	const iaString &iWidgetCheckBox::getText() const
-	{
-		return _text;
+		updateMinSize(0, 0);
 	}
 
 	void iWidgetCheckBox::draw()

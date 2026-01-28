@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_WIDGETLINETEXTEDIT_H
-#define IGOR_WIDGETLINETEXTEDIT_H
+#ifndef IGOR_WIDGET_LINE_TEXT_EDIT_H
+#define IGOR_WIDGET_LINE_TEXT_EDIT_H
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -141,7 +141,7 @@ namespace igor
 		*/
         iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
 
-        /*! flat to handle change event trigger behaviour
+        /*! flat to handle change event trigger script
 		*/
         bool _triggerChangeAtOnce = false;
 
@@ -223,4 +223,4 @@ namespace igor
 
 } // namespace igor
 
-#endif // IGOR_WIDGETLINETEXTEDIT_H
+#endif // IGOR_WIDGET_LINE_TEXT_EDIT_H

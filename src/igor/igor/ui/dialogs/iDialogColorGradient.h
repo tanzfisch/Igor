@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -59,8 +59,9 @@ namespace igor
 
 		\param dialogCloseDelegate closing delegate
         \param modal if true dialog opens modal
+        \param reset if true reset dialog and all it's children
 		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true) override;
+        void open(iDialogCloseDelegate dialogCloseDelegate, bool modal = true, bool reset = true) override;
 
         /*! sets color gradient
 

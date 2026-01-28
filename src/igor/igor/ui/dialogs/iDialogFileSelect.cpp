@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -17,7 +17,7 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaFile.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 using namespace iaux;
 
 namespace igor
@@ -41,15 +41,15 @@ namespace igor
         iDialog::open(dialogCloseDelegate, true);
 
         _purpose = purpose;
-        initGUI();
+        onInitUI();
 
-        if (iaFile::exists(path))
+        if (iaPath::isFile(path))
         {
-            iaFile file(path);
-            _filename = file.getFileName();
-            _directory = file.getPath();
+            iaPath path(path);
+            _filename = path.getName();
+            _directory = path.getParentPath();
         }
-        else if (iaDirectory::isDirectory(path))
+        else if (iaPath::isDirectory(path))
         {
             _filename = "";
             _directory = path;
@@ -59,17 +59,17 @@ namespace igor
             if (!path.isEmpty())
             {
                 _filename = "";
-                _directory = iaDirectory::fixPath(path);
+                _directory = iaPath::fixPath(path);
 
-                if (!iaDirectory::isDirectory(_directory))
+                if (!iaPath::isDirectory(_directory))
                 {
-                    _directory = iaDirectory::getCurrentDirectory();
+                    _directory = iaPath::getCurrentDirectory();
                 }
             }
             else
             {
                 _filename = "";
-                _directory = iaDirectory::getCurrentDirectory();
+                _directory = iaPath::getCurrentDirectory();
             }
         }
 
@@ -86,7 +86,7 @@ namespace igor
         return _purpose;
     }
 
-    void iDialogFileSelect::initGUI()
+    void iDialogFileSelect::onInitUI()
     {
         clearChildren();
 
@@ -193,25 +193,25 @@ namespace igor
     {
         if (_filename.isEmpty())
         {
-            return iaDirectory::fixPath(_directory);
+            return iaPath::fixPath(_directory);
         }
 
-        return iaDirectory::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
+        return iaPath::fixPath(_directory + IGOR_PATHSEPARATOR + _filename);
     }
 
     void iDialogFileSelect::updateFileDir()
     {
-        if (iaFile::exists(_filename))
+        if (iaPath::isFile(_filename))
         {
-            iaFile file(_filename);
-            _directory = file.getPath();
-            _filename = file.getFileName();
+            iaPath path(_filename);
+            _directory = path.getParentPath();
+            _filename = path.getName();
         }
-        else if (iaFile::exists(_directory))
+        else if (iaPath::isFile(_directory))
         {
-            iaFile file(_directory);
-            _directory = file.getPath();
-            _filename = file.getFileName();
+            iaPath path(_directory);
+            _directory = path.getParentPath();
+            _filename = path.getName();
         }
 
         _pathEdit->setText(_directory);
@@ -252,30 +252,30 @@ namespace igor
         _fileGrid->appendRows(rowCount - 1);
 
         int32 index = 0;
-        iaDirectory directory(_directory);
+        iaPath directory(_directory);
         auto directories = directory.getDirectories();
         auto files = directory.getFiles();
 
         if (!directory.isRoot())
         {
-            addToFileGrid(0, 0, directory.getAbsoluteParentDirectoryName(), "..", true);
+            addToFileGrid(0, 0, directory.getParentPath(), "..", true);
             index++;
         }
 
         for (auto iter : directories)
         {
-            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsoluteDirectoryName(), iter.getDirectoryName(), true);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getAbsolutePath(), iter.getName(), true);
             index++;
         }
 
         for (auto iter : files)
         {
-            if (!filterExtension(iter.getFileName()))
+            if (!filterExtension(iter.getName()))
             {
                 continue;
             }
 
-            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getFileName(), false);
+            addToFileGrid(index / rowCount, index % rowCount, iter.getFullFileName(), iter.getName(), false);
             index++;
         }
 
@@ -397,8 +397,7 @@ namespace igor
     {
         if (_purpose == iFileDialogPurpose::Load)
         {
-            iaFile file(getFullPath());
-            if (!file.exists())
+            if (!iaPath::exists(getFullPath()))
             {
                 setReturnState(iDialogReturnState::Error);
             }

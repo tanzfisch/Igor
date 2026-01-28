@@ -1,12 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "ShopDialog.h"
 
 ShopDialog::ShopDialog(const iWidgetPtr parent)
 {
-	initGUI();
+	onInitUI();
 }
 
 void ShopDialog::open(iDialogCloseDelegate dialogCloseDelegate, int coins, const std::vector<ShopItem> &shopItems)
@@ -62,7 +62,7 @@ const ShopItem &ShopDialog::getSelection() const
 	return _shopItems[_selection];
 }
 
-void ShopDialog::initGUI()
+void ShopDialog::onInitUI()
 {
 	setMinWidth(500);
 	setMinHeight(200);

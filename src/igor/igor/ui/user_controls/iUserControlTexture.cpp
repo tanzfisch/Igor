@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlTexture.h>
@@ -19,20 +19,20 @@ namespace igor
     {
         setAcceptDrop(true);
 
-        initGUI();
+        onInitUI();
     }
 
     iUserControlTexture::~iUserControlTexture()
     {
     }
 
-    void iUserControlTexture::initGUI()
+    void iUserControlTexture::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);        
         _picture = new iWidgetPicture(layout);
         _picture->setKeepAspectRatio(false);
-        _picture->setMaxSize(64, 64);
-        _picture->setMinSize(64, 64);
+        _picture->setMaxSize(128, 128);
+        _picture->setMinSize(128, 128);
 
         iWidgetBoxLayoutPtr labelLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, layout);
         _labelID = new iWidgetLabel(labelLayout);
@@ -57,14 +57,13 @@ namespace igor
         }
 
         _picture->setTexture(iThumbnailCache::getInstance().getThumbnail(_textureID));
-
         _labelID->setText(textureID.toString());
         _labelAlias->setText(iResourceManager::getInstance().getAlias(_textureID));
 
         _change(this);
     }
 
-    iResourceID iUserControlTexture::getID() const
+    const iResourceID& iUserControlTexture::getID() const
     {
         return _textureID;
     }

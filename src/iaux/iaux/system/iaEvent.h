@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -315,13 +315,12 @@ namespace iaux
     typedef iaDelegate<void> iaEventPoolDelegate;
 
     /*! pool of events that need to be triggered in main thread
-    */
+     */
     class iaEventPool
     {
     public:
-
         /*! \returns instance of this pool
-        */
+         */
         static iaEventPool &getInstance()
         {
             static iaEventPool instance;
@@ -329,7 +328,7 @@ namespace iaux
         }
 
         /*! execute all events in pool
-        */
+         */
         void execute()
         {
             con_assert(std::this_thread::get_id() == IGOR_MAIN_THREAD_ID, "only allowed to run in main thread");
@@ -371,20 +370,28 @@ namespace iaux
 
     private:
         /*! mutex to protect pool
-        */
+         */
         std::mutex _mutex;
 
         /*! the pool
-        */
+         */
         std::vector<iaEventPoolDelegate> _delegates;
 
         /*! does nothing
-        */
+         */
         iaEventPool() = default;
 
         /*! does nothing
-        */
+         */
         ~iaEventPool() = default;
+    };
+
+    /*! when to execute a delegate
+     */
+    enum class iaExecuteType
+    {
+        Immediately,        // when called
+        NextFrameMainThread // next frame on main thread
     };
 
     /*! event container for delegates that executes delegates when triggered
@@ -394,7 +401,7 @@ namespace iaux
     {
     public:
         /*! unregister from pool in case it is needed
-        */
+         */
         ~iaEvent()
         {
             iaEventPool::getInstance().unregisterEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
@@ -406,12 +413,20 @@ namespace iaux
         \param fireOnce if true delegate will be fired once and then removed
         \param mainThread fire only on main thread
         */
-        void add(const iaDelegate<R, Args...> &delegate, bool fireOnce = false, bool mainThread = false)
+        void add(const iaDelegate<R, Args...> &delegate, bool fireOnce = false, iaExecuteType execute = iaExecuteType::Immediately)
         {
             _mutex.lock();
             if (!fireOnce)
             {
-                if (mainThread)
+                if (execute == iaExecuteType::Immediately)
+                {
+                    auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
+                    if (iter == _delegates.end())
+                    {
+                        _delegates.push_back(delegate);
+                    }
+                }
+                else
                 {
                     iaEventPool::getInstance().registerEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
 
@@ -421,18 +436,18 @@ namespace iaux
                         _delegatesMainThread.push_back(delegate);
                     }
                 }
-                else
-                {
-                    auto iter = std::find(_delegates.begin(), _delegates.end(), delegate);
-                    if (iter == _delegates.end())
-                    {
-                        _delegates.push_back(delegate);
-                    }
-                }
             }
             else
             {
-                if (mainThread)
+                if (execute == iaExecuteType::Immediately)
+                {
+                    auto iter = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
+                    if (iter == _fireOnceDelegates.end())
+                    {
+                        _fireOnceDelegates.push_back(delegate);
+                    }
+                }
+                else
                 {
                     iaEventPool::getInstance().registerEvent(iaEventPoolDelegate(this, &iaEvent<R, Args...>::processInMain));
 
@@ -440,14 +455,6 @@ namespace iaux
                     if (iter == _fireOnceDelegatesMainThread.end())
                     {
                         _fireOnceDelegatesMainThread.push_back(delegate);
-                    }
-                }
-                else
-                {
-                    auto iter = std::find(_fireOnceDelegates.begin(), _fireOnceDelegates.end(), delegate);
-                    if (iter == _fireOnceDelegates.end())
-                    {
-                        _fireOnceDelegates.push_back(delegate);
                     }
                 }
             }
@@ -516,11 +523,9 @@ namespace iaux
                 return;
             }
 
-            bool mainThread = std::this_thread::get_id() == IGOR_MAIN_THREAD_ID;
             _mutex.lock();
-            if (!mainThread &&
-                (!_fireOnceDelegatesMainThread.empty() ||
-                 !_delegatesMainThread.empty()))
+            if (!_fireOnceDelegatesMainThread.empty() ||
+                !_delegatesMainThread.empty())
             {
                 // store args for being executed in main thread
                 _fireInMain.emplace_back(std::forward<Args>(args)...);
@@ -605,7 +610,7 @@ namespace iaux
     typedef iaEvent<void, __VA_ARGS__> NAME##Event; \
     typedef iaDelegate<void, __VA_ARGS__> NAME##Delegate;
 
-#define IGOR_DELEGATE_DEFINITION(NAME, ...)            \
+#define IGOR_DELEGATE_DEFINITION(NAME, ...) \
     typedef iaDelegate<void, __VA_ARGS__> NAME##Delegate;
 
 #define IGOR_EVENT_DEFINITION_NO_ARGS(NAME) \

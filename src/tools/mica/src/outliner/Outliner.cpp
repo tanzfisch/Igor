@@ -1,24 +1,28 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "Outliner.h"
 
 Outliner::Outliner()
 {
-    initGUI();
+    onInitUI();
 
     iEntitySystemModule::getInstance().getCreatedEntityEvent().add(iCreatedEntityDelegate(this, &Outliner::onEntityCreated));
     iEntitySystemModule::getInstance().getDestroyEntityEvent().add(iDestroyEntityDelegate(this, &Outliner::onEntityDestroyed));
     iEntitySystemModule::getInstance().getHierarchyChangedEvent().add(iHierarchyChangedDelegate(this, &Outliner::onHierarchyChanged));
     iEntitySystemModule::getInstance().getEntityNameChangedEvent().add(iEntityNameChangedDelegate(this, &Outliner::onEntityNameChanged));
-    iProject::getInstance().getProjectSceneAddedEvent().add(iProjectSceneAddedDelegate(this, &Outliner::onSceneAdded));
-    iProject::getInstance().getProjectSceneRemovedEvent().add(iProjectSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
 
-    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, true);
+    iProject::getInstance().getSceneAddedEvent().add(iSceneAddedDelegate(this, &Outliner::onSceneAdded));
+    iProject::getInstance().getSceneRemovedEvent().add(iSceneRemovedDelegate(this, &Outliner::onSceneRemoved));
+    iProject::getInstance().getProjectLoadedEvent().add(iProjectLoadedDelegate(this, &Outliner::onProjectLoaded));
+    iProject::getInstance().getProjectUnloadedEvent().add(iProjectUnloadedDelegate(this, &Outliner::onProjectUnloaded));
+    iProject::getInstance().getProjectReloadedEvent().add(iProjectReloadedDelegate(this, &Outliner::onProjectReloaded));
+
+    iResourceManager::getInstance().getResourceProcessedEvent().add(iResourceProcessedDelegate(this, &Outliner::onResourceLoaded), false, iaExecuteType::NextFrameMainThread);
 }
 
-void Outliner::initGUI()
+void Outliner::onInitUI()
 {
     setTitle("Outliner");
     setMinWidth(350);
@@ -79,7 +83,7 @@ void Outliner::onSelectionChanged(const iEntitySceneID &sceneID, const std::vect
 
 void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -124,7 +128,7 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
 void Outliner::onContextMenuTreeView(const iWidgetPtr source)
 {
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         return;
@@ -197,7 +201,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(projectScene->getID(), entities);
 
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     if (!entities.empty())
     {
@@ -352,11 +356,12 @@ void Outliner::populateTree()
     _itemData = nullptr;
 
     auto &project = iProject::getInstance();
-    auto projectScene = project.getProjectScene();
-    if (!project.isLoaded() || projectScene == nullptr)
+    if (!project.isLoaded())
     {
         return;
     }
+
+    auto projectScene = project.getRootScene();
 
     _itemData = std::unique_ptr<iItemData>(new iItemData());
 
@@ -424,47 +429,47 @@ void Outliner::onSceneRemoved(const iResourceID &sceneID)
     refresh();
 }
 
-bool Outliner::onEvent(iEvent &event)
+void Outliner::onProjectLoaded(const iaString &projectfile)
 {
-    iWidget::onEvent(event);
-
-    event.dispatch<iEventProjectLoaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectLoaded));
-    event.dispatch<iEventProjectUnloaded>(IGOR_BIND_EVENT_FUNCTION(Outliner::onProjectUnloaded));
-
-    return false;
-}
-
-bool Outliner::onProjectLoaded(iEventProjectLoaded &event)
-{
-    auto projectScene = iProject::getInstance().getProjectScene();
+    auto projectScene = iProject::getInstance().getRootScene();
     if (projectScene == nullptr)
     {
         refresh();
-        return false;
     }
 
-    projectScene->getEntitySelectionChangedEvent().add(iEntitySelectionChangedDelegate(this, &Outliner::onSelectionChanged));
+    projectScene->getEntitySelectionChangeEvent().add(iEntitySelectionChangeDelegate(this, &Outliner::onSelectionChanged));
 
     refresh();
 
     auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
     const auto &projectPath = iProject::getInstance().getProjectFilepath();
 
-    auto iter = std::find(recent.begin(), recent.end(), projectPath);
-    if (iter == recent.end())
+    auto iter = recent.begin();
+    while (iter != recent.end())
     {
-        recent.insert(recent.begin(), projectPath);
-        iConfig::getInstance().setValue("mica.recentProjects", recent);
-        iConfig::getInstance().write();
+        if (*iter == projectPath)
+        {
+            iter = recent.erase(iter);
+        }
+        else
+        {
+            iter++;
+        }
     }
 
-    return false;
+    recent.insert(recent.begin(), projectPath);
+    iConfig::getInstance().setValue("mica.recentProjects", recent);
+    iConfig::getInstance().write();
 }
 
-bool Outliner::onProjectUnloaded(iEventProjectUnloaded &event)
+void Outliner::onProjectUnloaded()
 {
     refresh();
-    return false;
+}
+
+void Outliner::onProjectReloaded()
+{
+    refresh();
 }
 
 void Outliner::onEntityNameChanged(iEntityPtr entity)

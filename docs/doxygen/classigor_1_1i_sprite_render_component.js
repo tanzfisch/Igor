@@ -6,7 +6,7 @@ var classigor_1_1i_sprite_render_component =
     ] ],
     [ "iSpriteRenderComponent", "classigor_1_1i_sprite_render_component.html#a27b8c8e7e9434f9fe75e3ee5788ab559", null ],
     [ "iSpriteRenderComponent", "classigor_1_1i_sprite_render_component.html#ac61662a4a773bd60f9cbd51d3ca1a452", null ],
-    [ "createInstance", "classigor_1_1i_sprite_render_component.html#a5499c7d5bd8c91a47a5a53effb789cc0", null ],
+    [ "createInstance", "classigor_1_1i_sprite_render_component.html#af7ad5de395aa8900636448d4657570aa", null ],
     [ "getColor", "classigor_1_1i_sprite_render_component.html#a97adbda9ec79415f1459dae20a195fb7", null ],
     [ "getFrameIndex", "classigor_1_1i_sprite_render_component.html#a81e3b609c41e2c57642a2e171b95a4b2", null ],
     [ "getInfo", "classigor_1_1i_sprite_render_component.html#a983df4f5b51d6a6a90465ed8c33fca46", null ],

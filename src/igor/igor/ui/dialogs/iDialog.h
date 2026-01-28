@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -178,8 +178,9 @@ namespace igor
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
         \param modal open this dialog as modal
+        \param reset if true reset dialog and all it's children (usefull when reusing an existing dialog)
         */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate(), bool modal = false);
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate = iDialogCloseDelegate(), bool modal = false, bool reset = true);
 
         /*! closes the dialog
          */

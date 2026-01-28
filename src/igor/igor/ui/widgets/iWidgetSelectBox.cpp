@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetSelectBox.h>
@@ -7,9 +7,9 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/ui/dialogs/iDialogDropDownMenu.h>
 #include <igor/data/iIntersection.h>
-#include <igor/utils/iAny.h>
+#include <igor/data/iAny.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -27,11 +27,6 @@ namespace igor
 
     iWidgetSelectBox::~iWidgetSelectBox()
     {
-        if (_selectBox != nullptr)
-        {
-            delete _selectBox;
-            _selectBox = nullptr;
-        }
     }
 
     void iWidgetSelectBox::calcMinSize()
@@ -110,11 +105,7 @@ namespace igor
         {
             _buttonState = iWidgetState::Standby;
 
-            if (_selectBox == nullptr)
-            {
-                _selectBox = new iDialogIndexMenu();
-            }
-
+            _selectBox = std::make_unique<iDialogDropDownMenu>();
             _selectBox->setMinWidth(getActualWidth());
             _selectBox->setX(getActualPosX() + 2);
             _selectBox->setY(getActualPosY() + getActualHeight() + 2);
@@ -134,17 +125,15 @@ namespace igor
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
     {
-        iDialogIndexMenuPtr dialogMenu = static_cast<iDialogIndexMenuPtr>(dialog);
+        iDialogDropDownMenuPtr dialogMenu = static_cast<iDialogDropDownMenuPtr>(dialog);
         auto index = dialogMenu->getSelectionIndex();
 
         if (index != -1)
         {
-            _currentSelection = index;
+            _selectedIndex = index;
         }
 
         _change(this);
-
-        delete _selectBox;
         _selectBox = nullptr;
     }
 
@@ -153,7 +142,7 @@ namespace igor
         uint32 index = 0;
         for(const auto &pair :_entries)   
         {
-            if(iAny::getInstance().compare(userData, pair.second))
+            if(iAny::compare(userData, pair.second))
             {
                 setSelection(index);
                 return;
@@ -169,7 +158,7 @@ namespace igor
 
         if (key < _entries.size() || key == -1)
         {
-            _currentSelection = key;
+            _selectedIndex = key;
         }
     }
 
@@ -178,10 +167,15 @@ namespace igor
         return static_cast<uint32>(_entries.size());
     }
 
+    void iWidgetSelectBox::reset()
+    {
+        _selectedIndex = -1;
+    }
+
     void iWidgetSelectBox::clear()
     {
-        _entries.clear();
-        _currentSelection = -1;
+        reset();
+        _entries.clear();        
     }
 
     void iWidgetSelectBox::addItem(const iaString &entryText, const std::any &userData)
@@ -191,9 +185,9 @@ namespace igor
 
     const std::any iWidgetSelectBox::getSelectedUserData() const
     {
-        if (_currentSelection != -1)
+        if (_selectedIndex != -1)
         {
-            return _entries[_currentSelection].second;
+            return _entries[_selectedIndex].second;
         }
         else
         {
@@ -203,17 +197,17 @@ namespace igor
 
     uint32 iWidgetSelectBox::getSelectedIndex() const
     {
-        return _currentSelection;
+        return _selectedIndex;
     }
 
     iaString iWidgetSelectBox::getSelectedValue() const
     {
-        if(_currentSelection >= _entries.size())
+        if(_selectedIndex >= _entries.size())
         {
             return iaString();
         }
 
-        return _entries[_currentSelection].first;
+        return _entries[_selectedIndex].first;
     }
 
     iWidgetState iWidgetSelectBox::getButtonState() const

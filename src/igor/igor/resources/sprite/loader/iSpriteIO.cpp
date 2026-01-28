@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/sprite/loader/iSpriteIO.h>
@@ -7,7 +7,7 @@
 #include <igor/resources/sprite/iSprite.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 #include <iaux/system/iaFile.h>
 
@@ -40,7 +40,7 @@ namespace igor
 
         sprite->_frames.clear();
 
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.contains("sprite"))
         {
@@ -49,16 +49,17 @@ namespace igor
         }
         json spriteJson = data["sprite"];
 
-        if (!spriteJson.contains("texture"))
+        if (spriteJson.contains("texture"))
         {
-            con_err("incompatible data");
-            return false;
+            sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(spriteJson["texture"].get<iaString>());
         }
-        iaString texture = spriteJson["texture"].get<iaString>();
-        sprite->_texture = iResourceManager::getInstance().loadResource<iTexture>(texture);
-
+        else
+        {
+            sprite->_texture = nullptr;
+        }
+        
         // TODO pixelPerUnit
-        uint32 pixelPerUnit = iJson::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
+        uint32 pixelPerUnit = iJsonUtil::getValue<uint32>(spriteJson, "pixelPerUnit", 1);
 
         if (!spriteJson.contains("frames"))
         {
@@ -80,7 +81,7 @@ namespace igor
             iaVector2f size = frame["size"].get<iaVector2f>();
             iaVector2f pivot = frame["pivot"].get<iaVector2f>();
 
-            bool pixel = iJson::getValue<bool>(frame, "pixel", false);
+            bool pixel = iJsonUtil::getValue<bool>(frame, "pixel", false);
 
             sprite->addFrame(pos, size, pivot, pixel);
         }

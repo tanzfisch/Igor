@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlComponentAnimation.h"
@@ -94,5 +94,5 @@ void UserControlComponentAnimation::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iCircleComponent>();
+    entity->destroyComponent<iAnimationComponent>();
 }

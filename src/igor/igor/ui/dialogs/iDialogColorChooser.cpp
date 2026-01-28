@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
@@ -30,10 +30,10 @@ namespace igor
         iDialog::open(dialogCloseDelegate, true);
 
         _oldColor = color;
-        initGUI(color, useAlpha);
+        onInitUI(color, useAlpha);
     }
 
-    void iDialogColorChooser::initGUI(const iaColor4f &color, bool useAlpha)
+    void iDialogColorChooser::onInitUI(const iaColor4f &color, bool useAlpha)
     {
         setTitle("Choose Color");
 		setVerticalAlignment(iVerticalAlignment::Center);

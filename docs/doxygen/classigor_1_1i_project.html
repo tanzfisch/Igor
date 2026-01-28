@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_project.html',''); init
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_project-members.html">List of all members</a>  </div>
@@ -97,10 +98,19 @@ $(document).ready(function(){initNavTree('classigor_1_1i_project.html',''); init
 
 <p>Inherits <a class="el" href="classigor_1_1i_module.html">igor::iModule&lt; iProject &gt;</a>.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4a2b643a81ec8d863586f01abd0f20eb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iMode</a> { <a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eba7dce122004969d56ae2e0245cb754d35">Edit</a>
+, <a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20ebabc366f2d0ba3d681e7a3899917c5d3de">Runtime</a>
+ }</td></tr>
+<tr class="separator:a4a2b643a81ec8d863586f01abd0f20eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a524481810b68e2c00a5f2aad9121b77d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a524481810b68e2c00a5f2aad9121b77d">load</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path)</td></tr>
-<tr class="separator:a524481810b68e2c00a5f2aad9121b77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1299bee79433aa4389efebf4bcd447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a8f1299bee79433aa4389efebf4bcd447">load</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path, <a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iMode</a> mode=<a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20ebabc366f2d0ba3d681e7a3899917c5d3de">iMode::Runtime</a>)</td></tr>
+<tr class="separator:a8f1299bee79433aa4389efebf4bcd447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73d4473dc0c4bc2f09817f64e1d65eee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a73d4473dc0c4bc2f09817f64e1d65eee">isLoaded</a> () const</td></tr>
+<tr class="separator:a73d4473dc0c4bc2f09817f64e1d65eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a238e0cae12bcd6de5367a79091b8ec86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a238e0cae12bcd6de5367a79091b8ec86">unload</a> ()</td></tr>
 <tr class="separator:a238e0cae12bcd6de5367a79091b8ec86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ac44ee52b6d174544009bc8c5f4ccb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a5ac44ee52b6d174544009bc8c5f4ccb4">create</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;path)</td></tr>
@@ -111,30 +121,32 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a30dd5e87973fc379193adcf49172c82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acda7a4f5841fdcbcff5908372ad76e35"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#acda7a4f5841fdcbcff5908372ad76e35">getProjectFilepath</a> () const</td></tr>
 <tr class="separator:acda7a4f5841fdcbcff5908372ad76e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc999acad586389f63fcd9eb5357cb9f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#abc999acad586389f63fcd9eb5357cb9f">getScenesPath</a> () const</td></tr>
-<tr class="separator:abc999acad586389f63fcd9eb5357cb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8c1983482b0bf568497bf92ca0a7b63"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#af8c1983482b0bf568497bf92ca0a7b63">getName</a> () const</td></tr>
 <tr class="separator:af8c1983482b0bf568497bf92ca0a7b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3993b2cb76acb6f96a2c46958409d90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#aa3993b2cb76acb6f96a2c46958409d90">setName</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;projectName)</td></tr>
 <tr class="separator:aa3993b2cb76acb6f96a2c46958409d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947382d78334471a67cc0b23edb0c6ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a947382d78334471a67cc0b23edb0c6ef">hasChanges</a> () const</td></tr>
-<tr class="separator:a947382d78334471a67cc0b23edb0c6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73d4473dc0c4bc2f09817f64e1d65eee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a73d4473dc0c4bc2f09817f64e1d65eee">isLoaded</a> () const</td></tr>
-<tr class="separator:a73d4473dc0c4bc2f09817f64e1d65eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03b2a13aa324956d9851c9cc3199db2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a03b2a13aa324956d9851c9cc3199db2e">addScene</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;sceneID, const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name=&quot;scene&quot;, bool active=true)</td></tr>
 <tr class="separator:a03b2a13aa324956d9851c9cc3199db2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4511e7e67c803bc2ebf3d5933913ade9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a4511e7e67c803bc2ebf3d5933913ade9">removeScene</a> (const <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &amp;sceneID)</td></tr>
 <tr class="separator:a4511e7e67c803bc2ebf3d5933913ade9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a558baa6a8fbc9f18ce5787a8267ea2aa"><td class="memItemLeft" align="right" valign="top">iSceneAddedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a558baa6a8fbc9f18ce5787a8267ea2aa">getSceneAddedEvent</a> ()</td></tr>
+<tr class="separator:a558baa6a8fbc9f18ce5787a8267ea2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d426656c5ab9e6ae929b90fd8edfb17"><td class="memItemLeft" align="right" valign="top">iSceneRemovedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a8d426656c5ab9e6ae929b90fd8edfb17">getSceneRemovedEvent</a> ()</td></tr>
+<tr class="separator:a8d426656c5ab9e6ae929b90fd8edfb17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08fa996bd6946863a89592d0f93a96c4"><td class="memItemLeft" align="right" valign="top">iProjectLoadedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a08fa996bd6946863a89592d0f93a96c4">getProjectLoadedEvent</a> ()</td></tr>
+<tr class="separator:a08fa996bd6946863a89592d0f93a96c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a760c1c3848dad578d1f3399148919e20"><td class="memItemLeft" align="right" valign="top">iProjectReloadedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a760c1c3848dad578d1f3399148919e20">getProjectReloadedEvent</a> ()</td></tr>
+<tr class="separator:a760c1c3848dad578d1f3399148919e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab67c7c706991759d5505427557aa3146"><td class="memItemLeft" align="right" valign="top">iProjectUnloadedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#ab67c7c706991759d5505427557aa3146">getProjectUnloadedEvent</a> ()</td></tr>
+<tr class="separator:ab67c7c706991759d5505427557aa3146"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0cdd7b2835a5199b06c95417eddf9aa"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespaceigor.html#a84a1f16255d3de8354b15ef94dcb6084">iResourceID</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#aa0cdd7b2835a5199b06c95417eddf9aa">getScenes</a> () const</td></tr>
 <tr class="separator:aa0cdd7b2835a5199b06c95417eddf9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a475d31c7933e922517e5bb4c92c1c724"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a475d31c7933e922517e5bb4c92c1c724">getProjectScene</a> () const</td></tr>
-<tr class="separator:a475d31c7933e922517e5bb4c92c1c724"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1980e9315fe2ab80ce462506d3b18855"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a1980e9315fe2ab80ce462506d3b18855">hasProjectScene</a> () const</td></tr>
-<tr class="separator:a1980e9315fe2ab80ce462506d3b18855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9405bb171f0145f5e92f439bff341b8"><td class="memItemLeft" align="right" valign="top">iProjectSceneAddedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#ab9405bb171f0145f5e92f439bff341b8">getProjectSceneAddedEvent</a> ()</td></tr>
-<tr class="separator:ab9405bb171f0145f5e92f439bff341b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eee79ddb6c40df2d06b9743d39f2258"><td class="memItemLeft" align="right" valign="top">iProjectSceneRemovedEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a1eee79ddb6c40df2d06b9743d39f2258">getProjectSceneRemovedEvent</a> ()</td></tr>
-<tr class="separator:a1eee79ddb6c40df2d06b9743d39f2258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555b2f0746a061ea4faa00b4c18a910c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a555b2f0746a061ea4faa00b4c18a910c">getRootScene</a> () const</td></tr>
+<tr class="separator:a555b2f0746a061ea4faa00b4c18a910c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4570913cd1c7089f93a771a9495853cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#a4570913cd1c7089f93a771a9495853cd">setMode</a> (<a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iMode</a> mode)</td></tr>
+<tr class="separator:a4570913cd1c7089f93a771a9495853cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6831d1c832d100a4000399fd5819ac7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iProject::iMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_project.html#ab6831d1c832d100a4000399fd5819ac7">getMode</a> () const</td></tr>
+<tr class="separator:ab6831d1c832d100a4000399fd5819ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -160,7 +172,35 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >project definition </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a4a2b643a81ec8d863586f01abd0f20eb" name="a4a2b643a81ec8d863586f01abd0f20eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a2b643a81ec8d863586f01abd0f20eb">&#9670;&nbsp;</a></span>iMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">igor::iProject::iMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >project mode </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4a2b643a81ec8d863586f01abd0f20eba7dce122004969d56ae2e0245cb754d35" name="a4a2b643a81ec8d863586f01abd0f20eba7dce122004969d56ae2e0245cb754d35"></a>Edit&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4a2b643a81ec8d863586f01abd0f20ebabc366f2d0ba3d681e7a3899917c5d3de" name="a4a2b643a81ec8d863586f01abd0f20ebabc366f2d0ba3d681e7a3899917c5d3de"></a>Runtime&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a03b2a13aa324956d9851c9cc3199db2e" name="a03b2a13aa324956d9851c9cc3199db2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03b2a13aa324956d9851c9cc3199db2e">&#9670;&nbsp;</a></span>addScene()</h2>
 
@@ -192,7 +232,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >add scene to project</p>
+<p >add scene to project's root scene</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sceneID</td><td>the scene to add (aka type prefab) </td></tr>
@@ -226,6 +266,24 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab6831d1c832d100a4000399fd5819ac7" name="ab6831d1c832d100a4000399fd5819ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6831d1c832d100a4000399fd5819ac7">&#9670;&nbsp;</a></span>getMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iProject::iMode</a> igor::iProject::getMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>current project mode </dd></dl>
 
 </div>
 </div>
@@ -265,6 +323,24 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a08fa996bd6946863a89592d0f93a96c4" name="a08fa996bd6946863a89592d0f93a96c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08fa996bd6946863a89592d0f93a96c4">&#9670;&nbsp;</a></span>getProjectLoadedEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">iProjectLoadedEvent &amp; igor::iProject::getProjectLoadedEvent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>project loaded event </dd></dl>
+
+</div>
+</div>
 <a id="a30dd5e87973fc379193adcf49172c82b" name="a30dd5e87973fc379193adcf49172c82b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a30dd5e87973fc379193adcf49172c82b">&#9670;&nbsp;</a></span>getProjectPath()</h2>
 
@@ -283,32 +359,68 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a475d31c7933e922517e5bb4c92c1c724" name="a475d31c7933e922517e5bb4c92c1c724"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475d31c7933e922517e5bb4c92c1c724">&#9670;&nbsp;</a></span>getProjectScene()</h2>
+<a id="a760c1c3848dad578d1f3399148919e20" name="a760c1c3848dad578d1f3399148919e20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a760c1c3848dad578d1f3399148919e20">&#9670;&nbsp;</a></span>getProjectReloadedEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> igor::iProject::getProjectScene </td>
+          <td class="memname">iProjectReloadedEvent &amp; igor::iProject::getProjectReloadedEvent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>project reloaded event </dd></dl>
+
+</div>
+</div>
+<a id="ab67c7c706991759d5505427557aa3146" name="ab67c7c706991759d5505427557aa3146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab67c7c706991759d5505427557aa3146">&#9670;&nbsp;</a></span>getProjectUnloadedEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">iProjectUnloadedEvent &amp; igor::iProject::getProjectUnloadedEvent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>project unloaded event </dd></dl>
+
+</div>
+</div>
+<a id="a555b2f0746a061ea4faa00b4c18a910c" name="a555b2f0746a061ea4faa00b4c18a910c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a555b2f0746a061ea4faa00b4c18a910c">&#9670;&nbsp;</a></span>getRootScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#ab63df4a455bc3251b9386fa4030a99e4">iEntityScenePtr</a> igor::iProject::getRootScene </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the project scene </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the active root project scene </dd></dl>
 
 </div>
 </div>
-<a id="ab9405bb171f0145f5e92f439bff341b8" name="ab9405bb171f0145f5e92f439bff341b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9405bb171f0145f5e92f439bff341b8">&#9670;&nbsp;</a></span>getProjectSceneAddedEvent()</h2>
+<a id="a558baa6a8fbc9f18ce5787a8267ea2aa" name="a558baa6a8fbc9f18ce5787a8267ea2aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a558baa6a8fbc9f18ce5787a8267ea2aa">&#9670;&nbsp;</a></span>getSceneAddedEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iProjectSceneAddedEvent &amp; igor::iProject::getProjectSceneAddedEvent </td>
+          <td class="memname">iSceneAddedEvent &amp; igor::iProject::getSceneAddedEvent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -319,14 +431,14 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1eee79ddb6c40df2d06b9743d39f2258" name="a1eee79ddb6c40df2d06b9743d39f2258"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eee79ddb6c40df2d06b9743d39f2258">&#9670;&nbsp;</a></span>getProjectSceneRemovedEvent()</h2>
+<a id="a8d426656c5ab9e6ae929b90fd8edfb17" name="a8d426656c5ab9e6ae929b90fd8edfb17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d426656c5ab9e6ae929b90fd8edfb17">&#9670;&nbsp;</a></span>getSceneRemovedEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">iProjectSceneRemovedEvent &amp; igor::iProject::getProjectSceneRemovedEvent </td>
+          <td class="memname">iSceneRemovedEvent &amp; igor::iProject::getSceneRemovedEvent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -351,61 +463,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>list of scene references </dd></dl>
-
-</div>
-</div>
-<a id="abc999acad586389f63fcd9eb5357cb9f" name="abc999acad586389f63fcd9eb5357cb9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc999acad586389f63fcd9eb5357cb9f">&#9670;&nbsp;</a></span>getScenesPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> igor::iProject::getScenesPath </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>scenes folder </dd></dl>
-
-</div>
-</div>
-<a id="a947382d78334471a67cc0b23edb0c6ef" name="a947382d78334471a67cc0b23edb0c6ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947382d78334471a67cc0b23edb0c6ef">&#9670;&nbsp;</a></span>hasChanges()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iProject::hasChanges </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if changes been made and not saved </dd></dl>
-
-</div>
-</div>
-<a id="a1980e9315fe2ab80ce462506d3b18855" name="a1980e9315fe2ab80ce462506d3b18855"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1980e9315fe2ab80ce462506d3b18855">&#9670;&nbsp;</a></span>hasProjectScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool igor::iProject::hasProjectScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true if project has a scene </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>list of all sub scenes in this project excluding root scene </dd></dl>
 
 </div>
 </div>
@@ -427,8 +485,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a524481810b68e2c00a5f2aad9121b77d" name="a524481810b68e2c00a5f2aad9121b77d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a524481810b68e2c00a5f2aad9121b77d">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a8f1299bee79433aa4389efebf4bcd447" name="a8f1299bee79433aa4389efebf4bcd447"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1299bee79433aa4389efebf4bcd447">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,8 +495,18 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">void igor::iProject::load </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20ebabc366f2d0ba3d681e7a3899917c5d3de">iMode::Runtime</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -469,7 +537,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >remove scene from project</p>
+<p >remove scene from project root scene</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sceneID</td><td>the scene/prefab to remove </td></tr>
@@ -495,6 +563,32 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p >saves existing project</p>
 <p >saves it in to existing project folder </p>
+
+</div>
+</div>
+<a id="a4570913cd1c7089f93a771a9495853cd" name="a4570913cd1c7089f93a771a9495853cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4570913cd1c7089f93a771a9495853cd">&#9670;&nbsp;</a></span>setMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iProject::setMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classigor_1_1i_project.html#a4a2b643a81ec8d863586f01abd0f20eb">iMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >sets project mode</p>
+<p >this changes which copy of the root scene is used from here onwards</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>the mode to switch to </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

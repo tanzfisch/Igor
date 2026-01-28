@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/material/iMaterial.h>
@@ -12,15 +12,15 @@ namespace igor
     iMaterial::iMaterial(const iParameters &parameters)
         : iResource(parameters)
     {
-        _emissive = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0, 0, 0));
-        _ambient = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.4f, 0.4f, 0.4f));
-        _diffuse = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f));
-        _specular = parameters.getParameter<iaColor3f>(IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.6f, 0.6f, 0.6f));
-        _shininess = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_SHININESS, 5.0f);
-        _alpha = parameters.getParameter<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
-        _tiling = parameters.getParameter<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
+        _emissive = parameters.getParameterValue<iaColor3f>(IGOR_RESOURCE_PARAM_EMISSIVE, iaColor3f(0, 0, 0));
+        _ambient = parameters.getParameterValue<iaColor3f>(IGOR_RESOURCE_PARAM_AMBIENT, iaColor3f(0.4f, 0.4f, 0.4f));
+        _diffuse = parameters.getParameterValue<iaColor3f>(IGOR_RESOURCE_PARAM_DIFFUSE, iaColor3f(0.5f, 0.5f, 0.5f));
+        _specular = parameters.getParameterValue<iaColor3f>(IGOR_RESOURCE_PARAM_SPECULAR, iaColor3f(0.6f, 0.6f, 0.6f));
+        _shininess = parameters.getParameterValue<float32>(IGOR_RESOURCE_PARAM_SHININESS, 5.0f);
+        _alpha = parameters.getParameterValue<float32>(IGOR_RESOURCE_PARAM_ALPHA, 1.0f);
+        _tiling = parameters.getParameterValue<iaVector2f>(IGOR_RESOURCE_PARAM_TILING, iaVector2f(1.0f, 1.0f));
 
-        setShader(parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_PARAM_SHADER, nullptr));
+        setShader(parameters.getParameterValue<iShaderPtr>(IGOR_RESOURCE_PARAM_SHADER, nullptr));
 
         for (int i = 0; i < 4; ++i)
         {
@@ -28,7 +28,7 @@ namespace igor
             {
                 continue;
             }
-            setTexture(parameters.getParameter<iTexturePtr>(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i), nullptr), i);
+            setTexture(parameters.getParameterValue<iTexturePtr>(IGOR_RESOURCE_PARAM_TEXTURE + iaString::toString(i), nullptr), i);
         }
     }
 

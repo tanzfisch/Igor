@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <class T>
@@ -45,59 +45,59 @@ void iaString::toVector(const iaString &text, iaVector4<T> &vector)
 }
 
 template <class T>
-iaString iaString::toString(const iaVector2<T> &vec, int afterPoint)
+iaString iaString::toString(const iaVector2<T> &vec, int afterPointOrBase)
 {
     iaString result;
 
-    result += iaString::toString(vec._x, afterPoint);
+    result += iaString::toString(vec._x, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._y, afterPoint);
+    result += iaString::toString(vec._y, afterPointOrBase);
 
     return result;
 }
 
 template <class T>
-iaString iaString::toString(const iaVector3<T> &vec, int afterPoint)
+iaString iaString::toString(const iaVector3<T> &vec, int afterPointOrBase)
 {
     iaString result;
 
-    result += iaString::toString(vec._x, afterPoint);
+    result += iaString::toString(vec._x, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._y, afterPoint);
+    result += iaString::toString(vec._y, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._z, afterPoint);
+    result += iaString::toString(vec._z, afterPointOrBase);
 
     return result;
 }
 
 template <class T>
-iaString iaString::toString(const iaQuaternion<T> &q, int afterPoint)
+iaString iaString::toString(const iaQuaternion<T> &q, int afterPointOrBase)
 {
     iaString result;
 
-    result += iaString::toString(q._w, afterPoint);
+    result += iaString::toString(q._w, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(q._x, afterPoint);
+    result += iaString::toString(q._x, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(q._y, afterPoint);
+    result += iaString::toString(q._y, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(q._z, afterPoint);
+    result += iaString::toString(q._z, afterPointOrBase);
 
     return result;
 }
 
 template <class T>
-iaString iaString::toString(const iaVector4<T> &vec, int afterPoint)
+iaString iaString::toString(const iaVector4<T> &vec, int afterPointOrBase)
 {
     iaString result;
 
-    result += iaString::toString(vec._x, afterPoint);
+    result += iaString::toString(vec._x, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._y, afterPoint);
+    result += iaString::toString(vec._y, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._z, afterPoint);
+    result += iaString::toString(vec._z, afterPointOrBase);
     result += ", ";
-    result += iaString::toString(vec._w, afterPoint);
+    result += iaString::toString(vec._w, afterPointOrBase);
 
     return result;
 }

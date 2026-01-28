@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/material/iMaterialFactory.h>
@@ -61,7 +61,7 @@ namespace igor
     bool iMaterialFactory::loadResource(iResourcePtr resource)
     {
         const auto &parameters = resource->getParameters();
-        const bool generate = parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
+        const bool generate = parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_GENERATE, false);
         if (generate)
         {
             // already done during createResource

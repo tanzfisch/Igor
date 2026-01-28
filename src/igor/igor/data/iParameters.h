@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,18 +29,17 @@
 #ifndef IGOR_PARAMETERS_H
 #define IGOR_PARAMETERS_H
 
-#include <igor/iDefines.h>
+#include <igor/data/iAny.h>
 
 #include <unordered_map>
-#include <any>
 #include <memory>
 
 namespace igor
 {
 
     /*! parameters map definition
-    */
-    typedef std::unordered_map<iaString, std::any> iParametersMap;
+     */
+    typedef std::unordered_map<iaString, iAny> iParametersMap;
 
     /*! a key value list of parameters
      */
@@ -58,6 +57,24 @@ namespace igor
         */
         explicit iParameters(const iParametersMap &parameters);
 
+        /*! sets value for given parameter
+
+        overwrites existing values
+
+        \param name name of parameter
+        \param value the value to set
+        */
+        void setParameter(const iaString &name, const iAny &value);
+
+        /*! \returns value for given parameter name
+
+        if name does not exist it returns some default value
+
+        \param name the parameter name
+        \param defaultValue the given default value
+        */
+        const iAny& getParameter(const iaString &name, const iAny &defaultValue = iAny()) const;
+
         /*! \returns value for given parameter name
 
         if name does not exist it returns some default value
@@ -66,24 +83,23 @@ namespace igor
         \param defaultValue the given default value
         */
         template <typename T>
-        T getParameter(const iaString &name, const T &defaultValue = T()) const;
+        T getParameterValue(const iaString &name, const T &defaultValue = T()) const;   
 
-        /*! \returns true if given key exists
+        /*! \returns true if given name exists
 
-        \param name name of parameter
+        \param name given parameter name
         */
         bool hasParameter(const iaString &name) const;
 
-        /*! sets value for given parameter
+        /*! \returns parameter type of given parameter name
 
-        \param name name of parameter
-        \param value the value to set
+        \param name the parameter name
         */
-        void setParameter(const iaString &name, const std::any value);
+        iAnyType getParameterType(const iaString &name) const;
 
         /*! \returns all parameters
-        */
-        const iParametersMap& getParameters() const;
+         */
+        const iParametersMap &getData() const;
 
     private:
         /*! parameters
@@ -99,7 +115,7 @@ namespace igor
     \param parameters the parameters to stream
     \returns the resulting stream
     */
-    IAUX_API std::wostream &operator<<(std::wostream &stream, const iParameters &parameters);    
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iParameters &parameters);
 
     /*! stream std::any (well as long it's a type that we know about)
 

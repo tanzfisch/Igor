@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/actions/iActionManager.h>
@@ -46,6 +46,7 @@ namespace igor
         registerAction(new iActionCreateMaterial());
         registerAction(new iActionCreateShader());
         registerAction(new iActionCreateSprite());
+        registerAction(new iActionCreateScript());
 
         registerAction(new iActionLoadProject());
     }

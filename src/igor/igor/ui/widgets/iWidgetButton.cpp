@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetButton.h>
@@ -145,7 +145,7 @@ namespace igor
             if (_texture != nullptr ||
                 _iconTexture != nullptr)
             {
-                // we don't actually want it to scale with the texture size since the texture is considered a background
+                // we don't actually want it to scale with the texture size since the texture is also used as background
                 minWidth = fontSize * 1.5f;
                 minHeight = fontSize * 1.5f;
             }

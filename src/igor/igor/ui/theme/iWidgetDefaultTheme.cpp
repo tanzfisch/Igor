@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
@@ -302,8 +302,10 @@ namespace igor
         const float32 srcWidth = texture->getWidth();
         const float32 aspect = srcHeight / srcWidth;
 
-        float32 newHeight = 64 * iWidget::getScale();
-        float32 newWidth = 64 * iWidget::getScale();
+        const float32 scale = iWidget::getScale();
+
+        float32 newHeight = 64 * scale;
+        float32 newWidth = 64 * scale;
 
         if (srcWidth > srcHeight)
         {
@@ -317,21 +319,24 @@ namespace igor
         const iaRectanglef rect(pos._x, pos._y, newWidth, newHeight);
         iRenderer::getInstance().drawTexturedRectangle(rect, texture, iaColor4f::white, true);
 
-        iRenderer::getInstance().setLineWidth(3);
+        iRenderer::getInstance().setLineWidth(4 * scale);
+
+        const iaColor4f green(0.0,0.75,0.0,0.75);
+        const iaColor4f red(0.75,0.0,0.0,0.75);
 
         switch (drag.getDragState())
         {
         case iDragState::Accepted:
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(5, 5),
-                                              rect.getBottomRight() + iaVector2f(15, 5), iaColor4f::white);
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(10, 0),
-                                              rect.getBottomRight() + iaVector2f(10, 10), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(-6, -6) * scale,
+                                              rect.getBottomRight() + iaVector2f(2, 6) * scale, green);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(2, 6) * scale,
+                                              rect.getBottomRight() + iaVector2f(6, -2) * scale, green);                                            
             break;
         case iDragState::Rejected:
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 1),
-                                              rect.getBottomRight() + iaVector2f(14, 9), iaColor4f::white);
-            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(6, 9),
-                                              rect.getBottomRight() + iaVector2f(14, 1), iaColor4f::white);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(-6, -6) * scale,
+                                              rect.getBottomRight() + iaVector2f(6, 6) * scale, red);
+            iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(-6, 6) * scale,
+                                              rect.getBottomRight() + iaVector2f(6, -6) * scale, red);
             break;
         case iDragState::Neutral:
         default:

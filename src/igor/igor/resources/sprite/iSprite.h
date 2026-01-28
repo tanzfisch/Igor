@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPRITE__
-#define __IGOR_SPRITE__
+#ifndef IGOR_SPRITE_H
+#define IGOR_SPRITE_H
 
 #include <igor/resources/texture/iTexture.h>
 
@@ -132,4 +132,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_SPRITE__
+#endif // IGOR_SPRITE_H

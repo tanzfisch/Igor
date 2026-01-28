@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/iResourceManager.h>
@@ -8,6 +8,7 @@
 #include <igor/resources/texture/iTextureFactory.h>
 #include <igor/resources/animation/iAnimationFactory.h>
 #include <igor/resources/sprite/iSpriteFactory.h>
+#include <igor/resources/script/iScriptFactory.h>
 #include <igor/resources/model/iModelFactory.h>
 #include <igor/resources/shader/iShaderFactory.h>
 #include <igor/resources/material/iMaterialFactory.h>
@@ -50,6 +51,7 @@ namespace igor
         registerFactory(iFactoryPtr(new iPrefabFactory()));
         registerFactory(iFactoryPtr(new iModelFactory()));
         registerFactory(iFactoryPtr(new iSpriteFactory()));
+        registerFactory(iFactoryPtr(new iScriptFactory()));
         registerFactory(iFactoryPtr(new iAnimationFactory()));
         registerFactory(iFactoryPtr(new iMaterialFactory()));
         registerFactory(iFactoryPtr(new iShaderFactory()));
@@ -212,7 +214,7 @@ namespace igor
         if (parameters.hasParameter(key))
         {
             stream << "\t\t\t\t<Parameter key=\"" << key << "\" value=\"";
-            stream << parameters.getParameter<ParameterType>(key) << "\"/>\n";
+            stream << parameters.getParameterValue<ParameterType>(key) << "\"/>\n";
         }
     }
 
@@ -244,13 +246,13 @@ namespace igor
 
     static bool matchingType(iFactoryPtr factory, const iParameters &parameters)
     {
-        if (parameters.getParameter<iaString>("type") == factory->getType())
+        if (parameters.getParameterValue<iaString>("type") == factory->getType())
         {
             return true;
         }
 
-        if (matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
-            matchingFilename(factory, parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
+        if (matchingFilename(factory, parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE)) ||
+            matchingFilename(factory, parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS)))
         {
             return true;
         }
@@ -260,7 +262,7 @@ namespace igor
 
     iFactoryPtr iResourceManager::getFactory(const iParameters &parameters)
     {
-        const iaString type = parameters.getParameter<iaString>("type", "");
+        const iaString type = parameters.getParameterValue<iaString>("type", "");
 
         if (type.isEmpty())
         {
@@ -292,7 +294,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceID id = parameters.getParameter<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
+        const iResourceID id = parameters.getParameterValue<iResourceID>(IGOR_RESOURCE_PARAM_ID, IGOR_INVALID_ID);
 
         return getResource(id);
     }
@@ -346,9 +348,9 @@ namespace igor
         iResourceID id;
         if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
-            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            const iaString id = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString filename = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" filename:\"" << filename << "\"");
             return nullptr;
         }
@@ -368,8 +370,8 @@ namespace igor
             _loadingQueue.push_back(result);
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
-        const iResourceCacheMode cacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode cacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
 
         if (currentCacheMode < cacheMode)
         {
@@ -395,7 +397,7 @@ namespace igor
             return nullptr;
         }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Cache);
         if (requestedCacheMode > iResourceCacheMode::DontCache)
         {
             _resources[result->getID()] = result;
@@ -419,14 +421,14 @@ namespace igor
         iResourceID id;
          if (!iResource::extractID(parameters, id))
         {
-            const iaString id = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ID, "");
-            const iaString alias = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
-            const iaString source = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+            const iaString id = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ID, "");
+            const iaString alias = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_ALIAS, "");
+            const iaString source = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
             con_err("can't get resource for id:\"" << id << "\" alias:\"" << alias << "\" source:\"" << source << "\"");
             return nullptr;
         }
 
-        const iResourceCacheMode requestedCacheMode = parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode requestedCacheMode = parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         bool loadNow = false;
         iResourcePtr result;
 
@@ -447,7 +449,7 @@ namespace igor
             {
                 con_trace("cache hit " << result->getType() << " " << result->getInfo());
 
-                const iaString type = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
+                const iaString type = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "");
                 if(result->getType() != type)
                 {
                     con_err("resource id collision " << result->getID() << " " << type << " vs " << result->getType());
@@ -481,7 +483,7 @@ namespace igor
             _resourceProcessedEvent(result->getID());
         }
 
-        const iResourceCacheMode currentCacheMode = result->_parameters.getParameter<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
+        const iResourceCacheMode currentCacheMode = result->_parameters.getParameterValue<iResourceCacheMode>(IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Free);
         if (currentCacheMode < requestedCacheMode)
         {
             result->_parameters.setParameter(IGOR_RESOURCE_PARAM_CACHE_MODE, requestedCacheMode);
@@ -627,19 +629,19 @@ namespace igor
             return "";
         }
 
-        const iaDirectory checkDir(filepath);
+        const iaPath checkDir(filepath);
         if (checkDir.exists())
         {
-            return checkDir.getAbsoluteDirectoryName();
+            return checkDir.getAbsolutePath();
         }
 
-        iaFile checkFile(filepath);
+        iaPath checkFile(filepath);
         if (checkFile.exists())
         {
-            return checkFile.getFullFileName();
+            return checkFile.getAbsolutePath();
         }
 
-        const iaString currentDir = iaDirectory::getCurrentDirectory();
+        const iaString currentDir = iaPath::getCurrentDirectory();
 
         _mutex.lock();
         const auto searchPaths = _searchPaths;
@@ -648,27 +650,27 @@ namespace igor
         for (auto searchPath : searchPaths)
         {
             iaString path;
-            const iaDirectory searchDir(searchPath);
+            const iaPath searchDir(searchPath);
             if (searchDir.exists())
             {
-                path = iaDirectory::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
+                path = iaPath::fixPath(searchPath + IGOR_PATHSEPARATOR + filepath);
             }
             else
             {
                 // if it does not exists assume it's relative to current dir
-                path = iaDirectory::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
+                path = iaPath::fixPath(currentDir + IGOR_PATHSEPARATOR + searchPath + IGOR_PATHSEPARATOR + filepath);
             }
 
-            iaFile file(path);
+            iaPath file(path);
             if (file.exists())
             {
-                return file.getFullFileName();
+                return file.getAbsolutePath();
             }
 
-            const iaDirectory dir(path);
+            const iaPath dir(path);
             if (dir.exists())
             {
-                return dir.getAbsoluteDirectoryName();
+                return dir.getAbsolutePath();
             }
         }
 
@@ -680,13 +682,13 @@ namespace igor
         iaString result = filename;
         for (auto path : _searchPaths)
         {
-            iaDirectory dir(path);
+            iaPath dir(path);
 
             std::vector<iaString> matches;
-            iaString::searchRegex(filename, dir.getAbsoluteDirectoryName(), matches);
+            iaString::searchRegex(filename, dir.getAbsolutePath(), matches);
             if (!matches.empty())
             {
-                result = iaDirectory::getRelativePath(dir.getAbsoluteDirectoryName(), filename);
+                result = iaPath::getRelativePath(dir.getAbsolutePath(), filename);
                 break;
             }
         }
@@ -696,9 +698,7 @@ namespace igor
 
     bool iResourceManager::fileExists(const iaString &filename)
     {
-        iaFile file(filename);
-
-        if (file.exists())
+        if (iaPath::exists(filename))
         {
             return true;
         }
@@ -708,7 +708,7 @@ namespace igor
 
         for (auto path : _searchPaths)
         {
-            iaFile composed(path + IGOR_PATHSEPARATOR + filename);
+            iaPath composed(path + IGOR_PATHSEPARATOR + filename);
             if (composed.exists())
             {
                 result = true;

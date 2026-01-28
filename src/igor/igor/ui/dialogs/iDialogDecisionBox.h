@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,42 +26,51 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_DIALOGDECISIONBOX__
-#define __IGOR_DIALOGDECISIONBOX__
+#ifndef IGOR_DIALOG_DECISION_BOX_H
+#define IGOR_DIALOG_DECISION_BOX_H
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/ui/widgets/iWidgetCheckBox.h>
+#include <igor/ui/widgets/iWidgetSelectBox.h>
 
 namespace igor
 {
 
     class iWidgetCheckBox;
 
+    enum class iDialogDecisionBoxStyle
+    {
+        RadioButtons, // only radio buttons
+        SelectBox,    // only select box
+        Auto          // radio buttons when below 5 items otherwise select box
+        // TODO list would be great as well
+    };
+
     /*! the decision box dialog
-	*/
+     */
     class IGOR_API iDialogDecisionBox : public iDialog
     {
 
     public:
         /*! does nothing
-		*/
+         */
         iDialogDecisionBox(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
-		*/
+         */
         ~iDialogDecisionBox() = default;
 
         /*! show/open the decision box
 
         \param dialogCloseDelegate delegate to handle the close decision box event
         \param title the dialog title
-		\param message the message
-		\param radioButtonTexts besides the message you can add a selection of radio buttons
-		\param preSelection optional preselection of radio buttons
-		*/
-        void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+        \param message the message
+        \param radioButtonTexts besides the message you can add a selection of radio buttons
+        \param preSelection optional preselection of radio buttons
+        */
+        void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &title, const iaString &message,
+                  const std::vector<iaString> &selectionTexts, int32 preSelection = -1, iDialogDecisionBoxStyle style = iDialogDecisionBoxStyle::Auto);
 
         /*! \returns selection index
 
@@ -71,30 +80,32 @@ namespace igor
 
     private:
         /*! radio buttons
-		*/
-        std::vector<iWidgetCheckBox *> _radioButtons;
+         */
+        std::vector<iWidgetCheckBoxPtr> _radioButtons;
+
+        iWidgetSelectBoxPtr _selectBox = nullptr;
 
         /*! handles ok button clicked event
 
-		\param source the ok button it self
-		*/
+        \param source the ok button it self
+        */
         void onOK(const iWidgetPtr source);
 
         /*! handles cancel button clicked event
 
-		\param source the cancel button it self
-		*/
+        \param source the cancel button it self
+        */
         void onCancel(const iWidgetPtr source);
 
         /*! initializes the gui elements
-		*/
-        void initGUI(const iaString &title, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
+         */
+        void onInitUI(const iaString &title, const iaString &message, const std::vector<iaString> &selectionTexts, int32 preSelection, iDialogDecisionBoxStyle style);
     };
 
     /*! dialog decision box pointer definition
-	*/
+     */
     typedef iDialogDecisionBox *iDialogDecisionBoxPtr;
 
 } // namespace igor
 
-#endif // __IGOR_DIALOGDECISIONBOX__
+#endif // IGOR_DIALOG_DECISION_BOX_H

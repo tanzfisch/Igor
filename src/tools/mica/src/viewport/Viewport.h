@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -118,12 +118,6 @@ private:
      */
     iWidgetButtonPtr _buttonBounds = nullptr;
 
-    /*! handles incoming generic event
-
-    \param event the event
-    */
-    bool onEvent(iEvent &event) override;
-
     /*! handles pressed key event
 
     \param key the pressed key
@@ -216,12 +210,18 @@ private:
     void onResourceLoaded(const iResourceID resourceID);
 
     /*! called when project was loaded
+
+    \param projectfile the project file loaded
      */
-    bool onProjectLoaded(iEventProjectLoaded &event);
+    void onProjectLoaded(const iaString &projectfile);
 
     /*! called when project was unloaded
      */
-    bool onProjectUnloaded(iEventProjectUnloaded &event);
+    void onProjectUnloaded();
+
+    /*! called when project was reloaded
+     */
+    void onProjectReloaded();
 
     /*! handles context menu call
 
@@ -248,6 +248,10 @@ private:
     /*! handle selection change
      */
     void onSelectionChanged(const iEntitySceneID &sceneID, const std::vector<iEntityID> &entities);
+
+    /*! initialize ui
+    */
+    void onInitUI();
 };
 
 #endif // MICA_VIEWPORT_H

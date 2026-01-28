@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/shader/loader/iShaderIO.h>
@@ -302,7 +302,7 @@ namespace igor
             {
                 file << "\t\t\t<" << source._type;
 
-                if (iaFile::exists(source._filename))
+                if (iaPath::exists(source._filename))
                 {
                     file << " filename=\"" << iResourceManager::getInstance().getRelativePath(source._filename) << "\" />\n";
                 }

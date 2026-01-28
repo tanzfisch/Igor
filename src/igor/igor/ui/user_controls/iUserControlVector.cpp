@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlVector.h>
@@ -13,10 +13,10 @@ namespace igor
     iUserControlVector::iUserControlVector(uint32 dimensions, const iWidgetPtr parent)
         : iUserControl(iWidgetType::iUserControlVector, parent), _dimensions(dimensions)
     {
-        initGUI();
+        onInitUI();
     }
 
-    void iUserControlVector::initGUI()
+    void iUserControlVector::onInitUI()
     {
         iWidgetBoxLayoutPtr layout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, this);
         layout->setHorizontalAlignment(iHorizontalAlignment::Stretch);

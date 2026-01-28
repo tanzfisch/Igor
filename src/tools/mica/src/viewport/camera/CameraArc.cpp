@@ -1,14 +1,19 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "CameraArc.h"
 
 CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entityID)
-    : _entitySceneID(entitySceneID), _entityID(entityID)
+    : _entitySceneID(entitySceneID)
 {
     auto scene = iEntitySystemModule::getInstance().getScene(_entitySceneID);
     con_assert(scene != nullptr, "no scene found");
+
+    if(!entityID.isValid())
+    {
+        _entityID = scene->getRootEntity()->getID();
+    }
 
     auto anchor = scene->getEntity(_entityID);
     con_assert(anchor != nullptr, "anchor not found");
@@ -18,15 +23,15 @@ CameraArc::CameraArc(const iEntitySceneID &entitySceneID, const iEntityID &entit
     _cameraCOIID = coi->getID();
 
     auto heading = scene->createEntity("mica_camera_arc_heading");
-    heading->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    heading->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(iaVector3d(0, _cameraHeading, 0))));
     _cameraHeadingID = heading->getID();
 
     auto pitch = scene->createEntity("mica_camera_arc_pitch");
-    pitch->addComponent(new iTransformComponent(iaVector3d(0, 0, 0)));
+    pitch->addComponent(new iTransformComponent(iaVector3d(), iaQuaterniond::fromEuler(iaVector3d(_cameraPitch, 0, 0))));
     _cameraPitchID = pitch->getID();
 
     auto distance = scene->createEntity("mica_camera_arc_distance");
-    distance->addComponent(new iTransformComponent(iaVector3d(0, 0, 10)));
+    distance->addComponent(new iTransformComponent(iaVector3d(0, 0, 50)));
     _cameraDistanceID = distance->getID();
 
     auto camera = scene->createEntity("mica_camera_arc_camera");
@@ -159,3 +164,13 @@ iaVector3d CameraArc::getCenterOfInterest() const
 
     return transform->getPosition();
 }
+
+    const iEntitySceneID CameraArc::getEntitySceneID() const
+    {
+        return _entitySceneID;
+    }
+
+    const iEntityID CameraArc::getCameraID() const
+    {
+        return _cameraID;
+    }

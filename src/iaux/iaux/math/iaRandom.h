@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RANDOM__
-#define __IAUX_RANDOM__
+#ifndef IAUX_RANDOM_H
+#define IAUX_RANDOM_H
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 
@@ -98,4 +98,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif // __IAUX_RANDOM__
+#endif // IAUX_RANDOM_H

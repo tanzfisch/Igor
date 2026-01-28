@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/user_controls/iUserControlColor.h>
@@ -23,7 +23,7 @@ namespace igor
     iUserControlColor::iUserControlColor(const iWidgetPtr parent)
         : iUserControl(iWidgetType::iUserControlColor, parent)
     {
-        initGUI();
+        onInitUI();
     }
 
     iUserControlColor::~iUserControlColor()
@@ -142,7 +142,7 @@ namespace igor
         return _showHeadline;
     }
 
-    void iUserControlColor::initGUI()
+    void iUserControlColor::onInitUI()
     {
         _grid = new iWidgetGridLayout(this);
         _grid->appendRows(1);

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <>
@@ -88,4 +88,25 @@ inline uint64 iItem::getValue(const iaString &key) const
     }
 
     return (uint64)*reinterpret_cast<uint64*>(data);
+}
+
+template <>
+inline void iItem::setValue(const iaString &key, const float64& value)
+{
+    _data.setData(key, reinterpret_cast<const uint8*>(&value), sizeof(float64));
+}
+
+template <>
+inline float64 iItem::getValue(const iaString &key) const
+{
+    uint8 *data = nullptr;
+    uint32 dataSize = 0;
+    _data.getData(key, &data, dataSize);
+
+    if (data == nullptr)
+    {
+        return 0;
+    }
+
+    return (float64)*reinterpret_cast<float64*>(data);
 }

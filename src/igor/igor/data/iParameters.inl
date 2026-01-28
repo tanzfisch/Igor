@@ -1,9 +1,9 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <typename T>
-T iParameters::getParameter(const iaString &name, const T &defaultValue) const
+T iParameters::getParameterValue(const iaString &name, const T &defaultValue) const
 {
     auto iter = _parameters.find(name);
     if (iter == _parameters.end())
@@ -13,7 +13,7 @@ T iParameters::getParameter(const iaString &name, const T &defaultValue) const
 
     try
     {
-        return std::any_cast<T>(iter->second);
+        return std::any_cast<T>(iter->second.getData());
     }
     catch (const std::exception &e)
     {

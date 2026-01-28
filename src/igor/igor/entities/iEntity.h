@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,7 @@
 #ifndef IGOR_ENTITY_H
 #define IGOR_ENTITY_H
 
-#include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/iEntityIDPath.h>
 
 #include <unordered_map>
@@ -192,20 +192,25 @@ namespace igor
         template <typename T>
         void reloadComponent();
 
-        /*! adds behaviour to entity
+        /*! adds script to entity
 
-        \param behaviour the behaviour to be added
-        \param userData user data added to behaviour
-        \param name the name of the behaviour
-        \param priority execution priority (low = 0, default = 100, high = ...)
+        \param script the script delegate to be added
+        \param name the name of the script
         */
-        void addBehaviour(const iBehaviourDelegate &behaviour, const std::any &userData = std::any(), const iaString &name = "", uint8 priority = 100);
+        void addScript(const iScriptDelegate &script);
 
-        /*! removes behaviour from entity
+        /*! adds script script to entity
 
-        \param behaviour the behaviour to be removed
+        \param script the script script to be added
+        \param name the name of the script
         */
-        void removeBehaviour(const iBehaviourDelegate &behaviour);
+        void addScript(const iScriptPtr script);
+
+        /*! removes script from entity
+
+        \param script the script to be removed
+        */
+        void removeScript(const iScriptDelegate &script);
 
         /*! removes all components
          */

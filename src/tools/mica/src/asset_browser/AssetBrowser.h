@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -131,7 +131,7 @@ private:
     \param dir the current directory
     \param item the item to store information to
     */
-    void update(const iaDirectory &dir, iItemPtr item);
+    void update(const iaPath &dir, iItemPtr item);
 
     /*! update appearance of content mode button
      */
@@ -165,7 +165,6 @@ private:
     */
    void onSelectionChangedTree(const iWidgetPtr source);
 
-
     /*! handle context menu event
 
     \param source the source widget of this event
@@ -182,8 +181,19 @@ private:
 
     \param event the event
     */
-    bool onEvent(iEvent &event) override;
+    bool onEvent(const iEvent &event) override;
 
+    /*! called when project was loaded
+     */
+    void onProjectLoaded(const iaString &projectfile);
+
+    /*! called when project was unloaded
+     */
+    void onProjectUnloaded();
+
+    /*! called when project was unloaded
+     */
+    void onProjectReloaded();    
 };
 
 #endif // ASSET_BROWSER_H

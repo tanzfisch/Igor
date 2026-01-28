@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -64,6 +64,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/shader/loader/iShaderIO.h>
 #include <igor/resources/shader/iShaderFactory.h>
+#include <igor/resources/shader/iShaderUtils.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -75,6 +76,8 @@
 #include <igor/resources/project/iProject.h>
 #include <igor/resources/prefab/iPrefab.h>
 #include <igor/resources/config/iConfig.h>
+#include <igor/resources/script/iScriptEngine.h>
+#include <igor/resources/script/iScript.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
@@ -113,7 +116,6 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
 #include <igor/events/iEventFilesystem.h>
-#include <igor/events/iEventProject.h>
 
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntitySystemModule.h>
@@ -131,8 +133,9 @@
 #include <igor/entities/components/iLightComponent.h>
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/components/iVelocityComponent.h>
-#include <igor/entities/components/iBehaviourComponent.h>
+#include <igor/entities/components/iScriptComponent.h>
 #include <igor/entities/components/iGlobalBoundaryComponent.h>
+#include <igor/entities/components/iUserDataComponent.h>
 
 #include <igor/entities/traversal/iEntityToItemTraverser.h>
 #include <igor/entities/traversal/iEntityPrintTraverser.h>
@@ -168,7 +171,7 @@
 #include <igor/ui/dialogs/iDialogDecisionBox.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
 #include <igor/ui/dialogs/iDialogGraph.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/ui/dialogs/iDialogDropDownMenu.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
 #include <igor/ui/dialogs/iDialogMenu.h>
 
@@ -199,8 +202,9 @@
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 #include <igor/ui/user_controls/iUserControlTexture.h>
 #include <igor/ui/user_controls/iUserControlSprite.h>
+#include <igor/ui/user_controls/iUserControlScript.h>
 #include <igor/ui/user_controls/iUserControlMaterial.h>
-#include <igor/ui/user_controls/iUserControlShaderMaterial.h>
+#include <igor/ui/user_controls/iUserControlShader.h>
 #include <igor/ui/user_controls/iUserControlVector.h>
 #include <igor/ui/user_controls/iUserControlMeshReference.h>
 

@@ -1,15 +1,16 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iThumbnailCache.h>
 
 #include <igor/system/iApplication.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/resources/shader/iShaderUtils.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iTextureFactory.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/system/iaFile.h>
 
 namespace igor
@@ -31,9 +32,9 @@ namespace igor
         // TODO _thumbnailCachePath = "%LOCALAPPDATA%/Igor/ThumbnailCache";
 #endif
 
-        if (!iaDirectory::exists(_thumbnailCachePath))
+        if (!iaPath::exists(_thumbnailCachePath))
         {
-            iaDirectory::makeDirectory(_thumbnailCachePath);
+            iaPath::makeDirectory(_thumbnailCachePath);
         }
 
         iWindowPtr window = iApplication::getInstance().getWindow();
@@ -55,12 +56,13 @@ namespace igor
 
     iTexturePtr iThumbnailCache::getThumbnail(const iaString &filename)
     {
-        iaFile file(filename);
-        if(!file.exists())
+        if(!iaPath::exists(filename))
         {
+            con_warn("can't generate a thumbnail for non existing file \"" << filename << "\"");
             return nullptr;
         }        
 
+        iaFile file(filename);
         iaTime time = file.getLastModifiedTime();
 
         const iaString hashName = iaString::toString((uint64)filename.getHashValue(), 16);
@@ -69,15 +71,15 @@ namespace igor
         const iaString thumbnailFilename = hashName + "-" + hashTime + ".png";
         const iaString thumbnailFilepath = _thumbnailCachePath + "/" + thumbnailFilename;
 
-        if (!iaFile::exists(thumbnailFilepath))
+        if (!iaPath::exists(thumbnailFilepath))
         {
             // look for older files with same hashName and delete them
-            iaDirectory dir(_thumbnailCachePath);
+            iaPath dir(_thumbnailCachePath);
             const iaString searchPattern = hashName + "*.png";
             auto files = dir.getFiles(searchPattern);
             for (auto file : files)
             {
-                iaFile::remove(file.getFullFileName());
+                iaPath::remove(file.getFullFileName());
             }
 
             // put in queue to create new thumbnail later
@@ -98,9 +100,8 @@ namespace igor
     void iThumbnailCache::generateThumbnails()
     {
         std::pair<iaString, iaString> info;
-        bool skip = false;
         _queueMutex.lock();
-        skip = _thumbnailProcessQueue.empty();
+        bool skip = _thumbnailProcessQueue.empty();
         if (!skip)
         {
             info = _thumbnailProcessQueue.front();
@@ -113,15 +114,17 @@ namespace igor
             return;
         }
 
-        iaFile file(info.first);
+        const iaFile file(info.first);
+        const iaString extension = file.getExtension();
 
-        iaString extension = file.getExtension();
+        const uint32 thumbnailWidth = 128;
+        const uint32 thumbnailHeight = 128;
 
         for (auto ex : IGOR_SUPPORTED_TEXTURE_EXTENSIONS)
         {
             if (ex == extension)
             {
-                iTextureFactory::createThumbnail(info.first, info.second);
+                iTextureFactory::createThumbnail(info.first, info.second, thumbnailWidth, thumbnailHeight);
                 return;
             }
         }

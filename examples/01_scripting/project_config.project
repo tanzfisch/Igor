@@ -1,0 +1,23 @@
+{
+    "projectName": "Project Template",
+    "projectScene": {
+        "id": "0x52509428050d9a5d",
+        "systems": [
+            "igor_animation_system",
+            "igor_velocity_system",
+            "igor_script_system",
+            "igor_transform_system",
+            "igor_camera_system",
+            "igor_mesh_render_system",
+            "igor_light_system",
+            "igor_sprite_render_system"
+        ]
+    },
+    "scenes": [
+        {
+            "active": true,
+            "id": "0x9b3ac741530cb581",
+            "name": "main scene"
+        }
+    ]
+}

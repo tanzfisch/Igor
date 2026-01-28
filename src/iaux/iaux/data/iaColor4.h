@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2025 by Martin A. Loga
+//    (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -98,6 +98,18 @@ namespace iaux
 
         \param color the color to add
         */
+        iaColor4<T> operator+(const iaColor4<T> &color) const;
+
+        /*! subtract operator
+
+        \param color the color to subtract
+        */
+        iaColor4<T> operator-(const iaColor4<T> &color) const;
+
+        /*! add operator
+
+        \param color the color to add
+        */
         void operator+=(const iaColor4<T> &color);
 
         /*! subtract operator
@@ -116,11 +128,37 @@ namespace iaux
 
         \param factor the value to scale with
         */
-        void operator*(float32 factor);
+        iaColor4<T> operator*(float32 factor) const;
+
+        /*! comparison of two colors
+
+        \param other the other color to compare with
+        \returns true if colors are equal
+        */
+        bool operator==(const iaColor4<T> &other) const;
+
+        /*! comparison of two colors
+
+        \param other the other color to compare with
+        \returns true if colors are NOT equal
+        */
+        bool operator!=(const iaColor4<T> &other) const;
 
         /*! \returns random color (opaque)
-        */
+         */
         static iaColor4<T> random();
+
+        /*! \returns component value by index (const version)
+
+        \param i index of component
+        */
+        const T &operator[](int i) const;
+
+        /*! \returns component value by index
+
+        \param i index of component
+        */
+        T &operator[](int i);
 
         static IAUX_API_IMPORT_ONLY const iaColor4<T> white;
         static IAUX_API_IMPORT_ONLY const iaColor4<T> lightGray;

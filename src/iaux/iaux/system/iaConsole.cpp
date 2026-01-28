@@ -1,9 +1,9 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 #include <iaux/system/iaSystem.h>
 #include <iaux/system/iaThread.h>
 
@@ -106,7 +106,7 @@ namespace iaux
         return _useColors;
     }
 
-    /*! Note: can't use classes iaDirectory or iaFile here because of possible deadlock in logging
+    /*! Note: can't use classes iaPath or iaFile here because of possible deadlock in logging
      */
     void iaConsole::openLogfile()
     {

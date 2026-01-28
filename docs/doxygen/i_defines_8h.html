@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.45.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.46.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -109,7 +109,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ae336410a80c9ff6234c4447c7816fc0a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#ae336410a80c9ff6234c4447c7816fc0a">IGOR_MAX_ENTITY_COMPONENT_TYPES</a>&#160;&#160;&#160;64</td></tr>
 <tr class="separator:ae336410a80c9ff6234c4447c7816fc0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0a9857c5d7866c5d7dc4559d1bbe48c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#ae0a9857c5d7866c5d7dc4559d1bbe48c">IGOR_SUPPORTED_MODEL_EXTENSION</a>(ext)&#160;&#160;&#160;(std::find(IGOR_SUPPORTED_MODEL_EXTENSIONS.begin(), IGOR_SUPPORTED_MODEL_EXTENSIONS.end(), file.getExtension()) != IGOR_SUPPORTED_MODEL_EXTENSIONS.end())</td></tr>
-<tr class="memdesc:ae0a9857c5d7866c5d7dc4559d1bbe48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for prefabs and scenes  <a href="i_defines_8h.html#ae0a9857c5d7866c5d7dc4559d1bbe48c">More...</a><br /></td></tr>
+<tr class="memdesc:ae0a9857c5d7866c5d7dc4559d1bbe48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for scripts  <a href="i_defines_8h.html#ae0a9857c5d7866c5d7dc4559d1bbe48c">More...</a><br /></td></tr>
 <tr class="separator:ae0a9857c5d7866c5d7dc4559d1bbe48c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -259,9 +259,9 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda57cec4137b614c87cb4e24a3d003a3e0">igor::Y</a>
 , <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda21c2e59531c8710156d34a3c30ac81d5">igor::Z</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda47e47f7cbca0cf9742e1dbde0f5f33fe">igor::WindowsLeft</a>
-, <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda9638fac3086e60f5c8bd992fafe64804">igor::WindowsRight</a>
-, <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda70a08b478f611ac0d1ccbadae20970a5">igor::WindowsContext</a>
+&#160;&#160;<a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdacea56a5ed880912f79bd5f72014fafa8">igor::SuperLeft</a>
+, <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda2dd83382c7ff6ad69496a39a2d8203d8">igor::SuperRight</a>
+, <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad728648e965a3815aa2e492adbfab897">igor::SuperContext</a>
 , <a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdaab31d8fe9ee2daf14afa7c86927cddfc">igor::NP_Zero</a>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdac612affce19550d662f49f759a14bb75">igor::NP_One</a>
@@ -395,6 +395,9 @@ Variables</h2></td></tr>
 <tr class="memitem:aa788eeee7c0cf2cb667c6870187c5052"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#aa788eeee7c0cf2cb667c6870187c5052">IGOR_SUPPORTED_PREFAB_EXTENSIONS</a></td></tr>
 <tr class="memdesc:aa788eeee7c0cf2cb667c6870187c5052"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for sounds  <a href="i_defines_8h.html#aa788eeee7c0cf2cb667c6870187c5052">More...</a><br /></td></tr>
 <tr class="separator:aa788eeee7c0cf2cb667c6870187c5052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8afbe7e464f65f786afb692117732135"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a8afbe7e464f65f786afb692117732135">IGOR_SUPPORTED_SCRIPT_EXTENSIONS</a></td></tr>
+<tr class="memdesc:a8afbe7e464f65f786afb692117732135"><td class="mdescLeft">&#160;</td><td class="mdescRight">supported file extensions for prefabs and scenes  <a href="i_defines_8h.html#a8afbe7e464f65f786afb692117732135">More...</a><br /></td></tr>
+<tr class="separator:a8afbe7e464f65f786afb692117732135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f987785258196bbad409dc0a080a123"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a6f987785258196bbad409dc0a080a123">IGOR_RESOURCE_SHADER</a></td></tr>
 <tr class="separator:a6f987785258196bbad409dc0a080a123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a5d823e20124e34c7478ab0af144cbb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a1a5d823e20124e34c7478ab0af144cbb">IGOR_RESOURCE_MATERIAL</a></td></tr>
@@ -418,8 +421,11 @@ Variables</h2></td></tr>
 <tr class="memitem:ad9c8d31d277ba20aa3468a23a3006a8c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#ad9c8d31d277ba20aa3468a23a3006a8c">IGOR_RESOURCE_PREFAB</a></td></tr>
 <tr class="memdesc:ad9c8d31d277ba20aa3468a23a3006a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">model resource name  <a href="i_defines_8h.html#ad9c8d31d277ba20aa3468a23a3006a8c">More...</a><br /></td></tr>
 <tr class="separator:ad9c8d31d277ba20aa3468a23a3006a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa747facc57358572e91014ba36901254"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#aa747facc57358572e91014ba36901254">IGOR_RESOURCE_SCRIPT</a></td></tr>
+<tr class="memdesc:aa747facc57358572e91014ba36901254"><td class="mdescLeft">&#160;</td><td class="mdescRight">prefab resource name  <a href="i_defines_8h.html#aa747facc57358572e91014ba36901254">More...</a><br /></td></tr>
+<tr class="separator:aa747facc57358572e91014ba36901254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a0f1eb92347abf1d7d9bfcf22e92f45"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a1a0f1eb92347abf1d7d9bfcf22e92f45">IGOR_RESOURCE_PARAM_ID</a></td></tr>
-<tr class="memdesc:a1a0f1eb92347abf1d7d9bfcf22e92f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">prefab resource name  <a href="i_defines_8h.html#a1a0f1eb92347abf1d7d9bfcf22e92f45">More...</a><br /></td></tr>
+<tr class="memdesc:a1a0f1eb92347abf1d7d9bfcf22e92f45"><td class="mdescLeft">&#160;</td><td class="mdescRight">script resource name  <a href="i_defines_8h.html#a1a0f1eb92347abf1d7d9bfcf22e92f45">More...</a><br /></td></tr>
 <tr class="separator:a1a0f1eb92347abf1d7d9bfcf22e92f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ec9d2fe36d02f3762fdd6375f340398"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a9ec9d2fe36d02f3762fdd6375f340398">IGOR_RESOURCE_PARAM_ALIAS</a></td></tr>
 <tr class="memdesc:a9ec9d2fe36d02f3762fdd6375f340398"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter id  <a href="i_defines_8h.html#a9ec9d2fe36d02f3762fdd6375f340398">More...</a><br /></td></tr>
@@ -520,8 +526,11 @@ Variables</h2></td></tr>
 <tr class="memitem:ae10977144417b9bf2da58af1e2790b1b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#ae10977144417b9bf2da58af1e2790b1b">IGOR_RESOURCE_PARAM_SECONDARY_COLOR</a></td></tr>
 <tr class="memdesc:ae10977144417b9bf2da58af1e2790b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter primary color  <a href="i_defines_8h.html#ae10977144417b9bf2da58af1e2790b1b">More...</a><br /></td></tr>
 <tr class="separator:ae10977144417b9bf2da58af1e2790b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2007bf3858055378be9668bb839f309a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a2007bf3858055378be9668bb839f309a">IGOR_RESOURCE_PARAM_SCRIPT</a></td></tr>
+<tr class="memdesc:a2007bf3858055378be9668bb839f309a"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter secondary color  <a href="i_defines_8h.html#a2007bf3858055378be9668bb839f309a">More...</a><br /></td></tr>
+<tr class="separator:a2007bf3858055378be9668bb839f309a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2770f210ba66351b88ab9891f3e6ba98"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#a2770f210ba66351b88ab9891f3e6ba98">IGOR_RESOURCE_PARAM_TEXTURE0</a></td></tr>
-<tr class="memdesc:a2770f210ba66351b88ab9891f3e6ba98"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter secondary color  <a href="i_defines_8h.html#a2770f210ba66351b88ab9891f3e6ba98">More...</a><br /></td></tr>
+<tr class="memdesc:a2770f210ba66351b88ab9891f3e6ba98"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter script  <a href="i_defines_8h.html#a2770f210ba66351b88ab9891f3e6ba98">More...</a><br /></td></tr>
 <tr class="separator:a2770f210ba66351b88ab9891f3e6ba98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab187eda599f6b0595b98b5ee44a09756"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="i_defines_8h.html#ab187eda599f6b0595b98b5ee44a09756">IGOR_RESOURCE_PARAM_TEXTURE1</a></td></tr>
 <tr class="memdesc:ab187eda599f6b0595b98b5ee44a09756"><td class="mdescLeft">&#160;</td><td class="mdescRight">resource parameter texture unit 0  <a href="i_defines_8h.html#ab187eda599f6b0595b98b5ee44a09756">More...</a><br /></td></tr>
@@ -588,7 +597,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>supported file extensions for prefabs and scenes </p>
+<p>supported file extensions for scripts </p>
 <dl class="section return"><dt>Returns</dt><dd>true if given extension fits supported model extensions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1122,7 +1131,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>prefab resource name </p>
+<p>script resource name </p>
 
 </div>
 </div>
@@ -1342,6 +1351,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2007bf3858055378be9668bb839f309a" name="a2007bf3858055378be9668bb839f309a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2007bf3858055378be9668bb839f309a">&#9670;&nbsp;</a></span>IGOR_RESOURCE_PARAM_SCRIPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> IGOR_RESOURCE_PARAM_SCRIPT</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>resource parameter secondary color </p>
+
+</div>
+</div>
 <a id="ae10977144417b9bf2da58af1e2790b1b" name="ae10977144417b9bf2da58af1e2790b1b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae10977144417b9bf2da58af1e2790b1b">&#9670;&nbsp;</a></span>IGOR_RESOURCE_PARAM_SECONDARY_COLOR</h2>
 
@@ -1554,7 +1587,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>resource parameter secondary color </p>
+<p>resource parameter script </p>
 
 </div>
 </div>
@@ -1822,6 +1855,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="aa747facc57358572e91014ba36901254" name="aa747facc57358572e91014ba36901254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa747facc57358572e91014ba36901254">&#9670;&nbsp;</a></span>IGOR_RESOURCE_SCRIPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> IGOR_RESOURCE_SCRIPT</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>prefab resource name </p>
+
+</div>
+</div>
 <a id="a6f987785258196bbad409dc0a080a123" name="a6f987785258196bbad409dc0a080a123"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f987785258196bbad409dc0a080a123">&#9670;&nbsp;</a></span>IGOR_RESOURCE_SHADER</h2>
 
@@ -2009,6 +2066,30 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>supported file extensions for sounds </p>
+
+</div>
+</div>
+<a id="a8afbe7e464f65f786afb692117732135" name="a8afbe7e464f65f786afb692117732135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8afbe7e464f65f786afb692117732135">&#9670;&nbsp;</a></span>IGOR_SUPPORTED_SCRIPT_EXTENSIONS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;<a class="el" href="classiaux_1_1ia_string.html">iaString</a>&gt; IGOR_SUPPORTED_SCRIPT_EXTENSIONS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>supported file extensions for prefabs and scenes </p>
 
 </div>
 </div>

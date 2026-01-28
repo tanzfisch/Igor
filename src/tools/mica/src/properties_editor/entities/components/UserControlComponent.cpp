@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlComponent.h"
@@ -28,10 +28,9 @@ void UserControlComponent::onInit()
     _buttonlayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Horizontal, _layout);
     _buttonlayout->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetButtonPtr deleteButton = new iWidgetButton();
+    iWidgetButtonPtr deleteButton = new iWidgetButton(_buttonlayout);
     deleteButton->setIcon("igor_icon_delete");
     deleteButton->getClickEvent().add(iClickDelegate(this, &UserControlComponent::onClickDelete));
-    _buttonlayout->addWidget(deleteButton);
 }
 
 void UserControlComponent::onClickDelete(iWidgetPtr source)

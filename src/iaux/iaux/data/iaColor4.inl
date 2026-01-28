@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <class T>
@@ -61,6 +61,30 @@ iaColor4<T> iaColor4<T>::operator=(const iaColor4<T> &color)
 }
 
 template <typename T>
+iaColor4<T> iaColor4<T>::operator+(const iaColor4<T> &color) const
+{
+    iaColor4<T> result;
+    result._r = _r + color._r;
+    result._g = _r + color._g;
+    result._b = _r + color._b;
+    result._a = _r + color._a;
+
+    return result;
+}
+
+template <typename T>
+iaColor4<T> iaColor4<T>::operator-(const iaColor4<T> &color) const
+{
+    iaColor4<T> result;
+    result._r = _r - color._r;
+    result._g = _r - color._g;
+    result._b = _r - color._b;
+    result._a = _r - color._a;
+
+    return result;
+}
+
+template <typename T>
 void iaColor4<T>::operator+=(const iaColor4<T> &color)
 {
     _r += color._r;
@@ -88,11 +112,57 @@ void iaColor4<T>::operator*=(float32 factor)
 }
 
 template <typename T>
-void iaColor4<T>::operator*(float32 factor)
+iaColor4<T> iaColor4<T>::operator*(float32 factor) const
 {
     iaColor4<T> result;
     result._r = _r * factor;
     result._g = _g * factor;
     result._b = _b * factor;
     result._a = _a * factor;
+
+    return result;
+}
+
+template <class T>
+T &iaColor4<T>::operator[](int i)
+{
+    return (&_r)[i];
+}
+
+template <class T>
+const T &iaColor4<T>::operator[](int i) const
+{
+    return (&_r)[i];
+}
+
+template <class T>
+bool iaColor4<T>::operator==(const iaColor4<T> &other) const
+{
+    if (_r == other._r &&
+        _g == other._g &&
+        _b == other._b &&
+        _a == other._a)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <class T>
+bool iaColor4<T>::operator!=(const iaColor4<T> &other) const
+{
+    if (_r != other._r ||
+        _g != other._g ||
+        _b != other._b ||
+        _a != other._a)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

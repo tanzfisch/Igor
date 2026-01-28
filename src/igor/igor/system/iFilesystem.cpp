@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iFilesystem.h>
@@ -7,7 +7,7 @@
 #include <igor/threading/tasks/iTaskWatchFilesystem.h>
 #include <igor/threading/iTaskManager.h>
 
-#include <iaux/system/iaDirectory.h>
+#include <iaux/system/iaPath.h>
 
 namespace igor
 {
@@ -18,7 +18,7 @@ namespace igor
 
     void iFilesystem::listenToChanges(const iaString &path, bool recursive)
     {
-        if(!iaDirectory::exists(path))
+        if(!iaPath::exists(path))
         {
             con_err("path does not exist \"" << path << "\"");
             return;

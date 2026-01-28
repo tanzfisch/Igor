@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/events/iEventWindow.h>
@@ -10,17 +10,17 @@ namespace igor
 {
 
     iEventWindowClose::iEventWindowClose(iWindowPtr window)
-        : iEvent(window)
+        : iEvent(window, true)
     {
     }
 
     iEventWindowOpen::iEventWindowOpen(iWindowPtr window)
-        : iEvent(window)
+        : iEvent(window, true)
     {
     }
 
     iEventWindowResize::iEventWindowResize(iWindowPtr window, int32 width, int32 height)
-        : iEvent(window), _width(width), _height(height)
+        : iEvent(window, true), _width(width), _height(height)
     {
     }
 

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
@@ -52,7 +52,7 @@ namespace igor
 		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
-		if (!readFile(parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "")))
+		if (!readFile(parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "")))
 		{
 			return 0;
 		}
@@ -65,8 +65,8 @@ namespace igor
 			}
 
 			auto &meshBuilder = section.second._meshBuilder;
-			meshBuilder.setJoinVertices(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, true));
-			meshBuilder.setKeepRawData(parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false));
+			meshBuilder.setJoinVertices(parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_JOIN_VERTICES, true));
+			meshBuilder.setKeepRawData(parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false));
 
 			// transfer polygons to mesh builder
 			transferToMeshBuilder(section.second);
@@ -299,7 +299,7 @@ namespace igor
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
 		std::ifstream file;
-		if (iaFile::exists(filename))
+		if (iaPath::exists(filename))
 		{
 			iaString path = iResourceManager::getInstance().resolvePath(filename);
 			char temp[1024];
@@ -507,8 +507,8 @@ namespace igor
 
 	bool iModelDataIOOBJ::readFile(const iaString &filename)
 	{
-		iaFile file(filename);
-		_pathOfModel = file.getPath();
+		iaPath path(filename);
+		_pathOfModel = path.getParentPath();
 
 		std::ifstream fileStream;
 		char temp[1024];

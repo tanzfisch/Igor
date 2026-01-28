@@ -1,0 +1,20 @@
+[
+    {
+        "alias": "doughnuts",
+        "id": "0x22dbb4dcbb396ea5",
+        "source": "textures/doughnuts.png"
+    },
+    {
+        "id": "0x818b1b47f9ca029a",
+        "source": "scripts/script.lua"
+    },
+    {
+        "id": "0x9b3ac741530cb581",
+        "source": "scene.scene"
+    },
+    {
+        "alias": "sprite",
+        "id": "0xb0197f005dd6c07f",
+        "source": "sprites/doughnuts.sprite"
+    }
+]

@@ -1,9 +1,10 @@
 var classigor_1_1i_entity =
 [
-    [ "addBehaviour", "classigor_1_1i_entity.html#ab38f143523bb15764a53ab1a3225bbc8", null ],
     [ "addComponent", "classigor_1_1i_entity.html#a2e4fbb9074f4a8e2d09df889eb5b31e1", null ],
     [ "addComponent", "classigor_1_1i_entity.html#afe46a242a97a3be06a3508fc3e65add7", null ],
     [ "addComponent", "classigor_1_1i_entity.html#afe46a242a97a3be06a3508fc3e65add7", null ],
+    [ "addScript", "classigor_1_1i_entity.html#a20899dd8a3afe02aad272779e88e3d19", null ],
+    [ "addScript", "classigor_1_1i_entity.html#aa1f0de49e092661ec7f5446fdfd6c9a2", null ],
     [ "calcComponentMask", "classigor_1_1i_entity.html#a72d880353a2a1d59feea988e543c383a", null ],
     [ "clearComponents", "classigor_1_1i_entity.html#a1bbdcbbd9697a0df41e14f4788f5c56e", null ],
     [ "destroyComponent", "classigor_1_1i_entity.html#ac02680ac5451aa6af58bc8a9c0b154d0", null ],
@@ -26,8 +27,8 @@ var classigor_1_1i_entity =
     [ "isRoot", "classigor_1_1i_entity.html#aab98868fe64fa4960ec5ad2dfedf0a64", null ],
     [ "reloadComponent", "classigor_1_1i_entity.html#a6180bf13eb601914d5b78fbaaaef85cf", null ],
     [ "reloadComponent", "classigor_1_1i_entity.html#a6180bf13eb601914d5b78fbaaaef85cf", null ],
-    [ "removeBehaviour", "classigor_1_1i_entity.html#a46acdc86303f200d180e808bcdb5db51", null ],
     [ "removeParent", "classigor_1_1i_entity.html#af305d07c7a9025634b253480f7071a1e", null ],
+    [ "removeScript", "classigor_1_1i_entity.html#ab136a96581ff55831c21a27f5e5b347c", null ],
     [ "resetDirtyHierarchy", "classigor_1_1i_entity.html#ad992253520c7f8aaadee51d0a79b3c65", null ],
     [ "setActive", "classigor_1_1i_entity.html#ab248f655f2640a4239f64baf7f3cd8a2", null ],
     [ "setActiveExclusive", "classigor_1_1i_entity.html#ad50a41a7348edc5383d2ce84be70862f", null ],

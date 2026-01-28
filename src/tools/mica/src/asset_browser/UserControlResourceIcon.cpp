@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlResourceIcon.h"
@@ -15,11 +15,11 @@ UserControlResourceIcon::UserControlResourceIcon(const iaString &filename, const
     setSelectable(true);
     setAcceptDrag(true);
 
-    initGUI();
+    onInitUI();
     updateUI();
 }
 
-void UserControlResourceIcon::initGUI()
+void UserControlResourceIcon::onInitUI()
 {
     getContextMenuEvent().add(iContextMenuDelegate(this, &UserControlResourceIcon::OnContextMenu));
 
@@ -68,7 +68,7 @@ void UserControlResourceIcon::OnContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
 
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     const iResourceID id = iResourceManager::getInstance().getResourceID(_filename);
     if (id != iResourceID(IGOR_INVALID_ID))
@@ -119,7 +119,7 @@ void UserControlResourceIcon::updateUI()
 
     iaFile file(iResourceManager::getInstance().resolvePath(_filename));
     setTooltip(file.getFullFileName());
-    _labelFilename->setText(file.getFileName());    
+    _labelFilename->setText(file.getName());
     _labelReferencePath->setText(_referencePath);
 
     iTexturePtr texture = iThumbnailCache::getInstance().getThumbnail(file.getFullFileName());
@@ -145,6 +145,10 @@ void UserControlResourceIcon::updateUI()
         else if (type == "sprite")
         {
             texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_sprite");
+        }
+        else if (type == "script")
+        {
+            texture = iResourceManager::getInstance().requestResource<iTexture>("igor_icon_file_script");
         }
         else if (type == "model")
         {

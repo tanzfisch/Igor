@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iQuadtreeComponent.h>
@@ -13,7 +13,7 @@ namespace igor
     {
     }
 
-    iEntityComponent *iQuadtreeComponent::createInstance()
+    iEntityComponentPtr iQuadtreeComponent::createInstance()
     {
         return new iQuadtreeComponent();
     }

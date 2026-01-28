@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iSphereComponent.h>
@@ -14,7 +14,7 @@ namespace igor
         return component;
     }
 
-    iEntityComponent *iSphereComponent::createInstance()
+    iEntityComponentPtr iSphereComponent::createInstance()
     {
         return new iSphereComponent();
     }
@@ -38,13 +38,13 @@ namespace igor
     void iSphereComponent::setRadius(float64 radius)
     {
         _radius = radius;
-        setDirty();
+        increaseVersion();
     }
 
     void iSphereComponent::setOffset(const iaVector3d &offset)
     {
         _offset = offset;
-        setDirty();
+        increaseVersion();
     }
 
     std::vector<iaString> iSphereComponent::getInfo() const

@@ -126,8 +126,38 @@
         "source": "icons/right.png"
     },
     {
+        "alias": "igor_icon_play",
+        "id": "0x35adfe63223fe94f",
+        "internal": true,
+        "source": "icons/play.png"
+    },
+    {
+        "alias": "igor_icon_play_pause",
+        "id": "0x3fe94f13af52f322",
+        "internal": true,
+        "source": "icons/play_pause.png"
+    },
+    {
+        "alias": "igor_icon_stop",
+        "id": "0xa41fcd64ffe63223",
+        "internal": true,
+        "source": "icons/stop.png"
+    },    
+    {
+        "alias": "igor_icon_pause",
+        "id": "0x3223fe94f123f316",
+        "internal": true,
+        "source": "icons/pause.png"
+    },
+    {
+        "alias": "igor_icon_reset",
+        "id": "0x35adfe24adf14561",
+        "internal": true,
+        "source": "icons/reset.png"
+    },
+    {
         "alias": "igor_icon_right_small",
-        "id": "0xae5b9bdaf567133",
+        "id": "0xae5b9bdaf5671333",
         "internal": true,
         "source": "icons/right_small.png"
     },
@@ -282,6 +312,24 @@
         "source": "icons/shader.png"
     },
     {
+        "alias": "igor_icon_sprite",
+        "id": "0x9e0fdac3dfa6a41b",
+        "internal": true,
+        "source": "icons/sprite.png"
+    },
+    {
+        "alias": "igor_icon_script",
+        "id": "0x1dcfd2c3b8a9a410",
+        "internal": true,
+        "source": "icons/lua.png"
+    },    
+    {
+        "alias": "igor_icon_project",
+        "id": "0x1890ca4fd3a6142b",
+        "internal": true,
+        "source": "icons/project.png"
+    },
+    {
         "alias": "igor_widget_theme_pattern",
         "id": "0x57339e8d03b3da6e",
         "internal": true,
@@ -310,6 +358,18 @@
         "id": "0x5d3eeb809ba62075",
         "internal": true,
         "source": "textures/checker.png"
+    },
+    {
+        "alias": "igor_texture_white",
+        "id": "0x5d257080abbb2075",
+        "internal": true,
+        "source": "textures/white.png"
+    },
+    {
+        "alias": "igor_texture_black",
+        "id": "0x5d257080abbb2076",
+        "internal": true,
+        "source": "textures/black.png"
     },
     {
         "alias": "igor_icon_group",
@@ -437,6 +497,12 @@
         "internal": true,
         "source": "icons/file_sprite.png"
     },
+    {
+        "alias": "igor_icon_file_script",
+        "id": "0x8146a6b92a4efaf9",
+        "internal": true,
+        "source": "icons/file_script.png"
+    },    
     {
         "alias": "igor_icon_add_material",
         "id": "0xa7721cdcbc394f26",
@@ -646,5 +712,11 @@
         "id": "0xff8f44440bb7b46e",
         "internal": true,
         "source": "icons/addTransformation.png"
+    },
+    {
+        "alias": "igor_script_hello_world",
+        "id": "0xf134a69cd157b46a",
+        "internal": true,
+        "source": "scripts/hello_world.lua"
     }
 ]

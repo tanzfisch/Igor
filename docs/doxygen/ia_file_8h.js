@@ -6,5 +6,6 @@ var ia_file_8h =
       [ "WriteBinary", "ia_file_8h.html#a5db3a03d362f3a8606d971b88e0d0a2caf3de1e6f327fc28e955c698773c74045", null ],
       [ "ReadWriteBinary", "ia_file_8h.html#a5db3a03d362f3a8606d971b88e0d0a2ca4f6a08276e8d1a3e7385f1442a8a92fa", null ]
     ] ],
-    [ "operator<<", "ia_file_8h.html#a34bca877062d63171cbb00feb8b4ebd8", null ]
+    [ "operator<<", "ia_file_8h.html#a34bca877062d63171cbb00feb8b4ebd8", null ],
+    [ "toString", "ia_file_8h.html#a8853c47557fc31b00fc5a84e1d5a8c2c", null ]
 ];

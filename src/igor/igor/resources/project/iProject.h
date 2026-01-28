@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -43,11 +43,23 @@ namespace igor
 
     /*! project scene added event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneAdded, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iSceneAdded, const iResourceID &);
 
     /*! project scene removed event
      */
-    IGOR_EVENT_DEFINITION(iProjectSceneRemoved, const iResourceID &);
+    IGOR_EVENT_DEFINITION(iSceneRemoved, const iResourceID &);
+
+    /*! project loaded event
+     */
+    IGOR_EVENT_DEFINITION(iProjectLoaded, const iaString &);
+
+    /*! project reloaded event ie after a project mode change
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectReloaded);
+
+    /*! project unloaded
+     */
+    IGOR_EVENT_DEFINITION_NO_ARGS(iProjectUnloaded);
 
     /*! project pointer definition
      */
@@ -61,6 +73,14 @@ namespace igor
         friend class iModule<iProject>;
 
     public:
+        /*! project mode
+         */
+        enum class iMode
+        {
+            Edit,
+            Runtime
+        };
+
         /*! opens project
 
         closes active project if any
@@ -68,7 +88,11 @@ namespace igor
         \param path the given project file or folder
         \returns project
         */
-        void load(const iaString &path);
+        void load(const iaString &path, iMode mode = iMode::Runtime);
+
+        /*! \returns true if a project currently is loaded
+         */
+        bool isLoaded() const;
 
         /*! unloads project
          */
@@ -94,10 +118,6 @@ namespace igor
          */
         const iaString getProjectFilepath() const;
 
-        /*! \returns scenes folder
-        */
-        const iaString getScenesPath() const;
-
         /*! \returns project name
          */
         const iaString &getName() const;
@@ -106,15 +126,7 @@ namespace igor
          */
         void setName(const iaString &projectName);
 
-        /*! \returns true if changes been made and not saved
-         */
-        bool hasChanges() const;
-
-        /*! \returns true if a project currently is loaded
-         */
-        bool isLoaded() const;
-
-        /*! add scene to project
+        /*! add scene to project's root scene
 
         \param sceneID the scene to add (aka type prefab)
         \param name name of the scene
@@ -122,31 +134,51 @@ namespace igor
         */
         void addScene(const iResourceID &sceneID, const iaString &name = "scene", bool active = true);
 
-        /*! remove scene from project
+        /*! remove scene from project root scene
 
         \param sceneID the scene/prefab to remove
         */
         void removeScene(const iResourceID &sceneID);
 
-        /*! \returns list of scene references
-         */
-        const std::vector<iResourceID> &getScenes() const;
-
-        /*! \returns the project scene
-         */
-        iEntityScenePtr getProjectScene() const;
-
-        /*! \returns true if project has a scene
-        */
-        bool hasProjectScene() const;
-
         /*! \returns project scene added event
          */
-        iProjectSceneAddedEvent &getProjectSceneAddedEvent();
+        iSceneAddedEvent &getSceneAddedEvent();
 
         /*! \returns project scene removed event
          */
-        iProjectSceneRemovedEvent &getProjectSceneRemovedEvent();
+        iSceneRemovedEvent &getSceneRemovedEvent();
+
+        /*! \return project loaded event
+         */
+        iProjectLoadedEvent &getProjectLoadedEvent();
+
+        /*! \return project reloaded event
+         */
+        iProjectReloadedEvent &getProjectReloadedEvent();
+
+        /*! \return project unloaded event
+         */
+        iProjectUnloadedEvent &getProjectUnloadedEvent();
+
+        /*! \returns list of all sub scenes in this project excluding root scene
+         */
+        const std::vector<iResourceID> &getScenes() const;
+
+        /*! \returns the active root project scene
+         */
+        iEntityScenePtr getRootScene() const;
+
+        /*! sets project mode
+
+        this changes which copy of the root scene is used from here onwards
+
+        \param mode the mode to switch to
+        */
+        void setMode(iMode mode);
+
+        /*! \returns current project mode
+        */
+        iProject::iMode getMode() const;
 
     private:
         /*! project folder
@@ -154,7 +186,7 @@ namespace igor
         iaString _projectFolder;
 
         /*! project file
-        */
+         */
         iaString _projectFile;
 
         /*! project name
@@ -163,11 +195,15 @@ namespace igor
 
         /*! the root project scene all other scenes get added to as prefabs
          */
-        iEntityScenePtr _projectScene = nullptr;
+        iEntityScenePtr _activeScene = nullptr;
 
-        /*! if true project configuration has changes
+        /*! the edit mode scene
          */
-        bool _hasChanges = false;
+        iEntityScenePtr _editScene = nullptr;
+
+        /*! the runtime mode scene
+         */
+        iEntityScenePtr _runtimeScene = nullptr;
 
         /*! true if project is loaded
          */
@@ -175,15 +211,31 @@ namespace igor
 
         /*! project scene added event
          */
-        iProjectSceneAddedEvent _projectSceneAddedEvent;
+        iSceneAddedEvent _sceneAddedEvent;
 
         /*! project scene added event
          */
-        iProjectSceneRemovedEvent _projectSceneRemovedEvent;
+        iSceneRemovedEvent _sceneRemovedEvent;
+
+        /*! project loaded event
+         */
+        iProjectLoadedEvent _projectLoadedEvent;
+
+        /*! project reloaded event
+         */
+        iProjectReloadedEvent _projectReloadedEvent;
+
+        /*! project unloaded event
+         */
+        iProjectUnloadedEvent _projectUnloadedEvent;
 
         /*! scenes referenced by project
          */
         std::vector<iResourceID> _scenes;
+
+        /*! current project mode
+         */
+        iMode _mode = iMode::Runtime;
 
         /*! loads project
          */
@@ -206,6 +258,19 @@ namespace igor
         \param filename the project configuration file
         */
         bool write(const iaString &filename);
+
+        /*! save prefab if it has changed
+
+        \param prefabEntity entity with prefab component
+        */
+        void saveScene(iEntityPtr prefabEntity);
+
+        /*! helper function to write scenes in to json
+
+        \param entities list of prefab entities
+        \param scenesJson json
+        */
+        void writeScenes(const std::vector<iEntityPtr> &entities, json &scenesJson);
     };
 
 } // namespace igor

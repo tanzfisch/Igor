@@ -1,11 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/animation/iAnimationFactory.h>
 
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 #include <iaux/system/iaFile.h>
 using namespace iaux;
@@ -30,10 +30,10 @@ namespace igor
 
         // TODO load from file once there is a file format. and then override data from files with additional parameters
 
-        const auto translateAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("translateAnimation");
-        const auto rotateAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("rotateAnimation");
-        const auto scaleAnimation = parameters.getParameter<iaKeyFrameGraphVector3d>("scaleAnimation");
-        const auto spriteAnimation = parameters.getParameter<iaKeyFrameGraphui>("spriteAnimation");
+        const auto translateAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("translateAnimation");
+        const auto rotateAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("rotateAnimation");
+        const auto scaleAnimation = parameters.getParameterValue<iaKeyFrameGraphVector3d>("scaleAnimation");
+        const auto spriteAnimation = parameters.getParameterValue<iaKeyFrameGraphui>("spriteAnimation");
 
         bool directData = false;
 
@@ -88,7 +88,7 @@ namespace igor
 
     bool iAnimationFactory::load(const iaString &filename, iAnimationPtr animation)
     {
-        json data = iJson::parse(filename);
+        json data = iJsonUtil::parse(filename);
 
         if (!data.is_array())
         {
@@ -113,8 +113,8 @@ namespace igor
             }
             json framesJson = animationJson["frames"];
 
-            const iaString keyFrameType = iJson::getValue<iaString>(animationJson, "keyFrameType", "int");
-            const iaString target = iJson::getValue<iaString>(animationJson, "target", "FrameIndex");
+            const iaString keyFrameType = iJsonUtil::getValue<iaString>(animationJson, "keyFrameType", "int");
+            const iaString target = iJsonUtil::getValue<iaString>(animationJson, "target", "FrameIndex");
 
             iInterpolationMode interpolationMode = iInterpolationMode::None;
             if (animationJson.contains("interpolationMode"))
