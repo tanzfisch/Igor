@@ -1,11 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/threading/iThread.h>
 
 #include <igor/physics/iPhysics.h>
-#include <iaux/system/iaConsole.h>
+#include <igor/resources/script/iScriptEngine.h>
+
 
 namespace igor
 {
@@ -23,12 +24,13 @@ namespace igor
     void iThread::init()
     {
         iaThread::init();
-        _worldID = iPhysics::getInstance().createWorld()->getID();
+        // _worldID = iPhysics::getInstance().createWorld()->getID();
+        iScriptEngine::getInstance().registerThread();
     }
 
     void iThread::deinit()
     {
-        iPhysics::getInstance().destroyWorld(_worldID);
+        // iPhysics::getInstance().destroyWorld(_worldID);
         iaThread::deinit();
     }
 

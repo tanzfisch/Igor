@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/events/iEventFilesystem.h>
@@ -23,7 +23,7 @@ namespace igor
         return stream.str().c_str();
     }
 
-    const iaString& iEventFileCreated::getFilename() const
+    const iaString &iEventFileCreated::getPath() const
     {
         return _filename;
     }
@@ -42,7 +42,26 @@ namespace igor
         return stream.str().c_str();
     }
 
-    const iaString& iEventFileDeleted::getFilename() const
+    const iaString &iEventFileDeleted::getPath() const
+    {
+        return _filename;
+    }
+
+    iEventFolderDeleted::iEventFolderDeleted(const iaString &filename)
+        : iEvent(nullptr, true), _filename(filename)
+    {
+    }
+
+    const iaString iEventFolderDeleted::getInfo() const
+    {
+        std::wstringstream stream;
+
+        stream << getName() << "[" << _filename << "]";
+
+        return stream.str().c_str();
+    }
+
+    const iaString &iEventFolderDeleted::getPath() const
     {
         return _filename;
     }
@@ -61,7 +80,7 @@ namespace igor
         return stream.str().c_str();
     }
 
-    const iaString& iEventFileMovedFrom::getFilename() const
+    const iaString &iEventFileMovedFrom::getPath() const
     {
         return _filename;
     }
@@ -80,7 +99,7 @@ namespace igor
         return stream.str().c_str();
     }
 
-    const iaString& iEventFileMovedTo::getFilename() const
+    const iaString &iEventFileMovedTo::getPath() const
     {
         return _filename;
     }
@@ -99,9 +118,9 @@ namespace igor
         return stream.str().c_str();
     }
 
-    const iaString& iEventFileChanged::getFilename() const
+    const iaString &iEventFileChanged::getPath() const
     {
         return _filename;
-    }    
+    }
 
 } // namespace igor

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,58 +26,74 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_BEHAVIOUR_COMPONENT_H
-#define IGOR_BEHAVIOUR_COMPONENT_H
+#ifndef IGOR_SCRIPT_COMPONENT_H
+#define IGOR_SCRIPT_COMPONENT_H
 
 #include <igor/entities/iEntityComponent.h>
+#include <igor/resources/script/iScript.h>
 
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
-#include <any>
+#define IGOR_LUA_NOREF -2
 
 namespace igor
 {
     class iEntity;
     typedef iEntity *iEntityPtr;
 
-    /*! behaviour delegate definition
+    /*! script delegate definition
      */
-    IGOR_DELEGATE_DEFINITION(iBehaviour, iEntityPtr, std::any &);
+    IGOR_DELEGATE_DEFINITION(iScript, iEntityPtr);
 
-    /*! behaviour data
-     */
-    struct iBehaviourData
+    /*! basically means which state to trigger next beginning with Init
+
+    Init -> Update -> Final -> Stop
+             ^  |
+             |__|
+
+    */
+   // TODO maybe move this in to iScriptEngine
+    enum class iEntityScriptState
     {
-        /*! delegate to be executed with given entity and user data
-         */
-        iBehaviourDelegate _delegate;
-
-        /*! user data
-         */
-        std::any _userData;
-
-        /*! optional name of behaviour
-         */
-        iaString _name;
-
-        /*! execution priority
-         */
-        uint8 _priority;
+        Init,   //! triggers onInit(self) in script
+        Update, //! triggers onUpdate(self, dt) in script
+        Final,  //! triggers onFinal(self) in script
+        Stop,    //! cleanup script env
+        End    //! nothing to do
     };
 
-    /*! behaviour component
+    /*! script data
      */
-    class iBehaviourComponent : public iEntityComponent
+    struct iScriptData
+    {
+        /*! delegate to be executed with given entity and user data
+
+        deprecated in future only use scripts
+         */
+        iScriptDelegate _delegate;
+
+        /*! script script
+         */
+        iScriptPtr _script;
+
+        /*! which state to trigger next inside the script
+         */
+        iEntityScriptState _scriptState = iEntityScriptState::Init;
+    };
+
+    /*! script component
+     */
+    class iScriptComponent : public iEntityComponent
     {
     public:
         /*! ctor
          */
-        iBehaviourComponent();
+        iScriptComponent();
 
         /*! creates instance of this component type
          */
-        static iEntityComponent *createInstance();
+        static iEntityComponentPtr createInstance();
 
         /*! \returns type name of component
          */
@@ -87,38 +103,46 @@ namespace igor
          */
         std::vector<iaString> getInfo() const override;
 
-        /*! \returns behaviours
+        /*! \returns scripts
          */
-        const std::vector<iBehaviourData> &getBehaviors() const;
+        const std::vector<iScriptData> &getScripts() const;
 
-        /*! adds behaviour
+        /*! adds script from code
 
-        \param behaviour the behaviour to be added
-        \param userData user data added to behaviour
-        \param name the name of the behaviour
-        \param priority execution priority (low = 0, default = 100, high = 255)
+        \param script the script to add
         */
-        void addBehaviour(const iBehaviourDelegate &delegate, const std::any &userData, const iaString &name, uint8 priority);
+        void addScript(const iScriptDelegate &delegate);
 
-        /*! removes behaviour from entity
+        /*! adds script from script
 
-        \param behaviour the behaviour to be removed
+        \param script the script script to add
+        \param name the name of the script
         */
-        void removeBehaviour(const iBehaviourDelegate &delegate);
+        void addScript(const iScriptPtr script);
+
+        /*! removes script from entity
+
+        \param script the script to be removed
+        */
+        void removeScript(const iScriptDelegate &delegate);
 
         /*! executes all behaviours
          */
         void execute();
 
     private:
-        /*! behaviors
+        /*! scripts
          */
-        std::vector<iBehaviourData> _behaviors;
+        std::vector<iScriptData> _scripts;
 
         /*! \returns a copy of this component
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! script component pointer definition
+     */
+    typedef iScriptComponent *iScriptComponentPtr;
 }
 
-#endif // IGOR_BEHAVIOUR_COMPONENT_H
+#endif // IGOR_SCRIPT_COMPONENT_H

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iKeyboard.h>
@@ -72,9 +72,9 @@ namespace igor
         L"X",
         L"Y",
         L"Z",
-        L"WindowsLeft",
-        L"WindowsRight",
-        L"WindowsContext",
+        L"SuperLeft",
+        L"SuperRight",
+        L"SuperContext",
         L"NP_0",
         L"NP_1",
         L"NP_2",
@@ -426,11 +426,11 @@ namespace igor
                 case 90:
                     return iKeyCode::Z;
                 case 91:
-                    return iKeyCode::WindowsLeft;
+                    return iKeyCode::SuperLeft;
                 case 92:
-                    return iKeyCode::WindowsRight;
+                    return iKeyCode::SuperRight;
                 case 93:
-                    return iKeyCode::WindowsContext;
+                    return iKeyCode::SuperContext;
                 case 96:
                     return iKeyCode::NP_Zero;
                 case 97:
@@ -683,9 +683,9 @@ namespace igor
             case 29:
                 return iKeyCode::Z;
             case 134:
-                return iKeyCode::WindowsRight;
+                return iKeyCode::SuperRight;
             case 135:
-                return iKeyCode::WindowsContext;
+                return iKeyCode::SuperContext;
             case 90:
                 return iKeyCode::NP_Zero;
             case 87:
@@ -959,6 +959,11 @@ namespace igor
         }
 
         return iKeyCode::Undefined;
+    }
+
+    iaString iKeyboard::getKeyName(iKeyCode keyCode)
+    {
+        return s_keyNames[static_cast<int>(keyCode)];
     }
 
     iWindowPtr iKeyboard::getWindow() const

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,47 +26,55 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_BEHAVIOUR_SYSTEM_H
-#define IGOR_BEHAVIOUR_SYSTEM_H
+#ifndef IGOR_SCRIPT_H
+#define IGOR_SCRIPT_H
 
-#include <igor/entities/iEntitySystem.h>
+#include <igor/resources/iResource.h>
+
+#include <iaux/data/iaString.h>
+using namespace iaux;
 
 namespace igor
 {
 
-	/*! behaviour system
-	 */
-	class iBehaviourSystem : public iEntitySystem
-	{
-	public:
-		/*! init types
-		 */
-		iBehaviourSystem();
+    /*! used to have 2d sprites
+     */
+    class IGOR_API iScript : public iResource
+    {
 
-        /*! creates instance of this system type
+        friend class iScriptFactory;
+
+    public:
+        /*! sets script
+
+        \param script the script to set
+        */
+        void setScript(const iaString &script);
+
+        /*! \returns script
+        */
+        const char* getScript() const;
+
+        /*! executes script
          */
-        static iEntitySystemPtr createInstance();
-		
-        /*! \returns type name of system
+        void execute();
+
+    private:
+        /*! the script
          */
-        static const iaString &getTypeName();
+        std::string _script;
 
-		/*! updates system
+        /*! ctor initializes member variables
 
-		\param context the update context
-		 */
-		void onUpdate(const iEntitySceneUpdateContext &context) override;
+        \param parameters the parameters of this script
+        */
+        iScript(const iParameters &parameters);
+    };
 
-		/*! \returns processing stage this system want's to run in
-		 */
-		iEntitySystemStage getStage() const override;
+    /*! script pointer definition
+     */
+    typedef std::shared_ptr<iScript> iScriptPtr;
 
-	private:
-		/*! a view on some entities
-		 */
-		iEntityViewPtr _view;
-	};
+}; // namespace igor
 
-} // igor
-
-#endif // IGOR_BEHAVIOUR_SYSTEM_H
+#endif // IGOR_SCRIPT_H

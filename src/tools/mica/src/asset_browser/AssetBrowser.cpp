@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "AssetBrowser.h"
@@ -76,7 +76,7 @@ void AssetBrowser::initUI()
 void AssetBrowser::OnContextMenu(iWidgetPtr source)
 {
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     if (_currentPath.isEmpty())
     {
@@ -92,6 +92,7 @@ void AssetBrowser::OnContextMenu(iWidgetPtr source)
     createMenu->addAction("igor:create_material", actionContext);
     createMenu->addAction("igor:create_shader", actionContext);
     createMenu->addAction("igor:create_sprite", actionContext);
+    createMenu->addAction("igor:create_script", actionContext);
 
     // TODO create all the assets
 

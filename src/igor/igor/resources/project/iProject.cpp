@@ -1,10 +1,10 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/project/iProject.h>
 
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 #include <igor/entities/iEntitySystemModule.h>
 #include <igor/entities/components/iPrefabComponent.h>
 #include <igor/entities/traversal/iEntityCopyTraverser.h>
@@ -142,6 +142,9 @@ namespace igor
         con_info("created project in \"" << path << "\"");
 
         load();
+
+        _mode = iMode::Edit;
+        _editScene = _activeScene;        
     }
 
     void iProject::load()
@@ -217,7 +220,7 @@ namespace igor
 
     bool iProject::read(const iaString &filename)
     {
-        json projectJson = iJson::parse(filename);
+        json projectJson = iJsonUtil::parse(filename);
 
         if (!projectJson.contains("projectName"))
         {
@@ -234,7 +237,7 @@ namespace igor
         }
 
         json projectSceneJson = projectJson["projectScene"];
-        const iEntitySceneID projectSceneID = iJson::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
+        const iEntitySceneID projectSceneID = iJsonUtil::getValue<iaUUID>(projectSceneJson, "id", iaUUID());
 
         _activeScene = iEntitySystemModule::getInstance().createScene("project_scene", projectSceneID, false);
         iEntitySystemModule::getInstance().activateScene(_activeScene);
@@ -270,9 +273,9 @@ namespace igor
 
             for (const auto &sceneJson : scenesJson)
             {
-                const auto prefabID = iJson::getValue<iResourceID>(sceneJson, "id", iResourceID::getInvalid());
-                const bool active = iJson::getValue<bool>(sceneJson, "active", false);
-                const auto name = iJson::getValue<iaString>(sceneJson, "name", "");
+                const auto prefabID = iJsonUtil::getValue<iResourceID>(sceneJson, "id", iResourceID::getInvalid());
+                const bool active = iJsonUtil::getValue<bool>(sceneJson, "active", false);
+                const auto name = iJsonUtil::getValue<iaString>(sceneJson, "name", "");
 
                 addScene(prefabID, name, active);
             }

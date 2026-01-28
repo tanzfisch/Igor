@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/igor.h>
@@ -18,6 +18,7 @@ const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS = {"anim", "json
 const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS = {"ompf", "obj"};
 const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS = {"wav"};
 const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS = {"prefab", "scene", "json"};
+const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS = {"lua"};
 
 const iaString IGOR_RESOURCE_SHADER = "shader";
 const iaString IGOR_RESOURCE_MATERIAL = "material";
@@ -27,6 +28,7 @@ const iaString IGOR_RESOURCE_SOUND = "sound";
 const iaString IGOR_RESOURCE_SPRITE = "sprite";
 const iaString IGOR_RESOURCE_MODEL = "model";
 const iaString IGOR_RESOURCE_PREFAB = "prefab";
+const iaString IGOR_RESOURCE_SCRIPT = "script";
 
 const iaString IGOR_RESOURCE_PARAM_ALIAS = "alias";
 const iaString IGOR_RESOURCE_PARAM_TYPE = "type";
@@ -62,6 +64,7 @@ const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH = "texture_width";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT = "texture_height";
 const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR = "primary_color";
 const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR = "secondary_color";
+const iaString IGOR_RESOURCE_PARAM_SCRIPT = "script";
 
 const iaString IGOR_RESOURCE_PARAM_TEXTURE0 = "texture0";
 const iaString IGOR_RESOURCE_PARAM_TEXTURE1 = "texture1";
@@ -161,13 +164,14 @@ namespace igor
         iaConsole::getInstance() << G << "                                     /\\_____\\\\ \\____ \\\\ \\____/ \\ \\_\\   " << endl;
         iaConsole::getInstance() << W << "  ___________________________________" << G << "\\/_____/" << W << "_" << G << "\\/___L\\ \\\\/___/" << W << "___" << G << "\\/_/" << W << "__________" << endl;
         iaConsole::getInstance() << G << "                                                /\\____/                " << endl;
-        iaConsole::getInstance() << T << "      (c) Copyright 2012-2025 by Martin A. Loga" << G << " \\/___/   " << endl;
+        iaConsole::getInstance() << T << "      (c) Copyright 2012-2026 by Martin A. Loga" << G << " \\/___/   " << endl;
 
         iaConsole::getInstance() << endl
                                  << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
-        iaConsole::getInstance() << T << "                 R.P. Easing, TinyXML, nlohmann json, ChaiScript and Fun" << endl
+        iaConsole::getInstance() << T << "                 R.P. Easing, T.L. Base64, TinyXML, nlohmann json, LuaJIT" << endl;
+        iaConsole::getInstance() << T << "                 LuaBridge and Fun" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      thanks to M. Rochel, M. Schulz, T. Drevensek, M. Dederer" << endl
                                  << endl;
@@ -223,8 +227,8 @@ namespace igor
         iTaskManager::createInstance();
         iEntitySystemModule::createInstance();
         iProject::createInstance();
-        iClipboard::createInstance();      
-        iScriptEngine::createInstance();  
+        iClipboard::createInstance();
+        iScriptEngine::createInstance();
     }
 
     void destroyModules()

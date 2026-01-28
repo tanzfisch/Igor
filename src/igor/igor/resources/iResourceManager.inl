@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 template <>
@@ -33,14 +33,14 @@ inline iTexturePtr iResourceManager::loadResource(const iResourceID &resourceID,
 template <>
 inline iTexturePtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
     return std::dynamic_pointer_cast<iTexture>(requestResource(param));
 }
 
 template <>
 inline iTexturePtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_TEXTURE, "incorrect parameter");
     return std::dynamic_pointer_cast<iTexture>(loadResource(param));
 }
 
@@ -95,14 +95,14 @@ inline iSoundPtr iResourceManager::loadResource(const iResourceID &resourceID, i
 template <>
 inline iSoundPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
     return std::dynamic_pointer_cast<iSound>(requestResource(param));
 }
 
 template <>
 inline iSoundPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SOUND, "incorrect parameter");
     return std::dynamic_pointer_cast<iSound>(loadResource(param));
 }
 
@@ -157,14 +157,14 @@ inline iSpritePtr iResourceManager::loadResource(const iResourceID &resourceID, 
 template <>
 inline iSpritePtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
     return std::dynamic_pointer_cast<iSprite>(requestResource(param));
 }
 
 template <>
 inline iSpritePtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SPRITE, "incorrect parameter");
     return std::dynamic_pointer_cast<iSprite>(loadResource(param));
 }
 
@@ -219,14 +219,14 @@ inline iAnimationPtr iResourceManager::loadResource(const iResourceID &resourceI
 template <>
 inline iAnimationPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
     return std::dynamic_pointer_cast<iAnimation>(requestResource(param));
 }
 
 template <>
 inline iAnimationPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_ANIMATION, "incorrect parameter");
     return std::dynamic_pointer_cast<iAnimation>(loadResource(param));
 }
 
@@ -281,14 +281,14 @@ inline iModelPtr iResourceManager::loadResource(const iResourceID &resourceID, i
 template <>
 inline iModelPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
     return std::dynamic_pointer_cast<iModel>(requestResource(param));
 }
 
 template <>
 inline iModelPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MODEL, "incorrect parameter");
     return std::dynamic_pointer_cast<iModel>(loadResource(param));
 }
 
@@ -343,14 +343,14 @@ inline iShaderPtr iResourceManager::loadResource(const iResourceID &resourceID, 
 template <>
 inline iShaderPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
     return std::dynamic_pointer_cast<iShader>(requestResource(param));
 }
 
 template <>
 inline iShaderPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SHADER, "incorrect parameter");
     return std::dynamic_pointer_cast<iShader>(loadResource(param));
 }
 
@@ -405,14 +405,14 @@ inline iMaterialPtr iResourceManager::loadResource(const iResourceID &resourceID
 template <>
 inline iMaterialPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
     return std::dynamic_pointer_cast<iMaterial>(requestResource(param));
 }
 
 template <>
 inline iMaterialPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_MATERIAL, "incorrect parameter");
     return std::dynamic_pointer_cast<iMaterial>(loadResource(param));
 }
 
@@ -467,14 +467,14 @@ inline iPrefabPtr iResourceManager::loadResource(const iResourceID &resourceID, 
 template <>
 inline iPrefabPtr iResourceManager::requestResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
     return std::dynamic_pointer_cast<iPrefab>(requestResource(param));
 }
 
 template <>
 inline iPrefabPtr iResourceManager::loadResource(const iParameters &param)
 {
-    con_assert(param.getParameter<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_PREFAB, "incorrect parameter");
     return std::dynamic_pointer_cast<iPrefab>(loadResource(param));
 }
 
@@ -496,4 +496,71 @@ inline iPrefabPtr iResourceManager::getResource(const iaString &alias)
 {
     iParameters param = buildParam(IGOR_RESOURCE_PREFAB, alias);
     return std::dynamic_pointer_cast<iPrefab>(getResource(param));
+}
+
+
+
+/////////7
+
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iaString &alias, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iResourceID &resourceID, iResourceCacheMode cacheMode)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, resourceID, cacheMode);
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::requestResource(const iParameters &param)
+{
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SCRIPT, "incorrect parameter");
+    return std::dynamic_pointer_cast<iScript>(requestResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::loadResource(const iParameters &param)
+{
+    con_assert(param.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_TYPE, "") == IGOR_RESOURCE_SCRIPT, "incorrect parameter");
+    return std::dynamic_pointer_cast<iScript>(loadResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::createResource()
+{
+    iParameters param(iParametersMap({{IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_SCRIPT}}));
+    return std::dynamic_pointer_cast<iScript>(createResource(param));
+}
+
+template <>
+inline iScriptPtr iResourceManager::getResource(const iResourceID &id)
+{
+    return std::dynamic_pointer_cast<iScript>(getResource(id));
+}
+
+template <>
+inline iScriptPtr iResourceManager::getResource(const iaString &alias)
+{
+    iParameters param = buildParam(IGOR_RESOURCE_SCRIPT, alias);
+    return std::dynamic_pointer_cast<iScript>(getResource(param));
 }

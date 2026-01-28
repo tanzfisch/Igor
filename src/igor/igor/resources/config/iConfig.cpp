@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/config/iConfig.h>
@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <igor/utils/iJson.h>
+#include <igor/utils/iJsonUtil.h>
 
 namespace igor
 {
@@ -74,7 +74,7 @@ namespace igor
     {
         _filename = filename;
 
-        json data = iJson::parse(_filename);
+        json data = iJsonUtil::parse(_filename);
 
         for (const auto &element : data.items())
         {

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,6 +30,10 @@
 #define IGOR_SCRIPT_ENGINE_H
 
 #include <igor/resources/module/iModule.h>
+#include <igor/entities/iEntity.h>
+
+#include <iaux/data/iaString.h>
+using namespace iaux;
 
 namespace igor
 {
@@ -38,65 +42,55 @@ namespace igor
     class IGOR_API iScriptEngine : public iModule<iScriptEngine>
     {
 
+        friend class iScriptComponent;
+        friend class iThread;
         friend class iModule<iScriptEngine>;
 
     public:
-        /*! register global variable
-
-        \param var reference to variable
-        \param name the name used in script
-        */
-        template <typename T>
-        void addVariable(T &var, const std::string &name);
-
-        /*! register global const variable
-
-        \param var reference to const variable
-        \param name the name used in script
-        */
-        template<typename T>
-        void addConst(const T& var, const std::string& name);
-
-        /*! register a function
-
-        \param func the function pointer
-        \param name the name of the function in script
-        */
-        template<typename F>
-        void addFunction(F&& func, const std::string& name);
-
-        /*! register object + method
-
-        \param obj the object instance
-        \param method the method
-        \param name the name of the object and method in script
-        */
-        template<typename T, typename... Args>
-        void addMethod(T* obj, void (T::*method)(Args...), const std::string& name);
-
-        /*! load and run given script from file
-        
-        \param filename the given script to run
-        */
-        void executeScript(const std::string& filename);
-
         /*! run given script from string
 
         \param script the script to run
         */
-        void execute(const std::string& script);
+        void execute(const char *script);
 
     private:
         /*! pimpl
          */
-        iScriptEngineImpl *_impl;
+        std::unique_ptr<iScriptEngineImpl> _impl;
+
+        /*! initialize script for entity
+
+        \param script the script to run
+        \returns the script environment handle
+        */
+        bool initEntityScript(iEntityPtr entity, iScriptPtr script);
+
+        /*! deinitialize script for entity
+
+        \param envRef environment handle to clean up script
+        */
+        bool deinitEntityScript(iEntityPtr entity);
+
+        /*! execute function in given script environment
+
+        \param functionRef the function reference to call
+        */
+        bool callEntityInit(iEntityPtr entity);
+        bool callEntityUpdate(iEntityPtr entity);
+        bool callEntityFinal(iEntityPtr entity);
+        bool callEntityMessage(iEntityPtr entity);
+        bool callEntityEvent(iEntityPtr entity);
+
+        /*! registers current thread to the script engine
+         */
+        void registerThread();
 
         /*! init members
-        */
+         */
         iScriptEngine();
 
         /*! cleanup
-        */
+         */
         virtual ~iScriptEngine();
     };
 }

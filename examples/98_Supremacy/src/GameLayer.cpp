@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "GameLayer.h"
@@ -27,7 +27,6 @@ void GameLayer::onInit()
     iEntitySystemModule::getInstance().registerComponentType<MovementControlComponent>(MovementControlComponent::createInstance, "SupremacyComponentMovementControl");
     iEntitySystemModule::getInstance().registerComponentType<ViewportComponent>(ViewportComponent::createInstance, "SupremacyComponentViewport");
     iEntitySystemModule::getInstance().registerComponentType<WeaponComponent>(WeaponComponent::createInstance, "SupremacyComponentWeapon");
-    iEntitySystemModule::getInstance().registerComponentType<ModifierComponent>(ModifierComponent::createInstance, "SupremacyComponentModifier");
     iEntitySystemModule::getInstance().registerComponentType<BuildingComponent>(BuildingComponent::createInstance, "SupremacyComponentBuilding");
     iEntitySystemModule::getInstance().registerComponentType<PartyComponent>(PartyComponent::createInstance, "SupremacyComponentParty");
 
@@ -304,7 +303,7 @@ iEntityID GameLayer::createPlayer()
     // init player
     iEntityPtr entity = _entityScene->createEntity("player");
 
-    iTransformComponent *transform = static_cast<iTransformComponent *>(entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0))));
+    iTransformComponentPtr transform = entity->addComponent(new iTransformComponent(iaVector3d(PLAYFIELD_WIDTH * 0.5f, PLAYFIELD_HEIGHT * 0.5f, 0.0)));
     entity->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     entity->addComponent(new iVelocityComponent(iaVector3d(0, 0, 0)));
 
@@ -321,14 +320,23 @@ iEntityID GameLayer::createPlayer()
     entity->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     entity->addComponent(new DamageComponent(0.0f));
 
-    entity->addBehaviour({this, &GameLayer::onPlayerMovementBehaviour});
-    entity->addBehaviour({this, &GameLayer::onAquireTarget});
-    entity->addBehaviour({this, &GameLayer::onUpdateCollision});
-    entity->addBehaviour({this, &GameLayer::onUpdateWeapon});
+    iUserDataComponentPtr userData = entity->addComponent(new iUserDataComponent());
+    userData->setValue("damageFactor", 1.0);
+    userData->setValue("attackIntervalFactor", 1.0);
+    userData->setValue("criticalHitChanceFactor", 1.0);
+    userData->setValue("criticalHitDamageFactor", 1.0);
+    userData->setValue("splashDamageRangeFactor", 1.0);
+    userData->setValue("walkSpeedFactor", 1.0);
+    userData->setValue("projectileSpeedFactor", 1.0);
+    userData->setValue("projectileRangeFactor", 1.0);    
+
+    entity->addScript(iResourceManager::getInstance().loadResource<iScript>("script_player_movement"));
+    entity->addScript({this, &GameLayer::onAquireTarget});
+    entity->addScript({this, &GameLayer::onUpdateCollision});
+    entity->addScript({this, &GameLayer::onUpdateWeapon});
 
     entity->addComponent(new ExperienceComponent());
     entity->addComponent(new CoinsComponent());
-    entity->addComponent(new ModifierComponent({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f}));
     entity->addComponent(new WeaponComponent(_weapons["Knife"]));
 
     // add shadow
@@ -340,50 +348,17 @@ iEntityID GameLayer::createPlayer()
     return entity->getID();
 }
 
-void GameLayer::onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData)
-{
-    auto velocityComponent = entity->getComponent<iVelocityComponent>();
-    auto modifier = entity->getComponent<ModifierComponent>();
-
-    iaVector3d velocity;
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::W))
-    {
-        velocity._y -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::A))
-    {
-        velocity._x -= 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::S))
-    {
-        velocity._y += 1.0;
-    }
-
-    if (iKeyboard::getInstance().keyPressed(iKeyCode::D))
-    {
-        velocity._x += 1.0;
-    }
-
-    velocity.normalize();
-    velocity *= modifier->_config._walkSpeedFactor;
-
-    velocityComponent->setVelocity(velocity);
-}
-
-void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
+void GameLayer::onAquireTarget(iEntityPtr entity)
 {
     const auto transformComponent = entity->getComponent<iTransformComponent>();
     const auto entityParty = entity->getComponent<PartyComponent>();
     const auto weapon = entity->getComponent<WeaponComponent>();
-    const auto modifier = entity->getComponent<ModifierComponent>();
+    const auto modifier = entity->getComponent<iUserDataComponent>();
     auto target = entity->getComponent<TargetComponent>();
 
     const auto &position = transformComponent->getPosition();
 
-    iaCircled circle(iaVector2d(position._x, position._y), weapon->_config._range * modifier->_config._projectileRangeFactor);
+    iaCircled circle(iaVector2d(position._x, position._y), weapon->_config._range * modifier->getValue<float64>("projectileRangeFactor"));
     std::vector<std::pair<iEntityID, iaVector2d>> hits;
     doughnutQuery(circle, hits);
 
@@ -416,7 +391,7 @@ void GameLayer::onAquireTarget(iEntityPtr entity, std::any &userData)
     }
 }
 
-void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
+void GameLayer::onUpdateCollision(iEntityPtr entity)
 {
     BuildingType buildingType = BuildingType::None;
 
@@ -477,14 +452,14 @@ void GameLayer::onUpdateCollision(iEntityPtr entity, std::any &userData)
     onOpenBuilding(buildingType);
 }
 
-void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
+void GameLayer::onUpdateWeapon(iEntityPtr entity)
 {
     iaTime now = iTimer::getInstance().getTime();
 
     auto weapon = entity->getComponent<WeaponComponent>();
     auto transformComponent = entity->getComponent<iTransformComponent>();
     auto velocity = entity->getComponent<iVelocityComponent>();
-    auto modifier = entity->getComponent<ModifierComponent>();
+    auto modifier = entity->getComponent<iUserDataComponent>();
     auto target = entity->getComponent<TargetComponent>();
 
     // skip if there is no target
@@ -500,7 +475,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
     }
 
     // check if it is time to fire again
-    if ((now - weapon->_time) < (weapon->_config._attackInterval / modifier->_config._attackIntervalFactor))
+    if ((now - weapon->_time) < (weapon->_config._attackInterval / modifier->getValue<float64>("attackIntervalFactor")))
     {
         return;
     }
@@ -521,7 +496,7 @@ void GameLayer::onUpdateWeapon(iEntityPtr entity, std::any &userData)
     fire(firePos, direction, FRIEND, weapon, modifier);
 }
 
-void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
+void GameLayer::onCameraFollowPlayer(iEntityPtr entity)
 {
     iEntityPtr player = _entityScene->getEntity(_playerID);
 
@@ -532,38 +507,32 @@ void GameLayer::onCameraFollowPlayer(iEntityPtr entity, std::any &userData)
 
     auto playerTransformComponent = player->getComponent<iTransformComponent>();
     auto camTransformComponent = entity->getComponent<iTransformComponent>();
-    iaVector2d &targetOffset = std::any_cast<iaVector2d &>(userData);
+    auto cameraComponent = entity->getComponent<iCameraComponent>();
+
+    auto offset = cameraComponent->getOffset();
 
     const auto &playerPos = playerTransformComponent->getPosition();
     const auto &camPos = camTransformComponent->getPosition();
 
     const iaVector2d playerPosition(playerPos._x, playerPos._y);
-    const iaVector2d lastPlayerPosition(camPos._x + targetOffset._x,
-                                        camPos._y + targetOffset._y);
-
+    const iaVector2d lastPlayerPosition(camPos._x, camPos._y);
     const iaVector2d diff = playerPosition - lastPlayerPosition;
 
-    bool skipStep = false;
     const auto width = PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH * 0.5;
     const auto height = PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT * 0.5;
 
-    if (std::abs(diff._x) > width ||
-        std::abs(diff._y) > height)
+    if (!(std::abs(diff._x) > width ||
+          std::abs(diff._y) > height))
     {
-        skipStep = true;
+        offset._position._x -= diff._x;
+        offset._position._y -= diff._y;
     }
 
-    if (!skipStep)
-    {
-        targetOffset += diff;
-    }
+    offset._position._x = std::clamp(offset._position._x, -width, width);
+    offset._position._y = std::clamp(offset._position._y, -height, height);
 
-    targetOffset._x = std::clamp(targetOffset._x, -width, width);
-    targetOffset._y = std::clamp(targetOffset._y, -height, height);
-
-    camTransformComponent->setPosition(iaVector3d(playerPosition._x - targetOffset._x, playerPosition._y - targetOffset._y, 0.0));
-
-    userData = targetOffset;
+    camTransformComponent->setPosition(iaVector3d(playerPosition._x, playerPosition._y, 0.0));
+    cameraComponent->setOffset(offset);
 }
 
 iEntityID GameLayer::createCamera()
@@ -572,19 +541,18 @@ iEntityID GameLayer::createCamera()
 
     const auto playerTransform = player->getComponent<iTransformComponent>();
 
-    // iEntityPtr entity = _entityScene->getEntity(0xce15ebf856e4b05e);
-    iEntityPtr entity = _entityScene->createEntity("camera");
+    iEntityPtr camera = _entityScene->createEntity("camera");
 
-    entity->addComponent(new iTransformComponent(playerTransform->getPosition()));
-    entity->addBehaviour({this, &GameLayer::onCameraFollowPlayer}, iaVector2d());
+    camera->addComponent(new iTransformComponent(playerTransform->getPosition()));
 
-    auto cameraComponent = entity->addComponent(new iCameraComponent());
+    camera->addScript({this, &GameLayer::onCameraFollowPlayer});
+    auto cameraComponent = camera->addComponent(new iCameraComponent());
 
     cameraComponent->setOrthogonal(-PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_WIDTH * 0.5, PLAYFIELD_VIEWPORT_HEIGHT * 0.5, -PLAYFIELD_VIEWPORT_HEIGHT * 0.5);
     cameraComponent->setClearColorActive(false);
-    cameraComponent->setClearDepthActive(false);    
+    cameraComponent->setClearDepthActive(false);
 
-    return entity->getID();
+    return camera->getID();
 }
 
 void GameLayer::createBackground()
@@ -618,7 +586,7 @@ void GameLayer::createCoin(const iaVector2f &pos, uint32 party, ObjectType objec
 }
 
 void GameLayer::onLiftShop()
-{    
+{
     iEntityPtr shop = _entityScene->getEntity(_shop);
     if (shop == nullptr)
     {
@@ -636,7 +604,7 @@ void GameLayer::onLandShop(const iaTime &time)
         player == nullptr)
     {
         return;
-    }    
+    }
 
     auto playerTransformComponent = player->getComponent<iTransformComponent>();
     auto shopTransformComponent = shop->getComponent<iTransformComponent>();
@@ -661,19 +629,29 @@ void GameLayer::createShop()
     shop->setActive(false); // TODO need to figure out why we can't deactivate after adding iSpriteRenderComponent
 
     _shop = shop->getID();
-    shop->addComponent(new iTransformComponent(iaVector3d(300,300,0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
+    shop->addComponent(new iTransformComponent(iaVector3d(300, 300, 0), iaQuaterniond(), iaVector3d(STANDARD_UNIT_SIZE * 4, STANDARD_UNIT_SIZE * 4, 1.0)));
     shop->addComponent(new iVelocityComponent());
     shop->addComponent(new iGlobalBoundaryComponent(iGlobalBoundaryType::Repeat));
     shop->addComponent(new iSpriteRenderComponent(iResourceManager::getInstance().requestResource<iSprite>("sprite_shop")));
     shop->addComponent(new PartyComponent(FRIEND));
     shop->addComponent(new iCircleComponent(STANDARD_UNIT_SIZE * 4 * 0.5));
     shop->addComponent(new BuildingComponent(BuildingType::Shop));
-    shop->addComponent(new ModifierComponent({1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.5f}));
+
+    iUserDataComponentPtr userData = shop->addComponent(new iUserDataComponent());
+    userData->setValue("damageFactor", 1.0);
+    userData->setValue("attackIntervalFactor", 1.0);
+    userData->setValue("criticalHitChanceFactor", 1.0);
+    userData->setValue("criticalHitDamageFactor", 1.0);
+    userData->setValue("splashDamageRangeFactor", 1.0);
+    userData->setValue("walkSpeedFactor", 1.0);
+    userData->setValue("projectileSpeedFactor", 1.0);
+    userData->setValue("projectileRangeFactor", 0.5);  
+
     shop->addComponent(new WeaponComponent(_weapons["Minigun"]));
     shop->addComponent(new TargetComponent(iEntityID::getInvalid(), false, false));
     shop->addComponent(new iQuadtreeComponent());
-    shop->addBehaviour({this, &GameLayer::onAquireTarget});
-    shop->addBehaviour({this, &GameLayer::onUpdateWeapon});
+    shop->addScript({this, &GameLayer::onAquireTarget});
+    shop->addScript({this, &GameLayer::onUpdateWeapon});
 
     auto animationComp = shop->addComponent(new iAnimationComponent());
     animationComp->addClip(iClip::createClip({_shopIdleAnimation}, true, true));
@@ -685,7 +663,7 @@ void GameLayer::createShop()
     shadow->setParent(shop->getID());
 }
 
-void GameLayer::onFollowTarget(iEntityPtr entity, std::any &userData)
+void GameLayer::onFollowTarget(iEntityPtr entity)
 {
     auto velocityComp = entity->getComponent<iVelocityComponent>();
     iaVector3d velocity(0.0, 0.0, 0.0);
@@ -789,8 +767,8 @@ void GameLayer::createUnit(const iaVector2f &pos, uint32 party, iEntityID target
     unit->addComponent(new TargetComponent(target));
     unit->addComponent(new ExperienceGainComponent(enemyClass._xpDrop));
     unit->addComponent(new DamageComponent(enemyClass._damage));
-    unit->addBehaviour({this, &GameLayer::onCheckCollision});
-    unit->addBehaviour({this, &GameLayer::onFollowTarget});
+    unit->addScript({this, &GameLayer::onCheckCollision});
+    unit->addScript({this, &GameLayer::onFollowTarget});
     // unit->setMotionInteractionType(iMotionInteractionType::Divert);
 
     // add shadow
@@ -1100,10 +1078,10 @@ bool GameLayer::intersectDoughnut(const iaVector2d &position, const iaCircled &c
     return false;
 }
 
-void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData)
+void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity)
 {
     auto velocityComp = entity->getComponent<iVelocityComponent>();
-    if(velocityComp->getAngularVelocity().zero())
+    if (velocityComp->getAngularVelocity().zero())
     {
         return;
     }
@@ -1115,7 +1093,7 @@ void GameLayer::onUpdateProjectileOrientation(iEntityPtr entity, std::any &userD
     transform->rotate(iaQuaterniond::fromEuler(0.0, 0.0, vel2D.angle() + (M_PI * 0.5)));
 }
 
-void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
+void GameLayer::onCheckCollision(iEntityPtr entity)
 {
     auto transform = entity->getComponent<iTransformComponent>();
     auto party = entity->getComponent<PartyComponent>();
@@ -1190,7 +1168,7 @@ void GameLayer::onCheckCollision(iEntityPtr entity, std::any &userData)
     }
 }
 
-void GameLayer::onUpdateRange(iEntityPtr entity, std::any &userData)
+void GameLayer::onUpdateRange(iEntityPtr entity)
 {
     auto transformComponent = entity->getComponent<iTransformComponent>();
     auto range = entity->getComponent<RangeComponent>();
@@ -1205,7 +1183,7 @@ void GameLayer::onUpdateRange(iEntityPtr entity, std::any &userData)
     }
 }
 
-void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const ModifierComponent *modifier)
+void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const iUserDataComponent *modifier)
 {
     // skip if out of range
     if (!iIntersection::intersects(from, _entityScene->getQuadtree().getArea()))
@@ -1228,12 +1206,12 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
             angularVelocity += (iaRandom::getNextFloat() - 0.5) * 0.2;
         }
 
-        bullet->addComponent(new RangeComponent({weapon->_config._range * modifier->_config._projectileRangeFactor, bulletSpawnPosition}));
+        bullet->addComponent(new RangeComponent({weapon->_config._range * modifier->getValue<float64>("projectileRangeFactor"), bulletSpawnPosition}));
 
         iaVector2d dir2 = dir;
         dir2.rotateXY((iaRandom::getNextFloat() - 0.2) * weapon->_config._accuracy * 0.2);
         iaVector3d d(dir2._x, dir2._y, 0.0);
-        float32 s = (weapon->_config._speed * modifier->_config._projectileSpeedFactor) + (weapon->_config._accuracy * (iaRandom::getNextFloat() - 0.5));
+        float32 s = (weapon->_config._speed * modifier->getValue<float64>("projectileSpeedFactor")) + (weapon->_config._accuracy * (iaRandom::getNextFloat() - 0.5));
         d *= s;
         bullet->addComponent(new iVelocityComponent({d, iaVector3d(0.0, 0.0, angularVelocity)}));
         bullet->addComponent(new PartyComponent({party}));
@@ -1243,10 +1221,10 @@ void GameLayer::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet->addComponent(new iSpriteRenderComponent(sprite));
         bullet->addComponent(new iCircleComponent(weapon->_config._size * 0.5));
         bullet->addComponent(new iQuadtreeComponent());
-        bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->_config._damageFactor));
+        bullet->addComponent(new DamageComponent(weapon->_config._damage * modifier->getValue<float64>("damageFactor")));
         bullet->addComponent(new HealthComponent(100.0f, true));
-        bullet->addBehaviour({this, &GameLayer::onUpdateProjectileOrientation});
-        bullet->addBehaviour({this, &GameLayer::onCheckCollision});
+        bullet->addScript({this, &GameLayer::onUpdateProjectileOrientation});
+        bullet->addScript({this, &GameLayer::onCheckCollision});
     }
 }
 
@@ -1366,7 +1344,7 @@ void GameLayer::onRenderHUD()
     auto healthComp = player->getComponent<HealthComponent>();
     auto playerExperience = player->getComponent<ExperienceComponent>();
     auto playerCoins = player->getComponent<CoinsComponent>();
-    auto modifiers = player->getComponent<ModifierComponent>();
+    auto modifiers = player->getComponent<iUserDataComponent>();
     auto weapon = player->getComponent<WeaponComponent>();
     auto playerVelocity = player->getComponent<iVelocityComponent>();
 
@@ -1487,16 +1465,16 @@ void GameLayer::upgrade(iEntityPtr entity, const UpgradeConfiguration &upgradeCo
         return;
     }
 
-    auto modifierComponent = entity->getComponent<ModifierComponent>();
+    auto userData = entity->getComponent<iUserDataComponent>();
 
-    modifierComponent->_config._damageFactor += upgradeConfiguration._damageFactor;
-    modifierComponent->_config._attackIntervalFactor += upgradeConfiguration._attackIntervalFactor;
-    modifierComponent->_config._criticalHitChanceFactor += upgradeConfiguration._criticalHitChanceFactor;
-    modifierComponent->_config._criticalHitDamageFactor += upgradeConfiguration._criticalHitDamageFactor;
-    modifierComponent->_config._splashDamageRangeFactor += upgradeConfiguration._splashDamageRangeFactor;
-    modifierComponent->_config._walkSpeedFactor += upgradeConfiguration._walkSpeedFactor;
-    modifierComponent->_config._projectileSpeedFactor += upgradeConfiguration._projectileSpeedFactor;
-    modifierComponent->_config._projectileRangeFactor += upgradeConfiguration._projectileRangeFactor;
+    userData->setValue("damageFactor", userData->getValue<float64>("damageFactor") + upgradeConfiguration._damageFactor);
+    userData->setValue("attackIntervalFactor", userData->getValue<float64>("attackIntervalFactor") + upgradeConfiguration._attackIntervalFactor);
+    userData->setValue("criticalHitChanceFactor", userData->getValue<float64>("criticalHitChanceFactor") + upgradeConfiguration._criticalHitChanceFactor);
+    userData->setValue("criticalHitDamageFactor", userData->getValue<float64>("criticalHitDamageFactor") + upgradeConfiguration._criticalHitDamageFactor);
+    userData->setValue("splashDamageRangeFactor", userData->getValue<float64>("splashDamageRangeFactor") + upgradeConfiguration._damageFactor);
+    userData->setValue("walkSpeedFactor", userData->getValue<float64>("walkSpeedFactor") + upgradeConfiguration._walkSpeedFactor);
+    userData->setValue("projectileSpeedFactor", userData->getValue<float64>("projectileSpeedFactor") + upgradeConfiguration._projectileSpeedFactor);
+    userData->setValue("projectileRangeFactor", userData->getValue<float64>("projectileRangeFactor") + upgradeConfiguration._projectileRangeFactor);
 }
 
 void GameLayer::onCloseLevelUpDialog(iDialogPtr dialog)

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,52 +26,57 @@
 //
 // contact: igorgameengine@protonmail.com
 
-// https://wiki.lspace.org/Igor ;-)
-#ifndef IGOR_ANY_H
-#define IGOR_ANY_H
+#ifndef USERCONTROL_COMPONENT_VELOCITY_H
+#define USERCONTROL_COMPONENT_VELOCITY_H
 
-#include <igor/iDefines.h>
+#include "UserControlComponent.h"
 
-#include <any>
-#include <unordered_map>
-#include <functional>
-#include <typeindex>
-
-namespace igor
+class UserControlComponentVelocity : public UserControlComponent
 {
+public:
+    /*! init user control
 
-    class IGOR_API iAny
-    {
-    public:
-        /*! \returns instance of singleton
-         */
-        static iAny &getInstance();
+    \param scene the given scene
+    \param entity the given entity
+    \param parent the optional parent widget
+    */
+    UserControlComponentVelocity(const iEntitySceneID &scene, const iEntityID &entity, const iWidgetPtr parent = nullptr);
 
-        /*! compare two any
+    /*! does nothing
+     */
+    virtual ~UserControlComponentVelocity() = default;
 
-        \param a first any
-        \param b second any
-        \returns true if types and values match
-        */
-        bool compare(const std::any &a, const std::any &b) const;
+    /*! init ui
+     */
+    void onInit() override;
 
-        /*! add types for comparison
-        */
-        template <typename T>
-        void add();
+    /*! update ui with node data
+     */
+    void onUpdateUI() override;
 
-    private:
-        /*! registered types
-         */
-        std::unordered_map<std::type_index, std::function<bool(const std::any &, const std::any &)>> _comparators;
+    /*! update entity
+     */
+    void onUpdateComponent() override;
 
-        /*! init
-         */
-        iAny();
-    };
+private:
 
-#include <igor/utils/iAny.inl>
+    /*! velocity
+    */
+    iUserControlVectorPtr _velocity;
 
-}
+    /*! angular velocity
+    */
+    iUserControlVectorPtr _angularVelocity;
 
-#endif // IGOR_UTILS_H
+    /*! called after values changed
+    */
+    void onValueChanged(iWidgetPtr source);
+
+    /*! called when component is supposed to be destroyed
+
+    \param entity the entity to destroy the component from
+     */
+    void onDestroyComponent(iEntityPtr entity) override;    
+};
+
+#endif // USERCONTROL_COMPONENT_VELOCITY_H

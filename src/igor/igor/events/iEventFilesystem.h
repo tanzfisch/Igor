@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -51,7 +51,7 @@ namespace igor
 
         /*! \returns the filename
          */
-        const iaString& getFilename() const;
+        const iaString& getPath() const;
 
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
         IGOR_EVENT_CLASS_TYPE(iEventFileCreated)
@@ -80,7 +80,7 @@ namespace igor
 
         /*! \returns the filename
          */
-        const iaString& getFilename() const;
+        const iaString& getPath() const;
 
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
         IGOR_EVENT_CLASS_TYPE(iEventFileDeleted)
@@ -91,6 +91,36 @@ namespace igor
         iaString _filename;
 
     };
+
+
+    /*! folder was deleted event
+     */
+    class IGOR_API iEventFolderDeleted : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param path filename of the deleted folder
+        */
+        iEventFolderDeleted(const iaString &path);
+
+        /*! \returns information to event
+         */
+        virtual const iaString getInfo() const override;
+
+        /*! \returns the filename
+         */
+        const iaString& getPath() const;
+
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
+        IGOR_EVENT_CLASS_TYPE(iEventFolderDeleted)
+
+    private:
+        /*! filename of the created file
+         */
+        iaString _filename;
+
+    };    
 
     /*! file was moved from event
      */
@@ -109,7 +139,7 @@ namespace igor
 
         /*! \returns the filename
          */
-        const iaString& getFilename() const;
+        const iaString& getPath() const;
 
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
         IGOR_EVENT_CLASS_TYPE(iEventFileMovedFrom)
@@ -138,7 +168,7 @@ namespace igor
 
         /*! \returns the filename
          */
-        const iaString& getFilename() const;
+        const iaString& getPath() const;
 
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
         IGOR_EVENT_CLASS_TYPE(iEventFileMovedTo)
@@ -167,7 +197,7 @@ namespace igor
 
         /*! \returns the filename
          */
-        const iaString& getFilename() const;
+        const iaString& getPath() const;
 
         IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Filesystem)
         IGOR_EVENT_CLASS_TYPE(iEventFileChanged)

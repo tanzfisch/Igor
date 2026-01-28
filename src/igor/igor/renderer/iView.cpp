@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iView.h>
@@ -220,7 +220,9 @@ namespace igor
         const auto &camViewport = cameraComponent->getViewport();
 
         auto transformComponent = camera->getComponent<iTransformComponent>();
-        const auto &camWorldMatrix = transformComponent->getWorldMatrix();
+        auto camWorldMatrix = transformComponent->getWorldMatrix();
+
+        camWorldMatrix *= cameraComponent->getOffset().getMatrix();
 
         iaRectanglei rect;
         rect.setX(_viewport.getX() + camViewport.getX() * static_cast<float32>(_viewport.getWidth()) + 0.5f);

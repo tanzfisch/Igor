@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/renderer/iRenderer.h>
@@ -554,9 +554,8 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
         _data->_currentShader.reset();
 
-        ////////////// generate textures //////////
+        ////////////// generate fallback texture //////////////
         iParameters paramFallback({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                                   {IGOR_RESOURCE_PARAM_ALIAS, "igor_texture_fallback"},
                                    {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                                    {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
                                    {IGOR_RESOURCE_PARAM_GENERATE, true},
@@ -567,35 +566,6 @@ namespace igor
                                    {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 128}});
 
         _data->_fallbackTexture = iResourceManager::getInstance().loadResource<iTexture>(paramFallback);
-        iResourceManager::getInstance().addToDictionary("", "igor_texture_fallback", _data->_fallbackTexture->getID());
-
-        createSolidColorTexture("igor_texture_white", iaColor4f::white);
-        createSolidColorTexture("igor_texture_black", iaColor4f::black);
-        createSolidColorTexture("igor_texture_red", iaColor4f::red);
-        createSolidColorTexture("igor_texture_blue", iaColor4f::blue);
-        createSolidColorTexture("igor_texture_green", iaColor4f::green);
-        createSolidColorTexture("igor_texture_cyan", iaColor4f::cyan);
-        createSolidColorTexture("igor_texture_magenta", iaColor4f::magenta);
-        createSolidColorTexture("igor_texture_yellow", iaColor4f::yellow);
-        createSolidColorTexture("igor_texture_transparent", iaColor4f::transparent);
-    }
-
-    iResourcePtr iRenderer::createSolidColorTexture(const iaString &alias, const iaColor4f &color)
-    {
-        iParameters paramWhite({{IGOR_RESOURCE_PARAM_ID, iaUUID()},
-                                {IGOR_RESOURCE_PARAM_ALIAS, alias},
-                                {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
-                                {IGOR_RESOURCE_PARAM_CACHE_MODE, iResourceCacheMode::Keep},
-                                {IGOR_RESOURCE_PARAM_GENERATE, true},
-                                {IGOR_RESOURCE_PARAM_TEXTURE_PATTERN, iTexturePattern::SolidColor},
-                                {IGOR_RESOURCE_PARAM_PRIMARY_COLOR, color},
-                                {IGOR_RESOURCE_PARAM_TEXTURE_WIDTH, 1},
-                                {IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT, 1}});
-
-        auto resource = iResourceManager::getInstance().loadResource(paramWhite);
-        iResourceManager::getInstance().addToDictionary("", alias, resource->getID());
-
-        return resource;
     }
 
     void iRenderer::deinit()
@@ -1273,13 +1243,7 @@ namespace igor
 
     const iaMatrixf iRenderer::getMVP() const
     {
-        iaMatrixf matrix;
-        for (int i = 0; i < 16; ++i)
-        {
-            matrix[i] = _data->_modelViewProjectionMatrix[i];
-        }
-
-        return matrix;
+        return _data->_modelViewProjectionMatrix.convert<float32>();
     }
 
     void iRenderer::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
@@ -1951,34 +1915,18 @@ namespace igor
 
         if (_data->_currentShader->hasModelViewMatrix())
         {
-            iaMatrixf modelView;
-            for (int i = 0; i < 16; ++i)
-            {
-                modelView[i] = _data->_modelViewMatrix[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW, modelView);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL_VIEW, _data->_modelViewMatrix.convert<float32>());
         }
 
         if (_data->_currentShader->hasViewProjectionMatrix())
         {
             iaMatrixd vpd = _data->_projectionMatrix * _data->_viewMatrix;
-            iaMatrixf viewProjection;
-
-            for (int i = 0; i < 16; ++i)
-            {
-                viewProjection[i] = vpd[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_VIEW_PROJECTION, viewProjection);
+            _data->_currentShader->setMatrix(UNIFORM_VIEW_PROJECTION, vpd.convert<float32>());
         }
 
         if (_data->_currentShader->hasModelMatrix())
         {
-            iaMatrixf model;
-            for (int i = 0; i < 16; ++i)
-            {
-                model[i] = _data->_modelMatrix[i];
-            }
-            _data->_currentShader->setMatrix(UNIFORM_MODEL, model);
+            _data->_currentShader->setMatrix(UNIFORM_MODEL, _data->_modelMatrix.convert<float32>());
         }
 
         if (_data->_currentShader->hasSolidColor())

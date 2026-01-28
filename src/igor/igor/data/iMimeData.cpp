@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/data/iMimeData.h>
@@ -13,7 +13,15 @@ namespace igor
 
     void iMimeData::setData(const iaString &mimeType, const uint8 *data, uint32 dataSize)
     {
-        _data.emplace(std::make_pair(mimeType, iMimeDataBuffer(data, dataSize)));
+        auto iter = _data.find(mimeType);
+        if (iter == _data.end())
+        {
+            _data.emplace(std::make_pair(mimeType, iMimeDataBuffer(data, dataSize)));
+        }
+        else
+        {
+            iter->second.set(data, dataSize);
+        }
     }
 
     void iMimeData::getData(const iaString &mimeType, uint8 **data, uint32 &dataSize) const
@@ -148,5 +156,16 @@ namespace igor
         }
 
         return true;
+    }
+
+    const std::vector<iaString> iMimeData::getTypes() const
+    {
+        std::vector<iaString> result;
+        for (auto &pair : _data)
+        {
+            result.push_back(pair.first);
+        }
+
+        return result;
     }
 }

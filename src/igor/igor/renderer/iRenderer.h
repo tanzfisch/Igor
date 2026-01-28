@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -975,13 +975,6 @@ namespace igor
         \param color the color to draw with
         */
         void drawBoxInternal(const iAABoxf &box, const iaColor4f &color);
-
-        /*! creates solid color 1x1 texture and registers it with the dictionary
-
-        \param alias the alias of the texture
-        \param color the color of the texture
-        */
-        iResourcePtr createSolidColorTexture(const iaString& alias, const iaColor4f& color);
     };
 
 #include <igor/renderer/iRenderer.inl>

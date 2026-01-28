@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntityScene.h>
@@ -107,7 +107,7 @@ namespace igor
     {
         con_assert((int)stageIndex < (int)iEntitySystemStage::StageCount, "out of range stage");
 
-        if (stageIndex == iEntitySystemStage::Update)
+        if (stageIndex == iEntitySystemStage::System)
         {
             flushQueues();
         }
@@ -194,7 +194,7 @@ namespace igor
         _mutex.lock();
         if (_entities.find(entity->getID()) != _entities.end())
         {
-            con_err("Entity ID collision " << entity->getID());
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
         }
 
         _entities[entity->getID()] = entity;
@@ -224,7 +224,7 @@ namespace igor
         _mutex.lock();
         if (_entities.find(entity->getID()) != _entities.end())
         {
-            con_err("Entity id collision " << entity->getID());
+            con_err("Entity id collision " << entity->getID() << " with " << _entities[entity->getID()]->getName());            
         }
 
         _entities[entity->getID()] = entity;
@@ -379,6 +379,11 @@ namespace igor
     void iEntityScene::addSystem(const iaString &systemName)
     {
         iEntitySystemPtr system = iEntitySystemModule::getInstance().createSystem(systemName);
+
+        if(system == nullptr)
+        {
+            return;
+        }
 
         _systemsMutex.lock();
         auto &stage = _systems[(int)system->getStage()];

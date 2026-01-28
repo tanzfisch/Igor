@@ -1,9 +1,9 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header stream
 
 template <typename T>
-const T iJson::getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue)
+const T iJsonUtil::getValue(const json &jsonElement, const iaString &elementName, const T &defaultValue)
 {
     char temp[128];
     elementName.getData(temp, 128);

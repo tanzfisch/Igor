@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -70,6 +70,10 @@ namespace igor
         /*! \returns true if mime data contains given mime type
         */
         bool hasType(const iaString &mimeType) const;
+
+        /*! \returns list of all contained types
+        */
+        const std::vector<iaString> getTypes() const;
 
         /*! sets text for mime type "text/plain"
 
@@ -154,6 +158,18 @@ namespace igor
                 : _data(new uint8[other._dataSize]), _dataSize(other._dataSize)
             {
                 std::memcpy(_data, other._data, _dataSize);
+            }
+
+            void set(const uint8 *data, uint32 dataSize)
+            {
+                if(_data != nullptr)
+                {
+                    delete[] _data;
+                }
+
+                _dataSize = dataSize;
+                _data = new uint8[dataSize];
+                std::memcpy(_data, data, dataSize);
             }
 
             iMimeDataBuffer &operator=(const iMimeDataBuffer &other)

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlResourceTexture.h"
@@ -59,4 +59,5 @@ void UserControlResourceTexture::onInit()
     _picture->setCheckerBoard(true);
     _picture->setHorizontalAlignment(iHorizontalAlignment::Center);
     _picture->setMaxSize(256, 256);
+    _picture->setMinSize(256, 256);
 }

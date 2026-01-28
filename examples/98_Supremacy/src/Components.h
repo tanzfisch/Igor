@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2025 by Martin A. Loga
+//    (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -614,54 +614,6 @@ private:
 enum class ObjectType
 {
     Coin
-};
-
-struct ModifierConfiguration
-{
-    float32 _damageFactor;
-    float32 _attackIntervalFactor;
-    float32 _criticalHitChanceFactor;
-    float32 _criticalHitDamageFactor;
-    float32 _splashDamageRangeFactor;
-    float32 _walkSpeedFactor;
-    float32 _projectileSpeedFactor;
-    float32 _projectileRangeFactor;
-};
-
-class ModifierComponent : public iEntityComponent
-{
-public:
-    /*! default ctor
-     */
-    ModifierComponent() = default;
-
-    /*! ctor
-
-    \param name the name of this component
-    */
-    ModifierComponent(const ModifierConfiguration &config, const iaString &name = "modifier")
-        : _config(config)
-    {
-    }
-
-    /*! creates instance of this component type
-     */
-    static iEntityComponent *createInstance()
-    {
-        return new ModifierComponent();
-    }
-
-    ModifierConfiguration _config;
-
-private:
-    /*! \returns a copy of this component
-     */
-    iEntityComponentPtr getCopy() override
-    {
-        ModifierComponent *component = new ModifierComponent();
-        component->_config = _config;
-        return component;
-    }
 };
 
 enum class BuildingType

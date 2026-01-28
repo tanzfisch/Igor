@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlEntity.h"
@@ -8,6 +8,7 @@
 #include "components/UserControlComponentSpriteRender.h"
 #include "components/UserControlComponentAnimation.h"
 #include "components/UserControlComponentCamera.h"
+#include "components/UserControlComponentScript.h"
 #include "components/UserControlComponentCircle.h"
 #include "components/UserControlComponentSphere.h"
 #include "components/UserControlComponentLight.h"
@@ -16,6 +17,8 @@
 #include "components/UserControlComponentOctree.h"
 #include "components/UserControlComponentQuadtree.h"
 #include "components/UserControlComponentPrefab.h"
+#include "components/UserControlComponentVelocity.h"
+#include "components/UserControlComponentUserData.h"
 
 #include "../../MicaDefines.h"
 
@@ -25,14 +28,14 @@ UserControlEntity::UserControlEntity(iEntitySceneID sceneID, iEntityID entityID,
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID()) != nullptr, "invalid scene id");
     con_assert(iEntitySystemModule::getInstance().getScene(getSceneID())->getEntity(entityID) != nullptr, "invalid entity id");
 
-    _componentSelectionDialog = std::make_unique<DialogComponentTypeSelection>();
+    _componentSelectionDialog = std::make_unique<iDialogDecisionBox>();
 }
 
 void UserControlEntity::init()
 {
     setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
-    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);    
+    iWidgetBoxLayoutPtr mainLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, this);
     mainLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 
     iWidgetGroupBoxPtr entityGroupBox = new iWidgetGroupBox(mainLayout);
@@ -135,7 +138,9 @@ void UserControlEntity::onDialogClosed(iDialogPtr source)
 
     const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
 
-    auto iter = componentTypes.find(_componentSelectionDialog->getSelectedTypeIndex());
+    int selectedIndex = _componentSelectionDialog->getSelection();
+
+    auto iter = componentTypes.find(_typeIndices[selectedIndex]);
     if (iter == componentTypes.end())
     {
         return;
@@ -148,7 +153,18 @@ void UserControlEntity::onDialogClosed(iDialogPtr source)
 
 void UserControlEntity::onAddComponentClicked(iWidgetPtr source)
 {
-    _componentSelectionDialog->open(iDialogCloseDelegate(this, &UserControlEntity::onDialogClosed));
+    const auto &componentTypes = iEntitySystemModule::getInstance().getRegisteredComponentTypes();
+    std::vector<iaString> selectionTexts;
+    _typeIndices.clear();
+
+	for (const auto &componentType : componentTypes)
+	{
+		selectionTexts.push_back(componentType.second._typeName);
+        _typeIndices.push_back(componentType.first);
+	}
+
+    _componentSelectionDialog->open(iDialogCloseDelegate(this, &UserControlEntity::onDialogClosed),
+                                    "Component Type Selection", "Select component type to add to entity", selectionTexts);
 }
 
 void UserControlEntity::update()
@@ -195,7 +211,7 @@ void UserControlEntity::update()
         UserControlComponentAnimation *userControl = new UserControlComponentAnimation(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
-    }    
+    }
 
     auto camera = entity->getComponent<iCameraComponent>();
     if (camera != nullptr)
@@ -205,10 +221,34 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
+    auto script = entity->getComponent<iScriptComponent>();
+    if (script != nullptr)
+    {
+        UserControlComponentScript *userControl = new UserControlComponentScript(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
     auto circle = entity->getComponent<iCircleComponent>();
     if (circle != nullptr)
     {
         UserControlComponentCircle *userControl = new UserControlComponentCircle(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto velocity = entity->getComponent<iVelocityComponent>();
+    if (velocity != nullptr)
+    {
+        UserControlComponentVelocity *userControl = new UserControlComponentVelocity(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto userData = entity->getComponent<iUserDataComponent>();
+    if (userData != nullptr)
+    {
+        UserControlComponentUserData *userControl = new UserControlComponentUserData(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
     }
@@ -245,14 +285,6 @@ void UserControlEntity::update()
         userControl->onUpdateUI();
     }
 
-    auto octree = entity->getComponent<iOctreeComponent>();
-    if (octree != nullptr)
-    {
-        UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
-        userControl->onInit();
-        userControl->onUpdateUI();
-    }
-
     auto prefab = entity->getComponent<iPrefabComponent>();
     if (prefab != nullptr)
     {
@@ -265,6 +297,14 @@ void UserControlEntity::update()
     if (quadtree != nullptr)
     {
         UserControlComponentQuadtree *userControl = new UserControlComponentQuadtree(_sceneID, _entityID, _componentsLayout);
+        userControl->onInit();
+        userControl->onUpdateUI();
+    }
+
+    auto octree = entity->getComponent<iOctreeComponent>();
+    if (octree != nullptr)
+    {
+        UserControlComponentOctree *userControl = new UserControlComponentOctree(_sceneID, _entityID, _componentsLayout);
         userControl->onInit();
         userControl->onUpdateUI();
     }
@@ -316,4 +356,3 @@ void UserControlEntity::onNameChanged(iWidgetPtr source)
 {
     updateEntity();
 }
-

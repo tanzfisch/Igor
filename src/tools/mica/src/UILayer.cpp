@@ -1,6 +1,6 @@
 
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UILayer.h"
@@ -35,10 +35,13 @@ void UILayer::onInit()
     _viewport->setEnabled();
     _viewport->setVisible();
 
+    _settings = new Settings();
+
     _mainDialog->getCreateProjectEvent().add(CreateProjectDelegate(this, &UILayer::onCreateProject));
     _mainDialog->getLoadProjectEvent().add(LoadProjectDelegate(this, &UILayer::onLoadProject));
     _mainDialog->getSaveProjectEvent().add(SaveProjectDelegate(this, &UILayer::onSaveProject));
     _mainDialog->getCloseProjectEvent().add(SaveProjectDelegate(this, &UILayer::onCloseProject));
+    _mainDialog->getOpenSettingsEvent().add(SaveProjectDelegate(this, &UILayer::onOpenSettings));
 
     // TODO load layout configuration here instead of this hack
     iWidgetSplitterPtr rootSplitter = static_cast<iWidgetSplitterPtr>(_mainDialog->getChildren()[0]->getChildren()[1]->getChildren()[0]);
@@ -117,6 +120,11 @@ void UILayer::onLoadProjectDialogClosed(iDialogPtr dialog)
 void UILayer::onSaveProject()
 {
     iProject::getInstance().save();
+}
+
+void UILayer::onOpenSettings()
+{
+    _settings->open();
 }
 
 void UILayer::onCloseProject()

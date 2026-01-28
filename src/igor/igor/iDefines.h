@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -64,6 +64,7 @@ extern const std::vector<iaString> IGOR_SUPPORTED_ANIMATION_EXTENSIONS; //! supp
 extern const std::vector<iaString> IGOR_SUPPORTED_MODEL_EXTENSIONS;     //! supported file extensions for models
 extern const std::vector<iaString> IGOR_SUPPORTED_SOUND_EXTENSIONS;     //! supported file extensions for sounds
 extern const std::vector<iaString> IGOR_SUPPORTED_PREFAB_EXTENSIONS;    //! supported file extensions for prefabs and scenes
+extern const std::vector<iaString> IGOR_SUPPORTED_SCRIPT_EXTENSIONS;    //! supported file extensions for scripts
 
 /*! \returns true if given extension fits supported model extensions
     \param ext extension to test
@@ -79,6 +80,7 @@ extern const iaString IGOR_RESOURCE_SOUND;     //! sound resource name
 extern const iaString IGOR_RESOURCE_SPRITE;    //! sprite resource name
 extern const iaString IGOR_RESOURCE_MODEL;     //! model resource name
 extern const iaString IGOR_RESOURCE_PREFAB;    //! prefab resource name
+extern const iaString IGOR_RESOURCE_SCRIPT;    //! script resource name
 
 // resource parameters
 extern const iaString IGOR_RESOURCE_PARAM_ID;                 //! resource parameter id
@@ -115,6 +117,7 @@ extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_WIDTH;      //! resource param
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE_HEIGHT;     //! resource parameter texture height
 extern const iaString IGOR_RESOURCE_PARAM_PRIMARY_COLOR;      //! resource parameter primary color
 extern const iaString IGOR_RESOURCE_PARAM_SECONDARY_COLOR;    //! resource parameter secondary color
+extern const iaString IGOR_RESOURCE_PARAM_SCRIPT;             //! resource parameter script
 
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE0; //! resource parameter texture unit 0
 extern const iaString IGOR_RESOURCE_PARAM_TEXTURE1; //! resource parameter texture unit 1
@@ -369,9 +372,9 @@ namespace igor
         X,
         Y,
         Z,
-        WindowsLeft,
-        WindowsRight,
-        WindowsContext,
+        SuperLeft,
+        SuperRight,
+        SuperContext,
         NP_Zero,
         NP_One,
         NP_Two,

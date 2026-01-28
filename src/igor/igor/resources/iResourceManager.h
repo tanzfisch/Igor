@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -34,6 +34,7 @@
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/sound/iSound.h>
 #include <igor/resources/sprite/iSprite.h>
+#include <igor/resources/script/iScript.h>
 #include <igor/resources/animation/iAnimation.h>
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/shader/iShader.h>
@@ -285,8 +286,6 @@ namespace igor
 
         /*! loads resource dictionary
 
-        this will append resources to existing dictionary
-
         \param filename filename to resource dictionary
         */
         void loadResourceDictionary(const iaString &filename);
@@ -298,8 +297,6 @@ namespace igor
         void saveResourceDictionary(const iaString &filename);
 
         /*! clear resource dictionary
-
-        (means it will only contain igor internal resources)
         */
         void clearResourceDictionary();
 

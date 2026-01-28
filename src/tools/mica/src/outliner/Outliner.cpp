@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "Outliner.h"
@@ -201,7 +201,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     iActionContextPtr actionContext = std::make_shared<iEntityActionContext>(projectScene->getID(), entities);
 
     _contextMenu.clear();
-    _contextMenu.setPos(iMouse::getInstance().getPos());
+    _contextMenu.setPos(iMouse::getInstance().getPosition());
 
     if (!entities.empty())
     {
@@ -444,13 +444,22 @@ void Outliner::onProjectLoaded(const iaString &projectfile)
     auto recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
     const auto &projectPath = iProject::getInstance().getProjectFilepath();
 
-    auto iter = std::find(recent.begin(), recent.end(), projectPath);
-    if (iter == recent.end())
+    auto iter = recent.begin();
+    while (iter != recent.end())
     {
-        recent.insert(recent.begin(), projectPath);
-        iConfig::getInstance().setValue("mica.recentProjects", recent);
-        iConfig::getInstance().write();
+        if (*iter == projectPath)
+        {
+            iter = recent.erase(iter);
+        }
+        else
+        {
+            iter++;
+        }
     }
+
+    recent.insert(recent.begin(), projectPath);
+    iConfig::getInstance().setValue("mica.recentProjects", recent);
+    iConfig::getInstance().write();
 }
 
 void Outliner::onProjectUnloaded()

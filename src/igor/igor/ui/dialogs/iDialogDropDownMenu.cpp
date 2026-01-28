@@ -1,8 +1,8 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
+#include <igor/ui/dialogs/iDialogDropDownMenu.h>
 
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/iWidgetManager.h>
@@ -14,21 +14,21 @@
 namespace igor
 {
 
-	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
-		: iDialog(iWidgetType::iDialogIndexMenu, parent)
+	iDialogDropDownMenu::iDialogDropDownMenu(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogDropDownMenu, parent)
 	{
 		setGrowingByContent(true);
 		setHeaderEnabled(false);
         setResizeable(false);		
 	}
 
-	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
+	void iDialogDropDownMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
 	{
 		std::vector<iaString> pictures;
 		open(dialogCloseDelegate, texts, pictures);
 	}
 
-	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures)
+	void iDialogDropDownMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures)
 	{
 		iDialog::open(dialogCloseDelegate, true);
 
@@ -42,14 +42,14 @@ namespace igor
 		}
 	}
 
-	void iDialogIndexMenu::onInitUI(std::vector<iaString> &texts)
+	void iDialogDropDownMenu::onInitUI(std::vector<iaString> &texts)
 	{
 		setEnabled();
 		setVisible();
 		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
-		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
+		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogDropDownMenu::onMouseOffClick));
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
@@ -58,7 +58,7 @@ namespace igor
 		grid->setSelectMode(iSelectionMode::Row);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
-		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogIndexMenu::onChange));
+		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogDropDownMenu::onChange));
 		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)
@@ -70,7 +70,7 @@ namespace igor
 		}
 	}
 
-	void iDialogIndexMenu::onInitUI(std::vector<iaString> &texts, std::vector<iaString> &pictures)
+	void iDialogDropDownMenu::onInitUI(std::vector<iaString> &texts, std::vector<iaString> &pictures)
 	{
 		con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
@@ -79,7 +79,7 @@ namespace igor
 		setMinHeight(0);
 		setAcceptOutOfBoundsClicks();
 
-		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
+		getMouseOffClickEvent().add(iMouseOffClickDelegate(this, &iDialogDropDownMenu::onMouseOffClick));
 
 		iWidgetGridLayoutPtr grid = new iWidgetGridLayout();
 		grid->appendColumns(1);
@@ -89,7 +89,7 @@ namespace igor
 		grid->setSelectMode(iSelectionMode::Row);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
-		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogIndexMenu::onChange));
+		grid->getChangeEvent().add(iChangeDelegate(this, &iDialogDropDownMenu::onChange));
 		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)
@@ -109,17 +109,17 @@ namespace igor
 		}
 	}
 
-	int32 iDialogIndexMenu::getSelectionIndex() const
+	int32 iDialogDropDownMenu::getSelectionIndex() const
 	{
 		return _returnValue;
 	}
 
-	void iDialogIndexMenu::onMouseOffClick(const iWidgetPtr source)
+	void iDialogDropDownMenu::onMouseOffClick(const iWidgetPtr source)
 	{
 		close();
 	}
 
-	void iDialogIndexMenu::onChange(const iWidgetPtr source)
+	void iDialogDropDownMenu::onChange(const iWidgetPtr source)
 	{
 		_returnValue = static_cast<iWidgetGridLayoutPtr>(source)->getSelectedRow();
 		close();

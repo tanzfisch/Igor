@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "PlantMeshGenerator.h"
@@ -32,22 +32,22 @@ iModelDataIO *PlantMeshGenerator::createInstance()
 
 iNodePtr PlantMeshGenerator::importData(const iParameters &parameters)
 {
-    const iaString &sectionName = parameters.getParameter<iaString>("name", "");
-    iLSystem *lSystem = parameters.getParameter<iLSystem *>("lsystem", nullptr);
-    const iaString &axiom = parameters.getParameter<iaString>("axiom", "");
-    const uint32 iterations = parameters.getParameter<uint32>("iterations", 0);
-    iShaderPtr shader = parameters.getParameter<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
-    const iaColor3f trunkColor = parameters.getParameter<iaColor3f>("trunkColor", iaColor3f());
-    const iaColor3f branchColor = parameters.getParameter<iaColor3f>("branchColor", iaColor3f());
-    const iaColor3f budColor = parameters.getParameter<iaColor3f>("budColor", iaColor3f());
-    const iaColor3f flowerColor = parameters.getParameter<iaColor3f>("flowerColor", iaColor3f());
-    const iaColor3f leafColor = parameters.getParameter<iaColor3f>("leafColor", iaColor3f());
-    _segmentLength = parameters.getParameter<float32>("segmentLength", 0.25f);
-    _segmentAngle = parameters.getParameter<float32>("segmentAngle", 0.25f);
+    const iaString &sectionName = parameters.getParameterValue<iaString>("name", "");
+    iLSystem *lSystem = parameters.getParameterValue<iLSystem *>("lsystem", nullptr);
+    const iaString &axiom = parameters.getParameterValue<iaString>("axiom", "");
+    const uint32 iterations = parameters.getParameterValue<uint32>("iterations", 0);
+    iShaderPtr shader = parameters.getParameterValue<iShaderPtr>(IGOR_RESOURCE_SHADER, nullptr);
+    const iaColor3f trunkColor = parameters.getParameterValue<iaColor3f>("trunkColor", iaColor3f());
+    const iaColor3f branchColor = parameters.getParameterValue<iaColor3f>("branchColor", iaColor3f());
+    const iaColor3f budColor = parameters.getParameterValue<iaColor3f>("budColor", iaColor3f());
+    const iaColor3f flowerColor = parameters.getParameterValue<iaColor3f>("flowerColor", iaColor3f());
+    const iaColor3f leafColor = parameters.getParameterValue<iaColor3f>("leafColor", iaColor3f());
+    _segmentLength = parameters.getParameterValue<float32>("segmentLength", 0.25f);
+    _segmentAngle = parameters.getParameterValue<float32>("segmentAngle", 0.25f);
 
     iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
-    _rand.setSeed(parameters.getParameter<uint64>(IGOR_RESOURCE_PARAM_SEED, 1234));
+    _rand.setSeed(parameters.getParameterValue<uint64>(IGOR_RESOURCE_PARAM_SEED, 1234));
     iaString sentence = lSystem->generate(axiom, iterations, _rand.getNext());
 
     generateSkeleton(sentence);

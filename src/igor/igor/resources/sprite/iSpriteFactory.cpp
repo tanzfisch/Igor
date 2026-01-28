@@ -1,15 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/sprite/iSpriteFactory.h>
 
 #include <igor/resources/sprite/loader/iSpriteIO.h>
 #include <igor/resources/iResourceManager.h>
-#include <igor/utils/iJson.h>
-
-#include <iaux/system/iaFile.h>
-using namespace iaux;
 
 namespace igor
 {

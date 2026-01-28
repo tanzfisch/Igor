@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/components/iTransformComponent.h>
@@ -13,7 +13,7 @@ namespace igor
         _transform._scale = scale;
     }
 
-    iEntityComponent *iTransformComponent::createInstance()
+    iEntityComponentPtr iTransformComponent::createInstance()
     {
         return new iTransformComponent();
     }

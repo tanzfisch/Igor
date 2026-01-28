@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
@@ -208,7 +208,7 @@ namespace igor
         con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
         con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
 
-        const bool keepMesh = _parameters.getParameter<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
+        const bool keepMesh = _parameters.getParameterValue<bool>(IGOR_RESOURCE_PARAM_KEEP_MESH, false);
 
         iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 
@@ -323,7 +323,7 @@ namespace igor
     {
         _parameters = parameters;
 
-        const iaString filename = _parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+        const iaString filename = _parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
         _ompf->loadFile(filename);
 
         if (_ompf->getRoot()->getChildren().size() == 0)
@@ -372,9 +372,9 @@ namespace igor
 
     void iModelDataIOOMPF::exportData(const iParameters &parameters)
     {
-        iNodePtr node = parameters.getParameter<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
-        const iaString filename = parameters.getParameter<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
-        const iSaveMode saveMode = parameters.getParameter<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
+        iNodePtr node = parameters.getParameterValue<iNodePtr>(IGOR_RESOURCE_PARAM_NODE, nullptr);
+        const iaString filename = parameters.getParameterValue<iaString>(IGOR_RESOURCE_PARAM_SOURCE, "");
+        const iSaveMode saveMode = parameters.getParameterValue<iSaveMode>(IGOR_RESOURCE_PARAM_EXPORT_MODE, iSaveMode::KeepExternals);
 
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");

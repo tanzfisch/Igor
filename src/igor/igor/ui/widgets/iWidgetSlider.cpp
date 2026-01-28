@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetSlider.h>
@@ -157,7 +157,7 @@ namespace igor
 
         if (_sliderButton._mouseDown)
         {
-            float32 scrollDelta = static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(getActualWidth());
+            float32 scrollDelta = static_cast<float32>(iMouse::getInstance().getDeltaPosition()._x) / static_cast<float32>(getActualWidth());
             setValue(_value + static_cast<float32>(_max - _min) * scrollDelta);
         }
 

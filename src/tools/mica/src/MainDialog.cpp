@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "MainDialog.h"
@@ -68,12 +68,22 @@ void MainDialog::onRecentProjectOpen(iWidgetMenuPtr menu)
     if (iConfig::getInstance().hasValue("mica.recentProjects"))
     {
         const std::vector<iaString> recent = iConfig::getInstance().getValueAsArray("mica.recentProjects");
+        std::vector<iaString> cleanup;
 
         for (const auto &project : recent)
         {
+            if (!iaPath::exists(project))
+            {
+                continue;
+            }
+
+            cleanup.push_back(project);
+
             iActionContextPtr actionContext = std::make_shared<iFilesystemActionContext>(project);
             menu->addAction("igor:load_project", actionContext);
         }
+
+        iConfig::getInstance().setValue("mica.recentProjects", cleanup);
     }
 }
 
@@ -83,14 +93,18 @@ iWidgetMenuBarPtr MainDialog::createMenu()
     menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetMenuPtr fileMenu = new iWidgetMenu("File");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "Create Project", "Create a new project");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Load Project", "Loading an existing project", "igor_icon_load");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save Project", "Saving the current project", "igor_icon_save");
-    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCloseProject), "Close Project", "Closing the current project");
-
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCreateProject), "New Project", "Create a new project");
+    fileMenu->addSeparator();
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onLoadProject), "Open Project", "Loading an existing project", "igor_icon_load");
     iWidgetMenuPtr recentMenu = new iWidgetMenu("Open Recent");
     recentMenu->getPreMenuOpenEvent().add(iPreMenuOpenDelegate(this, &MainDialog::onRecentProjectOpen));
     fileMenu->addMenu(recentMenu);
+    fileMenu->addSeparator();
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onSaveProject), "Save", "Saving the current project", "igor_icon_save");
+    fileMenu->addSeparator();
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onCloseProject), "Close Project", "Closing the current project");
+    fileMenu->addSeparator();
+    fileMenu->addCallback(iClickDelegate(this, &MainDialog::onOpenSettings), "Settings", "Open Settings");
 
     fileMenu->addSeparator();
     fileMenu->addAction("igor:exit");
@@ -131,6 +145,11 @@ CloseProjectEvent &MainDialog::getCloseProjectEvent()
     return _closeProject;
 }
 
+CloseProjectEvent &MainDialog::getOpenSettingsEvent()
+{
+    return _openSettings;
+}
+
 void MainDialog::onCreateProject(const iWidgetPtr source)
 {
     _createProject();
@@ -149,6 +168,11 @@ void MainDialog::onSaveProject(const iWidgetPtr source)
 void MainDialog::onCloseProject(const iWidgetPtr source)
 {
     _closeProject();
+}
+
+void MainDialog::onOpenSettings(const iWidgetPtr source)
+{
+    _openSettings();
 }
 
 void MainDialog::onPrintProjectTree(const iWidgetPtr source)

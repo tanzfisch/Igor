@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -50,7 +50,7 @@ namespace igor
 
         /*! creates instance of this component type
          */
-        static iEntityComponent *createInstance();
+        static iEntityComponentPtr createInstance();
 
         /*! \returns type name of component
          */
@@ -78,7 +78,7 @@ namespace igor
 
         /*! \returns a set of info strings
          */
-        std::vector<iaString> getInfo() const override;        
+        std::vector<iaString> getInfo() const override;
 
     private:
         /*! the circles radius
@@ -93,6 +93,10 @@ namespace igor
          */
         iEntityComponentPtr getCopy() override;
     };
+
+    /*! circle component pointer definition
+    */
+    typedef iCircleComponent *iCircleComponentPtr;
 }
 
 #endif // IGOR_CIRCLE_COLLISION_2D_COMPONENT_H

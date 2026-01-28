@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -84,18 +84,18 @@ namespace igor
          */
         void run() override;
 
-        /*! watch given directory for changes
-
-        \param dir the given directory
-        */
-        int watchDir(const iaPath &dir);
-
         /*! handle created directory event
 
-        \param dir the created directory
+        \param path the created directory
         \returns true if successful
         */
-        bool onWatchDir(const iaString &dir);
+        bool watchDir(const iaString &path);
+
+        /*! stop watching given path
+
+        \param path given path to stop watching
+        */
+        void unwatchDir(const iaString &path);
     };
 
 }; // namespace igor

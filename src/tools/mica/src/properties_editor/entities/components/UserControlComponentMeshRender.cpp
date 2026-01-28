@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include "UserControlComponentMeshRender.h"
@@ -76,8 +76,6 @@ void UserControlComponentMeshRender::onUpdateUI()
         return;
     }
 
-    _ignoreUpdate = true;
-
     const auto meshReferences = component->getMeshReferences();
     const uint32 meshCount = meshReferences.size();
     uint32 vertexCount = 0;
@@ -91,41 +89,16 @@ void UserControlComponentMeshRender::onUpdateUI()
     _labelMeshCount->setText(iaString::toString(meshCount));}
     _labelVertexCount->setText(iaString::toString(vertexCount));
     _labelTrianglesCount->setText(iaString::toString(trianglesCount));
-
-    _ignoreUpdate = false;
 }
 
 void UserControlComponentMeshRender::onUpdateComponent()
 {
-    if (_ignoreUpdate)
-    {
-        return;
-    }
-
-    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
-    if (scene == nullptr)
-    {
-        return;
-    }
-
-    iEntityPtr entity = scene->getEntity(_entityID);
-    if (entity == nullptr)
-    {
-        return;
-    }
-
-    iMeshReferenceComponent *component = entity->getComponent<iMeshReferenceComponent>();
-    if (component == nullptr)
-    {
-        return;
-    }
-
-    // TODO nothing to do here right?
+    // nothing to do here
 }
 
 void UserControlComponentMeshRender::onDestroyComponent(iEntityPtr entity)
 {
     con_assert(entity != nullptr, "zero pointer");
     
-    entity->destroyComponent<iMeshReferenceComponent>();
+    entity->destroyComponent<iMeshRenderComponent>();
 }

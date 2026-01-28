@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidget.h>
@@ -28,7 +28,7 @@ namespace igor
         if (parent != nullptr)
         {
             parent->addWidget(this);
-        }        
+        }
     }
 
     iWidget::~iWidget()
@@ -38,7 +38,7 @@ namespace igor
             resetKeyboardFocus();
         }
 
-        if(hasParent())
+        if (hasParent())
         {
             getParent()->removeWidget(this);
         }
@@ -46,6 +46,14 @@ namespace igor
         clearChildren();
 
         iWidgetManager::getInstance().unregisterWidget(this);
+    }
+
+    void iWidget::reset()
+    {
+        for (const auto child : _children)
+        {
+            child->reset();
+        }
     }
 
     void iWidget::clear()
@@ -152,12 +160,15 @@ namespace igor
     {
         std::wstringstream stream;
 
-        stream << getWidgetType() << " [" << _id << "] (" << _absoluteX << ", " << _absoluteY << ", " << _actualWidth << ", " << _actualHeight << ") ";
-
-        if (!hasParent())
+        stream << getWidgetType() << " [";
+        if(hasParent())
         {
-            stream << ", no parent";
+            stream << getParentID() << "/";
         }
+        stream << _id << "]";
+        
+        stream << " enabled: " << (_enabled ? "true" : "false");
+        stream << " visible: " << (_visible ? "true" : "false");
 
         return iaString(stream.str().c_str());
     }
@@ -998,9 +1009,14 @@ namespace igor
             "iUserControlColor",
             "iUserControlFile",
             "iUserControlTexture",
+            "iUserControlSprite",
             "iUserControlMaterial",
             "iUserControlShader",
             "iUserControlTreeView",
+            "iUserControlVector",
+            "iUserControlMeshReference",
+            "iUserControlScript",
+            "iUserControlParameter",
 
             "iDialog",
             "iDialogColorChooser",
@@ -1008,7 +1024,7 @@ namespace igor
             "iDialogDecisionBox",
             "iDialogFileSelect",
             "iDialogGraph",
-            "iDialogIndexMenu",
+            "iDialogDropDownMenu",
             "iDialogMenu",
             "iDialogMessageBox"};
 

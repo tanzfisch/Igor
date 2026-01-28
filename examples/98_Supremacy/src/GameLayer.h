@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2025 by Martin A. Loga
+//    (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -311,41 +311,37 @@ private:
     */
     void createUnit(const iaVector2f &pos, uint32 party, iEntityID target, const EnemyClass &enemyClass);
 
-    /*! handles player movement
-     */
-    void onPlayerMovementBehaviour(iEntityPtr entity, std::any &userData);
-
     /*! handles camera movement
      */
-    void onCameraFollowPlayer(iEntityPtr entity, std::any &userData);
+    void onCameraFollowPlayer(iEntityPtr entity);
 
     /*! aquire target
      */
-    void onAquireTarget(iEntityPtr entity, std::any &userData);
+    void onAquireTarget(iEntityPtr entity);
 
     /*! update orientation of projectiles
      */
-    void onUpdateProjectileOrientation(iEntityPtr entity, std::any &userData);
+    void onUpdateProjectileOrientation(iEntityPtr entity);
 
     /*! check for collisions
      */
-    void onCheckCollision(iEntityPtr entity, std::any &userData);
+    void onCheckCollision(iEntityPtr entity);
 
     /*! aim/follow target
      */
-    void onFollowTarget(iEntityPtr entity, std::any &userData);
+    void onFollowTarget(iEntityPtr entity);
 
     /*! check for collisions
      */
-    void onUpdateCollision(iEntityPtr entity, std::any &userData);
+    void onUpdateCollision(iEntityPtr entity);
 
     /*! fire weapon if possible
      */
-    void onUpdateWeapon(iEntityPtr entity, std::any &userData);
+    void onUpdateWeapon(iEntityPtr entity);
 
     /*! collision check
      */
-    void onUpdateRange(iEntityPtr entity, std::any &userData);
+    void onUpdateRange(iEntityPtr entity);
 
     /*! create the shop
      */
@@ -371,7 +367,7 @@ private:
     \param weapon the weapon to use
     \param modifier modifiers on the weapon to use
     */
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const ModifierComponent *modifier);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, const WeaponComponent *weapon, const iUserDataComponent *modifier);
 
     /*! spawns stuff
      */

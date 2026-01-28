@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/dialogs/iDialog.h>
@@ -21,7 +21,7 @@ namespace igor
         : iWidget(type, iWidgetKind::Dialog, nullptr)
     {
         setEnabled(false); // TODO dialogs should be enabled and visible by default
-        setVisible(false);
+        setVisible(false);        
         setMinWidth(100);
         setMinHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Absolute);
@@ -82,8 +82,13 @@ namespace igor
         return _returnState;
     }
 
-    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal)
+    void iDialog::open(iDialogCloseDelegate dialogCloseDelegate, bool modal, bool reset)
     {
+        if(reset)
+        {
+            iDialog::reset();
+        }
+
         _dialogCloseDelegate = dialogCloseDelegate;
         setEnabled();
         setVisible();
@@ -276,7 +281,7 @@ namespace igor
         {
             _widgetState = iWidgetState::Pressed;
             _motionState = calcMotionState(_lastMousePos);
-            _lastMousePos.set(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+            _lastMousePos = iMouse::getInstance().getPosition();
 
             putInFront();
 

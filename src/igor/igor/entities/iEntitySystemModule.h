@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \/___/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2025 by Martin A. Loga
+// (c) Copyright 2012-2026 by Martin A. Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -109,18 +109,20 @@ namespace igor
         void destroyScene(const iEntitySceneID &sceneID);
 
         /*! updates all scenes and cleans up scene lists
+
+        \param runtime if true it is running the update stage as well
          */
-        void onUpdate();
+        void onUpdate(bool runtime);
 
         /*! triggers pre render update stage with given scene
 
-        \param scene the given scene to update/render
+        \param scene the given scene to update
          */
         void onPreRender(iEntityScenePtr scene);
 
         /*! triggers render update stage with given scene
 
-        \param scene the given scene to update/render
+        \param scene the given scene to render
          */
         void onRender(iEntityScenePtr scene);
 

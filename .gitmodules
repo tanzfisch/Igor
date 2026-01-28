@@ -7,6 +7,12 @@
 [submodule "vendor/clip"]
 	path = vendor/clip
 	url = https://github.com/dacap/clip.git
-[submodule "vendor/ChaiScript"]
-	path = vendor/ChaiScript
-	url = https://github.com/ChaiScript/ChaiScript.git
+[submodule "vendor/LuaJIT"]
+	path = vendor/LuaJIT
+	url = https://github.com/LuaJIT/LuaJIT.git
+[submodule "vendor/LuaBridge3"]
+	path = vendor/LuaBridge3
+	url = https://github.com/kunitoki/LuaBridge3.git
+[submodule "vendor/base64"]
+	path = vendor/base64
+	url = https://github.com/tobiaslocker/base64.git
