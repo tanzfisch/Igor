@@ -32,6 +32,7 @@
 #include "outliner/Outliner.h"
 #include "asset_browser/AssetBrowser.h"
 #include "MainDialog.h"
+#include "SplashDialog.h"
 #include "properties_editor/PropertiesEditor.h"
 #include "viewport/Viewport.h"
 #include "settings/Settings.h"
@@ -54,6 +55,10 @@ private:
     /*! the main dialog
      */
     MainDialog *_mainDialog = nullptr;
+
+    /*! the splash dialog
+    */
+    SplashDialog* _splashDialog = nullptr;
 
     /*! entities outliner
      */

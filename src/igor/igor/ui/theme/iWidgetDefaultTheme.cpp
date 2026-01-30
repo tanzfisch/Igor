@@ -321,8 +321,8 @@ namespace igor
 
         iRenderer::getInstance().setLineWidth(4 * scale);
 
-        const iaColor4f green(0.0,0.75,0.0,0.75);
-        const iaColor4f red(0.75,0.0,0.0,0.75);
+        const iaColor4f green(0.0, 0.75, 0.0, 0.75);
+        const iaColor4f red(0.75, 0.0, 0.0, 0.75);
 
         switch (drag.getDragState())
         {
@@ -330,7 +330,7 @@ namespace igor
             iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(-6, -6) * scale,
                                               rect.getBottomRight() + iaVector2f(2, 6) * scale, green);
             iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(2, 6) * scale,
-                                              rect.getBottomRight() + iaVector2f(6, -2) * scale, green);                                            
+                                              rect.getBottomRight() + iaVector2f(6, -2) * scale, green);
             break;
         case iDragState::Rejected:
             iRenderer::getInstance().drawLine(rect.getBottomRight() + iaVector2f(-6, -6) * scale,
@@ -431,8 +431,6 @@ namespace igor
         {
             drawShadowRect(rect);
         }
-
-        iRenderer::getInstance().drawFilledRectangle(rect, COLOR_DIFFUSE_LIGHT);
 
         if (dialog->hasHeader())
         {

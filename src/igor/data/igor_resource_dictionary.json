@@ -24,6 +24,12 @@
         "source": "textures/gradientS.png"
     },
     {
+        "alias": "igor_texture_logo",
+        "id": "0x078b3681a5fecd16",
+        "internal": true,
+        "source": "textures/logo.png"
+    },    
+    {
         "alias": "igor_shader_material_orientation_plane",
         "id": "0x0ceb229ceabbc35e",
         "internal": true,

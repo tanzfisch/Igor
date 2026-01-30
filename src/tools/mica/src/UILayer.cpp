@@ -18,6 +18,9 @@ void UILayer::onInit()
     _mainDialog->setEnabled();
     _mainDialog->setVisible();
 
+    _splashDialog = new SplashDialog();
+    _splashDialog->open(nullptr,true);
+
     _propertiesDialog = new PropertiesEditor();
     _propertiesDialog->setEnabled();
     _propertiesDialog->setVisible();
@@ -66,6 +69,7 @@ void UILayer::onInit()
 
 void UILayer::onDeinit()
 {
+    // TODO unique pointers
     delete _propertiesDialog;
     _propertiesDialog = nullptr;
 
@@ -80,6 +84,10 @@ void UILayer::onDeinit()
 
     delete _mainDialog;
     _mainDialog = nullptr;
+
+    delete _splashDialog;
+    _splashDialog = nullptr;
+
 
     // call base class
     iLayerWidgets::onDeinit();
