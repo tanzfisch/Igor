@@ -167,7 +167,7 @@ namespace igor
         iaConsole::getInstance() << T << "      (c) Copyright 2012-2026 by Martin A. Loga" << G << " \\/___/   " << endl;
 
         iaConsole::getInstance() << endl
-                                 << T << "      version " << __IGOR_VERSION__ << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
+                                 << T << "      version " << IGOR_VERSION << " (" << IGOR_BUILD_CONFIGURATION << ") LGPL v3.0" << endl
                                  << endl;
         iaConsole::getInstance() << T << "      powered by NewtonDynamics, OpenGL, OpenAL-Soft, Glad, stb_image" << endl;
         iaConsole::getInstance() << T << "                 R.P. Easing, T.L. Base64, TinyXML, nlohmann json, LuaJIT" << endl;

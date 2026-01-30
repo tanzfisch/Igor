@@ -5,11 +5,9 @@
 
 namespace igor
 {
-    
     //! Igor version short
-    extern const iaux::iaString __IGOR_VERSION__ = "@VERSION_SHORT@";
+    extern const iaux::iaString IGOR_VERSION = "@VERSION_SHORT@";
     
     //! Igor version full
-    extern const iaux::iaString __IGOR_VERSION_FULL__ = "@VERSION@";
-    
+    extern const iaux::iaString IGOR_VERSION_FULL = "@VERSION@";
 };

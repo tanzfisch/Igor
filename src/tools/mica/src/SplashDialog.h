@@ -26,19 +26,33 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef IGOR_VERSION_FILE_H
-#define IGOR_VERSION_FILE_H
+#ifndef MICA_SPLASH_H
+#define MICA_SPLASH_H
 
-#include <iaux/data/iaString.h>
+#include <igor/igor.h>
+using namespace igor;
 
-namespace igor
+/*! splash dialog
+ */
+class SplashDialog : public iDialog
 {
-    //! Igor version short
-    extern const iaux::iaString IGOR_VERSION;
+public:
+    /*! init
+     */
+    SplashDialog();
 
-    //! Igor version full
-    extern const iaux::iaString IGOR_VERSION_FULL;
+    /*! does nothing
+     */
+    ~SplashDialog() = default;
 
-}; // namespace igor
+private:
+    /*! init ui
+     */
+    void onInitUI();
 
-#endif // IGOR_VERSION_FILE_H
+    /*! close dialog event
+    */
+    void onCloseEvent(iWidgetPtr source);
+};
+
+#endif // MICA_SPLASH_H

@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.47.0
+------
+
+- #460 mica splash screen
+
 0.46.0
 ------
 

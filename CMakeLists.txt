@@ -15,7 +15,7 @@ include(ExternalProject)
 # get git version tag
 git_describe(VERSION --tags)
 git_describe(VERSION_SHORT --abbrev=0 --tags)
-message(STATUS "building version: ${VERSION_SHORT}")
+message(STATUS "building version: ${VERSION}")
 
 # definitions
 set(ENGINE_FOLDER "01 engine")
