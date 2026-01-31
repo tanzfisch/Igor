@@ -5,6 +5,7 @@ Changelog                           {#changelog}
 ------
 
 - #460 mica splash screen
+- #461 full support for user data component in Mica
 
 0.46.0
 ------

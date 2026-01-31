@@ -49,11 +49,11 @@ namespace igor
         return iaString::toFloat(_textValues[index]->getText());
     }
 
-    void iUserControlVector::setValue(uint32 index, float32 value)
+    void iUserControlVector::setValue(uint32 index, float64 value)
     {
         con_assert(index < _textValues.size(), "out of bounds");
 
-        _textValues[index]->setText(iaString::toString(value, 4));
+        _textValues[index]->setText(iaString::toString(value, 5));
     }
 
 } // namespace igor

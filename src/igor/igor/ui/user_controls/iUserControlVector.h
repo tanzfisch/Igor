@@ -65,7 +65,7 @@ namespace igor
         \param index the dimension index
         \param value the value to set on given index
         */
-        void setValue(uint32 index, float32 value);
+        void setValue(uint32 index, float64 value);
 
     private:
         /*! text fields

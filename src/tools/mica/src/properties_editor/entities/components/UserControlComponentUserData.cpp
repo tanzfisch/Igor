@@ -84,7 +84,7 @@ void UserControlComponentUserData::onDialogClosed(iDialogPtr source)
 
     int index = 0;
     iaString newKey = "parameter";
-    while(component->hasValue(newKey + iaString::toString(index)))
+    while (component->hasValue(newKey + iaString::toString(index)))
     {
         index++;
     }
@@ -133,7 +133,7 @@ void UserControlComponentUserData::onUpdateUI()
         auto nameTextEdit = new iWidgetLineTextEdit(parameterLayout);
         nameTextEdit->setText(pair.first);
         nameTextEdit->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-        //nameTextEdit->get
+        // nameTextEdit->get
         auto typeLabel = new iWidgetLabel(parameterLayout);
         typeLabel->setText(toString(pair.second.getType()));
         typeLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
@@ -150,101 +150,62 @@ void UserControlComponentUserData::onUpdateUI()
             break;
         }
 
-        case iAnyType::uint8:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<uint8>()));
-            dataWidget = widget;
-            break;
-        }
-
-        case iAnyType::int8:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            break;
-        }
-
-        case iAnyType::uint16:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            dataWidget = widget;
-            break;
-        }
-
-        case iAnyType::int16:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            dataWidget = widget;
-            break;
-        }
-
-        case iAnyType::uint32:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            dataWidget = widget;
-            break;
-        }
-
-        case iAnyType::int32:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            dataWidget = widget;
-            break;
-        }
-
-        case iAnyType::uint64:
-        {
-            auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
-            dataWidget = widget;
-            break;
-        }
-
         case iAnyType::int64:
         {
             auto widget = new iWidgetLineTextEdit(parameterLayout);
-            widget->setText(iaString::toString(pair.second.getValue<int8>()));
+            widget->setText(iaString::toString(pair.second.getValue<int64>()));
             dataWidget = widget;
             break;
         }
 
-        case iAnyType::float32:
-            break;
         case iAnyType::float64:
+        {
+            auto widget = new iWidgetLineTextEdit(parameterLayout);
+            widget->setText(iaString::toString(pair.second.getValue<float64>()));
+            dataWidget = widget;
             break;
-        case iAnyType::std_string:
-            break;
+        }
+
         case iAnyType::iaString:
+        {
+            auto widget = new iWidgetLineTextEdit(parameterLayout);
+            widget->setText(pair.second.getValue<iaString>());
+            dataWidget = widget;
             break;
-        case iAnyType::iaVector2f:
-            break;
+        }
+
         case iAnyType::iaVector2d:
+        {
+            auto widget = new iUserControlVector(2, parameterLayout);
+            const auto vec = pair.second.getValue<iaVector2d>();
+            widget->setValue(0, vec._x);
+            widget->setValue(1, vec._y);
+            dataWidget = widget;
             break;
-        case iAnyType::iaVector2i:
-            break;
-        case iAnyType::iaVector2I:
-            break;
-        case iAnyType::iaVector3f:
-            break;
+        }
+
         case iAnyType::iaVector3d:
+        {
+            auto widget = new iUserControlVector(3, parameterLayout);
+            const auto vec = pair.second.getValue<iaVector3d>();
+            widget->setValue(0, vec._x);
+            widget->setValue(1, vec._y);
+            widget->setValue(2, vec._z);
+            dataWidget = widget;
             break;
-        case iAnyType::iaVector3i:
-            break;
-        case iAnyType::iaVector3I:
-            break;
-        case iAnyType::iaVector4f:
-            break;
+        }
+
         case iAnyType::iaVector4d:
+        {
+            auto widget = new iUserControlVector(4, parameterLayout);
+            const auto vec = pair.second.getValue<iaVector4d>();
+            widget->setValue(0, vec._x);
+            widget->setValue(1, vec._y);
+            widget->setValue(2, vec._z);
+            widget->setValue(3, vec._w);
+            dataWidget = widget;
             break;
-        case iAnyType::iaVector4i:
-            break;
-        case iAnyType::iaVector4I:
-            break;
+        }
         };
 
         if (dataWidget != nullptr)
