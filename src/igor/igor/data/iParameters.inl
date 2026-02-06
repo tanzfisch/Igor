@@ -18,7 +18,7 @@ T iParameters::getParameterValue(const iaString &name, const T &defaultValue) co
     catch (const std::exception &e)
     {
         // common mistake is to use a string but not make it an iaString
-        con_crit("invalid any cast for parameter " << name);
+        con_crit("invalid any cast for parameter \"" << name << "\"");
     }
 
     return T();
