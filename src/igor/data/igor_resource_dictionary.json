@@ -414,12 +414,6 @@
         "source": "icons/switch.png"
     },
     {
-        "alias": "igor_logo_splash",
-        "id": "0x6569844b30e30edc",
-        "internal": true,
-        "source": "textures/splash.png"
-    },
-    {
         "alias": "igor_icon_transformation",
         "id": "0x6593382b21232b08",
         "internal": true,

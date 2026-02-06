@@ -102,24 +102,23 @@ void UserControlComponentUserData::emptyUI()
 
 void UserControlComponentUserData::onUpdateUI()
 {
+    emptyUI();
+
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
     {
-        emptyUI();
         return;
     }
 
     iEntityPtr entity = scene->getEntity(_entityID);
     if (entity == nullptr)
     {
-        emptyUI();
         return;
     }
 
     iUserDataComponentPtr component = entity->getComponent<iUserDataComponent>();
     if (component == nullptr)
     {
-        emptyUI();
         return;
     }
 

@@ -58,7 +58,7 @@ ExampleBase::ExampleBase(iWindowPtr window, const iaString &name, bool createBas
         _standardFont = iTextureFont::create(iResourceManager::getInstance().loadResource<iTexture>("igor_font_default"));
 
         // prepare igor logo
-        iParameters param({{IGOR_RESOURCE_PARAM_ALIAS, "igor_logo_splash"},
+        iParameters param({{IGOR_RESOURCE_PARAM_ALIAS, iaString("igor_texture_logo")},
                            {IGOR_RESOURCE_PARAM_TYPE, IGOR_RESOURCE_TEXTURE},
                            {IGOR_RESOURCE_PARAM_TEXTURE_BUILD_MODE, iTextureBuildMode::Normal}});
         _igorLogo = iResourceManager::getInstance().loadResource<iTexture>(param);
@@ -189,8 +189,8 @@ void ExampleBase::onRenderOrtho()
 
 void ExampleBase::drawLogo()
 {
-    const float32 width = static_cast<float32>(_igorLogo->getWidth());
-    const float32 height = static_cast<float32>(_igorLogo->getHeight());
+    const float32 width = static_cast<float32>(_igorLogo->getWidth() * 0.5);
+    const float32 height = static_cast<float32>(_igorLogo->getHeight() * 0.5);
     const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
     const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 

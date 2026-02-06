@@ -156,7 +156,7 @@ namespace igor
         // source of text http://patorjk.com/software/taag/#p=display&f=Larry%203D&t=powered%20by%20%0AIgor
 
         iaConsole::getInstance() << LOCK << endl;
-        iaConsole::getInstance() << G << "                                   ______                               " << endl;
+        iaConsole::getInstance() << G << "                                  ______                               " << endl;
         iaConsole::getInstance() << G << "                                 /\\__  _\\                              " << endl;
         iaConsole::getInstance() << G << "                                 \\/_/\\ \\/       __      ___    _ __    " << endl;
         iaConsole::getInstance() << G << "                                    \\ \\ \\     /'_ `\\   / __`\\ /\\`'__\\  " << endl;
