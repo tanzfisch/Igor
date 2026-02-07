@@ -106,7 +106,7 @@ void Outliner::onTreeViewSelectionChanged(const iWidgetPtr source)
 
     for (const auto widget : _treeView->getSelection())
     {
-        iItemPath itemPath = std::any_cast<iItemPath>(widget->getUserData());
+        iItemPath itemPath = widget->getUserData().getValue<iItemPath>();
         iItemPtr item = _itemData->getItem(itemPath);
         if (item == nullptr)
         {
@@ -134,10 +134,8 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
         return;
     }
 
-    const auto userData = source->getUserData();
-
-    if (!userData.has_value() ||
-        userData.type() != typeid(iItemPath))
+    if (!getUserData().hasValue() ||
+        getUserData().getType() != iAnyType::iItemPath)
     {
         return;
     }
@@ -147,7 +145,7 @@ void Outliner::onContextMenuTreeView(const iWidgetPtr source)
     bool isScene = false;
 
     std::vector<iItemPath> selectedItemPaths = _treeView->getSelectedItemPaths();
-    const iItemPath itemPath = std::any_cast<iItemPath>(source->getUserData());
+    const iItemPath itemPath = source->getUserData().getValue<iItemPath>();
     selectedItemPaths.erase(std::remove(selectedItemPaths.begin(), selectedItemPaths.end(), itemPath), selectedItemPaths.end());
     selectedItemPaths.insert(selectedItemPaths.begin(), itemPath);
 

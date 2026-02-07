@@ -109,7 +109,7 @@ void UserControlComponentUserData::onKeyDelete(iWidgetPtr source)
     }
 
     iWidgetButtonPtr widget = static_cast<iWidgetButtonPtr>(source);
-    const auto key = std::any_cast<iaString>(widget->getUserData());
+    const auto &key = widget->getUserData().getValue<iaString>();
 
     iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
     if (scene == nullptr)
@@ -149,7 +149,7 @@ void UserControlComponentUserData::onKeyChanged(iWidgetPtr source)
 
     iWidgetLineTextEditPtr widget = static_cast<iWidgetLineTextEditPtr>(source);
 
-    const auto oldKey = std::any_cast<iaString>(widget->getUserData());
+    const auto &oldKey = widget->getUserData().getValue<iaString>();
     const auto newKey = widget->getText();
 
     if (oldKey == newKey)
@@ -332,7 +332,7 @@ void UserControlComponentUserData::onUpdateComponent()
         const auto &children = layout->getChildren();
         iWidgetLabelPtr label = static_cast<iWidgetLabelPtr>(children[0]);
         const auto key = label->getText();
-        iAnyType type = std::any_cast<iAnyType>(children[2]->getUserData());
+        const iAnyType &type = children[2]->getUserData().getValue<iAnyType>();
         switch (type)
         {
         case iAnyType::Bool:

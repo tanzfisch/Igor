@@ -166,7 +166,7 @@ namespace igor
 
                 if (button->isSelected())
                 {
-                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
+                    _selectedItemPaths.push_back(button->getUserData().getValue<iItemPath>());
                 }
             }
 
@@ -182,7 +182,7 @@ namespace igor
                 bool wasSelected = button->isSelected();
                 button->setSelect(!wasSelected);
 
-                const auto itemPath = std::any_cast<iItemPath>(button->getUserData());
+                const auto itemPath = button->getUserData().getValue<iItemPath>();
                 if (wasSelected)
                 {
                     const auto iterItemPath = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), itemPath);
@@ -206,7 +206,7 @@ namespace igor
                 button->setSelect(select);
                 if (select)
                 {
-                    _selectedItemPaths.push_back(std::any_cast<iItemPath>(button->getUserData()));
+                    _selectedItemPaths.push_back(button->getUserData().getValue<iItemPath>());
                 }
             }
         }
@@ -246,7 +246,7 @@ namespace igor
 
         for (auto button : _allInteractiveWidgets)
         {
-            const auto buttonItemPath = std::any_cast<iItemPath>(button->getUserData());
+            const auto buttonItemPath = button->getUserData().getValue<iItemPath>();
             bool select = std::find(_selectedItemPaths.begin(), _selectedItemPaths.end(), buttonItemPath) != _selectedItemPaths.end();
             button->setSelect(select);
         }

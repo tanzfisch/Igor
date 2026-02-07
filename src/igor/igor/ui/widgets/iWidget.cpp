@@ -161,12 +161,12 @@ namespace igor
         std::wstringstream stream;
 
         stream << getWidgetType() << " [";
-        if(hasParent())
+        if (hasParent())
         {
             stream << getParentID() << "/";
         }
         stream << _id << "]";
-        
+
         stream << " enabled: " << (_enabled ? "true" : "false");
         stream << " visible: " << (_visible ? "true" : "false");
 
@@ -225,12 +225,12 @@ namespace igor
         }
     }
 
-    void iWidget::setUserData(const std::any &userData)
+    void iWidget::setUserData(const iAny &userData)
     {
         _userData = userData;
     }
 
-    std::any iWidget::getUserData() const
+    const iAny &iWidget::getUserData() const
     {
         return _userData;
     }

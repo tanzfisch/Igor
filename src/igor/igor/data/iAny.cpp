@@ -4,6 +4,8 @@
 
 #include <igor/data/iAny.h>
 
+#include <igor/data/iItemData.h>
+
 #include <unordered_map>
 #include <typeindex>
 
@@ -38,7 +40,10 @@ namespace igor
             L"iaVector4f",
             L"iaVector4d",
             L"iaVector4i",
-            L"iaVector4I"};
+            L"iaVector4I",
+            L"iItemPath",
+            L"iResourceID",
+            L"iaUUID"};
 
         return text[static_cast<int>(value)];
     }
@@ -69,7 +74,10 @@ namespace igor
         {typeid(iaVector4f), iAnyType::iaVector4f},
         {typeid(iaVector4d), iAnyType::iaVector4d},
         {typeid(iaVector4i), iAnyType::iaVector4i},
-        {typeid(iaVector4I), iAnyType::iaVector4I}};
+        {typeid(iaVector4I), iAnyType::iaVector4I},
+        {typeid(iItemPath), iAnyType::iItemPath},
+        {typeid(iResourceID), iAnyType::iResourceID},
+        {typeid(iaUUID), iAnyType::iaUUID}};
 
     iAny::iAny(const iAny &value)
     {
@@ -78,8 +86,6 @@ namespace igor
 
     std::any iAny::getAny(const iAnyType &type)
     {
-        con_assert(type != iAnyType::Unknown, "unknown type");
-
         switch (type)
         {
         case iAnyType::Bool:
@@ -134,7 +140,16 @@ namespace igor
             return iaVector4i();
         case iAnyType::iaVector4I:
             return iaVector4I();
-        }
+        case iAnyType::iItemPath:
+            return iItemPath();
+        case iAnyType::iResourceID:
+            return iResourceID(IGOR_INVALID_ID);
+        case iAnyType::iaUUID:
+            return iaUUID(IGOR_INVALID_ID);
+        };
+
+        con_assert_sticky(false, "unknown type");
+        return std::any();
     }
 
     iaString iAny::toString() const
@@ -196,6 +211,12 @@ namespace igor
             return iaString::toString(std::any_cast<iaVector4i>(_data));
         case iAnyType::iaVector4I:
             return iaString::toString(std::any_cast<iaVector4I>(_data));
+        case iAnyType::iItemPath:
+            return std::any_cast<iItemPath>(_data).toString();
+        case iAnyType::iResourceID:
+            return std::any_cast<iResourceID>(_data).toString();
+        case iAnyType::iaUUID:
+            return std::any_cast<iaUUID>(_data).toString();
         }
     }
 
@@ -324,6 +345,19 @@ namespace igor
         {
             return std::any_cast<iaVector4I>(a) == std::any_cast<iaVector4I>(b);
         }
+        else if (a.type() == typeid(iItemPath))
+        {
+            return std::any_cast<iItemPath>(a) == std::any_cast<iItemPath>(b);
+        }
+        else if (a.type() == typeid(iResourceID))
+        {
+            return std::any_cast<iResourceID>(a) == std::any_cast<iResourceID>(b);
+        }
+        else if (a.type() == typeid(iaUUID))
+        {
+            return std::any_cast<iaUUID>(a) == std::any_cast<iaUUID>(b);
+        }
+
         return false;
     }
 
@@ -336,6 +370,11 @@ namespace igor
     const std::any &iAny::getData() const
     {
         return _data;
+    }
+
+    bool iAny::hasValue() const
+    {
+        return _data.has_value();
     }
 
 }

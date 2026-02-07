@@ -71,7 +71,8 @@ namespace igor
         iaVector4i,
         iaVector4I,
         iItemPath,
-        iResourceID
+        iResourceID,
+        iaUUID
     };
 
     /*! \returns name of given enum value
@@ -127,6 +128,10 @@ namespace igor
         \param type the given type
         */
         static std::any getAny(const iAnyType &type);
+
+        /*! \returns true if contains value
+        */
+        bool hasValue() const;
 
     private:
         /*! data

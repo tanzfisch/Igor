@@ -80,7 +80,7 @@ void UserControlComponentScript::onUpdateUI()
 
 void UserControlComponentScript::onClickEditEvent(iWidgetPtr source)
 {
-    const auto &resourceID = std::any_cast<iResourceID>(source->getUserData());
+    const auto &resourceID = source->getUserData().getValue<iResourceID>();
 
     const auto &script = iResourceManager::getInstance().getResource<iScript>(resourceID);
     if (script == nullptr)

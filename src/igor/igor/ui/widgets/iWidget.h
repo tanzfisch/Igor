@@ -34,15 +34,13 @@
 #include <igor/system/iTimerHandle.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventKeyboard.h>
+#include <igor/data/iAny.h>
 
-#include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
-#include <set>
 #include <vector>
-#include <any>
 
 namespace igor
 {
@@ -604,13 +602,13 @@ namespace igor
 
         /*! sets user data
 
-        \param userData pointer to user data
+        \param userData user data to set
         */
-        void setUserData(const std::any &userData);
+        void setUserData(const iAny &userData);
 
-        /*! \returns pointer to user data
+        /*! \returns user data
          */
-        std::any getUserData() const;
+        const iAny& getUserData() const;
 
         /*! sets widget selectable
 
@@ -1080,7 +1078,7 @@ namespace igor
 
         /*! user data
          */
-        std::any _userData; // TODO use iAny
+        iAny _userData;
 
         /*! the system wide ui scale
          */
