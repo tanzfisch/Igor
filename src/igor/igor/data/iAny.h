@@ -69,7 +69,9 @@ namespace igor
         iaVector4f,
         iaVector4d,
         iaVector4i,
-        iaVector4I
+        iaVector4I,
+        iItemPath,
+        iResourceID
     };
 
     /*! \returns name of given enum value

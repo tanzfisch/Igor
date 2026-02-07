@@ -84,6 +84,22 @@ private:
     /*! handle on dialog closed
     */
     void onDialogClosed(iDialogPtr source);
+
+    /*! parameter key changed
+    */
+    void onKeyChanged(iWidgetPtr source);
+
+    /*! parameter value changed
+    */
+    void onValueChanged(iWidgetPtr source);
+
+    /*! parameter key delete
+    */
+    void onKeyDelete(iWidgetPtr source);
+
+    /*! handle ui refresh
+    */
+    void onRefresh() override;
 };
 
 #endif // USERCONTROL_COMPONENT_USER_DATA_H

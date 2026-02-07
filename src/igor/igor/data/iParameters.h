@@ -59,7 +59,7 @@ namespace igor
 
         /*! sets value for given parameter
 
-        overwrites existing values
+        overwrites existing value and type
 
         \param name name of parameter
         \param value the value to set
@@ -83,7 +83,7 @@ namespace igor
         \param defaultValue the given default value
         */
         template <typename T>
-        T getParameterValue(const iaString &name, const T &defaultValue = T()) const;   
+        T getParameterValue(const iaString &name, const T &defaultValue = T()) const;
 
         /*! \returns true if given name exists
 
@@ -91,11 +91,30 @@ namespace igor
         */
         bool hasParameter(const iaString &name) const;
 
+        /*! removes given parameter
+
+        \param name name of the parameter to remove
+        */
+        void removeParameter(const iaString &name);
+
+        /*! renames given parameter
+
+        does noting if new name already exists
+
+        \param oldName the old name
+        \param newName the new name
+        */
+        void renameParameter(const iaString &oldName, const iaString &newName);
+
         /*! \returns parameter type of given parameter name
 
         \param name the parameter name
         */
         iAnyType getParameterType(const iaString &name) const;
+
+        /*! clears all data
+        */
+        void clear();
 
         /*! \returns all parameters
          */

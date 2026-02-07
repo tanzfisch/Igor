@@ -44,6 +44,7 @@ void UserControlComponentUserData::onInit()
     addButton->getClickEvent().add(iClickDelegate(this, &UserControlComponentUserData::onClickAdd));
 
     _dataLayout = new iWidgetBoxLayout(iWidgetBoxLayoutType::Vertical, _layout);
+    _dataLayout->setVerticalAlignment(iVerticalAlignment::Top);
     _dataLayout->setHorizontalAlignment(iHorizontalAlignment::Stretch);
 }
 
@@ -100,6 +101,80 @@ void UserControlComponentUserData::emptyUI()
     new iWidgetSpacer(100, 40, true, _dataLayout);
 }
 
+void UserControlComponentUserData::onKeyDelete(iWidgetPtr source)
+{
+    if (source->getWidgetType() != iWidgetType::iWidgetButton)
+    {
+        return;
+    }
+
+    iWidgetButtonPtr widget = static_cast<iWidgetButtonPtr>(source);
+    const auto key = std::any_cast<iaString>(widget->getUserData());
+
+    iEntityScenePtr scene = iEntitySystemModule::getInstance().getScene(_sceneID);
+    if (scene == nullptr)
+    {
+        return;
+    }
+
+    iEntityPtr entity = scene->getEntity(_entityID);
+    if (entity == nullptr)
+    {
+        return;
+    }
+
+    iUserDataComponentPtr component = entity->getComponent<iUserDataComponent>();
+    if (component == nullptr)
+    {
+        return;
+    }
+
+    auto &parameters = component->getData();
+    parameters.removeParameter(key);
+
+    refresh();
+}
+
+void UserControlComponentUserData::onRefresh()
+{
+    onUpdateUI();
+}
+
+void UserControlComponentUserData::onKeyChanged(iWidgetPtr source)
+{
+    if (source->getWidgetType() != iWidgetType::iWidgetLineTextEdit)
+    {
+        return;
+    }
+
+    iWidgetLineTextEditPtr widget = static_cast<iWidgetLineTextEditPtr>(source);
+
+    const auto oldKey = std::any_cast<iaString>(widget->getUserData());
+    const auto newKey = widget->getText();
+
+    if (oldKey == newKey)
+    {
+        return;
+    }
+
+    if (newKey.isEmpty())
+    {
+        widget->setText(oldKey);
+        return;
+    }
+
+    onUpdateComponent();
+
+    refresh();
+}
+
+void UserControlComponentUserData::onValueChanged(iWidgetPtr source)
+{
+    onUpdateComponent();
+
+    refresh();
+}
+
 void UserControlComponentUserData::onUpdateUI()
 {
     emptyUI();
@@ -131,8 +206,10 @@ void UserControlComponentUserData::onUpdateUI()
 
         auto nameTextEdit = new iWidgetLineTextEdit(parameterLayout);
         nameTextEdit->setText(pair.first);
+        nameTextEdit->setUserData(pair.first);
         nameTextEdit->setMinWidth(MICA_REGULAR_LABEL_SIZE);
-        // nameTextEdit->get
+        nameTextEdit->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentUserData::onKeyChanged));
+
         auto typeLabel = new iWidgetLabel(parameterLayout);
         typeLabel->setText(toString(pair.second.getType()));
         typeLabel->setMinWidth(MICA_REGULAR_LABEL_SIZE);
@@ -210,9 +287,13 @@ void UserControlComponentUserData::onUpdateUI()
         if (dataWidget != nullptr)
         {
             dataWidget->setUserData(pair.second.getType());
+            dataWidget->getChangeEvent().add(iChangeDelegate(this, &UserControlComponentUserData::onValueChanged));
         }
 
-        auto valueTextEdit = new iWidgetTextEdit(parameterLayout);
+        auto deletebutton = new iWidgetButton(parameterLayout);
+        deletebutton->setIcon("igor_icon_delete");
+        deletebutton->setUserData(pair.first);
+        deletebutton->getClickEvent().add(iClickDelegate(this, &UserControlComponentUserData::onKeyDelete));
     }
 
     _ignoreUpdate = false;
@@ -243,7 +324,70 @@ void UserControlComponentUserData::onUpdateComponent()
         return;
     }
 
-    // TODO
+    auto &parameters = component->getData();
+    parameters.clear();
+
+    for (const auto layout : _dataLayout->getChildren())
+    {
+        const auto &children = layout->getChildren();
+        iWidgetLabelPtr label = static_cast<iWidgetLabelPtr>(children[0]);
+        const auto key = label->getText();
+        iAnyType type = std::any_cast<iAnyType>(children[2]->getUserData());
+        switch (type)
+        {
+        case iAnyType::Bool:
+        {
+            iWidgetCheckBoxPtr widget = static_cast<iWidgetCheckBoxPtr>(children[2]);
+            parameters.setParameter(key, widget->isChecked());
+            break;
+        }
+
+        case iAnyType::int64:
+        {
+            iWidgetLineTextEditPtr widget = static_cast<iWidgetLineTextEditPtr>(children[2]);
+            parameters.setParameter(key, iaString::toInt(widget->getText()));
+            break;
+        }
+
+        case iAnyType::float64:
+        {
+            iWidgetLineTextEditPtr widget = static_cast<iWidgetLineTextEditPtr>(children[2]);
+            parameters.setParameter(key, iaString::toFloat(widget->getText()));
+            break;
+        }
+
+        case iAnyType::iaString:
+        {
+            iWidgetLineTextEditPtr widget = static_cast<iWidgetLineTextEditPtr>(children[2]);
+            parameters.setParameter(key, widget->getText());
+            break;
+        }
+
+        case iAnyType::iaVector2d:
+        {
+            iUserControlVectorPtr widget = static_cast<iUserControlVectorPtr>(children[2]);
+            iaVector2d vec(widget->getValue(0), widget->getValue(1));
+            parameters.setParameter(key, vec);
+            break;
+        }
+
+        case iAnyType::iaVector3d:
+        {
+            iUserControlVectorPtr widget = static_cast<iUserControlVectorPtr>(children[2]);
+            iaVector3d vec(widget->getValue(0), widget->getValue(1), widget->getValue(2));
+            parameters.setParameter(key, vec);
+            break;
+        }
+
+        case iAnyType::iaVector4d:
+        {
+            iUserControlVectorPtr widget = static_cast<iUserControlVectorPtr>(children[2]);
+            iaVector4d vec(widget->getValue(0), widget->getValue(1), widget->getValue(2), widget->getValue(3));
+            parameters.setParameter(key, vec);
+            break;
+        }
+        }
+    }
 }
 
 void UserControlComponentUserData::onDestroyComponent(iEntityPtr entity)

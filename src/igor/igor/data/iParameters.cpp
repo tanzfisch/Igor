@@ -30,9 +30,35 @@ namespace igor
         }
     }
 
+    void iParameters::clear()
+    {
+        _parameters.clear();
+    }
+
     void iParameters::setParameter(const iaString &name, const iAny &value)
     {
         _parameters[name] = value;
+    }
+
+    void iParameters::removeParameter(const iaString &name)
+    {
+        auto iter = _parameters.find(name);
+        if (iter != _parameters.end())
+        {
+            _parameters.erase(iter);
+        }
+    }
+
+    void iParameters::renameParameter(const iaString &oldName, const iaString &newName)
+    {
+        if (hasParameter(newName) ||
+            !hasParameter(oldName))
+        {
+            return;
+        }
+
+        _parameters[newName] = _parameters[oldName];
+        removeParameter(oldName);
     }
 
     const iAny &iParameters::getParameter(const iaString &name, const iAny &defaultValue) const
