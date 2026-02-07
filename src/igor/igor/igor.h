@@ -199,6 +199,7 @@
 
 #include <igor/ui/user_controls/iUserControlColor.h>
 #include <igor/ui/user_controls/iUserControlFile.h>
+#include <igor/ui/user_controls/iUserControlParameter.h>
 #include <igor/ui/user_controls/iUserControlTreeView.h>
 #include <igor/ui/user_controls/iUserControlTexture.h>
 #include <igor/ui/user_controls/iUserControlSprite.h>

@@ -80,6 +80,10 @@ namespace igor
         /*! called when any value was changed
          */
         void onValueChanged(iWidgetPtr source);
+
+        /*! called when key has changed
+        */
+        void onKeyChanged(iWidgetPtr source);
     };
 
     /*! user control parameter pointer definition
